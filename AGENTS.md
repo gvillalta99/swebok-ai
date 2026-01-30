@@ -76,13 +76,46 @@ A nova estrutura abandona a premissa de que engenharia de software é primariame
 
 ## Technology Stack
 
-Este é um projeto de **documentação pura**:
+Este é um projeto de **documentação** com site gerado via MkDocs:
 
 - **Formato:** Markdown (.md)
 - **Linguagem:** Português (PT-BR) - conteúdo principal
 - **Configuração de agentes:** YAML front matter (ex: `book-writer.md`)
-- **Build system:** Nenhum (documentação estática)
-- **Dependências:** Nenhuma
+- **Build system:** MkDocs com tema Material
+- **Dependências:** Python + MkDocs + mkdocs-material + mkdocs-exporter
+
+### Setup do MkDocs
+
+Para executar o site localmente:
+
+```bash
+# Instalar dependências
+pip install mkdocs mkdocs-material mkdocs-exporter
+
+# Servir localmente (hot reload)
+mkdocs serve
+
+# Build do site
+mkdocs build
+
+# Deploy para GitHub Pages
+mkdocs gh-deploy
+```
+
+### Estrutura do mkdocs.yml
+
+O arquivo `mkdocs.yml` define:
+- **Tema:** Material com recursos de navegação instantânea, busca, etc.
+- **Plugins:** Search e exporter (PDF)
+- **Extensões Markdown:** Admonitions, tabelas, TOC, etc.
+- **Navegação:** Mapeamento manual de todos os KAs e seções
+
+### Convenções para o Site
+
+- Todo conteúdo fica em `docs/`
+- Site gerado vai para `site/` (não versionado)
+- Arquivos excluídos da navegação: `**/PLAN.md`, `**/README.md`, `/00-pesquisa/`
+- PDF consolidado gerado em `assets/swebok-ai.pdf`
 
 ---
 
