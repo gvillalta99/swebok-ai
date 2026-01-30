@@ -50,6 +50,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Visao Geral: XX-meta/swebok-ai.md
+  - Ideais: XX-ideais/gargalo.md
   - Introducao: 00-introduction/01-contexto-revolucao-llms.md
   - KA 01 - Requirements: 01-software-requirements/01-fundamentos-engenharia-restricoes.md
   - KA 02 - Architecture: 02-software-architecture/01-fundamentos-arquitetura-hibrida.md

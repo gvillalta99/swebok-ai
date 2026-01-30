@@ -35,40 +35,34 @@ A nova estrutura abandona a premissa de que engenharia de software é primariame
 ├── README.md                          # Visão geral da arquitetura futura
 ├── AGENTS.md                          # Este arquivo
 ├── book-writer.md                     # Configuração do agente escritor
-├── (externo) swebok-v4.pdf             # Referência: SWEBOK v4 (NAO versionado por copyright)
-├── swebok-ai.md                       # Resumo da arquitetura SWEBOK-AI
-├── swe-ai-future.md                   # Análise do impacto da IA no mercado
-├── swe-ai-artifacts.md                # Artefatos estratégicos para 2026
-├── swe-ai-organizational-patterns.md  # Padrões de organização de repositórios
+├── mkdocs.yml                         # Configuração do site
 │
-├── 01-software-requirements/          # Engenharia de Restrições e Contexto
+├── docs/                              # FONTE ÚNICA DA VERDADE - Todo conteúdo está aqui
 │   ├── README.md
-│   ├── PLAN.md                        # Plano detalhado do capítulo
-│   ├── 01-fundamentos-engenharia-restricoes.md
-│   ├── 02-elicitacao-contexto-intencao.md
-│   ├── 03-especificacao-invariantes-contratos.md
-│   ├── 04-modelagem-degradacao-graciosa-falhas.md
-│   ├── 05-governanca-responsabilidade-requisitos.md
-│   ├── 06-gestao-variabilidade-evolucao.md
-│   └── 07-ferramentas-tecnicas-modernas.md
+│   ├── index.md
+│   ├── XX-meta/                       # Documentação meta (swebok-ai.md, swe-ai-future.md, etc.)
+│   ├── XX-ideais/                     # Ideias e conceitos iniciais
+│   ├── 00-introduction/               # Introdução ao SWEBOK-AI
+│   ├── 01-software-requirements/      # Engenharia de Restrições e Contexto
+│   ├── 02-software-architecture/      # Arquitetura de Sistemas Híbridos
+│   ├── 03-software-design/            # Design de Sistemas Híbridos (Humanos-IA)
+│   ├── 04-software-construction/      # Orquestração e Curadoria de Código
+│   ├── 05-software-testing/           # Verificação e Validação em Escala
+│   ├── 06-software-engineering-operations/
+│   ├── 07-software-maintenance/       # Manutenção de Sistemas Opaços
+│   ├── 08-software-configuration-management/
+│   ├── 09-software-engineering-management/
+│   ├── 10-software-engineering-process/
+│   ├── 11-software-engineering-models-and-methods/
+│   ├── 12-software-quality/
+│   ├── 13-software-security/
+│   ├── 14-software-engineering-professional-practice/
+│   ├── 15-software-engineering-economics/
+│   ├── 16-computing-foundations/
+│   ├── 17-mathematical-foundations/
+│   └── 18-engineering-foundations/
 │
-├── 02-software-architecture/          # Arquitetura de Sistemas Híbridos
-├── 03-software-design/                # Design de Sistemas Híbridos (Humanos-IA)
-├── 04-software-construction/          # Orquestração e Curadoria de Código
-├── 05-software-testing/               # Verificação e Validação em Escala
-├── 06-software-engineering-operations/
-├── 07-software-maintenance/           # Manutenção de Sistemas Opaços
-├── 08-software-configuration-management/
-├── 09-software-engineering-management/
-├── 10-software-engineering-process/
-├── 11-software-engineering-models-and-methods/
-├── 12-software-quality/
-├── 13-software-security/
-├── 14-software-engineering-professional-practice/  # Prática Profissional e Julgamento Técnico
-├── 15-software-engineering-economics/              # Economia e Métricas da Engenharia com IA
-├── 16-computing-foundations/                       # Fundamentos de Sistemas Cognitivos Artificiais
-├── 17-mathematical-foundations/
-└── 18-engineering-foundations/
+└── site/                              # Site gerado (não versionado)
 ```
 
 ### Status dos Knowledge Areas (KAs)
