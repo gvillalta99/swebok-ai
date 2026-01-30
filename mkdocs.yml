@@ -1,0 +1,82 @@
+site_name: SWEBOK-AI v5.0
+site_description: Software Engineering Body of Knowledge - AI Edition
+site_url: https://gvillalta99.github.io/swebok-ai/
+
+repo_url: https://github.com/gvillalta99/swebok-ai
+repo_name: gvillalta99/swebok-ai
+
+docs_dir: .
+site_dir: site
+
+use_directory_urls: true
+
+exclude_docs: |
+  /AGENTS.md
+  /book-writer.md
+  /environment.md
+  /extract_chapters.py
+  /20-referencias/EXTRACT_GUIDE.md
+  /LICENSE
+  /NOTICE
+  /README.md
+  /pyproject.toml
+  /uv.lock
+  /requirements*.txt
+
+theme:
+  name: material
+  language: pt
+  features:
+    - navigation.instant
+    - navigation.sections
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - search
+  - exporter:
+      formats:
+        pdf:
+          enabled: true
+          aggregator:
+            enabled: true
+            output: assets/swebok-ai.pdf
+            covers: none
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Visao Geral: XX-meta/swebok-ai.md
+  - Introducao: 00-introduction/README.md
+  - KA 01 - Requirements: 01-software-requirements/README.md
+  - KA 02 - Architecture: 02-software-architecture/README.md
+  - KA 03 - Design: 03-software-design/README.md
+  - KA 04 - Construction: 04-software-construction/README.md
+  - KA 05 - Testing: 05-software-testing/README.md
+  - KA 06 - Operations: 06-software-engineering-operations/README.md
+  - KA 07 - Maintenance: 07-software-maintenance/README.md
+  - KA 08 - Config Mgmt: 08-software-configuration-management/README.md
+  - KA 09 - Management: 09-software-engineering-management/README.md
+  - KA 10 - Process: 10-software-engineering-process/README.md
+  - KA 11 - Models & Methods: 11-software-engineering-models-and-methods/README.md
+  - KA 12 - Quality: 12-software-quality/README.md
+  - KA 13 - Security: 13-software-security/README.md
+  - KA 14 - Professional Practice: 14-software-engineering-professional-practice/README.md
+  - KA 15 - Economics: 15-software-engineering-economics/README.md
+  - KA 16 - Computing Foundations: 16-computing-foundations/README.md
+  - KA 17 - Mathematical Foundations: 17-mathematical-foundations/README.md
+  - KA 18 - Engineering Foundations: 18-engineering-foundations/README.md
+  - Ensaios:
+    - Futuro da Profissao: XX-meta/swe-ai-future.md
+    - Artefatos 2026: XX-meta/swe-ai-artifacts.md
+    - Organizational Patterns: XX-meta/swe-ai-organizational-patterns.md
