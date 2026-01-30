@@ -5,23 +5,13 @@ site_url: https://gvillalta99.github.io/swebok-ai/
 repo_url: https://github.com/gvillalta99/swebok-ai
 repo_name: gvillalta99/swebok-ai
 
-docs_dir: .
+docs_dir: docs
 site_dir: site
 
 use_directory_urls: true
 
 exclude_docs: |
-  /AGENTS.md
-  /book-writer.md
-  /environment.md
-  /extract_chapters.py
-  /20-referencias/EXTRACT_GUIDE.md
-  /LICENSE
-  /NOTICE
-  /README.md
-  /pyproject.toml
-  /uv.lock
-  /requirements*.txt
+  /assets/*.pdf
 
 theme:
   name: material
