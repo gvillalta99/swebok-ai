@@ -12,7 +12,7 @@ use_directory_urls: true
 
 exclude_docs: |
   /assets/*.pdf
-  /00-pesquisa/
+  /XX-*/
   **/PLAN.md
   **/README.md
 
@@ -71,6 +71,6 @@ nav:
   - KA 17 - Mathematical Foundations: 17-mathematical-foundations/PLAN.md
   - KA 18 - Engineering Foundations: 18-engineering-foundations/PLAN.md
   - Ensaios:
-    - Futuro da Profissao: XX-meta/swe-ai-future.md
-    - Artefatos 2026: XX-meta/swe-ai-artifacts.md
-    - Organizational Patterns: XX-meta/swe-ai-organizational-patterns.md
+      - Futuro da Profissao: XX-meta/swe-ai-future.md
+      - Artefatos 2026: XX-meta/swe-ai-artifacts.md
+      - Organizational Patterns: XX-meta/swe-ai-organizational-patterns.md

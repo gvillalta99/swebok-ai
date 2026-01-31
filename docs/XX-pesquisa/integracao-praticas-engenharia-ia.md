@@ -25,7 +25,7 @@ aliases:
 | Documento | Foco Principal | Tema Central |
 |-----------|---------------|--------------|
 | [[swe-ai-future\|swe-ai-future.md]] | Impacto dos LLMs no mercado de trabalho de software | Deslocamento vertical da profissão, commoditização do código |
-| [[docs/00-pesquisa/engenharia-conhecimento-praticas-e-processos\|engenharia-conhecimento-praticas-e-processos.md]] | Engenharias elétrica, civil e produção | Normatização, ciclo de vida, transformação digital 4.0 |
+| [[engenharia-conhecimento-praticas-e-processos\|engenharia-conhecimento-praticas-e-processos.md]] | Engenharias elétrica, civil e produção | Normatização, ciclo de vida, transformação digital 4.0 |
 | ![[swebok-v4.pdf]] | Corpo de conhecimento de software | Knowledge Areas do software engineering |
 
 ---
@@ -222,7 +222,7 @@ Baseado nas análises convergentes, o engenheiro (de qualquer disciplina) precis
 ## Referências e Links Relacionados
 
 - [[swe-ai-future\|Análise Crítica: Impacto de LLMs em Engenharia de Software]]
-- [[docs/00-pesquisa/engenharia-conhecimento-praticas-e-processos\|Práticas e Processos nas Engenharias Elétrica, Civil e Produção]]
+- [[engenharia-conhecimento-praticas-e-processos\|Práticas e Processos nas Engenharias Elétrica, Civil e Produção]]
 - ![[swebok-v4.pdf|SWEBOK v4 - Software Engineering Body of Knowledge]]
 
 ---
