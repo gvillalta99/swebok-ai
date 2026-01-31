@@ -1,12 +1,15 @@
 ---
 title: Análise das Ideias - Gargalo da Engenharia de Software
-date: 2025-01-30
+date: 2025-01-30T00:00:00.000Z
 tags:
   - swebok-ai
   - engenharia-software
   - analise
   - ideias
-status: completed
+status: draft
+created_at: '2026-01-31'
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # Análise das Ideias: O Gargalo da Engenharia de Software

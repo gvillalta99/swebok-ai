@@ -1,3 +1,12 @@
+---
+title: Peter Steinberger Workflow
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 Com base na entrevista detalhada de Peter Steinberger para o canal "The Pragmatic Engineer", aqui está uma descrição minuciosa e completa de seu fluxo de trabalho, ferramentas, filosofias e práticas diárias.
 
 ### 1. A Filosofia Central: "Engenharia Agêntica" (Não "Vibe Coding")

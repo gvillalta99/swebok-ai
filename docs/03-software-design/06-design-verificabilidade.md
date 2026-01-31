@@ -1,674 +1,442 @@
 ---
-title: "Seção 6: Design para Verificabilidade"
-created_at: 2025-01-31
-tags: ["design", "software-design", "ia"]
-status: "published"
-updated_at: 2026-01-31
-ai_model: "openai/gpt-5.2"
+title: "06. Design para Verificabilidade"
+created_at: "2025-01-31"
+tags: ["software-design", "verificabilidade", "testabilidade", "codigo-gerado", "validacao"]
+status: "draft"
+updated_at: "2025-01-31"
+ai_model: "kimi-k2.5"
 ---
 
-# Seção 6: Design para Verificabilidade
+# 06. Design para Verificabilidade
 
 ## Overview
 
-Esta seção apresenta práticas de design que tornam sistemas verificáveis em escala: reduzir superfície de incerteza, produzir evidência e facilitar auditoria e testes.
+Na era dos LLMs, onde código pode ser gerado em segundos, o gargalo da engenharia de software deslocou-se da produção para a verificação. Design para verificabilidade é a disciplina de estruturar sistemas de forma que sua correção possa ser eficientemente validada, seja por testes automatizados, análise estática ou revisão humana.
+
+Segundo pesquisa de Bui et al. (2025), a avaliação de corretude de código gerado por LLMs usando representações internas é um campo emergente crítico [1]. Alshahwan et al. (2024) propõem a engenharia de software baseada em LLMs garantida (Assured LLM-Based Software Engineering) [2].
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
-1. Definir verificabilidade como atributo de design e reconhecer seus trade-offs
-2. Projetar componentes e fluxos que maximizem observabilidade e testabilidade
-3. Integrar verificação (estática, dinâmica e humana) como parte do design de entrega
 
-## 6.1 Introdução
+1. Projetar sistemas que facilitem verificação automatizada
+2. Implementar estratégias de teste para código não-determinístico
+3. Aplicar técnicas de análise estática e formal
+4. Avaliar trade-offs entre verificabilidade e outras qualidades
 
-Na era dos LLMs, onde código é gerado em volumes massivos, a capacidade de verificar corretude torna-se o gargalo crítico. O custo de verificação supera amplamente o custo de geração, invertendo a equação econômica tradicional da engenharia de software.
+## Fundamentos de Verificabilidade
 
-O **Design para Verificabilidade** é a disciplina de projetar sistemas de forma que sua corretude possa ser estabelecida de maneira eficiente, seja através de testes automatizados, análise estática, revisão humana ou verificação formal.
-
-## 6.2 Dimensões da Verificabilidade
-
-### 6.2.1 Espectro de Verificação
+### O Paradoxo da Geração Rápida
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│              ESPECTRO DE TÉCNICAS DE VERIFICAÇÃO                │
+│              PARADOXO DA GERAÇÃO RÁPIDA                         │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Verificação Formal                                             │
-│  ├── Prova matemática de corretude                             │
-│  ├── Alto custo inicial, baixo custo recorrente                │
-│  └── Aplicável a: Algoritmos críticos, criptografia            │
+│   ANTES DOS LLMs:                    COM LLMs:                  │
+│   ───────────────                    ─────────                  │
 │                                                                 │
-│  Property-Based Testing                                         │
-│  ├── Teste de propriedades invariantes                         │
-│  ├── Geração automática de casos de teste                      │
-│  └── Aplicável a: Funções puras, transformações de dados       │
+│   Escrever código ────────▶          Gerar código ────────▶    │
+│        │ (semanas)                        │ (minutos)          │
+│        ▼                                  ▼                     │
+│   Testar código ◀────────          Verificar código ◀────────  │
+│        │ (dias)                           │ (semanas?)         │
+│        ▼                                  ▼                     │
+│   Deploy                              Deploy?                   │
 │                                                                 │
-│  Testes Unitários Tradicionais                                  │
-│  ├── Casos de teste específicos                                │
-│  ├── Custo proporcional à cobertura desejada                   │
-│  └── Aplicável a: Lógica de negócio, regras específicas        │
-│                                                                 │
-│  Análise Estática                                               │
-│  ├── Verificação sem execução                                  │
-│  ├── Baixo custo, cobertura limitada                           │
-│  └── Aplicável a: Sintaxe, padrões, segurança básica           │
-│                                                                 │
-│  Revisão Humana                                                 │
-│  ├── Inspeção por desenvolvedores                              │
-│  ├── Custo alto, necessário para complexidade                  │
-│  └── Aplicável a: Lógica complexa, decisões arquiteturais      │
-│                                                                 │
-│  Testes de Integração / E2E                                     │
-│  ├── Verificação de componentes combinados                     │
-│  ├── Custo alto, cobertura de fluxos                           │
-│  └── Aplicável a: Fluxos de negócio, interações externas       │
+│   CONCLUSÃO: O gargalo mudou de produção para verificação      │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-### 6.2.2 Custo de Verificação vs. Custo de Geração
+### Dimensões da Verificabilidade
+
+| Dimensão | Descrição | Técnicas |
+|----------|-----------|----------|
+| **Funcional** | O código faz o que deveria? | Testes unitários, integração, e2e |
+| **Estrutural** | O código está bem estruturado? | Análise estática, métricas de código |
+| **Segurança** | O código é seguro? | SAST, DAST, fuzzing |
+| **Performance** | O código atende requisitos não-funcionais? | Benchmarks, profiling |
+| **Conformidade** | O código segue padrões? | Linting, style checks |
+
+## Estratégias de Teste para Código Gerado
+
+### 1. Testes Baseados em Propriedades (Property-Based Testing)
+
+Ao invés de testar exemplos específicos, define propriedades que devem sempre ser verdadeiras.
 
 ```python
-from dataclasses import dataclass
-from typing import Dict
+from hypothesis import given, strategies as st
 
-@dataclass
-class CostAnalysis:
+class TestGeneratedSorting:
     """
-    Análise de custos de geração vs. verificação.
+    Testes de propriedade para algoritmo de ordenação gerado.
     """
-    component_name: str
-    generation_time_minutes: float
-    verification_methods: Dict[str, float]  # método -> tempo em minutos
-    
-    def total_verification_cost(self) -> float:
-        """Calcula custo total de verificação."""
-        return sum(self.verification_methods.values())
-    
-    def verification_ratio(self) -> float:
-        """
-        Razão entre custo de verificação e custo de geração.
-        Valores > 1 indicam que verificação é mais cara.
-        """
-        if self.generation_time_minutes == 0:
-            return float('inf')
-        return self.total_verification_cost() / self.generation_time_minutes
-    
-    def bottleneck_method(self) -> str:
-        """Identifica método de verificação mais custoso."""
-        return max(self.verification_methods, 
-                  key=self.verification_methods.get)
-
-# Exemplo típico
-example_component = CostAnalysis(
-    component_name="API Handler",
-    generation_time_minutes=2.0,  # Gerado por IA em 2 min
-    verification_methods={
-        'static_analysis': 1.0,
-        'unit_tests': 15.0,
-        'integration_tests': 30.0,
-        'code_review': 20.0,
-        'security_audit': 10.0
-    }
-)
-
-# Resultado: Razão de 38:1
-# Verificação é 38x mais cara que geração!
-```
-
-## 6.3 Princípios de Design para Verificabilidade
-
-### 6.3.1 Princípio da Testabilidade Local
-
-> *"Componentes devem ser testáveis isoladamente, sem dependências externas."*
-
-```python
-from typing import Protocol
-from dataclasses import dataclass
-
-# ANTI-PADRÃO: Difícil de testar
-class OrderProcessorBad:
-    def __init__(self):
-        self.db = DatabaseConnection()  # Conexão real!
-        self.api = PaymentAPI()  # API externa!
-    
-    def process(self, order):
-        self.db.save(order)  # Side effect
-        result = self.api.charge(order.total)  # Chamada externa
-        return result
-
-# PADRÃO: Facilmente testável
-class Database(Protocol):
-    def save(self, order: Order) -> None: ...
-
-class PaymentGateway(Protocol):
-    def charge(self, amount: Decimal) -> PaymentResult: ...
-
-@dataclass
-class OrderProcessor:
-    db: Database
-    payment: PaymentGateway
-    
-    def process(self, order: Order) -> ProcessingResult:
-        # Lógica pura, fácil de testar
-        if not self._validate_order(order):
-            return ProcessingResult.invalid()
-        
-        self.db.save(order)
-        payment_result = self.payment.charge(order.total)
-        
-        return ProcessingResult.success(payment_result)
-    
-    def _validate_order(self, order: Order) -> bool:
-        # Lógica pura, testável sem mocks
-        return order.total > 0 and len(order.items) > 0
-
-# Teste unitário simples
-def test_order_processor():
-    # Mocks simples
-    mock_db = Mock(spec=Database)
-    mock_payment = Mock(spec=PaymentGateway)
-    mock_payment.charge.return_value = PaymentResult.success()
-    
-    processor = OrderProcessor(mock_db, mock_payment)
-    
-    # Teste
-    order = Order(total=Decimal('100'), items=[Item("Test")])
-    result = processor.process(order)
-    
-    assert result.is_success
-    mock_db.save.assert_called_once_with(order)
-```
-
-### 6.3.2 Princípio da Observabilidade
-
-> *"Sistemas devem expor estado interno suficiente para verificação."*
-
-```python
-from typing import List, Dict
-from dataclasses import dataclass, field
-from datetime import datetime
-
-@dataclass
-class ObservableOperation:
-    """
-    Operação que registra métricas para verificação.
-    """
-    name: str
-    start_time: datetime = field(default_factory=datetime.now)
-    steps: List[Dict] = field(default_factory=list)
-    decisions: List[Dict] = field(default_factory=list)
-    
-    def log_step(self, step_name: str, details: Dict):
-        """Registra passo da operação."""
-        self.steps.append({
-            'timestamp': datetime.now(),
-            'name': step_name,
-            'details': details
-        })
-    
-    def log_decision(self, decision: str, rationale: str, confidence: float):
-        """Registra decisão tomada."""
-        self.decisions.append({
-            'timestamp': datetime.now(),
-            'decision': decision,
-            'rationale': rationale,
-            'confidence': confidence
-        })
-    
-    def to_verification_log(self) -> Dict:
-        """Converte para formato de verificação."""
-        return {
-            'operation': self.name,
-            'duration_ms': (datetime.now() - self.start_time).total_seconds() * 1000,
-            'steps_count': len(self.steps),
-            'decisions_count': len(self.decisions),
-            'decisions': self.decisions,
-            'trace': self.steps
-        }
-
-class VerifiableClassifier:
-    """
-    Classificador que expõe raciocínio para verificação.
-    """
-    
-    async def classify(self, input_data: str) -> ClassificationResult:
-        op = ObservableOperation("classification")
-        
-        # Passo 1: Pré-processamento
-        preprocessed = self._preprocess(input_data)
-        op.log_step("preprocess", {
-            'input_length': len(input_data),
-            'output_length': len(preprocessed)
-        })
-        
-        # Passo 2: Extração de features
-        features = self._extract_features(preprocessed)
-        op.log_step("feature_extraction", {
-            'features': list(features.keys()),
-            'feature_vector_size': len(features)
-        })
-        
-        # Passo 3: Classificação
-        raw_scores = self._classify_raw(features)
-        op.log_decision(
-            decision=raw_scores['top_class'],
-            rationale=f"Scores: {raw_scores}",
-            confidence=raw_scores['confidence']
-        )
-        
-        # Passo 4: Pós-processamento
-        result = self._post_process(raw_scores)
-        op.log_step("post_process", {
-            'final_class': result.label,
-            'confidence_adjusted': result.confidence
-        })
-        
-        # Incluir log de verificação no resultado
-        result.verification_log = op.to_verification_log()
-        
-        return result
-```
-
-### 6.3.3 Princípio da Invariância Explícita
-
-> *"Invariantes devem ser declarados e verificáveis."*
-
-```python
-from typing import Callable, List
-import inspect
-
-class Invariant:
-    """
-    Representa uma invariante verificável.
-    """
-    def __init__(self, 
-                 name: str,
-                 condition: Callable,
-                 check_points: List[str] = None):
-        self.name = name
-        self.condition = condition
-        self.check_points = check_points or ['entry', 'exit']
-    
-    def check(self, *args, **kwargs) -> bool:
-        """Verifica se invariante é satisfeita."""
-        try:
-            return self.condition(*args, **kwargs)
-        except Exception:
-            return False
-
-class InvariantEnforcer:
-    """
-    Aplica invariantes a classes.
-    """
-    
-    def __init__(self):
-        self.invariants: List[Invariant] = []
-    
-    def add_invariant(self, invariant: Invariant):
-        self.invariants.append(invariant)
-    
-    def enforce_on_class(self, cls):
-        """Decora classe com verificação de invariantes."""
-        original_methods = {}
-        
-        for name, method in inspect.getmembers(cls, inspect.isfunction):
-            if not name.startswith('_'):
-                original_methods[name] = method
-                setattr(cls, name, self._wrap_method(method))
-        
-        return cls
-    
-    def _wrap_method(self, method):
-        """Envolve método com verificação de invariantes."""
-        def wrapper(self, *args, **kwargs):
-            # Verificar invariantes na entrada
-            if 'entry' in self.check_points:
-                self._verify_invariants(self, "entry", method.__name__)
-            
-            # Executar método
-            result = method(self, *args, **kwargs)
-            
-            # Verificar invariantes na saída
-            if 'exit' in self.check_points:
-                self._verify_invariants(self, "exit", method.__name__)
-            
-            return result
-        
-        return wrapper
-    
-    def _verify_invariants(self, obj, point: str, method_name: str):
-        """Verifica todas as invariantes."""
-        for inv in self.invariants:
-            if point in inv.check_points:
-                if not inv.check(obj):
-                    raise InvariantViolationError(
-                        f"Invariante '{inv.name}' violada em '{method_name}' ({point})"
-                    )
-
-# Uso
-@InvariantEnforcer()
-class BankAccount:
-    """Conta bancária com invariantes verificadas."""
-    
-    def __init__(self, initial_balance: Decimal):
-        self._balance = initial_balance
-        self._transactions = []
-    
-    def deposit(self, amount: Decimal):
-        self._balance += amount
-        self._transactions.append(Transaction('deposit', amount))
-    
-    def withdraw(self, amount: Decimal):
-        if amount > self._balance:
-            raise InsufficientFundsError()
-        self._balance -= amount
-        self._transactions.append(Transaction('withdrawal', amount))
-    
-    # Invariantes
-    invariants = [
-        Invariant(
-            name="balance_non_negative",
-            condition=lambda self: self._balance >= 0,
-            check_points=['exit']
-        ),
-        Invariant(
-            name="transactions_consistent",
-            condition=lambda self: self._verify_transactions(),
-            check_points=['exit']
-        )
-    ]
-```
-
-## 6.4 Padrões de Verificação
-
-### 6.4.1 Padrão: Testes Baseados em Propriedades
-
-```python
-from hypothesis import given, strategies as st, settings
-import pytest
-
-class PropertyBasedTests:
-    """
-    Testes baseados em propriedades para verificação
-    de código gerado.
-    """
-    
-    @given(st.lists(st.integers()), st.lists(st.integers()))
-    @settings(max_examples=1000)
-    def test_sort_idempotent(self, list_a, list_b):
-        """
-        Propriedade: Ordenar duas vezes é igual a ordenar uma vez.
-        """
-        sorted_once = sorted(list_a)
-        sorted_twice = sorted(sorted_once)
-        assert sorted_once == sorted_twice
     
     @given(st.lists(st.integers()))
-    def test_sort_preserves_elements(self, input_list):
-        """
-        Propriedade: Ordenação preserva elementos (sem perda).
-        """
-        sorted_list = sorted(input_list)
-        assert sorted(input_list) == sorted(sorted_list)
-        assert len(input_list) == len(sorted_list)
+    def test_result_is_sorted(self, data):
+        """Propriedade: resultado deve estar ordenado."""
+        result = generated_sort(data)
+        assert all(result[i] <= result[i+1] 
+                  for i in range(len(result)-1))
     
     @given(st.lists(st.integers()))
-    def test_sort_produces_ordered_result(self, input_list):
-        """
-        Propriedade: Resultado está ordenado.
-        """
-        sorted_list = sorted(input_list)
-        for i in range(len(sorted_list) - 1):
-            assert sorted_list[i] <= sorted_list[i + 1]
+    def test_preserves_elements(self, data):
+        """Propriedade: elementos devem ser preservados."""
+        result = generated_sort(data)
+        assert sorted(data) == result
     
-    @given(st.text(), st.text())
-    def test_concat_length(self, a, b):
-        """
-        Propriedade: Comprimento da concatenação é soma dos comprimentos.
-        """
-        assert len(a + b) == len(a) + len(b)
-
-# Teste para código gerado
-def test_generated_code_properties(generated_function):
-    """
-    Verifica propriedades de função gerada.
-    """
-    # Propriedade 1: Terminação em tempo finito
-    @given(st.data())
-    def test_termination(data):
-        input_val = data.draw(st.integers())
-        import signal
-        
-        def timeout_handler(signum, frame):
-            raise TimeoutError("Function did not terminate")
-        
-        signal.signal(signal.SIGALRM, timeout_handler)
-        signal.alarm(5)  # 5 segundos timeout
-        
-        try:
-            result = generated_function(input_val)
-            signal.alarm(0)
-        except TimeoutError:
-            pytest.fail("Function did not terminate within 5 seconds")
-    
-    # Propriedade 2: Tipo de retorno consistente
-    @given(st.integers())
-    def test_return_type(input_val):
-        result = generated_function(input_val)
-        assert isinstance(result, (int, float, str))
-```
-
-### 6.4.2 Padrão: Oráculos Automatizados
-
-```python
-from typing import Callable, TypeVar
-
-T = TypeVar('T')
-R = TypeVar('R')
-
-class Oracle:
-    """
-    Oráculo para verificação de resultados.
-    """
-    def verify(self, input_data: T, output: R) -> bool:
-        raise NotImplementedError
-
-class ReferenceImplementationOracle(Oracle):
-    """
-    Oráculo baseado em implementação de referência.
-    """
-    def __init__(self, reference: Callable[[T], R]):
-        self.reference = reference
-    
-    def verify(self, input_data: T, output: R) -> bool:
-        expected = self.reference(input_data)
-        return output == expected
-
-class PropertyOracle(Oracle):
-    """
-    Oráculo baseado em propriedades matemáticas.
-    """
-    def __init__(self, property_check: Callable[[T, R], bool]):
-        self.property = property_check
-    
-    def verify(self, input_data: T, output: R) -> bool:
-        return self.property(input_data, output)
-
-# Exemplo: Oráculo para sorting
-class SortingOracle(Oracle):
-    """
-    Verifica se resultado é ordenação válida da entrada.
-    """
-    def verify(self, input_list: list, output_list: list) -> bool:
-        # Propriedade 1: Mesmos elementos
-        if sorted(input_list) != sorted(output_list):
-            return False
-        
-        # Propriedade 2: Está ordenado
-        for i in range(len(output_list) - 1):
-            if output_list[i] > output_list[i + 1]:
-                return False
-        
-        # Propriedade 3: Mesmo comprimento
-        if len(input_list) != len(output_list):
-            return False
-        
-        return True
-
-# Uso
-oracle = SortingOracle()
-
-# Testar implementação gerada
-def test_generated_sort(generated_sort):
     @given(st.lists(st.integers()))
-    def property_test(input_list):
-        result = generated_sort(input_list)
-        assert oracle.verify(input_list, result)
-    
-    property_test()
+    def test_idempotent(self, data):
+        """Propriedade: ordenar resultado ordenado não muda nada."""
+        once = generated_sort(data)
+        twice = generated_sort(once)
+        assert once == twice
 ```
 
-## 6.5 Ferramentas de Verificação
+### 2. Testes de Contrato
 
-### 6.5.1 Pipeline de Verificação Automatizada
+Validação de pré-condições, pós-condições e invariantes.
 
 ```python
-from typing import List, Dict
-from dataclasses import dataclass
-from enum import Enum
-
-class VerificationStage(Enum):
-    SYNTAX = "syntax"
-    STATIC_ANALYSIS = "static_analysis"
-    TYPE_CHECKING = "type_checking"
-    UNIT_TESTS = "unit_tests"
-    PROPERTY_TESTS = "property_tests"
-    INTEGRATION_TESTS = "integration_tests"
-    SECURITY_SCAN = "security_scan"
-    CODE_REVIEW = "code_review"
-
-@dataclass
-class VerificationResult:
-    stage: VerificationStage
-    passed: bool
-    duration_seconds: float
-    issues: List[Dict]
-    coverage: float  # 0-1
-
-class VerificationPipeline:
-    """
-    Pipeline completo de verificação para código gerado.
-    """
+class ContractTest:
+    def test_preconditions(self):
+        """Verifica se pré-condições são validadas."""
+        with pytest.raises(PreconditionViolation):
+            service.process(None)  # None viola pré-condição
+        
+        with pytest.raises(PreconditionViolation):
+            service.process([])   # Lista vazia viola pré-condição
     
-    def __init__(self):
-        self.stages: List[VerificationStage] = [
-            VerificationStage.SYNTAX,
-            VerificationStage.STATIC_ANALYSIS,
-            VerificationStage.TYPE_CHECKING,
-            VerificationStage.UNIT_TESTS,
-            VerificationStage.PROPERTY_TESTS,
-            VerificationStage.SECURITY_SCAN
+    def test_postconditions(self):
+        """Verifica se pós-condições são satisfeitas."""
+        result = service.process(valid_input)
+        assert result is not None  # Pós-condição: resultado não nulo
+        assert result.status == "completed"
+    
+    def test_invariants(self):
+        """Verifica invariantes após múltiplas operações."""
+        for _ in range(100):
+            service.process(generate_random_valid_input())
+            assert service.is_valid_state()  # Invariante mantido
+```
+
+### 3. Testes de Mutação
+
+Avalia a qualidade da suíte de testes introduzindo bugs artificiais.
+
+```python
+# Ferramenta: mutmut ou similar
+# Processo:
+# 1. Gera mutantes (pequenas alterações no código)
+# 2. Executa testes contra cada mutante
+# 3. Mutantes sobreviventes indicam lacunas nos testes
+
+class MutationTesting:
+    def run(self, source_code, test_suite):
+        mutants = self.generate_mutants(source_code)
+        
+        results = []
+        for mutant in mutants:
+            killed = self.run_tests(mutant, test_suite)
+            results.append({
+                "mutant": mutant.description,
+                "killed": killed,
+                "location": mutant.location
+            })
+        
+        mutation_score = sum(1 for r in results if r["killed"]) / len(results)
+        return MutationReport(results, mutation_score)
+```
+
+### 4. Testes de Snapshot
+
+Captura e compara saídas para detectar regressões.
+
+```python
+import json
+
+class SnapshotTest:
+    def __init__(self, snapshot_dir="snapshots"):
+        self.snapshot_dir = snapshot_dir
+    
+    def assert_match(self, test_name, actual_output, tolerance=0.0):
+        """
+        Compara saída atual com snapshot armazenado.
+        """
+        snapshot_path = f"{self.snapshot_dir}/{test_name}.snap"
+        
+        if not os.path.exists(snapshot_path):
+            # Primeira execução: cria snapshot
+            self._save_snapshot(snapshot_path, actual_output)
+            return
+        
+        expected = self._load_snapshot(snapshot_path)
+        
+        if tolerance > 0:
+            # Comparação aproximada (para saídas probabilísticas)
+            similarity = self._calculate_similarity(expected, actual_output)
+            assert similarity >= (1 - tolerance), \
+                f"Saída divergiu {similarity} do snapshot"
+        else:
+            assert expected == actual_output, \
+                f"Saída diferente do snapshot. Use --update para atualizar."
+```
+
+## Análise Estática e Formal
+
+### 1. Análise Estática Avançada
+
+```python
+# Configuração para código gerado
+# Ferramentas: pylint, mypy, bandit, semgrep
+
+STATIC_ANALYSIS_CONFIG = {
+    "pylint": {
+        "max_line_length": 100,
+        "disable": [
+            "C0103",  # naming-convention (código gerado pode ter nomes variados)
+        ],
+        "enable": [
+            "E",  # Erros
+            "W",  # Warnings
+            "R0915",  # too-many-statements
+            "R0912",  # too-many-branches
         ]
+    },
+    "bandit": {
+        # Segurança
+        "severity": "HIGH",
+        "confidence": "HIGH"
+    },
+    "mypy": {
+        "strict": True,
+        "ignore_missing_imports": False
+    }
+}
+```
+
+### 2. Verificação Formal
+
+Para componentes críticos, verificação formal pode garantir correção.
+
+```python
+# Exemplo: verificação de invariantes com Z3
+from z3 import *
+
+def verify_sorting_algorithm(algorithm_ast):
+    """
+    Verifica formalmente que algoritmo de ordenação está correto.
+    """
+    # Cria solver
+    solver = Solver()
     
-    def verify(self, code: str, test_cases: List = None) -> Dict:
+    # Define array de entrada simbólico
+    n = Int('n')
+    arr = Array('arr', IntSort(), IntSort())
+    
+    # Pré-condição: n > 0
+    solver.add(n > 0)
+    
+    # Simula execução do algoritmo
+    result_arr = simulate(algorithm_ast, arr, n)
+    
+    # Pós-condição 1: resultado ordenado
+    sorted_constraint = ForAll([i], 
+        Implies(And(0 <= i, i < n-1), 
+                result_arr[i] <= result_arr[i+1]))
+    
+    # Pós-condição 2: permutação do original
+    permutation_constraint = ...
+    
+    solver.add(sorted_constraint)
+    solver.add(permutation_constraint)
+    
+    # Verifica
+    if solver.check() == sat:
+        return VerificationResult.PASSED
+    else:
+        return VerificationResult.FAILED
+```
+
+## Métricas de Verificabilidade
+
+### Métricas de Código
+
+```python
+@dataclass
+class VerifiabilityMetrics:
+    """Métricas que indicam facilidade de verificação."""
+    
+    # Complexidade
+    cyclomatic_complexity: float
+    cognitive_complexity: float
+    
+    # Cobertura
+    line_coverage: float
+    branch_coverage: float
+    mutation_score: float
+    
+    # Acoplamento
+    afferent_coupling: int   # Quem depende deste módulo
+    efferent_coupling: int   # De quem este módulo depende
+    
+    # Coesão
+    lack_of_cohesion: float
+    
+    # Documentação
+    docstring_coverage: float
+    type_hint_coverage: float
+    
+    def overall_score(self) -> float:
+        """Calcula score geral de verificabilidade."""
+        weights = {
+            "complexity": 0.25,
+            "coverage": 0.30,
+            "coupling": 0.20,
+            "cohesion": 0.15,
+            "documentation": 0.10
+        }
+        
+        scores = {
+            "complexity": self._complexity_score(),
+            "coverage": (self.line_coverage + self.branch_coverage) / 2,
+            "coupling": self._coupling_score(),
+            "cohesion": 1 - self.lack_of_cohesion,
+            "documentation": (self.docstring_coverage + self.type_hint_coverage) / 2
+        }
+        
+        return sum(weights[k] * scores[k] for k in weights)
+```
+
+### Thresholds Recomendados
+
+| Métrica | Mínimo Aceitável | Ideal |
+|---------|------------------|-------|
+| Cyclomatic Complexity | <= 10 | <= 5 |
+| Line Coverage | >= 70% | >= 90% |
+| Branch Coverage | >= 60% | >= 80% |
+| Mutation Score | >= 50% | >= 80% |
+| Docstring Coverage | >= 50% | >= 90% |
+
+## Verificação de Código Gerado
+
+### Pipeline de Verificação
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              PIPELINE DE VERIFICAÇÃO                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  Código Gerado                                                  │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────┐                                              │
+│  │   Parse      │──▶ Erro de sintaxe? ──▶ REJEITAR             │
+│  └──────────────┘                                              │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────┐                                              │
+│  │   Lint       │──▶ Violação crítica? ──▶ REJEITAR            │
+│  └──────────────┘                                              │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────┐                                              │
+│  │ Type Check   │──▶ Erro de tipo? ──▶ REJEITAR                │
+│  └──────────────┘                                              │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────┐                                              │
+│  │   Testes     │──▶ Falha? ──▶ REJEITAR                       │
+│  └──────────────┘                                              │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────┐                                              │
+│  │   Security   │──▶ Vulnerabilidade? ──▶ REJEITAR             │
+│  └──────────────┘                                              │
+│       │                                                         │
+│       ▼                                                         │
+│   APROVADO                                                      │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Verificação Estatística
+
+Para código não-determinístico, usar métodos estatísticos:
+
+```python
+class StatisticalVerification:
+    """
+    Verificação estatística para componentes probabilísticos.
+    """
+    
+    def verify(self, component, test_cases, confidence=0.95, tolerance=0.05):
         """
-        Executa pipeline completo de verificação.
+        Verifica que componente passa em pelo menos (confidence)% dos casos.
         """
         results = []
+        for _ in range(self._calculate_sample_size(confidence, tolerance)):
+            for test_case in test_cases:
+                result = component.execute(test_case)
+                results.append(result.is_correct)
         
-        for stage in self.stages:
-            result = self._run_stage(stage, code, test_cases)
-            results.append(result)
-            
-            # Early termination em falha crítica
-            if not result.passed and stage in [
-                VerificationStage.SYNTAX,
-                VerificationStage.SECURITY_SCAN
-            ]:
-                break
+        success_rate = sum(results) / len(results)
         
-        return {
-            'overall_pass': all(r.passed for r in results),
-            'stages': results,
-            'total_duration': sum(r.duration_seconds for r in results),
-            'coverage': sum(r.coverage for r in results) / len(results)
-        }
-    
-    def _run_stage(self, 
-                  stage: VerificationStage,
-                  code: str,
-                  test_cases: List) -> VerificationResult:
-        """Executa estágio específico."""
-        import time
-        start = time.time()
-        
-        if stage == VerificationStage.SYNTAX:
-            issues = self._check_syntax(code)
-        elif stage == VerificationStage.STATIC_ANALYSIS:
-            issues = self._run_static_analysis(code)
-        elif stage == VerificationStage.TYPE_CHECKING:
-            issues = self._run_type_checker(code)
-        elif stage == VerificationStage.UNIT_TESTS:
-            issues = self._run_unit_tests(code, test_cases)
-        elif stage == VerificationStage.PROPERTY_TESTS:
-            issues = self._run_property_tests(code)
-        elif stage == VerificationStage.SECURITY_SCAN:
-            issues = self._run_security_scan(code)
+        if success_rate >= confidence - tolerance:
+            return VerificationResult.PASSED
         else:
-            issues = []
-        
-        duration = time.time() - start
-        
-        return VerificationResult(
-            stage=stage,
-            passed=len(issues) == 0,
-            duration_seconds=duration,
-            issues=issues,
-            coverage=self._estimate_coverage(stage, code)
-        )
+            return VerificationResult.FAILED
 ```
-
-## 6.6 Exercícios
-
-1. Projete um conjunto de invariantes para um sistema de processamento de pagamentos e implemente verificação automática.
-
-2. Crie oráculos para verificar corretude de uma função de busca binária gerada por IA.
-
-3. Implemente um `VerificationPipeline` que integre análise estática, testes baseados em propriedades e revisão de segurança.
 
 ## Practical Considerations
 
-- Dê preferência a designs que reduzam ambiguidade: contratos e invariantes simplificam testes e revisão.
-- Instrumente pontos de decisão: sem evidência, não há verificação confiável.
+### Aplicações Reais
+
+1. **CI/CD**: Integrar verificação automatizada na pipeline
+2. **Code Review**: Ferramentas de análise estática como gate
+3. **Pre-commit Hooks**: Verificação rápida antes de commits
+4. **Nightly Builds**: Testes extensivos (mutation, fuzzing)
+
+### Limitações
+
+- **Custo Computacional**: Verificação formal é cara
+- **Falsos Positivos**: Análise estática pode gerar ruído
+- **Cobertura Limitada**: Testes não garantem ausência de bugs
+- **Tempo**: Verificação completa pode ser lenta
+
+### Melhores Práticas
+
+1. **Pirâmide de Testes**: Mais unitários, menos e2e
+2. **Shift Left**: Verificação o mais cedo possível
+3. **Fail Fast**: Detectar problemas rapidamente
+4. **Observabilidade**: Métricas de verificação visíveis
+5. **Balanceamento**: Trade-off entre rigor e velocidade
 
 ## Summary
 
-- Verificabilidade é atributo central em sistemas híbridos; deve ser projetada.
-- Evidência (testes, logs, rastros) reduz custo de validação e acelera manutenção.
+- Verificabilidade tornou-se o gargalo na era dos LLMs
+- Testes baseados em propriedades são efetivos para código gerado
+- Análise estática deve ser integrada na pipeline
+- Verificação formal pode ser usada para componentes críticos
+- Métricas quantitativas guiam melhoria contínua
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — verificação permanece crítica |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto — verificação requer expertise significativa |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — falhas de verificação podem causar danos graves |
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+1. Bui, T.-D.; Vu, T. T.; Nguyen, T.-T.; et al. "Correctness assessment of code generated by Large Language Models using internal representations." Journal of Systems and Software, Vol. 230, 2025. https://doi.org/10.1016/j.jss.2025.112570
 
-2. FAKHOURY, S. et al. LLM-based Test-driven Interactive Code Generation: User Study and Empirical Evaluation. IEEE Transactions on Software Engineering, 2024. Disponível em: https://www.seas.upenn.edu/~asnaik/assets/papers/tse24_ticoder.pdf
+2. Alshahwan, N.; Harman, M.; Harper, I.; et al. "Assured LLM-Based Software Engineering." arXiv:2402.04380, 2024. https://arxiv.org/abs/2402.04380
 
-3. ALLAMANIS, M.; PANTHAPLACKEL, S.; YIN, P. Unsupervised Evaluation of Code LLMs with Round-Trip Correctness. arXiv:2402.08699, 2024.
+3. Ma, Z.; Zhang, T.; et al. "Rethinking Verification for LLM Code Generation: From Generation to Testing." NeurIPS 2025. https://openreview.net/forum?id=Gp2vgxWROE
 
-4. AGGARWAL, P. et al. CodeSift: An LLM-Based Reference-Less Framework for Automatic Code Validation. arXiv:2408.15630, 2024.
+4. Aniche, M.; Beller, M.; et al. "In Search of a Silver Bullet: A Survey of Software Testing Practices." IEEE, 2022.
 
-5. MIRANDA, B. et al. VeriBench: End-to-End Formal Verification Benchmark for AI Code Generation in Lean 4. OpenReview, 2025.
-
-6. TONG, W.; ZHANG, T. CodeJudge: Evaluating Code Generation with Large Language Models. ACL Anthology, 2024. Disponível em: https://aclanthology.org/2024.emnlp-main.1118/
-
-7. STACK OVERFLOW. One of the best ways to get value for AI coding tools: generating tests. Stack Overflow Blog, 2024. Disponível em: https://stackoverflow.blog/2024/09/10/gen-ai-llm-create-test-developers-coding-software-code-quality/
-
-8. CONFIDENT AI. LLM Testing in 2024: Top Methods and Strategies. Confident AI Blog, 2024. Disponível em: https://www.confident-ai.com/blog/llm-testing-in-2024-top-methods-and-strategies
-
-9. SHIPYARD. How to Test AI-Generated Code: Best Practices for LLM and AI Assistant Code. Shipyard Blog, 2024. Disponível em: https://shipyard.build/blog/testing-genai-code/
-
----
-
-*SWEBOK-AI v5.0 - Software Design*
+5. Zeller, A. "Why Programs Fail: A Guide to Systematic Debugging." Morgan Kaufmann, 2009.

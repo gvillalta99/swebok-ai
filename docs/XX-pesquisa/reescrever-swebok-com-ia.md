@@ -1,3 +1,14 @@
+---
+title: >-
+  **Estratégia de Reestruturação do SWEBOK para a Era da Engenharia de Software
+  Impulsionada por Inteligência Artificial**
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 # **Estratégia de Reestruturação do SWEBOK para a Era da Engenharia de Software Impulsionada por Inteligência Artificial**
 
 O avanço exponencial da inteligência artificial generativa e a transição para sistemas agênticos autônomos impuseram uma pressão sem precedentes sobre as definições tradicionais da engenharia de software. O Guide to the Software Engineering Body of Knowledge (SWEBOK), cuja versão 4.0 foi consolidada em outubro de 2024, já incorporou avanços significativos ao introduzir áreas de arquitetura, operações e segurança, além de integrar conceitos iniciais de aprendizado de máquina em todas as suas dezoito áreas de conhecimento.1 No entanto, a realidade emergente de 2025 aponta para uma transformação que não é apenas incremental, mas ontológica. A engenharia de software está evoluindo de uma disciplina centrada no ser humano, auxiliado por ferramentas estáticas, para um ecossistema híbrido onde agentes de inteligência artificial atuam como colaboradores ativos, ou "colegas de equipe", capazes de realizar ciclos completos de desenvolvimento com supervisão estratégica humana.4

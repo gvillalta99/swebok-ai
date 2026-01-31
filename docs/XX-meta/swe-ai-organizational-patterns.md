@@ -1,3 +1,12 @@
+---
+title: 'Ex: "0 alucinações detectadas em 100 gerações + approval de 2 seniors"'
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 Aqui estão 5 abordagens distintas para organizar esses artefatos em repositórios, cada uma otimizada para diferentes contextos organizacionais e maturidades de IA:
 
 ---

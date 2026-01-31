@@ -1,7 +1,11 @@
 ---
-title: "Integração de Práticas de Engenharia com Inteligência Artificial: Uma Análise Comparativa"
-description: "Análise das relações entre evolução da IA em software, práticas tradicionais de engenharia e o SWEBOK v4"
-date: 2026-01-29
+title: >-
+  Integração de Práticas de Engenharia com Inteligência Artificial: Uma Análise
+  Comparativa
+description: >-
+  Análise das relações entre evolução da IA em software, práticas tradicionais
+  de engenharia e o SWEBOK v4
+date: 2026-01-29T00:00:00.000Z
 tags:
   - pesquisa
   - swbok
@@ -9,10 +13,13 @@ tags:
   - engenharia-software
   - transformacao-digital
   - futuro-trabalho
-status: em-desenvolvimento
+status: draft
 aliases:
   - integracao-ia-engenharia
   - swbok-ai-research
+created_at: '2026-01-31'
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # Integração de Práticas de Engenharia com Inteligência Artificial

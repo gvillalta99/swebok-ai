@@ -1,3 +1,12 @@
+---
+title: Swe Ai Artifacts
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 Considerando o cenário que discutimos — onde código se tornou commodity e o valor migrado para restrição, validação e governança — aqui está uma proposta de artefatos estratégicos para 2026, organizados não por fase tradicional, mas por função de mitigação de risco:
 
 1. Artefatos de Decisão Arquitetural (O "Anti-Código")

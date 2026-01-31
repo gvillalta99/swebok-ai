@@ -1,590 +1,398 @@
 ---
-title: "Seção 4: Design de Componentes Determinísticos"
-created_at: 2025-01-31
-tags: ["design", "software-design", "ia"]
-status: "published"
-updated_at: 2026-01-31
-ai_model: "openai/gpt-5.2"
+title: "04. Design de Componentes Determinísticos"
+created_at: "2025-01-31"
+tags: ["software-design", "componentes", "deterministicos", "ia", "contratos"]
+status: "draft"
+updated_at: "2025-01-31"
+ai_model: "kimi-k2.5"
 ---
 
-# Seção 4: Design de Componentes Determinísticos
+# 04. Design de Componentes Determinísticos
 
 ## Overview
 
-Esta seção detalha como projetar o core determinístico em sistemas híbridos: componentes que precisam de garantias fortes, comportamento reprodutível e evidência objetiva.
+Em sistemas híbridos humanos-IA, a coexistência entre componentes determinísticos (código tradicional) e componentes probabilísticos (código gerado por LLMs) exige fronteiras arquiteturais bem definidas. Esta seção aborda como projetar componentes determinísticos que possam operar de forma segura e previsível quando integrados a sistemas de IA.
+
+Segundo Evans (2025), ao incorporar componentes de IA em sistemas maiores que são principalmente software convencional, encontramos várias dificuldades: como domar comportamento intrinsecamente não-determinístico para que possa ser usado em software estruturado e determinístico [1].
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
-1. Identificar quais componentes devem permanecer determinísticos por risco e compliance
-2. Definir interfaces, invariantes e contratos que blindem o core de variabilidade
-3. Projetar mecanismos de validação que rejeitem saídas fora de contrato
 
-## 4.1 Introdução
+1. Projetar fronteiras claras entre componentes determinísticos e probabilísticos
+2. Implementar wrappers e adaptadores para isolamento de IA
+3. Definir contratos formais para comunicação entre componentes
+4. Avaliar quando usar código determinístico vs. código gerado
 
-Em sistemas híbridos, componentes determinísticos representam os alicerces de confiabilidade. São as partes do sistema onde comportamento é previsível, verificável e auditável. O design adequado desses componentes é crítico para garantir que, mesmo quando componentes de IA falham ou produzem resultados inesperados, o sistema mantenha integridade.
+## Características de Componentes Determinísticos
 
-Esta seção foca em padrões e princípios para design de componentes determinísticos que servem como ancoragem em arquiteturas híbridas.
+### Definição e Propriedades
 
-## 4.2 Características de Componentes Determinísticos
+Componentes determinísticos são aqueles que, dado um conjunto específico de entradas, sempre produzem a mesma saída, independentemente de quando ou quantas vezes são executados.
 
-### 4.2.1 Definição Formal
+**Propriedades Essenciais**:
 
-Um componente é considerado **determinístico** quando:
+| Propriedade | Descrição | Importância |
+|-------------|-----------|-------------|
+| **Idempotência** | Múltiplas execuções com mesma entrada produzem mesmo resultado | Previne efeitos colaterais inesperados |
+| **Previsibilidade** | Comportamento pode ser determinado a priori | Facilita testes e debugging |
+| **Reprodutibilidade** | Resultados são consistentes em diferentes ambientes | Garante confiabilidade |
+| **Transparência** | Estado interno é observável e compreensível | Permite auditoria |
 
-1. Para mesmas entradas, sempre produz mesmas saídas (referential transparency)
-2. Não possui efeitos colaterais não explicitados
-3. Comportamento pode ser verificado através de testes unitários
-4. Não depende de serviços externos não-determinísticos
-
-```python
-from typing import TypeVar, Callable
-from functools import wraps
-
-T = TypeVar('T')
-R = TypeVar('R')
-
-def deterministic(func: Callable[[T], R]) -> Callable[[T], R]:
-    """
-    Decorador que marca função como determinística.
-    Inclui verificações em tempo de desenvolvimento.
-    """
-    @wraps(func)
-    def wrapper(input_data: T) -> R:
-        # Em modo de desenvolvimento, verificar pureza
-        if DEVELOPMENT_MODE:
-            _verify_no_global_state(func)
-            _verify_no_io(func)
-        
-        return func(input_data)
-    
-    wrapper._is_deterministic = True
-    return wrapper
-
-# Exemplo
-@deterministic
-def calculate_discount(price: Decimal, 
-                       customer_tier: str) -> Decimal:
-    """
-    Cálculo determinístico de desconto.
-    Mesmas entradas = mesma saída, sempre.
-    """
-    rates = {
-        'bronze': Decimal('0.05'),
-        'silver': Decimal('0.10'),
-        'gold': Decimal('0.15'),
-        'platinum': Decimal('0.20')
-    }
-    
-    rate = rates.get(customer_tier, Decimal('0'))
-    return price * (Decimal('1') - rate)
-```
-
-### 4.2.2 Taxonomia de Determinismo
+### Contraste com Componentes Probabilísticos
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│              ESPECTRO DE DETERMINISMO                           │
+│              DETERMINÍSTICO vs PROBABILÍSTICO                   │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  PURAMENTE FUNCIONAL                                            │
-│  ├── Saída depende apenas de entradas                          │
-│  ├── Sem estado interno                                        │
-│  ├── Sem efeitos colaterais                                    │
-│  └── Exemplo: Funções matemáticas puras                        │
+│   DETERMINÍSTICO              PROBABILÍSTICO                   │
+│   ────────────────            ───────────────                  │
+│   f(x) = y (sempre)           P(y|x) ≈ 0.95                   │
 │                                                                 │
-│  FUNCIONAL COM ESTADO IMUTÁVEL                                  │
-│  ├── Usa dados de configuração imutável                        │
-│  ├── Sem mutação de estado                                     │
-│  ├── Cache interno permitido se transparente                   │
-│  └── Exemplo: Lookup tables, configurações                     │
+│   • Mesma entrada →           • Mesma entrada →                │
+│     mesma saída                 saídas possivelmente           │
+│                                 diferentes                     │
 │                                                                 │
-│  DETERMINÍSTICO COM ESTADO CONTROLADO                           │
-│  ├── Mantém estado interno                                     │
-│  ├── Estado é previsível e inicializável                       │
-│  ├── Transições de estado são determinísticas                  │
-│  └── Exemplo: Máquinas de estado, acumuladores                 │
+│   • Testável com              • Requer testes                  │
+│     asserts exatos              estatísticos                   │
 │                                                                 │
-│  DETERMINÍSTICO COM DEPENDÊNCIAS EXTERNAS                       │
-│  ├── Dependências são injetadas                                │
-│  ├── Comportamento previsível dadas dependências               │
-│  └── Exemplo: Repositórios com conexão injetada                │
+│   • Debugging direto          • Debugging complexo             │
+│                                                                 │
+│   • Custo previsível          • Custo variável                 │
+│     (CPU/memória)               (tokens/latência)              │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## 4.3 Padrões de Design
+## Estratégias de Isolamento
 
-### 4.3.1 Padrão: Pure Core, Imperative Shell
+### 1. Wrapper Pattern
 
-```python
-from typing import Tuple
-from dataclasses import dataclass
-
-@dataclass(frozen=True)
-class Order:
-    """Entidade imutável (núcleo puro)."""
-    id: str
-    items: Tuple[OrderItem, ...]
-    customer_id: str
-    total: Decimal
-
-class OrderProcessor:
-    """
-    Shell imperativo que orquestra núcleo puro.
-    Responsável por I/O, o núcleo por lógica de negócio.
-    """
-    
-    def __init__(self, repository, payment_gateway, notifier):
-        self.repo = repository
-        self.payment = payment_gateway
-        self.notifier = notifier
-    
-    def process_order(self, order_id: str) -> ProcessingResult:
-        """
-        Método de orquestração (imperativo).
-        """
-        # I/O: Buscar dados
-        order_data = self.repo.find_by_id(order_id)
-        
-        # Criar entidade pura
-        order = Order(
-            id=order_data['id'],
-            items=tuple(OrderItem(**i) for i in order_data['items']),
-            customer_id=order_data['customer_id'],
-            total=Decimal(order_data['total'])
-        )
-        
-        # Lógica pura
-        calculation = self._calculate_with_tax(order)
-        
-        # Validar regras puramente
-        validation = self._validate_order(calculation)
-        if not validation.is_valid:
-            return ProcessingResult.failure(validation.errors)
-        
-        # I/O: Processar pagamento
-        payment_result = self.payment.charge(
-            calculation.final_total,
-            order.customer_id
-        )
-        
-        if not payment_result.success:
-            return ProcessingResult.failure(['payment_failed'])
-        
-        # I/O: Persistir
-        self.repo.update_status(order.id, 'paid')
-        
-        # I/O: Notificar
-        self.notifier.send_confirmation(order.customer_id, order.id)
-        
-        return ProcessingResult.success(calculation)
-    
-    @staticmethod
-    def _calculate_with_tax(order: Order) -> OrderCalculation:
-        """
-        Função pura: cálculo de impostos.
-        Facilmente testável, sem mocks.
-        """
-        subtotal = sum(item.price * item.quantity for item in order.items)
-        tax_rate = Decimal('0.18')  # ICMS
-        tax = subtotal * tax_rate
-        
-        return OrderCalculation(
-            subtotal=subtotal,
-            tax=tax,
-            final_total=subtotal + tax
-        )
-    
-    @staticmethod
-    def _validate_order(calc: OrderCalculation) -> ValidationResult:
-        """
-        Função pura: validação.
-        """
-        errors = []
-        
-        if calc.final_total <= 0:
-            errors.append("Total deve ser positivo")
-        
-        if calc.final_total > Decimal('100000'):
-            errors.append("Excede limite por transação")
-        
-        return ValidationResult(
-            is_valid=len(errors) == 0,
-            errors=errors
-        )
-```
-
-### 4.3.2 Padrão: Algebraic Data Types para Modelagem
+Isola componentes de IA através de uma interface determinística.
 
 ```python
-from typing import Union
-from dataclasses import dataclass
-from enum import Enum, auto
-
-# Sum Types (Tagged Unions)
-class PaymentMethod:
-    pass
-
-@dataclass(frozen=True)
-class CreditCard(PaymentMethod):
-    number: str  # Tokenizado
-    expiry: str
-    cvv_token: str
-
-@dataclass(frozen=True)
-class BankTransfer(PaymentMethod):
-    account_number: str
-    bank_code: str
-
-@dataclass(frozen=True)
-class Pix(PaymentMethod):
-    key: str
-    key_type: str
-
-# Uso com pattern matching
-class PaymentProcessor:
-    
-    def process(self, method: PaymentMethod, amount: Decimal) -> PaymentResult:
-        """
-        Processamento exhaustivo - compilador garante
-        que todos os casos são tratados.
-        """
-        if isinstance(method, CreditCard):
-            return self._process_credit_card(method, amount)
-        elif isinstance(method, BankTransfer):
-            return self._process_bank_transfer(method, amount)
-        elif isinstance(method, Pix):
-            return self._process_pix(method, amount)
-        else:
-            # Type safety garantida
-            raise ValueError(f"Método desconhecido: {type(method)}")
-    
-    def _process_credit_card(self, 
-                            card: CreditCard, 
-                            amount: Decimal) -> PaymentResult:
-        # Implementação específica
-        pass
-    
-    def _process_bank_transfer(self,
-                              transfer: BankTransfer,
-                              amount: Decimal) -> PaymentResult:
-        # Implementação específica
-        pass
-    
-    def _process_pix(self, pix: Pix, amount: Decimal) -> PaymentResult:
-        # Implementação específica
-        pass
-```
-
-### 4.3.3 Padrão: Effect System
-
-```python
+from abc import ABC, abstractmethod
 from typing import Generic, TypeVar
-from dataclasses import dataclass
 
 T = TypeVar('T')
-E = TypeVar('E')
+U = TypeVar('U')
 
-@dataclass
-class Effect(Generic[T, E]):
+class DeterministicWrapper(ABC, Generic[T, U]):
     """
-    Wrapper que explicita efeitos colaterais.
+    Wrapper base que expõe interface determinística
+    para componentes potencialmente não-determinísticos.
     """
-    value: T
-    logs: list
-    side_effects: list
-    error: Optional[E] = None
     
-    def map(self, f: Callable[[T], T]) -> 'Effect[T, E]':
-        """Transforma valor preservando efeitos."""
-        if self.error:
-            return self
-        return Effect(
-            value=f(self.value),
-            logs=self.logs,
-            side_effects=self.side_effects
-        )
+    def __init__(self, validator, fallback_strategy):
+        self.validator = validator
+        self.fallback = fallback_strategy
+        self._cache = {}
     
-    def flat_map(self, f: Callable[[T], 'Effect[T, E]']) -> 'Effect[T, E]':
-        """Composição de efeitos."""
-        if self.error:
-            return self
+    def execute(self, input_data: T) -> U:
+        # Verifica cache primeiro (determinístico)
+        cache_key = self._hash_input(input_data)
+        if cache_key in self._cache:
+            return self._cache[cache_key]
         
-        next_effect = f(self.value)
-        return Effect(
-            value=next_effect.value,
-            logs=self.logs + next_effect.logs,
-            side_effects=self.side_effects + next_effect.side_effects,
-            error=next_effect.error
-        )
-
-# Uso explícito de efeitos
-def read_file_deterministic(path: str) -> Effect[str, FileError]:
-    """
-    Leitura de arquivo com efeitos explícitos.
-    """
-    try:
-        with open(path, 'r') as f:
-            content = f.read()
-        
-        return Effect(
-            value=content,
-            logs=[f"File {path} read successfully"],
-            side_effects=[FileReadEffect(path)]
-        )
-    except FileNotFoundError as e:
-        return Effect(
-            value="",
-            logs=[f"File {path} not found"],
-            side_effects=[],
-            error=FileError.NotFound(path)
-        )
-```
-
-## 4.4 Estratégias de Isolamento
-
-### 4.4.1 Isolamento de Efeitos Colaterais
-
-```python
-from typing import Protocol
-from unittest.mock import Mock
-
-class Clock(Protocol):
-    """Abstração para tempo - permite testes determinísticos."""
-    def now(self) -> datetime: ...
-
-class RealClock:
-    def now(self) -> datetime:
-        return datetime.now()
-
-class FrozenClock:
-    """Clock congelado para testes."""
-    def __init__(self, frozen_time: datetime):
-        self._time = frozen_time
-    
-    def now(self) -> datetime:
-        return self._time
-
-class TimeDependentService:
-    """
-    Serviço que depende de tempo, mas é testável
-    de forma determinística.
-    """
-    
-    def __init__(self, clock: Clock):
-        self._clock = clock
-    
-    def is_business_hours(self) -> bool:
-        """
-        Determinístico: resultado depende do clock injetado.
-        """
-        now = self._clock.now()
-        return 9 <= now.hour < 18 and now.weekday() < 5
-
-# Teste determinístico
-def test_is_business_hours():
-    # Segunda-feira, 10h
-    monday_morning = FrozenClock(
-        datetime(2024, 1, 15, 10, 0)
-    )
-    service = TimeDependentService(monday_morning)
-    assert service.is_business_hours() is True
-    
-    # Domingo, 10h
-    sunday_morning = FrozenClock(
-        datetime(2024, 1, 14, 10, 0)
-    )
-    service_sunday = TimeDependentService(sunday_morning)
-    assert service_sunday.is_business_hours() is False
-```
-
-### 4.4.2 Isolamento de Aleatoriedade
-
-```python
-from typing import Protocol
-import random
-
-class RandomGenerator(Protocol):
-    """Abstração para geração de números aleatórios."""
-    def random(self) -> float: ...
-    def randint(self, a: int, b: int) -> int: ...
-    def choice(self, seq: list) -> any: ...
-
-class SystemRandom:
-    """Implementação real usando sistema."""
-    def __init__(self):
-        self._rng = random.Random()
-    
-    def random(self) -> float:
-        return self._rng.random()
-    
-    def randint(self, a: int, b: int) -> int:
-        return self._rng.randint(a, b)
-    
-    def choice(self, seq: list) -> any:
-        return self._rng.choice(seq)
-
-class SeededRandom:
-    """Implementação com seed fixo - determinística."""
-    def __init__(self, seed: int):
-        self._rng = random.Random(seed)
-    
-    def random(self) -> float:
-        return self._rng.random()
-    
-    def randint(self, a: int, b: int) -> int:
-        return self._rng.randint(a, b)
-    
-    def choice(self, seq: list) -> any:
-        return self._rng.choice(seq)
-
-class LotteryDraw:
-    """
-    Sorteio que pode ser determinístico em testes.
-    """
-    
-    def __init__(self, rng: RandomGenerator, participants: list):
-        self._rng = rng
-        self._participants = participants
-    
-    def draw_winner(self) -> str:
-        """Determinístico dado o RNG."""
-        return self._rng.choice(self._participants)
-    
-    def draw_multiple(self, count: int) -> list:
-        """Determinístico dado o RNG."""
-        return [self._rng.choice(self._participants) 
-                for _ in range(count)]
-
-# Teste determinístico
-def test_lottery_draw():
-    rng = SeededRandom(seed=42)
-    lottery = LotteryDraw(rng, ['Alice', 'Bob', 'Charlie'])
-    
-    # Sempre retorna mesmo resultado com mesma seed
-    winner = lottery.draw_winner()
-    assert winner == 'Charlie'  # Previsível com seed 42
-```
-
-## 4.5 Validação de Determinismo
-
-```python
-import hashlib
-import inspect
-from typing import Callable, Any
-
-class DeterminismValidator:
-    """
-    Valida que função é determinística através de execuções múltiplas.
-    """
-    
-    def validate(self, 
-                func: Callable, 
-                test_cases: list,
-                executions: int = 10) -> ValidationReport:
-        """
-        Executa função múltiplas vezes e verifica consistência.
-        """
-        results = []
-        
-        for test_input in test_cases:
-            outputs = []
-            
-            for _ in range(executions):
-                try:
-                    output = func(test_input)
-                    outputs.append(self._serialize(output))
-                except Exception as e:
-                    outputs.append(f"EXCEPTION:{type(e).__name__}")
-            
-            # Verificar se todas as saídas são idênticas
-            is_deterministic = len(set(outputs)) == 1
-            
-            results.append({
-                'input': test_input,
-                'deterministic': is_deterministic,
-                'unique_outputs': len(set(outputs)),
-                'outputs': outputs[:3]  # Amostra
-            })
-        
-        all_deterministic = all(r['deterministic'] for r in results)
-        
-        return ValidationReport(
-            is_deterministic=all_deterministic,
-            test_cases=results
-        )
-    
-    def _serialize(self, obj: Any) -> str:
-        """Serializa objeto para comparação."""
         try:
-            return hashlib.md5(
-                str(obj).encode()
-            ).hexdigest()[:16]
-        except:
-            return str(type(obj))
+            result = self._process(input_data)
+            
+            # Valida resultado
+            if not self.validator.validate(result):
+                raise ValidationError("Resultado inválido")
+            
+            # Cacheia resultado
+            self._cache[cache_key] = result
+            return result
+            
+        except Exception as e:
+            # Fallback determinístico
+            return self.fallback.execute(input_data)
     
-    def analyze_source(self, func: Callable) -> SourceAnalysis:
-        """
-        Analisa código fonte para identificar potenciais
-        fontes de não-determinismo.
-        """
-        source = inspect.getsource(func)
-        risks = []
+    @abstractmethod
+    def _process(self, input_data: T) -> U:
+        """Implementação específica do componente."""
+        pass
+```
+
+### 2. Bounded Context para IA
+
+Aplicação do conceito de Domain-Driven Design para isolar domínios onde IA é utilizada.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│              SISTEMA COM BOUNDED CONTEXTS                       │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────────┐        ┌──────────────────┐              │
+│  │  Core Domain     │◄──────►│  IA Context      │              │
+│  │  (Determinístico)│        │  (Probabilístico)│              │
+│  │                  │        │                  │              │
+│  │  • Regras de     │        │  • Geração de    │              │
+│  │    negócio       │        │    conteúdo      │              │
+│  │  • Validações    │        │  • Análise de    │              │
+│  │  • Transações    │        │    sentimento    │              │
+│  │  • Auditoria     │        │  • Classificação │              │
+│  │                  │        │                  │              │
+│  └──────────────────┘        └──────────────────┘              │
+│           │                           │                        │
+│           └───────────┬───────────────┘                        │
+│                       │                                        │
+│                       ▼                                        │
+│              ┌──────────────────┐                              │
+│              │  Anti-Corruption │                              │
+│              │  Layer (ACL)     │                              │
+│              │                  │                              │
+│              │  • Adaptação     │                              │
+│              │  • Validação     │                              │
+│              │  • Transformação │                              │
+│              └──────────────────┘                              │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### 3. Port and Adapters (Hexagonal Architecture)
+
+Estrutura que isola o domínio de infraestrutura, incluindo serviços de IA.
+
+```python
+# Port (interface do domínio)
+class ContentGenerator(ABC):
+    @abstractmethod
+    def generate(self, prompt: str) -> GeneratedContent:
+        pass
+
+# Adapter primário (IA)
+class LLMContentGenerator(ContentGenerator):
+    def __init__(self, llm_client, validator):
+        self.client = llm_client
+        self.validator = validator
+    
+    def generate(self, prompt: str) -> GeneratedContent:
+        raw_output = self.client.complete(prompt)
         
-        # Padrões de risco
-        risk_patterns = {
-            'random': 'Uso de aleatoriedade',
-            'time': 'Uso de tempo atual',
-            'datetime.now': 'Uso de datetime.now()',
-            'input(': 'Interação com usuário',
-            'open(': 'I/O de arquivo',
-            'requests.': 'Chamada de rede',
-            'global': 'Acesso a estado global'
-        }
+        # Validação obrigatória
+        if not self.validator.is_valid(raw_output):
+            raise GenerationError("Output inválido")
         
-        for pattern, description in risk_patterns.items():
-            if pattern in source:
-                risks.append({
-                    'pattern': pattern,
-                    'description': description,
-                    'line': self._find_line(source, pattern)
-                })
-        
-        return SourceAnalysis(
-            has_risks=len(risks) > 0,
-            risks=risks
+        return GeneratedContent(
+            text=raw_output,
+            source="llm",
+            confidence=self._calculate_confidence(raw_output)
+        )
+
+# Adapter secundário (fallback determinístico)
+class TemplateContentGenerator(ContentGenerator):
+    def __init__(self, template_repository):
+        self.templates = template_repository
+    
+    def generate(self, prompt: str) -> GeneratedContent:
+        # Geração determinística baseada em templates
+        template = self.templates.find_matching(prompt)
+        return GeneratedContent(
+            text=template.fill(prompt),
+            source="template",
+            confidence=1.0
         )
 ```
 
-## 4.6 Exercícios
+## Design de Contratos
 
-1. Refatore um componente existente aplicando o padrão "Pure Core, Imperative Shell", identificando claramente as fronteiras.
+### Contratos Formais
 
-2. Implemente um sistema de tipos algébricos para modelar um domínio de logística (entregas, status, eventos).
+Definição clara de expectativas entre componentes determinísticos e probabilísticos.
 
-3. Crie um `DeterminismValidator` que analise automaticamente funções e identifique potenciais fontes de não-determinismo.
+```python
+from dataclasses import dataclass
+from typing import Optional, List
+from enum import Enum
+
+class ConfidenceLevel(Enum):
+    HIGH = 0.9
+    MEDIUM = 0.7
+    LOW = 0.5
+
+@dataclass(frozen=True)
+class ComponentContract:
+    """
+    Contrato formal entre componentes.
+    """
+    input_schema: dict
+    output_schema: dict
+    max_latency_ms: int
+    min_confidence: ConfidenceLevel
+    required_metadata: List[str]
+    
+    def validate_input(self, data) -> bool:
+        """Valida entrada contra schema."""
+        pass
+    
+    def validate_output(self, data) -> bool:
+        """Valida saída contra schema."""
+        pass
+
+# Exemplo de contrato para serviço de classificação
+classification_contract = ComponentContract(
+    input_schema={
+        "text": "string",
+        "max_length": 1000,
+        "language": ["pt", "en", "es"]
+    },
+    output_schema={
+        "category": "string",
+        "confidence": "float",
+        "alternatives": "list"
+    },
+    max_latency_ms=500,
+    min_confidence=ConfidenceLevel.MEDIUM,
+    required_metadata=["timestamp", "model_version"]
+)
+```
+
+### Agent Contracts
+
+Relari.ai propõe o conceito de "Agent Contracts" para desenvolvimento de agentes de IA com controle [2]:
+
+```python
+class AgentContract:
+    """
+    Contrato para agentes de IA baseado no conceito de Relari.ai.
+    """
+    def __init__(self):
+        self.scenarios = []
+        self.specifications = []
+    
+    def add_scenario(self, name: str, input_data, expected_output):
+        """Adiciona cenário de teste."""
+        self.scenarios.append({
+            "name": name,
+            "input": input_data,
+            "expected": expected_output
+        })
+    
+    def verify_offline(self, agent) -> VerificationReport:
+        """Verificação offline contra cenários."""
+        results = []
+        for scenario in self.scenarios:
+            actual = agent.run(scenario["input"])
+            results.append({
+                "scenario": scenario["name"],
+                "passed": self._match(actual, scenario["expected"]),
+                "actual": actual
+            })
+        return VerificationReport(results)
+```
+
+## Transações e Consistência
+
+### Saga Pattern com IA
+
+Coordenação de transações distribuídas onde alguns passos envolvem IA.
+
+```python
+class SagaStep:
+    def __init__(self, name, action, compensation):
+        self.name = name
+        self.action = action
+        self.compensation = compensation
+
+class Saga:
+    def __init__(self):
+        self.steps = []
+        self.completed = []
+    
+    def add_step(self, step: SagaStep):
+        self.steps.append(step)
+    
+    def execute(self, context):
+        for step in self.steps:
+            try:
+                result = step.action(context)
+                self.completed.append(step)
+                context[step.name] = result
+            except Exception as e:
+                # Compensação
+                self._compensate()
+                raise SagaFailed(step.name, e)
+    
+    def _compensate(self):
+        for step in reversed(self.completed):
+            step.compensation()
+```
+
+## Decisão: Determinístico vs. Gerado
+
+### Framework de Decisão
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│         QUANDO USAR DETERMINÍSTICO vs GERADO                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  USE DETERMINÍSTICO QUANDO:          USE GERADO QUANDO:        │
+│                                                                 │
+│  ✓ Regras de negócio claras          ✓ Tarefas criativas       │
+│  ✓ Compliance obrigatório            ✓ Dados não estruturados  │
+│  ✓ Performance previsível            ✓ Padrões complexos       │
+│  ✓ Custo fixo necessário             ✓ Contexto ambíguo        │
+│  ✓ Debugging frequente               ✓ Variação desejada       │
+│  ✓ Transações financeiras            ✓ Personalização          │
+│                                                                 │
+│  HÍBRIDO (DETERMINÍSTICO + IA):                                │
+│  • Validação de entrada/saída                                    │
+│  • Pré-processamento determinístico                              │
+│  • Pós-processamento e normalização                              │
+│  • Fallback para regras quando IA falha                          │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
 
 ## Practical Considerations
 
-- Formalize invariantes e limites de domínio no core; isso simplifica verificação e auditoria.
-- Minimize dependências e superfícies de integração; quanto menor a interface, menor o risco.
+### Aplicações Reais
+
+1. **Sistemas Financeiros**: Cálculos determinísticos, análise de risco com IA
+2. **Healthcare**: Diagnóstico assistido por IA, mas com validação médica obrigatória
+3. **E-commerce**: Recomendações por IA, checkout e pagamentos determinísticos
+
+### Limitações
+
+- **Overhead de Isolamento**: Camadas de adaptação adicionam complexidade
+- **Latência**: Validações e normalizações aumentam tempo de resposta
+- **Custo de Manutenção**: Contratos precisam ser atualizados com evolução do sistema
+
+### Melhores Práticas
+
+1. **Fail Fast**: Validar entradas antes de chamar componentes de IA
+2. **Timeout Aggressivo**: Definir timeouts rigorosos para chamadas de IA
+3. **Observability**: Logging completo de todas as interações
+4. **Gradual Rollout**: Introduzir IA gradualmente, começando com casos de baixo risco
 
 ## Summary
 
-- O core determinístico preserva garantias e serve como âncora de confiabilidade.
-- Contratos e validações impedem que variabilidade externa contamine decisões críticas.
+- Componentes determinísticos fornecem previsibilidade em sistemas híbridos
+- Padrões de isolação (Wrapper, Bounded Context, Ports/Adapters) protegem o núcleo
+- Contratos formais definem expectativas claras entre componentes
+- Saga pattern coordena transações envolvendo IA
+- Decisão entre determinístico e gerado deve ser guiada por requisitos de negócio
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — princípios de isolamento permanecem relevantes |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio — contratos podem ser verificados automaticamente |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Alta — designer responsável por fronteiras arquiteturais |
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+1. Evans, E. "AI Components for a Deterministic System (An Example)." Domain Language, 2025. https://www.domainlanguage.com/articles/ai-components-deterministic-system/
 
-2. LAKSHMANAN, L. Generative AI Design Patterns. GitHub Repository, 2024. Disponível em: https://github.com/lakshmanok/generative-ai-design-patterns
+2. Relari.ai. "Agent Contracts: Build powerful AI agents with control." https://agent-contracts.relari.ai/introduction
 
-3. MONGODB. Here Are 7 Design Patterns for Agentic Systems You Need To Know. MongoDB Blog, 2025. Disponível em: https://medium.com/mongodb/here-are-7-design-patterns-for-agentic-systems-you-need-to-know-d74a4b5835a5
+3. Vernon, V. "Implementing Domain-Driven Design." Addison-Wesley, 2013.
 
-4. AWS. Agentic AI patterns and workflows on AWS. AWS Prescriptive Guidance, 2025. Disponível em: https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-patterns/
+4. Cockburn, A. "Hexagonal Architecture." https://alistair.cockburn.us/hexagonal-architecture/
 
----
-
-*SWEBOK-AI v5.0 - Software Design*
+5. Richardson, C. "Microservices Patterns." Manning Publications, 2018.

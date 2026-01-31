@@ -1,6 +1,6 @@
 ---
 title: Checklists de Verificação - Princípio 4 (Verificação é o Novo Gargalo)
-date: 2025-01-30
+date: 2025-01-30T00:00:00.000Z
 tags:
   - swebok-ai
   - verificacao
@@ -8,6 +8,9 @@ tags:
   - principio-4
   - qualidade
 status: draft
+created_at: '2026-01-31'
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # Checklists de Verificação
@@ -20,14 +23,14 @@ status: draft
 
 ## 📋 Índice de Checklists
 
-1. [Checklist de Verificação Sintática](#1-checklist-de-verificação-sintática)
-2. [Checklist de Verificação Semântica](#2-checklist-de-verificação-semântica)
-3. [Checklist de Verificação Comportamental](#3-checklist-de-verificação-comportamental)
-4. [Checklist de Verificação Probabilística](#4-checklist-de-verificação-probabilística)
-5. [Checklist de Verificação Formal](#5-checklist-de-verificação-formal)
-6. [Checklist de Verificação Humana](#6-checklist-de-verificação-humana)
-7. [Checklist de Governança e Accountability](#7-checklist-de-governança-e-accountability)
-8. [Checklist Consolidado de Pré-Deploy](#8-checklist-consolidado-de-pré-deploy)
+1. [Checklist de Verificação Sintática](#1-checklist-de-verificacao-sintatica)
+2. [Checklist de Verificação Semântica](#2-checklist-de-verificacao-semantica)
+3. [Checklist de Verificação Comportamental](#3-checklist-de-verificacao-comportamental)
+4. [Checklist de Verificação Probabilística](#4-checklist-de-verificacao-probabilistica)
+5. [Checklist de Verificação Formal](#5-checklist-de-verificacao-formal)
+6. [Checklist de Verificação Humana](#6-checklist-de-verificacao-humana)
+7. [Checklist de Governança e Accountability](#7-checklist-de-governanca-e-accountability)
+8. [Checklist Consolidado de Pré-Deploy](#8-checklist-consolidado-de-pre-deploy)
 
 ---
 

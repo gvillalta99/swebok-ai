@@ -1,505 +1,388 @@
 ---
-title: "Seção 7: Refatoração e Modernização Assistida"
-created_at: 2025-01-31
-tags: ["design", "software-design", "ia"]
-status: "published"
-updated_at: 2026-01-31
-ai_model: "openai/gpt-5.2"
+title: "07. Refatoração e Modernização Assistida"
+created_at: "2025-01-31"
+tags: ["software-design", "refatoracao", "modernizacao", "codigo-legado", "ia"]
+status: "draft"
+updated_at: "2025-01-31"
+ai_model: "kimi-k2.5"
 ---
 
-# Seção 7: Refatoração e Modernização Assistida
+# 07. Refatoração e Modernização Assistida
 
 ## Overview
 
-Esta seção discute como usar IA de forma governada em refatoração e modernização: reduzir risco de mudanças amplas, preservar comportamento e produzir evidência de equivalência.
+A modernização de sistemas legados é um dos casos de uso mais promissores para IA generativa. Diferentemente da geração de código novo, a modernização exige compreensão profunda de código existente — muitas vezes mal documentado e acumulando décadas de débito técnico. Esta seção aborda como utilizar IA de forma efetiva e segura em projetos de refatoração e modernização.
+
+Segundo Ferri e Coggrave da Thoughtworks (2024), há tanto ou mais valor em usar IA para entender código existente — particularmente sistemas legados longevos, grandes e complexos — quanto para gerar código novo [1].
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
-1. Planejar refatorações assistidas com critérios de segurança e reversibilidade
-2. Definir estratégias de verificação para mudanças geradas (testes, invariantes, métricas)
-3. Identificar armadilhas típicas (mudanças semânticas silenciosas, regressões)
 
-## 7.1 Introdução
+1. Avaliar oportunidades e riscos de modernização assistida por IA
+2. Projetar estratégias de refatoração incremental com apoio de IA
+3. Implementar verificação rigorosa de mudanças geradas automaticamente
+4. Gerenciar débito técnico em sistemas modernizados
 
-A refatoração tradicional era um processo manual de melhoria de código existente sem alterar comportamento externo. Na era dos LLMs, a refatoração torna-se um processo colaborativo onde ferramentas de IA sugerem transformações, e engenheiros aplicam julgamento crítico para selecionar, adaptar e validar mudanças.
+## O Desafio da Modernização
 
-A **Refatoração Assistida por IA** representa uma mudança de paradigma: de transformações manuais cuidadosas para curadoria de transformações automáticas, mantendo a garantia de preservação de comportamento.
+### O Problema dos Sistemas Legados
 
-## 7.2 Tipos de Refatoração Assistida
+Segundo McKinsey (2024), até 70% do software usado por empresas Fortune 500 foi desenvolvido há 20 anos ou mais [2]. O ACT-IAC (2024) relata que 80% do orçamento de TI federal é alocado para operações e manutenção de sistemas existentes [3].
 
-### 7.2.1 Taxonomia de Transformações
+**Características de sistemas legados problemáticos**:
+
+| Aspecto | Problema | Impacto |
+|---------|----------|---------|
+| **Código** | Linguagens obsoletas (COBOL, Fortran) | Escassez de expertise |
+| **Documentação** | Inexistente ou desatualizada | Dificuldade de compreensão |
+| **Arquitetura** | Acoplamento excessivo | Mudanças arriscadas |
+| **Testes** | Ausentes ou inadequados | Regressões frequentes |
+| **Dependências** | Bibliotecas não suportadas | Vulnerabilidades de segurança |
+
+### Oportunidades com IA
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│              TIPOS DE REFATORAÇÃO ASSISTIDA POR IA              │
+│           OPORTUNIDADES DE IA NA MODERNIZAÇÃO                   │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Refatorações Automáticas (Alta Confiança)                      │
-│  ├── Renomeação de variáveis                                   │
-│  ├── Extração de métodos (casos simples)                       │
-│  ├── Formatação e estilo                                       │
-│  ├── Organização de imports                                    │
-│  └── Adição de type hints                                      │
-│  └── Nível de revisão: Mínimo ou nenhum                        │
+│  1. COMPREENSÃO AUTOMATIZADA                                    │
+│     • Análise de código para extrair regras de negócio          │
+│     • Geração de documentação a partir de código                │
+│     • Identificação de dependências e acoplamentos              │
 │                                                                 │
-│  Refatorações Supervisionas (Média Confiança)                   │
-│  ├── Extração de classes                                       │
-│  ├── Movimentação de métodos                                   │
-│  ├── Introdução de padrões de design                           │
-│  ├── Simplificação de expressões complexas                     │
-│  └── Nível de revisão: Verificação de comportamento            │
+│  2. TRADUÇÃO DE LINGUAGENS                                      │
+│     • COBOL → Java/Python                                       │
+│     • VB6 → C#                                                  │
+│     • Perl → Python                                             │
 │                                                                 │
-│  Refatorações Assistidas (Requer Orientação)                    │
-│  ├── Mudanças arquiteturais                                    │
-│  ├── Migração entre frameworks                                 │
-│  ├── Modernização de APIs deprecadas                           │
-│  ├── Extração de serviços                                      │
-│  └── Nível de revisão: Testes completos + revisão de pares     │
+│  3. REFATORAÇÃO ESTRUTURAL                                      │
+│     • Extração de microserviços                                 │
+│     • Desacoplamento de módulos                                 │
+│     • Modernização de padrões de design                         │
 │                                                                 │
-│  Refatorações Proibidas (Não Automatizáveis)                    │
-│  ├── Mudanças em lógica de negócio                             │
-│  ├── Alterações em algoritmos críticos                         │
-│  ├── Mudanças em comportamento de segurança                    │
-│  └── Nível de revisão: Apenas manual                           │
+│  4. GERAÇÃO DE TESTES                                           │
+│     • Testes de regressão a partir de comportamento observado   │
+│     • Testes de contrato para APIs                              │
+│     • Testes de snapshot para saídas                            │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-## 7.3 Padrões de Refatoração Assistida
+## Estratégias de Modernização
 
-### 7.3.1 Padrão: Transformação com Oráculo
+### 1. Modernização Evolutiva (Strangler Fig)
+
+Substituir gradualmente funcionalidades do sistema legado.
+
+```
+Fase 1: Identificação
+┌─────────────────────────────────────────────────────┐
+│  Sistema Legado Monolítico                          │
+│  ┌─────────┬─────────┬─────────┬─────────┐         │
+│  │ Módulo A│ Módulo B│ Módulo C│ Módulo D│         │
+│  └─────────┴─────────┴─────────┴─────────┘         │
+│         ▲                                            │
+│         └── Priorizar: baixo acoplamento,           │
+│             alto valor de negócio                    │
+└─────────────────────────────────────────────────────┘
+
+Fase 2: Extração Incremental
+┌─────────────────────────────────────────────────────┐
+│  ┌─────────────────────────────────────────────┐   │
+│  │         API Gateway (novo)                   │   │
+│  └─────────────────────────────────────────────┘   │
+│           │                    │                    │
+│           ▼                    ▼                    │
+│  ┌──────────────┐    ┌──────────────────────┐      │
+│  │ Módulo B'    │    │ Sistema Legado       │      │
+│  │ (microserviço│    │ (demais módulos)     │      │
+│  │  modernizado)│    │                      │      │
+│  └──────────────┘    └──────────────────────┘      │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+
+Fase 3: Completa
+┌─────────────────────────────────────────────────────┐
+│  ┌─────────────────────────────────────────────┐   │
+│  │         API Gateway                          │   │
+│  └─────────────────────────────────────────────┘   │
+│     │        │        │        │                    │
+│     ▼        ▼        ▼        ▼                    │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐              │
+│  │ Mod A│ │ Mod B│ │ Mod C│ │ Mod D│              │
+│  │ (novo)│ │ (novo)│ │ (novo)│ │ (novo)│              │
+│  └──────┘ └──────┘ └──────┘ └──────┘              │
+│  Microserviços modernos                            │
+└─────────────────────────────────────────────────────┘
+```
+
+### 2. Refatoração Assistida por IA
+
+Processo controlado de refatoração com verificação humana.
 
 ```python
-from typing import Callable, List, Tuple
-from dataclasses import dataclass
-
-@dataclass
-class RefactoringProposal:
+class AssistedRefactoring:
     """
-    Proposta de refatoração com metadados para avaliação.
-    """
-    description: str
-    original_code: str
-    refactored_code: str
-    confidence: float
-    test_preservation: bool
-    complexity_delta: int
-    
-class OracleBasedRefactoring:
-    """
-    Refatoração que usa oráculo para garantir equivalência.
+    Workflow de refatoração assistida por IA.
     """
     
-    def __init__(self, oracle: Callable):
-        self.oracle = oracle
-        self.test_cases = []
+    def __init__(self, codebase, ai_assistant, validator):
+        self.codebase = codebase
+        self.ai = ai_assistant
+        self.validator = validator
     
-    def add_test_case(self, input_data, expected_output):
-        """Adiciona caso de teste para validação."""
-        self.test_cases.append((input_data, expected_output))
-    
-    def validate_proposal(self, proposal: RefactoringProposal) -> ValidationResult:
+    def refactor_module(self, module_path, refactoring_goal):
         """
-        Valida proposta usando oráculo.
+        Executa refatoração com múltiplas camadas de verificação.
         """
-        # Compilar código original e refatorado
-        original_func = self._compile(proposal.original_code)
-        refactored_func = self._compile(proposal.refactored_code)
+        # 1. Análise do código existente
+        original_code = self.codebase.read(module_path)
+        analysis = self.ai.analyze(original_code)
         
-        # Testar com casos de teste
-        for input_data, expected in self.test_cases:
-            original_result = original_func(input_data)
-            refactored_result = refactored_func(input_data)
+        # 2. Geração de proposta
+        proposal = self.ai.generate_refactoring(
+            original_code,
+            analysis,
+            refactoring_goal
+        )
+        
+        # 3. Verificação automatizada
+        if not self._automated_checks(original_code, proposal):
+            return RefactoringResult.FAILED_AUTOMATED_CHECKS
+        
+        # 4. Revisão humana obrigatória
+        review = self._human_review(proposal)
+        if not review.approved:
+            return RefactoringResult.REJECTED_BY_REVIEWER
+        
+        # 5. Aplicação em ambiente de teste
+        test_result = self._apply_and_test(proposal)
+        if not test_result.success:
+            return RefactoringResult.FAILED_TESTS
+        
+        # 6. Aplicação definitiva
+        self.codebase.apply(proposal)
+        return RefactoringResult.SUCCESS
+    
+    def _automated_checks(self, original, proposal):
+        """Verificações automatizadas antes de revisão humana."""
+        checks = [
+            # Sintaxe válida
+            self.validator.check_syntax(proposal),
+            # Semântica preservada
+            self.validator.check_semantics(original, proposal),
+            # Métricas de qualidade
+            self.validator.check_quality_metrics(proposal),
+            # Segurança
+            self.validator.check_security(proposal)
+        ]
+        return all(checks)
+```
+
+### 3. Extração de Conhecimento
+
+Utilizar IA para extrair e documentar conhecimento tácito do código.
+
+```python
+class KnowledgeExtraction:
+    """
+    Extração de conhecimento de código legado.
+    """
+    
+    def extract_business_rules(self, source_code):
+        """Extrai regras de negócio do código."""
+        prompt = f"""
+        Analise o seguinte código legado e extraia as regras de negócio:
+        
+        ```
+        {source_code}
+        ```
+        
+        Forneça:
+        1. Lista de regras de negócio identificadas
+        2. Condições e exceções
+        3. Dependências entre regras
+        4. Possíveis inconsistências ou bugs
+        """
+        
+        return self.ai.analyze(prompt)
+    
+    def generate_documentation(self, module_path):
+        """Gera documentação a partir do código."""
+        code = self.codebase.read(module_path)
+        
+        documentation = {
+            "overview": self.ai.generate_summary(code),
+            "api_reference": self.ai.extract_api(code),
+            "data_flow": self.ai.trace_data_flow(code),
+            "dependencies": self.ai.map_dependencies(code),
+            "test_cases": self.ai.infer_test_cases(code)
+        }
+        
+        return documentation
+```
+
+## Verificação em Modernização
+
+### Testes de Paridade
+
+Garantir que novo comportamento equivale ao antigo.
+
+```python
+class ParityTesting:
+    """
+    Testes que garantem equivalência entre implementações.
+    """
+    
+    def __init__(self, legacy_system, modernized_system):
+        self.legacy = legacy_system
+        self.modern = modernized_system
+    
+    def test_parity(self, test_cases, tolerance=0):
+        """
+        Compara saídas dos sistemas para mesmas entradas.
+        """
+        results = []
+        
+        for case in test_cases:
+            legacy_output = self.legacy.process(case.input)
+            modern_output = self.modern.process(case.input)
             
-            # Verificar se resultados são equivalentes
-            if not self._equivalent(original_result, refactored_result):
-                return ValidationResult(
-                    valid=False,
-                    reason=f"Divergência para input {input_data}: "
-                          f"original={original_result}, "
-                          f"refactored={refactored_result}"
+            if tolerance == 0:
+                match = (legacy_output == modern_output)
+            else:
+                match = self._approximate_match(
+                    legacy_output, 
+                    modern_output, 
+                    tolerance
                 )
             
-            # Verificar se comportamento é preservado
-            if not self.oracle(input_data, refactored_result):
-                return ValidationResult(
-                    valid=False,
-                    reason=f"Oráculo rejeitou resultado para input {input_data}"
-                )
+            results.append({
+                "input": case.input,
+                "legacy_output": legacy_output,
+                "modern_output": modern_output,
+                "match": match
+            })
         
-        return ValidationResult(valid=True)
-    
-    def _equivalent(self, result1, result2) -> bool:
-        """Verifica equivalência semântica de resultados."""
-        return result1 == result2
-    
-    def _compile(self, code: str) -> Callable:
-        """Compila código para função executável."""
-        namespace = {}
-        exec(code, namespace)
-        return namespace.get('target_function')
-
-# Exemplo: Extração de método
-class ExtractMethodRefactoring(OracleBasedRefactoring):
-    """
-    Refatoração de extração de método com validação.
-    """
-    
-    def propose(self, code: str, start_line: int, end_line: int) -> List[RefactoringProposal]:
-        """
-        Gera propostas de extração de método.
-        """
-        # Extrair código alvo
-        target_code = self._extract_lines(code, start_line, end_line)
-        
-        # Gerar múltiplas propostas (diferentes estratégias)
-        proposals = []
-        
-        # Proposta 1: Extração simples
-        proposal1 = self._generate_simple_extraction(code, target_code)
-        proposals.append(proposal1)
-        
-        # Proposta 2: Extração com parametrização
-        proposal2 = self._generate_parameterized_extraction(code, target_code)
-        proposals.append(proposal2)
-        
-        # Validar cada proposta
-        valid_proposals = [
-            p for p in proposals 
-            if self.validate_proposal(p).valid
-        ]
-        
-        return valid_proposals
+        return ParityReport(results)
 ```
 
-### 7.3.2 Padrão: Modernização Gradual
+### Shadow Deployment
 
-```python
-from enum import Enum, auto
-from typing import List, Dict
-from dataclasses import dataclass
+Executar novo sistema em paralelo sem afetar produção.
 
-class MigrationStep(Enum):
-    ANALYSIS = auto()
-    PREPARATION = auto()
-    TRANSFORMATION = auto()
-    VALIDATION = auto()
-    ROLLBACK_PLAN = auto()
-
-@dataclass
-class MigrationPhase:
-    step: MigrationStep
-    description: str
-    automated: bool
-    validation_required: bool
-    rollback_point: bool
-
-class GradualModernization:
-    """
-    Modernização de código legado em fases controladas.
-    """
-    
-    def __init__(self, codebase_path: str):
-        self.codebase = codebase_path
-        self.phases: List[MigrationPhase] = []
-        self.current_phase = 0
-    
-    def plan_migration(self, 
-                      from_pattern: str,
-                      to_pattern: str) -> List[MigrationPhase]:
-        """
-        Planeja migração em fases.
-        """
-        return [
-            MigrationPhase(
-                step=MigrationStep.ANALYSIS,
-                description="Analisar uso atual do padrão",
-                automated=True,
-                validation_required=True,
-                rollback_point=False
-            ),
-            MigrationPhase(
-                step=MigrationStep.PREPARATION,
-                description="Adicionar abstrações de compatibilidade",
-                automated=False,
-                validation_required=True,
-                rollback_point=True
-            ),
-            MigrationPhase(
-                step=MigrationStep.TRANSFORMATION,
-                description="Aplicar transformações",
-                automated=True,
-                validation_required=True,
-                rollback_point=True
-            ),
-            MigrationPhase(
-                step=MigrationStep.VALIDATION,
-                description="Validar equivalência comportamental",
-                automated=False,
-                validation_required=True,
-                rollback_point=False
-            )
-        ]
-    
-    def execute_phase(self, phase: MigrationPhase) -> PhaseResult:
-        """
-        Executa fase específica da migração.
-        """
-        if phase.step == MigrationStep.ANALYSIS:
-            return self._analyze_current_usage()
-        elif phase.step == MigrationStep.PREPARATION:
-            return self._prepare_abstractions()
-        elif phase.step == MigrationStep.TRANSFORMATION:
-            return self._apply_transformations()
-        elif phase.step == MigrationStep.VALIDATION:
-            return self._validate_migration()
-        
-        return PhaseResult.success()
-    
-    def _analyze_current_usage(self) -> PhaseResult:
-        """Analisa uso atual do padrão no código."""
-        findings = []
-        
-        for file in self._find_source_files():
-            matches = self._find_pattern_usage(file)
-            findings.extend(matches)
-        
-        return PhaseResult(
-            success=True,
-            findings=findings,
-            summary=f"Encontrados {len(findings)} usos do padrão"
-        )
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    SHADOW DEPLOYMENT                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   Requisição                                                    │
+│       │                                                         │
+│       ▼                                                         │
+│  ┌──────────────┐                                              │
+│  │   Load       │                                              │
+│  │   Balancer   │                                              │
+│  └──────────────┘                                              │
+│       │                                                         │
+│       ├────────────────┬────────────────┐                      │
+│       ▼                ▼                ▼                      │
+│  ┌──────────┐    ┌──────────┐    ┌──────────┐                 │
+│  │ Sistema  │    │ Sistema  │    │ Sistema  │                 │
+│  │ Legado   │    │ Legado   │    │ Novo     │                 │
+│  │ (Prod)   │    │ (Prod)   │    │ (Shadow) │                 │
+│  └──────────┘    └──────────┘    └──────────┘                 │
+│       │                │                │                      │
+│       ▼                ▼                ▼                      │
+│  ┌──────────────────────────────────────────┐                 │
+│  │        Comparação de Resultados          │                 │
+│  │  (logging apenas, não afeta resposta)    │                 │
+│  └──────────────────────────────────────────┘                 │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
-## 7.4 Estratégias de Preservação de Comportamento
+## Riscos e Mitigações
 
-### 7.4.1 Testes de Regressão como Segurança
+### Riscos da Modernização com IA
 
-```python
-from typing import Set
-import ast
+| Risco | Descrição | Mitigação |
+|-------|-----------|-----------|
+| **Perda de Conhecimento** | IA não captura nuances de negócio | Extração humana + validação de domínio |
+| **Introdução de Bugs** | Código gerado pode ter bugs | Testes de paridade rigorosos |
+| **Degradação de Performance** | Novo código pode ser mais lento | Benchmarks comparativos |
+| **Vulnerabilidades** | Código modernizado pode ter falhas de segurança | SAST/DAST obrigatório |
+| **Over-engineering** | IA pode gerar soluções excessivamente complexas | Revisão de arquitetura |
 
-class BehaviorPreservationChecker:
-    """
-    Verifica se refatoração preserva comportamento
-    através de análise estática e testes.
-    """
-    
-    def __init__(self, original_code: str):
-        self.original = original_code
-        self.original_ast = ast.parse(original_code)
-        self.public_interface = self._extract_public_interface()
-    
-    def _extract_public_interface(self) -> Set[str]:
-        """Extrai interface pública do código."""
-        interface = set()
-        
-        for node in ast.walk(self.original_ast):
-            if isinstance(node, ast.FunctionDef):
-                if not node.name.startswith('_'):
-                    interface.add(self._function_signature(node))
-            elif isinstance(node, ast.ClassDef):
-                interface.add(f"class {node.name}")
-                for item in node.body:
-                    if isinstance(item, ast.FunctionDef):
-                        if not item.name.startswith('_'):
-                            interface.add(
-                                f"{node.name}.{self._function_signature(item)}"
-                            )
-        
-        return interface
-    
-    def check_refactored(self, refactored_code: str) -> PreservationReport:
-        """
-        Verifica se código refatorado preserva comportamento.
-        """
-        refactored_ast = ast.parse(refactored_code)
-        refactored_interface = self._extract_interface_from_ast(refactored_ast)
-        
-        # Verificar compatibilidade de interface
-        interface_changes = self._compare_interfaces(
-            self.public_interface,
-            refactored_interface
-        )
-        
-        # Verificar side effects
-        side_effect_analysis = self._analyze_side_effects(refactored_ast)
-        
-        # Verificar complexidade
-        complexity_delta = self._compare_complexity(
-            self.original_ast,
-            refactored_ast
-        )
-        
-        return PreservationReport(
-            interface_compatible=interface_changes.is_compatible,
-            interface_changes=interface_changes.changes,
-            side_effects_added=side_effect_analysis.new_side_effects,
-            complexity_delta=complexity_delta,
-            safe_to_apply=(
-                interface_changes.is_compatible and
-                not side_effect_analysis.new_side_effects and
-                complexity_delta <= 0
-            )
-        )
+### Checklist de Modernização
+
+```markdown
+## Antes de Iniciar
+- [ ] Inventário completo do sistema legado
+- [ ] Definição de critérios de sucesso
+- [ ] Estratégia de rollback definida
+- [ ] Testes de regressão existentes identificados
+
+## Durante a Modernização
+- [ ] Cada mudança revisada por humano
+- [ ] Testes de paridade executados
+- [ ] Documentação atualizada
+- [ ] Métricas de performance comparadas
+
+## Antes de Produção
+- [ ] Shadow deployment executado
+- [ ] Vulnerabilidades de segurança verificadas
+- [ ] Planos de monitoramento definidos
+- [ ] Treinamento de equipe de suporte
 ```
-
-### 7.4.2 Feature Flags para Refatoração
-
-```python
-from typing import Dict, Callable
-from enum import Enum
-
-class RefactoringToggle:
-    """
-    Sistema de feature flags para refatorações.
-    Permite ativação gradual e rollback imediato.
-    """
-    
-    def __init__(self, name: str):
-        self.name = name
-        self.strategies: Dict[str, Callable] = {}
-        self.active_strategy = 'legacy'
-        self.rollout_percentage = 0
-    
-    def register_strategy(self, name: str, implementation: Callable):
-        """Registra estratégia de implementação."""
-        self.strategies[name] = implementation
-    
-    def execute(self, *args, **kwargs):
-        """
-        Executa com estratégia selecionada.
-        """
-        # Decidir qual estratégia usar
-        strategy_name = self._select_strategy()
-        
-        # Executar
-        return self.strategies[strategy_name](*args, **kwargs)
-    
-    def _select_strategy(self) -> str:
-        """Seleciona estratégia baseado em configuração."""
-        import random
-        
-        if self.active_strategy == 'legacy':
-            return 'legacy'
-        
-        if self.active_strategy == 'new':
-            if random.random() * 100 < self.rollout_percentage:
-                return 'new'
-            return 'legacy'
-        
-        return 'legacy'
-    
-    def enable_gradual_rollout(self, percentage: int):
-        """Ativa rollout gradual."""
-        self.active_strategy = 'new'
-        self.rollout_percentage = percentage
-    
-    def rollback(self):
-        """Desativa imediatamente."""
-        self.active_strategy = 'legacy'
-        self.rollout_percentage = 0
-
-# Uso
-class OrderService:
-    def __init__(self):
-        self.calculate_total_toggle = RefactoringToggle("calculate_total")
-        
-        # Registrar estratégias
-        self.calculate_total_toggle.register_strategy(
-            'legacy', 
-            self._calculate_total_legacy
-        )
-        self.calculate_total_toggle.register_strategy(
-            'new',
-            self._calculate_total_refactored
-        )
-    
-    def calculate_total(self, order):
-        return self.calculate_total_toggle.execute(order)
-```
-
-## 7.5 Ferramentas e Integração
-
-### 7.5.1 Pipeline de Refatoração Assistida
-
-```yaml
-# .github/workflows/refactoring-assistant.yml
-name: Refactoring Assistant
-
-on:
-  workflow_dispatch:
-    inputs:
-      refactoring_type:
-        description: 'Tipo de refatoração'
-        required: true
-        default: 'extract_method'
-      target_files:
-        description: 'Arquivos alvo'
-        required: true
-
-jobs:
-  analyze-and-propose:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Analyze Code
-        run: |
-          python scripts/analyze_for_refactoring.py \
-            --type ${{ github.event.inputs.refactoring_type }} \
-            --files ${{ github.event.inputs.target_files }} \
-            --output analysis.json
-      
-      - name: Generate Proposals
-        run: |
-          python scripts/generate_refactorings.py \
-            --analysis analysis.json \
-            --output proposals/
-      
-      - name: Validate Proposals
-        run: |
-          python scripts/validate_refactorings.py \
-            --proposals proposals/ \
-            --test-suite tests/ \
-            --output validated/
-      
-      - name: Create PR
-        run: |
-          gh pr create \
-            --title "[ASSISTED] Refactoring proposals" \
-            --body "Generated refactoring proposals with validation"
-```
-
-## 7.6 Exercícios
-
-1. Implemente um `BehaviorPreservationChecker` que analise ASTs para detectar mudanças na interface pública.
-
-2. Crie um sistema de `RefactoringToggle` para uma refatoração de extração de classe em um sistema legado.
-
-3. Projete um pipeline de refatoração assistida para migração de callbacks para async/await.
 
 ## Practical Considerations
 
-- Refatore em fatias pequenas e verificáveis; evite “big bang” gerado.
-- Exija evidência de equivalência (testes, contratos, métricas) antes de integrar.
+### Aplicações Reais
+
+1. **Bancos**: Modernização de mainframes COBOL para Java
+2. **Governo**: Migração de sistemas Fortran para Python
+3. **Enterprise**: Decomposição de monolitos em microserviços
+
+### Limitações
+
+- **Complexidade de Negócio**: IA pode não compreender regras de negócio complexas
+- **Contexto Histórico**: Decisões de design históricas podem ser perdidas
+- **Integrações**: Sistemas legados frequentemente têm integrações não documentadas
+
+### Melhores Práticas
+
+1. **Comece Pequeno**: Modernize módulos de baixo risco primeiro
+2. **Preserve Comportamento**: Foco em equivalência funcional, não em redesign
+3. **Documente Decisões**: Registre por que certas escolhas foram feitas
+4. **Involva Domain Experts**: Especialistas de negócio devem validar mudanças
+5. **Planeje Rollback**: Sempre tenha caminho de volta
 
 ## Summary
 
-- A IA acelera mudanças, mas o gargalo é verificação e preservação de comportamento.
-- Reversibilidade e evidência são critérios de segurança para modernização.
+- Modernização assistida por IA é promissora mas requer cautela
+- Estratégia Strangler Fig permite modernização gradual
+- Verificação rigorosa é essencial — testes de paridade, shadow deployment
+- Extração de conhecimento preserva expertise tácita
+- Riscos significativos exigem processos controlados e revisão humana
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — modernização de legados continuará por décadas |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto — verificação de paridade é trabalhosa |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — modernização mal executada pode parar negócio |
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+1. Ferri, A.; Coggrave, T. "Legacy Modernization meets GenAI." Martin Fowler Blog, Thoughtworks, 2024. https://martinfowler.com/articles/legacy-modernization-gen-ai.html
 
-2. PANDEY, R. et al. Transforming Software Development: Evaluating the Efficiency and Challenges of GitHub Copilot in Real-World Projects. arXiv:2406.17910, 2024.
+2. McKinsey & Company. "The legacy imperative: Modernizing IT to transform business." McKinsey Digital, 2024.
 
-3. GITHUB. Research: Quantifying GitHub Copilot's impact in the enterprise with Accenture. GitHub Blog, 2024. Disponível em: https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture
+3. ACT-IAC. "Leveraging AI to Modernize Legacy Code in Federal Civilian Agencies." Report to Emerging Technology Community of Interest, 2024. https://www.actiac.org/system/files/2025-01/Final%20Deliverable_ACT%20IAC%20ET%20MAI_Legacy%20Code%20Modernization.pdf
 
-4. McKINSEY & COMPANY. How generative AI could accelerate software product time to market. McKinsey Technology, Media and Telecommunications, 2024. Disponível em: https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/how-generative-ai-could-accelerate-software-product-time-to-market
+4. Bruneaux, T. "AI code refactoring: Strategic approaches to enterprise software modernization in 2025." DX Blog, 2025. https://getdx.com/blog/enterprise-ai-refactoring-best-practices
 
----
-
-*SWEBOK-AI v5.0 - Software Design*
+5. Fowler, M. "Strangler Fig Application." Martin Fowler Blog, 2004. https://martinfowler.com/bliki/StranglerFigApplication.html

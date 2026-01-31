@@ -1,3 +1,12 @@
+---
+title: Welcome to Gas Town
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 # Welcome to Gas Town
 
 [

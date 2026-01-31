@@ -1,3 +1,12 @@
+---
+title: Gargalo
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 O gargalo da engenharia de software não é mais escrever código.
 
 O humano é necessário para gerar ideias do que precisa ser feito (o que) e determinar os limites (como).

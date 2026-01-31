@@ -1,3 +1,12 @@
+---
+title: Software Survival 3.0 | Readwise
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 # Software Survival 3.0 | Readwise
 
 I spent a lot of time writing software with AI last year, and I had some pretty good successes, notably [Beads](https://github.com/steveyegge/beads) and [Gas Town](https://github.com/steveyegge/gastown). I wrote a whole bunch of other systems, some still in progress. And I got a solid intuition, a feel for how AI’s exponential progression is, well, progressing.

@@ -37,6 +37,7 @@ const VALID_AI_MODELS = [
   "gpt-4",
   "gpt-4-turbo",
   "gpt-4o",
+  "openai/gpt-5.2",
   "claude-3.5-sonnet",
   "claude-3-opus",
   "claude-3.5-haiku",

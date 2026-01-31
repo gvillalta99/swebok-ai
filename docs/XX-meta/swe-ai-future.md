@@ -1,3 +1,12 @@
+---
+title: Swe Ai Future
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 Quero que você seja muito crítico. Faça uma reflexão ampla. Considere o ritmo de evolução atual dos llms. Como isso irá afetar o mercado de trabalho para engenheiros de softwares?
 
 ---

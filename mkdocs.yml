@@ -12,7 +12,7 @@ use_directory_urls: true
 
 exclude_docs: |
   /assets/*.pdf
-  /XX-*/
+  /XX-pesquisa/*
   **/PLAN.md
   **/README.md
 
@@ -44,25 +44,25 @@ nav:
   - Visao Geral: XX-meta/swebok-ai.md
   - Ideais: XX-ideais/gargalo.md
   - Introducao: 00-introduction/01-contexto-revolucao-llms.md
-  - KA 01 - Requirements: 01-software-requirements/01-fundamentos-engenharia-restricoes.md
+  - KA 01 - Requirements: 01-software-requirements/01-fundamentos-da-engenharia-de-restricoes.md
   - KA 02 - Architecture: 02-software-architecture/01-fundamentos-arquitetura-hibrida.md
   - KA 03 - Design: 03-software-design/01-fundamentos-design-era-llms.md
-  - KA 04 - Construction: 04-software-construction/01-fundamentos-orquestracao-curatoria.md
-  - KA 05 - Testing: 05-software-testing/01-fundamentos-verificacao-sistemas-ia.md
-  - KA 06 - Operations: 06-software-engineering-operations/01-fundamentos-operations-ia.md
-  - KA 07 - Maintenance: 07-software-maintenance/01-fundamentos-manutencao-opacos.md
-  - KA 08 - Config Mgmt: 08-software-configuration-management/01-fundamentos-scm-ia.md
-  - KA 09 - Management: 09-software-engineering-management/01-gestao-projetos-ia.md
-  - KA 10 - Process: 10-software-engineering-process/01-processos-engenharia-ia.md
-  - KA 11 - Models & Methods: 11-software-engineering-models-and-methods/01-modelos-desenvolvimento-ia.md
-  - KA 12 - Quality: 12-software-quality/01-qualidade-sistemas-ia.md
-  - KA 13 - Security: 13-software-security/01-seguranca-codigo-ia.md
-  - KA 14 - Professional Practice: 14-software-engineering-professional-practice/01-pratica-profissional-ia.md
-  - KA 15 - Economics: 15-software-engineering-economics/01-economia-software-ia.md
-  - KA 16 - Computing Foundations: 16-computing-foundations/01-sistemas-cognitivos-artificiais.md
-  - KA 17 - Mathematical Foundations: 17-mathematical-foundations/01-fundamentos-matematicos-ia.md
-  - KA 18 - Engineering Foundations: 18-engineering-foundations/01-fundamentos-engenharia-ia.md
-  - KA 19 - Appendix: 19-appendix/01-recursos-complementares.md
+  - KA 04 - Construction: 04-software-construction/01-fundamentos-orquestracao-curadoria.md
+  - KA 05 - Testing: 05-software-testing/01-fundamentos-verificacao-ia.md
+  - KA 06 - Operations: 06-software-engineering-operations/01-fundamentos-operacoes-sistemas-ia.md
+  - KA 07 - Maintenance: 07-software-maintenance/01-fundamentos-de-manutencao-de-sistemas-opacos.md
+  - KA 08 - Config Mgmt: 08-software-configuration-management/01-fundamentos-gestao-configuracao-ia.md
+  - KA 09 - Management: 09-software-engineering-management/01-equipes-hibridas.md
+  - KA 10 - Process: 10-software-engineering-process/01-fundamentos-de-processos-de-engenharia-com-ia.md
+  - KA 11 - Models & Methods: 11-software-engineering-models-and-methods/01-fundamentos-modelos-executaveis-generativos.md
+  - KA 12 - Quality: 12-software-quality/01-fundamentos-qualidade-sistemas-hibridos.md
+  - KA 13 - Security: 13-software-security/01-fundamentos-seguranca-sistemas-hibridos.md
+  - KA 14 - Professional Practice: 14-software-engineering-professional-practice/01-fundamentos-julgamento-tecnico.md
+  - KA 15 - Economics: 15-software-engineering-economics/01-fundamentos-da-nova-economia-do-software.md
+  - KA 16 - Computing Foundations: 16-computing-foundations/01-fundamentos-de-llms.md
+  - KA 17 - Mathematical Foundations: 17-mathematical-foundations/01-logica-formal-e-raciocinio-automatizado.md
+  - KA 18 - Engineering Foundations: 18-engineering-foundations/01-processo-engenharia-era-ia.md
+  - KA 19 - Appendix: 19-appendix/01-especificacoes-de-descricao-de-kas.md
   - Ensaios:
       - Futuro da Profissao: XX-meta/swe-ai-future.md
       - Artefatos 2026: XX-meta/swe-ai-artifacts.md

@@ -1,3 +1,12 @@
+---
+title: "Orquestração e Curadoria de Código"
+created_at: "2025-01-31"
+tags: ["software-construction", "orquestracao", "curadoria", "overview", "capitulo-04"]
+status: "draft"
+updated_at: "2025-01-31"
+ai_model: "kimi-k2.5"
+---
+
 # Capítulo 4: Orquestração e Curadoria de Código
 
 > **SWEBOK-AI v5.0 — Software Engineering Body of Knowledge for the AI Era**
@@ -49,13 +58,13 @@ A nova construção de software abandona a premissa de que codificação manual 
 04-software-construction/
 ├── README.md                                  # Este arquivo — visão geral
 ├── PLAN.md                                    # Plano detalhado com 21 referências
-├── 01-fundamentos-orquestracao-curatoria.md   # Seção 1: Fundamentos
-├── 02-pipeline-geracao-verificacao-integracao.md  # Seção 2: Pipeline
+├── 01-fundamentos-orquestracao-curadoria.md   # Seção 1: Fundamentos
+├── 02-pipeline-verificacao-integracao.md      # Seção 2: Pipeline
 ├── 03-gestao-qualidade-codigo-gerado.md       # Seção 3: Qualidade
 ├── 04-cicd-sistemas-ia.md                     # Seção 4: CI/CD
 ├── 05-padroes-colaboracao-humano-ia.md        # Seção 5: Colaboração
 ├── 06-ferramentas-tecnologias.md              # Seção 6: Ferramentas
-└── swebok-v4-chapter.md                       # Referência: SWEBOK v4 original
+└── swebok-v4.md                               # Referência: SWEBOK v4 original
 ```
 
 ---
@@ -173,8 +182,9 @@ O capítulo incorpora 21 referências focadas em 2024-2026:
 | **Tamanho** | ~163KB de conteúdo novo |
 | **Referências** | 21 referências de 2024-2026 integradas |
 | **Revisão** | 🔄 Disponível para revisão da comunidade |
+| **Frontmatter** | ✅ Validado |
 
 ---
 
 *SWEBOK-AI v5.0 — Capítulo 4: Orquestração e Curadoria de Código*
-*Última atualização: 2026-01-31*
+*Reescrito em: 2025-01-31*

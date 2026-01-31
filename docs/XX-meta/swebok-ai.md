@@ -1,3 +1,12 @@
+---
+title: Swebok Ai
+created_at: '2026-01-31'
+tags: []
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
+---
+
 Aqui está um plano estruturado para reescrever o SWEBOK, migrando de um corpo de conhecimento centrado em construção para um centrado em condução de sistemas sob incerteza:
 
 ---

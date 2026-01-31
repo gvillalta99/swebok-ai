@@ -1,492 +1,431 @@
 ---
-title: "Seção 5: Design de Interfaces e Contratos"
-created_at: 2025-01-31
-tags: ["design", "software-design", "ia"]
-status: "published"
-updated_at: 2026-01-31
-ai_model: "openai/gpt-5.2"
+title: "05. Design de Interfaces e Contratos"
+created_at: "2025-01-31"
+tags: ["software-design", "interfaces", "contratos", "api", "sistemas-hibridos"]
+status: "draft"
+updated_at: "2025-01-31"
+ai_model: "kimi-k2.5"
 ---
-
-# Seção 5: Design de Interfaces e Contratos
+# 05. Design de Interfaces e Contratos
 
 ## Overview
 
-Esta seção trata interfaces e contratos como mecanismo de contenção: definem o que pode entrar/sair de componentes (especialmente de IA) e como validar conformidade.
+Em sistemas híbridos humanos-IA, interfaces e contratos assumem um papel crítico: eles são a linha de demarcação entre o determinístico e o probabilístico, entre código escrito por humanos e código gerado por máquinas. Esta seção aborda como projetar interfaces que comuniquem claramente expectativas, limites e comportamentos, especialmente quando componentes de IA estão envolvidos.
+
+Segundo Stoica et al. (2024), especificações são o elo perdido para tornar o desenvolvimento de sistemas LLM uma disciplina de engenharia [1].
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
-1. Projetar contratos de interface que permitam verificação automatizada
-2. Definir semântica de erros, fallback e níveis de confiança para componentes probabilísticos
-3. Planejar versionamento de contratos quando o comportamento evolui
 
-## 5.1 Introdução
+1. Projetar APIs que comunicam incerteza e limitações de componentes de IA
+2. Definir contratos formais verificáveis entre sistemas
+3. Implementar versionamento e evolução de interfaces híbridas
+4. Avaliar trade-offs entre flexibilidade e rigidez contratual
 
-Interfaces em sistemas híbridos servem como fronteiras de confiança entre componentes determinísticos e estocásticos. Um design adequado de interfaces é essencial para:
-- Comunicar incerteza de forma estruturada
-- Estabelecer contratos verificáveis
-- Permitir substituição controlada de implementações
-- Garantir degrade graciosa
+## Fundamentos de Interfaces para Sistemas Híbridos
 
-Esta seção apresenta padrões para design de interfaces que suportam sistemas híbridos.
+### Comunicando Incerteza
 
-## 5.2 Tipos de Interfaces
-
-### 5.2.1 Taxonomia de Interfaces
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              TAXONOMIA DE INTERFACES EM SISTEMAS HÍBRIDOS       │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Interfaces Determinísticas                                     │
-│  ├── Contratos rígidos, comportamento previsível               │
-│  ├── Garantias formais possíveis                               │
-│  └── Exemplo: Repositórios, calculadoras                       │
-│                                                                 │
-│  Interfaces Probabilísticas                                     │
-│  ├── Retornam resultados com metadados de confiança            │
-│  ├── Comportamento variável mas dentro de bounds               │
-│  └── Exemplo: Classificadores, recomendadores                  │
-│                                                                 │
-│  Interfaces Híbridas                                            │
-│  ├── Comportamento determinístico com fallback probabilístico  │
-│  ├── Ou vice-versa                                             │
-│  └── Exemplo: Buscas com autocomplete                          │
-│                                                                 │
-│  Interfaces Supervisionadas                                     │
-│  ├── Requerem aprovação para operações específicas             │
-│  ├── Logging obrigatório                                       │
-│  └── Exemplo: Aprovações de alto valor                         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## 5.3 Design de Interfaces Probabilísticas
-
-### 5.3.1 Interface com Metadados de Confiança
+Diferentemente de APIs tradicionais, interfaces envolvendo IA devem comunicar a natureza probabilística das operações.
 
 ```python
-from typing import TypeVar, Generic, Optional
 from dataclasses import dataclass
-from decimal import Decimal
+from typing import Optional, Generic, TypeVar
+from enum import Enum
 
-T = TypeVar('T')
-
-@dataclass(frozen=True)
-class ProbabilisticResult(Generic[T]):
-    """
-    Resultado de operação probabilística com metadados completos.
-    """
-    # Valor principal
-    value: T
-    
-    # Confiança
-    confidence: Decimal  # 0.0 a 1.0
-    confidence_interval: Optional[tuple]  # (lower, upper)
-    
-    # Alternativas
-    alternatives: list  # Outras opções consideradas
-    alternative_scores: dict  # Scores das alternativas
-    
-    # Proveniência
-    model_version: str
-    prompt_id: Optional[str]
-    context_hash: Optional[str]
-    
-    # Temporal
-    timestamp: float
-    processing_time_ms: int
-    
-    # Fallback
-    is_fallback: bool
-    fallback_reason: Optional[str]
-    
-    def is_certain(self, threshold: Decimal = Decimal('0.95')) -> bool:
-        """Verifica se resultado atinge certeza desejada."""
-        return self.confidence >= threshold
-    
-    def with_fallback(self, fallback_value: T) -> 'ProbabilisticResult[T]':
-        """Retorna resultado ou fallback se confiança baixa."""
-        if self.confidence < Decimal('0.5'):
-            return ProbabilisticResult(
-                value=fallback_value,
-                confidence=Decimal('1.0'),
-                confidence_interval=None,
-                alternatives=[],
-                alternative_scores={},
-                model_version=self.model_version,
-                prompt_id=None,
-                context_hash=self.context_hash,
-                timestamp=self.timestamp,
-                processing_time_ms=self.processing_time_ms,
-                is_fallback=True,
-                fallback_reason='Low confidence in primary result'
-            )
-        return self
-
-# Uso em interface
-class Classifier(Protocol):
-    """Interface para classificadores probabilísticos."""
-    
-    async def classify(self, input_data: dict) -> ProbabilisticResult[str]:
-        """
-        Classifica entrada retornando resultado com confiança.
-        """
-        ...
-    
-    async def classify_batch(self, 
-                            inputs: list) -> list[ProbabilisticResult[str]]:
-        """
-        Classifica múltiplas entradas.
-        """
-        ...
-
-class SentimentClassifier:
-    """Implementação concreta."""
-    
-    async def classify(self, text: str) -> ProbabilisticResult[str]:
-        # Chamar modelo
-        raw_result = await self.llm.classify_sentiment(text)
-        
-        # Construir resultado tipado
-        return ProbabilisticResult(
-            value=raw_result['label'],
-            confidence=Decimal(str(raw_result['confidence'])),
-            confidence_interval=(
-                Decimal(str(raw_result['ci_lower'])),
-                Decimal(str(raw_result['ci_upper']))
-            ),
-            alternatives=raw_result.get('alternatives', []),
-            alternative_scores=raw_result.get('scores', {}),
-            model_version=self.model_version,
-            prompt_id=raw_result.get('prompt_id'),
-            context_hash=hashlib.md5(text.encode()).hexdigest(),
-            timestamp=time.time(),
-            processing_time_ms=raw_result['latency_ms'],
-            is_fallback=False,
-            fallback_reason=None
-        )
-```
-
-### 5.3.2 Interface com Streaming de Confiança
-
-```python
-from typing import AsyncIterator
-from dataclasses import dataclass
+class ConfidenceLevel(Enum):
+    HIGH = "high"      # >= 0.9
+    MEDIUM = "medium"  # 0.7 - 0.9
+    LOW = "low"        # < 0.7
+    UNKNOWN = "unknown"
 
 @dataclass
-class StreamingResult:
+class UncertainResult(Generic[T]):
     """
-    Resultado parcial com atualização progressiva de confiança.
+    Wrapper que comunica incerteza em resultados de IA.
     """
-    partial_value: str
-    confidence: Decimal
-    is_final: bool
-    tokens_generated: int
-    tokens_total_estimate: int
-
-class StreamingClassifier(Protocol):
-    """
-    Interface para classificação com streaming de resultado.
-    Útil para respostas longas onde confiança evolui.
-    """
+    value: T
+    confidence: ConfidenceLevel
+    confidence_score: float
+    alternatives: list[T]
+    model_version: str
+    timestamp: str
     
-    async def classify_streaming(self, 
-                                 text: str) -> AsyncIterator[StreamingResult]:
-        """
-        Retorna resultado em partes, permitindo decisão antecipada.
-        """
-        ...
-
-# Implementação exemplo
-class IncrementalSentimentAnalyzer:
-    """
-    Analisador que atualiza confiança conforme processa texto.
-    """
-    
-    async def classify_streaming(self, text: str) -> AsyncIterator[StreamingResult]:
-        tokens = text.split()
-        processed = []
-        
-        for i, token in enumerate(tokens):
-            processed.append(token)
-            partial_text = ' '.join(processed)
-            
-            # Análise incremental
-            result = await self._analyze_partial(partial_text)
-            
-            yield StreamingResult(
-                partial_value=result['preliminary_label'],
-                confidence=Decimal(str(result['confidence'])),
-                is_final=(i == len(tokens) - 1),
-                tokens_generated=i + 1,
-                tokens_total_estimate=len(tokens)
-            )
-            
-            # Early termination se confiança muito alta
-            if result['confidence'] > 0.99 and i > len(tokens) * 0.5:
-                break
+    def is_reliable(self, threshold: ConfidenceLevel = ConfidenceLevel.MEDIUM) -> bool:
+        """Verifica se resultado atinge nível mínimo de confiança."""
+        confidence_order = {
+            ConfidenceLevel.HIGH: 3,
+            ConfidenceLevel.MEDIUM: 2,
+            ConfidenceLevel.LOW: 1,
+            ConfidenceLevel.UNKNOWN: 0
+        }
+        return confidence_order[self.confidence] >= confidence_order[threshold]
 ```
 
-## 5.4 Contratos Verificáveis
+### Estrutura de Resposta Híbrida
 
-### 5.4.1 Contratos com Precondições e Pós-condições
+```json
+{
+  "data": {
+    "classification": "urgent",
+    "priority_score": 0.87
+  },
+  "meta": {
+    "confidence": "high",
+    "confidence_score": 0.92,
+    "model": "gpt-4",
+    "model_version": "2024-08",
+    "processing_time_ms": 245,
+    "alternatives": [
+      {"classification": "normal", "confidence": 0.05},
+      {"classification": "low", "confidence": 0.03}
+    ]
+  },
+  "verification": {
+    "checksum": "sha256:abc123...",
+    "input_hash": "sha256:def456...",
+    "cached": false
+  }
+}
+```
+
+## Tipos de Contratos
+
+### 1. Contratos Síncronos
+
+Para operações que requerem resposta imediata com possível fallback.
 
 ```python
-from typing import Callable
-from functools import wraps
+from abc import ABC, abstractmethod
+from typing import Union
+import asyncio
 
-class Contract:
+class SynchronousContract(ABC):
     """
-    Implementação de Design by Contract.
+    Contrato para operações síncronas com timeout e fallback.
     """
     
-    @staticmethod
-    def requires(condition: Callable, message: str = ""):
-        """Decorador para pré-condição."""
-        def decorator(func):
-            @wraps(func)
-            def wrapper(*args, **kwargs):
-                if not condition(*args, **kwargs):
-                    raise PreconditionViolation(
-                        f"Pré-condição violada: {message}"
-                    )
-                return func(*args, **kwargs)
-            return wrapper
-        return decorator
+    def __init__(self, timeout_ms: int = 5000):
+        self.timeout_ms = timeout_ms
     
-    @staticmethod
-    def ensures(condition: Callable, message: str = ""):
-        """Decorador para pós-condição."""
-        def decorator(func):
-            @wraps(func)
-            def wrapper(*args, **kwargs):
-                result = func(*args, **kwargs)
-                if not condition(result, *args, **kwargs):
-                    raise PostconditionViolation(
-                        f"Pós-condição violada: {message}"
-                    )
-                return result
-            return wrapper
-        return decorator
-
-# Uso
-class PaymentService:
+    async def execute(self, request) -> Union[Success, FallbackResult, Error]:
+        try:
+            result = await asyncio.wait_for(
+                self._process(request),
+                timeout=self.timeout_ms / 1000
+            )
+            
+            if self._validate(result):
+                return Success(result)
+            else:
+                return await self._fallback(request)
+                
+        except asyncio.TimeoutError:
+            return await self._fallback(request, reason="timeout")
+        except Exception as e:
+            return Error(str(e))
     
-    @Contract.requires(
-        lambda amount, _: amount > 0,
-        "Amount must be positive"
-    )
-    @Contract.requires(
-        lambda _, currency: currency in ['USD', 'EUR', 'BRL'],
-        "Currency must be supported"
-    )
-    @Contract.ensures(
-        lambda result, amount, _: result.amount_charged == amount,
-        "Amount charged must match requested amount"
-    )
-    @Contract.ensures(
-        lambda result, *_: result.transaction_id is not None,
-        "Transaction ID must be generated"
-    )
-    def process_payment(self, amount: Decimal, currency: str) -> PaymentResult:
-        """
-        Processa pagamento com contratos verificáveis.
-        """
-        # Implementação...
+    @abstractmethod
+    async def _process(self, request):
+        pass
+    
+    @abstractmethod
+    def _validate(self, result) -> bool:
+        pass
+    
+    @abstractmethod
+    async def _fallback(self, request, reason=None):
         pass
 ```
 
-### 5.4.2 Contratos para Componentes de IA
+### 2. Contratos Assíncronos
+
+Para operações de longa duração com notificação de progresso.
 
 ```python
-from dataclasses import dataclass
-from typing import List
+from enum import Enum, auto
 
-@dataclass
-class AIContract:
-    """
-    Contrato específico para componentes de IA.
-    """
-    # Garantias de qualidade
-    min_confidence: float
-    max_latency_ms: int
-    required_explanation: bool
-    
-    # Limites de comportamento
-    forbidden_outputs: List[str]
-    required_keywords: List[str]
-    max_output_length: int
-    
-    # Supervisão
-    requires_human_approval: bool
-    approval_conditions: List[str]
-    
-    # Fallback
-    fallback_trigger_conditions: List[str]
-    fallback_behavior: str
+class JobStatus(Enum):
+    PENDING = auto()
+    PROCESSING = auto()
+    COMPLETED = auto()
+    FAILED = auto()
+    CANCELLED = auto()
 
-class ContractEnforcer:
+class AsynchronousContract:
     """
-    Verifica contratos em tempo de execução.
+    Contrato para operações assíncronas com tracking.
     """
     
-    def __init__(self, contract: AIContract):
-        self.contract = contract
+    async def submit(self, request) -> JobId:
+        """Submete job para processamento."""
+        job_id = self._generate_job_id()
+        await self._queue_job(job_id, request)
+        return job_id
     
-    def verify_output(self, 
-                     input_data: dict,
-                     output: ProbabilisticResult) -> ContractVerification:
-        """Verifica se saída atende contrato."""
-        violations = []
-        
-        # Verificar confiança mínima
-        if output.confidence < self.contract.min_confidence:
-            violations.append(
-                f"Confidence {output.confidence} below minimum "
-                f"{self.contract.min_confidence}"
-            )
-        
-        # Verificar conteúdo proibido
-        output_str = str(output.value).lower()
-        for forbidden in self.contract.forbidden_outputs:
-            if forbidden.lower() in output_str:
-                violations.append(
-                    f"Output contains forbidden content: {forbidden}"
-                )
-        
-        # Verificar keywords requeridas
-        for required in self.contract.required_keywords:
-            if required.lower() not in output_str:
-                violations.append(
-                    f"Output missing required keyword: {required}"
-                )
-        
-        # Verificar latência
-        if output.processing_time_ms > self.contract.max_latency_ms:
-            violations.append(
-                f"Latency {output.processing_time_ms}ms exceeds maximum "
-                f"{self.contract.max_latency_ms}ms"
-            )
-        
-        return ContractVerification(
-            valid=len(violations) == 0,
-            violations=violations,
-            requires_approval=self.contract.requires_human_approval
-        )
+    async def status(self, job_id: JobId) -> JobStatus:
+        """Consulta status do job."""
+        return await self._get_status(job_id)
+    
+    async def result(self, job_id: JobId) -> Optional[Result]:
+        """Obtém resultado (None se ainda não completo)."""
+        status = await self.status(job_id)
+        if status == JobStatus.COMPLETED:
+            return await self._get_result(job_id)
+        return None
+    
+    async def cancel(self, job_id: JobId) -> bool:
+        """Tenta cancelar job pendente."""
+        return await self._attempt_cancel(job_id)
+    
+    async def subscribe(self, job_id: JobId, callback):
+        """Subscreve para notificações de progresso."""
+        await self._add_subscriber(job_id, callback)
 ```
 
-## 5.5 Versionamento de Interfaces
+### 3. Contratos de Streaming
+
+Para operações que produzem resultados parciais.
 
 ```python
-from typing import Dict, Optional
-from dataclasses import dataclass
-from enum import Enum
+from typing import AsyncIterator
 
-class Compatibility(Enum):
-    FULL = "full"
-    BACKWARD = "backward"  # Novo cliente pode usar versão antiga
-    FORWARD = "forward"    # Cliente antigo pode usar versão nova
-    NONE = "none"
-
-@dataclass
-class InterfaceVersion:
-    major: int
-    minor: int
-    patch: int
-    
-    def __str__(self):
-        return f"{self.major}.{self.minor}.{self.patch}"
-    
-    def is_compatible_with(self, other: 'InterfaceVersion') -> Compatibility:
-        """Verifica compatibilidade entre versões."""
-        if self.major != other.major:
-            return Compatibility.NONE
-        
-        if self.minor >= other.minor:
-            return Compatibility.BACKWARD
-        
-        if self.minor < other.minor:
-            return Compatibility.FORWARD
-        
-        return Compatibility.FULL
-
-class VersionedInterface:
+class StreamingContract:
     """
-    Interface com suporte a versionamento.
+    Contrato para operações com resultados parciais.
     """
+    
+    async def stream(self, request) -> AsyncIterator[PartialResult]:
+        """
+        Gera resultados parciais à medida que ficam disponíveis.
+        Útil para geração de texto, processamento de documentos, etc.
+        """
+        buffer = []
+        
+        async for chunk in self._generate_chunks(request):
+            buffer.append(chunk)
+            
+            # Emite quando tem conteúdo suficiente
+            if self._should_emit(buffer):
+                yield PartialResult(
+                    content="".join(buffer),
+                    is_complete=False,
+                    tokens_generated=len(buffer)
+                )
+                buffer = []
+        
+        # Emite conteúdo restante
+        if buffer:
+            yield PartialResult(
+                content="".join(buffer),
+                is_complete=True,
+                tokens_generated=len(buffer)
+            )
+```
+
+## Design de APIs REST para IA
+
+### Estrutura de Endpoints
+
+```
+/api/v1/ai/
+├── generate          # Geração síncrona
+├── generate/async    # Submissão assíncrona
+├── jobs/{id}         # Consulta de job
+├── jobs/{id}/cancel  # Cancelamento
+├── validate          # Validação de entrada
+└── health            # Health check do serviço
+```
+
+### Códigos de Status Específicos
+
+Além dos códigos HTTP padrão, APIs de IA podem usar:
+
+| Código | Significado | Quando Usar |
+|--------|-------------|-------------|
+| 200 OK | Sucesso | Resposta confiável retornada |
+| 202 Accepted | Aceito para processamento | Job assíncrono criado |
+| 206 Partial Content | Conteúdo parcial | Streaming em progresso |
+| 409 Conflict | Conflito | Input viola constraints |
+| 422 Unprocessable | Não processável | IA não conseguiu gerar resultado válido |
+| 503 Service Unavailable | Serviço indisponível | Timeout ou rate limit |
+
+### Headers Semânticos
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+X-Confidence-Level: high
+X-Confidence-Score: 0.94
+X-Model-Version: gpt-4-2024-08
+X-Processing-Time: 245
+X-Cache-Status: miss
+X-Request-ID: req_abc123
+```
+
+## Versionamento e Evolução
+
+### Estratégias de Versionamento
+
+```python
+class VersionedContract:
+    """
+    Suporte a múltiplas versões de contrato.
+    """
+    
+    SUPPORTED_VERSIONS = ["1.0", "1.1", "2.0"]
+    DEFAULT_VERSION = "2.0"
     
     def __init__(self):
-        self.versions: Dict[str, callable] = {}
-        self.current_version = InterfaceVersion(1, 0, 0)
+        self.versions = {
+            "1.0": ContractV1(),
+            "1.1": ContractV1_1(),
+            "2.0": ContractV2()
+        }
     
-    def register_version(self, 
-                        version: InterfaceVersion,
-                        implementation: callable):
-        """Registra implementação de versão específica."""
-        self.versions[str(version)] = implementation
+    def get_contract(self, version: Optional[str] = None):
+        version = version or self.DEFAULT_VERSION
+        if version not in self.SUPPORTED_VERSIONS:
+            raise UnsupportedVersionError(f"Versão {version} não suportada")
+        return self.versions[version]
     
-    def call(self, 
-            version: Optional[str] = None,
-            *args, **kwargs):
-        """
-        Executa chamada com versionamento.
-        """
-        target_version = version or str(self.current_version)
-        
-        if target_version not in self.versions:
-            # Tentar encontrar versão compatível
-            compatible = self._find_compatible_version(target_version)
-            if compatible:
-                return self.versions[compatible](*args, **kwargs)
-            raise VersionNotSupportedError(target_version)
-        
-        return self.versions[target_version](*args, **kwargs)
-    
-    def _find_compatible_version(self, requested: str) -> Optional[str]:
-        """Encontra versão compatível."""
-        req_ver = self._parse_version(requested)
-        
-        for ver_str in self.versions:
-            ver = self._parse_version(ver_str)
-            compat = ver.is_compatible_with(req_ver)
-            if compat in [Compatibility.FULL, Compatibility.BACKWARD]:
-                return ver_str
-        
-        return None
+    def migrate_request(self, request, from_version: str, to_version: str):
+        """Migra request entre versões do contrato."""
+        migrator = self._get_migrator(from_version, to_version)
+        return migrator.migrate(request)
 ```
 
-## 5.6 Exercícios
+### Depreciação Gradual
 
-1. Projete uma interface para um serviço de recomendação que comunique adequadamente a incerteza das recomendações.
+```python
+from datetime import datetime, timedelta
 
-2. Implemente um sistema de contratos que verifique automaticamente pré-condições e pós-condições para um módulo de processamento de pagamentos.
+class DeprecationPolicy:
+    def __init__(self, version: str, sunset_date: datetime):
+        self.version = version
+        self.sunset_date = sunset_date
+        self.warning_date = sunset_date - timedelta(days=90)
+    
+    def get_headers(self) -> dict:
+        headers = {}
+        
+        if datetime.now() > self.warning_date:
+            headers["Deprecation"] = f"@ {self.sunset_date.isoformat()}"
+            headers["Sunset"] = self.sunset_date.isoformat()
+            
+            if datetime.now() > self.sunset_date:
+                headers["Warning"] = f"Versão {self.version} foi descontinuada"
+        
+        return headers
+```
 
-3. Crie um esquema de versionamento para uma API que evolui de determinística para probabilística.
+## Contratos com Schema
+
+### OpenAPI para IA
+
+```yaml
+openapi: 3.0.0
+info:
+  title: AI Service API
+  version: 2.0.0
+
+paths:
+  /generate:
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                prompt:
+                  type: string
+                  maxLength: 4000
+                max_tokens:
+                  type: integer
+                  maximum: 4096
+                temperature:
+                  type: number
+                  minimum: 0
+                  maximum: 2
+                required_confidence:
+                  type: string
+                  enum: [low, medium, high]
+              required: [prompt]
+      
+      responses:
+        '200':
+          description: Geração bem-sucedida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                  meta:
+                    type: object
+                    properties:
+                      confidence:
+                        type: string
+                        enum: [low, medium, high]
+                      confidence_score:
+                        type: number
+                        minimum: 0
+                        maximum: 1
+                      alternatives:
+                        type: array
+                        items:
+                          type: object
+```
 
 ## Practical Considerations
 
-- Prefira contratos explícitos (tipos, schemas, invariantes) a convenções implícitas.
-- Para componentes de IA, defina limites de resposta e critérios de rejeição; “qualquer texto” não é contrato.
+### Aplicações Reais
+
+1. **Chatbots**: APIs que retornam confiança para decisões de escalonamento
+2. **Sistemas de Recomendação**: Contratos que comunicam explicabilidade
+3. **Análise de Documentos**: Streaming para documentos grandes
+
+### Limitações
+
+- **Overhead de Metadados**: Informações de confiança aumentam payload
+- **Complexidade de Versionamento**: Múltiplas versões dificultam manutenção
+- **Latência de Validação**: Schema validation adiciona tempo de resposta
+
+### Melhores Práticas
+
+1. **Fail Fast**: Validar inputs rigorosamente antes de processar
+2. **Idempotência**: Garantir que múltiplas chamadas com mesmo ID produzam mesmo resultado
+3. **Observabilidade**: Logging estruturado de todas as interações
+4. **Rate Limiting**: Proteger contra abuso e controlar custos
+5. **Circuit Breaker**: Isolar falhas de serviços de IA
 
 ## Summary
 
-- Interfaces e contratos reduzem ambiguidade e tornam validação repetível.
-- Versionamento de contratos é inevitável; planeje compatibilidade e migração.
+- Interfaces devem comunicar incerteza através de metadados de confiança
+- Contratos síncronos, assíncronos e de streaming servem a diferentes casos de uso
+- Versionamento cuidadoso permite evolução sem breaking changes
+- Headers semânticos enriquecem a comunicação entre sistemas
+- Schema-first design garante consistência e facilita validação
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — princípios de design de interfaces são atemporais |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio — contratos podem ser validados com testes de contrato |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Alta — designer de API responsável por contratos claros |
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+1. Stoica, I.; Zaharia, M.; Gonzalez, J.; et al. "Specifications: The missing link to making the development of LLM systems an engineering discipline." arXiv:2412.05299, 2024. https://arxiv.org/abs/2412.05299
 
-2. HE, L. et al. Use Property-Based Testing to Bridge LLM Code Generation and Validation. arXiv:2506.18315, 2025.
+2. OpenAPI Initiative. "OpenAPI Specification v3.0.0." https://spec.openapis.org/oas/v3.0.0
 
-3. ALLAMANIS, M.; PANTHAPLACKEL, S.; YIN, P. Unsupervised Evaluation of Code LLMs with Round-Trip Correctness. arXiv:2402.08699, 2024.
+3. Fielding, R. "Architectural Styles and the Design of Network-based Software Architectures." PhD Dissertation, UC Irvine, 2000.
 
-4. AGGARWAL, P. et al. CodeSift: An LLM-Based Reference-Less Framework for Automatic Code Validation. arXiv:2408.15630, 2024.
+4. NIST. "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile." NIST AI 600-1, 2024. https://doi.org/10.6028/NIST.AI.600-1
 
-5. FAKHOURY, S. et al. LLM-based Test-driven Interactive Code Generation: User Study and Empirical Evaluation. Microsoft Research, University of Pennsylvania, UC San Diego, 2024. Disponível em: https://www.seas.upenn.edu/~asnaik/assets/papers/tse24_ticoder.pdf
-
----
-
-*SWEBOK-AI v5.0 - Software Design*
+5. Richardson, L.; Amundsen, M. "RESTful Web APIs." O'Reilly Media, 2013.
