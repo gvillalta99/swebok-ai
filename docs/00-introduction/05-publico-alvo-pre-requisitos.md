@@ -1,3 +1,12 @@
+---
+title: "Seção 5: Público-Alvo e Pré-requisitos"
+created_at: 2025-01-31
+tags: ["público-alvo", "pré-requisitos", "perfis-leitores", "caminhos-estudo", "recursos"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 5: Público-Alvo e Pré-requisitos
 
 ## Overview

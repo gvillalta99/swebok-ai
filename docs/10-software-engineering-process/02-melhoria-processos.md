@@ -1,3 +1,12 @@
+---
+title: "10.2 Melhoria de Processos"
+created_at: 2025-01-31
+tags: ["processos", "process", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 10.2 Melhoria de Processos
 
 ## Overview

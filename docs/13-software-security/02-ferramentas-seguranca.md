@@ -1,3 +1,12 @@
+---
+title: "13.2 Ferramentas de Segurança"
+created_at: 2025-01-31
+tags: ["seguran\u00e7a", "security", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 13.2 Ferramentas de Segurança
 
 ## Overview

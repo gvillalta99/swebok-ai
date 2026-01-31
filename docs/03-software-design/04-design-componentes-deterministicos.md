@@ -1,3 +1,12 @@
+---
+title: "Seção 4: Design de Componentes Determinísticos"
+created_at: 2025-01-31
+tags: ["design", "software-design", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 4: Design de Componentes Determinísticos
 
 ## Overview

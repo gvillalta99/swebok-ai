@@ -1,3 +1,12 @@
+---
+title: "6.4 Controle e Monitoramento de Sistemas Híbridos"
+created_at: 2025-01-31
+tags: ["operations", "devops", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 6.4 Controle e Monitoramento de Sistemas Híbridos
 
 ## Overview

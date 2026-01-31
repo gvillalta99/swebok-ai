@@ -1,3 +1,12 @@
+---
+title: "Seção 6: Como Utilizar Este Guia"
+created_at: 2025-01-31
+tags: ["utilização", "metodologia", "estudo", "exercícios", "projetos"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 6: Como Utilizar Este Guia
 
 ## Overview

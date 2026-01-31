@@ -1,3 +1,12 @@
+---
+title: "17.2 Estatística para Validação"
+created_at: 2025-01-31
+tags: ["matem\u00e1tica", "mathematical", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 17.2 Estatística para Validação
 
 ## Overview

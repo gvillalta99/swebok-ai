@@ -1,3 +1,12 @@
+---
+title: "7.4 Técnicas de Manutenção de Código de IA"
+created_at: 2025-01-31
+tags: ["manuten\u00e7\u00e3o", "maintenance", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 7.4 Técnicas de Manutenção de Código de IA
 
 ## Overview

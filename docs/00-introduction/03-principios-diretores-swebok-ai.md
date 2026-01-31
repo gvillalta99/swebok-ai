@@ -1,3 +1,12 @@
+---
+title: "Seção 3: Princípios Diretores do SWEBOK-AI"
+created_at: 2025-01-31
+tags: ["princípios", "diretrizes", "governança", "verificação", "restrições", "contexto"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 3: Princípios Diretores do SWEBOK-AI
 
 ## Overview

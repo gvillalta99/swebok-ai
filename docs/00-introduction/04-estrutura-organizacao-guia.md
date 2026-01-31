@@ -1,3 +1,12 @@
+---
+title: "Seção 4: Estrutura e Organização do Guia"
+created_at: 2025-01-31
+tags: ["estrutura", "organização", "knowledge-areas", "navegação", "convenções"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 4: Estrutura e Organização do Guia
 
 ## Overview

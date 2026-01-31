@@ -1,3 +1,12 @@
+---
+title: "3. Testes Estatísticos e Não-Determinísticos"
+created_at: 2025-01-31
+tags: ["testes", "testing", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 3. Testes Estatísticos e Não-Determinísticos
 
 ## Overview

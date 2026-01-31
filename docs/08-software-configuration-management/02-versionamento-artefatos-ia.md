@@ -1,3 +1,12 @@
+---
+title: "8.2 Versionamento de Artefatos de IA"
+created_at: 2025-01-31
+tags: ["scm", "versionamento", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 8.2 Versionamento de Artefatos de IA
 
 ## Overview

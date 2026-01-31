@@ -1,3 +1,12 @@
+---
+title: "Seção 2: A Mudança de Paradigma na Engenharia de Software"
+created_at: 2025-01-31
+tags: ["paradigma", "curadoria", "mudança-paradigmática", "verificação", "engenharia-software", "gargalo"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 2: A Mudança de Paradigma na Engenharia de Software
 
 ## Overview

@@ -1,3 +1,12 @@
+---
+title: "12.2 Garantia de Qualidade"
+created_at: 2025-01-31
+tags: ["qualidade", "quality", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 12.2 Garantia de Qualidade
 
 ## Overview

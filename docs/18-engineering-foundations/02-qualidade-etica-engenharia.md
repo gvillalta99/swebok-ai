@@ -1,3 +1,12 @@
+---
+title: "18.2 Qualidade e Ética em Engenharia"
+created_at: 2025-01-31
+tags: ["engenharia", "engineering", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 18.2 Qualidade e Ética em Engenharia
 
 ## Overview

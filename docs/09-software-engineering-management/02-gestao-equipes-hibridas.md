@@ -1,3 +1,12 @@
+---
+title: "9.2 Gestão de Equipes Híbridas"
+created_at: 2025-01-31
+tags: ["gest\u00e3o", "management", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 9.2 Gestão de Equipes Híbridas
 
 ## Overview

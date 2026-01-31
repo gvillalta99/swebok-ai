@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/01-software-requirements/PLAN.md",
+                "file": "docs/09-software-engineering-management/PLAN.md",
                 "mode": "source",
                 "source": false
               },
@@ -197,9 +197,7 @@
   },
   "active": "14757e0a862abc14",
   "lastOpenFiles": [
-    "docs/01-software-requirements/02-elicitacao-contexto-intencao.md",
-    "docs/01-software-requirements/01-fundamentos-engenharia-restricoes.md",
-    "agents/chapter-rewriter.md",
+    "docs/08-software-configuration-management/PLAN.md",
     "site/search/search_index.json",
     "site/search",
     "site/19-appendix/swebok-v4/index.html",
@@ -212,6 +210,10 @@
     "site/18-engineering-foundations/02-qualidade-etica-engenharia/index.html",
     "site/08-software-configuration-management/swebok-v4.md",
     "site/assets/images/favicon.png",
+    "docs/01-software-requirements/PLAN.md",
+    "docs/01-software-requirements/02-elicitacao-contexto-intencao.md",
+    "docs/01-software-requirements/01-fundamentos-engenharia-restricoes.md",
+    "agents/chapter-rewriter.md",
     "docs/19-appendix/01-recursos-complementares.md",
     "agents/book-writer.md",
     "docs/01-software-requirements/06-gestao-variabilidade-evolucao.md",
@@ -231,7 +233,6 @@
     "docs/06-software-engineering-operations/swebok-v4.md",
     "docs/08-software-configuration-management/04-rastreabilidade-proveniencia.md",
     "docs/19-appendix/swebok-v4.md",
-    "docs/18-engineering-foundations/swebok-v4.md",
-    "docs/17-mathematical-foundations/swebok-v4.md"
+    "docs/18-engineering-foundations/swebok-v4.md"
   ]
 }

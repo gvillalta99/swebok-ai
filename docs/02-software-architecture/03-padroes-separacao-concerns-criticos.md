@@ -1,3 +1,12 @@
+---
+title: "Seção 3: Padrões de Separação de Concerns Críticos"
+created_at: 2025-01-31
+tags: ["arquitetura", "architecture", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 3: Padrões de Separação de Concerns Críticos
 
 ## Overview

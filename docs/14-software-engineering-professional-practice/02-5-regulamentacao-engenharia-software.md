@@ -1,12 +1,10 @@
 ---
-title: Seção 2.5 - A Falta de Regulamentação na Engenharia de Software
-date: 2025-01-30
-tags:
-  - swebok-ai
-  - pratica-profissional
-  - regulamentacao
-  - accountability
-status: draft
+title: "Seção 2.5: A Falta de Regulamentação na Engenharia de Software"
+created_at: 2025-01-30
+tags: ["swebok-ai", "pratica-profissional", "regulamentacao", "accountability"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
 ---
 
 # Seção 2.5: A Falta de Regulamentação na Engenharia de Software

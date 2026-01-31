@@ -1,3 +1,12 @@
+---
+title: "16.2 Processamento e Geração de Código"
+created_at: 2025-01-31
+tags: ["processos", "process", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # 16.2 Processamento e Geração de Código
 
 ## Overview

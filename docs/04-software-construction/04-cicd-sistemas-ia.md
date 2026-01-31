@@ -1,3 +1,12 @@
+---
+title: "Seção 4: CI/CD para Sistemas com IA"
+created_at: 2025-01-31
+tags: ["constru\u00e7\u00e3o", "construction", "ia"]
+status: "published"
+updated_at: 2026-01-31
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 4: CI/CD para Sistemas com IA
 
 ## Overview
