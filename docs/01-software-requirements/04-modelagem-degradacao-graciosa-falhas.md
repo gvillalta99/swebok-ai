@@ -1,3 +1,12 @@
+---
+title: "Modelagem de Degradação Graciosa e Falhas"
+created_at: "2025-01-31"
+tags: ["requisitos", "degradacao-graciosa", "falhas", "resiliencia", "fallback", "observabilidade", "governanca"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 4: Modelagem de Degradação Graciosa e Falhas
 
 ## Overview
@@ -555,6 +564,14 @@ class DegradationAlertManager:
 3. Implemente uma estratégia de fallback hierárquico para um chatbot comercial.
 
 ---
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica |
 
 ## Practical Considerations
 

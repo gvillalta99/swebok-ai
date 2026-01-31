@@ -1,3 +1,12 @@
+---
+title: "Gestão da Variabilidade e Evolução"
+created_at: "2025-01-31"
+tags: ["requisitos", "variabilidade", "evolucao", "mudanca", "rastreabilidade", "governanca", "compatibilidade"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 6: Gestão da Variabilidade e Evolução
 
 ## Overview
@@ -567,6 +576,14 @@ class ChangeImpactAnalyzer:
 3. Projete uma linha de produto para família de sistemas de análise de documentos com IA.
 
 ---
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
 
 ## Practical Considerations
 

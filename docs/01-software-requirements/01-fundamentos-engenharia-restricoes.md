@@ -1,3 +1,12 @@
+---
+title: "Fundamentos da Engenharia de Restrições"
+created_at: "2025-01-31"
+tags: ["requisitos", "restricoes", "fundamentos", "invariantes", "verificacao", "governanca"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 1: Fundamentos da Engenharia de Restrições
 
 ## Overview
@@ -160,6 +169,14 @@ Restrições para sistemas com IA devem incorporar mecanismos de feedback:
        └─────────────────────────────────────────┘
                     Feedback de Violação
 ```
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica |
 
 ## Practical Considerations
 

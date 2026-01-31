@@ -1,324 +1,180 @@
+---
+title: "Elicitação de Contexto e Intenção"
+created_at: "2025-01-31"
+tags: ["requisitos", "elicitacao", "contexto", "intencao", "stakeholders", "rastreabilidade", "restricoes", "governanca", "human-in-the-loop"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 2: Elicitação de Contexto e Intenção
 
 ## Overview
 
-Esta seção reinterpreta a elicitação de requisitos para um cenário em que sistemas generativos conseguem produzir implementações rapidamente, mas dependem de contexto e intenção para evitar soluções plausíveis e incorretas. O foco passa a ser capturar e comunicar o “por quê” e as condições de operação, não apenas listar funcionalidades.
+Esta seção reinterpreta a elicitação de requisitos na era de sistemas generativos e agentes: quando a implementação se torna barata, o principal fator de risco passa a ser a lacuna entre o que foi pedido e o que foi pretendido. Nesse cenário, a elicitação precisa capturar e manter, com rastreabilidade e verificabilidade, (i) o contexto operacional em que o sistema deve funcionar, (ii) a intenção que dá sentido aos requisitos e (iii) as restrições que delimitam comportamentos aceitáveis.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
-1. Distinguir requisito (o que) de intenção (por quê) e contexto (em que condições)
-2. Modelar dimensões de contexto (negócio, técnico, organizacional, regulatório) com artefatos verificáveis
-3. Aplicar técnicas de elicitação de intenção (ex.: laddering, JTBD) para derivar restrições
-4. Estruturar documentação de intenção adequada para consumo por sistemas/automações
-5. Identificar anti-padrões de elicitação em cenários human-in-the-loop
+1. Distinguir requisito, intenção, contexto e restrição, e explicar por que essa separação reduz ambiguidade e retrabalho
+2. Identificar dimensões de contexto relevantes (negócio, dados, técnica, operação, organização e regulação) e documentá-las como artefatos verificáveis
+3. Aplicar técnicas de elicitação orientadas a propósito (por exemplo, 5 Whys, laddering e JTBD) para derivar restrições e critérios de aceitação
+4. Produzir documentação de intenção e de contexto adequada a consumo humano e a automações (com campos obrigatórios, rastreabilidade e critérios de verificação)
 
-## 2.1 Introdução
+## 2.1 Por que contexto e intenção se tornam o eixo da elicitação
 
-A elicitação tradicional de requisitos focava na extração de funcionalidades desejadas dos stakeholders. Na era dos LLMs, essa abordagem torna-se insuficiente: saber *o que* construir é menos crítico do que saber *em que contexto* e *com que propósito*.
+No SWEBOK v4, dois problemas recorrentes em requisitos são incompletude e ambiguidade: informações relevantes deixam de ser reveladas, ou são expressas de modo aberto a interpretações múltiplas. Na prática, esses problemas geram decisões de design e construção que se amplificam em cascata, elevando custo e risco (IEEE COMPUTER SOCIETY, 2024).
 
-A **Elicitação de Contexto e Intenção** é o processo sistemático de descobrir, documentar e comunicar o ambiente operacional, as restrições de domínio e as intenções profundas que devem governar o comportamento de sistemas autônomos.
+Em sistemas com alta capacidade de geração e recombinação de soluções, essas falhas passam a ter um efeito adicional: uma especificação vaga tende a produzir soluções que parecem plausíveis e coerentes, mas que podem violar intenção, políticas internas, obrigações regulatórias ou limites de risco. Assim, a elicitação deixa de ser apenas um mecanismo de coleta de "desejos" e passa a ser um mecanismo de contenção: explicitar fronteiras, suposições e motivos.
 
-## 2.2 Fundamentos do Contexto
+Nota de recontextualização (LEGADO): a prática de tratar elicitação como levantamento de funcionalidades isoladas, sem racional e sem contexto operacional, é inadequada quando componentes autônomos podem preencher lacunas com suposições implícitas.
 
-### 2.2.1 Dimensões do Contexto
+## 2.2 Uma taxonomia operacional de contexto
 
-O contexto de um sistema de software pode ser decomposto em múltiplas dimensões:
+Contexto, nesta seção, é o conjunto de condições que afeta a interpretação de requisitos e determina o que é aceitável, viável e verificável. Para evitar que "contexto" se torne um termo abstrato, recomenda-se tratá-lo como dimensões com campos observáveis.
 
-```
-                    ┌─────────────────┐
-                    │    NEGÓCIO      │
-                    │   (Por quê?)    │
-                    └────────┬────────┘
-                             │
-        ┌────────────────────┼────────────────────┐
-        │                    │                    │
-        ▼                    ▼                    ▼
-┌───────────────┐    ┌───────────────┐    ┌───────────────┐
-│   TÉCNICO     │    │   ORGANIZAC.  │    │   REGULATÓRIO │
-│  (Como?)      │    │   (Quem?)     │    │   (O que?)    │
-└───────────────┘    └───────────────┘    └───────────────┘
-```
+| Dimensão | Perguntas de elicitação | Evidências/artefatos verificáveis |
+|----------|--------------------------|-----------------------------------|
+| Negócio | Qual objetivo, qual risco, qual critério de sucesso? | Objetivos mensuráveis, riscos priorizados, critérios de aceitação |
+| Dados | Que dados existem, de onde vêm, quem é dono, qual qualidade? | Catálogo de dados, proveniência, políticas de retenção, classificação (PII/segredo) |
+| Técnica | Quais integrações e restrições de plataforma existem? | Diagrama de contexto/sistemas externos, contratos de interface, limitações explícitas |
+| Operação | Como o sistema será monitorado, operado e auditado? | SLIs/SLOs, requisitos de logging/auditoria, planos de rollback e incident response |
+| Organização | Quem decide, quem aprova, quem opera, quem responde? | Mapa de stakeholders, matriz RACI, políticas de segregação de funções |
+| Regulação e compliance | Que obrigações se aplicam e como se demonstram? | Obrigações citadas, controles exigidos, trilhas de evidência (NIST, 2023; UNIÃO EUROPEIA, 2024) |
 
-#### Contexto de Negócio
-- Objetivos estratégicos que o sistema deve suportar
-- Métricas de sucesso e KPIs
-- Restrições orçamentárias e temporais
-- Riscos de negócio associados
+Do ponto de vista de verificação, a dimensão de dados merece destaque: erros de contexto frequentemente são erros de fronteira de dados (por exemplo, confundir dados de teste e produção, misturar tenants, ignorar regras de retenção). Por isso, a elicitação deve produzir declarações explícitas de origem, permissões e finalidade.
 
-#### Contexto Técnico
-- Stack tecnológica existente
-- Arquitetura de referência
-- Padrões de integração
-- Limitações de infraestrutura
+## 2.3 Elicitação de intenção: do "o que" ao "por quê" verificável
 
-#### Contexto Organizacional
-- Stakeholders e suas responsabilidades
-- Processos de negócio afetados
-- Cultura organizacional e resistências
-- Capacidades da equipe
+Nesta seção, intenção é o propósito subjacente que justifica requisitos e restrições. Em geral, uma intenção bem formulada tem três propriedades: (i) explicita o objetivo e o risco protegido, (ii) orienta trade-offs e (iii) é operacionalizável em restrições e critérios de aceitação.
 
-#### Contexto Regulatório
-- Legislações aplicáveis (LGPD, GDPR, SOX, etc.)
-- Padrões de compliance setoriais
-- Requisitos de auditoria e rastreabilidade
-- Certificações necessárias
+Uma forma prática de manter a distinção é trabalhar com quatro categorias:
 
-### 2.2.2 Modelagem de Contexto
+| Categoria | Definição operacional | Exemplo |
+|----------|------------------------|---------|
+| Requisito | Propriedade desejada do sistema (o que) | "Registrar auditoria de alterações de perfil" |
+| Intenção | Propósito que dá sentido e prioridade (por quê) | "Possibilitar responsabilização e conformidade" |
+| Restrição | Limite explícito (o que nao pode acontecer) | "Nao registrar dados sensiveis em logs" |
+| Hipótese | Suposição a validar (o que acreditamos) | "A maioria dos acessos ocorre em horario comercial" |
 
-A modelagem de contexto utiliza diversas técnicas para capturar e representar o ambiente:
+Técnicas clássicas para elicitar intenção continuam válidas, desde que conectadas a verificabilidade:
 
-| Técnica | Propósito | Saída |
-|---------|-----------|-------|
-| Rich Pictures | Capturar complexidade social e política | Diagrama visual rico |
-| Stakeholder Maps | Identificar influências e interesses | Matriz de poder/interesse |
-| Domain Storytelling | Compreender processos de negócio | Narrativas estruturadas |
-| Context Diagrams | Delimitar fronteiras do sistema | Diagrama de contexto |
+- 5 Whys: útil para separar solução proposta de problema real (IEEE COMPUTER SOCIETY, 2024).
+- Laddering: útil para transitar de atributos percebidos a valores/objetivos, desde que a saída seja convertida em restrições e critérios de aceitação (REYNOLDS; GUTMAN, 1988).
+- JTBD: útil para explicitar o "trabalho" e o resultado desejado, com implicações para qualidade e riscos (CHRISTENSEN et al., 2016).
 
-## 2.3 Elicitação de Intenção
+## 2.4 Artefatos de elicitação como insumos para verificação
 
-### 2.3.1 Intenção vs. Requisito
+Em uma prática verification-centric, a elicitação deve produzir artefatos que sejam:
 
-A distinção entre intenção e requisito é fundamental:
+1. rastreáveis (têm fonte, dono e justificativa);
+2. verificáveis (têm critérios e mecanismo de demonstração);
+3. versionáveis (têm histórico e evolução);
+4. auditáveis (têm trilha de decisão e de exceção).
 
-- **Requisito**: Descrição específica de uma funcionalidade ou restrição
-- **Intenção**: Propósito subjacente que justifica e orienta múltiplos requisitos
+### 2.4.1 Modelo de ficha de intenção (artefato mínimo)
 
-**Exemplo:**
-- Intenção: "Garantir que dados sensíveis nunca sejam expostos indevidamente"
-- Requisitos derivados:
-  - "Dados de cartão de crédito devem ser criptografados em repouso"
-  - "Logs não devem conter informações PII em texto plano"
-  - "Sessões de usuário devem expirar após inatividade"
-
-### 2.3.2 Técnicas de Elicitação de Intenção
-
-#### Why-How Laddering (Escada Porquê-Como)
-
-Técnica para navegar entre diferentes níveis de abstração:
-
-```
-                    ┌─────────────────┐
-                    │  Objetivo       │
-                    │  Estratégico    │
-                    └────────┬────────┘
-                           Por quê?
-                             │
-                    ┌────────▼────────┐
-                    │   Intenção      │
-                    │   de Negócio    │
-                    └────────┬────────┘
-                           Por quê?
-                             │
-                    ┌────────▼────────┐
-                    │   Intenção      │
-                    │   de Sistema    │
-                    └────────┬────────┘
-                           Por quê?
-                             │
-                    ┌────────▼────────┐
-                    │    Requisito    │
-                    │    Específico   │
-                    └─────────────────┘
-```
-
-#### Job-to-be-Done (JTBD)
-
-Framework para entender o "trabalho" que o usuário contrata o sistema para realizar:
-
-- **Job Funcional**: Tarefa prática a ser executada
-- **Job Emocional**: Como o usuário quer se sentir
-- **Job Social**: Como o usuário quer ser percebido
-
-### 2.3.3 Documentação de Intenção
-
-A intenção deve ser documentada de forma apropriada para consumo por sistemas autônomos:
+O objetivo do modelo abaixo nao é prescrever ferramenta; é padronizar informação para revisão humana e para automações de verificação.
 
 ```markdown
-## Intenção: [Nome Descritivo]
+## Intencao: [nome curto e operacional]
 
-**Contexto**: [Situação que motiva a intenção]
+**Problema**: [qual problema esta sendo resolvido]
 
-**Propósito**: [Objetivo que se busca alcançar]
+**Motivacao**: [por que isso importa; risco protegido; obrigacao externa, se houver]
 
-**Princípios Orientadores**:
-- [Princípio 1]
-- [Princípio 2]
+**Escopo**:
+- Inclui: [o que esta dentro]
+- Exclui: [o que esta fora]
 
-**Restrições Derivadas**:
-- [Restrição 1]
-- [Restrição 2]
+**Suposicoes (hipoteses)**:
+- [H1] ... (como validar)
+- [H2] ... (como validar)
 
-**Consequências de Violação**:
-- [Consequência 1]
-- [Consequência 2]
+**Restricoes derivadas (nao negociaveis)**:
+- [R1] ... (criterio de verificacao)
+- [R2] ... (criterio de verificacao)
+
+**Trade-offs aceitos**:
+- [T1] ... (impacto)
+
+**Dono e aprovadores**: [papel/responsavel]
+**Evidencias exigidas**: [logs, testes, revisoes, auditorias]
+**Validade/expiracao**: [quando reavaliar]
 ```
 
-## 2.4 Técnicas de Elicitação para Sistemas com IA
+### 2.4.2 Artefatos complementares (quando o risco justifica)
 
-### 2.4.1 Prompt Engineering como Elicitação
+| Artefato | O que resolve | Quando se torna obrigatorio |
+|----------|---------------|-----------------------------|
+| Mapa de stakeholders | viés e omissoes de fonte | quando ha conflito, alto impacto ou multipla governanca |
+| Diagrama de contexto | fronteiras e integrações | quando ha dados sensiveis, multiplos sistemas ou terceiros |
+| Catálogo de restrições | contenção e verificabilidade | quando ha automacao significativa ou risco de falhas silenciosas |
+| Registro de decisões | auditabilidade e accountability | quando ha trade-offs relevantes ou excecoes recorrentes |
 
-A interação com LLMs para elicitação requer técnicas específicas:
+## 2.5 Processo de elicitação em ciclos (contexto como ativo vivo)
 
-**Prompts Estruturados para Elicitação:**
-
-```
-Contexto: [Descrição do domínio e problema]
-
-Stakeholders Identificados: [Lista de pessoas/papéis]
-
-Objetivo: Identificar restrições críticas que governariam 
-o desenvolvimento de [sistema] neste contexto.
-
-Por favor, elicite:
-1. Restrições funcionais negativas (o que NÃO fazer)
-2. Restrições de domínio específicas
-3. Invariantes que devem ser preservadas
-4. Comportamentos de degradação esperados
-
-Para cada restrição identificada, inclua:
-- A origem (stakeholder ou contexto)
-- A criticidade (Alta/Média/Baixa)
-- Uma forma de verificação
-```
-
-### 2.4.2 Técnicas Colaborativas com IA
-
-#### Elicitação Iterativa Reforçada
-
-Ciclo de refinamento contínuo:
+Ao invés de tratar elicitação como fase única, recomenda-se um ciclo de quatro etapas, com critérios de parada e reabertura:
 
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│   Humano        │────▶│      LLM        │────▶│   Humano        │
-│  (fornece       │     │  (gera          │     │  (avalia,       │
-│   contexto)     │     │   hipóteses)    │     │   corrige)      │
-└─────────────────┘     └─────────────────┘     └────────┬────────┘
-        ▲                                                │
-        └────────────────────────────────────────────────┘
-                        Refinamento
+descobrir -> estruturar -> validar -> operar
+   ^                               |
+   +----------- reavaliar ----------+
 ```
 
-#### Detecção de Conflitos
+1. Descobrir: coletar fontes (pessoas, documentos, sistemas legados, obrigações externas).
+2. Estruturar: converter narrativas em intenções, restrições, hipóteses e critérios de aceitação.
+3. Validar: revisar com stakeholders e, quando aplicável, definir pontos de supervisão humana.
+4. Operar: monitorar sinais de desvio (mudança de contexto, incidentes, drift) e reabrir a elicitação quando necessário.
 
-Utilização de LLMs para identificar conflitos potenciais entre requisitos elicitados:
-- Inconsistências lógicas
-- Contradições entre stakeholders
-- Conflitos entre restrições e intenções
+Este ciclo é compatível com a visão do SWEBOK v4 de que requisitos são refinados ao longo do ciclo de vida (IEEE COMPUTER SOCIETY, 2024) e com abordagens contemporâneas de gestão de risco em IA, que enfatizam monitoramento contínuo e evidências de controle (NIST, 2023).
 
-### 2.4.3 Validação de Completude
+## 2.6 Anti-padrões recorrentes e mitigações
 
-Critérios para avaliar a completude da elicitação:
+| Anti-padrão | Sintoma | Mitigação |
+|------------|---------|----------|
+| "Lavagem" de intenção | requisitos aparecem como lista de features sem racional | exigir campo de motivacao e risco protegido; revisar com base em evidencias |
+| Solucionismo prematuro | uma solucao e confundida com requisito | aplicar 5 Whys; explicitar alternativas e trade-offs |
+| Contexto implícito | regras de negocio ficam "na cabeça" da equipe | registrar suposicoes e fontes; definir dono e validade |
+| Critérios não verificáveis | frases aspiracionais (ex.: "ser seguro") | reescrever como restricoes observaveis + criterio de verificacao |
+| Autonomia sem fronteiras | automacoes executam acoes irreversiveis sem controle | definir pontos de supervisao humana por risco e reversibilidade |
 
-| Critério | Descrição | Métrica |
-|----------|-----------|---------|
-| Cobertura de Stakeholders | Todos os grupos relevantes foram consultados | % de stakeholders mapeados |
-| Completude de Contexto | Todas as dimensões relevantes foram exploradas | Checklist de dimensões |
-| Rastreabilidade | Cada restrição pode ser rastreada a uma fonte | % de rastreabilidade |
-| Verificabilidade | Cada restrição pode ser verificada | % de restrições testáveis |
+## 2.7 Matriz de Avaliação Consolidada
 
-## 2.5 Desafios e Anti-Padrões
-
-### 2.5.1 Viés de Confirmação
-
-**Problema**: Tendência de buscar apenas informações que confirmam hipóteses pré-existentes.
-
-**Mitigação**:
-- Diversificar fontes de elicitação
-- Utilizar técnicas de elicitação contrárias
-- Incluir prompts específicos para desafiar suposições
-
-### 2.5.2 Paralisia por Análise
-
-**Problema**: Elicitação excessiva que impede progresso.
-
-**Mitigação**:
-- Estabelecer critérios de parada claros
-- Priorizar informações por criticidade
-- Adotar abordagem iterativa e incremental
-
-### 2.5.3 Perda de Nuance
-
-**Problema**: Simplificação excessiva de contextos complexos.
-
-**Mitigação**:
-- Documentar contexto em múltiplos níveis de abstração
-- Incluir casos de borda e exceções
-- Preservar ambiguidade quando apropriado
-
-## 2.6 Ferramentas e Tecnologias
-
-### 2.6.1 Ferramentas Tradicionais Adaptadas
-
-Evite tratar ferramentas como solução. O ponto central é a padronização do formato e a rastreabilidade do que foi elicitado. Categorias comuns:
-
-| Categoria | Adaptação para IA | Uso |
-|-----------|-------------------|-----|
-| Gestão de trabalho (issues/wiki) | Templates de contexto, intenção e restrições | Documentação estruturada e auditável |
-| Quadros/diagramas colaborativos | Diagramas de contexto com fronteiras explícitas | Alinhamento e revisão com stakeholders |
-| Bases tabulares/semânticas | Catálogo de restrições com metadados | Priorização, rastreabilidade e verificação |
-
-### 2.6.2 Ferramentas Emergentes
-
-- **LLM-native requirements tools**: Sistemas especializados em elicitação assistida por IA
-- **Knowledge graphs**: Representação semântica de contexto e intenção
-- **Constraint specification languages**: Linguagens formais para especificação de restrições
-
-## 2.7 Estudos de Caso
-
-### 2.7.1 Caso: Sistema Financeiro de Alta Frequência
-
-**Contexto**: Sistema de trading algorítmico com requisitos de latência extremos.
-
-**Intenção Central**: "Maximizar retorno dentro de limites de risco absolutos"
-
-**Restrições Derivadas**:
-- Posição máxima por ativo: limitada por VaR diário
-- Latência máxima: 50µs para decisões críticas
-- Circuit breakers: interrupção automática em condições de mercado extremas
-
-### 2.7.2 Caso: Sistema de Saúde com IA
-
-**Contexto**: Sistema de apoio a diagnóstico médico.
-
-**Intenção Central**: "Auxiliar profissionais de saúde sem substituir julgamento clínico"
-
-**Restrições Derivadas**:
-- Nunca prescrever tratamentos sem validação humana
-- Apresentar nível de confiança em todas as recomendações
-- Registrar todas as interações para auditoria
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — a necessidade de explicitar contexto, intenção e restrições tende a crescer com a autonomia de sistemas |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — validar contexto e intenção demanda conhecimento do domínio, acesso a stakeholders e julgamento técnico |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — falhas de elicitação podem produzir violações regulatórias, riscos operacionais e danos a terceiros (NIST, 2023; UNIÃO EUROPEIA, 2024) |
 
 ## 2.8 Exercícios
 
-1. Para um sistema de e-commerce, elicite:
-   - 3 intenções de negócio fundamentais
-   - 5 restrições funcionais negativas
-   - 3 restrições não-funcionais críticas
-
-2. Analise o seguinte requisito e extraia a intenção subjacente:
-   "O sistema deve processar pagamentos em menos de 2 segundos"
-
-3. Crie um prompt estruturado para elicitar restrições de um sistema autônomo de veículos.
-
----
+1. Para um sistema de e-commerce, defina duas intenções de negócio e derive, para cada uma, ao menos três restrições verificáveis (incluindo pelo menos uma restrição de dados).
+2. Reescreva o requisito "o sistema deve ser seguro" como um conjunto mínimo de restrições observáveis e critérios de verificação.
+3. Produza uma ficha de intenção para um recurso de recomendação que opere sob supervisão humana por exceção (human-on-the-loop) e defina critérios de escalonamento.
 
 ## Practical Considerations
 
-- Comece pela intenção antes de detalhar requisitos: para cada requisito, registre explicitamente qual risco/objetivo ele protege.
-- Documente contexto em camadas: um resumo executivo (para decisão) e um detalhamento operacional (para verificação e auditoria).
-- Para uso com IA, padronize formatos e campos obrigatórios (origem, criticidade, forma de verificação, consequências de violação).
-- Trate “prompts de elicitação” como artefatos transicionais: úteis para acelerar descoberta, mas insuficientes sem validação humana e rastreabilidade.
+- Trate contexto como ativo: registre suposições, fontes e validade; reabra elicitação quando o ambiente mudar.
+- Exija rastreabilidade: cada requisito e restrição deve apontar para uma intenção e para uma fonte (stakeholder, norma, incidente ou evidência).
+- Prefira critérios verificáveis: converta frases vagas em propriedades observáveis com mecanismo de demonstração.
+- Separe intenção de solução: documente trade-offs e alternativas, e use intenção para arbitrar conflitos.
+- Defina quando supervisão humana é obrigatória: use risco, irreversibilidade e obrigações regulatórias como critérios.
 
 ## Summary
 
-- Elicitar contexto e intenção reduz ambiguidade e limita soluções “plausíveis, porém erradas” geradas por automação.
-- Contexto pode ser modelado em dimensões complementares; intenção conecta requisitos a objetivos e riscos.
-- Técnicas como laddering e JTBD ajudam a derivar restrições e critérios de verificação.
-- Anti-padrões recorrentes (viés de confirmação, paralisia por análise, perda de nuance) exigem critérios de parada e revisão.
+- Elicitar contexto e intenção reduz ambiguidade e incompletude e diminui retrabalho em cascata.
+- Contexto deve ser tratado como dimensões operacionais com evidências verificáveis (especialmente dados e operação).
+- Intenção conecta requisitos a riscos e orienta trade-offs; restrições operacionalizam a intenção como limites verificáveis.
+- Artefatos padronizados (ficha de intenção, catálogo de restrições, registro de decisões) sustentam verificação, auditoria e evolução.
 
 ## References
 
-1. ISO/IEC/IEEE. ISO/IEC/IEEE 29148: Systems and software engineering — Life cycle processes — Requirements engineering. 2018.
-2. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+2. ISO/IEC/IEEE. ISO/IEC/IEEE 29148: Systems and software engineering -- Life cycle processes -- Requirements engineering. ISO/IEC/IEEE, 2018.
+3. NIST. Artificial Intelligence Risk Management Framework (AI RMF 1.0). NIST, 2023. Disponível em: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf. Acesso em: 31 jan. 2026.
+4. UNIÃO EUROPEIA. Regulamento (UE) 2024/1689 (AI Act): regras harmonizadas em materia de inteligencia artificial. 2024. Disponível em: https://eur-lex.europa.eu/eli/reg/2024/1689/oj. Acesso em: 31 jan. 2026.
+5. REYNOLDS, T. J.; GUTMAN, J. Laddering theory, method, analysis, and interpretation. Journal of Advertising Research, 1988.
+6. CHRISTENSEN, C. M.; HALL, T.; DILLON, K.; DUNCAN, D. Competing Against Luck: The Story of Innovation and Customer Choice. HarperBusiness, 2016.
 
 *SWEBOK-AI v5.0 - Software Requirements*

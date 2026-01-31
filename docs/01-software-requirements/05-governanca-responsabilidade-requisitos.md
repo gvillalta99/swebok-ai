@@ -1,520 +1,211 @@
+---
+title: "Seção 5: Governança e Responsabilidade em Requisitos"
+created_at: "2026-01-31"
+tags: ["requisitos", "governanca", "responsabilidade", "accountability", "auditabilidade", "compliance", "rastreabilidade"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 5: Governança e Responsabilidade em Requisitos
 
 ## Overview
 
-Esta seção trata de governança aplicada a requisitos e restrições em ambientes com automação e agentes: como definir cadeia de responsabilidade, produzir trilhas de auditoria, manter compliance e reduzir o risco de “accountability difusa” quando decisões e código são parcialmente gerados.
+Esta seção apresenta como governança, responsabilidade e accountability devem ser tratadas como requisitos e restrições em sistemas híbridos (humanos-IA). O objetivo é especificar cadeias de decisão, critérios de evidência e mecanismos de auditoria que preservem rastreabilidade e permitam atribuição clara de responsabilidade, mesmo quando parte do comportamento é gerado, recomendado ou adaptado por componentes autônomos.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
-1. Definir uma cadeia de responsabilidade para sistemas com componentes autônomos
-2. Estabelecer processos mínimos de auditoria e rastreabilidade para requisitos/restrições
-3. Integrar compliance (privacidade, segurança, riscos) à especificação e à validação
-4. Identificar riscos de viés e mecanismos de mitigação no nível de requisitos
 
-## 5.1 Introdução
+1. Definir responsabilidade, accountability, auditabilidade e rastreabilidade como conceitos operacionais e traduzíveis em requisitos verificáveis.
+2. Projetar uma cadeia de decisão (papéis, aprovações e escalonamento) proporcional ao risco do caso de uso.
+3. Integrar compliance, privacidade, segurança e ética como requisitos desde a especificação.
+4. Especificar um modelo mínimo de evidência (o que registrar, por quanto tempo e como correlacionar) para auditoria e resposta a incidentes.
 
-A introdução de sistemas autônomos baseados em IA na engenharia de software cria um abismo de responsabilidade. Quando um LLM gera código que viola uma restrição de segurança, quem é responsável? O engenheiro que forneceu o prompt? A organização que implementou o sistema? O fornecedor do modelo?
+## 5.1 Introdução: por que governança é um problema de requisitos
 
-A **Governança de Requisitos na Era da IA** estabelece frameworks de responsabilidade, processos de auditoria e mecanismos de compliance que garantem que sistemas autônomos operem dentro de limites aceitáveis e que responsáveis possam ser identificados e accountability mantida.
+Em projetos tradicionais, existe uma relação relativamente direta entre requisito, design, implementação e comportamento observado. Em sistemas híbridos, essa relação se torna mais frágil por três razões recorrentes:
 
-## 5.2 Framework de Responsabilidade
+1. **Causalidade diluída**: decisões relevantes podem ser distribuídas entre times, fornecedores, operadores e componentes autônomos.
+2. **Variabilidade**: diferentes execuções podem produzir resultados distintos sob condições similares, mesmo sem mudança explícita de código.
+3. **Evidência incompleta**: sem requisitos explícitos de registro e rastreabilidade, a organização não consegue reconstruir o que ocorreu e por quê.
 
-### 5.2.1 Cadeia de Responsabilidade
+Consequentemente, governança não pode ser tratada como um documento separado da engenharia de requisitos. Ela precisa ser especificada como requisitos de processo e de evidência: quem aprova, o que deve ser registrado, quando escalonar para revisão humana e quais condições devem ser satisfeitas antes de operar em produção.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                   CADEIA DE RESPONSABILIDADE                    │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Nível 1: Responsabilidade Estratégica                          │
-│  ├── Diretoria/Executivos                                       │
-│  ├── Políticas de uso de IA                                     │
-│  └── Aprovação de casos de uso de alto risco                    │
-│                                                                 │
-│  Nível 2: Responsabilidade de Governança                        │
-│  ├── Comitê de Ética em IA                                      │
-│  ├── Avaliação de riscos                                        │
-│  └── Compliance com regulamentações                             │
-│                                                                 │
-│  Nível 3: Responsabilidade Técnica                              │
-│  ├── Arquitetos de Software                                     │
-│  ├── Definição de restrições e invariantes                      │
-│  └── Validação de saídas de IA                                  │
-│                                                                 │
-│  Nível 4: Responsabilidade Operacional                          │
-│  ├── Engenheiros de Software                                    │
-│  ├── Implementação conforme especificação                       │
-│  └── Documentação de decisões                                   │
-│                                                                 │
-│  Nível 5: Responsabilidade de Verificação                       │
-│  ├── Quality Assurance                                          │
-│  ├── Testes de conformidade                                     │
-│  └── Auditoria contínua                                         │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+## 5.2 Definições operacionais (para evitar ambiguidade)
 
-### 5.2.2 Matriz de Responsabilidade RACI Adaptada
+### 5.2.1 Responsabilidade, accountability e autoridade
 
-| Atividade | Executivo | Governança | Arquiteto | Engenheiro | QA |
-|-----------|-----------|------------|-----------|------------|-----|
-| Definir políticas de IA | A | R | C | I | I |
-| Aprovar uso de IA em produção | A | R | C | C | I |
-| Especificar restrições | I | C | A/R | C | C |
-| Validar saídas de LLM | I | I | A | R | C |
-| Auditar conformidade | I | A | C | I | R |
-| Responder a incidentes | A | C | C | R | C |
+- **Responsabilidade (responsibility)**: obrigação de executar atividades e operar controles (por exemplo: revisar, registrar, monitorar, responder a incidentes).
+- **Accountability**: obrigação de justificar decisões e responder por consequências perante auditoria interna/externa, incluindo aceitação explícita de risco residual.
+- **Autoridade de decisão**: permissão formal para aprovar uma decisão que altera risco, escopo, exceções ou controles.
+
+Um sistema híbrido exige que essas três dimensões estejam presentes na especificação. Caso contrário, decisões críticas ocorrem sem dono identificável.
+
+### 5.2.2 Auditabilidade e rastreabilidade
+
+- **Auditabilidade**: capacidade de reconstruir o que foi decidido, por quem, sob quais premissas, com quais controles e com quais evidências.
+- **Rastreabilidade**: capacidade de ligar necessidade -> intenção -> requisito/restrição -> decisão -> implementação -> verificação -> evidência, de forma versionável.
+
+Auditabilidade sem rastreabilidade tende a produzir narrativas não verificáveis; rastreabilidade sem auditabilidade tende a produzir links sem explicação.
+
+## 5.3 Modelo de governança: cadeia de decisão e responsabilidades
+
+### 5.3.1 Camadas de decisão (cadeia de responsabilidade)
+
+Uma cadeia mínima para sistemas híbridos pode ser estruturada em cinco camadas:
+
+1. **Estratégica**: define apetite de risco e regras de exceção.
+2. **Governança/Compliance**: interpreta requisitos legais, define critérios de evidência e supervisiona auditorias.
+3. **Técnica**: traduz políticas em restrições, invariantes e critérios de verificação.
+4. **Operacional**: executa controles, coleta evidências e mantém resposta a incidentes.
+5. **Garantia/Auditoria**: valida conformidade e mede efetividade dos controles.
+
+Cada camada deve ser representada na especificação por papéis, artefatos obrigatórios e critérios de aprovação.
+
+### 5.3.2 Matriz RACI (adaptada)
+
+| Atividade | Estratégia | Governança/Compliance | Arquitetura | Engenharia | Garantia/Auditoria |
+|-----------|------------|------------------------|-------------|------------|--------------------|
+| Classificar risco do caso de uso | A | R | C | I | C |
+| Definir restrições e invariantes críticos | I | C | A/R | R | C |
+| Aprovar exceção a restrição crítica | A | R | C | I | C |
+| Definir critérios de escalonamento humano | C | C | A/R | R | C |
+| Validar conformidade antes de produção | I | C | C | R | A/R |
+| Conduzir investigação de incidente | A | C | C | R | R |
 
 *Legenda: R=Responsible, A=Accountable, C=Consulted, I=Informed*
 
-### 5.2.3 Princípios de Responsabilidade
+### 5.3.3 Escalonamento por risco (governança proporcional)
 
-**1. Princípio do Humano no Centro (Human-in-the-Loop)**
+Uma regra prática é vincular risco a exigências de evidência. Um exemplo de classificação orientada por risco:
 
-> *"Decisões que afetam segurança, privacidade ou direitos fundamentais devem ter validação humana final."*
+| Classe de risco | Características típicas | Requisitos mínimos de governança |
+|----------------|--------------------------|----------------------------------|
+| Alto | impacto em direitos, segurança, uso de dados sensíveis, decisões com efeito material | aprovação formal; supervisão humana definida; trilha de auditoria completa; verificação reforçada; plano de resposta a incidentes |
+| Moderado | influência significativa em decisões humanas, dados pessoais não sensíveis, automações relevantes | aprovação técnica; evidências de teste e rastreabilidade; monitoramento; revisão periódica |
+| Baixo | automações internas de baixo impacto, dados anonimizados/agregados, decisões reversíveis | registro básico; rastreabilidade mínima; revisão amostral |
 
-**2. Princípio da Rastreabilidade Total**
+O ponto essencial é o mecanismo: aumentar risco exige aumentar responsabilidade formal e evidência.
 
-Toda decisão automatizada deve ser rastreável a:
-- Um requisito ou restrição especificada
-- Um responsável humano
-- Um momento no tempo
-- Um contexto de decisão
+## 5.4 Compliance e regulamentação como requisitos
 
-**3. Princípio da Transparência**
+### 5.4.1 Do "compliance no final" ao "compliance por construção"
 
-Sistemas que utilizam IA devem:
-- Declarar explicitamente o uso de IA
-- Explicar limitações e incertezas
-- Fornecer mecanismos de contestação
+**LEGADO**: tratar privacidade, segurança e conformidade como etapa final, separada da especificação.
 
-## 5.3 Governança de Requisitos
+Em sistemas híbridos, essa prática falha porque o risco nasce na definição de escopo, nos dados autorizados e nos limites da autonomia. Assim, compliance deve ser incorporado como requisitos desde a fase de requisitos, incluindo:
 
-### 5.3.1 Ciclo de Governança
+- classificação de risco e justificativa documentada;
+- limites de finalidade e minimização de dados;
+- transparência e informação ao usuário;
+- requisitos de supervisão humana e contestabilidade;
+- requisitos de documentação técnica e registro;
+- requisitos de auditoria e retenção de evidências;
+- requisitos de resposta a incidentes.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                   CICLO DE GOVERNANÇA                           │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│    ┌─────────────┐         ┌─────────────┐                      │
-│    │  ESPECIFICAR │────────▶│   REVISAR   │                      │
-│    │  Restrições  │         │  Técnica e  │                      │
-│    │  e Contexto  │         │   Ética     │                      │
-│    └──────┬──────┘         └──────┬──────┘                      │
-│           ▲                       │                             │
-│           │                       ▼                             │
-│    ┌──────┴──────┐         ┌─────────────┐                      │
-│    │   ATUALIZAR │◀────────│  APROVAR    │                      │
-│    │   Conforme  │         │  Comitê de  │                      │
-│    │   Aprendizado│         │ Governança  │                      │
-│    └─────────────┘         └──────┬──────┘                      │
-│                                   │                             │
-│                                   ▼                             │
-│                          ┌─────────────┐                        │
-│                          │ IMPLEMENTAR │                        │
-│                          │   Com       │                        │
-│                          │  Rastreamento│                        │
-│                          └─────────────┘                        │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+### 5.4.2 Abordagem orientada por risco
 
-### 5.3.2 Comitê de Ética e Governança em IA
+Regulações recentes enfatizam uma abordagem orientada a risco, com obrigações proporcionais ao impacto do sistema. Para engenharia de requisitos, isso implica tratar a classificação de risco como requisito de processo: deve existir um procedimento para classificar o caso de uso, registrar a justificativa e aplicar controles e evidências compatíveis.
 
-**Composição Recomendada:**
+### 5.4.3 Checklist mínimo (como campos obrigatórios da especificação)
 
-| Perfil | Responsabilidade | Participação |
-|--------|------------------|--------------|
-| Legal/Compliance | Aspectos regulatórios | Permanente |
-| Engenharia | Viabilidade técnica | Permanente |
-| Negócio | Impacto nos objetivos | Permanente |
-| Segurança | Avaliação de riscos | Permanente |
-| Ética/Diversidade | Viés e fairness | Permanente |
-| Especialista de Domínio | Contexto específico | Por demanda |
+Os itens a seguir devem ser entendidos como campos obrigatórios em requisitos (e não como uma lista genérica de tarefas):
 
-**Atribuições:**
-1. Aprovar ou rejeitar casos de uso de IA
-2. Definir níveis de risco e requisitos de mitigação
-3. Estabelecer diretrizes para interação humano-IA
-4. Investigar incidentes e violações
-5. Atualizar políticas conforme evolução tecnológica
+- identificação do caso de uso, objetivo e limites de escopo;
+- classificação de risco e justificativa;
+- inventário de dados (categorias, finalidade, retenção);
+- requisitos de transparência (o que informar, quando e para quem);
+- requisitos de supervisão humana (quando, como e com quais evidências);
+- requisitos de rastreabilidade e auditoria;
+- critérios de aceitação e métodos de verificação;
+- requisitos de resposta a incidentes.
 
-### 5.3.3 Classificação de Risco de Casos de Uso
+## 5.5 Rastreabilidade e evidência: artefatos minimamente suficientes
+
+### 5.5.1 Cadeia de rastreabilidade orientada a evidência
+
+Uma cadeia de rastreabilidade útil para governança pode ser expressa como:
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│               CLASSIFICAÇÃO DE RISCO                            │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ALTO RISGO (Aprovação obrigatória do Comitê)                   │
-│  ├── Decisões que afetam direitos individuais                   │
-│  ├── Processamento de dados sensíveis sem supervisão            │
-│  ├── Sistemas autônomos em ambientes críticos de segurança      │
-│  └── Algoritmos de decisão com impacto legal                    │
-│                                                                 │
-│  RISCO MODERADO (Aprovação do Arquiteto/Gerente)                │
-│  ├── Recomendações que influenciam decisões humanas             │
-│  ├── Geração de conteúdo público                                │
-│  ├── Processamento em lote de dados pessoais                    │
-│  └── Análise preditiva para operações de negócio                │
-│                                                                 │
-│  BAIXO RISCO (Registro apenas)                                  │
-│  ├── Assistentes de produtividade individual                    │
-│  ├── Geração de código com revisão obrigatória                  │
-│  ├── Análise de dados agregados anonimizados                    │
-│  └── Automação de tarefas internas não críticas                 │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+Necessidade -> Intenção -> Requisito/Restrição -> Decisão -> Implementação -> Verificação -> Evidência
 ```
 
-## 5.4 Compliance e Regulamentação
+O elemento "evidência" deve ser de primeira classe: requisitos críticos precisam produzir evidências verificáveis, sob pena de se tornarem intenções não operacionais.
 
-### 5.4.1 Marco Regulatório Global
+### 5.5.2 Registro de Decisão de Requisitos (RDR)
 
-| Regulamentação | Escopo | Requisitos Chave |
-|----------------|--------|------------------|
-| UE AI Act | Sistemas de IA na UE | Classificação de risco, transparência, accountability |
-| GDPR (UE) | Dados pessoais | Direito à explicação, consentimento, minimização |
-| LGPD (Brasil) | Dados pessoais no Brasil | Transparência, finalidade específica, segurança |
-| CCPA (Califórnia) | Dados de consumidores | Direito de não ser discriminado por decisões automatizadas |
-| NIST AI RMF (EUA) | Organizações dos EUA | Governança, mapeamento, medição, gestão de risco |
-| ISO/IEC 42001 | Gestão de sistemas de IA | Sistema de gestão estruturado |
+O Registro de Decisão de Requisitos (RDR) documenta decisões de escopo, risco e controles. Para ser auditável, o RDR deve conter (no mínimo):
 
-### 5.4.2 Checklist de Compliance
+| Campo | Descrição |
+|-------|-----------|
+| Identificador | ID único e versionável |
+| Contexto | problema, stakeholders, pressupostos |
+| Decisão | o que foi decidido e por quê |
+| Restrições/invariantes | limites impostos e motivação |
+| Alternativas | opções consideradas e razões de rejeição |
+| Riscos e mitigação | riscos, controles e responsabilidades |
+| Evidências requeridas | artefatos que provam conformidade |
+| Aprovações | responsáveis, datas e condições |
 
-**Checklist de Requisitos com IA:**
+### 5.5.3 Requisitos para trilha de auditoria (sem prescrever ferramentas)
 
-- [ ] Identificação do caso de uso e classificação de risco
-- [ ] Documentação de decisões de design (design rationale)
-- [ ] Avaliação de viés e fairness
-- [ ] Análise de impacto à privacidade (DPIA quando aplicável)
-- [ ] Mecanismos de supervisão humana definidos
-- [ ] Estratégia de fallback documentada
-- [ ] Logs de auditoria especificados
-- [ ] Métricas de qualidade e conformidade definidas
-- [ ] Plano de resposta a incidentes
-- [ ] Revisão periódica agendada
+Requisitos de auditoria não devem prescrever ferramentas específicas. Eles devem especificar propriedades verificáveis:
 
-### 5.4.3 Documentação para Accountability
+- **completude**: quais eventos precisam ser registrados;
+- **integridade**: proteção contra alteração não autorizada;
+- **retenção**: prazo e política de descarte;
+- **acesso**: quem pode consultar e sob quais condições;
+- **correlação**: como relacionar eventos a requisitos, decisões e versões.
 
-**Registro de Decisão de Requisitos (RDR):**
+## 5.6 Ética e direitos fundamentais no nível de requisitos
 
-```markdown
-# Registro de Decisão de Requisitos
+Etica, nesta seção, é tratada como limitação e proteção especificáveis. Em requisitos, isso aparece tipicamente em quatro eixos:
 
-## Identificação
-- ID: RDR-2024-001
-- Data: 2024-01-15
-- Responsável: [Nome do Arquiteto]
-- Caso de Uso: Sistema de Recomendação de Produtos
+1. **Justiça e não discriminação**: proibir tratamento desigual injustificado e exigir análise de proxies.
+2. **Transparência**: informar uso de IA e limites/incertezas relevantes ao contexto.
+3. **Privacidade**: minimização, finalidade, segurança e governança de dados.
+4. **Contestabilidade e supervisão**: possibilitar contestação e intervenção humana em decisões relevantes.
 
-## Contexto
-Descrição do problema ou necessidade que motivou a decisão.
+Uma regra prática é exigir, para classes de risco moderado/alto, que cada requisito sensível declare:
 
-## Decisão
-Descrição da decisão tomada, incluindo restrições especificadas.
+- qual direito/valor protege;
+- qual dano busca prevenir;
+- qual evidência demonstrará conformidade;
+- quem é accountable pela aceitação do risco residual.
 
-## Alternativas Consideradas
-- Alternativa 1: [descrição] - rejeitada porque [razão]
-- Alternativa 2: [descrição] - rejeitada porque [razão]
+## Matriz de Avaliação Consolidada
 
-## Consequências
-### Positivas
-- [Consequência positiva 1]
-
-### Negativas
-- [Consequência negativa 1]
-
-## Restrições Especificadas
-- Restrição 1: [descrição detalhada]
-- Restrição 2: [descrição detalhada]
-
-## Riscos Identificados
-- Risco 1: [descrição] - Mitigação: [ação]
-
-## Compliance
-- [ ] Revisado pelo Comitê de Ética em IA
-- [ ] Avaliação de impacto à privacidade concluída
-- [ ] Documentação de viés anexada
-
-## Aprovações
-- [Nome] - Arquiteto de Software - 2024-01-15
-- [Nome] - Compliance - 2024-01-16
-```
-
-## 5.5 Rastreabilidade e Auditoria
-
-### 5.5.1 Cadeia de Rastreabilidade
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                  CADEIA DE RASTREABILIDADE                      │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  Stakeholder                                                    │
-│     │                                                           │
-│     ▼                                                           │
-│  Necessidade ─────────────────────────────────────┐             │
-│     │                                             │             │
-│     ▼                                             │             │
-│  Intenção ───────────────┐                        │             │
-│     │                    │                        │             │
-│     ▼                    ▼                        ▼             │
-│  Restrição ───────▶ Especificação ───────▶ Código Gerado        │
-│     │                    │                        │             │
-│     ▼                    ▼                        ▼             │
-│  Caso de Teste ──▶ Oráculo de Teste ────▶ Resultado de Teste    │
-│     │                    │                        │             │
-│     └────────────────────┴────────────────────────┘             │
-│                          │                                      │
-│                          ▼                                      │
-│                    Relatório de Compliance                      │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### 5.5.2 Metadados de Rastreabilidade
-
-```python
-from dataclasses import dataclass
-from datetime import datetime
-from typing import List, Dict, Optional
-
-@dataclass
-class RequirementTraceability:
-    """
-    Metadados completos de rastreabilidade para requisitos/restrições.
-    """
-    # Identificação
-    id: str
-    version: str
-    title: str
-    
-    # Origem
-    source: str  # Stakeholder, regulamentação, etc.
-    elicitation_date: datetime
-    elicitation_method: str
-    
-    # Responsabilidade
-    author: str
-    approver: str
-    approval_date: Optional[datetime]
-    
-    # Relacionamentos
-    parent_requirement: Optional[str]
-    child_requirements: List[str]
-    related_requirements: List[str]
-    
-    # Implementação
-    design_documents: List[str]
-    code_references: List[str]
-    test_cases: List[str]
-    
-    # Validação
-    verification_method: str  # inspeção, teste, análise, demonstração
-    verification_status: str
-    verified_by: Optional[str]
-    verification_date: Optional[datetime]
-    
-    # Mudança
-    change_history: List[Dict]
-    
-    def to_audit_record(self) -> Dict:
-        """Gera registro para auditoria."""
-        return {
-            'requirement_id': self.id,
-            'version': self.version,
-            'status': self.verification_status,
-            'author': self.author,
-            'approved_by': self.approver,
-            'approval_date': self.approval_date.isoformat() if self.approval_date else None,
-            'traceability_complete': self._check_completeness()
-        }
-    
-    def _check_completeness(self) -> bool:
-        """Verifica se todos os elementos de rastreabilidade estão presentes."""
-        return all([
-            self.approver is not None,
-            self.design_documents,
-            self.code_references,
-            self.test_cases,
-            self.verification_status == 'verified'
-        ])
-```
-
-### 5.5.3 Auditoria Contínua
-
-```python
-class ContinuousAuditor:
-    """
-    Sistema de auditoria contínua para requisitos.
-    """
-    
-    AUDIT_RULES = [
-        {
-            'name': 'missing_approval',
-            'check': lambda r: r.approver is None,
-            'severity': 'critical',
-            'message': 'Requisito sem aprovação formal'
-        },
-        {
-            'name': 'orphan_requirement',
-            'check': lambda r: not r.code_references,
-            'severity': 'warning',
-            'message': 'Requisito sem implementação rastreada'
-        },
-        {
-            'name': 'untested_requirement',
-            'check': lambda r: not r.test_cases,
-            'severity': 'warning',
-            'message': 'Requisito sem casos de teste'
-        },
-        {
-            'name': 'stale_requirement',
-            'check': lambda r: (datetime.now() - r.elicitation_date).days > 365 
-                               and not r.change_history,
-            'severity': 'info',
-            'message': 'Requisito sem revisão em mais de 1 ano'
-        }
-    ]
-    
-    def audit_requirement(self, req: RequirementTraceability) -> List[Dict]:
-        findings = []
-        for rule in self.AUDIT_RULES:
-            if rule['check'](req):
-                findings.append({
-                    'rule': rule['name'],
-                    'severity': rule['severity'],
-                    'message': rule['message'],
-                    'requirement_id': req.id
-                })
-        return findings
-    
-    def generate_compliance_report(self, requirements: List[RequirementTraceability]) -> Dict:
-        total = len(requirements)
-        all_findings = []
-        
-        for req in requirements:
-            findings = self.audit_requirement(req)
-            all_findings.extend(findings)
-        
-        critical = [f for f in all_findings if f['severity'] == 'critical']
-        warnings = [f for f in all_findings if f['severity'] == 'warning']
-        
-        return {
-            'total_requirements': total,
-            'compliant_requirements': total - len(set(f['requirement_id'] for f in critical)),
-            'compliance_rate': (total - len(set(f['requirement_id'] for f in critical))) / total,
-            'findings': {
-                'critical': len(critical),
-                'warning': len(warnings),
-                'total': len(all_findings)
-            },
-            'details': all_findings
-        }
-```
-
-## 5.6 Ética em Requisitos
-
-### 5.6.1 Princípios Éticos
-
-**1. Justiça (Fairness)**
-- Sistemas não devem discriminar baseados em atributos protegidos
-- Devem ser testados para viés antes do deployment
-
-**2. Transparência**
-- Usuários devem ser informados quando interagem com IA
-- Decisões automatizadas devem ser explicáveis
-
-**3. Privacidade**
-- Minimização de dados coletados
-- Consentimento explícito para usos não-obvios
-- Proteção de dados sensíveis
-
-**4. Autonomia Humana**
-- Decisões significativas devem ter supervisão humana
-- Usuários devem poder optar por não ter decisões automatizadas
-
-### 5.6.2 Avaliação de Viés
-
-```python
-class BiasAssessment:
-    """
-    Framework para avaliação de viés em requisitos e sistemas.
-    """
-    
-    PROTECTED_ATTRIBUTES = [
-        'gender', 'race', 'age', 'disability', 
-        'religion', 'nationality', 'sexual_orientation'
-    ]
-    
-    def assess_requirement(self, requirement_text: str) -> Dict:
-        """
-        Avalia um requisito para potenciais problemas de viés.
-        """
-        findings = {
-            'explicit_mentions': [],
-            'potential_proxies': [],
-            'recommendations': []
-        }
-        
-        # Verificar menções explícitas
-        for attr in self.PROTECTED_ATTRIBUTES:
-            if attr in requirement_text.lower():
-                findings['explicit_mentions'].append({
-                    'attribute': attr,
-                    'context': self._extract_context(requirement_text, attr)
-                })
-        
-        # Verificar proxies potenciais
-        proxy_indicators = {
-            'zipcode': 'proxies for race/income',
-            'credit_score': 'proxies for socioeconomic status',
-            'employment_history': 'pode desvantajar grupos específicos'
-        }
-        
-        for indicator, concern in proxy_indicators.items():
-            if indicator in requirement_text.lower():
-                findings['potential_proxies'].append({
-                    'indicator': indicator,
-                    'concern': concern
-                })
-        
-        return findings
-```
-
-## 5.7 Exercícios
-
-1. Crie um checklist de compliance para um sistema de crédito com IA que:
-   - Atende à LGPD
-   - Segue princípios do AI Act (se aplicável)
-   - Inclui mecanismos de accountability
-
-2. Desenhe a cadeia de responsabilidade para um caso onde um LLM gera código com vulnerabilidade de segurança.
-
-3. Proponha métricas para medir a maturidade de governança de IA em uma organização.
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica |
 
 ---
 
 ## Practical Considerations
 
-- Torne a cadeia de responsabilidade explícita antes de operar em produção; sem isso, incidentes viram disputas em vez de aprendizado.
-- Para cada requisito/restrição crítica, exija: origem (stakeholder/lei/política), criticidade, forma de verificação e evidência mínima de conformidade.
-- Mantenha logs/auditoria como requisito, não como detalhe de implementação: sem trilha de decisão, não há investigação nem melhoria.
-- Trate riscos de viés como parte da especificação: requisitos podem introduzir proxies discriminatórios antes mesmo do modelo ser escolhido.
+- Especifique governança como requisitos: quem aprova, quais evidências são obrigatórias, quando escalonar e como registrar.
+- Trate classificação de risco como artefato versionável; mudanças de escopo, dados ou autonomia exigem reclassificação e revalidação.
+- Para requisitos críticos, exija rastreabilidade completa até evidência; requisito sem evidência verificável tende a virar "intenção" não operacional.
+- Evite acoplar compliance a ferramentas; descreva propriedades (integridade, retenção, acesso, correlação) e deixe a implementação em aberto.
+- Regras de exceção devem existir: quem pode autorizar, por quanto tempo, sob quais condições e com quais medidas compensatórias.
 
 ## Summary
 
-- Governança de requisitos em sistemas com IA exige cadeia de responsabilidade, auditoria e critérios de verificação.
-- Compliance e privacidade precisam ser incorporados ao nível de restrições, não adicionados apenas como revisão final.
-- Avaliação de viés começa no texto do requisito e nos dados/proxies que ele implica.
+- Governança em requisitos, na era de sistemas híbridos, é a capacidade de manter decisão, evidência e responsabilidade sob risco.
+- Responsabilidade, accountability, auditabilidade e rastreabilidade devem ser definidas operacionalmente e traduzidas em requisitos verificáveis.
+- Abordagens orientadas por risco conectam classe de risco a exigências de supervisão humana, evidências e auditoria.
+- Compliance efetivo nasce na especificação: escopo, dados, limites e registros.
 
 ## References
 
-1. BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD).
-2. ISO/IEC/IEEE. ISO/IEC/IEEE 29148: Systems and software engineering — Life cycle processes — Requirements engineering. 2018.
-3. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. BRASIL. Lei nº 13.709, de 14 de agosto de 2018. Lei Geral de Proteção de Dados Pessoais (LGPD). Disponível em: https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709.htm. Acesso em: 31 jan. 2026.
+2. UNIÃO EUROPEIA. Regulation (EU) 2024/1689 of the European Parliament and of the Council of 13 June 2024 (Artificial Intelligence Act). OJ L, 2024/1689, 12 jul. 2024. Disponível em: http://data.europa.eu/eli/reg/2024/1689/oj. Acesso em: 31 jan. 2026.
+3. NIST. AI Risk Management Framework (AI RMF 1.0). 2023. Disponível em: https://www.nist.gov/itl/ai-risk-management-framework. Acesso em: 31 jan. 2026.
+4. ISO/IEC. ISO/IEC 42001:2023 - Information technology — Artificial intelligence — Management system. 2023. Disponível em: https://www.iso.org/standard/81230.html. Acesso em: 31 jan. 2026.
+5. ISO/IEC. ISO/IEC 23894:2023 - Information technology — Artificial intelligence — Guidance on risk management. 2023. Disponível em: https://www.iso.org/standard/77304.html. Acesso em: 31 jan. 2026.
+6. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
 
 *SWEBOK-AI v5.0 - Software Requirements*

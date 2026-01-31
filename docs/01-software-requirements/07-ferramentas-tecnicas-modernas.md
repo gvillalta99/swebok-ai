@@ -1,3 +1,12 @@
+---
+title: "Ferramentas e Técnicas Modernas"
+created_at: "2025-01-31"
+tags: ["requisitos", "ferramentas", "tecnicas", "verificacao", "rastreabilidade", "governanca", "automacao"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
+---
+
 # Seção 7: Ferramentas e Técnicas Modernas
 
 ## Overview
@@ -639,6 +648,14 @@ class RequirementDigitalTwin:
 3. Crie um template de prompt para elicitação assistida de restrições de segurança.
 
 ---
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Alta |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
 
 ## Practical Considerations
 
