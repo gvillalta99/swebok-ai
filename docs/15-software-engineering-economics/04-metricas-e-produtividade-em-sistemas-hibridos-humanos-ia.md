@@ -46,16 +46,9 @@ Na era dos LLMs:
 
 ### 4.1.2 A Corrupção das Métricas
 
-O relatório GitClear (2025)[1] revelou tendências preocupantes:
+Relatorios de mercado (por exemplo, GitClear) sugerem sinais de aumento de duplicacao e de mudancas mecanicas em projetos com alta adocao de IA. Trate esses achados como indicios dependentes de metodologia (HIPÓTESE) e valide com dados internos antes de redefinir politicas.
 
-> "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code Clones"
-
-Principais descobertas:
-- **4x mais código clonado** em projetos com alta adoção de IA
-- "Copy/paste" excedeu "moved code" pela primeira vez na história
-- Aumento significativo em código duplicado e redundante
-
-Isso demonstra como métricas de volume podem indicar "produtividade" enquanto a qualidade do código se deteriora.
+Isso ilustra como metricas de volume podem indicar "produtividade" enquanto a qualidade do codigo se deteriora.
 
 ## 4.2 Novas Métricas para a Era dos LLMs
 
@@ -169,6 +162,8 @@ Sistemas híbridos exigem métricas que capturem:
 
 ### 4.4.2 Dashboard de Métricas Híbridas
 
+**Exemplo ilustrativo (HIPÓTESE):** numeros ficticios apenas para demonstrar formato e campos.
+
 ```
 ┌────────────────────────────────────────────────────────────┐
 │ DASHBOARD: SISTEMA HÍBRIDO HUMANO-IA                      │
@@ -181,11 +176,11 @@ Sistemas híbridos exigem métricas que capturem:
 │ QUALIDADE                    │ IMPACTO                     │
 │ • Bugs em produção: 12      │ • Features entregues: 8     │
 │ • Severidade média: 2.1     │ • Satisfação do cliente: 7.5│
-│ • Débito técnico: ↑ 15%     │ • ROI estimado: 1.3x        │
+│ • Debito tecnico: tendencia │ • ROI estimado: a estimar   │
 ├────────────────────────────────────────────────────────────┤
 │ ALERTAS                                                    │
 │ ALERTA: Taxa de verificação abaixo do threshold (45% < 50%)│
-│ ALERTA: Aumento de 20% em bugs de código gerado por IA     │
+│ ALERTA: Aumento em bugs de codigo gerado por IA            │
 └────────────────────────────────────────────────────────────┘
 ```
 

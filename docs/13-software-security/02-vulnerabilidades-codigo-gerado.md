@@ -155,45 +155,25 @@ def load_user_data(data):
     return pickle.loads(data)  # Execução de código arbitrário possível
 ```
 
-## Estudos Empíricos: Taxa de Vulnerabilidades em Código Gerado
+## Estudos Empíricos: como interpretar (sem extrapolar)
 
-Múltiplos estudos acadêmicos e da indústria quantificaram a prevalência de vulnerabilidades em código gerado por IA.
+Há estudos acadêmicos e relatórios de mercado que tentam estimar a prevalência de vulnerabilidades em código gerado por IA. Nesta seção, o ponto principal não é memorizar percentuais, mas evitar generalizações indevidas.
 
-### Estudo de Grande Escala: GitHub Repositories (2025)
+**Por que números divergem tanto?**
 
-Pearce et al. (2025) analisaram 7.703 arquivos em repositórios GitHub públicos atribuídos a ferramentas de IA:
+1. **Definição de "código gerado por IA"**: rotulagem por commit message, padrões de estilo, telemetria, ou auto-declaração produz vieses diferentes.
+2. **Definição de "vulnerabilidade"**: estudos variam entre CWE detectada estaticamente, falhas exploráveis, e violações de guideline.
+3. **Stack e linguagem**: taxas mudam por linguagem, framework, e superfície de ataque típica.
+4. **Contexto de geração**: prompts, contexto de repo, e scaffolding influenciam fortemente o resultado.
+5. **Ferramenta de detecção**: scanners têm falsos positivos/negativos; comparar números sem calibrar o detector é enganoso.
 
-**Métricas Principais:**
-- **4.241 instâncias de CWE** identificadas
-- **77 tipos distintos** de vulnerabilidades
-- **87,9% do código** não continha vulnerabilidades CWE mapeáveis
-- **12,1% do código** continha pelo menos uma vulnerabilidade
+**Como usar evidências externas com segurança (checklist):**
 
-**Distribuição por Ferramenta:**
-- ChatGPT: 91,52% dos arquivos analisados
-- GitHub Copilot: 7,50%
-- Amazon CodeWhisperer: 0,52%
-- Tabnine: 0,46%
+- Exigir metodologia e artefatos (dataset, regras, scripts).
+- Separar *prevalência observada* de *risco residual* (o que importa é impacto x probabilidade x capacidade de detecção).
+- Tratar percentuais como hipótese inicial; validar com red teaming e medição em código real.
 
-**Densidade de Segurança (LOC por CWE):**
-- GitHub Copilot (Python): 1.739 LOC/CWE
-- GitHub Copilot (TypeScript): 905 LOC/CWE
-- ChatGPT (JavaScript): 932 LOC/CWE
-
-### Estudo: GitHub Copilot Security (2024)
-
-Atualização do estudo clássico "Asleep at the Keyboard?":
-- Aproximadamente **40% dos snippets** gerados pelo Copilot continham vulnerabilidades
-- Código Python mostrou maior taxa de vulnerabilidades que JavaScript
-- Vulnerabilidades de injeção predominaram em todos os cenários testados
-
-### Estudo: "AI Code in the Wild" (2025)
-
-Análise de commits em 1.000 maiores repositórios GitHub (2022-2025):
-- Algumas famílias de CWE são **sobrepresentadas** em código marcado como IA
-- Templates inseguros **persistem e se espalham** entre projetos não-relacionados
-- Defeitos introduzidos por IA **persistem mais tempo** quando a revisão humana é superficial
-- Vulnerabilidades se **propagam** para mais arquivos e repositórios ao longo do tempo
+**Referências sugeridas:** quando esta seção mencionar estudos específicos (por exemplo, Pearce et al.; "Asleep at the Keyboard?"), consulte as fontes primárias e atualize os dados no seu repositório antes de transformar em política.
 
 ### Implicações dos Dados Empíricos
 

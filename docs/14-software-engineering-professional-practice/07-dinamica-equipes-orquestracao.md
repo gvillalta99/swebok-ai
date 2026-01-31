@@ -11,9 +11,11 @@ ai_model: "openai/gpt-5.2"
 
 ## Overview
 
-A colaboração em engenharia de software está sendo redefinida. Enquanto o SWEBOK v4.0 focava em dinâmica de equipes humanas — coesão, comunicação, cognição individual — a realidade contemporânea inclui agentes de IA como membros "de facto" das equipes. A pesquisa longitudinal de Xiao et al. (2025) demonstra que "IA não resolveu problemas de trabalho em equipe, mas mudou a cultura colaborativa" em organizações de desenvolvimento.
+A colaboracao em engenharia de software esta sendo redefinida. Enquanto o SWEBOK v4.0 focava em dinamica de equipes humanas — coesao, comunicacao, cognicao individual — a realidade contemporanea inclui agentes de IA como participantes "de facto" do trabalho. Estudos emergentes e relatos organizacionais sugerem que a IA nao elimina problemas de coordenacao, mas desloca a cultura colaborativa e as formas de supervisao (HIPÓTESE: resultados dependem de contexto e maturidade).
 
 Esta seção explora como a colaboração em equipe evolui quando agentes de IA são participantes ativos do processo de desenvolvimento. Examina a redefinição de papéis — do implementador para o orquestrador —, cognição individual em ambientes de IA, interação com stakeholders sobre sistemas opacos, e os impactos na diversidade e inclusão. O objetivo é fornecer orientações para manter coesão e eficácia em times híbridos humanos-IA.
+
+**Nota de verificabilidade:** afirmacoes sobre comportamento de equipe e cultura exigem recorte (organizacao, funcao, tipo de tarefa). Trate os padroes como heuristicas e valide com retros, incidentes e metricas internas.
 
 ## Learning Objectives
 

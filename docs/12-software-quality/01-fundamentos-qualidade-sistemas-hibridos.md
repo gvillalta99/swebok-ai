@@ -40,12 +40,9 @@ A engenharia de software tradicional operava sob premissas que não se aplicam i
 | **Qualidade** | Conformidade a requisitos | Conformidade a distribuições de comportamento |
 | **Verificação** | Testes de caixa-preta/branca | Testes + curadoria multi-camadas |
 
-**Dados Empíricos (2024-2025):**
+**Indicadores de mercado (evidência secundária):**
 
-- **59%** dos desenvolvedores relatam melhoria na qualidade com uso de IA; **21%** relatam degradação (Qodo, 2025)
-- Código gerado por IA apresenta **4x mais duplicação** comparado a código humano (GitClear, 2025)
-- **40%** da dívida técnica em projetos com IA é "invisível" — não detectada por ferramentas tradicionais (SonarSource, 2025)
-- **65%** dos desenvolvedores relatam que assistentes de IA "perdem contexto relevante" em tarefas de refatoração (Qodo, 2025)
+Relatórios e surveys de mercado frequentemente indicam uma combinação de (1) ganho de velocidade na produção de código e (2) aumento de risco de degradação de qualidade quando a verificação não é reforçada. Nesta seção, trate esses indicadores como *sinais* a serem validados no seu contexto (instrumentação, métricas internas e post-mortems), não como constantes universais.
 
 ### 1.1.2 A Natureza Estocástica da Qualidade
 
@@ -104,13 +101,9 @@ ISO 25010 Original          Dimensões Adicionais para IA
 - **Taxa de Divergência:** Porcentagem de execuções que produzem resultados diferentes
 - **Estabilidade Temporal:** Consistência ao longo do tempo
 
-**Thresholds Sugeridos:**
-| Criticidade | Coeficiente de Variação Aceitável |
-|-------------|-----------------------------------|
-| Baixa | < 5% |
-| Média | < 2% |
-| Alta | < 0.5% |
-| Crítica | Determinístico (0%) |
+**Heurística inicial (HIPÓTESE operacional):**
+
+Os limites aceitáveis de variabilidade devem ser calibrados por domínio, impacto e tolerância a erro. Uma regra prática é: quanto maior a criticidade, menor a variabilidade aceitável; em criticidade extrema, exigir comportamento determinístico ou mecanismos compensatórios (por exemplo, redundância, validação formal, ou aprovação humana obrigatória).
 
 ### 1.2.3 Robustez a Variações
 
@@ -171,9 +164,10 @@ A adoção de IA em desenvolvimento cria um paradoxo:
 - **Maior custo de verificação:** Mais código para revisar e testar
 - **Maior risco de defeitos:** Código gerado pode conter bugs sutis
 
-**Dados:**
-- Estudos mostram que desenvolvedores revisam código de IA **40% menos cuidadosamente** que código humano (efeito de complacência)
-- Cada linha de código gerado requer em média **2-3x mais esforço de verificação** que código escrito manualmente
+**Hipóteses operacionais (validar no seu contexto):**
+
+- Efeitos de complacência podem reduzir a qualidade da revisão quando o código parece "plausível".
+- O custo de verificação pode dominar o custo de geração conforme cresce o volume de código e a complexidade do sistema.
 
 ### 1.3.2 Estratégias de Balanceamento
 
@@ -307,23 +301,19 @@ Em sistemas híbridos, qualidade emerge de:
 
 ### Aplicações Reais
 
-**Caso 1: Startup de Fintech**
-- Implementou quality gates de 5 níveis
-- Reduziu defeitos em produção em 60%
-- Aumentou tempo de desenvolvimento em 25%
-- ROI positivo após 6 meses
+**Exemplos ilustrativos (HIPÓTESES):**
 
-**Caso 2: Empresa de Software Enterprise**
-- Adotou rastreabilidade completa de geração
-- Facilitou auditorias regulatórias
-- Aumentou confiança de stakeholders
-- Custo adicional de 15% no desenvolvimento
+**Caso 1: Produto regulado/alto risco**
+- Implementa quality gates por criticidade e define pontos de aprovação humana obrigatória.
+- Aceita maior lead time para reduzir risco operacional.
 
-**Caso 3: Projeto de Código Aberto**
-- Usou curadoria comunitária
-- Aproveitou conhecimento distribuído
-- Manteve alta qualidade com recursos limitados
-- Desafio: consistência entre revisores
+**Caso 2: Organização enterprise**
+- Adota rastreabilidade de geração (prompts, contexto, diffs) para auditoria e accountability.
+- Introduz governança de mudanças para reduzir variação de comportamento entre versões.
+
+**Caso 3: Projeto comunitário/open source**
+- Usa curadoria distribuída e guias de revisão para reduzir variabilidade de decisão.
+- Enfrenta desafio recorrente de consistência entre revisores e de padronização de critérios.
 
 ### Limitações
 
@@ -353,18 +343,18 @@ Em sistemas híbridos, qualidade emerge de:
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — fundamentos de qualidade são atemporais; novas dimensões continuarão relevantes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — verificação de qualidade requer julgamento humano sofisticado e múltiplas camadas de validação |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificação de qualidade requer julgamento humano e múltiplas camadas de validação |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — engenheiros de qualidade mantêm accountability final; não podem delegar a IA |
 
 ## References
 
-1. Qodo, "State of AI Code Quality in 2025," Qodo Research Report, 2025.
-2. GitClear, "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code Cloning," GitClear Research, 2025.
-3. SonarSource, "State of Code: Technical Debt in the AI Era," SonarSource Developer Survey, 2025.
-4. ISO/IEC 25010:2011, "Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models," ISO, 2011.
-5. IEEE 730:2014, "IEEE Standard for Software Quality Assurance Processes," IEEE, 2014.
-6. Turpin et al., "Chain-of-Thought Is Not Explainability," AIGI Oxford, 2025.
-7. ACM Computing Surveys, "Explainability for Large Language Models: A Survey," ACM, 2024.
-8. Humphrey, W., "Managing the Software Process," Addison-Wesley, 1989.
-9. Crosby, P., "Quality is Free," McGraw-Hill, 1979.
-10. Pressman, R., "Software Engineering: A Practitioner's Approach," 9th Edition, McGraw-Hill, 2019.
+1. INTERNATIONAL ORGANIZATION FOR STANDARDIZATION; INTERNATIONAL ELECTROTECHNICAL COMMISSION. *ISO/IEC 25010:2011: Systems and software engineering — Systems and software Quality Requirements and Evaluation (SQuaRE) — System and software quality models*. 2011.
+2. INSTITUTE OF ELECTRICAL AND ELECTRONICS ENGINEERS. *IEEE 730:2014: IEEE Standard for Software Quality Assurance Processes*. 2014.
+3. QODO. *State of AI Code Quality* (relatório de mercado). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
+4. GITCLEAR. *AI Copilot Code Quality* (relatório de mercado). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
+5. SONARSOURCE. *State of Code: Technical Debt in the AI Era* (survey). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
+6. TURPIN, et al. *Chain-of-thought is not explainability*. 2025. (Dados bibliográficos a completar.)
+7. ASSOCIATION FOR COMPUTING MACHINERY. *Explainability for Large Language Models: a survey*. 2024. (Dados bibliográficos a completar.)
+8. HUMPHREY, Watts S. *Managing the Software Process*. Addison-Wesley, 1989.
+9. CROSBY, Philip B. *Quality Is Free*. McGraw-Hill, 1979.
+10. PRESSMAN, Roger S. *Software Engineering: A Practitioner's Approach*. 9. ed. McGraw-Hill, 2019.

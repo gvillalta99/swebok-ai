@@ -196,9 +196,9 @@ Sinais de que sua organização está sendo afetada pelo Paradoxo de Jevons:
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa - compreensão de sistemas e verificação permanecem críticas |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Muito Alto - verificação de volume crescente é economicamente desafiadora |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítico - volume de código não verificado aumenta exposição a riscos |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — compreensao de sistemas e verificacao permanecem criticas |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificacao de volume crescente e economicamente desafiadora |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — volume de codigo nao verificado aumenta exposicao a riscos |
 
 ## Summary
 

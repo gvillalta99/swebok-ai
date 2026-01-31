@@ -193,7 +193,7 @@ A elite técnica que prosperará:
 | **Pensamento Estratégico** | Alinhamento de tecnologia com negócio |
 | **Comunicação** | Tradução entre técnico e executivo |
 
-**Remuneração**: Salários 3-5x acima da média, equity significativo, autonomia alta.
+**Remuneração (HIPÓTESE):** tende a premiar a escassez de competências de arquitetura, governança e verificação; valores variam amplamente por mercado, senioridade e setor. Evite extrapolar múltiplos salariais sem dados locais e séries históricas.
 
 ### 7.4.3 Operadores de IA: A Nova Categoria
 
@@ -205,7 +205,7 @@ Uma categoria crescente de profissionais:
 | **Formação** | Bootcamps, cursos rápidos, aprendizado on-the-job |
 | **Carreira** | Progressão limitada, risco de obsolescência |
 | **Remuneração** | Inicialmente competitiva, tendência à estagnação |
-| **Sustentabilidade** | Questionável a médio prazo (3-5 anos) |
+| **Sustentabilidade** | Questionável a medio prazo |
 
 ### 7.4.4 Novas Categorias de Emprego
 

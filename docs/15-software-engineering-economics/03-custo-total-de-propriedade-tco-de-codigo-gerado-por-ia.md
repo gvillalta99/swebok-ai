@@ -69,20 +69,20 @@ CRS = Custo de Riscos e Segurança
 
 #### Custo de Verificação (CV)
 
-O custo de verificação é frequentemente o maior componente oculto:
+O custo de verificacao e frequentemente o maior componente oculto. Os percentuais abaixo devem ser tratados como estimativas ilustrativas (HIPÓTESE) e recalibrados com dados internos:
 
 | Atividade | % do Tempo de Desenvolvimento | Custo Relativo |
 |-----------|------------------------------|----------------|
 | Revisão de código gerado | 25-40% | Alto |
 | Testes adicionais | 20-30% | Médio-Alto |
 | Auditoria de segurança | 15-25% | Alto |
-| Validação arquitetural | 10-20% | Muito Alto |
+| Validação arquitetural | 10-20% | Alto |
 
-Segundo pesquisa da DX (2025)[2], organizações descobrem que o custo real de implementação de ferramentas de IA frequentemente é **2-3x maior** que as estimativas iniciais, principalmente devido a custos de verificação não previstos.
+Relatos de mercado sugerem que o custo real de implementar ferramentas de IA pode exceder estimativas iniciais, principalmente por custos de verificacao e governanca nao previstos (HIPÓTESE: depende de maturidade, criticidade e integracoes).
 
 #### Custo de Alucinações e Correções (CAU)
 
-Alucinações arquiteturais — decisões de design incorretas geradas por IA — têm custo desproporcional:
+Alucinacoes arquiteturais — decisoes de design incorretas geradas por IA — podem ter custo desproporcional. A tabela a seguir e um modelo mental (HIPÓTESE) inspirado em literatura de custo de defeitos; use para orientar classificacao de risco, nao como fator universal:
 
 | Tipo de Alucinação | Custo de Correção | Horizonte de Descoberta |
 |--------------------|-------------------|------------------------|
@@ -241,9 +241,9 @@ Para decisões de desenvolver manualmente vs. gerar com IA:
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa - análise econômica e TCO permanecem fundamentais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Muito Alto - TCO exige análise multidimensional de custos ocultos |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítico - decisões de TCO afetam alocação de responsabilidade e riscos |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — analise economica e TCO permanecem fundamentais |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — TCO exige analise multidimensional de custos ocultos |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — decisoes de TCO afetam alocacao de responsabilidade e riscos |
 
 ## Summary
 

@@ -15,6 +15,8 @@ A proteção de aplicações com LLM requer uma arquitetura de segurança em cam
 
 Esta seção apresenta as principais técnicas de defesa: validação e sanitização de input, firewalls e gateways de segurança para LLM, sandboxing e isolamento, rate limiting e proteção contra DoS, e verificação de comportamento seguro.
 
+**Nota de verificabilidade:** a categoria de "LLM firewall"/"gateway" ainda não é um padrão consolidado. Trate os mecanismos descritos aqui como padrões de controle (entrada, execução, saída, observabilidade e resposta a incidentes) que podem ser implementados por diferentes soluções e arquiteturas.
+
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
@@ -473,9 +475,9 @@ Supervisão humana para decisões críticas:
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — defesas fundamentais são persistentes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio-Alto — requer testes extensivos |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — falhas de segurança têm consequências severas |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — defesas fundamentais sao persistentes |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — requer testes extensivos |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — falhas de seguranca tem consequencias severas |
 
 ## Practical Considerations
 

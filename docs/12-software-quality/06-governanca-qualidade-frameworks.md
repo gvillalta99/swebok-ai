@@ -762,23 +762,19 @@ deploy_production:
 
 ### Aplicações Reais
 
-**Caso 1: Banco Global**
-- Implementou framework baseado em ISO 25010 + extensões
-- Compliance com EU AI Act, SR 11-7, GDPR
-- Maturidade nível 4 (Quantitativamente Gerenciado)
-- Redução de 60% em incidentes de qualidade
+**Exemplos ilustrativos (HIPÓTESES):**
 
-**Caso 2: HealthTech Startup**
-- Adotou NIST AI RMF
-- Compliance com FDA, HIPAA
-- Maturidade nível 3 (Definido)
-- Aprovação regulatória acelerada
+**Caso 1: Organizacao regulada (por exemplo, financeiro)**
+- Estende modelos de qualidade existentes (por exemplo, ISO/IEC 25010) com dimensoes de variabilidade, rastreabilidade e governanca de prompts.
+- Mapeia controles para exigencias regulatórias e auditoria.
 
-**Caso 3: Empresa de Software B2B**
-- Políticas de qualidade por criticidade
-- Stack: GitLab + SonarQube + W&B
-- Maturidade nível 3
-- ROI de 300% em 12 meses
+**Caso 2: Saude/dispositivos medicos**
+- Adota um framework de gestao de risco para IA (por exemplo, NIST AI RMF) e operacionaliza evidencias de qualidade (logs, criterios de aceitacao, rastreabilidade).
+- Trata qualidade como requisito de compliance e nao apenas como atributo tecnico.
+
+**Caso 3: Produto B2B em escala**
+- Define politicas de qualidade por criticidade e formaliza gates de aceitacao.
+- Mantem pipeline observavel e auditavel, evitando dependencia de uma ferramenta especifica.
 
 ### Limitações
 
@@ -808,7 +804,7 @@ deploy_production:
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — governança e compliance são fundamentos atemporais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — governança requer julgamento humano e accountability |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — governança requer julgamento humano e accountability |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — accountability legal sempre reside em humanos |
 
 ## References

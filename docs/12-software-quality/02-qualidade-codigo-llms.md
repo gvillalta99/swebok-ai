@@ -51,17 +51,17 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### 2.1.2 Duplicação de Código
 
-**Dados Empíricos:**
-- Código gerado por IA apresenta **4x mais duplicação** que código humano (GitClear, 2025)
-- "Copy/paste" de código excedeu "moved code" pela primeira vez na história (GitClear, 2025)
+**Evidência e limitações:**
 
-**Thresholds Adaptados:**
+Relatórios de mercado e análises em larga escala frequentemente apontam aumento de clonagem/duplicação em projetos com alta adoção de assistentes de IA. Trate quaisquer números específicos como dependentes de metodologia (amostra, linguagem, heurísticas de detecção) e valide com medições no seu repositório antes de usar como meta.
 
-| Contexto | Threshold Tradicional | Threshold Código IA |
+**Thresholds Adaptados (HIPÓTESE de trabalho):**
+
+| Contexto | Threshold Tradicional | Meta inicial (ajustar) |
 |----------|----------------------|---------------------|
-| Novo projeto | 5% | **3%** |
-| Projeto legado | 7% | **5%** |
-| Código crítico | 3% | **2%** |
+| Novo projeto | 5% | 3% (exemplo) |
+| Projeto legado | 7% | 5% (exemplo) |
+| Código crítico | 3% | 2% (exemplo) |
 
 **Tipos de Duplicação Específicos de IA:**
 
@@ -105,7 +105,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 | Churn baixo + bugs | Solução frágil | Testes adicionais |
 | Churn concentrado | Problemas em módulo específico | Análise focada |
 
-**Dados:** O percentual de linhas de código associadas a refatoração caiu de 25% (2021) para menos de 10% (2024) em projetos com assistentes de IA (GitClear, 2025).
+**Hipótese (evidência a confirmar):** em alguns contextos, a proporção de mudanças classificadas como refatoração pode cair com adoção de IA (por exemplo, porque há mais geração incremental e menos reestruturação explícita). Use esta observação como pergunta de diagnóstico ("estamos refatorando menos do que precisamos?") e meça com métricas internas.
 
 ### 2.1.4 Cobertura de Testes
 
@@ -448,28 +448,14 @@ Ferramentas de análise estática tradicionais precisam de adaptações para có
 | Consistency | Variabilidade entre execuções | Estabilidade |
 | Efficiency | Performance computacional | Qualidade de implementação |
 
-### 2.5.3 Resultados Comparativos (2024-2025)
+### 2.5.3 Resultados Comparativos: como usar sem se enganar
 
-**Estudo Comparativo (ISSRJ, 2025):**
-Avaliação de ChatGPT, Copilot, Claude e Gemini em 40 problemas LeetCode:
+Benchmarks de LLMs para geração de código variam fortemente em desenho experimental (tarefas algorítmicas vs. tarefas de produto, contexto disponível, critérios de avaliação, instrumentação). Para manter utilidade sem transformar comparações em "métricas mágicas":
 
-| Modelo | Correção | Legibilidade | Eficiência |
-|--------|----------|--------------|------------|
-| ChatGPT | 42.5% | 82% | 78% |
-| Copilot | 30.0% | 79% | 75% |
-| Claude | - | - | - |
-| Gemini | - | - | - |
-
-**Nota:** Diferenças estatísticas entre ChatGPT e Copilot não foram significativas.
-
-**Estudo de Escala (GitClear, 2025):**
-Análise de 153M+ linhas de código:
-
-| Métrica | Código Humano | Código IA | Variação |
-|---------|---------------|-----------|----------|
-| Duplicação | ~5% | ~20% | +4x |
-| Refatoração | 25% | <10% | -60% |
-| Churn | Baseline | +15% | +15% |
+1. **Exija rastreabilidade de metodologia** (dataset, tarefas, critérios, scripts de avaliação).
+2. **Separe eixos de avaliação**: corretude funcional (test suite), qualidade estrutural (smells/complexidade/duplicação), e qualidade operacional (observabilidade, resiliência, segurança).
+3. **Priorize benchmarks internos** com tarefas representativas do seu domínio e do seu stack.
+4. **Trate números externos como indícios**: úteis para formular hipóteses, insuficientes para decidir política de qualidade sem validação local.
 
 ### 2.5.4 Limitações de Benchmarks
 
@@ -484,21 +470,17 @@ Análise de 153M+ linhas de código:
 
 ### Aplicações Reais
 
-**Caso 1: Implementação de Sonar AI Code Assurance**
-- Empresa enterprise implementou quality gates específicos para IA
-- Redução de 35% em débito técnico invisível
-- Aumento de 20% no tempo de revisão
-- Melhoria na confiança de stakeholders
+**Padrão 1: Quality gates para código gerado**
+- Definir critérios mínimos (estilo, segurança básica, testes mínimos) antes de aceitar PRs com contribuição significativa de IA.
+- Escalonar rigor por criticidade (mais rígido em componentes de segurança, billing, e dados sensíveis).
 
-**Caso 2: Customização de Regras de Linting**
-- Time adicionou regras específicas para detectar smells de IA
-- Detecção automática de 60% dos problemas
-- Foco da revisão humana em aspectos arquiteturais
+**Padrão 2: Regras de análise estática específicas para artefatos de IA**
+- Introduzir regras para detectar sinais comuns: duplicação mecânica, tratamento de erro genérico, uso de dependências desnecessárias, e inconsistência de padrões.
+- Medir ruído (falsos positivos) e ajustar regras antes de bloquear merges.
 
-**Caso 3: Benchmark Interno**
-- Empresa criou benchmark com problemas reais do domínio
-- Avaliação contínua de diferentes modelos
-- Tomada de decisão baseada em dados
+**Padrão 3: Benchmark interno e regressão de qualidade**
+- Definir tarefas representativas (bugs reais, refactors típicos, integração com padrões internos).
+- Reexecutar periodicamente para detectar regressões por mudança de modelo/prompt/contexto.
 
 ### Limitações
 
@@ -529,17 +511,14 @@ Análise de 153M+ linhas de código:
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — métricas de qualidade evoluem mas fundamentos permanecem |
 | **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — análise de código gerado requer múltiplas camadas de validação |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Alta** — engenheiros são responsáveis por código em produção, independente da origem |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — engenharia e organização respondem por falhas em produção, independentemente da origem do código |
 
 ## References
 
-1. GitClear, "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code Cloning," GitClear Research, 2025.
-2. Qodo, "State of AI Code Quality in 2025," Qodo Research Report, 2025.
-3. SonarSource, "AI Code Assurance: Building Confidence in AI-Generated Code," SonarSource Blog, 2024.
-4. ISSR Journal, "Evaluation of the Code Quality Generated by Generative AI," ISSRJ, 2025.
-5. Chen et al., "Refining ChatGPT-Generated Code: Characterizing and Mitigating Code Quality Issues," ACM, 2024.
-6. Chen et al., "Evaluating Large Language Models Trained on Code," arXiv:2107.03374, 2021.
-7. Austin et al., "Program Synthesis with Large Language Models," arXiv:2108.07732, 2021.
-8. McCabe, T., "A Complexity Measure," IEEE Transactions on Software Engineering, 1976.
-9. Fowler, M., "Refactoring: Improving the Design of Existing Code," 2nd Edition, Addison-Wesley, 2018.
-10. Martin, R., "Clean Code: A Handbook of Agile Software Craftsmanship," Prentice Hall, 2008.
+1. MCCABE, T. J. A complexity measure. *IEEE Transactions on Software Engineering*, 1976. (Dados bibliográficos a completar.)
+2. FOWLER, Martin. *Refactoring: Improving the Design of Existing Code*. 2. ed. Addison-Wesley, 2018.
+3. MARTIN, Robert C. *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall, 2008.
+4. CHEN, et al. Refining ChatGPT-generated code: characterizing and mitigating code quality issues. 2024. (Dados bibliográficos a completar.)
+5. GITCLEAR. *AI Copilot Code Quality* (relatório de mercado). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
+6. QODO. *State of AI Code Quality* (relatório de mercado). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
+7. SONARSOURCE. *AI code assurance: building confidence in AI-generated code*. 2024. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)

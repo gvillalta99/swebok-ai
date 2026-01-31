@@ -15,6 +15,8 @@ O clássico dilema "make vs. buy" — desenvolver internamente ou comprar de ter
 
 A decisão não é mais binária, mas tridimensional, exigindo análise sofisticada de trade-offs entre controle, custo, velocidade e risco.
 
+**Nota de verificabilidade:** estimativas de custo/beneficio (especialmente para "generate") variam por dominio, criticidade, e maturidade de verificacao. Trate qualquer numero como hipotese e valide com experimentos controlados e metricas de operacao.
+
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
@@ -300,9 +302,9 @@ Início
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa - análise de decisões estratégicas permanece crítica |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto - decisões erradas têm custos elevados de correção |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítico - decisões de arquitetura afetam responsabilidade por falhas |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — analise de decisoes estrategicas permanece critica |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — decisoes erradas tem custos elevados de correcao |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — decisoes de arquitetura afetam responsabilidade por falhas |
 
 ## Summary
 

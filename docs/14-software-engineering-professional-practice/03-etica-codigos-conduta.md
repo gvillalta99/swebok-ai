@@ -15,6 +15,8 @@ A integração de Inteligência Artificial na engenharia de software não repres
 
 Esta seção revisa e expande códigos de ética existentes para o contexto de IA generativa, estabelecendo diretrizes práticas para prática profissional responsável. Examina responsabilidades relacionadas a bias algorítmico, transparência, dark patterns, propriedade intelectual e conflitos de interesse em um ambiente onde a linha entre criação humana e geração algorítmica está cada vez mais tênue.
 
+**Nota de verificabilidade:** termos juridicos (por exemplo, propriedade intelectual) e obrigacoes formais variam por jurisdicao e contrato. Use esta secao como guia de principios e checklist; valide aplicacao concreta com politicas internas e orientacao juridica.
+
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:

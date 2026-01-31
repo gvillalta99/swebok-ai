@@ -11,7 +11,7 @@ ai_model: "openai/gpt-5.2"
 
 ## Overview
 
-O advento dos Large Language Models (LLMs) e ferramentas de geração de código assistido por IA representa uma inflexão na história da engenharia de software. Pela primeira vez, a capacidade de produzir código deixou de ser o gargalo principal do desenvolvimento. O DORA Report 2025 revela que equipes que adotaram amplamente ferramentas de IA generativa experimentaram ganhos de produtividade individuais significativos, mas também observaram uma correlação preocupante com redução na estabilidade do software quando não acompanhados de redesenho nos processos de verificação.
+O advento dos Large Language Models (LLMs) e ferramentas de geração de código assistido por IA altera o balanceamento entre produção e verificação na engenharia de software. Em muitos contextos, a escrita de código deixa de ser o principal gargalo, e a revisao/validacao passa a dominar o custo e o risco. Relatorios setoriais frequentemente sugerem que ganhos de produtividade individual podem coexistir com degradacao de estabilidade quando a adocao de IA nao e acompanhada de redesenho de processos de verificacao (HIPÓTESE: depende de contexto, maturidade e controles).
 
 Esta seção estabelece o conceito de **Julgamento Técnico** como competência central do engenheiro de software no contexto de IA generativa. O julgamento técnico é definido como a capacidade de avaliar, validar e, quando necessário, recusar saídas geradas por sistemas autônomos, mantendo a autoridade técnica sobre decisões críticas de engenharia.
 

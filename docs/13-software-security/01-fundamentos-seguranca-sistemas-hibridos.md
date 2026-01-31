@@ -53,7 +53,7 @@ A superfície de ataque expandida inclui:
 
 4. **APIs de terceiros**: Dependências de APIs de IA (OpenAI, Anthropic, etc.) introduzem novos pontos de falha e vetores de ataque supply chain.
 
-Segundo pesquisa da Gartner (2025), 40% das aplicações com LLM em produção apresentam vulnerabilidades de prompt injection, demonstrando a magnitude do desafio de segurança nesta nova fronteira.
+Relatórios de mercado e incidentes publicados sugerem que prompt injection é um risco recorrente em aplicações com LLM em produção. A prevalência exata varia por arquitetura, controles e método de medição; trate percentuais como hipótese a validar com red teaming, logs e testes sistemáticos no seu contexto.
 
 ## Novas Classes de Vulnerabilidades Específicas de IA
 
@@ -256,7 +256,7 @@ Extensões do padrão ISO 27001 para sistemas de IA incluem:
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — segurança é crítica e eterna; ameaças só aumentam |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Muito Alto — segurança de sistemas complexos exige expertise humana |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — seguranca de sistemas complexos exige expertise humana |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — breaches de segurança têm consequências legais severas |
 
 ## Practical Considerations

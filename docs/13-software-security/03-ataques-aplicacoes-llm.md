@@ -13,6 +13,8 @@ ai_model: "openai/gpt-5.2"
 
 Aplicações que integram modelos de linguagem de grande escala (LLMs) enfrentam um novo espectro de ameaças cibernéticas que não existiam em sistemas tradicionais. Estas ameaças exploram características fundamentais dos LLMs — sua capacidade de processar linguagem natural, comportamento estocástico e sensibilidade a instruções — para comprometer confidencialidade, integridade e disponibilidade.
 
+**Nota de verificabilidade:** taxonomias e rankings (por exemplo, OWASP Top 10 for LLM Applications) evoluem rapidamente. Use esta seção como estrutura de raciocinio e checklist de vetores; confirme codigos/versoes e adapte controles ao seu contexto e ao seu modelo de ameacas.
+
 Esta seção apresenta as principais classes de ataques a aplicações com LLM, com foco especial no OWASP Top 10 for LLM Applications 2025, técnicas de prompt injection, jailbreaking, exfiltração de dados e negação de serviço.
 
 ## Learning Objectives
@@ -363,9 +365,9 @@ Inputs que causam comportamento ineficiente:
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Média — técnicas evoluem, mas princípios fundamentais persistem |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto — testes de segurança de LLMs são complexos |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — ataques bem-sucedidos podem causar danos significativos |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — tecnicas evoluem, mas principios fundamentais persistem |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — testes de seguranca de LLMs sao complexos |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — ataques bem-sucedidos podem causar danos significativos |
 
 ## Practical Considerations
 

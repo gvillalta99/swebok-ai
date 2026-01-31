@@ -119,6 +119,8 @@ Onde:
 
 ### 6.3.2 Análise de Custo por Fase de Detecção
 
+**Nota de evidência:** os multiplicadores de custo por fase abaixo são um modelo mental (HIPÓTESE) para comunicar ordem de grandeza; valores reais variam por setor, arquitetura, contratos, e impacto regulatório.
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ CUSTO DE FALHA vs. FASE DE DETECÇÃO                        │
@@ -140,7 +142,7 @@ Investir em prevenção tem custo, mas não investir tem custo maior:
 
 | Investimento em Prevenção | Redução de Risco | ROI Estimado |
 |---------------------------|------------------|--------------|
-| Revisão humana obrigatória | -40% falhas em produção | 3:1 |
+| Revisao humana obrigatoria | Reduz risco em componentes criticos | Depende de taxa de falhas e criticidade |
 | Testes automatizados | -30% regressões | 4:1 |
 | Auditoria de segurança | -60% vulnerabilidades | 5:1 |
 | Documentação de contexto | -25% tempo de debugging | 2:1 |
@@ -292,9 +294,9 @@ Organizações podem transferir risco através de:
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa - gestão de risco permanece fundamental |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Muito Alto - análise de risco em sistemas não-determinísticos é complexa |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítico - responsabilidade por falhas de IA está sendo definida legalmente |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — gestao de risco permanece fundamental |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — analise de risco em sistemas nao-deterministicos e complexa |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — responsabilidade por falhas de IA esta sendo definida legalmente |
 
 ## Summary
 

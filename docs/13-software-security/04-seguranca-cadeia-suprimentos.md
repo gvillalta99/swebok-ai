@@ -302,7 +302,7 @@ A dependência de APIs de terceiros (OpenAI, Anthropic, Google, etc.) introduz r
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — cadeia de suprimentos é fundamental e persistente |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Muito Alto — verificação de integridade de modelos é complexa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificacao de integridade de modelos e dados e complexa |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — comprometimento da cadeia afeta todos os downstream |
 
 ## Practical Considerations

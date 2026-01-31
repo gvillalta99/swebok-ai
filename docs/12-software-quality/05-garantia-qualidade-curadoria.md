@@ -683,23 +683,19 @@ class MetaVerifier:
 
 ### Aplicações Reais
 
-**Caso 1: Empresa de Software Enterprise**
-- Implementou curadoria de 5 camadas
-- Reduziu FAR de 8% para 1.5%
-- Aumentou TTC inicialmente, mas estabilizou após 3 meses
-- ROI positivo após 6 meses
+**Exemplos ilustrativos (HIPÓTESES):**
 
-**Caso 2: Startup de Fintech**
-- Usou meta-verificação para código não-crítico
-- Manteve revisão humana obrigatória para código de pagamentos
-- Redução de 40% no tempo de revisão
-- Zero escapes de qualidade em código crítico
+**Caso 1: Organização com grande volume de mudanças**
+- Implementa curadoria em camadas (automacao + revisao humana por risco).
+- Observa reducao de falsos aprovados ao custo de mais disciplina de medicao e ajuste de regras.
 
-**Caso 3: Projeto de Código Aberto**
-- Curadoria comunitária
-- Checklists públicos e revisáveis
-- Alta qualidade com recursos limitados
-- Desafio: consistência entre revisores
+**Caso 2: Produto com componentes criticos (por exemplo, pagamentos)**
+- Usa meta-verificacao e amostragem apenas onde o risco e baixo.
+- Mantem revisao humana obrigatoria e testes reforcados em componentes criticos.
+
+**Caso 3: Projeto comunitario/open source**
+- Formaliza checklists publicos e criterios de aceitacao para reduzir variabilidade.
+- Enfrenta desafios recorrentes de consistencia entre revisores.
 
 ### Limitações
 
@@ -729,7 +725,7 @@ class MetaVerifier:
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — curadoria é skill crítica que se torna mais importante com IA |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — curadoria requer julgamento humano sofisticado |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — curadoria requer julgamento humano sofisticado |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — accountability final sempre reside em humanos |
 
 ## References

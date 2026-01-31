@@ -15,6 +15,8 @@ A comunicação na engenharia de software está passando por uma transformação
 
 Esta seção redefine as competências de comunicação para um ambiente onde grande parte da "conversa" é com sistemas de IA. Examina especificação de contexto como competência central, prompt engineering como linguagem técnica, documentação para stakeholders sobre limitações de IA, e code review como ato de comunicação crítica. O objetivo é equipar engenheiros com habilidades de comunicação efetiva em um ecossistema híbrido humanos-IA.
 
+**Nota de verificabilidade:** "prompt engineering" e um termo amplo e mutavel. Nesta obra, o foco e especificacao verificavel (restricoes, criterios de aceitacao, e rastreabilidade), nao truques de prompt dependentes de modelo.
+
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:

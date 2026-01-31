@@ -657,7 +657,7 @@ def stress_test_degradation():
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — consistência e robustez são fundamentos atemporais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — testes comportamentais exigem execuções múltiplas e análise estatística |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — testes comportamentais exigem execuções múltiplas e análise estatística |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — inconsistências em sistemas críticos podem ter consequências graves |
 
 ## References

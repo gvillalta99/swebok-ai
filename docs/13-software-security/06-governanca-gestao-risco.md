@@ -15,6 +15,8 @@ A governança de segurança para sistemas com inteligência artificial represent
 
 Esta seção apresenta frameworks de segurança adaptados para IA, metodologias de avaliação de risco, políticas de uso de ferramentas de IA, processos de resposta a incidentes e programas de treinamento de segurança para desenvolvedores.
 
+**Nota de verificabilidade:** adotar um framework nao substitui evidencias operacionais (inventario, controles implementados, testes, auditorias e post-mortems). Use os frameworks como linguagem comum e como base de checklist; valide efetividade por meio de exercicios, telemetria e incidentes.
+
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
@@ -499,9 +501,9 @@ Programas de treinamento efetivos são essenciais para cultura de segurança.
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — governança e gestão de risco são fundamentais e persistentes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto — requer expertise humana e julgamento especializado |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — falhas de governança têm consequências legais e regulatórias severas |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — governanca e gestao de risco sao fundamentais e persistentes |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — requer expertise humana e julgamento especializado |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — falhas de governanca tem consequencias legais e regulatorias severas |
 
 ## Practical Considerations
 

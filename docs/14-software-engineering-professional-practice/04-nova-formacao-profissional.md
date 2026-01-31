@@ -11,9 +11,11 @@ ai_model: "openai/gpt-5.2"
 
 ## Overview
 
-A engenharia de software está experimentando uma crise de formação sem precedentes. Dados de 2024-2025 mostram que vagas para desenvolvedores entry-level colapsaram 67%, enquanto "posições junior" agora exigem 3+ anos de experiência. O World Economic Forum Future of Jobs Report 2025 identifica que, enquanto a demanda por engenheiros de software sênior continua crescendo, o caminho tradicional para alcançar essa senioridade — a progressão júnior → pleno → sênior — está sendo sistematicamente desmantelado pela automação de tarefas entry-level.
+A engenharia de software enfrenta sinais de tensao na formacao de profissionais de entrada (entry-level). Uma hipotese recorrente e que tarefas historicamente usadas para aprendizagem guiada estao sendo automatizadas, enquanto expectativas sobre autonomia e produtividade aumentam. Relatorios setoriais (por exemplo, World Economic Forum) sugerem mudancas relevantes na composicao de demanda e nas habilidades esperadas, mas os efeitos variam por mercado, setor e ciclo economico.
 
 Esta seção analisa a crise da "escada quebrada" e propõe novos modelos de desenvolvimento profissional para a era da IA. Examina como a externalização do custo da formação, onde empresas esperam que profissionais entry-level já cheguem produtivos graças a ferramentas de IA, cria uma crise de sucessão geracional. Propõe competências essenciais para novos profissionais, modelos alternativos de certificação, e estratégias de mentoria adaptadas a um ambiente de orquestração de agentes.
+
+**Nota de verificabilidade:** afirmacoes sobre mercado de trabalho exigem fonte, recorte geografico e janela temporal. Onde esta secao propuser tendencias, trate como hipotese e valide com dados locais.
 
 ## Learning Objectives
 

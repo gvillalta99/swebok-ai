@@ -11,7 +11,9 @@ ai_model: "openai/gpt-5.2"
 
 ## Overview
 
-À medida que ferramentas de IA generativa se tornam onipresentes no desenvolvimento de software, organizações enfrentam uma lacuna crítica de governança. Pesquisa da ModelOp (2024) revelou um déficit de 42% entre expectativas e realidade na governança de IA — empresas estão implantando ChatGPT, Claude e ferramentas similares em escala, frequentemente sem políticas claras, controles de segurança ou medidas de accountability. O Gartner Market Guide for AI Governance Platforms (2025) identifica que a maioria das organizações ainda está em fases iniciais de maturidade de governança de IA.
+À medida que ferramentas de IA generativa se difundem no desenvolvimento de software, muitas organizacoes relatam uma lacuna entre adocao tecnica e governanca (HIPÓTESE: maturidade costuma ficar atras de uso em escala). Relatorios de mercado e auditorias internas frequentemente apontam ausencia de politicas claras, controles de seguranca, e mecanismos de accountability quando a adocao cresce mais rapido do que os processos.
+
+**Nota de verificabilidade:** afirmacoes quantitativas sobre maturidade organizacional variam por fonte e metodologia. Se usar numeros (surveys, market guides), referencie a fonte primaria e explicite o recorte.
 
 Esta seção estabelece frameworks de governança para uso responsável de IA na engenharia de software. Examina políticas organizacionais, define quando e como usar (ou não usar) IA generativa, estabelece requisitos de documentação e audit trails, e aborda questões de compliance regulatório e trade. O objetivo é fornecer orientações práticas para organizações que buscam equilibrar inovação com controle de riscos.
 

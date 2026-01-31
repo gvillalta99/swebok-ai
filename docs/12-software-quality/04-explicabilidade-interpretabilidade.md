@@ -647,7 +647,7 @@ class AuditTrail:
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
 | **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — técnicas evoluem, mas necessidade de transparência persiste |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — verificar explicabilidade genuína requer análise profunda |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificar explicabilidade genuína requer análise profunda |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — auditoria e accountability são responsabilidades humanas |
 
 ## References

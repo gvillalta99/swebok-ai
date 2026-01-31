@@ -11,9 +11,11 @@ ai_model: "openai/gpt-5.2"
 
 ## Overview
 
-A integração de Large Language Models (LLMs) e agentes de IA na engenharia de software introduz complexidades jurídicas sem precedentes. Quando um sistema falha em produção, e o código responsável foi gerado parcial ou totalmente por uma ferramenta de IA, onde termina a responsabilidade do engenheiro? Esta questão não é meramente acadêmica — incidentes como a deleção acidental do banco de dados da Replit por um agente de IA em 2024 demonstram os riscos reais de sistemas autônomos sem supervisão adequada.
+A integração de Large Language Models (LLMs) e agentes de IA na engenharia de software introduz complexidades juridicas relevantes para responsabilidade, auditoria e atribuicao de culpa. Quando um sistema falha em producao, e o codigo responsavel foi gerado parcial ou totalmente por uma ferramenta de IA, onde termina a responsabilidade do engenheiro? Esta questao nao e meramente academica: ha incidentes reportados publicamente envolvendo automacao sem supervisao adequada.
 
 Esta seção analisa a evolução da responsabilidade legal do engenheiro de software no contexto de sistemas gerados por IA. Examina frameworks emergentes de accountability, jurisprudência em formação, e regulamentações como o EU AI Act e o NIST AI Risk Management Framework. O objetivo é equipar engenheiros com o conhecimento necessário para navegar o cenário legal em evolução enquanto mantêm práticas profissionais responsáveis.
+
+**Nota de verificabilidade:** esta area evolui rapidamente e varia por jurisdicao. Trate exemplos e interpretacoes como ponto de partida; para decisoes reais (contratos, incidentes, compliance), valide com textos normativos atualizados e assessoria juridica.
 
 ## Learning Objectives
 

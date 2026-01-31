@@ -138,9 +138,9 @@ No modelo tradicional, software era tratado como ativo depreciável com vida út
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa - fundamentos econômicos adaptados para era dos LLMs permanecem relevantes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Muito Alto - exige análise multidimensional de impactos econômicos |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítico - decisões econômicas afetam alocação de responsabilidade em falhas |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — fundamentos economicos adaptados para a era dos LLMs permanecem relevantes |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — exige analise multidimensional de impactos economicos |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — decisoes economicas afetam alocacao de responsabilidade em falhas |
 
 ## Summary
 
