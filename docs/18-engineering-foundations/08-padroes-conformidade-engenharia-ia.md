@@ -1,5 +1,5 @@
 ---
-title: "08 - Padroes e Conformidade para Engenharia com IA"
+title: "18.8 Padroes e Conformidade para Engenharia com IA"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "padroes", "conformidade", "governanca", "ia"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 8. Padroes e Conformidade para Engenharia com IA
+# 18.8 Padroes e Conformidade para Engenharia com IA
 
 ## Overview
 

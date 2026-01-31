@@ -1,5 +1,5 @@
 ---
-title: "Apendice E: Matriz de Conformidade SWEBOK-AI vs. Padroes"
+title: "Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padroes"
 created_at: "2026-01-31"
 tags: ["apendice", "conformidade", "governanca", "padroes", "swebok-ai"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# Apendice E: Matriz de Conformidade SWEBOK-AI vs. Padroes
+# Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padroes
 
 ## Overview
 Este apendice mapeia, em alto nivel, as KAs do SWEBOK-AI v5.0 para standards e referencias normativas relevantes. O objetivo nao e declarar conformidade automaticamente, mas facilitar:

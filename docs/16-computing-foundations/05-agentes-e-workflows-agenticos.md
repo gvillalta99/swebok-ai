@@ -12,7 +12,7 @@ ai_model: "openai/gpt-5.2"
 ## Overview
 Um “agente” baseado em LLM e um sistema que, alem de gerar texto, executa acoes em um ambiente (por exemplo, chamar ferramentas, consultar dados, escrever codigo, operar navegadores) com algum grau de autonomia. A diferenca central em relacao a um chatbot e o acoplamento entre raciocinio/planejamento, uso de ferramentas (tool use) e memoria (estado persistente). No SWEBOK-AI v5.0, agentes sao relevantes porque deslocam o gargalo: nao e apenas “produzir uma resposta”, mas controlar um processo multi-etapas com efeitos colaterais reais.
 
-Essa capacidade introduz risco sistemico: erros se compoem ao longo de passos, o agente pode entrar em loops, e a superficie de ataque aumenta (ferramentas, credenciais, dados). Portanto, engenharia agentica e, por definicao, engenharia de governanca: limites, autorizacao, observabilidade e avaliacao.
+Essa capacidade introduz riscos sistemicos: erros se compoem ao longo de passos, o agente pode entrar em loops, e a superficie de ataque aumenta (ferramentas, credenciais, dados). Portanto, engenharia agentica e, por definicao, engenharia de governanca: limites, autorizacao, observabilidade e avaliacao.
 
 ## Learning Objectives
 Após estudar esta seção, o leitor deve ser capaz de:

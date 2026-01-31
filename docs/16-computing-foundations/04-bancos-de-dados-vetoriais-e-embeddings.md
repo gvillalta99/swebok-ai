@@ -12,7 +12,7 @@ ai_model: "openai/gpt-5.2"
 ## Overview
 Embeddings sao representacoes vetoriais densas que codificam similaridade semantica em um espaco de alta dimensao. Bancos de dados vetoriais (vector databases / vector DBMS) operacionalizam a busca por similaridade em escala, geralmente via algoritmos de approximate nearest neighbor (ANN). Em sistemas RAG, embeddings e vector DBs tornam-se infraestrutura basica: sustentam recuperacao, deduplicacao, recomendacao e, em alguns cenarios, detecao de anomalias.
 
-Para o SWEBOK-AI v5.0, compreender vector DBs e menos sobre escolher um produto e mais sobre dominar trade-offs de indexacao, filtragem por metadados, consistencia, custo e observabilidade. Isso inclui reconhecer limites fundamentais: similaridade semantica e aproximacao; nao ha “verdade geometrica” universal, apenas escolhas de modelo, dados e metricas.
+Para o SWEBOK-AI v5.0, compreender vector DBs e menos sobre escolher um produto e mais sobre dominar trade-offs de indexacao, filtragem por metadados, consistencia, custo e observabilidade. Isso inclui reconhecer limites fundamentais: similaridade semantica e aproximacao; nao existe “verdade geometrica” universal, apenas escolhas de modelo, dados e metricas.
 
 ## Learning Objectives
 Após estudar esta seção, o leitor deve ser capaz de:

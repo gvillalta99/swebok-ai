@@ -1,5 +1,5 @@
 ---
-title: "06 - Teoria das Linguagens e Analise Sintatica"
+title: "17.6 Teoria das Linguagens e Analise Sintatica"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "linguagens-formais", "gramaticas", "parsing", "compiladores", "prompting", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 6. Teoria das Linguagens e Analise Sintatica
+# 17.6 Teoria das Linguagens e Analise Sintatica
 
 ## Overview
 

@@ -1,5 +1,5 @@
 ---
-title: "Apendice D: Glossario de Termos de IA para Engenharia de Software"
+title: "Apêndice D: Glossario de Termos de IA para Engenharia de Software"
 created_at: "2026-01-31"
 tags: ["apendice", "glossario", "llm", "rag", "agentes", "swebok-ai"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# Apendice D: Glossario de Termos de IA para Engenharia de Software
+# Apêndice D: Glossario de Termos de IA para Engenharia de Software
 
 ## Overview
 Este glossario define termos que se tornaram operacionais para engenheiros de software ao construir, integrar e governar sistemas com componentes de IA, em especial LLMs e sistemas baseados em agentes. O foco nao e esgotar a teoria, mas reduzir ambiguidade em requisitos, arquitetura, testes, seguranca e operacao.

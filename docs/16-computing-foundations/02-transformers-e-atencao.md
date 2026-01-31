@@ -1,5 +1,5 @@
 ---
-title: "16.2 Arquitetura Transformer e Mecanismos de Atencao"
+title: "16.2 Arquitetura Transformer e Mecanismos de Atenção"
 created_at: "2026-01-31"
 tags: ["fundamentos-computacao", "transformer", "atencao", "long-context", "kv-cache", "eficiencia", "multimodal"]
 status: "review"
@@ -7,17 +7,17 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 16.2 Arquitetura Transformer e Mecanismos de Atencao
+# 16.2 Arquitetura Transformer e Mecanismos de Atenção
 
 ## Overview
-A arquitetura Transformer tornou-se a base dominante de LLMs e de modelos multimodais modernos. O ponto central para engenharia de software nao e a derivacao matematica completa, mas compreender por que (a) atencao (attention) e o gargalo de custo/latencia para contextos longos, (b) a memoria de inferencia (KV-cache) e um recurso finito e caro, e (c) pequenas mudancas de implementacao em kernels de atencao alteram significativamente o TCO de sistemas.
+A arquitetura Transformer e amplamente utilizada como base de LLMs e de modelos multimodais. O ponto central para engenharia de software nao e a derivacao matematica completa, mas compreender por que (a) a atencao (attention) tende a ser o gargalo de custo/latencia para contextos longos, (b) a memoria de inferencia (KV-cache) e um recurso finito e caro, e (c) mudancas de implementacao em kernels de atencao podem alterar significativamente o TCO do serving.
 
 Esta secao introduz os blocos essenciais (self-attention, multi-head, embeddings posicionais, residual connections, normalization) e conecta o desenho do Transformer a praticas de engenharia: escalabilidade, observabilidade, requisitos de determinismo e limites de custo.
 
 ## Learning Objectives
 Após estudar esta seção, o leitor deve ser capaz de:
 1. Descrever os principais blocos de um Transformer e as diferencas entre encoder-decoder e decoder-only.
-2. Explicar por que a atencao possui custo quadratico no comprimento do contexto e como isso afeta sistemas.
+2. Explicar por que a atencao possui custo aproximado quadratico no comprimento do contexto (na forma densa) e como isso afeta sistemas.
 3. Relacionar KV-cache, latencia token-a-token e consumo de memoria em inferencia autoregressiva.
 4. Identificar classes de tecnicas de eficiencia (kernels otimizados, atencao esparsa/linear, quantizacao) e seus trade-offs.
 5. Avaliar impactos de longo contexto na confiabilidade (por exemplo, degradacao de recuperacao e maior superficie de ataque via prompt injection).
@@ -40,7 +40,7 @@ Como Transformers nao possuem recorrencia implicita, usam mecanismos para codifi
 - degradacao de desempenho fora da distribuicao de treinamento;
 - compatibilidade com tecnicas de longo contexto.
 
-## Por que atencao e o gargalo
+## Por que a atencao tende a ser o gargalo
 Para sequencias de comprimento n, a atencao densa (full attention) exige computacao e memoria que crescem aproximadamente com O(n^2). Em LLMs com janelas longas, isso se traduz em:
 
 - maior latencia e custo por requisicao;
@@ -91,7 +91,7 @@ Tecnicas de compressao/atualizacao de KV-cache e estrategias de selecao de token
 | **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
 
 ## Summary
-- Transformer e um bloco computacional repetitivo cujo gargalo pratico e a atencao.
+- Transformer e um bloco computacional repetitivo cujo gargalo pratico tende a ser a atencao.
 - KV-cache e o recurso critico em inferencia autoregressiva; afeta latencia, memoria e custo.
 - Eficiencia moderna depende de co-design software-hardware (kernels, quantizacao, acesso a memoria).
 - Long-context aumenta custo e risco; engenharia de contexto e recuperacao sao alternativas arquiteturais.

@@ -1,5 +1,5 @@
 ---
-title: "Apendice B: Padroes ISO/IEC e IEEE (Atualizado 2024-2025)"
+title: "Apêndice B: Padroes ISO/IEC e IEEE (Atualizado 2024-2025)"
 created_at: "2026-01-31"
 tags: ["apendice", "padroes", "iso-iec", "ieee", "conformidade", "swebok-ai"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# Apendice B: Padroes ISO/IEC e IEEE (Atualizado 2024-2025)
+# Apêndice B: Padroes ISO/IEC e IEEE (Atualizado 2024-2025)
 
 ## Overview
 Este apendice descreve o panorama de standards relevantes para engenharia de software na era de sistemas com componentes de IA (incluindo LLMs e arquiteturas com agentes), com foco em 2024-2025. O objetivo e apoiar:

@@ -1,5 +1,5 @@
 ---
-title: "Apendice C: Lista de Referencias Consolidadas (Atualizada 2024-2025)"
+title: "Apêndice C: Lista de Referencias Consolidadas (Atualizada 2024-2025)"
 created_at: "2026-01-31"
 tags: ["apendice", "referencias", "bibliografia", "evidencias", "swebok-ai"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# Apendice C: Lista de Referencias Consolidadas (Atualizada 2024-2025)
+# Apêndice C: Lista de Referencias Consolidadas (Atualizada 2024-2025)
 
 ## Overview
 Este apendice consolida referencias recomendadas para o SWEBOK-AI v5.0, com prioridade para 2024-2025. A lista tem dois objetivos:

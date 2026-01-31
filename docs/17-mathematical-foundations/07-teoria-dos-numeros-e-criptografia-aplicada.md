@@ -1,5 +1,5 @@
 ---
-title: "07 - Teoria dos Numeros e Criptografia Aplicada"
+title: "17.7 Teoria dos Numeros e Criptografia Aplicada"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "teoria-dos-numeros", "criptografia", "seguranca", "hash", "assinaturas", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 7. Teoria dos Numeros e Criptografia Aplicada
+# 17.7 Teoria dos Numeros e Criptografia Aplicada
 
 ## Overview
 

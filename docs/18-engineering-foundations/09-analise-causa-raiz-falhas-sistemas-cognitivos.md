@@ -1,5 +1,5 @@
 ---
-title: "09 - Analise de Causa Raiz em Falhas de Sistemas Cognitivos"
+title: "18.9 Analise de Causa Raiz em Falhas de Sistemas Cognitivos"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "rca", "incidentes", "sistemas-cognitivos", "qualidade"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 9. Analise de Causa Raiz em Falhas de Sistemas Cognitivos
+# 18.9 Analise de Causa Raiz em Falhas de Sistemas Cognitivos
 
 ## Overview
 

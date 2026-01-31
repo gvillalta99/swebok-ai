@@ -1,5 +1,5 @@
 ---
-title: "07 - Medicao de Sistemas de Software Gerados por IA"
+title: "18.7 Medicao de Sistemas de Software Gerados por IA"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "medicao", "metricas", "ia-generativa", "produtividade"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 7. Medicao de Sistemas de Software Gerados por IA
+# 18.7 Medicao de Sistemas de Software Gerados por IA
 
 ## Overview
 

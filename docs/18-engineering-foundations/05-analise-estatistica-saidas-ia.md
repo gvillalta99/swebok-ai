@@ -1,5 +1,5 @@
 ---
-title: "05 - Analise Estatistica de Saidas de IA"
+title: "18.5 Analise Estatistica de Saidas de IA"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "estatistica", "avaliacao", "qualidade", "nao-determinismo"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 5. Analise Estatistica de Saidas de IA
+# 18.5 Analise Estatistica de Saidas de IA
 
 ## Overview
 

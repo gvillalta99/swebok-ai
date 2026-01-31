@@ -1,5 +1,5 @@
 ---
-title: "03 - Abstracao e Encapsulacao em Sistemas Cognitivos"
+title: "18.3 Abstracao e Encapsulacao em Sistemas Cognitivos"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "abstracao", "encapsulacao", "interfaces", "sistemas-cognitivos"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 3. Abstracao e Encapsulacao em Sistemas Cognitivos
+# 18.3 Abstracao e Encapsulacao em Sistemas Cognitivos
 
 ## Overview
 

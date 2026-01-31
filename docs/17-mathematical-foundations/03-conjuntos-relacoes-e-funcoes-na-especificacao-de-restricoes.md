@@ -1,5 +1,5 @@
 ---
-title: "03 - Conjuntos, Relacoes e Funcoes na Especificacao de Restricoes"
+title: "17.3 Conjuntos, Relacoes e Funcoes na Especificacao de Restricoes"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "conjuntos", "relacoes", "funcoes", "especificacao", "restricoes", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 3. Conjuntos, Relacoes e Funcoes na Especificacao de Restricoes
+# 17.3 Conjuntos, Relacoes e Funcoes na Especificacao de Restricoes
 
 ## Overview
 

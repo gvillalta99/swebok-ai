@@ -1,5 +1,5 @@
 ---
-title: "09 - Probabilidade e Estatistica para Sistemas Nao-Deterministicos"
+title: "17.9 Probabilidade e Estatistica para Sistemas Nao-Deterministicos"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "probabilidade", "estatistica", "incerteza", "avaliacao", "sistemas-nao-deterministicos", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 9. Probabilidade e Estatistica para Sistemas Nao-Deterministicos
+# 17.9 Probabilidade e Estatistica para Sistemas Nao-Deterministicos
 
 ## Overview
 

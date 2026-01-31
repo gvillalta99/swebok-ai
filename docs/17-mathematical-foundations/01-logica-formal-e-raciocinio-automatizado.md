@@ -1,5 +1,5 @@
 ---
-title: "01 - Logica Formal e Raciocinio Automatizado"
+title: "17.1 Logica Formal e Raciocinio Automatizado"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "logica", "raciocinio-automatizado", "metodos-formais", "verificacao", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 1. Logica Formal e Raciocinio Automatizado
+# 17.1 Logica Formal e Raciocinio Automatizado
 
 ## Overview
 

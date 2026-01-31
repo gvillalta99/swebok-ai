@@ -12,7 +12,7 @@ ai_model: "openai/gpt-5.2"
 ## Overview
 O custo e a viabilidade de sistemas baseados em LLMs sao, em grande parte, determinados por hardware: throughput de multiplicacao de matrizes, largura de banda de memoria, hierarquia de caches, interconexoes e suporte a precisao reduzida (por exemplo, BF16/FP16/FP8/INT8/INT4). Para o SWEBOK-AI v5.0, “fundamentos de computacao” inclui compreender por que inferencia e frequentemente limitada por memoria (nao por FLOPs), como KV-cache consome HBM/DRAM, e como escolhas de precisao e batching mudam custo marginal por token.
 
-Esta secao organiza o que um engenheiro de software precisa saber para dimensionar e operar sistemas IA-intensive sem cair em otimismos irreais (por exemplo, assumir que “mais GPU” resolve qualquer problema) e sem delegar totalmente a decisao a fornecedores.
+Esta secao organiza o que um engenheiro de software precisa saber para dimensionar e operar sistemas IA-intensive sem cair em simplificacoes (por exemplo, assumir que “mais GPU” resolve qualquer problema) e sem delegar totalmente a decisao a fornecedores.
 
 ## Learning Objectives
 Após estudar esta seção, o leitor deve ser capaz de:

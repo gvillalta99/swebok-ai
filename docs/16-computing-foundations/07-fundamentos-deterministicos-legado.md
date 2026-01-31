@@ -10,7 +10,7 @@ ai_model: "openai/gpt-5.2"
 # 16.7 Fundamentos Deterministicos LEGADO (Revisao Seletiva)
 
 ## Overview
-Este capitulo renomeia “Computing Foundations” para “Fundamentos de Sistemas Cognitivos Artificiais” porque LLMs e sistemas probabilisticos passaram a ser infraestrutura de primeira classe. Ainda assim, um sistema IA-intensive nao elimina fundamentos deterministicos: ele os reposiciona.
+Este capitulo renomeia “Computing Foundations” para “Fundamentos de Sistemas Cognitivos Artificiais” porque LLMs e sistemas probabilisticos passaram a ser infraestrutura de primeira classe. Ainda assim, um sistema IA-intensive não elimina fundamentos deterministicos: ele os reposiciona.
 
 Nesta secao, o conteudo e explicitamente **LEGADO** no sentido SWEBOK-AI: nao e obsoleto, mas deixa de ser diferencial isolado. O engenheiro precisa desses fundamentos para:
 

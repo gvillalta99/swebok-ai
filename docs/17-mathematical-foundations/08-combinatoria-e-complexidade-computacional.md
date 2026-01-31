@@ -1,5 +1,5 @@
 ---
-title: "08 - Combinatoria e Complexidade Computacional"
+title: "17.8 Combinatoria e Complexidade Computacional"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "combinatoria", "complexidade", "np-completo", "otimizacao", "custos", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 8. Combinatoria e Complexidade Computacional
+# 17.8 Combinatoria e Complexidade Computacional
 
 ## Overview
 

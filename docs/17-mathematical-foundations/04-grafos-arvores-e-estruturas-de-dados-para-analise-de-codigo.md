@@ -1,5 +1,5 @@
 ---
-title: "04 - Grafos, Arvores e Estruturas de Dados para Analise de Codigo"
+title: "17.4 Grafos, Arvores e Estruturas de Dados para Analise de Codigo"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "grafos", "arvores", "estruturas-de-dados", "analise-de-codigo", "dependencias", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 4. Grafos, Arvores e Estruturas de Dados para Analise de Codigo
+# 17.4 Grafos, Arvores e Estruturas de Dados para Analise de Codigo
 
 ## Overview
 

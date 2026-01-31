@@ -1,5 +1,5 @@
 ---
-title: "10 - Precisao Numerica e Analise de Erros em Computacao"
+title: "17.10 Precisao Numerica e Analise de Erros em Computacao"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "precisao-numerica", "ponto-flutuante", "erros", "reprodutibilidade", "analise-estatica"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 10. Precisao Numerica e Analise de Erros em Computacao
+# 17.10 Precisao Numerica e Analise de Erros em Computacao
 
 ## Overview
 

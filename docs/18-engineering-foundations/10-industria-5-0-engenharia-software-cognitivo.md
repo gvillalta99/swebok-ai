@@ -1,5 +1,5 @@
 ---
-title: "10 - Industria 5.0 e Engenharia de Software Cognitivo"
+title: "18.10 Industria 5.0 e Engenharia de Software Cognitivo"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "industria-5-0", "sistemas-cognitivos", "human-centric", "economia"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 10. Industria 5.0 e Engenharia de Software Cognitivo
+# 18.10 Industria 5.0 e Engenharia de Software Cognitivo
 
 ## Overview
 

@@ -10,7 +10,7 @@ ai_model: "openai/gpt-5.2"
 # 16.1 Fundamentos de Modelos de Linguagem de Grande Escala (LLMs)
 
 ## Overview
-Modelos de Linguagem de Grande Escala (Large Language Models, LLMs) são componentes computacionais capazes de transformar contexto textual (e, frequentemente, multimodal) em distribuições de probabilidade sobre próximas unidades de saída (tokens). Para o SWEBOK-AI v5.0, esse fato altera o sentido de “fundamento de computação”: o engenheiro de software precisa compreender como o modelo “percebe” contexto, como custos de inferência escalam com tokens e como a não determinismo estatístico impacta verificação, responsabilidade e governança.
+Modelos de Linguagem de Grande Escala (Large Language Models, LLMs) são componentes computacionais capazes de transformar contexto textual (e, frequentemente, multimodal) em distribuições de probabilidade sobre próximas unidades de saída (tokens). Para o SWEBOK-AI v5.0, esse fato altera o sentido de “fundamento de computação”: o engenheiro de software precisa compreender como o modelo “percebe” contexto, como custos de inferência escalam com tokens e como o não determinismo estatístico impacta verificação, responsabilidade e governança.
 
 Nesta seção, o objetivo não é ensinar a usar um SDK específico, mas estabelecer vocabulário e intuições de engenharia para: (a) projetar sistemas que incorporem LLMs com segurança, (b) avaliar riscos de alucinação (hallucination) e desvio de instruções, e (c) dimensionar custo/latência de aplicações que dependem de janelas de contexto e de chamadas repetidas ao modelo.
 
@@ -97,7 +97,7 @@ Riscos incluem exposição de dados sensíveis no prompt, logs ou respostas. O c
 - Decodificação é decisão de risco: determinismo e rastreabilidade são requisitos em domínios críticos.
 
 ## References
-1. MINAEE, Shervin; MIKOLOV, Tomas; NIKZAD, Narjes; et al. Large Language Models: A Survey. arXiv, 2024. DOI: 10.48550/arXiv.2402.06196. Disponivel em: https://arxiv.org/abs/2402.06196. Acesso em: 31 jan. 2026.
-2. ZHAO, Wayne Xin; ZHOU, Kun; LI, Junyi; et al. A Survey of Large Language Models. arXiv, 2023 (revisado e atualizado). Disponivel em: https://arxiv.org/abs/2303.18223. Acesso em: 31 jan. 2026.
-3. MATARAZZO, Andrea; TORLONE, Riccardo. A Survey on Large Language Models with some Insights on their Capabilities and Limitations. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2501.04040. Acesso em: 31 jan. 2026.
-4. OPENAI. Reasoning Best Practices. Documentacao tecnica, 2024-2025. Disponivel em: https://platform.openai.com/docs/guides/reasoning-best-practices. Acesso em: 31 jan. 2026.
+1. MINAEE, Shervin; MIKOLOV, Tomas; NIKZAD, Narjes; et al. Large Language Models: A Survey. arXiv, 2024. DOI: 10.48550/arXiv.2402.06196. Disponível em: https://arxiv.org/abs/2402.06196. Acesso em: 31 jan. 2026.
+2. ZHAO, Wayne Xin; ZHOU, Kun; LI, Junyi; et al. A Survey of Large Language Models. arXiv, 2023 (revisado e atualizado). Disponível em: https://arxiv.org/abs/2303.18223. Acesso em: 31 jan. 2026.
+3. MATARAZZO, Andrea; TORLONE, Riccardo. A Survey on Large Language Models with some Insights on their Capabilities and Limitations. arXiv, 2025. Disponível em: https://arxiv.org/abs/2501.04040. Acesso em: 31 jan. 2026.
+4. OPENAI. Reasoning Best Practices. Documentacao tecnica, 2024-2025. Disponível em: https://platform.openai.com/docs/guides/reasoning-best-practices. Acesso em: 31 jan. 2026.

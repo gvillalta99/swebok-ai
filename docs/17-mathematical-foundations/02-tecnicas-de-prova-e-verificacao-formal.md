@@ -1,5 +1,5 @@
 ---
-title: "02 - Tecnicas de Prova e Verificacao Formal"
+title: "17.2 Tecnicas de Prova e Verificacao Formal"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "provas", "verificacao-formal", "metodos-formais", "smt", "model-checking", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Tecnicas de Prova e Verificacao Formal
+# 17.2 Tecnicas de Prova e Verificacao Formal
 
 ## Overview
 

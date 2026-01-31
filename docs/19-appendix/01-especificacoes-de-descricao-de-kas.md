@@ -1,5 +1,5 @@
 ---
-title: "Apendice A: Especificacoes de Descricao de Knowledge Areas (KAs)"
+title: "Apêndice A: Especificacoes de Descricao de Knowledge Areas (KAs)"
 created_at: "2026-01-31"
 tags: ["apendice", "kabs", "governanca", "evidencias", "swebok-ai"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# Apendice A: Especificacoes de Descricao de Knowledge Areas (KAs)
+# Apêndice A: Especificacoes de Descricao de Knowledge Areas (KAs)
 
 ## Overview
 Este apendice define as especificacoes editoriais e tecnicas para descrever Knowledge Areas (KAs) no SWEBOK-AI v5.0. O objetivo nao e padronizar estilo por estetica, mas garantir comparabilidade, auditabilidade e rastreabilidade em um guia que assume sistemas nao deterministicos, alto risco regulatorio e producao acelerada por IA.

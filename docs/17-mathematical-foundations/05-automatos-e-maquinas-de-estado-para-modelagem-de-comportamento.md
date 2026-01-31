@@ -1,5 +1,5 @@
 ---
-title: "05 - Automatos e Maquinas de Estado para Modelagem de Comportamento"
+title: "17.5 Automatos e Maquinas de Estado para Modelagem de Comportamento"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "automatos", "maquinas-de-estado", "protocolos", "model-checking", "agentes", "llm"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 5. Automatos e Maquinas de Estado para Modelagem de Comportamento
+# 17.5 Automatos e Maquinas de Estado para Modelagem de Comportamento
 
 ## Overview
 

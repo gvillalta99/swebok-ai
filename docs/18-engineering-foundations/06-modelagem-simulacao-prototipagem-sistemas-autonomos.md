@@ -1,5 +1,5 @@
 ---
-title: "06 - Modelagem, Simulacao e Prototipagem de Sistemas Autonomos"
+title: "18.6 Modelagem, Simulacao e Prototipagem de Sistemas Autonomos"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "modelagem", "simulacao", "prototipagem", "sistemas-autonomos"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 6. Modelagem, Simulacao e Prototipagem de Sistemas Autonomos
+# 18.6 Modelagem, Simulacao e Prototipagem de Sistemas Autonomos
 
 ## Overview
 

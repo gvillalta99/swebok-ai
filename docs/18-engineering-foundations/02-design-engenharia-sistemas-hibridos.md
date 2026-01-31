@@ -1,5 +1,5 @@
 ---
-title: "02 - Design de Engenharia para Sistemas Hibridos"
+title: "18.2 Design de Engenharia para Sistemas Hibridos"
 created_at: "2026-01-31"
 tags: ["fundamentos-engenharia", "design", "sistemas-hibridos", "seguranca", "ia"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Design de Engenharia para Sistemas Hibridos
+# 18.2 Design de Engenharia para Sistemas Hibridos
 
 ## Overview
 

@@ -1,5 +1,5 @@
 ---
-title: "12 - Calculo e Otimizacao para Engenharia de Software"
+title: "17.12 Calculo e Otimizacao para Engenharia de Software"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "calculo", "otimizacao", "gradiente", "trade-offs", "ml", "engenharia"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 12. Calculo e Otimizacao para Engenharia de Software
+# 17.12 Calculo e Otimizacao para Engenharia de Software
 
 ## Overview
 

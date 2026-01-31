@@ -1,5 +1,5 @@
 ---
-title: "13 - Fundamentos de IA e Aprendizado de Maquina para Engenheiros de Software"
+title: "17.13 Fundamentos de IA e Aprendizado de Maquina para Engenheiros de Software"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "ia", "aprendizado-de-maquina", "llm", "avaliacao", "verificacao", "governanca"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 13. Fundamentos de IA e Aprendizado de Maquina para Engenheiros de Software
+# 17.13 Fundamentos de IA e Aprendizado de Maquina para Engenheiros de Software
 
 ## Overview
 

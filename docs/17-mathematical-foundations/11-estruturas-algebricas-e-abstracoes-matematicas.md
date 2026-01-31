@@ -1,5 +1,5 @@
 ---
-title: "11 - Estruturas Algebricas e Abstracoes Matematicas"
+title: "17.11 Estruturas Algebricas e Abstracoes Matematicas"
 created_at: "2026-01-31"
 tags: ["fundamentos-matematicos", "algebra", "monoids", "grupos", "lattices", "abstracoes", "tipos"]
 status: "review"
@@ -7,7 +7,7 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 11. Estruturas Algebricas e Abstracoes Matematicas
+# 17.11 Estruturas Algebricas e Abstracoes Matematicas
 
 ## Overview
 

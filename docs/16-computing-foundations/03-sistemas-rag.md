@@ -10,7 +10,7 @@ ai_model: "openai/gpt-5.2"
 # 16.3 Sistemas de Recuperacao Aumentada (RAG)
 
 ## Overview
-Retrieval-Augmented Generation (RAG) combina um componente de recuperacao (retriever) com um componente gerador (generator), tipicamente um LLM. O objetivo e reduzir alucinacoes, atualizar conhecimento e permitir rastreabilidade por meio de evidencias externas. No paradigma SWEBOK-AI v5.0, RAG e um mecanismo de “capitalizacao de contexto”: ao inves de confiar apenas em parametros do modelo (conhecimento parametricamente armazenado), o sistema busca e injeta evidencias sob demanda, transformando verificacao em parte do desenho arquitetural.
+Retrieval-Augmented Generation (RAG) combina um componente de recuperacao (retriever) com um componente gerador (generator), tipicamente um LLM. Um objetivo comum e reduzir alucinacoes, atualizar conhecimento e permitir rastreabilidade por meio de evidencias externas. No paradigma SWEBOK-AI v5.0, RAG e um mecanismo de “capitalizacao de contexto”: ao inves de confiar apenas em parametros do modelo (conhecimento parametricamente armazenado), o sistema busca e injeta evidencias sob demanda, transformando verificacao em parte do desenho arquitetural.
 
 RAG nao e apenas uma tecnica de NLP; e um padrao de arquitetura. Ele introduz um pipeline com ingestion, indexacao, recuperacao, reranking, montagem de contexto, geracao e observabilidade. Cada etapa cria novos modos de falha e novos pontos de controle.
 
