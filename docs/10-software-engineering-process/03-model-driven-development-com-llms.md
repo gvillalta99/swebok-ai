@@ -3,27 +3,27 @@ title: "03 - Model-Driven Development com LLMs"
 created_at: "2025-01-31"
 tags: ["processos", "mdd", "model-driven", "llm", "especificacoes", "geracao", "uml"]
 status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 3. Model-Driven Development com LLMs
 
 ## Overview
 
-O Model-Driven Development (MDD) sempre prometeu elevar o nível de abstração do desenvolvimento de software, usando modelos como artefatos primários em vez de código. Na era dos LLMs, essa visão ganha nova dimensão: **modelos e especificações tornam-se não apenas documentação, mas instruções executáveis que geram código diretamente**.
+Model-Driven Development (MDD) tenta elevar o nivel de abstracao, usando modelos e especificacoes como artefatos primarios. Em uma perspectiva AI-first, essa ideia reaparece com outra forma: especificacoes estruturadas (em linguagem natural ou notacoes formais) podem orientar geracao, mas continuam exigindo verificacao rigorosa.
 
-Esta seção explora como LLMs transformam o MDD tradicional, permitindo que especificações em linguagem natural ou notações formais sejam transformadas em implementações funcionais. O foco desloca-se de "modelos para documentação" para "especificações como geração".
+Esta secao trata MDD como disciplina de especificacao: definir contratos, invariantes e modelos de dominio que reduzam ambiguidade e tornem o sistema geravel e verificavel.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Compreender como LLMs transformam o paradigma do Model-Driven Development
-2. Criar especificações executáveis via prompts estruturados
-3. Aplicar processos de geração iterativa do protótipo ao produto
-4. Distinguir entre modelagem tradicional e especificação para geração
-5. Avaliar trade-offs entre abstração e controle em processos generativos
+1. Distinguir MDD tradicional (transformacoes) de MDD orientado por geracao.
+2. Escrever especificacoes executaveis (contratos e exemplos) para reduzir ambiguidade.
+3. Projetar um ciclo iterativo de geracao + verificacao.
+4. Escolher nivel de abstracao conforme criticidade e risco.
+5. Identificar anti-padroes (especificacoes vagas, geracao sem oraculo).
 
 ## 3.1 Model-Driven Development Reimaginado
 
@@ -42,14 +42,11 @@ O Model-Driven Development tradicional, popularizado pela OMG com MDA (Model-Dri
 - Rigidez nas transformações predefinidas
 - Alto custo de ferramentas especializadas
 
-**O MDD com LLMs:**
+**MDD com IA (visao operacional):**
 
-A pesquisa de 2024 sobre "LLM as a Code Generator in Agile Model-Driven Development" [1] propõe uma nova abordagem (AMDD - Agile Model-Driven Development) que combina:
-
-- Modelos UML enriquecidos com OCL (Object Constraint Language)
-- LLMs como geradores de código a partir desses modelos
-- Iteração rápida entre modelagem e implementação
-- Feedback humano para refinar modelos e prompts
+- a especificacao vira o artefato central (contratos, exemplos, modelos de dominio),
+- a geracao produz candidatos,
+- a verificacao (testes/validadores) decide aceitacao.
 
 | Aspecto | MDD Tradicional | MDD com LLMs |
 |---------|----------------|--------------|
@@ -59,7 +56,7 @@ A pesquisa de 2024 sobre "LLM as a Code Generator in Agile Model-Driven Developm
 | **Flexibilidade** | Baixa (regras rígidas) | Alta (adaptação contextual) |
 | **Custo de Entrada** | Alto (ferramentas, treinamento) | Baixo (acesso a LLMs) |
 
-### 3.1.2 Specification as Generation
+### 3.1.2 Especificacao como Entrada de Geracao
 
 O conceito central do MDD com LLMs é que **a especificação é a geração**. Uma especificação bem estruturada não apenas descreve o comportamento desejado, mas serve como input direto para a geração de código funcional.
 
@@ -71,14 +68,14 @@ O conceito central do MDD com LLMs é que **a especificação é a geração**. 
 4. **Exemplos e Casos de Uso**: Comportamento esperado
 5. **Não-Objetivos**: O que explicitamente não deve ser feito
 
-**Exemplo de Especificação Geradora:**
+**Exemplo de Especificacao (sem prescrever fornecedor):**
 
 ```markdown
 ## ESPECIFICAÇÃO: Sistema de Processamento de Pagamentos
 
 ### Contexto
 - Microsserviço em arquitetura event-driven
-- Integração com gateways de pagamento (Stripe, PayPal)
+- Integracao com provedores externos de pagamento
 - Compliance PCI-DSS obrigatório
 
 ### Funcionalidade
@@ -89,7 +86,7 @@ Processar pagamentos de forma segura, garantindo:
 
 ### Restrições
 - NÃO armazenar dados de cartão em texto plano
-- NÃO processar transações >$10.000 sem aprovação manual
+- Defina limites de valor conforme politica de risco do negocio
 - SEMPRE usar TLS 1.3 para comunicações
 
 ### Critérios de Aceitação
@@ -105,9 +102,9 @@ Saída: {status: "approved", transaction_id: "txn_456", timestamp: "..."}
 
 Esta especificação, quando processada por um LLM com contexto adequado, pode gerar código funcional completo, incluindo validações, tratamento de erros e logging.
 
-## 3.2 Especificação Executável via Prompts Estruturados
+## 3.2 Especificacao Executavel: Contratos e Exemplos
 
-### 3.2.1 Princípios de Prompts Geradores
+### 3.2.1 Principios
 
 Prompts efetivos para geração de código seguem princípios específicos:
 
@@ -127,16 +124,12 @@ largura, distância. Use if-else para taxas."
 **2. Contexto Completo**
 Fornecer informação suficiente para decisões de design apropriadas.
 
-```markdown
-## Contexto
-- Framework: Django 4.2
-- Banco de dados: PostgreSQL
-- Padrão: Repository Pattern
-- Estilo de código: PEP 8
+Nao confunda “contexto” com “lista de ferramentas”. O que importa e declarar:
 
-## Requisito
-Implementar endpoint REST para CRUD de produtos...
-```
+- contrato (entradas/saidas),
+- invariantes,
+- restricoes (seguranca, performance),
+- exemplos.
 
 **3. Constraints Explícitas**
 Definir limites claros do que pode e não pode ser feito.
@@ -163,9 +156,9 @@ Output: {
 }
 ```
 
-### 3.2.2 Padrões de Prompt para Geração
+### 3.2.2 Padroes de Especificacao
 
-**Padrão 1: Especificação por Contrato**
+**Padrao 1: Contrato-first**
 
 ```markdown
 Você é um engenheiro de software sênior. Gere código baseado na seguinte 
@@ -199,7 +192,7 @@ def process_payment(amount: Decimal, currency: str,
 - Validar precondições
 ```
 
-**Padrão 2: Especificação por Exemplos (Example-Driven)**
+**Padrao 2: Especificacao por exemplo**
 
 ```markdown
 Gere implementação baseada nos seguintes exemplos:
@@ -222,7 +215,7 @@ Output: 30.0  # 15% de desconto por volume
 - Valor mínimo para desconto: $100
 ```
 
-**Padrão 3: Especificação por Transformação**
+**Padrao 3: Transformacao (LEGADO -> moderno)**
 
 ```markdown
 Transforme o seguinte código legado em código moderno:
@@ -370,9 +363,9 @@ Adicionar restrições quando o código gerado excede limites:
 
 ## 3.4 Integração com Modelagem Formal
 
-### 3.4.1 UML e OCL como Input para LLMs
+### 3.4.1 UML/OCL como Precisao Adicional
 
-Pesquisas recentes [2, 3] demonstram que LLMs podem interpretar diagramas UML e constraints OCL para gerar código:
+UML e OCL podem reduzir ambiguidade ao explicitar estrutura e invariantes. Mesmo assim, a geracao precisa de oraculos: testes e validadores que confirmem conformidade.
 
 **Fluxo de Trabalho:**
 
@@ -411,7 +404,7 @@ O LLM pode gerar:
 - Serializers para API
 - Testes de unidade
 
-### 3.4.2 DSLs (Domain-Specific Languages) com IA
+### 3.4.2 DSLs (Domain-Specific Languages)
 
 LLMs permitem criar DSLs informais que são interpretadas para geração:
 
@@ -460,15 +453,7 @@ Esta DSL pode ser processada por um LLM para gerar:
 - Código com dependências complexas de estado
 - Domínios com regras de negócio implicitamente definidas
 
-### Ferramentas e Frameworks
-
-- **StructGen**: Framework para geração guiada por UML [4]
-- **AMDD Tools**: Conjunto de ferramentas para Agile MDD
-- **LangChain**: Orquestração de prompts complexos
-- **GitHub Copilot Workspace**: Geração baseada em especificação
-- **Amazon CodeWhisperer**: Geração contextual
-
-### Anti-Padrões
+### Anti-Padroes
 
 **1. Especificações Vagas**
 Prompts genéricos geram código genérico. Especificar claramente o contexto e constraints.
@@ -482,6 +467,14 @@ Aceitar código gerado sem validar contra especificação. Sempre verificar conf
 **4. Dependência Excessiva de IA**
 Usar geração para problemas que requerem design profundo. Reconhecer limites da IA.
 
+### Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Media |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Alta |
+
 ## Summary
 
 - MDD com LLMs transforma **modelos em especificações executáveis**
@@ -492,21 +485,8 @@ Usar geração para problemas que requerem design profundo. Reconhecer limites d
 - DSLs informais permitem criar linguagens de domínio customizadas
 - O foco desloca-se de "modelar para documentar" para **"especificar para gerar"**
 
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — técnicas de especificação evoluem, mas fundamentos de modelagem permanecem |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — código gerado a partir de especificações requer validação rigorosa de conformidade |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Alta** — especificações ambíguas geram código incorreto; responsabilidade do especificador |
-
 ## References
 
-1. LLM as a Code Generator in Agile Model-Driven Development. arXiv:2410.18489, 2024.
-2. Structure-guided function-level code generation with LLMs via UML activity diagrams. Neurocomputing, 2025.
-3. Comparing LLM-based and MDE-based code generation for agile software development. CEUR Workshop Proceedings, Vol. 4122, 2025.
-4. StructGen: Engineering Multi-Agent Systems via Communicating Agents. AAAI Conference on Artificial Intelligence, 2025.
-5. Combining LLM Code Generation with Formal Specifications and Reactive Program Synthesis. arXiv:2410.19736, 2024.
-6. Executable Specifications. KedeHub Technical Blog, 2024.
-7. Beyond Snippet Assistance: A Workflow-Centric Framework for End-to-End AI-Driven Code Generation. Computers, Vol. 14, No. 3, 2025.
-8. Generating executable oracles to check conformance of client code to requirements of JDK Javadocs using LLMs. arXiv:2411.01789, 2024.
+1. OMG. Model Driven Architecture (MDA). Object Management Group.
+2. OMG. Unified Modeling Language (UML). Object Management Group.
+3. Adzic, G. Specification by Example: How Successful Teams Deliver the Right Software. New York: Manning, 2011.

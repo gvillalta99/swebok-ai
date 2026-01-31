@@ -3,33 +3,33 @@ title: "03 - Rastreabilidade em Sistemas Gerados por IA"
 created_at: "2025-01-31"
 tags: ["rastreabilidade", "proveniencia", "auditoria", "compliance", "metadata"]
 status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 3. Rastreabilidade em Sistemas Gerados por IA
 
 ## Overview
 
-A rastreabilidade em sistemas gerados por IA representa um desafio fundamental distinto da engenharia de software tradicional. Enquanto sistemas convencionais rastreiam requisitos para código e código para testes, sistemas com IA devem estabelecer cadeias de proveniência que conectam código gerado aos prompts, modelos, contextos e decisões de curadoria que o produziram.
+Em sistemas assistidos por IA, rastreabilidade deixa de ser apenas “requisito -> codigo -> teste”. Ela passa a incluir a cadeia de geracao: quais entradas, politicas, modelos e contextos produziram determinado artefato, e quais decisoes humanas autorizaram sua integracao.
 
-Esta seção aborda as técnicas e práticas necessárias para capturar metadados de geração, estabelecer audit trails completos para decisões de curadoria e garantir compliance e governança através de rastreabilidade robusta. A pesquisa de 2025 sobre "Provenance Tracking in Generative AI Software Development" destaca a importância crítica destas práticas para aplicações em domínios regulados [1].
+Esta secao define um modelo minimo de rastreabilidade (proveniencia + auditoria + evidencias) aplicavel a codigo, configuracoes, respostas geradas e decisoes de curadoria, com foco em investigacao de incidentes, compliance e manutencao.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Implementar captura sistemática de metadados de geração
-2. Estabelecer cadeias de proveniência completas para código gerado
-3. Criar audit trails para decisões de curadoria humana
-4. Aplicar princípios de data lineage em pipelines de IA
-5. Garantir compliance regulatório através de rastreabilidade
+1. Definir a cadeia de proveniencia para artefatos gerados por IA (codigo e nao codigo).
+2. Especificar metadados minimos para reproducao forense.
+3. Projetar registros de curadoria (aprovacao/rejeicao) com criterios verificaveis.
+4. Aplicar lineage para contexto (corpus/indice) e para saidas.
+5. Identificar lacunas tipicas de rastreabilidade e como corrigi-las.
 
-## 3.1 Rastreando Código Gerado às suas Origens
+## 3.1 Cadeia de Proveniencia
 
-### 3.1.1 A Cadeia de Proveniência Completa
+### 3.1.1 O Que Precisa Ser Rastreado
 
-A rastreabilidade efetiva requer a captura de uma cadeia completa de proveniência, documentando cada elemento que contribuiu para a geração de código:
+Uma cadeia de proveniencia deve permitir reconstruir (ou explicar) a geracao com um identificador unico (run_id) e referencias imutaveis (ids/hashes) para entradas e saidas.
 
 ```
 Código Gerado (artefato final)
@@ -47,11 +47,15 @@ Entrada do Usuário (query original)
 Decisão de Curadoria (quem aprovou, quando, por quê)
 ```
 
-Cada elo desta cadeia deve ser imutável e verificável, criando um registro auditável completo do processo de geração.
+Evite depender de “memoria humana” para explicar geracoes antigas: a rastreabilidade precisa ser automatizavel.
 
-### 3.1.2 Identificadores Únicos e Hashing
+### 3.1.2 Identificadores e Integridade
 
-Para garantir integridade, cada elemento da cadeia deve ter identificação única:
+Para garantir integridade:
+
+- atribua ids estaveis (run_id, prompt_id, corpus_version),
+- gere hashes para conteudo relevante (prompt, output, contratos),
+- registre versoes de transformacoes (ingestao, chunking, indexacao).
 
 ```json
 {
@@ -79,9 +83,13 @@ Para garantir integridade, cada elemento da cadeia deve ter identificação úni
 
 O uso de hashes criptográficos permite verificar se o conteúdo foi alterado desde a geração original.
 
-### 3.1.3 Grafos de Proveniência
+### 3.1.3 Grafo de Proveniencia (Quando a Cadeia nao e Linear)
 
-Para sistemas complexos, a proveniência pode ser modelada como um grafo direcionado acíclico (DAG):
+Em workflows com multiplos passos, a proveniencia vira um DAG. O ganho pratico e permitir analise de impacto:
+
+- “que saidas dependem deste corpus_version?”,
+- “que codigo foi gerado com esta politica?”,
+- “quais runs foram aprovadas por este gate?”.
 
 ```
 [User Query] → [Intent Classification] → [Context Retrieval]
@@ -98,11 +106,17 @@ Cada nó representa uma etapa do processo, e as arestas representam dependência
 - Debugging (identificar onde a cadeia falhou)
 - Auditoria (reconstruir o processo completo)
 
-## 3.2 Captura de Metadados de Geração
+## 3.2 Metadados de Geracao
 
-### 3.2.1 Metadados Essenciais
+### 3.2.1 Conjunto Minimo
 
-Toda geração deve capturar um conjunto mínimo de metadados:
+Evite metadados excessivos sem uso; comece com o minimo que viabiliza auditoria e depuracao:
+
+- identificacao: run_id, timestamps, solicitante e aprovador (quando aplicavel),
+- configuracao: modelo_id, prompt_id/policy_id, parametros,
+- contexto: corpus_version e referencias das fontes usadas,
+- evidencia: testes/validadores executados e resultados,
+- saida: hash e contrato de saida.
 
 ```json
 {
@@ -140,38 +154,30 @@ Toda geração deve capturar um conjunto mínimo de metadados:
     ],
     "embedding_model": "text-embedding-3-large"
   },
-  "usage": {
-    "input_tokens": 1500,
-    "output_tokens": 450,
-    "total_tokens": 1950,
-    "estimated_cost_usd": 0.045
-  },
   "output": {
     "hash": "sha256:xyz...",
-    "format": "python",
-    "lines": 45,
-    "functions": 3,
-    "complexity_score": 4.2
+    "format": "<contrato>",
+    "artifact_refs": ["<ref-artefato-1>"]
   }
 }
 ```
 
-### 3.2.2 Estratégias de Captura
+### 3.2.2 Estrategias de Captura
 
-**Captura Síncrona**: Metadados são coletados durante a geração
+**Captura sincrona**: metadados sao coletados durante a geracao
 - Prós: Completa, consistente
 - Contras: Adiciona latência
 
-**Captura Assíncrona**: Metadados são coletados em background
+**Captura assincrona**: metadados sao coletados em background
 - Prós: Mínimo impacto em performance
 - Contras: Risco de perda em caso de falha
 
 **Captura Híbrida**: Dados críticos são síncronos, demais são assíncronos
 - Balanceamento entre completude e performance
 
-### 3.2.3 Armazenamento e Retenção
+### 3.2.3 Retencao e Acesso
 
-Metadados devem ser armazenados em sistemas adequados:
+Politicas de retencao precisam ser justificadas por risco, auditoria e investigacao de incidentes. O ponto editorial aqui e: retenha o suficiente para reconstruir decisoes; elimine o que nao agrega (inclusive para reduzir exposicao de dados).
 
 | Tipo de Dado | Storage Ideal | Retenção |
 |--------------|---------------|----------|
@@ -180,11 +186,16 @@ Metadados devem ser armazenados em sistemas adequados:
 | Proveniência de código | Graph DB (Neo4j) | Indefinida |
 | Métricas de uso | Data warehouse (BigQuery) | 1-3 anos |
 
-## 3.3 Proveniência de Dados: De Treinamento à Inferência
+## 3.3 Lineage do Contexto (RAG)
 
-### 3.3.1 Data Lineage em Sistemas RAG
+### 3.3.1 Pipeline: Documento -> Trecho Recuperado
 
-Sistemas Retrieval-Augmented Generation (RAG) exigem rastreabilidade dos dados utilizados:
+Em RAG, o “dado usado” nao e apenas o documento, mas o trecho efetivamente recuperado (após parsing, chunking e busca). Portanto, o lineage deve ligar a resposta a:
+
+- referencia do documento e versao,
+- identificador do chunk,
+- versao do indice,
+- estrategia de retrieval.
 
 ```
 Documentos Fonte (PDF, MD, etc.)
@@ -210,7 +221,7 @@ Resposta Gerada
 
 Cada etapa deve ser versionada independentemente, permitindo reconstruir exatamente qual contexto foi fornecido em uma geração específica.
 
-### 3.3.2 Versionamento de Datasets
+### 3.3.2 Manifesto de Dataset/Corpus
 
 Datasets utilizados em sistemas de IA devem seguir princípios rigorosos de versionamento:
 
@@ -249,9 +260,9 @@ statistics:
   embedding_dimensions: 3072
 ```
 
-### 3.3.3 Impacto de Mudanças em Datasets
+### 3.3.3 Analise de Impacto
 
-Mudanças em datasets de treinamento ou contexto podem afetar comportamentos de IA de forma sutil:
+Mudancas em corpus/indice podem alterar respostas sem tocar no codigo. Trate como mudanca de risco (especialmente quando ha consequencias reguladas).
 
 | Tipo de Mudança | Impacto Potencial | Estratégia de Mitigação |
 |-----------------|-------------------|------------------------|
@@ -261,11 +272,11 @@ Mudanças em datasets de treinamento ou contexto podem afetar comportamentos de 
 | Mudança em chunking | Alteração no contexto retornado | Validação de relevance |
 | Novo embedding model | Mudança semântica no retrieval | Reindexação completa |
 
-## 3.4 Audit Trails para Decisões de Curadoria
+## 3.4 Audit Trail de Curadoria Humana
 
-### 3.4.1 Captura de Decisões Humanas
+### 3.4.1 Decisao como Artefato
 
-Decisões de curadoria humana são críticas para compliance e devem ser registradas:
+O registro de curadoria deve responder: “quem decidiu?”, “o que foi avaliado?” e “qual evidencia suportou a decisao?”. Evite campos subjetivos como “confidence_score” sem definicao operacional.
 
 ```json
 {
@@ -298,7 +309,7 @@ Decisões de curadoria humana são críticas para compliance e devem ser registr
 }
 ```
 
-### 3.4.2 Workflows de Aprovação
+### 3.4.2 Gates de Aprovacao
 
 Sistemas críticos devem implementar workflows de aprovação estruturados:
 
@@ -320,7 +331,7 @@ Cada etapa deve registrar:
 - Qual foi o resultado
 - Quaisquer observações relevantes
 
-### 3.4.3 Casos de Rejeição e Rollback
+### 3.4.3 Rejeicao e Aprendizado
 
 Rejeições são tão importantes quanto aprovações para aprendizado:
 
@@ -343,22 +354,11 @@ Rejeições são tão importantes quanto aprovações para aprendizado:
 }
 ```
 
-## 3.5 Compliance e Governança
+## 3.5 Governanca (Sem Pressupor Regulacao Especifica)
 
-### 3.5.1 Requisitos Regulatórios
+Em muitos dominios, a rastreabilidade e exigida por combinacao de requisitos: governanca interna, seguranca, auditoria e normas setoriais. Em vez de assumir um conjunto fixo de regulacoes, trate rastreabilidade como capacidade transversal e configure politicas por dominio.
 
-Regulamentações emergentes exigem rastreabilidade robusta:
-
-| Regulamentação | Requisito de Rastreabilidade | Impacto |
-|----------------|------------------------------|---------|
-| **UE AI Act** | Registro de decisões de IA de alto risco | Obrigatório para sistemas críticos |
-| **NIST AI RMF** | Governança e accountability de sistemas de IA | Best practice para empresas US |
-| **LGPD/GDPR** | Direito a explicação de decisões automatizadas | Dados pessoais |
-| **SOX** | Auditoria de sistemas financeiros | Empresas públicas |
-
-Gartner (2024) prevê que até 2026, regulamentações exigirão audit trails para outputs de IA, incluindo prompts versionados e identificadores de modelo [2].
-
-### 3.5.2 Frameworks de Governança
+### 3.5.2 Politicas como Codigo (Padrão)
 
 Implementação de frameworks de governança:
 
@@ -383,7 +383,7 @@ policies:
     action: "log"
 ```
 
-### 3.5.3 Auditorias e Relatórios
+### 3.5.3 Auditoria e Relatorios
 
 Sistemas devem suportar geração de relatórios de auditoria:
 
@@ -406,58 +406,33 @@ Sistemas devem suportar geração de relatórios de auditoria:
 }
 ```
 
-## 3.6 Matriz de Avaliação Consolidada
+## Practical Considerations
+
+### Checklist de Implementacao
+
+1. Defina o “minimo auditavel” (metadados e evidencias) por criticidade.
+2. Padronize esquemas (ids/hashes, contratos de saida, referencias de fontes).
+3. Garanta imutabilidade onde necessario (logs append-only, assinaturas, WORM).
+4. Modele lineage do contexto: documento -> chunk -> indice -> retrieval.
+5. Trate curadoria como parte do SCM: decisao e um artefato versionado.
+
+### Matriz de Avaliação Consolidada
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — requisitos de compliance e auditoria são estáveis |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — requer infraestrutura sofisticada e revisão humana |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — falhas em rastreabilidade podem resultar em não-compliance |
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Sistemas Financeiros**: SOX exige auditoria completa de mudanças em sistemas que afetam relatórios financeiros.
-
-2. **Saúde**: HIPAA requer rastreabilidade de qualquer sistema que processe dados de saúde protegidos.
-
-3. **Setor Público**: Transparência algorítmica é frequentemente exigida por lei.
-
-4. **Contratos Governamentais**: Requisitos rigorosos de documentação e auditabilidade.
-
-### Limitações
-
-- **Volume de Dados**: Rastreabilidade completa gera grandes volumes de metadados.
-- **Performance**: Captura síncrona pode impactar latência.
-- **Complexidade**: Implementação requer expertise em múltiplas áreas (engenharia, compliance, segurança).
-- **Custo**: Storage e processamento de metadados adicionam custos operacionais.
-
-### Melhores Práticas
-
-1. **Comece com o Essencial**: Capture metadados críticos primeiro, expanda gradualmente.
-2. **Automatize**: Use middleware para captura automática de metadados.
-3. **Padronize**: Estabeleça formatos e esquemas consistentes.
-4. **Valide**: Implemente verificações de integridade dos metadados.
-5. **Arquive**: Defina políticas claras de retenção e arquivamento.
-6. **Documente**: Mantenha documentação clara das práticas de rastreabilidade.
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Critica |
 
 ## Summary
 
-- Rastreabilidade em sistemas com IA requer cadeias de proveniência completas
-- Metadados de geração devem capturar modelo, prompt, parâmetros e contexto
-- Data lineage é essencial para sistemas RAG e pipelines de IA
-- Audit trails para decisões de curadoria são críticos para compliance
-- Regulamentações emergentes exigem capacidade de explicar e reproduzir decisões
+- Rastreabilidade exige cadeia de proveniencia (inputs, politicas, contexto, decisoes e evidencias).
+- Metadados minimos devem suportar reproducao forense e auditoria.
+- Em RAG, lineage precisa ligar resposta ao trecho recuperado e ao indice usado.
+- Curadoria humana deve ser registrada como decisao auditavel.
 
 ## References
 
-1. "Provenance Tracking in Generative AI Software Development". arXiv:2503.12345, 2025. https://arxiv.org/abs/2503.12345
-
-2. Gartner. "Generative AI Is Reshaping Software Engineering". Gartner Research, January 2024.
-
-3. Monte Carlo Data. "Data Lineage in the Age of Large Language Models". 2025. https://www.montecarlodata.com/blog-llm-data-lineage/
-
-4. "Comprehensive Audit Trails for AI-Assisted Decision Making". arXiv:2411.56789, 2024. https://arxiv.org/abs/2411.56789
-
-5. CISA. "Securing the AI Software Supply Chain". US Government, 2025. https://www.cisa.gov/resources-tools/resources/ai-software-supply-chain-security
+1. W3C. PROV-O: The PROV Ontology. W3C Recommendation, 2013. Disponivel em: https://www.w3.org/TR/prov-o/
+2. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering — Configuration management. Geneva: ISO, 2012.
+3. NIST. AI Risk Management Framework 1.0. Gaithersburg: National Institute of Standards and Technology, 2023.

@@ -3,440 +3,165 @@ title: "02 - Versionamento de Modelos, Prompts e Contexto"
 created_at: "2025-01-31"
 tags: ["versionamento", "prompts", "modelos", "contexto", "git", "llm"]
 status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 2. Versionamento de Modelos, Prompts e Contexto
 
 ## Overview
 
-O versionamento em sistemas com IA transcende o controle tradicional de código-fonte, exigindo gestão estruturada de prompts, modelos de linguagem e contexto dinâmico. Esta seção apresenta as práticas, ferramentas e estratégias necessárias para tratar prompts como código de primeira classe, versionar templates parametrizáveis, gerenciar cadeias de prompts complexas e manter exemplos few-shot e embeddings sob controle de versão.
+Versionar “o sistema” passa a exigir versionar tambem os elementos que governam a geracao: prompts e politicas, identificadores de modelo, parametros de execucao e o contexto (fontes de conhecimento, indices e transformacoes).
 
-A pesquisa de Smith et al. (2024) analisou mais de 1.200 atualizações de prompts em repositórios Git, demonstrando que equipes frequentemente rastreiam revisões de prompts usando convenções de nomenclatura ad hoc, evidenciando a necessidade urgente de práticas padronizadas [1].
+O objetivo desta secao e oferecer um modelo pratico para tratar esses artefatos como itens de configuracao (CIs), definindo o que deve ser versionado, com qual granularidade e quais evidencias precisam acompanhar cada mudanca para permitir auditoria e rollback.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Implementar versionamento estruturado de prompts em sistemas de controle de versão
-2. Criar e manter templates de prompts parametrizáveis
-3. Gerenciar cadeias de prompts (prompt chaining) e suas evoluções
-4. Versionar exemplos few-shot e embeddings de forma eficiente
-5. Avaliar e selecionar ferramentas apropriadas de versionamento de prompts
+1. Definir uma taxonomia de artefatos versionaveis (prompts/politicas, modelos, contexto, contratos).
+2. Aplicar regras de versionamento e de compatibilidade para prompts e contratos de saida.
+3. Descrever como versionar “contexto” (corpus, ingestao, indexacao) de forma auditavel.
+4. Planejar mudancas com rollback seguro (codigo + configuracao + evidencia).
+5. Evitar anti-padroes comuns (versionamento apenas do texto do prompt, sem baseline de contexto).
 
-## 2.1 Prompts como Código: Versionamento Estruturado
+## 2.1 Prompts e Politicas como Itens de Configuracao
 
-### 2.1.1 O Princípio "Prompts são Código"
+### 2.1.1 Definicao Operacional
 
-A premissa fundamental do versionamento moderno de prompts é que **prompts devem ser tratados como código de primeira classe**. Assim como código-fonte, prompts:
+Prompts e politicas sao artefatos que podem introduzir regressao funcional, risco de seguranca e mudanca de comportamento. Portanto, devem:
 
-- Evoluem ao longo do tempo
-- Devem ser revisados por pares
-- Podem introduzir bugs ou regressões
-- Necessitam de testes e validação
-- Requerem documentação e comentários
+- ter identificador estavel (id ou hash),
+- ter historico de mudancas (changelog),
+- ter criterios de aceitacao e testes associados,
+- ter politica de aprovacao proporcional ao risco.
 
-Segundo pesquisa da ACM sobre "Software Engineering for LLM Prompt Development" (2025), a engenharia de prompts (promptware engineering) inclui bibliotecas para rastreamento de mudanças de prompts, composição modular e versionamento de contexto integrado em pipelines de CI [2].
+### 2.1.2 Granularidade e Separacao de Responsabilidades
 
-### 2.1.2 Estruturação de Prompts para Versionamento
+Para reduzir ruído e melhorar revisao, separe:
 
-Para facilitar o versionamento efetivo, prompts devem ser estruturados em componentes distintos:
+- instrucao de sistema (papel, restricoes gerais),
+- instrucao de tarefa (objetivo e formato),
+- exemplos (quando aplicavel),
+- contratos (schema de saida, tolerancias),
+- politicas (o que e proibido; o que exige aprovacao humana).
+
+Estrutura ilustrativa (conceitual):
 
 ```
 prompts/
 ├── system/
-│   ├── base-v1.0.md
-│   ├── base-v1.1.md
-│   └── security-constraints-v2.0.md
-├── user/
-│   ├── templates/
-│   │   ├── summarizer.j2
-│   │   ├── classifier.j2
-│   │   └── generator.j2
-│   └── examples/
-│       ├── few-shot-v1.json
-│       └── few-shot-v2.json
-├── config/
-│   ├── model-params.yaml
-│   └── generation-settings.yaml
-└── tests/
-    ├── test_prompts.py
-    └── validation_suite.yaml
+├── tasks/
+├── policies/
+├── examples/
+└── contracts/
 ```
 
-Esta estrutura permite:
-- Versionamento independente de system prompts e user prompts
-- Reutilização de templates parametrizáveis
-- Separação de exemplos few-shot
-- Configuração de parâmetros de geração
-- Testes automatizados de prompts
+Nao confunda “template” com “artefato versionado”: o que se versiona e o comportamento pretendido (com evidencia), nao apenas o arquivo.
 
-### 2.1.3 Convenções de Versionamento
+### 2.1.3 Regras de Versionamento e Compatibilidade
 
-Assim como o SemVer para software, prompts podem seguir convenções de versionamento semântico:
+Para prompts, um SemVer adaptado pode ser util se houver consumidores e contratos de saida:
+
+- MAJOR: quebra de contrato (schema, semantica de campos, invariantes).
+- MINOR: extensao retrocompativel (novo campo opcional, novo caso coberto).
+- PATCH: ajuste sem mudar contrato (clareza, correcoes locais, melhoria de exemplos).
+
+Para contexto (corpus/indice), a versao deve refletir mudancas que impactam recuperacao e respostas (ex.: reindexacao, mudanca de chunking, remocao de fontes).
+
+Para modelos, use o identificador que permita rastrear a versao efetivamente usada na execucao.
+
+Exemplo de changelog minimalista (conceitual):
 
 ```yaml
-# prompt-config.yaml
-version: "2.3.1"
-name: "code-reviewer"
-description: "Prompt para revisão de código gerado por IA"
-
-changes:
-  - version: "2.3.1"
-    date: "2025-01-31"
-    type: "patch"
-    description: "Correção de typo na instrução de segurança"
-    
-  - version: "2.3.0"
-    date: "2025-01-15"
-    type: "minor"
-    description: "Adicionada verificação de vulnerabilidades OWASP"
-    
-  - version: "2.0.0"
-    date: "2024-12-01"
-    type: "major"
-    description: "Mudança de formato de saída de texto para JSON estruturado"
-```
-
-### 2.1.4 Diffing e Code Review de Prompts
-
-O versionamento efetivo requer capacidade de comparar versões de prompts:
-
-**LEGADO**: Comparação manual de arquivos de texto
-**MODERNO**: Diff semântico que compreenda mudanças em:
-- Instruções e constraints
-- Exemplos few-shot
-- Parâmetros de geração
-- Contexto fornecido
-
-```diff
-# Exemplo de diff semântico de prompt
---- summarizer-v1.2.md
-+++ summarizer-v1.3.md
-@@ -1,5 +1,8 @@
- ## Instruções
--Resuma o texto em 3 parágrafos.
-+Resuma o texto em 3 parágrafos, focando em:
-+- Pontos de ação identificados
-+- Riscos potenciais
-+- Recomendações estratégicas
- 
- ## Constraints
-+- NÃO inclua informações não presentes no texto original
-+- Máximo de 500 palavras por parágrafo
-```
-
-## 2.2 Templates de Prompts e suas Evoluções
-
-### 2.2.1 Templates Parametrizáveis
-
-Templates permitem separar a estrutura do prompt dos dados específicos, facilitando reuso e manutenção:
-
-```jinja2
-{# summarizer.j2 #}
-## Contexto
-Você é um assistente especializado em {{ domain | default("tecnologia") }}.
-
-## Tarefa
-Resuma o seguinte texto em {{ num_paragraphs | default(3) }} parágrafos.
-
-{% if focus_areas %}
-## Foco
-Concentre-se nos seguintes aspectos:
-{% for area in focus_areas %}
-- {{ area }}
-{% endfor %}
-{% endif %}
-
-{% if constraints %}
-## Restrições
-{% for constraint in constraints %}
-- {{ constraint }}
-{% endfor %}
-{% endif %}
-
-## Texto para Resumir
-{{ input_text }}
-
-## Formato de Saída
-{{ output_format | default("Markdown") }}
-```
-
-### 2.2.2 Evolução de Templates
-
-A evolução de templates deve seguir princípios de engenharia de software:
-
-1. **Refatoração**: Melhorar estrutura sem alterar comportamento
-2. **Extensão**: Adicionar funcionalidades mantendo compatibilidade
-3. **Versionamento**: Documentar mudanças e migrações
-
-Exemplo de evolução:
-
-```
-v1.0: Template básico com apenas input_text
-v1.1: Adicionado parâmetro domain para especialização
-v1.2: Adicionado focus_areas como lista opcional
-v2.0: Reestruturação completa com constraints e output_format
-```
-
-### 2.2.3 Testes de Templates
-
-Templates devem ser testados para garantir que geram prompts válidos:
-
-```python
-# test_templates.py
-def test_summarizer_template():
-    template = load_template("summarizer.j2")
-    
-    # Teste com parâmetros mínimos
-    result = template.render(input_text="Texto de teste")
-    assert "Texto de teste" in result
-    assert "3" in result  # default de num_paragraphs
-    
-    # Teste com parâmetros completos
-    result = template.render(
-        input_text="Texto complexo",
-        domain="saúde",
-        num_paragraphs=5,
-        focus_areas=["riscos", "benefícios"],
-        constraints=["Máximo 1000 palavras"]
-    )
-    assert "saúde" in result
-    assert "riscos" in result
-    assert "benefícios" in result
-```
-
-## 2.3 Versionamento de Cadeias de Prompts
-
-### 2.3.1 Prompt Chaining
-
-Sistemas complexos frequentemente utilizam múltiplos prompts em sequência (prompt chaining), onde o output de um prompt serve como input para o próximo:
-
-```
-Prompt 1: Extração de Entidades
-    ↓
-Prompt 2: Análise de Sentimento
-    ↓
-Prompt 3: Geração de Resposta
-```
-
-### 2.3.2 Versionamento de Cadeias
-
-Cadeias de prompts devem ser versionadas como unidades coesas:
-
-```yaml
-# chain-config.yaml
-chain_name: "customer-support-pipeline"
+id: "task-summarize"
 version: "1.2.0"
-
-steps:
-  - name: "intent-classification"
-    prompt_version: "classifier-v2.1"
-    model: "gpt-4-turbo"
-    output_key: "intent"
-    
-  - name: "context-retrieval"
-    type: "rag"
-    embedding_version: "v1.3"
-    top_k: 5
-    output_key: "context"
-    
-  - name: "response-generation"
-    prompt_version: "generator-v3.0"
-    model: "gpt-4-turbo"
-    inputs:
-      - "intent"
-      - "context"
-    output_key: "response"
-    
-  - name: "quality-check"
-    prompt_version: "validator-v1.5"
-    model: "gpt-3.5-turbo"
-    output_key: "is_valid"
+changes:
+  - type: "minor"
+    rationale: "inclui campo opcional de riscos"
+    contract_impact: "add_field_optional"
+  - type: "patch"
+    rationale: "clareza sobre proibicao de inferencias"
+    contract_impact: "none"
 ```
 
-### 2.3.3 Rastreabilidade em Cadeias
+## 2.2 Versionamento de Contexto (RAG) e Dados de Apoio
 
-Cada execução de uma cadeia deve capturar metadados completos:
+### 2.2.1 O Que Significa “Contexto Versionado”
 
-```json
-{
-  "chain_execution_id": "uuid",
-  "chain_version": "1.2.0",
-  "timestamp": "2025-01-31T10:30:00Z",
-  "steps": [
-    {
-      "step": 1,
-      "prompt_version": "classifier-v2.1",
-      "input_hash": "sha256:...",
-      "output_hash": "sha256:...",
-      "latency_ms": 450,
-      "tokens": {"input": 120, "output": 15}
-    },
-    {
-      "step": 2,
-      "prompt_version": "generator-v3.0",
-      "input_hash": "sha256:...",
-      "output_hash": "sha256:...",
-      "latency_ms": 1200,
-      "tokens": {"input": 2000, "output": 350}
-    }
-  ]
-}
-```
+Quando o sistema recupera informacao (RAG), o comportamento depende de:
 
-## 2.4 Gestão de Exemplos Few-Shot e Embeddings
+- corpus (fontes e suas versoes),
+- pipeline de ingestao (extracao, normalizacao),
+- estrategia de segmentacao (chunking),
+- modelo de embeddings e indice,
+- estrategia de busca e de reranking.
 
-### 2.4.1 Versionamento de Few-Shot Examples
+Para auditoria, versionar “apenas os documentos” nao basta: e preciso versionar a transformacao do documento ate o trecho retornado.
 
-Exemplos few-shot são parte integral dos prompts e devem ser versionados:
+### 2.2.2 Manifesto de Corpus e Indice
 
-```json
-{
-  "version": "1.3.0",
-  "last_updated": "2025-01-31",
-  "examples": [
-    {
-      "id": "ex-001",
-      "input": "Texto de entrada exemplo",
-      "output": "Saída esperada",
-      "metadata": {
-        "domain": "finance",
-        "quality_score": 0.95,
-        "added_by": "engenheiro@empresa.com",
-        "added_date": "2025-01-15"
-      }
-    }
-  ],
-  "selection_strategy": "diversity_based",
-  "max_examples": 5
-}
-```
-
-### 2.4.2 Gestão de Embeddings
-
-Embeddings utilizados em sistemas RAG devem ser versionados:
+Use um manifesto que conecte fontes, transformacoes e resultado de indexacao:
 
 ```yaml
-# embeddings-config.yaml
-embedding_model:
-  name: "text-embedding-3-large"
-  version: "2024-12"
-  dimensions: 3072
-
-datasets:
-  - name: "knowledge-base"
-    version: "v2.1"
-    source: "s3://embeddings/kb-v2.1/"
-    chunks: 15000
-    
-  - name: "documentation"
-    version: "v1.5"
-    source: "s3://embeddings/docs-v1.5/"
-    chunks: 5000
-
+corpus_id: "kb-prod"
+corpus_version: "2026-01-31"
+sources:
+  - ref: "<fonte-1>"
+    version: "<versao>"
+pipeline:
+  extraction: "<processo>"
+  chunking: "<estrategia>"
+  normalization: "<regras>"
 index:
-  type: "hnsw"
-  metric: "cosine"
-  ef_construction: 128
+  embedding_model_id: "<id>"
+  index_version: "<versao>"
 ```
 
-### 2.4.3 Sincronização de Embeddings e Prompts
+## 2.3 Cadeias de Prompts e Workflows de Geracao
 
-Mudanças em embeddings podem afetar o comportamento de prompts:
+### 2.3.1 Versionamento de Workflow como Unidade
 
-| Cenário | Impacto | Ação Requerida |
-|---------|---------|----------------|
-| Novo embedding model | Mudança na semântica de retrieval | Reindexar e testar prompts |
-| Atualização de dataset | Novos documentos disponíveis | Versionar e avaliar impacto |
-| Mudança em chunking | Diferentes contextos retornados | Ajustar prompts e revalidar |
+Quando uma saida depende de multiplas etapas (classificacao -> recuperacao -> geracao -> validacao), a unidade de versionamento e o workflow, nao apenas um prompt isolado.
 
-## 2.5 Ferramentas de Versionamento de Prompts
+Definicao: um workflow versionado especifica passos, contratos intermediarios e criterios de parada/escalao.
 
-### 2.5.1 Panorama de Ferramentas
+Checklist do workflow versionado:
 
-O ecossistema de ferramentas para versionamento de prompts evoluiu significativamente em 2024-2025:
-
-| Ferramenta | Foco Principal | Integração | Caso de Uso Ideal |
-|------------|----------------|------------|-------------------|
-| **LangSmith** | Logging e tracing de runs | LangChain, MLflow | Desenvolvimento iterativo |
-| **PromptLayer** | Versionamento e analytics | Múltiplos providers | Gestão de prompts em produção |
-| **Weights & Biases** | Experimentos e métricas | PyTorch, TensorFlow | Pesquisa e fine-tuning |
-| **Helicone** | Observabilidade e custos | OpenAI, Anthropic | Monitoramento de produção |
-| **Git + DVC** | Versionamento de código e dados | Qualquer stack | Controle total e reprodutibilidade |
-
-### 2.5.2 LangSmith
-
-LangSmith (2025) oferece serviço para logging e versionamento de prompts e runs, permitindo:
-- Versionar prompts e rastrear outputs
-- Anotar objetos de contexto
-- Integrar com MLflow e DVC para correlacionar runs, prompts e métricas [3]
-
-### 2.5.3 MLflow para LLMs
-
-MLflow 2.4 (2025) adiciona suporte para "artifacts as code", permitindo logar:
-- Templates de prompts
-- Especificações de ambiente
-- Código gerado por IA como artefatos de experimento [4]
-
-### 2.5.4 DVC para Prompts e Dados
-
-DVC (Data Version Control) estende Git para artefatos grandes:
-- Versionamento de datasets de exemplos few-shot
-- Tracking de modelos e embeddings
-- Reprodutibilidade de pipelines completos [5]
-
-## 2.6 Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — ferramentas específicas evoluem, mas princípios fundamentais persistem |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Médio** — testes automatizados reduzem custo, mas validação semântica requer expertise |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Moderada** — versionamento inadequado pode levar a comportamentos imprevisíveis |
+1. Entradas: schemas e fontes.
+2. Passos: ordem, condicoes e contratos.
+3. Saidas: schema final e tolerancias.
+4. Evidencias: testes, validadores e exemplos.
+5. Observabilidade: ids e metadados por passo.
 
 ## Practical Considerations
 
-### Aplicações Reais
+### Checklist de Mudanca (Prompt/Contexto/Modelo)
 
-1. **Desenvolvimento Iterativo**: Versionamento permite experimentar variações de prompts sem perder trabalho anterior.
+1. Mudanca e isolada e reversivel?
+2. O contrato de saida mudou? (se sim, MAJOR).
+3. O contexto mudou? (registre corpus/index).
+4. Ha regressao em testes/validadores? (se sim, bloquear).
+5. Ha aprovacao humana exigida pela criticidade?
 
-2. **A/B Testing**: Comparação sistemática de diferentes versões de prompts em produção.
+### Matriz de Avaliação Consolidada
 
-3. **Rollback de Emergência**: Capacidade de reverter rapidamente para versões estáveis quando problemas são detectados.
-
-4. **Compliance**: Rastreamento de quem alterou qual prompt e quando.
-
-### Limitações
-
-- **Complexidade**: Gerenciar múltiplas versões de prompts adiciona overhead cognitivo.
-- **Storage**: Versionamento de embeddings e datasets grandes consome recursos significativos.
-- **Ferramentas Imaturas**: Ecossistema ainda em evolução rápida com mudanças frequentes de API.
-
-### Melhores Práticas
-
-1. **Comece Simples**: Use Git puro antes de adotar ferramentas especializadas complexas.
-2. **Documente Mudanças**: Cada versão deve ter changelog claro explicando o que mudou e por quê.
-3. **Teste Regressões**: Mantenha suite de testes que valide comportamento esperado entre versões.
-4. **Automatize**: Integre versionamento de prompts em pipelines de CI/CD.
-5. **Padronize**: Estabeleça convenções de nomenclatura e estrutura para toda a organização.
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Media |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Medio |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
 
 ## Summary
 
-- Prompts devem ser tratados como código de primeira classe, com versionamento estruturado
-- Templates parametrizáveis facilitam reuso e manutenção de prompts complexos
-- Cadeias de prompts requerem versionamento coeso e rastreabilidade completa
-- Exemplos few-shot e embeddings são parte integral da configuração e devem ser versionados
-- Ferramentas como LangSmith, MLflow e DVC oferecem capacidades complementares de versionamento
+- Prompts/politicas, modelos e contexto devem ser tratados como CIs.
+- Versionamento deve refletir contrato, compatibilidade e risco, nao apenas diffs de texto.
+- Workflows multi-etapa precisam ser versionados como unidades coesas.
+- Sem manifesto de contexto, rollback e auditoria ficam incompletos.
 
 ## References
 
-1. Smith, J. et al. "Empirical Analysis of Prompt Evolution in Software Repositories". arXiv:2412.17298, 2024. https://arxiv.org/abs/2412.17298
-
-2. ACM Computing Surveys. "Software Engineering for LLM Prompt Development: A Roadmap". arXiv:2503.02400, 2025. https://arxiv.org/abs/2503.02400
-
-3. LangSmith Documentation. "Prompt Versioning and Run Tracking". 2025. https://docs.smith.langchain.com/
-
-4. MLflow Release Notes. "Artifacts as Code Support in MLflow 2.4". 2025. https://mlflow.org/docs/latest/
-
-5. DVC Documentation. "Versioning Data and Models". 2024. https://dvc.org/doc
+1. ISO. ISO 10007:2017. Quality management systems — Guidelines for configuration management. Geneva: ISO, 2017.
+2. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering — Configuration management. Geneva: ISO, 2012.
+3. SemVer. Semantic Versioning 2.0.0. Disponivel em: https://semver.org/
+4. W3C. PROV-O: The PROV Ontology. W3C Recommendation, 2013. Disponivel em: https://www.w3.org/TR/prov-o/

@@ -3,31 +3,29 @@ title: "02 - Processos Ágeis Adaptados para o Uso de IA"
 created_at: "2025-01-31"
 tags: ["processos", "agil", "scrum", "xp", "ia", "sprints", "cerimonias"]
 status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 2. Processos Ágeis Adaptados para o Uso de IA
 
 ## Overview
 
-Os métodos ágeis, desde o Manifesto Ágil de 2001, revolucionaram a engenharia de software ao priorizar indivíduos e interações, software funcionando, colaboração com clientes e resposta a mudanças. Na era dos LLMs, esses princípios permanecem válidos, mas sua aplicação prática requer reconfiguração significativa. **O objetivo continua sendo entregar valor rapidamente, mas o "como" de cada cerimônia, artefato e papel evoluiu**.
-
-Esta seção apresenta adaptações de Scrum, XP e Kanban para times que utilizam IA como parte integral do processo de desenvolvimento, mantendo a essência ágil enquanto acomoda a nova realidade da geração automática de código.
+Metodos ageis continuam validos em contexto com IA, desde que se adapte o foco: “done” precisa significar verificado, e nao apenas gerado. Cerimonias e artefatos precisam tornar visiveis os novos gargalos (verificacao e curadoria) e as novas fontes de mudanca (prompts, contexto e modelos).
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Adaptar cerimônias Scrum para times com IA
-2. Reconfigurar o Definition of Done para incluir curadoria
-3. Implementar práticas XP (pair programming, TDD) com assistência de IA
-4. Estimar esforço considerando geração vs. verificação
-5. Conduzir retrospectivas focadas em prompts e processos de curadoria
+1. Adaptar Scrum para separar geracao de verificacao.
+2. Reconfigurar Definition of Done com evidencias e rastreabilidade.
+3. Aplicar praticas XP (pairing e TDD) para aumentar verificabilidade.
+4. Ajustar Kanban para limitar WIP pela capacidade de revisao.
+5. Conduzir retrospectivas baseadas em dados de verificacao e retrabalho.
 
 ## 2.1 Scrum Adaptado para Times com IA
 
-### 2.1.1 O Novo Paradigma do Sprint
+### 2.1.1 Sprint: De “feito” para “aprovado”
 
 No Scrum tradicional, um Sprint produz um incremento de software potencialmente entregável. Com IA, um Sprint produz **candidatos a software** que requerem validação antes de serem considerados prontos:
 
@@ -39,9 +37,9 @@ No Scrum tradicional, um Sprint produz um incremento de software potencialmente 
 | **Definition of Done** | Código testado e integrado | Código gerado, verificado, curado e documentado |
 | **Foco da Retrospectiva** | Melhoria do processo humano | Ajuste de prompts e otimização de verificação |
 
-O State of Agile Report 2025 [1] indica que 65% dos times ágeis já adaptaram seus processos para incorporar IA, mantendo a estrutura de Sprints mas redefinindo o conteúdo de cada cerimônia.
+Evite depender de “percentuais do mercado” para justificar mudancas. O argumento principal e operacional: se o time gera mais do que verifica, a entrega desacelera.
 
-### 2.1.2 Sprint Planning: Estimando Verificação, Não Geração
+### 2.1.2 Sprint Planning: Planejar Verificacao
 
 **A Grande Mudança:** A geração de código tornou-se essencialmente "instantânea" em comparação com a implementação manual. O esforço do Sprint Planning deve focar em:
 
@@ -71,7 +69,7 @@ O State of Agile Report 2025 [1] indica que 65% dos times ágeis já adaptaram s
   - 5 pontos: Verificação complexa (integrações, segurança, curadoria obrigatória)
   - 8+ pontos: Decompor — muito complexo para verificação em um ciclo
 
-### 2.1.3 Daily Standup: Novo Formato com Métricas de IA
+### 2.1.3 Daily: Tornar Visivel o Backlog de Verificacao
 
 O Daily Standup tradicional foca em "o que fiz ontem, o que farei hoje, impedimentos". Com IA, adicionamos dimensões de qualidade e verificação:
 
@@ -103,7 +101,7 @@ O Daily Standup tradicional foca em "o que fiz ontem, o que farei hoje, impedime
 | **False Positives** | Verificações que rejeitaram código válido | <10% |
 | **Rework Rate** | % de código retornado para regeneração | <20% |
 
-### 2.1.4 Sprint Review: Demonstração de Comportamentos
+### 2.1.4 Review: Validacao de Comportamento
 
 **Mudança Fundamental:** Em vez de demonstrar funcionalidades implementadas, o Sprint Review torna-se uma sessão de **validação comportamental** onde stakeholders interagem com candidatos a software:
 
@@ -128,7 +126,7 @@ O Daily Standup tradicional foca em "o que fiz ontem, o que farei hoje, impedime
    - Ajustes baseados no feedback
    - Novos itens descobertos durante testes
 
-### 2.1.5 Sprint Retrospective: Ajustando Prompts e Processos
+### 2.1.5 Retrospectiva: Causas de Retrabalho
 
 A Retrospectiva em times com IA mantém o formato de "o que funcionou, o que não funcionou, ações", mas o conteúdo muda significativamente:
 
@@ -338,7 +336,7 @@ Com verificação como gargalo, os limites de WIP devem refletir capacidade de v
 
 **Regra de Ouro**: O WIP de verificação deve ser menor ou igual ao número de verificadores disponíveis multiplicado pela taxa média de verificação.
 
-### 2.4.3 Métricas de Fluxo
+### 2.4.3 Metricas de Fluxo
 
 Além das métricas tradicionais de Kanban (lead time, cycle time, throughput), adicione:
 
@@ -351,29 +349,11 @@ Além das métricas tradicionais de Kanban (lead time, cycle time, throughput), 
 
 ## Practical Considerations
 
-### Adoção Gradual de Scrum com IA
+### Adoção Gradual (Processo)
 
-**Fase 1: Piloto (1-2 Sprints)**
-- Selecionar um time pequeno
-- Focar em tarefas de baixa criticidade
-- Documentar aprendizados
-
-**Fase 2: Expansão (3-6 Sprints)**
-- Refinar processos baseados no aprendizado
-- Expandir para mais times
-- Definir padrões de prompt
-
-**Fase 3: Escala (6+ Sprints)**
-- Automatizar verificações repetitivas
-- Treinar novos membros no processo
-- Otimizar métricas de fluxo
-
-### Ferramentas de Suporte
-
-- **IDEs com IA**: GitHub Copilot, Cursor, Amazon CodeWhisperer
-- **Plataformas de Orquestração**: LangChain, AutoGen, Microsoft Agent Framework
-- **Ferramentas de Verificação**: SonarQube, CodeQL, testes automatizados
-- **Métricas**: LinearB, Allstacks, GitPrime
+1. Piloto: tarefas de baixa criticidade; evidencias simples.
+2. Expansao: padronizar contratos e manifests; aumentar capacidade de revisao.
+3. Escala: automatizar gates repetitivos; medir retrabalho e backlog.
 
 ### Anti-Padrões a Evitar
 
@@ -389,6 +369,14 @@ Um único curador para todo o time. Resultado: gargalo e burnout.
 **4. Métricas Obsoletas**
 Continuar medindo velocity em story points sem considerar qualidade. Resultado: incentivos perversos.
 
+### Matriz de Avaliação Consolidada
+
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Media |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Medio |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
+
 ## Summary
 
 - Scrum com IA mantém a estrutura de Sprints mas redefine o conteúdo de cada cerimônia
@@ -400,21 +388,9 @@ Continuar medindo velocity em story points sem considerar qualidade. Resultado: 
 - XP evolui para **pair programming humano-IA** e TDD com feedback imediato
 - Kanban adiciona estados de **verificação** e limites de WIP baseados em capacidade de curadoria
 
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — frameworks ágeis permanecem, mas práticas específicas evoluem rapidamente |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Médio** — cerimônias adaptadas precisam de validação de eficácia |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Moderada** — processos ágeis distribuem accountability, mas curadoria define responsabilidade final |
-
 ## References
 
-1. Digital.ai. 15th Annual State of Agile Report: The AI Edition. State of Agile, 2025.
-2. Scrum.org. Scrum in the Age of AI: A Practical Guide. Scrum.org Resources, 2025.
-3. Agile 2.0 Initiative. Agile 2.0: Principles for Human-AI Collaboration. Agile 2.0 Manifesto, 2025.
-4. Shore, J.; Warden, S. The Art of Agile Development. 2nd ed. O'Reilly Media, 2021.
-5. Extreme Programming in the Age of AI Assistants. O'Reilly Media, 2025.
-6. ThoughtWorks. The Death of Traditional SDLC? What's Next? ThoughtWorks Insights, 2025.
-7. GitHub. From Pair to Peer Programmer: Our Vision for Agentic Workflows. GitHub Blog, 2025.
-8. Google Cloud/DORA. 2025 DORA State of AI-assisted Software Development Report. Google Cloud, 2025.
+1. Agile Manifesto. Manifesto for Agile Software Development. 2001. Disponivel em: https://agilemanifesto.org/
+2. Schwaber, K.; Sutherland, J. The Scrum Guide. 2020.
+3. Beck, K. Extreme Programming Explained: Embrace Change. 2. ed. Boston: Addison-Wesley, 2004.
+4. Shore, J.; Warden, S. The Art of Agile Development. 2. ed. Sebastopol: O'Reilly Media, 2021.

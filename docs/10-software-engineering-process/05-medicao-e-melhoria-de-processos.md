@@ -3,8 +3,8 @@ title: "05 - Medicao e Melhoria de Processos"
 created_at: "2025-01-31"
 tags: ["processos", "metricas", "medicao", "melhoria", "dora", "lead-time", "throughput", "ciclo-continuo"]
 status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5. Medição e Melhoria de Processos
@@ -55,16 +55,7 @@ Lead Time Total =
     Tempo de Deploy
 ```
 
-**Benchmarks Adaptados (DORA 2025) [2]:**
-
-| Nível | Lead Time Total | % em Verificação |
-|-------|----------------|------------------|
-| Elite | < 1 dia | 60-70% |
-| High | 1 dia - 1 semana | 50-60% |
-| Medium | 1 semana - 1 mês | 40-50% |
-| Low | > 1 mês | < 40% |
-
-**Insight**: Times elite gastam MAIS tempo proporcional em verificação, não menos.
+Evite benchmarks externos como regra. Prefira baselines do proprio time e tendencias (melhorando/piorando) com definicoes consistentes.
 
 **3. Change Failure Rate (Taxa de Falha de Mudanças)**
 
@@ -185,14 +176,7 @@ Acceptance Rate =
     (Código Aceito na Primeira Verificação / Total Gerado) × 100
 ```
 
-**Benchmarks:**
-
-| Nível | Acceptance Rate | Interpretação |
-|-------|----------------|---------------|
-| Excelente | > 80% | Especificações claras, IA bem calibrada |
-| Bom | 60-80% | Processo saudável com iteração normal |
-| Preocupante | 40-60% | Problemas de especificação ou qualidade |
-| Crítico | < 40% | Requer investigação imediata |
+Evite thresholds universais; estabeleca limites por criticidade e historico.
 
 **Decomposição por Categoria:**
 
@@ -236,16 +220,16 @@ Rework Rate =
 
 **Causas Comuns de Rework:**
 
-1. **Especificação Ambígua** (40% dos casos)
+1. **Especificacao ambigua**
    - Solução: Melhorar qualidade de especificações
 
-2. **Contexto Insuficiente** (30% dos casos)
+2. **Contexto insuficiente**
    - Solução: Fornecer mais contexto de domínio
 
-3. **Mudança de Requisitos** (20% dos casos)
+3. **Mudanca de requisitos**
    - Solução: Estabilizar requisitos antes de gerar
 
-4. **Erro da IA** (10% dos casos)
+4. **Geracao inadequada ao dominio**
    - Solução: Ajustar prompts ou usar modelo diferente
 
 ### 5.2.5 Quality Metrics de Processo
@@ -456,13 +440,13 @@ Medir apenas parte do processo (ex: só geração) sem ver o todo.
 **4. Análise sem Ação**
 Coletar métricas mas não usar para decisões.
 
-### Ferramentas de Medição
+### Matriz de Avaliação Consolidada
 
-- **LinearB**: Métricas de engenharia e DORA
-- **Allstacks**: Análise de ciclo de vida de desenvolvimento
-- **GitPrime/Pluralsight Flow**: Métricas de produtividade
-- **Sleuth**: Métricas DORA em tempo real
-- **Faros**: Plataforma de engenharia unificada
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Medio |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
 
 ## Summary
 
@@ -474,21 +458,12 @@ Coletar métricas mas não usar para decisões.
 - Melhoria contínua requer **ciclo PDCA** adaptado com foco em dados
 - Retrospectivas devem ser **baseadas em métricas** com ações mensuráveis
 
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — medição e análise de processos são fundamentais e adaptáveis |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Médio** — métricas automatizadas precisam de validação de interpretação |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Moderada** — métricas incorretas levam a decisões erradas; accountability do gestor |
-
 ## References
 
 1. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software and DevOps. IT Revolution Press, 2018.
-2. Google Cloud/DORA. 2025 DORA State of AI-assisted Software Development Report. Google Cloud, 2025.
+2. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software and DevOps. Portland: IT Revolution Press, 2018.
 3. Shewhart, W.A.; Deming, W.E. Statistical Method from the Viewpoint of Quality Control. Dover, 1986.
-4. ThoughtWorks. Measuring Flow: New Metrics for AI-Assisted Development Teams. ThoughtWorks Insights, 2025.
-5. LinearB. The Metrics That Actually Matter When Using AI Coding Assistants. LinearB Blog, 2025.
+4. Fenton, N.; Bieman, J. Software Metrics: A Rigorous and Practical Approach. 3. ed. Boca Raton: CRC Press, 2014.
 6. Fenton, N.; Bieman, J. Software Metrics: A Rigorous and Practical Approach. 3rd ed. CRC Press, 2014.
 7. Laporte, C.Y.; April, A. Software Quality Assurance. IEEE Computer Society Press, 2018.
 8. ISO/IEC. ISO/IEC 33001:2015 - Information technology - Process assessment. ISO, 2015.
