@@ -2,9 +2,9 @@
 title: "Fundamentos de Orquestração e Curadoria"
 created_at: "2025-01-31"
 tags: ["software-construction", "orquestracao", "curadoria", "fundamentos", "ia"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 1. Fundamentos de Orquestração e Curadoria
@@ -51,7 +51,7 @@ Nesta analogia:
 - **A partitura (especificação)** define restrições e comportamentos esperados
 - **O concerto (sistema)** é o resultado da coordenação harmoniosa
 
-Esta perspectiva é reforçada por pesquisas recentes que demonstram a emergência do "AI-Orchestrator" como papel definidor da engenharia de software em 2025 (Arsanjani, 2025).
+Hipotese operacional: a medida que a geracao de codigo vira infraestrutura, tende a emergir um papel de orquestracao/curadoria (definir restricoes, supervisionar, integrar e auditar) como diferenciador pratico. A forma organizacional desse papel varia por contexto.
 
 ## Princípios Fundamentais da Orquestração
 
@@ -230,16 +230,6 @@ Esta dinâmica explica por que:
 
 ## References
 
-1. Dellermann, D., et al. (2024). "Measuring GitHub Copilot's Impact on Productivity". Communications of the ACM. https://cacm.acm.org/research/measuring-github-copilots-impact-on-productivity/
-
-2. Weber, F., et al. (2024). "Significant Productivity Gains through Programming with Large Language Models". LMU Munich. https://www.mmi.ifi.lmu.de/pubdb/publications/pub/weber2024eics-llm/weber2024eics-llm.pdf
-
-3. MIT/Accenture/Microsoft. (2025). "The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers". MIT Economics. https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf
-
-4. Arsanjani, A. (2025). "The Rise of the AI-Orchestrator: Redefining Software Engineering in the Age of Agents". Medium. https://dr-arsanjani.medium.com/the-rise-of-the-ai-orchestrator-redefining-software-engineering-in-the-age-of-agents-f3623e38aa13
-
-5. Human Who Codes. (2026). "From Coder to Orchestrator: The future of software engineering with AI". https://humanwhocodes.com/blog/2026/01/coder-orchestrator-future-software-engineering/
-
-6. GitClear. (2025). "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code Duplication". https://www.gitclear.com/ai_assistant_code_quality_2025_research
-
-7. Qodo. (2025). "State of AI Code Quality in 2025". https://www.qodo.ai/reports/state-of-ai-code-quality/
+1. DELLERMANN, D. et al. Measuring GitHub Copilot's Impact on Productivity. Communications of the ACM, 2024. Disponivel em: https://cacm.acm.org/research/measuring-github-copilots-impact-on-productivity/
+2. WEBER, F. et al. Significant Productivity Gains through Programming with Large Language Models. 2024. (Preprint). Disponivel em: https://www.mmi.ifi.lmu.de/pubdb/publications/pub/weber2024eics-llm/weber2024eics-llm.pdf
+3. NANDA, R. et al. The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers. 2025. (Preprint). Disponivel em: https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf

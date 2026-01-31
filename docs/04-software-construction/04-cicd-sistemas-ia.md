@@ -2,9 +2,9 @@
 title: "CI/CD para Sistemas com Componentes de IA"
 created_at: "2025-01-31"
 tags: ["software-construction", "cicd", "ia", "devops", "pipeline", "automation"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 4. CI/CD para Sistemas com Componentes de IA

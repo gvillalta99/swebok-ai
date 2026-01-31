@@ -2,9 +2,9 @@
 title: "Planejamento de Operações em Escala"
 created_at: "2026-01-31"
 tags: ["operacoes", "planejamento", "escala", "sre", "capacity-planning"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 2. Planejamento de Operações em Escala

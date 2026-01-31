@@ -1,16 +1,10 @@
 ---
-title: 05.06 Métricas e Governança de Qualidade de Testes
-created_at: '2025-01-31'
-tags:
-  - metricas
-  - governanca
-  - qualidade
-  - custo-beneficio
-  - flaky-tests
-  - matriz-de-risco
-status: draft
-updated_at: '2025-01-31'
-ai_model: kimi-k2.5
+title: "Metricas e Governanca de Qualidade de Testes"
+created_at: "2025-01-31"
+tags: ["software-testing", "metricas", "governanca", "qualidade", "custo-beneficio", "flaky-tests"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5.6 Métricas e Governança de Qualidade de Testes
@@ -241,14 +235,16 @@ Benefício =
 
 ### Análise de Custo por Técnica
 
-| Técnica | Custo por Execução | Eficácia | ROI Estimado |
-|---------|-------------------|----------|--------------|
-| **Testes Unitários Tradicionais** | $0.01 | Baixa (código de IA) | 2:1 |
-| **Property-Based Testing** | $0.50 | Média | 5:1 |
-| **Metamorphic Testing** | $1.00 | Média-Alta | 8:1 |
-| **Differential Testing** | $5.00 | Alta | 10:1 |
-| **Verificação Formal** | $50.00 | Muito Alta | 15:1 |
-| **Testes Estatísticos (100x)** | $10.00 | Alta | 12:1 |
+Os valores abaixo sao *ilustrativos* (exemplo de raciocinio economico) e nao devem ser interpretados como estimativas universais. Custos reais dependem de stack, volume, precificacao, taxas de falha, e custo de oportunidade.
+
+| Tecnica | Custo relativo | Eficacia esperada | Quando tende a valer |
+|---------|---------------|-------------------|---------------------|
+| **Testes unitarios tradicionais** | Baixo | Baixa a media | Baseline minimo; rapido para regressao |
+| **Property-based testing** | Medio | Media a alta | Quando ha propriedades claras e bom gerador |
+| **Metamorphic testing** | Medio | Media a alta | Quando o oraculo e fraco/incompleto |
+| **Differential testing** | Alto | Variavel | Quando ha modelos comparaveis e divergencia importa |
+| **Verificacao formal** | Muito alto | Alta (escopo limitado) | Componentes criticos com propriedades bem especificadas |
+| **Testes estatisticos (multi-run)** | Alto | Variavel | Componentes nao-deterministicos com tolerancias definidas |
 
 ### Framework de Decisão de Investimento
 
@@ -258,11 +254,12 @@ class VerificationInvestmentAnalyzer:
     
     def __init__(self):
         self.cost_model = {
-            'unit_tests': {'cost': 0.01, 'detection_rate': 0.30},
-            'property_based': {'cost': 0.50, 'detection_rate': 0.50},
-            'metamorphic': {'cost': 1.00, 'detection_rate': 0.65},
-            'differential': {'cost': 5.00, 'detection_rate': 0.80},
-            'formal': {'cost': 50.00, 'detection_rate': 0.95}
+            # Valores ilustrativos (placeholders): calibrar com dados do seu ambiente.
+            'unit_tests': {'cost_units': 1.0, 'detection_rate': 0.30},
+            'property_based': {'cost_units': 5.0, 'detection_rate': 0.50},
+            'metamorphic': {'cost_units': 6.0, 'detection_rate': 0.65},
+            'differential': {'cost_units': 12.0, 'detection_rate': 0.80},
+            'formal': {'cost_units': 50.0, 'detection_rate': 0.95}
         }
     
     def optimize_investment(self, bug_cost: float, risk_tolerance: float) -> dict:
@@ -270,7 +267,7 @@ class VerificationInvestmentAnalyzer:
         Otimiza alocação de investimento em verificação
         
         Args:
-            bug_cost: Custo médio de um bug em produção ($)
+            bug_cost: Custo medio de um bug em producao (na moeda da organizacao)
             risk_tolerance: Tolerância ao risco (0-1)
         """
         
@@ -280,7 +277,7 @@ class VerificationInvestmentAnalyzer:
         # Testar diferentes combinações
         for r in range(1, len(self.cost_model) + 1):
             for combo in combinations(self.cost_model.keys(), r):
-                total_cost = sum(self.cost_model[t]['cost'] for t in combo)
+                total_cost = sum(self.cost_model[t]['cost_units'] for t in combo)
                 combined_detection = 1 - np.prod([
                     1 - self.cost_model[t]['detection_rate']
                     for t in combo
@@ -727,11 +724,19 @@ class GovernanceDashboard:
 5. **Eduque a equipe**: Todos devem entender o framework de risco
 6. **Monitore eficácia**: Meça se processo está de fato reduzindo bugs
 
+### Matriz de Avaliacao Consolidada
+
+| Criterio | Descricao | Avaliacao |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses? | Media |
+| **Custo de Verificacao** | Quanto custa validar esta atividade quando feita por IA? | Medio |
+| **Responsabilidade Legal** | Quem e culpado se falhar? | Critica |
+
 ## Summary
 
 - **Métricas específicas** para código de IA incluem taxa de alucinação, consistência de geração, eficácia de oráculos e robustez
 - **Custo-benefício** deve ser analisado considerando não apenas computação, mas chamadas a LLMs e tempo de equipe
-- **Flaky tests** aumentaram 40% com adoção de IA; requerem detecção bayesiana e estratégias de mitigação
+- **Flaky tests** tendem a piorar quando o sistema incorpora nao-determinismo; trate como risco operacional e meca taxa/impacto
 - **Governança** deve ser proporcional ao risco: baixo risco = automação, alto risco = supervisão humana obrigatória
 - **Matriz de decisão** clara evita inconsistências e garante que código crítico receba verificação adequada
 
@@ -754,13 +759,3 @@ class GovernanceDashboard:
 8. Tricentis. "5 AI trends shaping software testing in 2025." December 2024.
 
 9. Gartner. "Test Governance Frameworks for AI-Generated Software." 2025.
-
----
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — Frameworks de governança são duradouros, mas métricas específicas e thresholds evoluem com maturidade da tecnologia |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Médio** — Governança tem custo de setup inicial, mas reduz custos de retrabalho; ROI positivo em 6-12 meses |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — Frameworks de governança são evidência de due diligence em processos legais; ausência de governança aumenta exposição legal |

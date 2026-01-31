@@ -2,9 +2,9 @@
 title: "05 - Evolução e Migração de Sistemas Legados"
 created_at: "2025-01-31"
 tags: ["evolucao", "migracao", "sistemas-legados", "versionamento", "embeddings", "testes-regressao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5. Evolução e Migração de Sistemas Legados

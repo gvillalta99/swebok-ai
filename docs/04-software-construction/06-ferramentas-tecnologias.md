@@ -2,9 +2,9 @@
 title: "Ferramentas e Tecnologias"
 created_at: "2025-01-31"
 tags: ["software-construction", "ferramentas", "tecnologias", "ide", "agentes", "verificacao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 6. Ferramentas e Tecnologias

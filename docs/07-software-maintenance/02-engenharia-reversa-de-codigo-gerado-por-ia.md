@@ -2,9 +2,9 @@
 title: "02 - Engenharia Reversa de Código Gerado por IA"
 created_at: "2025-01-31"
 tags: ["engenharia-reversa", "codigo-ia", "compreensao", "documentacao", "testes-caracterizacao", "analise-estatica"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 2. Engenharia Reversa de Código Gerado por IA

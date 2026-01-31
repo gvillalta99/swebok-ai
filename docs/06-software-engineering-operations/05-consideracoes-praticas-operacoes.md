@@ -2,9 +2,9 @@
 title: "Considerações Práticas de Operações"
 created_at: "2026-01-31"
 tags: ["operacoes", "praticas", "incident-response", "automation", "riscos"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5. Considerações Práticas de Operações

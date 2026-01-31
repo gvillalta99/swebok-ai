@@ -1,16 +1,10 @@
 ---
-title: 05.02 Técnicas de Teste para Código Gerado por LLMs
-created_at: '2025-01-31'
-tags:
-  - testes
-  - llm
-  - metamorphic-testing
-  - property-based-testing
-  - differential-testing
-  - fuzzing
-status: draft
-updated_at: '2025-01-31'
-ai_model: kimi-k2.5
+title: "Tecnicas de Teste para Codigo Gerado por LLMs"
+created_at: "2025-01-31"
+tags: ["software-testing", "llm", "metamorphic-testing", "property-based-testing", "differential-testing", "fuzzing"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5.2 Técnicas de Teste para Código Gerado por LLMs
@@ -145,12 +139,12 @@ def test_sql_redundant_condition():
 
 ### Conceito e Fundamentos
 
-Property-Based Testing (PBT) verifica que o código satisfaz propriedades gerais para uma ampla gama de entradas geradas aleatoriamente. Diferente de testes unitários com valores específicos, PBT explora o espaço de entrada sistematicamente [TPTP, 2025].
+Property-Based Testing (PBT) verifica que o codigo satisfaz propriedades gerais para uma ampla gama de entradas geradas aleatoriamente. Diferente de testes unitarios com valores especificos, PBT explora o espaco de entrada sistematicamente.
 
-**Vantagens para Código de IA:**
+**Vantagens para Codigo de IA:**
 - Encontra edge cases que desenvolvedores não consideram
 - Verifica propriedades invariantes independentemente da implementação
-- Detecta 3x mais bugs de edge case que testes tradicionais [Dev.to, 2025]
+- Pode revelar edge cases que suites de testes baseadas apenas em exemplos nao cobrem (hipotese operacional; depende de propriedades bem definidas e geradores adequados)
 
 ### Implementação com Hypothesis
 
@@ -598,6 +592,14 @@ def select_testing_strategy(code_complexity: float, risk_level: str):
 4. **Reserve SE e Fuzzing para código de alta criticidade**: Custo elevado
 5. **Monitore e itere**: Use falhas para melhorar propriedades e MRs
 
+### Matriz de Avaliacao Consolidada
+
+| Criterio | Descricao | Avaliacao |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses? | Media |
+| **Custo de Verificacao** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem e culpado se falhar? | Critica |
+
 ## Summary
 
 - **Metamorphic Testing** resolve o problema do oráculo verificando relações entre entradas/saídas, essencial quando especificações são incompletas
@@ -623,15 +625,3 @@ def select_testing_strategy(code_complexity: float, risk_level: str):
 7. Bunel, R. et al. "Formal Verification of Machine Learning Models: A Survey." arXiv:2403.15678, 2024.
 
 8. "Neural Symbolic Execution: Understanding and Testing Neural Networks." arXiv:2405.18912, 2024.
-
-9. "Pragmatic Testing for AI-Generated Code: Strategies for Trust and Efficiency." Dev.to, 2025. https://dev.to/rakbro/pragmatic-testing-for-ai-generated-code-strategies-for-trust-and-efficiency-1ndk
-
----
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — Técnicas fundamentais (MT, PBT) são estáveis, mas ferramentas específicas evoluem rapidamente; novas técnicas emergem constantemente |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Requer execução de múltiplas técnicas, múltiplas execuções, e expertise especializada; custo pode ser 5-10x maior que testes tradicionais |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — Falhas em código crítico testado por estas técnicas ainda são responsabilidade da organização; técnicas avançadas não eliminam accountability |

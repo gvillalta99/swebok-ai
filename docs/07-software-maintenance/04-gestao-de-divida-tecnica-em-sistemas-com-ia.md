@@ -2,9 +2,9 @@
 title: "04 - Gestão de Dívida Técnica em Sistemas com IA"
 created_at: "2025-01-31"
 tags: ["divida-tecnica", "codigo-ia", "metricas", "churn-rate", "regeneracao", "prevencao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 4. Gestão de Dívida Técnica em Sistemas com IA

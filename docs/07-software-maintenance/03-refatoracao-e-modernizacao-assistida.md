@@ -2,9 +2,9 @@
 title: "03 - Refatoração e Modernização Assistida"
 created_at: "2025-01-31"
 tags: ["refatoracao", "modernizacao", "codigo-ia", "verificacao-equivalencia", "migracao-llm", "decomposicao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 3. Refatoração e Modernização Assistida

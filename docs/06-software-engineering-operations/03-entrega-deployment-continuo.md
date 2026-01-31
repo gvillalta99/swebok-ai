@@ -2,9 +2,9 @@
 title: "Entrega e Deployment Contínuo"
 created_at: "2026-01-31"
 tags: ["deployment", "entrega-continua", "ci-cd", "llm-ops", "release-engineering"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 3. Entrega e Deployment Contínuo

@@ -1,16 +1,10 @@
 ---
-title: 05.05 Avaliação e Validação de Agentes Autônomos
-created_at: '2025-01-31'
-tags:
-  - agentes-autonomos
-  - avaliacao
-  - validacao
-  - evals
-  - chain-of-thought
-  - tool-use
-status: draft
-updated_at: '2025-01-31'
-ai_model: kimi-k2.5
+title: "Avaliacao e Validacao de Agentes Autonomos"
+created_at: "2025-01-31"
+tags: ["software-testing", "agentes-autonomos", "avaliacao", "validacao", "evals", "tool-use"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5.5 Avaliação e Validação de Agentes Autônomos
@@ -520,13 +514,13 @@ class FileSystemSimulator(AgentEnvironmentSimulator):
 - **Descrição**: Benchmark para avaliação de LLMs em tarefas reais de software engineering
 - **Dataset**: 2.294 issues do GitHub de 12 repositórios Python populares
 - **Métrica**: % Resolved (percentual de issues resolvidas corretamente)
-- **Estado da arte**: ~43% (melhores modelos em 2024) [SWE-bench, 2024]
+- **Observacao**: resultados variam por *split*, politica de avaliacao e ambiente. Use o benchmark como comparacao relativa, nao como garantia de desempenho em producao.
 
 **2. HumanEval / HumanEval+**
 - **Descrição**: 164 problemas de programação em Python
 - **Foco**: Geração de código a partir de docstrings
 - **Métrica**: pass@k (probabilidade de passar em testes unitários)
-- **Limitação**: Problemas sintéticos, não representam código real [Chen et al., 2024]
+- **Limitacao**: problemas sinteticos nao representam codebases reais; use como sinal complementar.
 
 **3. AgentBench**
 - **Descrição**: Avaliação abrangente de LLMs como agents
@@ -761,7 +755,7 @@ class ProductionAgentMonitor:
 
 ### Limitações
 
-1. **Custo de avaliação**: Evals como SWE-bench são caros (múltiplas chamadas LLM por problema)
+1. **Custo de avaliacao**: evals realistas podem ser caros (muitas chamadas, ambientes e repeticoes)
 2. **Flakiness**: Agentes não-determinísticos podem ter resultados variáveis entre execuções
 3. **Overfitting**: Agents podem overfitar para benchmarks específicos
 4. **Generalização**: Performance em benchmarks ≠ performance em tarefas reais
@@ -774,6 +768,14 @@ class ProductionAgentMonitor:
 4. **Monitore trajetórias**: Não apenas resultados finais
 5. **Valide tool use**: Ferramentas são ponto crítico de falha
 6. **Teste recuperação de erros**: Agents devem ser resilientes
+
+### Matriz de Avaliacao Consolidada
+
+| Criterio | Descricao | Avaliacao |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses? | Alta |
+| **Custo de Verificacao** | Quanto custa validar esta atividade quando feita por IA? | Muito alto |
+| **Responsabilidade Legal** | Quem e culpado se falhar? | Critica |
 
 ## Summary
 
@@ -788,7 +790,7 @@ class ProductionAgentMonitor:
 
 1. Jimenez, C. et al. "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?" ICLR 2024. https://www.swebench.com/
 
-2. Chen, M. et al. "Evaluating Large Language Models Trained on Code." arXiv:2107.03374, 2024 (HumanEval+).
+2. Chen, M. et al. "Evaluating Large Language Models Trained on Code." arXiv:2107.03374, 2021.
 
 3. Liu, X. et al. "AgentBench: Evaluating LLMs as Agents." arXiv:2308.03688, 2024.
 
@@ -798,14 +800,4 @@ class ProductionAgentMonitor:
 
 6. SWE-bench GitHub Organization. https://github.com/swe-bench
 
-7. "SWE-bench authors reflect on the state of LLM agents at Neurips 2024." YouTube, January 2025.
-
----
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Alta** — Agentes autônomos e suas arquiteturas evoluem extremamente rápido; benchmarks atuais podem ser obsoletos em 18-24 meses |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — Evals como SWE-bench custam $10-50 por execução; requer múltiplas execuções para significância estatística |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — Agentes autônomos tomam decisões independentes; accountability é distribuída entre desenvolvedor, operador e fornecedor da IA |
+7. "SWE-bench authors reflect on the state of LLM agents at Neurips 2024." YouTube, 2025. (Leitura complementar)

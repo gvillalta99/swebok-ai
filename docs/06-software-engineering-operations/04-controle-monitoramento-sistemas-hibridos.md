@@ -2,9 +2,9 @@
 title: "Controle e Monitoramento de Sistemas Híbridos"
 created_at: "2026-01-31"
 tags: ["monitoramento", "observabilidade", "sistemas-hibridos", "ai-observability", "telemetry"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 4. Controle e Monitoramento de Sistemas Híbridos

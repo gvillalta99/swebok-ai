@@ -1,15 +1,10 @@
 ---
-title: 05.04 Verificação de Contratos e Invariantes
-created_at: '2025-01-31'
-tags:
-  - contratos
-  - invariantes
-  - design-by-contract
-  - runtime-verification
-  - verificacao-formal
-status: draft
-updated_at: '2025-01-31'
-ai_model: kimi-k2.5
+title: "Verificacao de Contratos e Invariantes"
+created_at: "2025-01-31"
+tags: ["software-testing", "contratos", "invariantes", "design-by-contract", "runtime-verification"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5.4 Verificação de Contratos e Invariantes
@@ -118,7 +113,7 @@ def generate_code(prompt: str, language: str):
 
 ### Framework AgentGuard
 
-Pesquisa recente [arXiv:2509.23864, 2025] propôs **AgentGuard**, um framework de runtime verification para agentes de IA que utiliza **Dynamic Probabilistic Assurance (DPA)**:
+Hipotese (requer fonte e avaliacao tecnica): ha propostas recentes de *runtime verification* para agentes de IA baseadas em modelagem probabilistica e atualizacao online. Antes de adotar qualquer framework desse tipo, valide: escopo, suposicoes, custo operacional, evidencias empiricas e compatibilidade com requisitos regulatorios.
 
 **Arquitetura:**
 ```
@@ -595,16 +590,14 @@ class ContractVerifier:
         return True
     
     def _evaluate_condition(self, condition: str, context: dict) -> bool:
-        """Avalia condição em contexto seguro"""
+        """Avalia condicao de contrato.
+
+        Nota: usar `eval()` para avaliar expressoes e um anti-pattern de seguranca.
+        Em producao, prefira uma DSL restrita (parser), expressoes pre-compiladas,
+        ou validadores tipados.
+        """
         try:
-            # Criar ambiente seguro de avaliação
-            safe_globals = {
-                '__builtins__': {
-                    'len': len, 'isinstance': isinstance,
-                    'type': type, 'hasattr': hasattr
-                }
-            }
-            return eval(condition, safe_globals, context)
+            return evaluate_contract_expression(condition, context)  # pseudocodigo
         except Exception as e:
             logging.warning(f"Error evaluating condition '{condition}': {e}")
             return False
@@ -731,6 +724,14 @@ while agent.is_running():
 5. **Documente contratos**: Tornar explícito o comportamento esperado
 6. **Automatize extração**: Use LLMs para sugerir contratos, mas revise manualmente
 
+### Matriz de Avaliacao Consolidada
+
+| Criterio | Descricao | Avaliacao |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses? | Baixa |
+| **Custo de Verificacao** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem e culpado se falhar? | Critica |
+
 ## Summary
 
 - **Design by Contract para IA** requer adaptações: contratos probabilísticos, invariantes flexíveis, e precondições de contexto
@@ -754,15 +755,3 @@ while agent.is_running():
 6. "End-to-End AI Generated Runtime Verification from Natural Language Specification." Springer, 2024.
 
 7. "Taming Silent Failures: A Framework for Verifiable AI Reliability." arXiv:2510.22224, 2025.
-
-8. "Contract-Based Testing for Automatically Generated Software." ACM Computing Surveys, 2025.
-
----
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — Design by Contract e verificação runtime são fundamentos de engenharia de software; adaptações para IA são evolução natural |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Verificação runtime introduz overhead; requer infraestrutura de monitoramento; contratos complexos demandam manutenção |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — Violações de contrato em sistemas críticos têm consequências legais severas; documentação de contratos é evidência em auditorias |

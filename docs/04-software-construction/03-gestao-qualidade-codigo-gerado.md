@@ -2,16 +2,16 @@
 title: "Gestão de Qualidade de Código Gerado"
 created_at: "2025-01-31"
 tags: ["software-construction", "qualidade", "codigo-gerado", "metricas", "divida-tecnica", "ia"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 3. Gestão de Qualidade de Código Gerado
 
 ## Overview
 
-Esta seção aborda os desafios específicos de garantir qualidade em código produzido por sistemas de IA. Enquanto código escrito manualmente reflete intenções documentadas do desenvolvedor, código gerado por LLMs pode conter padrões sutis de baixa qualidade que escapam de verificações tradicionais. A pesquisa empírica de 2024-2025 revela tendências preocupantes: aumento de duplicação de código, redução de refatoração e crescimento de "code churn". Esta seção apresenta métricas, técnicas e práticas para gerenciar qualidade em sistemas híbridos humanos-IA.
+Esta secao aborda os desafios especificos de garantir qualidade em codigo produzido por sistemas de IA. Enquanto codigo escrito manualmente pode preservar parte da intencao via discussoes, revisoes e historico, codigo gerado por LLMs pode introduzir padroes sutis de baixa qualidade que escapam de verificacoes tradicionais. Relatorios de mercado e estudos iniciais sugerem riscos como aumento de duplicacao e instabilidade ("code churn"), mas os resultados variam por organizacao e metodo de medicao. Esta secao apresenta metricas, tecnicas e praticas para gerenciar qualidade em sistemas hibridos humano-IA.
 
 ## Learning Objectives
 
@@ -25,11 +25,11 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## O Desafio da Qualidade em Código Gerado
 
-### Evidências Empíricas de 2024-2025
+### Evidencias Empiricas (relatos e sinais)
 
 Pesquisas recentes documentam mudanças significativas na qualidade de código:
 
-**GitClear AI Code Quality Research (2025)** — Análise de 153M+ linhas de código:
+**Relatorios de mercado (ex.: 2024-2026)** frequentemente analisam repositorios publicos/privados e sugerem mudancas em duplicacao, churn e refatoracao. Trate numeros agregados como indicativos e valide com metricas do seu proprio repositorio.
 
 | Métrica | Tendência (2021-2024) | Implicação |
 |---------|----------------------|------------|

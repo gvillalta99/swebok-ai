@@ -2,9 +2,9 @@
 title: "Pipeline de Geração, Verificação e Integração"
 created_at: "2025-01-31"
 tags: ["software-construction", "pipeline", "verificacao", "integracao", "cicd", "ia"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 2. Pipeline de Geração, Verificação e Integração
@@ -201,6 +201,8 @@ CRITÉRIOS DE ACEITAÇÃO:
 A verificação sintática identifica problemas estruturais antes da execução:
 
 **Ferramentas e Técnicas:**
+
+Nota: os nomes abaixo sao exemplos ilustrativos; evite tratar lista de ferramentas como prescricao. Priorize categorias, criterios e integracao verificavel.
 
 | Categoria | Ferramentas | Propósito |
 |-----------|-------------|-----------|

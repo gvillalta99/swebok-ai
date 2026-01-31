@@ -1,15 +1,10 @@
 ---
-title: 05.03 Testes Estatísticos para Sistemas Não-Determinísticos
-created_at: '2025-01-31'
-tags:
-  - testes-estatisticos
-  - sistemas-nao-deterministicos
-  - consistencia
-  - robustez
-  - validacao
-status: draft
-updated_at: '2025-01-31'
-ai_model: kimi-k2.5
+title: "Testes Estatisticos para Sistemas Nao-Deterministicos"
+created_at: "2025-01-31"
+tags: ["software-testing", "testes-estatisticos", "sistemas-nao-deterministicos", "consistencia", "robustez", "validacao"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
 # 5.3 Testes Estatísticos para Sistemas Não-Determinísticos
@@ -653,10 +648,18 @@ while True:
 ### Melhores Práticas
 
 1. **Defina thresholds explicitamente**: Documente critérios de aceitação
-2. **Use amostras adequadas**: Mínimo 30 execuções para significância estatística
+2. **Use amostras adequadas**: Use tamanhos de amostra explicitados e justificados; "30 execucoes" e heuristica comum para analises iniciais, nao regra universal
 3. **Monitore distribuições**: Não apenas médias
 4. **Versione baselines**: Compare contra comportamento histórico
 5. **Combine com outros testes**: Estatísticos + funcionais + de segurança
+
+### Matriz de Avaliacao Consolidada
+
+| Criterio | Descricao | Avaliacao |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses? | Baixa |
+| **Custo de Verificacao** | Quanto custa validar esta atividade quando feita por IA? | Alto |
+| **Responsabilidade Legal** | Quem e culpado se falhar? | Critica |
 
 ## Summary
 
@@ -681,14 +684,3 @@ while True:
 
 6. Gartner Research. "Testing Non-Deterministic AI Systems: Best Practices." Gartner, 2025.
 
-7. "Statistical Model Checking for Neural Network Verification." arXiv:2501.12345, 2025.
-
----
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — Fundamentos estatísticos são universais e estáveis; técnicas de análise de não-determinismo são cada vez mais críticas |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Requer múltiplas execuções (30-100x), processamento estatístico, e expertise; custo computacional significativo |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — Decisões baseadas em análise estatística devem ser documentadas e auditáveis; thresholds devem ser justificados |
