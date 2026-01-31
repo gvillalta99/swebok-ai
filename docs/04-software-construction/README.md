@@ -6,7 +6,9 @@
 
 ## Visão Geral
 
-O Capítulo 4 redefine completamente o conceito de Software Construction para a era dos Large Language Models (LLMs). Enquanto o SWEBOK v4.0 focava em "codificação manual, testes unitários e debugging", a versão 5.0 reconhece que **a construção de software tornou-se primariamente um processo de orquestração e curadoria de código gerado por sistemas autônomos**.
+O Capítulo 4 do SWEBOK-AI v5.0 redefine completamente o conceito de Software Construction para a era dos Large Language Models (LLMs). Enquanto o SWEBOK v4.0 focava em "codificação manual, testes unitários e debugging", a versão 5.0 reconhece que **a construção de software tornou-se primariamente um processo de orquestração e curadoria de código gerado por sistemas autônomos**.
+
+Este capítulo apresenta os fundamentos, processos e práticas para construir software quando o código é gerado por sistemas autônomos, não escrito manualmente. O foco desloca-se de "como escrever código eficiente" para "como especificar, gerar, verificar e integrar código de forma confiável".
 
 ### Princípio Diretor
 
@@ -47,15 +49,13 @@ A nova construção de software abandona a premissa de que codificação manual 
 04-software-construction/
 ├── README.md                                  # Este arquivo — visão geral
 ├── PLAN.md                                    # Plano detalhado com 21 referências
-├── 01-fundamentos-orquestracao-curatoria.md   # Seção 1: Fundamentos (19KB)
-├── 02-pipeline-geracao-verificacao-integracao.md  # Seção 2: Pipeline (31KB)
-├── 03-gestao-qualidade-codigo-gerado.md       # Seção 3: Qualidade (27KB)
-├── 04-cicd-sistemas-ia.md                     # Seção 4: CI/CD (38KB)
-├── 05-padroes-colaboracao-humano-ia.md        # Seção 5: Colaboração (20KB)
-├── 06-ferramentas-tecnologias.md              # Seção 6: Ferramentas (28KB)
+├── 01-fundamentos-orquestracao-curatoria.md   # Seção 1: Fundamentos
+├── 02-pipeline-geracao-verificacao-integracao.md  # Seção 2: Pipeline
+├── 03-gestao-qualidade-codigo-gerado.md       # Seção 3: Qualidade
+├── 04-cicd-sistemas-ia.md                     # Seção 4: CI/CD
+├── 05-padroes-colaboracao-humano-ia.md        # Seção 5: Colaboração
+├── 06-ferramentas-tecnologias.md              # Seção 6: Ferramentas
 └── swebok-v4-chapter.md                       # Referência: SWEBOK v4 original
-
-Total: ~163KB de conteúdo novo
 ```
 
 ---
@@ -99,15 +99,15 @@ O capítulo incorpora 21 referências focadas em 2024-2026:
 ## Dados-Chave
 
 ### Adoção
-- **82%** dos desenvolvedores usam IA semanalmente
-- **84%** adotaram programação em par com IA
-- **78%** relatam ganhos de produtividade
+- **82%** dos desenvolvedores usam IA semanalmente (Netcorp, 2026)
+- **84%** adotaram programação em par com IA (Index.dev, 2025)
+- **78%** relatam ganhos de produtividade (Qodo, 2025)
 
 ### Qualidade
-- Apenas **59%** dizem que IA melhorou qualidade
-- **21%** relatam degradação ativa
-- **4x** aumento na duplicação de código (GitClear)
-- Refatoração caiu de **25%** para **<10%**
+- Apenas **59%** dizem que IA melhorou qualidade (Qodo, 2025)
+- **21%** relatam degradação ativa (Qodo, 2025)
+- **4x** aumento na duplicação de código (GitClear, 2025)
+- Refatoração caiu de **25%** para **<10%** (GitClear, 2025)
 
 ### Trade-offs
 - Velocidade de geração aumentou dramaticamente
@@ -177,4 +177,4 @@ O capítulo incorpora 21 referências focadas em 2024-2026:
 ---
 
 *SWEBOK-AI v5.0 — Capítulo 4: Orquestração e Curadoria de Código*
-*Última atualização: 2026-01-29*
+*Última atualização: 2026-01-31*

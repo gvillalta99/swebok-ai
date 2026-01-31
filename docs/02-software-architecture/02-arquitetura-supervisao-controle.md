@@ -523,7 +523,22 @@ class SecureOverride:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
-2. ISO/IEC/IEEE. ISO/IEC/IEEE 29148: Systems and software engineering — Life cycle processes — Requirements engineering. 2018.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. TE'ENI, D.; YAHAV, I.; SCHWARTZ, D. What it takes to control AI by design: human learning. AI & SOCIETY, Springer, 2025. DOI: 10.1007/s00146-025-02401-y
+
+3. MASOOD, A. Operationalizing Trust: Human-in-the-Loop AI at Enterprise Scale. Medium, 2025. Disponível em: https://medium.com/@adnanmasood/operationalizing-trust-human-in-the-loop-ai-at-enterprise-scale-a0f2f9e0b26e
+
+4. SEEKR. Human-in-the-Loop: Trustworthy AI for the Future. Seekr Blog, 2024. Disponível em: https://www.seekr.com/blog/human-in-the-loop-in-an-autonomous-future/
+
+5. ORACLE. Overview of Human in the Loop for Agentic AI. Oracle Cloud Documentation, 2025. Disponível em: https://docs.oracle.com/en/cloud/paas/application-integration/human-loop/overview-human-loop-agentic-ai.html
+
+6. GALILEO AI. How to Build Human-in-the-Loop Oversight for Production AI Agents. Galileo Blog, 2025. Disponível em: https://galileo.ai/blog/human-in-the-loop-agent-oversight
+
+7. ZHANG, L. et al. A Framework for LLM-Assisted Network Management with Human-in-the-Loop. IETF Internet-Draft, 2025. Disponível em: https://www.ietf.org/id/draft-cui-nmrg-llm-nm-00.html
+
+8. NCBI/PMC. Human control of AI systems: from supervision to teaming. PMC, 2024. Disponível em: https://pmc.ncbi.nlm.nih.gov/articles/PMC12058881/
+
+9. ISO/IEC/IEEE. ISO/IEC/IEEE 29148: Systems and software engineering — Life cycle processes — Requirements engineering. ISO, 2018.
 
 *SWEBOK-AI v5.0 - Software Architecture*

@@ -525,6 +525,12 @@ class LivingArchitectureDocumentation:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. McKINSEY & COMPANY. The state of AI in early 2024: Gen AI adoption spikes and starts to generate value. McKinsey Global Survey, 2024. Disponível em: https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai-2024
+
+3. McKINSEY & COMPANY. Navigating the generative AI disruption in software. McKinsey Technology, Media and Telecommunications, 2024. Disponível em: https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/navigating-the-generative-ai-disruption-in-software
+
+4. McKINSEY & COMPANY. Enterprise technology's next chapter: Four gen AI shifts that will reshape business technology. McKinsey Digital, 2024. Disponível em: https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/enterprise-technologys-next-chapter-four-gen-ai-shifts-that-will-reshape-business-technology
 
 *SWEBOK-AI v5.0 - Software Architecture*

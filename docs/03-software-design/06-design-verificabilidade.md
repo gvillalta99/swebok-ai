@@ -642,7 +642,23 @@ class VerificationPipeline:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. FAKHOURY, S. et al. LLM-based Test-driven Interactive Code Generation: User Study and Empirical Evaluation. IEEE Transactions on Software Engineering, 2024. Disponível em: https://www.seas.upenn.edu/~asnaik/assets/papers/tse24_ticoder.pdf
+
+3. ALLAMANIS, M.; PANTHAPLACKEL, S.; YIN, P. Unsupervised Evaluation of Code LLMs with Round-Trip Correctness. arXiv:2402.08699, 2024.
+
+4. AGGARWAL, P. et al. CodeSift: An LLM-Based Reference-Less Framework for Automatic Code Validation. arXiv:2408.15630, 2024.
+
+5. MIRANDA, B. et al. VeriBench: End-to-End Formal Verification Benchmark for AI Code Generation in Lean 4. OpenReview, 2025.
+
+6. TONG, W.; ZHANG, T. CodeJudge: Evaluating Code Generation with Large Language Models. ACL Anthology, 2024. Disponível em: https://aclanthology.org/2024.emnlp-main.1118/
+
+7. STACK OVERFLOW. One of the best ways to get value for AI coding tools: generating tests. Stack Overflow Blog, 2024. Disponível em: https://stackoverflow.blog/2024/09/10/gen-ai-llm-create-test-developers-coding-software-code-quality/
+
+8. CONFIDENT AI. LLM Testing in 2024: Top Methods and Strategies. Confident AI Blog, 2024. Disponível em: https://www.confident-ai.com/blog/llm-testing-in-2024-top-methods-and-strategies
+
+9. SHIPYARD. How to Test AI-Generated Code: Best Practices for LLM and AI Assistant Code. Shipyard Blog, 2024. Disponível em: https://shipyard.build/blog/testing-genai-code/
 
 ---
 

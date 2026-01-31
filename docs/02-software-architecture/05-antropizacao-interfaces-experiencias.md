@@ -537,6 +537,14 @@ class InputFeedback:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. CHEN, Y. et al. Hallucination Detection: Robustly Discerning Reliable Answers in Large Language Models. arXiv:2407.04121, 2024. Disponível em: https://arxiv.org/abs/2407.04121
+
+3. CLEANLAB. Benchmarking Hallucination Detection Methods in RAG. Cleanlab Blog, 2024. Disponível em: https://cleanlab.ai/blog/rag-tlm-hallucination-benchmarking/
+
+4. VELLUM AI. A Guide to LLM Observability. Vellum Blog, 2025. Disponível em: https://www.vellum.ai/blog/a-guide-to-llm-observability
+
+5. PFEIFER, K. Humanity-in-the-Loop: Human AI Oversight is an Imperative. Medium, 2025. Disponível em: https://medium.com/@karenpfeifer/humanity-in-the-loop-human-ai-oversight-is-an-imperative-50bdcc2688d8
 
 *SWEBOK-AI v5.0 - Software Architecture*

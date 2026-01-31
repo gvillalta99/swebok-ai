@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "25bc314f639f1600",
+        "id": "ccf5fc295ece2776",
         "type": "tabs",
         "children": [
           {
-            "id": "7404a774457c4cd3",
+            "id": "14757e0a862abc14",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/00-introduction/swebok-v4.md",
+                "file": "docs/02-software-architecture/09-curadoria-arquitetural.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "swebok-v4"
+              "title": "09-curadoria-arquitetural"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "0cfd7bb99965b42c",
@@ -180,7 +181,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 534.5
+    "width": 511.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -194,35 +195,37 @@
       "obsidian-opencode:OpenCode": false
     }
   },
-  "active": "2f53563e67feb826",
+  "active": "14757e0a862abc14",
   "lastOpenFiles": [
-    "mkdocs.yml~",
-    "docs/06-software-engineering-operations/01-fundamentos-operations-ia.md",
-    "docs/00-introduction/swebok-v4.md",
-    "docs/06-software-engineering-operations/PLAN.md",
-    "docs/04-software-construction/01-fundamentos-orquestracao-curatoria.md",
-    "docs/17-mathematical-foundations/PLAN.md",
-    "docs/17-mathematical-foundations/02-estatistica-validacao.md",
-    "docs/17-mathematical-foundations/01-fundamentos-matematicos-ia.md",
-    "AGENTS.md",
-    "docs/18-engineering-foundations/02-qualidade-etica-engenharia.md",
-    "docs/18-engineering-foundations/01-fundamentos-engenharia-ia.md",
-    "docs/16-computing-foundations/02-processamento-geracao-codigo.md",
-    "docs/16-computing-foundations/01-sistemas-cognitivos-artificiais.md",
-    "docs/15-software-engineering-economics/02-metricas-kpis.md",
-    "docs/15-software-engineering-economics/01-economia-software-ia.md",
-    "docs/14-software-engineering-professional-practice/02-etica-responsabilidade.md",
-    "docs/14-software-engineering-professional-practice/01-pratica-profissional-ia.md",
-    "docs/13-software-security/02-ferramentas-seguranca.md",
-    "docs/13-software-security/01-seguranca-codigo-ia.md",
-    "docs/12-software-quality/02-garantia-qualidade.md",
-    "docs/12-software-quality/01-qualidade-sistemas-ia.md",
-    "docs/11-software-engineering-models-and-methods/02-metodos-tecnicas.md",
-    "docs/11-software-engineering-models-and-methods/01-modelos-desenvolvimento-ia.md",
-    "docs/10-software-engineering-process/02-melhoria-processos.md",
-    "docs/10-software-engineering-process/01-processos-engenharia-ia.md",
-    "docs/09-software-engineering-management/02-gestao-equipes-hibridas.md",
+    "docs/02-software-architecture/01-fundamentos-arquitetura-hibrida.md",
+    "docs/02-software-architecture/09-curadoria-arquitetural.md",
+    "docs/03-software-design/RESEARCH-REPORT.md",
+    "docs/02-software-architecture/08-ferramentas-tecnicas-modernas.md",
+    "docs/02-software-architecture/RESEARCH-REPORT.md",
+    "agents/chapter-rewriter.md",
+    "agents/book-editor.md",
+    "agents/book-writer.md",
     "swebok-v4.pdf",
+    "book-x.md",
+    "agents",
+    "docs/06-software-engineering-operations/swebok-v4.md",
+    "docs/08-software-configuration-management/04-rastreabilidade-proveniencia.md",
+    "docs/19-appendix/swebok-v4.md",
+    "docs/18-engineering-foundations/swebok-v4.md",
+    "docs/17-mathematical-foundations/swebok-v4.md",
+    "docs/16-computing-foundations/swebok-v4.md",
+    "docs/15-software-engineering-economics/swebok-v4.md",
+    "docs/14-software-engineering-professional-practice/swebok-v4.md",
+    "docs/13-software-security/swebok-v4.md",
+    "docs/12-software-quality/swebok-v4.md",
+    "docs/11-software-engineering-models-and-methods/swebok-v4.md",
+    "docs/10-software-engineering-process/swebok-v4.md",
+    "docs/09-software-engineering-management/swebok-v4.md",
+    "docs/08-software-configuration-management/swebok-v4.md.md",
+    "docs/07-software-maintenance/swebok-v4.md",
+    "docs/04-software-construction/PLAN.md",
+    "docs/05-software-testing/swebok-v4.md",
+    "mkdocs.yml~",
     "docs/XX-ideais"
   ]
 }

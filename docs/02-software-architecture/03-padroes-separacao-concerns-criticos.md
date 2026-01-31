@@ -476,6 +476,14 @@ class RuntimeProtection:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. DE BOER, M. et al. Design Patterns for Large Language Model Based Neuro-Symbolic Systems. Neurosymbolic Artificial Intelligence, Vol. 1, pp. 1-20, 2025. DOI: 10.1177/29498732251377499
+
+3. THOUGHTWORKS. Technology Radar Vol. 31: An opinionated guide to today's technology landscape. Thoughtworks, Inc., 2024. Disponível em: https://www.thoughtworks.com/radar
+
+4. GARTNER. Enterprise Architecture Delivery Primer for 2024. Gartner Research, 2024. Disponível em: https://www.gartner.com/en/documents/5120631
+
+5. GONZÁLEZ-POTES, A. et al. Hybrid AI and LLM-Enabled Agent-Based Real-Time Decision Support Architecture for Industrial Batch Processes. Preprints.org, 2025. Disponível em: https://www.preprints.org/manuscript/202512.2023
 
 *SWEBOK-AI v5.0 - Software Architecture*

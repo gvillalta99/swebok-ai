@@ -489,7 +489,25 @@ jobs:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. ZIEGLER, A. et al. Measuring GitHub Copilot's Impact on Productivity. Communications of the ACM, Vol. 67, No. 6, pp. 48-55, 2024. DOI: 10.1145/3643675
+
+3. PENG, S. et al. The Impact of AI on Developer Productivity: Evidence from GitHub Copilot. Microsoft Research, 2023. Disponível em: https://www.microsoft.com/en-us/research/publication/the-impact-of-ai-on-developer-productivity-evidence-from-github-copilot/
+
+4. CUI, K. Z. et al. The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers. MIT Economics, 2025. Disponível em: https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf
+
+5. GITHUB. Research: quantifying GitHub Copilot's impact on developer productivity and happiness. GitHub Blog, 2022 (Updated 2024). Disponível em: https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/
+
+6. GITHUB. Does GitHub Copilot improve code quality? Here's what the data says. GitHub Blog, 2024. Disponível em: https://github.blog/news-insights/research/does-github-copilot-improve-code-quality-heres-what-the-data-says
+
+7. CURSOR. Cursor AI Code Editor Documentation. Anysphere, 2024-2025. Disponível em: https://cursor.com
+
+8. DAILY.DEV. Cursor AI Explained: Features, Pricing & Honest Review. daily.dev, 2024. Disponível em: https://daily.dev/blog/cursor-ai-everything-you-should-know-about-the-new-ai-code-editor-in-one-place
+
+9. SAMILA, S. Chain of Thought Reasoning, the New LLM Breakthrough. IESE Business School, 2024. Disponível em: https://blog.iese.edu/artificial-intelligence-management/2024/chain-of-thought-reasoning-the-new-llm-breakthrough/
+
+10. IBM. Chain-of-Thought Reasoning Example with Granite. IBM Documentation, 2024. Disponível em: https://www.ibm.com/think/tutorials/llm-chain-of-thought-reasoning-granite
 
 ---
 

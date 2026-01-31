@@ -534,6 +534,22 @@ class ATAMForAISystems:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. GAL, Y. Detecting hallucinations in large language models using semantic entropy. Nature, 2024. DOI: 10.1038/s41586-024-07421-0
+
+3. A Survey of Automatic Hallucination Evaluation on Natural Language Generation. arXiv:2404.12041, 2024. Disponível em: https://arxiv.org/abs/2404.12041
+
+4. The Hallucinations Leaderboard -- An Open Effort to Measure Hallucinations in Large Language Models. arXiv:2404.05904, 2024. Disponível em: https://arxiv.org/abs/2404.05904
+
+5. HalluMeasure: Fine-grained Hallucination Measurement Using Chain-of-Thought Reasoning. ACL Anthology, 2024. Disponível em: https://aclanthology.org/2024.emnlp-main.837/
+
+6. VALENTIN, S. et al. Cost-Effective Hallucination Detection for LLMs. arXiv:2407.21424, 2024. Disponível em: https://arxiv.org/abs/2407.21424
+
+7. RefChecker: Reference-based Fine-grained Hallucination Checker and Benchmark for Large Language Models. arXiv:2405.14486, 2024. Disponível em: https://arxiv.org/abs/2405.14486
+
+8. InterrogateLLM: Zero-Resource Hallucination Detection in LLM-Generated Answers. arXiv:2403.02889, 2024. Disponível em: https://arxiv.org/abs/2403.02889
+
+9. Halu-J: Critique-Based Hallucination Judge. arXiv:2407.12943, 2024. Disponível em: https://arxiv.org/abs/2407.12943
 
 *SWEBOK-AI v5.0 - Software Architecture*

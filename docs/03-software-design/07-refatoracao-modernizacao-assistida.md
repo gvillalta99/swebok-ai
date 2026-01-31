@@ -483,7 +483,13 @@ jobs:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. PANDEY, R. et al. Transforming Software Development: Evaluating the Efficiency and Challenges of GitHub Copilot in Real-World Projects. arXiv:2406.17910, 2024.
+
+3. GITHUB. Research: Quantifying GitHub Copilot's impact in the enterprise with Accenture. GitHub Blog, 2024. Disponível em: https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-in-the-enterprise-with-accenture
+
+4. McKINSEY & COMPANY. How generative AI could accelerate software product time to market. McKinsey Technology, Media and Telecommunications, 2024. Disponível em: https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/how-generative-ai-could-accelerate-software-product-time-to-market
 
 ---
 

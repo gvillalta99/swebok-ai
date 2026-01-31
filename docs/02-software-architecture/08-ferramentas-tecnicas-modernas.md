@@ -564,6 +564,20 @@ class TestArchitectureCompliance:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. THOUGHTWORKS. Technology Radar Vol. 31: An opinionated guide to today's technology landscape. Thoughtworks, Inc., 2024. Disponível em: https://www.thoughtworks.com/radar
+
+3. GARTNER. Top 10 Strategic Technology Trends 2024. Gartner Research, 2023. Disponível em: https://www.gartner.com/en/articles/gartner-top-10-strategic-technology-trends-for-2024
+
+4. GARTNER. Enterprise Architecture Delivery Primer for 2024. Gartner Research, 2024. Disponível em: https://www.gartner.com/en/documents/5120631
+
+5. STRUCTURIZR. Structurizr DSL Documentation. Structurizr, 2024. Disponível em: https://docs.structurizr.com/dsl
+
+6. C4 MODEL. The C4 Model for Visualising Software Architecture. C4 Model, 2024. Disponível em: https://c4model.com/
+
+7. PLANTUML. PlantUML Documentation. PlantUML, 2024. Disponível em: https://plantuml.com/
+
+8. MERMAID. Mermaid Documentation. Mermaid, 2024. Disponível em: https://mermaid.js.org/
 
 *SWEBOK-AI v5.0 - Software Architecture*

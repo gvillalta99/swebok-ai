@@ -503,7 +503,15 @@ Gere código que se integre naturalmente ao sistema existente.
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. LAU, S.; GUO, P. J. The Design Space of LLM-Based AI Coding Assistants: An Analysis of 90 Systems in Academia and Industry. UC San Diego, 2025. Disponível em: https://lau.ucsd.edu/pubs/2025_analysis-of-90-genai-coding-tools_VLHCC.pdf
+
+3. GRÖPLER, R. et al. The Future of Generative AI in Software Engineering: A Vision from Industry and Academia in the European GENIUS Project. arXiv:2511.01348, 2025.
+
+4. McKINSEY & COMPANY. How an AI-enabled software product development life cycle will fuel innovation. McKinsey Technology, Media and Telecommunications, 2025. Disponível em: https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/how-an-ai-enabled-software-product-development-life-cycle-will-fuel-innovation
+
+5. GREPTILE. The State of AI Coding 2025: A cross-industry study on recent trends in AI software development. 2025. Disponível em: https://www.greptile.com/state-of-ai-coding-2025
 
 ---
 

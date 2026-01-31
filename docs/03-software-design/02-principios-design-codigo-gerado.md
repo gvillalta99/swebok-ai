@@ -470,7 +470,17 @@ class ResilientComponent:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. LAKSHMANAN, L. Agentic AI is making these design patterns more popular. Medium, 2025. Disponível em: https://lakshmanok.medium.com/agentic-ai-is-making-these-design-patterns-more-popular-0f7ba5831701
+
+3. MONGODB. Here Are 7 Design Patterns for Agentic Systems You Need To Know. MongoDB Blog, 2025. Disponível em: https://medium.com/mongodb/here-are-7-design-patterns-for-agentic-systems-you-need-to-know-d74a4b5835a5
+
+4. AWS. Agentic AI patterns and workflows on AWS. AWS Prescriptive Guidance, 2025. Disponível em: https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-patterns/
+
+5. DATABRICKS. Agent system design patterns. Databricks Documentation, 2025. Disponível em: https://docs.databricks.com/gcp/en/generative-ai/guide/agent-system-design-patterns
+
+6. LAKSHMANAN, L. Generative AI Design Patterns. GitHub Repository, 2024. Disponível em: https://github.com/lakshmanok/generative-ai-design-patterns
 
 ---
 

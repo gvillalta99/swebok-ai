@@ -591,6 +591,22 @@ class LLMAuditWrapper:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. OPENTELEMETRY. An Introduction to Observability for LLM-based applications using OpenTelemetry. OpenTelemetry Blog, 2024. Disponível em: https://opentelemetry.io/blog/2024/llm-observability/
+
+3. DO, L. et al. AgentOps: Enabling Observability of LLM Agents. arXiv:2411.05285, 2024. Disponível em: https://arxiv.org/abs/2411.05285
+
+4. MLFLOW. MLflow Tracing for LLM Observability. MLflow Documentation, 2024. Disponível em: https://mlflow.org/docs/latest/llms/tracing/index.html
+
+5. NEPTUNE.AI. LLM Observability: Fundamentals, Practices, and Tools. Neptune Blog, 2024. Disponível em: https://neptune.ai/blog/llm-observability
+
+6. SIGNOZ. Understanding LLM Observability - Key Insights, Best Practices, & Tools. Signoz Blog, 2024. Disponível em: https://signoz.io/blog/llm-observability
+
+7. CLOUD SECURITY ALLIANCE. Enhancing AI Reliability: Introducing the LLM Observability & Trust API. CSA Blog, 2024. Disponível em: https://cloudsecurityalliance.org/blog/2024/07/19/enhancing-ai-reliability-introducing-the-llm-observability-trust-api
+
+8. LANGFUSE. OpenTelemetry (OTel) for LLM Observability. Langfuse Blog, 2024. Disponível em: https://langfuse.com/blog/2024-10-opentelemetry-for-llm-observability
+
+9. VELLUM AI. A Guide to LLM Observability. Vellum Blog, 2025. Disponível em: https://www.vellum.ai/blog/a-guide-to-llm-observability
 
 *SWEBOK-AI v5.0 - Software Architecture*

@@ -1,12 +1,10 @@
 ---
-title: Seção 9 - Curadoria Arquitetural na Era dos LLMs
-date: 2025-01-30
-tags:
-  - swebok-ai
-  - arquitetura
-  - curadoria
-  - llm
-status: draft
+title: "Seção 9 - Curadoria Arquitetural na Era dos LLMs"
+created_at: "2025-01-30"
+updated_at: "2026-01-31"
+status: "review"
+ai_model: "openai/gpt-5.2"
+tags: ["swebok-ai", "arquitetura", "curadoria", "llm"]
 ---
 
 # Seção 9: Curadoria Arquitetural na Era dos LLMs
@@ -90,16 +88,16 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### 9.1.2 Diferenças entre Arquitetura Tradicional e Curadoria
 
-| Aspecto | Arquitetura Tradicional | Curadoria Arquitetural |
-|---------|------------------------|------------------------|
-| **Atividade principal** | Criar estruturas manualmente | Avaliar e selecionar opções geradas |
-| **Saída típica** | Documento único de arquitetura | Múltiplas alternativas avaliadas |
-| **Processo** | Linear: análise → design → documentação | Iterativo: especificar → gerar → avaliar → selecionar |
-| **Decisões** | Baseadas em experiência individual | Baseadas em análise multicitério |
-| **Expertise** | Domínio de padrões e tecnologias | Julgamento sobre adequação e trade-offs |
-| **Ferramentas** | Diagramas, templates | IA generativa, frameworks de avaliação |
-| **Custo principal** | Tempo de design | Tempo de verificação e avaliação |
-| **Accountability** | Arquiteto como autor | Arquiteto como curador/decisor |
+| Aspecto                 | Arquitetura Tradicional                 | Curadoria Arquitetural                                |
+| ----------------------- | --------------------------------------- | ----------------------------------------------------- |
+| **Atividade principal** | Criar estruturas manualmente            | Avaliar e selecionar opções geradas                   |
+| **Saída típica**        | Documento único de arquitetura          | Múltiplas alternativas avaliadas                      |
+| **Processo**            | Linear: análise → design → documentação | Iterativo: especificar → gerar → avaliar → selecionar |
+| **Decisões**            | Baseadas em experiência individual      | Baseadas em análise multicritério                     |
+| **Expertise**           | Domínio de padrões e tecnologias        | Julgamento sobre adequação e trade-offs               |
+| **Ferramentas**         | Diagramas, templates                    | IA generativa, frameworks de avaliação                |
+| **Custo principal**     | Tempo de design                         | Tempo de verificação e avaliação                      |
+| **Accountability**      | Arquiteto como autor                    | Arquiteto como curador/decisor                        |
 
 ### 9.1.3 O Arquiteto como Curador
 
@@ -141,136 +139,57 @@ Na metáfora de curadoria, o arquiteto de software assemelha-se a um **curador d
 
 O **Capital de Contexto Arquitetural** são os ativos intelectuais que diferenciam um arquiteto e uma organização na era dos LLMs. São restrições, invariantes e conhecimentos de domínio que não podem ser facilmente replicados por IA genérica.
 
-```python
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Callable
-from enum import Enum
+Em termos práticos, capital de contexto é aquilo que transforma uma “boa prática genérica” em uma decisão correta no seu cenário específico. Em arquitetura híbrida, ele normalmente se materializa como um conjunto de **artefatos verificáveis e versionados** que descrevem:
 
-class ConstraintSeverity(Enum):
-    CRITICAL = "critical"      # Violação = falha catastrófica
-    HIGH = "high"             # Violação = falha significativa
-    MEDIUM = "medium"         # Violação = débito técnico
-    LOW = "low"               # Violação = não ideal
+- **Restrições** (constraints): o que é inaceitável (ex.: classes de falha proibidas, limites regulatórios, proibições de dependências, limites de latência/custo).
+- **Invariantes**: propriedades que devem permanecer verdadeiras em qualquer evolução do sistema (ex.: conservação de saldo; segregação de funções; consistência de trilhas de auditoria).
+- **Padrões obrigatórios e proibidos**: práticas adotadas por motivo técnico/operacional (ou vetadas por risco) e não por preferência.
+- **Histórico de decisões e incidentes**: ADRs (Architecture Decision Records), postmortems e lições aprendidas que explicam por que o sistema é como é.
+- **Critérios de qualidade e operação**: SLOs/SLAs, budgets de custo e latência, requisitos de observabilidade, processos de change management e critérios de rollout/rollback.
 
-@dataclass
-class ArchitecturalConstraint:
-    """
-    Restrição arquitetural que soluções devem respeitar.
-    """
-    id: str
-    name: str
-    description: str
-    category: str  # 'performance', 'security', 'scalability', 'compliance'
-    severity: ConstraintSeverity
-    validation_function: Callable
-    rationale: str  # Por que esta restrição existe
-    source: str     # De onde veio (stakeholder, regulamentação, lição aprendida)
+O ponto central é que LLMs são bons em compor soluções a partir de padrões amplos, mas tendem a falhar quando o sucesso depende de “detalhes não óbvios” do sistema real: constraints tácitas, acoplamentos históricos, riscos regulatórios, limites de operação e trade-offs já assumidos.
 
-@dataclass
-class ArchitecturalInvariant:
-    """
-    Propriedade que deve ser preservada em todas as evoluções.
-    """
-    id: str
-    name: str
-    description: str
-    verification_method: str  # Como verificar
-    enforcement_mechanism: str  # Como garantir
+Para ser útil como ativo organizacional, o capital de contexto precisa ter quatro propriedades:
 
-@dataclass
-class ContextCapital:
-    """
-    Capital de contexto arquitetural de uma organização.
-    """
-    # Restrições explícitas
-    constraints: List[ArchitecturalConstraint] = field(default_factory=list)
-    
-    # Invariantes do sistema
-    invariants: List[ArchitecturalInvariant] = field(default_factory=list)
-    
-    # Padrões obrigatórios
-    required_patterns: List[str] = field(default_factory=list)
-    
-    # Padrões proibidos
-    forbidden_patterns: List[str] = field(default_factory=list)
-    
-    # Decisões arquiteturais passadas (ADRs)
-    decision_history: List[Dict] = field(default_factory=list)
-    
-    # Lições aprendidas com falhas
-    failure_patterns: List[Dict] = field(default_factory=list)
-    
-    # Métricas de qualidade organizacionais
-    quality_standards: Dict = field(default_factory=dict)
-    
-    def validate_proposal(self, proposal: dict) -> dict:
-        """
-        Valida proposta arquitetural contra capital de contexto.
-        """
-        violations = []
-        
-        for constraint in self.constraints:
-            if not constraint.validation_function(proposal):
-                violations.append({
-                    'constraint_id': constraint.id,
-                    'name': constraint.name,
-                    'severity': constraint.severity.value,
-                    'rationale': constraint.rationale
-                })
-        
-        return {
-            'valid': len(violations) == 0,
-            'violations': violations,
-            'critical_violations': [v for v in violations 
-                                   if v['severity'] == 'critical']
-        }
-```
+| Propriedade | O que significa | Consequência prática |
+|------------|------------------|----------------------|
+| Explicitável | Pode ser escrito sem ambiguidade | reduz decisões implícitas e evita divergência entre times |
+| Validável | Pode ser checado de forma objetiva (gate ou teste) | permite rejeição automática de propostas incompatíveis |
+| Versionável | Evolui com o sistema, com autoria e histórico | evita regressões e “esquecimento” organizacional |
+| Aplicável | Pode ser aplicado no fluxo de decisão (não fica em PDF) | integra-se a reviews, checklists e auditorias |
+
+Em curadoria arquitetural, esse capital atua como “filtro” e “funil”: ele limita o espaço de busca de alternativas e torna a seleção justificável, porque explicita o **porquê** de certas soluções serem proibidas, arriscadas ou inadequadas.
 
 ### 9.2.2 Exemplos de Capital de Contexto
 
 **Para Sistema Financeiro:**
 
-```python
-financial_context = ContextCapital(
-    constraints=[
-        ArchitecturalConstraint(
-            id="C001",
-            name="Precisão Monetária",
-            description="Cálculos financeiros devem usar Decimal, nunca float",
-            category="compliance",
-            severity=ConstraintSeverity.CRITICAL,
-            validation_function=lambda p: 'Decimal' in p.get('code', '') 
-                                         and 'float' not in p.get('code', ''),
-            rationale="Float introduz erros de arredondamento inaceitáveis",
-            source="BACEN Circular 3.648"
-        ),
-        ArchitecturalConstraint(
-            id="C002",
-            name="Idempotência",
-            description="Operações de transferência devem ser idempotentes",
-            category="reliability",
-            severity=ConstraintSeverity.CRITICAL,
-            validation_function=lambda p: 'idempotency' in p.get('code', '').lower(),
-            rationale="Evitar duplicidade em retries de rede",
-            source="Lição aprendida: Incidente #2024-03"
-        )
-    ],
-    invariants=[
-        ArchitecturalInvariant(
-            id="I001",
-            name="Consistência de Saldo",
-            description="Soma de créditos - débitos = saldo em todo momento",
-            verification_method="Property-based testing",
-            enforcement_mechanism="Database constraints + application logic"
-        )
-    ],
-    forbidden_patterns=[
-        "SELECT * FROM",  # Performance
-        "eval(",          # Segurança
-        "Thread.sleep("   # Escalabilidade
-    ]
-)
-```
+Um exemplo de capital de contexto para um sistema financeiro pode ser descrito como um conjunto de regras e evidências que se aplicam a qualquer proposta arquitetural (seja humana, seja gerada por IA):
+
+**Restrições críticas (violação = rejeição imediata)**
+
+- Precisão monetária: operações com dinheiro não podem usar representações com erro de arredondamento não-controlado.
+- Idempotência: operações que sofrem retries (rede, filas, integrações) precisam ter semântica idempotente para evitar duplicidade.
+- Auditoria: ações sensíveis exigem trilha de auditoria completa (quem, o quê, quando, por quê), com retenção e integridade.
+
+**Invariantes do domínio (devem ser sempre verdadeiros)**
+
+- Conservação de saldo: a contabilidade interna deve manter uma relação consistente entre lançamentos e saldo.
+- Imutabilidade de eventos: registros críticos (ex.: ledger) não podem ser alterados sem mecanismo explícito de correção (reversões, lançamentos compensatórios).
+
+**Padrões proibidos (sinais de risco recorrente)**
+
+- Consultas não restritas em caminhos críticos (sinal de risco de performance/escala).
+- Avaliação dinâmica de código/expressões (sinal de risco de segurança).
+- Bloqueios artificiais para “sincronizar” fluxo (sinal de risco de confiabilidade e latência).
+
+**Como isso vira verificação e governança**
+
+- Restrições críticas viram gates em revisão arquitetural e code review (por exemplo: checklist obrigatório e validações automatizáveis sempre que possível).
+- Invariantes viram testes de propriedades e/ou garantias em persistência (constraints, modelos de consistência, verificação de integridade).
+- Padrões proibidos viram lints, linters de arquitetura e regras de revisão.
+
+O valor do exemplo não está na tecnologia específica, mas no mecanismo: transformar conhecimento do domínio e lições aprendidas em **critérios que impedem regressões**.
 
 ---
 
@@ -280,289 +199,123 @@ financial_context = ContextCapital(
 
 **Princípio**: Especifique o que é inaceitável, não prescreva soluções.
 
-```python
-class ConstraintSpecification:
-    """
-    Especificação de restrições para geração arquitetural.
-    """
-    
-    def __init__(self, context: str):
-        self.context = context
-        self.constraints: List[ArchitecturalConstraint] = []
-        self.quality_attributes = {}
-        
-    def add_negative_constraint(self, 
-                                pattern: str, 
-                                reason: str,
-                                severity: ConstraintSeverity):
-        """
-        Adiciona restrição negativa: "não use X".
-        
-        Mais efetivo que prescrever "use Y" porque:
-        - Permite que IA sugira alternativas criativas
-        - Foca em problemas reais ao invés de soluções hipotéticas
-        - É mais fácil de validar objetivamente
-        """
-        self.constraints.append(ArchitecturalConstraint(
-            id=f"NC{len(self.constraints):03d}",
-            name=f"Forbid: {pattern}",
-            description=f"Não usar: {pattern}",
-            category="negative",
-            severity=severity,
-            validation_function=lambda p, pat=pattern: pat not in p.get('code', ''),
-            rationale=reason,
-            source="Arquiteto"
-        ))
-    
-    def add_invariant(self, 
-                     name: str, 
-                     description: str,
-                     verification: str):
-        """
-        Adiciona invariante arquitetural.
-        """
-        # Invariantes são propriedades que devem sempre ser verdadeiras
-        pass
-    
-    def to_prompt_context(self) -> str:
-        """
-        Converte especificação em contexto para prompts de IA.
-        """
-        context = f"""
-Contexto do Sistema: {self.context}
+Esta fase existe para reduzir o espaço de soluções possíveis antes da geração de alternativas. Em vez de pedir “desenhe uma arquitetura moderna”, o curador define um conjunto de limites que tornam algumas opções automaticamente inválidas.
 
-RESTRIÇÕES CRÍTICAS (violação = rejeição):
-"""
-        for c in self.constraints:
-            if c.severity == ConstraintSeverity.CRITICAL:
-                context += f"\n• {c.name}: {c.description}"
-                context += f"\n  Razão: {c.rationale}"
-        
-        context += "\n\nPADRÕES PROIBIDOS:\n"
-        for c in self.constraints:
-            if c.category == "negative":
-                context += f"\n• Não usar: {c.description}"
-        
-        return context
-```
+**O que deve entrar na especificação (mínimo viável)**
+
+| Item | Pergunta que responde | Exemplo (classe) |
+|------|------------------------|------------------|
+| Contexto e objetivo | Para que o sistema existe e o que é sucesso? | “processar reembolsos com auditabilidade e SLA X” |
+| Restrições críticas | O que não pode acontecer? | perda de auditoria, vazamento de PII, inconsistência contábil |
+| Invariantes | O que deve sempre permanecer verdadeiro? | conservação de saldo; idempotência; segregação de funções |
+| Limites operacionais | Quais são os budgets? | latência p95/p99, custo por operação, quotas, timeouts |
+| Requisitos de observabilidade | O que precisa ser rastreável? | IDs de correlação, trilhas de decisão, versionamento |
+| Superfície de ataque e compliance | O que é proibido por risco/regulação? | dependências vetadas; fluxos sem aprovação humana |
+
+**Por que restrições negativas (“não use X”) tendem a funcionar melhor do que prescrições (“use Y”)**
+
+- Restrições negativas são mais fáceis de verificar (gate) e menos ambíguas.
+- Prescrições frequentemente embutem preferências históricas e reduzem alternativas válidas.
+- Em sistemas reais, o problema raramente é “não existe solução”, mas “existem muitas soluções e algumas são inaceitáveis”.
+
+**Como escrever uma restrição para que ela seja útil**
+
+Cada restrição deve incluir:
+
+- descrição operacional (o que é proibido/obrigatório)
+- severidade (crítica/alta/média/baixa)
+- racional (por que existe)
+- fonte (stakeholder, requisito regulatório, lição aprendida)
+- método de validação (como detectar violação)
+
+Essa estrutura permite que a curadoria seja executável: o time consegue rejeitar propostas sem debates intermináveis, porque o “não” já está justificadamente definido.
 
 ### 9.3.2 Fase 2: Geração de Alternativas
 
-```python
-class AlternativeGenerator:
-    """
-    Gera múltiplas alternativas arquiteturais usando IA.
-    """
-    
-    def __init__(self, llm_client):
-        self.llm = llm_client
-    
-    async def generate_alternatives(self, 
-                                   specification: ConstraintSpecification,
-                                   n_alternatives: int = 3) -> List[dict]:
-        """
-        Gera N alternativas arquiteturais distintas.
-        """
-        alternatives = []
-        
-        for i in range(n_alternatives):
-            prompt = f"""
-{specification.to_prompt_context()}
+Com a especificação definida, a geração de alternativas deve ser tratada como um processo deliberado de exploração, e não como uma única “resposta certa”. O objetivo é obter **propostas suficientemente diferentes** para que os trade-offs fiquem claros.
 
-Gere uma solução arquitetural para: {specification.context}
+**Regras práticas para gerar alternativas úteis**
 
-Abordagem #{i+1}: {self._get_approach_prompt(i)}
+- Gere um conjunto pequeno, mas diverso (tipicamente 3 a 5), cada uma otimizada para um eixo diferente.
+- Force diversidade de abordagem: por exemplo, uma variante orientada a simplicidade, outra a resiliência, outra a custo, outra a governança.
+- Exija que cada alternativa declare explicitamente:
+  - principais decisões e trade-offs
+  - modos de falha e estratégias de contenção
+  - impactos operacionais (observabilidade, on-call, rollout/rollback)
+  - como atende (ou onde tensiona) as restrições e invariantes
 
-Forneça:
-1. Visão geral da solução
-2. Diagrama textual da arquitetura
-3. Componentes principais e responsabilidades
-4. Decisões de design e trade-offs
-5. Código exemplo dos componentes críticos
-6. Como esta abordagem respeita as restrições
-"""
-            
-            response = await self.llm.generate(prompt)
-            alternatives.append({
-                'id': f'ALT-{i+1}',
-                'approach': self._get_approach_name(i),
-                'content': response,
-                'generation_timestamp': datetime.now(),
-                'model_version': self.llm.model_version
-            })
-        
-        return alternatives
-    
-    def _get_approach_prompt(self, index: int) -> str:
-        """Prompts para diferentes abordagens."""
-        approaches = [
-            "Foque em simplicidade e facilidade de manutenção",
-            "Foque em performance e escalabilidade",
-            "Foque em resiliência e tolerância a falhas"
-        ]
-        return approaches[index % len(approaches)]
-```
+**Artefatos mínimos por alternativa**
+
+| Artefato | Finalidade |
+|----------|------------|
+| Diagrama textual | explicitar fronteiras, dependências e fluxos críticos |
+| Lista de componentes e responsabilidades | reduzir “mágica” e facilitar revisão |
+| Estratégia de dados e consistência | expor riscos de integridade e concorrência |
+| Estratégia de segurança e compliance | expor superfícies de ataque e controles |
+| Plano de migração | indicar custo/risco de adoção incremental |
+
+Um erro comum é pedir “código de exemplo” nessa fase. Para curadoria arquitetural, o que importa é a **estrutura verificável**: contratos, fluxos, invariantes e mecanismos de operação. Código pode aparecer mais tarde, como consequência de uma arquitetura selecionada.
 
 ### 9.3.3 Fase 3: Avaliação Multicritério
 
-```python
-from typing import Dict, List
-import numpy as np
+Avaliação multicritério é o mecanismo que transforma preferência subjetiva (“gosto mais dessa”) em decisão justificável (“essa alternativa atende melhor aos critérios relevantes e não viola gates”). A regra mais importante é separar:
 
-class MultiCriteriaEvaluator:
-    """
-    Avalia alternativas arquiteturais segundo múltiplos critérios.
-    """
-    
-    CRITERIA = {
-        'conformity': {
-            'weight': 0.30,
-            'description': 'Conformidade com restrições'
-        },
-        'maintainability': {
-            'weight': 0.20,
-            'description': 'Manutenibilidade'
-        },
-        'performance': {
-            'weight': 0.20,
-            'description': 'Performance'
-        },
-        'scalability': {
-            'weight': 0.15,
-            'description': 'Escalabilidade'
-        },
-        'security': {
-            'weight': 0.15,
-            'description': 'Segurança'
-        }
-    }
-    
-    def evaluate(self, 
-                alternative: dict,
-                specification: ConstraintSpecification) -> dict:
-        """
-        Avalia uma alternativa segundo critérios definidos.
-        """
-        scores = {}
-        
-        # 1. Conformidade (pass/fail gates)
-        conformity = specification.validate_proposal(alternative)
-        if conformity['critical_violations']:
-            # Rejeição imediata
-            return {
-                'alternative_id': alternative['id'],
-                'rejected': True,
-                'reason': f"Violações críticas: {conformity['critical_violations']}"
-            }
-        
-        scores['conformity'] = 1.0 if conformity['valid'] else 0.5
-        
-        # 2. Outros critérios (avaliação heurística/semiautomática)
-        scores['maintainability'] = self._assess_maintainability(alternative)
-        scores['performance'] = self._assess_performance(alternative)
-        scores['scalability'] = self._assess_scalability(alternative)
-        scores['security'] = self._assess_security(alternative)
-        
-        # Cálculo de score ponderado
-        total_score = sum(
-            scores[c] * self.CRITERIA[c]['weight']
-            for c in self.CRITERIA.keys()
-        )
-        
-        return {
-            'alternative_id': alternative['id'],
-            'rejected': False,
-            'scores': scores,
-            'total_score': total_score,
-            'ranking': 0,  # Preenchido depois
-            'violations': conformity.get('violations', [])
-        }
-    
-    def rank_alternatives(self, evaluations: List[dict]) -> List[dict]:
-        """
-        Ordena alternativas por score total.
-        """
-        valid = [e for e in evaluations if not e['rejected']]
-        valid.sort(key=lambda x: x['total_score'], reverse=True)
-        
-        for i, eval in enumerate(valid):
-            eval['ranking'] = i + 1
-        
-        return valid
-```
+- **Gates (pass/fail)**: restrições críticas e invariantes; violação implica rejeição.
+- **Scores (trade-offs)**: atributos de qualidade onde há compensações (manutenibilidade vs. performance etc.).
+
+**Exemplo de rubrica de avaliação (adaptável)**
+
+| Critério | Tipo | Perguntas de avaliação |
+|---------|------|------------------------|
+| Conformidade com restrições | gate | viola alguma restrição crítica? atende invariantes? |
+| Manutenibilidade | score | complexidade, acoplamento, custo de mudança, clareza de contratos |
+| Resiliência | score | degradabilidade, isolamento de falhas, recuperação, modos de falha conhecidos |
+| Performance/latência | score | caminhos críticos, budgets, hotspots, trade-offs explícitos |
+| Segurança e compliance | gate/score | superfícies de ataque, controles, minimização de dados, trilha de auditoria |
+| Operabilidade | score | observabilidade, on-call, deploy/rollback, runbooks |
+| Custo | score | custo por transação, dependências, custos variáveis e piores casos |
+
+**Boas práticas para evitar “pontuação cosmética”**
+
+- Exija evidências por critério quando possível (por exemplo: qual é o caminho crítico? qual é o plano de rollback? onde está a trilha de auditoria?).
+- Faça análise de sensibilidade: se o peso de um critério mudar, a decisão muda? Se muda, o risco é que a decisão esteja frágil.
+- Documente critérios e pesos antes de ver as alternativas (para reduzir viés de confirmação).
+
+Quando a decisão tem alto impacto, a avaliação multicritério deve ser complementada por validações empíricas (provas de conceito, experimentos de carga, threat modeling). Curadoria não substitui verificação; ela organiza e prioriza o que deve ser verificado.
 
 ### 9.3.4 Fase 4: Seleção e Refinamento
 
-```python
-class ArchitecturalCurator:
-    """
-    Orquestra o processo completo de curadoria arquitetural.
-    """
-    
-    def __init__(self, 
-                 context_capital: ContextCapital,
-                 generator: AlternativeGenerator,
-                 evaluator: MultiCriteriaEvaluator):
-        self.context = context_capital
-        self.generator = generator
-        self.evaluator = evaluator
-        self.decision_log = []
-    
-    async def curate(self, 
-                    specification: ConstraintSpecification,
-                    decision_maker: str) -> dict:
-        """
-        Executa processo completo de curadoria.
-        """
-        # 1. Gerar alternativas
-        alternatives = await self.generator.generate_alternatives(
-            specification, 
-            n_alternatives=3
-        )
-        
-        # 2. Avaliar cada alternativa
-        evaluations = []
-        for alt in alternatives:
-            eval_result = self.evaluator.evaluate(alt, specification)
-            evaluations.append(eval_result)
-        
-        # 3. Rankear
-        ranked = self.evaluator.rank_alternatives(evaluations)
-        
-        # 4. Selecionar top-N para revisão humana
-        top_candidates = ranked[:2] if len(ranked) >= 2 else ranked
-        
-        # 5. Registrar decisão
-        decision = {
-            'timestamp': datetime.now(),
-            'specification': specification.context,
-            'alternatives_generated': len(alternatives),
-            'alternatives_evaluated': evaluations,
-            'top_candidates': top_candidates,
-            'selected_alternative': None,  # Preenchido após revisão humana
-            'decision_maker': decision_maker,
-            'rationale': None
-        }
-        
-        self.decision_log.append(decision)
-        
-        return {
-            'candidates': top_candidates,
-            'rejected': [e for e in evaluations if e['rejected']],
-            'decision_id': len(self.decision_log) - 1
-        }
-    
-    def finalize_selection(self, 
-                          decision_id: int,
-                          selected_alternative_id: str,
-                          rationale: str):
-        """
-        Finaliza seleção após revisão humana.
-        """
-        self.decision_log[decision_id]['selected_alternative'] = selected_alternative_id
-        self.decision_log[decision_id]['rationale'] = rationale
-        self.decision_log[decision_id]['finalized_at'] = datetime.now()
-```
+Nesta fase, a curadoria deixa de ser exploração e passa a ser compromisso: escolher uma alternativa implica assumir trade-offs e estabelecer um plano de implementação e verificação.
+
+**Seleção (decisão)**
+
+- Selecione 1 a 2 alternativas finalistas para revisão humana aprofundada.
+- Faça revisão cruzada (engenharia, segurança, operação, dados), proporcional ao risco.
+- Registre a decisão em um ADR, incluindo por que as alternativas rejeitadas foram rejeitadas.
+
+**Refinamento (tornar implementável e verificável)**
+
+O refinamento traduz a alternativa escolhida em um desenho que pode ser integrado ao sistema existente:
+
+- definir contratos e fronteiras (APIs, eventos, schemas)
+- explicitar dependências e responsabilidades
+- definir mecanismos de contenção (timeouts, circuit breakers, quotas, fallbacks)
+- definir estratégia de rollout (canary, feature flags, migração incremental) e rollback
+- definir plano de verificação (testes, validações, observabilidade, critérios de aceitação)
+
+**O que deve entrar no log/ADR de curadoria**
+
+| Campo | Por que importa |
+|-------|-----------------|
+| Contexto e objetivo | evita decisões “sem problema” |
+| Restrições e invariantes relevantes | torna a decisão auditável |
+| Alternativas consideradas | reduz repetição de trabalho e vieses |
+| Critérios e pesos usados | explicita trade-offs |
+| Riscos residuais e mitigação | evita surpresa em produção |
+| Plano de verificação e rollout/rollback | conecta arquitetura a operação |
+| Responsáveis (quem decidiu e revisou) | accountability |
+
+Um sinal de maturidade é quando decisões de curadoria alimentam de volta o capital de contexto: novas restrições, padrões proibidos, lições aprendidas e critérios de observabilidade passam a ser parte do “filtro” das próximas decisões.
 
 ---
 
@@ -616,46 +369,30 @@ class ArchitecturalCurator:
 
 ## 9.5 Métricas de Curadoria
 
-```python
-@dataclass
-class CuratorMetrics:
-    """
-    Métricas para avaliar efetividade do processo de curadoria.
-    """
-    
-    # Eficiência
-    average_time_per_decision: float  # minutos
-    alternatives_per_decision: float
-    
-    # Qualidade
-    acceptance_rate: float  # % de propostas aceitas
-    rejection_rate: float   # % de propostas rejeitadas
-    critical_violations_caught: int
-    
-    # Cobertura
-    constraints_documented: int
-    constraints_validated: int
-    
-    # Accountability
-    decisions_documented: int
-    decisions_with_rationale: int
-    
-    def calculate_effectiveness_score(self) -> float:
-        """
-        Score composto de efetividade da curadoria.
-        """
-        # Taxa de aceitação não deve ser nem 0% nem 100%
-        # Ideal: 60-80% (mostra que há filtragem mas não bloqueio excessivo)
-        acceptance_score = 1.0 - abs(self.acceptance_rate - 0.7)
-        
-        # Cobertura de documentação
-        documentation_score = self.decisions_with_rationale / max(self.decisions_documented, 1)
-        
-        # Eficiência (tempo razoável por decisão)
-        efficiency_score = 1.0 if self.average_time_per_decision < 60 else 0.5
-        
-        return (acceptance_score + documentation_score + efficiency_score) / 3
-```
+Métricas de curadoria existem para responder a duas perguntas:
+
+1. O processo está **evitando decisões ruins** (qualidade e risco)?
+2. O processo está **convergindo rápido** o suficiente (custo e velocidade)?
+
+Como toda métrica, elas sofrem com a Lei de Goodhart: quando viram objetivo, podem ser “otimizadas” de forma a degradar a realidade. Por isso, o ideal é usar um conjunto pequeno, com interpretação contextual, separando métricas **leading** (processo) e **lagging** (resultado).
+
+**Categorias úteis de métricas**
+
+| Categoria | Métrica (exemplos) | O que sinaliza | Risco de interpretação |
+|----------|---------------------|----------------|------------------------|
+| Eficiência | tempo médio por decisão; alternativas geradas por decisão | custo do processo | menos tempo pode significar menos rigor |
+| Qualidade (processo) | % de alternativas rejeitadas por violar restrição crítica; # de violações críticas detectadas antes de implementação | eficácia do filtro | rejeição alta pode indicar especificação ruim ou alternativas fracas |
+| Qualidade (resultado) | retrabalho pós-decisão; incidentes atribuíveis a decisões arquiteturais; “regressões de constraints” | impacto real | atribuição pode ser difícil; exige postmortems consistentes |
+| Cobertura de contexto | % de decisões com restrições/invariantes explicitadas; % de decisões com plano de verificação | maturidade do capital de contexto | risco de burocratização (documento sem valor) |
+| Accountability | % de decisões com ADR; % com racional e responsáveis | auditabilidade | pode virar “checkbox” se não houver review |
+
+**Sinais operacionais (heurísticas simples)**
+
+- Taxas extremas de aceitação (quase tudo aceito ou quase tudo rejeitado) costumam indicar um problema: ou o filtro está fraco, ou a especificação está inviável, ou a geração não está explorando alternativas úteis.
+- Se o tempo por decisão cai muito sem melhora em métricas de resultado (retrabalho/incidentes), é provável que o processo esteja perdendo rigor.
+- Se o volume de documentação cresce sem reduzir retrabalho, o problema não é “mais texto”, mas sim a falta de critérios verificáveis.
+
+O objetivo final não é maximizar um score composto, mas reduzir risco e aumentar previsibilidade: **menos surpresas, mais decisões justificáveis, e melhor capacidade de evolução**.
 
 ---
 
@@ -709,11 +446,19 @@ class CuratorMetrics:
 
 ## References
 
-1. [[03-principios-diretores-swebok-ai|Princípios Diretores SWEBOK-AI]]
-2. [[02-mudanca-paradigma-engenharia-software|Mudança de Paradigma]]
-3. [[02-software-architecture/01-fundamentos-arquitetura-hibrida.md|Fundamentos de Arquitetura Híbrida]]
-4. IEEE Software (2024) - "Human-AI Collaboration in Software Engineering"
-5. Weber et al. (2024) - "Significant Productivity Gains through Programming with LLMs"
+1. KRISHNAN, N. AI Agents: Evolution, Architecture, and Real-World Applications. arXiv:2503.12687, 2025. Disponível em: https://arxiv.org/abs/2503.12687
+
+2. McKINSEY & COMPANY. Enterprise technology's next chapter: Four gen AI shifts that will reshape business technology. McKinsey Digital, 2024. Disponível em: https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/enterprise-technologys-next-chapter-four-gen-ai-shifts-that-will-reshape-business-technology
+
+3. THOUGHTWORKS. Technology Radar Vol. 31: An opinionated guide to today's technology landscape. Thoughtworks, Inc., 2024. Disponível em: https://www.thoughtworks.com/radar
+
+4. DE BOER, M. et al. Design Patterns for Large Language Model Based Neuro-Symbolic Systems. Neurosymbolic Artificial Intelligence, Vol. 1, pp. 1-20, 2025. DOI: 10.1177/29498732251377499
+
+5. AWS. Agentic AI patterns and workflows on AWS. AWS Prescriptive Guidance, 2025. Disponível em: https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-patterns/
+
+6. GOOGLE CLOUD. Choose a design pattern for your agentic AI system. Cloud Architecture Center, 2025. Disponível em: https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system
+
+7. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
 
 ---
 

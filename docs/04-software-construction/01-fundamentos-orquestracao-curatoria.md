@@ -4,7 +4,7 @@
 
 Esta seção estabelece os fundamentos conceituais da construção de software na era dos Large Language Models (LLMs). Enquanto a engenharia de software tradicional tratava a codificação como a atividade central do desenvolvimento, o SWEBOK-AI v5.0 reconhece que **a construção de software tornou-se primariamente um processo de orquestração e curadoria de código gerado por sistemas autônomos**.
 
-A transição de "escrever código" para "orquestrar geração" representa uma mudança paradigmática que redefine o papel do engenheiro de software, as métricas de sucesso e os processos de garantia de qualidade.
+A transição de "escrever código" para "orquestrar geração" representa uma mudança paradigmática que redefine o papel do engenheiro de software, as métricas de sucesso e os processos de garantia de qualidade. Este shift não é apenas uma mudança de ferramentas, mas uma redefinição fundamental do que significa "construir software".
 
 ## Learning Objectives
 

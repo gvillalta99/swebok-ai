@@ -515,7 +515,17 @@ class SagaOrchestrator:
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. ACM FSE 2025. From Prompts to Properties: Rethinking LLM Code Generation with Property-Based Testing. Proceedings of the 33rd ACM International Conference on the Foundations of Software Engineering, 2025. DOI: 10.1145/3696630.3728702
+
+3. ANTHROPIC. Property-Based Testing with Claude. Anthropic Research, 2025. Disponível em: https://red.anthropic.com/2026/property-based-testing/
+
+4. MAAZ, M. et al. Agentic Property-Based Testing: Finding Bugs Across the Python Ecosystem. arXiv:2510.09907, 2025.
+
+5. HE, L. et al. Use Property-Based Testing to Bridge LLM Code Generation and Validation. arXiv:2506.18315, 2025.
+
+6. VIKRAM, V. et al. Can Large Language Models Write Good Property-Based Tests? arXiv:2307.04346, 2023 (revised 2024).
 
 ---
 

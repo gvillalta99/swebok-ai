@@ -649,12 +649,15 @@ jobs:
 
 ## References
 
-1. [[03-principios-diretores-swebok-ai|Princípios Diretores SWEBOK-AI]]
-2. [[02-mudanca-paradigma-engenharia-software|Mudança de Paradigma]]
-3. [[03-software-design/01-fundamentos-design-era-llms.md|Fundamentos de Design na Era dos LLMs]]
-4. [[02-software-architecture/09-curadoria-arquitetural.md|Curadoria Arquitetural]]
-5. Hamade, J. (2024) - "True Cost of AI-Generated Code"
-6. The New Stack (2025) - "AI Code Generation: Trust and Verify, Always"
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. LAU, S.; GUO, P. J. The Design Space of LLM-Based AI Coding Assistants: An Analysis of 90 Systems in Academia and Industry. UC San Diego, 2025. Disponível em: https://lau.ucsd.edu/pubs/2025_analysis-of-90-genai-coding-tools_VLHCC.pdf
+
+3. HAMADI, R. Pragmatic Testing for AI-Generated Code: Strategies for Trust and Efficiency. DEV Community, 2025. Disponível em: https://dev.to/rakbro/pragmatic-testing-for-ai-generated-code-strategies-for-trust-and-efficiency-1ndk
+
+4. McKINSEY & COMPANY. Unlocking the value of AI in software development. McKinsey Technology, Media and Telecommunications, 2025. Disponível em: https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/unlocking-the-value-of-ai-in-software-development
+
+5. GITHUB. Does GitHub Copilot improve code quality? Here's what the data says. GitHub Blog, 2024. Disponível em: https://github.blog/news-insights/research/does-github-copilot-improve-code-quality-heres-what-the-data-says
 
 ---
 
