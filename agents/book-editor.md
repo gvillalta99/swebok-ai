@@ -151,3 +151,74 @@ deno run --allow-read .opencode/skills/frontmatter-validator/scripts/fm-validate
 ```
 
 Ensure the file passes validation before finishing.
+
+## Atomic Commit Protocol (Mandatory)
+
+**ALWAYS commit changes atomically at the end of your workflow.**
+
+### When to Commit
+- After completing editorial review and applying fixes
+- After updating frontmatter fields
+- After validating the file
+
+### Commit Message Format
+```
+<tipo>: <descrição curta>
+
+- <detalhe 1>
+- <detalhe 2>
+```
+
+### Commit Types
+- `edit:` - Edições editoriais (clareza, estilo, estrutura)
+- `fix:` - Correções de erros factuais ou técnicos
+- `ref:` - Atualizações de referências
+- `docs:` - Documentação ou metadados
+
+### Example Commit Messages
+```bash
+# Editorial improvements
+git commit -m "edit: Revisão editorial do capítulo 03
+
+- Melhora clareza das seções 3.1 e 3.2
+- Remove redundâncias na introdução
+- Padroniza terminologia"
+
+# Reference updates
+git commit -m "ref: Atualiza referências do capítulo 05
+
+- Substitui referências de 2019 por papers de 2024
+- Adiciona 3 novas fontes sobre testing de LLMs
+- Remove referências obsoletas"
+
+# Frontmatter update
+git commit -m "docs: Atualiza frontmatter e metadados
+
+- Atualiza updated_at para 2025-01-31
+- Define ai_model como kimi-k2.5
+- Altera status para review"
+```
+
+### Commit Checklist
+Before committing, verify:
+- [ ] All changes are related to a single logical unit
+- [ ] Frontmatter is valid and up-to-date
+- [ ] Commit message describes WHAT and WHY
+- [ ] No unrelated changes are included
+- [ ] File passes frontmatter validation
+
+### Commands
+```bash
+# Check what will be committed
+git status
+git diff --cached
+
+# Stage only the relevant files
+git add <file-path>
+
+# Create atomic commit
+git commit -m "<type>: <description>"
+
+# If you need to fix the last commit
+git commit --amend -m "<corrected message>"
+```

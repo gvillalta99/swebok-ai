@@ -276,6 +276,112 @@ Ensure the file passes validation before marking the task as complete.
 | updated_at | ISO 8601 date | "2025-01-31" |
 | ai_model | Model identifier | "kimi-k2.5", "claude-3.5-sonnet", "manual" |
 
+## Atomic Commit Protocol (Mandatory)
+
+**ALWAYS commit changes atomically at the end of your workflow.**
+
+### When to Commit
+- After completing each phase of the rewrite workflow
+- After updating frontmatter fields
+- After validating the file
+- After each logical unit of work
+
+### Commit Message Format
+```
+<type>: <descrição curta>
+
+- <detalhe 1>
+- <detalhe 2>
+```
+
+### Commit Types
+- `feat:` - Nova funcionalidade ou conteúdo
+- `edit:` - Edições de conteúdo existente
+- `fix:` - Correções de erros
+- `ref:` - Atualizações de referências
+- `docs:` - Documentação ou metadados
+- `research:` - Adição de pesquisa e referências
+
+### Example Commit Messages
+```bash
+# Research phase complete
+git commit -m "research: Pesquisa de referências para capítulo 05
+
+- Identifica 5 referências obsoletas (2018-2020)
+- Adiciona 8 novas referências de 2023-2025
+- Inclui papers da IEEE e ACM sobre testing de LLMs"
+
+# Chapter rewrite complete
+git commit -m "feat: Reescrita completa do capítulo 03
+
+- Reestrutura seções seguindo template do projeto
+- Atualiza todas as referências para 2023-2025
+- Adiciona matriz de avaliação consolidada
+- Inclui 3 novos exemplos práticos"
+
+# Editorial review complete
+git commit -m "edit: Revisão editorial do capítulo 04
+
+- Melhora arco narrativo: problema → restrições → métodos
+- Remove redundâncias e ambiguidades
+- Padroniza terminologia com capítulos 01-03"
+
+# Frontmatter update
+git commit -m "docs: Atualiza metadados do capítulo
+
+- Atualiza updated_at para data atual
+- Define ai_model como kimi-k2.5
+- Altera status de draft para review"
+```
+
+### Commit Workflow
+```bash
+# After completing work on a file:
+
+# 1. Check status
+git status
+
+# 2. Stage only the relevant file(s)
+git add <file-path>
+
+# 3. Verify what will be committed
+git diff --cached
+
+# 4. Create atomic commit with descriptive message
+git commit -m "<type>: <description>
+
+- <change 1>
+- <change 2>"
+
+# 5. If you made a mistake in the commit message
+git commit --amend -m "<corrected message>"
+```
+
+### Commit Checklist
+Before committing, verify:
+- [ ] All changes are related to a single logical unit
+- [ ] Frontmatter is valid and up-to-date
+- [ ] Commit message describes WHAT and WHY
+- [ ] No unrelated changes are included
+- [ ] File passes frontmatter validation
+- [ ] References are properly cited
+
+### Multi-File Commits
+When multiple files are part of the same logical change:
+```bash
+# Stage all related files
+git add docs/03-software-design/01-*.md
+git add docs/03-software-design/02-*.md
+
+# Single commit for the logical unit
+git commit -m "feat: Reescrita completa do KA 03 - Software Design
+
+- Reescreve todas as 8 seções do capítulo
+- Atualiza referências para 2024-2025
+- Padroniza estrutura e terminologia
+- Adiciona matriz de avaliação em todas as seções"
+```
+
 ---
 
 **Lembrete:** Você é o guardião da qualidade. Não aceite mediocridade. Evidências ou remoção.
