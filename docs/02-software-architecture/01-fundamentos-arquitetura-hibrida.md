@@ -28,9 +28,9 @@ A **Arquitetura Híbrida** é a disciplina de projetar sistemas que integram com
 │  Sistema = Σ Componentes Determinísticos                        │
 │                                                                 │
 │  Garantias:                                                     │
-│  ├── Comportamento previsível para entradas iguais             │
-│  ├── Verificabilidade através de testes unitários              │
-│  ├── Análise estática completa                                 │
+│  ├── Comportamento previsível para entradas iguais              │
+│  ├── Verificabilidade através de testes unitários               │
+│  ├── Análise estática completa                                  │
 │  └── Debugging determinístico                                   │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
@@ -42,16 +42,16 @@ A **Arquitetura Híbrida** é a disciplina de projetar sistemas que integram com
 │  Sistema = Componentes Determinísticos ⊕ Componentes de IA      │
 │                                                                 │
 │  Garantias:                                                     │
-│  ├── Componentes críticos permanecem determinísticos           │
-│  ├── Componentes de IA operam dentro de fronteiras delimitadas │
-│  ├── Supervisão humana em decisões de alto impacto             │
-│  └── Fallbacks determinísticos para casos de incerteza         │
+│  ├── Componentes críticos permanecem determinísticos            │
+│  ├── Componentes de IA operam dentro de fronteiras delimitadas  │
+│  ├── Supervisão humana em decisões de alto impacto              │
+│  └── Fallbacks determinísticos para casos de incerteza          │
 │                                                                 │
 │  Novos Desafios:                                                │
-│  ├── Gestão de variabilidade comportamental                    │
-│  ├── Auditabilidade de decisões não-determinísticas            │
-│  ├── Contenção de falhas em cascata                            │
-│  └── Sincronização de contexto entre mundos                    │
+│  ├── Gestão de variabilidade comportamental                     │
+│  ├── Auditabilidade de decisões não-determinísticas             │
+│  ├── Contenção de falhas em cascata                             │
+│  └── Sincronização de contexto entre mundos                     │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -96,83 +96,34 @@ Componentes baseados em modelos de linguagem ou outros modelos de ML:
 
 Componentes especializados na interface entre os dois mundos:
 
-```python
-from typing import TypeVar, Generic, Optional
-from dataclasses import dataclass
-from enum import Enum
+Em arquiteturas híbridas, o **componente de fronteira** (boundary component) é o que impede que o sistema “vaze” propriedades indesejadas entre domínios. Ele não existe para “integrar por conveniência”, mas para **transformar uma interação estocástica em um contrato operacionalmente administrável**.
 
-class CertaintyLevel(Enum):
-    DETERMINISTIC = "deterministic"
-    HIGH_CONFIDENCE = "high_confidence"
-    UNCERTAIN = "uncertain"
-    FALLBACK = "fallback"
+Na prática, componentes de fronteira combinam papéis que, em sistemas puramente determinísticos, costumam estar dispersos (DTOs, validação, gateways, observabilidade). Em sistemas com IA, esses papéis tornam-se centrais porque:
 
-@dataclass
-class HybridResult:
-    """
-    Resultado tipado para comunicação entre componentes
-    determinísticos e estocásticos.
-    """
-    value: any
-    certainty: CertaintyLevel
-    confidence_score: Optional[float]
-    source: str  # Identificador do componente gerador
-    reasoning_trace: Optional[str]
-    fallback_triggered: bool = False
+- o componente estocástico pode produzir saídas fora do esperado (formato, semântica, segurança)
+- a mesma entrada pode resultar em respostas diferentes (variância)
+- parte do comportamento depende de contexto externo (RAG, ferramentas, estado)
 
-class BoundaryAdapter:
-    """
-    Adaptador de fronteira entre componentes determinísticos
-    e componentes de IA.
-    """
-    
-    def __init__(self, 
-                 llm_component,
-                 deterministic_fallback,
-                 confidence_threshold: float = 0.8):
-        self.llm = llm_component
-        self.fallback = deterministic_fallback
-        self.threshold = confidence_threshold
-    
-    async def process(self, input_data: dict) -> HybridResult:
-        """
-        Processa entrada através do componente de IA,
-        aplicando fallback quando necessário.
-        """
-        try:
-            llm_result = await self.llm.generate(input_data)
-            
-            if llm_result.confidence >= self.threshold:
-                return HybridResult(
-                    value=llm_result.content,
-                    certainty=CertaintyLevel.HIGH_CONFIDENCE,
-                    confidence_score=llm_result.confidence,
-                    source="llm",
-                    reasoning_trace=llm_result.rationale
-                )
-            else:
-                # Baixa confiança, usar fallback
-                fallback_result = self.fallback.execute(input_data)
-                return HybridResult(
-                    value=fallback_result,
-                    certainty=CertaintyLevel.FALLBACK,
-                    confidence_score=None,
-                    source="fallback",
-                    reasoning_trace="Low confidence in LLM output",
-                    fallback_triggered=True
-                )
-        except Exception as e:
-            # Falha do componente de IA
-            fallback_result = self.fallback.execute(input_data)
-            return HybridResult(
-                value=fallback_result,
-                certainty=CertaintyLevel.FALLBACK,
-                confidence_score=0.0,
-                source="fallback",
-                reasoning_trace=f"LLM error: {str(e)}",
-                fallback_triggered=True
-            )
-```
+Um componente de fronteira bem projetado estabelece uma “ponte” com **assimetria de confiança**: o core determinístico assume que tudo que entra pela fronteira foi filtrado, normalizado e rotulado com metadados suficientes para auditoria.
+
+**Responsabilidades típicas de um componente de fronteira**
+
+| Responsabilidade | Objetivo | Mecanismos comuns |
+|-----------------|----------|-------------------|
+| Contratos de entrada | Reduzir ambiguidade e superfície de prompt injection | normalização, whitelists, schemas, limites de tamanho, remoção/redação de dados sensíveis |
+| Contratos de saída | Garantir que o core receba apenas estados válidos | validação por schema, checagens determinísticas (invariantes), classificação de “tipo” de resposta (ex.: ação vs. texto) |
+| Gating e política | Evitar que a IA execute ações não autorizadas | RBAC/ABAC, allowlists de ferramentas, policy engine, “human approval” para ações de alto impacto |
+| Contenção de falhas | Impedir cascatas e degradação não controlada | timeouts, retries com budget, circuit breakers, quotas, fallback determinístico |
+| Observabilidade e auditoria | Tornar decisões investigáveis e reprodutíveis | logging estruturado de entradas/saídas, versão de modelo/prompt, IDs de contexto, trilhas de ferramentas |
+| Gestão de incerteza | Evitar decisões “binárias” com base em output frágil | rotulagem de incerteza, limiares, rotas alternativas (escalonamento humano, fallback) |
+
+**O que muda arquiteturalmente quando a fronteira é tratada como “produto”**
+
+- Interfaces passam a carregar, além do resultado, metadados mínimos: origem, versão, contexto usado e gatilhos de degradação.
+- O sistema diferencia “respostas” de “ações”: texto pode ser exibido; ação exige validação determinística e, frequentemente, aprovação.
+- A fronteira separa preocupações de segurança: o core não deve depender de prompts, cadeias de ferramentas ou do formato interno do modelo.
+
+Em resumo, componentes de fronteira são a camada responsável por **converter variância em governança**: eles definem onde a incerteza pode existir, como é medida, e como o sistema reage quando a incerteza excede o aceitável.
 
 ## 1.3 Princípios Fundamentais
 
@@ -198,21 +149,21 @@ Falhas em componentes de IA não devem propagar para componentes determinístico
 │                   CONTENÇÃO EM PROFUNDIDADE                     │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  Nível 1: Isolamento de Processo                               │
-│  ├── Componentes de IA em serviços separados                   │
-│  └── Comunicação via APIs com timeouts rigorosos               │
+│  Nível 1: Isolamento de Processo                                │
+│  ├── Componentes de IA em serviços separados                    │
+│  └── Comunicação via APIs com timeouts rigorosos                │
 │                                                                 │
-│  Nível 2: Validação de Saída                                   │
-│  ├── Schemas de validação para outputs de IA                   │
-│  └── Rejeição de respostas fora de parâmetros                  │
+│  Nível 2: Validação de Saída                                    │
+│  ├── Schemas de validação para outputs de IA                    │
+│  └── Rejeição de respostas fora de parâmetros                   │
 │                                                                 │
-│  Nível 3: Circuit Breakers                                     │
-│  ├── Detecção de padrões de falha                              │
-│  └── Degradação graciosa para fallbacks                        │
+│  Nível 3: Circuit Breakers                                      │
+│  ├── Detecção de padrões de falha                               │
+│  └── Degradação graciosa para fallbacks                         │
 │                                                                 │
-│  Nível 4: Auditoria e Monitoramento                            │
-│  ├── Logging completo de decisões de IA                        │
-│  └── Alertas para anomalias comportamentais                    │
+│  Nível 4: Auditoria e Monitoramento                             │
+│  ├── Logging completo de decisões de IA                         │
+│  └── Alertas para anomalias comportamentais                     │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -221,60 +172,39 @@ Falhas em componentes de IA não devem propagar para componentes determinístico
 
 Diferentes stakeholders requerem diferentes níveis de visibilidade:
 
-```python
-class TransparencyLevel(Enum):
-    """
-    Níveis de transparência para decisões de componentes de IA.
-    """
-    NONE = 0           # Usuário final comum
-    CONFIDENCE_ONLY = 1  # Score de confiança visível
-    SUMMARY = 2        # Resumo da racionalidade
-    DETAILED_TRACE = 3 # Trace completo do raciocínio
-    FULL_PROMPT = 4    # Acesso ao prompt e contexto completo
+O **Princípio da Transparência Graduada** afirma que “transparência” não é um binário (ter ou não ter explicação): é um **conjunto de camadas** que deve ser calibrado conforme o risco da decisão e conforme o papel do consumidor da informação. Em arquitetura híbrida, isso é necessário porque:
 
-class ExplainabilityProvider:
-    """
-    Fornece níveis apropriados de explicabilidade
-    baseado no perfil do stakeholder.
-    """
-    
-    def explain(self, 
-                decision: HybridResult,
-                stakeholder_role: str) -> dict:
-        """
-        Gera explicação apropriada para o stakeholder.
-        """
-        level = self._get_transparency_level(stakeholder_role)
-        
-        explanations = {
-            TransparencyLevel.NONE: {
-                "response": decision.value
-            },
-            TransparencyLevel.CONFIDENCE_ONLY: {
-                "response": decision.value,
-                "confidence": decision.confidence_score
-            },
-            TransparencyLevel.SUMMARY: {
-                "response": decision.value,
-                "confidence": decision.confidence_score,
-                "summary": self._generate_summary(decision)
-            },
-            TransparencyLevel.DETAILED_TRACE: {
-                "response": decision.value,
-                "confidence": decision.confidence_score,
-                "reasoning": decision.reasoning_trace,
-                "sources": self._extract_sources(decision)
-            },
-            TransparencyLevel.FULL_PROMPT: {
-                "response": decision.value,
-                "confidence": decision.confidence_score,
-                "reasoning": decision.reasoning_trace,
-                "full_context": self._get_full_context(decision)
-            }
-        }
-        
-        return explanations[level]
-```
+- a mesma decisão pode exigir justificativa distinta para pessoas distintas (usuário, auditor, time de engenharia)
+- expor contexto integral (prompts, documentos recuperados, ferramentas) pode criar riscos de segurança e privacidade
+- o custo de observabilidade pode ser alto; portanto, deve existir uma política explícita de “quanto registrar” e “para quem mostrar”
+
+O objetivo arquitetural não é “explicar tudo”, mas **garantir contestabilidade e auditabilidade proporcionais**.
+
+**Camadas típicas de transparência (exemplo operacional)**
+
+| Camada | O que se expõe | Para quem (exemplos) | Quando é apropriada |
+|--------|-----------------|----------------------|---------------------|
+| Resposta apenas | Saída final (texto/ação sugerida) | usuário final comum | Baixo risco; decisões reversíveis; sem impacto regulatório |
+| Confiança/alertas | Indicadores simples (ex.: “incerto”, “requer revisão”) | usuário final; operador | Quando o sistema precisa sinalizar incerteza sem revelar detalhes internos |
+| Resumo do porquê | Justificativa curta + critérios de decisão (em linguagem humana) | suporte; operação; product | Quando é preciso reduzir tickets e permitir correção rápida sem expor dados sensíveis |
+| Trilhas técnicas | Logs estruturados, entradas/saídas normalizadas, versões, ferramentas acionadas, IDs de contexto | engenharia; SRE; segurança | Incidentes, regressões, monitoramento de qualidade e custos |
+| Evidência completa (controlada) | Prompts, contexto recuperado, documentos, políticas aplicadas, registros de aprovação humana | auditoria; jurídico; segurança (acesso restrito) | Alta criticidade, exigência de compliance, investigações formais |
+
+Note que a última camada não significa “tornar tudo público”; significa **existir** e estar disponível sob governança rigorosa.
+
+**Implicações de design**
+
+- A arquitetura deve distinguir explicitamente: o que é **telemetria** (monitoramento), o que é **auditoria** (rastro para responsabilização) e o que é **explicação** (comunicação para humanos).
+- Transparência é uma política: deve haver critérios objetivos para seleção de camada, tipicamente combinando **papel do solicitante**, **classe de risco** e **sensibilidade de dados**.
+- A fronteira é responsável por aplicar redaction e minimização (por exemplo, mascarar PII e segredos) antes de qualquer exposição.
+
+**Trade-offs e riscos comuns**
+
+- Transparência excessiva para usuários finais pode facilitar engenharia social, prompt injection e exfiltração de contexto.
+- Transparência insuficiente aumenta MTTR (tempo para resolver incidentes) e dificulta auditoria, gerando risco legal e operacional.
+- Em sistemas com RAG, “mostrar fontes” sem curadoria pode criar falsa sensação de rigor; a arquitetura deve separar “fonte usada” de “fonte confiável”.
+
+Na prática, a transparência graduada serve como ponte entre dois objetivos que competem: **explicabilidade suficiente para responsabilização** e **restrição suficiente para segurança e privacidade**.
 
 ## 1.4 Padrões Arquiteturais Híbridos
 
@@ -282,73 +212,45 @@ class ExplainabilityProvider:
 
 Uma camada determinística que expõe uma interface estável, enquanto internamente pode utilizar componentes de IA:
 
-```python
-class CustomerSupportFacade:
-    """
-    Fachada determinística para sistema de suporte que
-    internamente utiliza IA para triagem e sugestões.
-    """
-    
-    def __init__(self):
-        self.classifier = LLMIntentClassifier()
-        self.response_generator = LLMResponseGenerator()
-        self.escalation_rules = DeterministicEscalationRules()
-        self.knowledge_base = VectorKnowledgeBase()
-    
-    async def process_ticket(self, ticket: SupportTicket) -> TicketResolution:
-        """
-        Interface determinística: sempre retorna um resultado
-        dentro do contrato estabelecido.
-        """
-        # Passo 1: Classificação (IA)
-        classification = await self.classifier.classify(
-            ticket.description,
-            confidence_threshold=0.85
-        )
-        
-        # Se classificação incerta, usar fallback determinístico
-        if not classification.is_confident:
-            classification = self._fallback_classification(ticket)
-        
-        # Passo 2: Verificação de escalada (Determinístico)
-        if self.escalation_rules.should_escalate(ticket, classification):
-            return TicketResolution(
-                action=Action.ESCALATE,
-                assignee=self.escalation_rules.get_assignee(classification),
-                response=None,
-                confidence=1.0
-            )
-        
-        # Passo 3: Geração de resposta (IA com validação)
-        response = await self.response_generator.generate(
-            ticket=ticket,
-            classification=classification,
-            context=self.knowledge_base.retrieve_relevant(ticket)
-        )
-        
-        # Validação determinística da resposta
-        if not self._validate_response(response):
-            response = self._get_standard_response(classification)
-        
-        return TicketResolution(
-            action=Action.RESPOND,
-            assignee=None,
-            response=response,
-            confidence=response.confidence
-        )
-    
-    def _validate_response(self, response: GeneratedResponse) -> bool:
-        """
-        Validação determinística de resposta gerada por IA.
-        """
-        checks = [
-            len(response.text) > 0,
-            len(response.text) < 5000,
-            not self._contains_forbidden_phrases(response.text),
-            self._has_appropriate_tone(response.text)
-        ]
-        return all(checks)
+O padrão **Fachada Determinística** cria uma interface externa com comportamento previsível (contratos, erros, timeouts, tipos de resposta), mesmo quando a implementação interna usa componentes estocásticos. A ideia central é simples: **o consumidor nunca fala “direto com a IA”**; ele fala com uma camada que garante invariantes.
+
+Esse padrão é especialmente útil quando a IA é um acelerador (triagem, sugestão, rascunho), mas a organização ainda precisa de:
+
+- contratos estáveis para integrações
+- tempos de resposta e modos de falha controlados
+- observabilidade e rastreabilidade uniformes
+- capacidade de degradação graciosa (fallback)
+
+**Estrutura arquitetural típica**
+
 ```
+Cliente -> Fachada (determinística) -> (IA + ferramentas + RAG) -> Saída
+                 └─> Validação/Política/Quotas -> Fallback/Escalonamento
+```
+
+**Propriedades que a fachada deve garantir (invariantes)**
+
+| Invariante | O que significa na prática |
+|-----------|-----------------------------|
+| Contrato de saída | Sempre retorna um formato previsto, mesmo em erro ou baixa confiança |
+| Política de ação | Nenhuma ação de alto impacto ocorre sem validação determinística e, quando aplicável, aprovação humana |
+| Contenção de tempo/custo | Timeouts, budgets e quotas impedem que a IA degradem o SLA do sistema |
+| Rastreabilidade | Toda decisão relevante tem IDs e metadados para auditoria e reprocessamento |
+
+**Como a fachada orquestra IA sem “infectar” o core**
+
+- Classifica a solicitação e decide rotas (ex.: responder, pedir clarificação, escalar).
+- Traduz a saída da IA para estados do domínio (ex.: categoria, prioridade, ação sugerida), reduzindo dependência de texto livre.
+- Aplica validações determinísticas (schemas, limites, regras de compliance) antes de aceitar qualquer resultado.
+- Seleciona um modo de degradação quando a confiança é insuficiente (fallback determinístico, resposta padrão, escalonamento humano).
+
+**Falhas comuns (anti-invariantes) que a fachada deve bloquear**
+
+- Permitir que texto livre se converta diretamente em ação (“faça um reembolso”, “cancele um contrato”) sem checagem.
+- Confiar em “score de confiança” do modelo como única base de decisão.
+- Misturar prompt/roteamento com regras do domínio, reduzindo testabilidade e criando regressões silenciosas.
+
+Em resumo, a Fachada Determinística é um padrão de arquitetura híbrida para **manter previsibilidade na borda** e permitir que a IA exista “por trás do contrato”, sob governança.
 
 ### 1.4.2 Padrão: Core Determinístico com IA como Serviço
 
@@ -359,31 +261,31 @@ Arquitetura onde o núcleo de negócio é puramente determinístico, e IA é con
 │                     SISTEMA HÍBRIDO                             │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │                 CORE DETERMINÍSTICO                     │   │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │   │
-│  │  │   Regras    │  │  Workflow   │  │  Auditoria  │     │   │
-│  │  │  Negócio    │  │   Engine    │  │    Trail    │     │   │
-│  │  └─────────────┘  └─────────────┘  └─────────────┘     │   │
-│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │   │
-│  │  │  Cálculos   │  │  Permissões │  │   Eventos   │     │   │
-│  │  │ Financeiros │  │     RBAC    │  │   Domain    │     │   │
-│  │  └─────────────┘  └─────────────┘  └─────────────┘     │   │
-│  └─────────────────────────┬───────────────────────────────┘   │
+│  ┌─────────────────────────────────────────────────────────┐    │
+│  │                 CORE DETERMINÍSTICO                     │    │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐      │    │
+│  │  │   Regras    │  │  Workflow   │  │  Auditoria  │      │    │
+│  │  │  Negócio    │  │   Engine    │  │    Trail    │      │    │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘      │    │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐      │    │
+│  │  │  Cálculos   │  │  Permissões │  │   Eventos   │      │    │
+│  │  │ Financeiros │  │     RBAC    │  │   Domain    │      │    │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘      │    │
+│  └─────────────────────────┬───────────────────────────────┘    │
 │                            │                                    │
-│                    ┌───────┴───────┐                           │
-│                    │   API Gateway  │                           │
-│                    │   (Boundary)   │                           │
-│                    └───────┬───────┘                           │
+│                    ┌───────┴───────┐                            │
+│                    │   API Gateway │                            │
+│                    │   (Boundary)  │                            │
+│                    └───────┬───────┘                            │
 │                            │                                    │
-│         ┌──────────────────┼──────────────────┐                │
-│         │                  │                  │                │
-│         ▼                  ▼                  ▼                │
-│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐          │
-│  │   Serviço   │   │   Serviço   │   │   Serviço   │          │
-│  │ Classificação│   │  Geração    │   │   Embedding │          │
-│  │  (IA)       │   │  Texto (IA) │   │   (IA)      │          │
-│  └─────────────┘   └─────────────┘   └─────────────┘          │
+│         ┌──────────────────┼──────────────────┐                 │
+│         │                  │                  │                 │
+│         ▼                  ▼                  ▼                 │
+│  ┌─────────────┐   ┌─────────────┐   ┌─────────────┐            │
+│  │   Serviço   │   │   Serviço   │   │   Serviço   │            │
+│  │Classificação│   │  Geração    │   │   Embedding │            │
+│  │  (IA)       │   │  Texto (IA) │   │   (IA)      │            │
+│  └─────────────┘   └─────────────┘   └─────────────┘            │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
@@ -435,7 +337,20 @@ Arquitetura onde o núcleo de negócio é puramente determinístico, e IA é con
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. 2024.
-2. NYGARD, M. Release It!: Design and Deploy Production-Ready Software. 2007.
+1. IEEE COMPUTER SOCIETY. SWEBOK Guide V4.0: Guide to the Software Engineering Body of Knowledge. IEEE, 2024.
+
+2. KRISHNAN, N. AI Agents: Evolution, Architecture, and Real-World Applications. arXiv:2503.12687, 2025. Disponível em: https://arxiv.org/abs/2503.12687
+
+3. DE BOER, M. et al. Design Patterns for Large Language Model Based Neuro-Symbolic Systems. Neurosymbolic Artificial Intelligence, Vol. 1, pp. 1-20, 2025. DOI: 10.1177/29498732251377499
+
+4. AWS. Agentic AI patterns and workflows on AWS. AWS Prescriptive Guidance, 2025. Disponível em: https://docs.aws.amazon.com/prescriptive-guidance/latest/agentic-ai-patterns/
+
+5. GOOGLE CLOUD. Choose a design pattern for your agentic AI system. Cloud Architecture Center, 2025. Disponível em: https://docs.cloud.google.com/architecture/choose-design-pattern-agentic-ai-system
+
+6. MICROSOFT AZURE. AI Agent Orchestration Patterns. Azure Architecture Center, 2025. Disponível em: https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/ai-agent-design-patterns
+
+7. ANDRENACCI, G. 18 Artificial Intelligence LLM Trends in 2025. Medium, 2025. Disponível em: https://medium.com/data-bistrot/15-artificial-intelligence-llm-trends-in-2024-618a058c9fdf
+
+8. NYGARD, M. Release It!: Design and Deploy Production-Ready Software. Pragmatic Bookshelf, 2007.
 
 *SWEBOK-AI v5.0 - Software Architecture*
