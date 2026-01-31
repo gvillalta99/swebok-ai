@@ -2,12 +2,12 @@
 title: "Como Utilizar este Guia"
 created_at: "2025-01-31"
 tags: ["introducao", "guia", "uso", "navegacao", "metodologia"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 6. Como Utilizar este Guia
+# Como Utilizar este Guia
 
 ## Overview
 
@@ -35,7 +35,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Revisão de Matrizes de Avaliação
 5. Consulta a referências para aprofundamento
 
-**Tempo Estimado**: 80-120 horas de estudo dedicado
+**Tempo Estimado (estimativa)**: ordem de grandeza de dezenas de horas para leitura e estudo; varia por experiencia previa e profundidade desejada.
 
 **Público-Recomendado**: Pesquisadores, estudantes de pós-graduação, profissionais em transição de carreira
 
@@ -64,7 +64,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Seleção de KAs técnicos conforme contexto organizacional
 5. Desenvolvimento de plano de implementação
 
-**Tempo Estimado**: 20-40 horas de estudo + implementação
+**Tempo Estimado (estimativa)**: varia por maturidade organizacional e escopo; considere separar tempo de estudo de tempo de implantacao.
 
 **Público-Recomendado**: Executivos, CTOs, Engineering Managers
 
@@ -79,7 +79,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Revisão de Matrizes de Avaliação
 5. Prática com casos e exemplos
 
-**Tempo Estimado**: 60-100 horas de estudo dedicado
+**Tempo Estimado (estimativa)**: depende do curriculo e do nivel de profundidade cobrado.
 
 **Público-Recomendado**: Candidatos a certificações IEEE, ACM ou equivalentes
 
@@ -213,12 +213,9 @@ Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence f
 - **Contribuições**: O guia é vivo; contribuições são bem-vindas
 - **Atualizações**: O campo evolui rapidamente; verifique atualizações
 
-### Ferramentas de IA Recomendadas
+### Ferramentas de IA (exemplos, nao prescritivo)
 
-Para aproveitamento máximo do guia, recomenda-se experiência prática com:
-- GitHub Copilot ou similar (autocomplete)
-- ChatGPT, Claude ou Gemini (conversacional)
-- Claude Code, Cursor ou similar (agentes)
+Para aproveitar as partes praticas do guia, e util ter acesso a pelo menos uma ferramenta de IA em cada categoria (autocomplete, chat e agente com execucao). A selecao deve considerar governanca, observabilidade, custos e restricoes de seguranca da organizacao.
 
 ## Checklist de Uso Efetivo
 
@@ -265,5 +262,4 @@ Após o estudo:
 
 ## References
 
-1. SWEBOK v4.0. (2024). "Introduction to the Guide — How to Use This Guide". IEEE Computer Society.
-2. IEEE-CS. (2024). "Guidelines for Study and Reference Usage".
+1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.

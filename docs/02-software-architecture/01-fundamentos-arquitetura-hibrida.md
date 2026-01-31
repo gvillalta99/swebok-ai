@@ -2,12 +2,12 @@
 title: "Fundamentos de Arquitetura de Sistemas Híbridos"
 created_at: "2026-01-31"
 tags: ["arquitetura", "sistemas-hibridos", "ia", "fundamentos", "swebok-ai"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 1. Fundamentos de Arquitetura de Sistemas Híbridos
+# Fundamentos de Arquitetura de Sistemas Híbridos
 
 ## Overview
 
@@ -280,9 +280,6 @@ A camada de supervisão é o diferencial crítico da arquitetura híbrida:
 
 1. Bass, L., Clements, P., & Kazman, R. (2021). *Software Architecture in Practice*, 4th edition. Addison-Wesley.
 2. Spera, C., & Agrawal, G. (2025). "Reversing the Paradigm: Building AI-First Systems with Human Guidance." arXiv:2506.12245.
-3. Ghosh, B. (2026). "Opinionated System Principles and Architecture for AI Agents." Medium.
-4. Dextralabs. (2025). "The Agent Safety Playbook 2025: Guardrails, Permissions, and Auditability for Regulated AI Systems."
-5. NVIDIA & Lakera AI. (2025). "A Safety and Security Framework for Real-World Agentic Systems." arXiv:2511.21990.
-6. Subramaniam, B., & Fowler, M. (2025). "Emerging Patterns in Building GenAI Products." MartinFowler.com.
-7. Ladd, V. (2026). "From RAG to Hybrid CAG-RAG: Why Architecture Now Is Governance." Medium.
-8. European Data Protection Supervisor. (2025). "TechDispatch #2/2025: Human Oversight of Automated Decision-Making."
+3. NVIDIA; LAKERA AI. A Safety and Security Framework for Real-World Agentic Systems. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2511.21990
+4. SUBRAMANIAM, B.; FOWLER, M. Emerging Patterns in Building GenAI Products. 2025. Disponivel em: https://martinfowler.com/
+5. EUROPEAN DATA PROTECTION SUPERVISOR. TechDispatch #2/2025: Human Oversight of Automated Decision-Making. 2025.

@@ -2,12 +2,12 @@
 title: "Estrutura e Organização do Guia"
 created_at: "2025-01-31"
 tags: ["introducao", "estrutura", "organizacao", "ka", "knowledge-areas"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 4. Estrutura e Organização do Guia
+# Estrutura e Organização do Guia
 
 ## Overview
 
@@ -266,7 +266,7 @@ SWEBOK-AI v5.0
 - Gestão de riscos de segurança
 
 **Foco AI-First**:
-- Vulnerabilidades em código gerado por IA (60-70% BLOCKER)
+- Segurança em codigo e configuracoes geradas por IA (risco variavel por contexto)
 - Segurança de sistemas autônomos
 - Verificação de segurança em escala
 - Supply chain de modelos
@@ -369,5 +369,4 @@ SWEBOK-AI v5.0
 
 ## References
 
-1. SWEBOK v4.0. (2024). "Introduction to the Guide". IEEE Computer Society.
-2. IEEE Computer Society. (2024). "Software Engineering Body of Knowledge Version 4.0".
+1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.

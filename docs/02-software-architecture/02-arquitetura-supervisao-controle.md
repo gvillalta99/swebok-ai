@@ -2,12 +2,12 @@
 title: "Arquitetura de Supervisão e Controle"
 created_at: "2026-01-31"
 tags: ["arquitetura", "supervisao", "controle", "human-in-the-loop", "governanca"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Arquitetura de Supervisão e Controle
+# Arquitetura de Supervisão e Controle
 
 ## Overview
 

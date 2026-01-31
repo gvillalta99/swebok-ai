@@ -2,12 +2,12 @@
 title: "02 - Elicitação de Contexto e Intenção"
 created_at: "2025-01-31"
 tags: ["elicitacao", "contexto", "intencao", "stakeholders", "requisitos", "llm"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Elicitação de Contexto e Intenção
+# Elicitação de Contexto e Intenção
 
 ## Overview
 
@@ -27,7 +27,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## 2.1 Do Requisito ao Contexto: Uma Nova Abordagem
 
-### 2.1.1 Limitações da Elicitação Tradicional
+### Limitações da Elicitação Tradicional
 
 A elicitação tradicional de requisitos, conforme descrita no SWEBOK v4.0 [1], enfrenta desafios fundamentais no contexto de sistemas com IA:
 
@@ -36,7 +36,7 @@ A elicitação tradicional de requisitos, conforme descrita no SWEBOK v4.0 [1], 
 - **Conhecimento Tácito**: Expertise crítica reside em práticas não documentadas
 - **Evolução Rápida**: Requisitos mudam mais rapidamente que a capacidade de documentação
 
-### 2.1.2 O Que É Contexto em Sistemas com IA
+### O Que É Contexto em Sistemas com IA
 
 No SWEBOK-AI v5.0, **contexto** é definido como:
 
@@ -50,7 +50,7 @@ O contexto inclui:
 - **Contexto Regulatório**: Leis, normas e compliance
 - **Contexto Técnico**: Arquitetura, integrações e limitações tecnológicas
 
-### 2.1.3 A Pirâmide do Contexto
+### A Pirâmide do Contexto
 
 ```
                     ┌─────────────────┐
@@ -74,9 +74,9 @@ O contexto inclui:
   └─────────────────────────────────────────────────────┘
 ```
 
-## 2.2 Técnicas de Elicitação de Contexto
+## Técnicas de Elicitação de Contexto
 
-### 2.2.1 Elicitação por Prompt Engineering
+### Elicitacao por Prompt Engineering
 
 O **Prompt Engineering** tornou-se uma técnica fundamental de elicitação. Diferente de entrevistas tradicionais, utiliza interações estruturadas com LLMs para:
 
@@ -101,13 +101,13 @@ e eficaz, preciso compreender:
 Forneça exemplos concretos para cada ponto.
 ```
 
-### 2.2.2 Mapeamento de Conhecimento Tácito
+### Mapeamento de Conhecimento Tacito
 
 O conhecimento tácito — expertise que especialistas possuem mas não conseguem articular facilmente — é crítico para sistemas com IA. Técnicas incluem:
 
 **Protocol Analysis**:
 - Especialistas verbalizam seu raciocínio enquanto resolvem problemas
-- LLMs analisam transcrições para extrair padrões de decisão
+- opcionalmente, ferramentas (incluindo LLMs) podem ajudar a sintetizar transcricoes; o resultado precisa de revisao humana
 - Identificação de heurísticas e regras implícitas
 
 **Shadowing**:
@@ -120,7 +120,7 @@ O conhecimento tácito — expertise que especialistas possuem mas não consegue
 - Exposição direta à complexidade e nuances
 - Identificação de gaps entre teoria e prática
 
-### 2.2.3 Elicitação Baseada em Cenários
+### Elicitacao Baseada em Cenarios
 
 Cenários são narrativas que descrevem interações entre usuários e sistema. Na era dos LLMs, evoluíram para:
 
@@ -167,7 +167,7 @@ Fallback:
   - Indisponibilidade: modo offline com cache
 ```
 
-## 2.3 Fontes de Contexto
+## Fontes de Contexto
 
 ### 2.3.1 Stakeholders e Suas Perspectivas
 
@@ -210,7 +210,7 @@ Em sistemas com IA, os próprios dados tornam-se fonte de contexto:
 - Viés nos dados de treinamento
 - Representatividade das amostras
 
-## 2.4 Captura da Intenção
+## Captura da Intencao
 
 ### 2.4.1 Intenção vs. Requisito
 
@@ -265,7 +265,7 @@ A intenção deve ser documentada explicitamente:
 - [Risco 2]
 ```
 
-## 2.5 Validação do Contexto Elicitado
+## Validacao do Contexto Elicitado
 
 ### 2.5.1 Critérios de Qualidade
 
@@ -338,8 +338,7 @@ O contexto elicitado deve ser:
 
 ## References
 
-1. SWEBOK v4.0 - Software Requirements Knowledge Area. IEEE Computer Society, 2014.
-2. Research directions for using LLM in software requirement engineering. *Frontiers in Computer Science*, March 2025.
-3. Formalising Software Requirements with Large Language Models. arXiv:2506.10704, 2025.
-4. Design thinking (empathize, define, ideate, prototype, test). IDEO, 2023.
-5. Protocol Analysis: Verbal Reports as Data. Ericsson & Simon, 1993.
+1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
+2. Research directions for using LLM in software requirement engineering. Frontiers in Computer Science, 2025.
+3. Formalising Software Requirements with Large Language Models. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2506.10704
+4. ERICSSON, K. A.; SIMON, H. A. Protocol Analysis: Verbal Reports as Data. Cambridge, MA: MIT Press, 1993.

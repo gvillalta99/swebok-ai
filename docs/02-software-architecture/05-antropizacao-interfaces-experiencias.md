@@ -2,12 +2,12 @@
 title: "Antropização de Interfaces e Experiências"
 created_at: "2026-01-31"
 tags: ["arquitetura", "interfaces", "ux", "human-ai-interaction", "design"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 5. Antropização de Interfaces e Experiências
+# Antropização de Interfaces e Experiências
 
 ## Overview
 

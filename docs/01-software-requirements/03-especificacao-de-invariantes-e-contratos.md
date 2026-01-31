@@ -2,12 +2,12 @@
 title: "03 - Especificação de Invariantes e Contratos"
 created_at: "2025-01-31"
 tags: ["invariantes", "contratos", "especificacao", "formal-methods", "design-by-contract", "verificacao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 3. Especificação de Invariantes e Contratos
+# Especificação de Invariantes e Contratos
 
 ## Overview
 
@@ -25,7 +25,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Integrar métodos formais com desenvolvimento ágil
 5. Avaliar quando a formalização é necessária vs. opcional
 
-## 3.1 Fundamentos de Invariantes e Contratos
+## Fundamentos de Invariantes e Contratos
 
 ### 3.1.1 Definições Fundamentais
 
@@ -80,7 +80,7 @@ Invariante: O tempo de resposta do LLM não excede 5 segundos.
 ∀ requisicao: requisicao.tempo_resposta ≤ 5s
 ```
 
-## 3.2 Design by Contract (DbC) na Era dos LLMs
+## Design by Contract (DbC) na Era dos LLMs
 
 ### 3.2.1 Princípios do DbC
 
@@ -139,7 +139,7 @@ class AnalisadorDeRisco:
         # Implementação...
 ```
 
-## 3.3 Métodos Formais e Verificação
+## Métodos Formais e Verificação
 
 ### 3.3.1 O Resurgimento dos Métodos Formais
 
@@ -181,7 +181,7 @@ A pesquisa de 2025 sobre MCP-Solver [5] demonstra como integrar LLMs com Constra
 3. **Geração de Código**: Produção de código que satisfaz contratos
 4. **Verificação de Conformidade**: Checagem de que o código atende às especificações
 
-## 3.4 Especificação de Invariantes para LLMs
+## Especificação de Invariantes para LLMs
 
 ### 3.4.1 Invariantes de Comportamento
 
@@ -198,11 +198,13 @@ INVARIANTE-COMP-004: O sistema nunca gera código para sistemas de controle crí
 
 Garantem níveis mínimos de qualidade nas saídas:
 
+Exemplo (valores ilustrativos; dependem de SLO/SLA, risco e custo de verificacao):
+
 ```
-INVARIANTE-QUAL-001: Taxa de alucinações detectadas < 1%.
-INVARIANTE-QUAL-002: Tempo de resposta p95 < 3 segundos.
-INVARIANTE-QUAL-003: Cobertura de testes para código gerado >= 80%.
-INVARIANTE-QUAL-004: Score de factualidade >= 0.85 para respostas factuais.
+INVARIANTE-QUAL-001: Taxa de alucinacoes detectadas abaixo de um limite definido.
+INVARIANTE-QUAL-002: Tempo de resposta p95 abaixo de um limite definido.
+INVARIANTE-QUAL-003: Cobertura minima de testes para codigo gerado conforme politica.
+INVARIANTE-QUAL-004: Score de factualidade minimo para respostas factuais, quando aplicavel.
 ```
 
 ### 3.4.3 Invariantes de Segurança
@@ -216,7 +218,7 @@ INVARIANTE-SEG-003: Tokens de autenticação nunca são expostos em respostas.
 INVARIANTE-SEG-004: Rate limiting é aplicado a todas as APIs expostas.
 ```
 
-## 3.5 Padrões de Especificação
+## Padrões de Especificação
 
 ### 3.5.1 Padrão Given-When-Then com Invariantes
 
@@ -336,10 +338,10 @@ class SistemaDeRecomendacao:
 
 ## References
 
-1. Formal requirements engineering and large language models: A two-way street. *Information and Software Technology*, Vol. 181, May 2025.
-2. VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation. arXiv:2510.05156, 2025.
-3. AlphaVerus: Bootstrapping Formally Verified Code Generation. arXiv:2412.06176, 2024.
-4. VeriBench: End-to-End Formal Verification Benchmark for AI Code Generation. ICML 2025.
-5. MCP-Solver: Integrating Language Models with Constraint Programming Systems. arXiv:2501.00539, 2024.
-6. Meyer, B. Object-Oriented Software Construction. Prentice Hall, 1997.
-7. Towards Formal Verification of LLM-Generated Code from Natural Language. arXiv:2507.13290, 2025.
+1. Formal requirements engineering and large language models: A two-way street. Information and Software Technology, v. 181, 2025.
+2. VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2510.05156
+3. AlphaVerus: Bootstrapping Formally Verified Code Generation. arXiv, 2024. Disponivel em: https://arxiv.org/abs/2412.06176
+4. VeriBench: End-to-End Formal Verification Benchmark for AI Code Generation. 2025.
+5. MCP-Solver: Integrating Language Models with Constraint Programming Systems. arXiv, 2024. Disponivel em: https://arxiv.org/abs/2501.00539
+6. MEYER, B. Object-Oriented Software Construction. Upper Saddle River: Prentice Hall, 1997.
+7. Towards Formal Verification of LLM-Generated Code from Natural Language. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2507.13290

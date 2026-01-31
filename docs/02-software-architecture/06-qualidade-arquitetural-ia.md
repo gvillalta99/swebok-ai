@@ -2,12 +2,12 @@
 title: "Qualidade Arquitetural em Sistemas com IA"
 created_at: "2026-01-31"
 tags: ["arquitetura", "qualidade", "atributos-qualidade", "nao-determinismo", "sistemas-ia"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 6. Qualidade Arquitetural em Sistemas com IA
+# Qualidade Arquitetural em Sistemas com IA
 
 ## Overview
 

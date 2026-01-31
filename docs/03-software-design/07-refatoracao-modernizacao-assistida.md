@@ -2,12 +2,12 @@
 title: "07. Refatoração e Modernização Assistida"
 created_at: "2025-01-31"
 tags: ["software-design", "refatoracao", "modernizacao", "codigo-legado", "ia"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 07. Refatoração e Modernização Assistida
+# Refatoração e Modernização Assistida
 
 ## Overview
 

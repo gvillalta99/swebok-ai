@@ -2,12 +2,12 @@
 title: "08. Ferramentas e Técnicas Modernas"
 created_at: "2025-01-31"
 tags: ["software-design", "ferramentas", "tecnicas", "ia", "design-assistido"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 08. Ferramentas e Técnicas Modernas
+# Ferramentas e Técnicas Modernas
 
 ## Overview
 

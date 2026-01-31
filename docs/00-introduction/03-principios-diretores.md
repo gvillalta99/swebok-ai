@@ -2,16 +2,16 @@
 title: "Princípios Diretores do SWEBOK-AI"
 created_at: "2025-01-31"
 tags: ["introducao", "principios", "fundamentos", "swebok-ai", "diretrizes"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 3. Princípios Diretores do SWEBOK-AI
+# Princípios Diretores do SWEBOK-AI
 
 ## Overview
 
-O SWEBOK-AI v5.0 fundamenta-se em seis princípios diretores que orientam a reinterpretação de cada área de conhecimento na era dos sistemas autônomos de software. Estes princípios não são meras recomendações de boas práticas, mas sim alicerces conceituais que justificam a reestruturação completa do guia. Eles emergem da análise de evidências empíricas, considerações econômicas e imperativos éticos e legais.
+O SWEBOK-AI v5.0 organiza-se em seis princípios diretores que orientam a reinterpretação de cada area de conhecimento na era de sistemas com componentes probabilisticos. Eles funcionam como premissas de projeto para manter o guia leitor-primeiro: explicitar limites, assuncao de risco, verificabilidade e responsabilidades humanas.
 
 ## Learning Objectives
 
@@ -28,9 +28,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 > **O código tornou-se commodity; o contexto tornou-se capital.**
 
-### Fundamentação
+### Fundamentação (com escopo)
 
-Este princípio é a pedra angular da reconfiguração do SWEBOK-AI. A evidência empírica demonstra que LLMs modernos podem gerar código funcional em velocidades ordens de magnitude superiores aos humanos. Peng et al. [1] demonstraram redução de 55,8% no tempo de conclusão de tarefas, enquanto estudos de 2025 [2] mostram ganhos de 26% em produtividade medida.
+Este principio sintetiza um deslocamento de custo: LLMs podem reduzir tempo de produção inicial de artefatos (por exemplo, rascunhos de codigo), enquanto o custo de validar, integrar e responder por resultados permanece relevante. Estudos empiricos como Peng et al. [1] e experimentos de campo citados por [2] sugerem ganhos em tempo e/ou volume de entrega em tarefas especificas. O guia trata esses achados como indicios: nao dispensam verificacao e nao garantem ganhos em todos os contextos.
 
 A implicação econômica é clara: quando um recurso torna-se abundantemente disponível, seu valor de mercado tende a zero (commoditização). Simultaneamente, recursos escassos tornam-se valiosos. No novo paradigma:
 
@@ -56,13 +56,7 @@ A implicação econômica é clara: quando um recurso torna-se abundantemente di
 
 ### Fundamentação
 
-Dados empíricos revelam uma inversão estrutural no trabalho de desenvolvimento. Enquanto a produção de código acelera, a verificação torna-se mais complexa:
-
-- 45% dos desenvolvedores dedicam mais tempo a revisão de código [3]
-- 60-70% das vulnerabilidades introduzidas por IA são de severidade BLOCKER [4]
-- Mais de 90% dos issues em código de IA são code smells [4]
-
-A The New Stack [4] articula este princípio como "Trust and Verify, Always" — a confiança na geração deve ser acompanhada por verificação rigorosa.
+Mesmo quando ha ganhos de geracao, permanece a necessidade de verificar: corretude funcional, seguranca, conformidade, desempenho, integracao e manutencao. Este principio nao depende de um numero especifico; ele depende do fato operacional de que codigo (ou configuracoes) geradas sem verificacao podem falhar em producao, e que a responsabilidade de operar e responder por falhas e humana.
 
 ### Implicações Práticas
 
@@ -109,7 +103,7 @@ Este princípio estabelece limites fundamentais:
 
 ### Fundamentação
 
-AlterSquare [6] identificou que sistemas com IA criam novas formas de dívida técnica, incluindo "opaquidade" de decisões. A falta de transparência sobre como um sistema de IA chegou a uma determinada solução impossibilita:
+Em sistemas com componentes probabilisticos, a falta de transparencia sobre contexto, versoes e decisoes dificulta operacao e auditoria. Sem rastreabilidade minima, torna-se dificil:
 
 - Debugging efetivo
 - Auditoria de compliance
@@ -160,13 +154,7 @@ O τ-Bench [7] demonstrou que confiabilidade é crítica para deployment de agen
 
 ### Fundamentação
 
-O Paradoxo de Jevons, originalmente observado em 1865 sobre consumo de carvão, afirma que aumentos de eficiência podem levar a aumento no consumo total. Song [8] e Brynjolfsson [9] aplicaram este conceito à IA:
-
-- Código mais barato de produzir leva a mais código sendo produzido
-- Sistemas tornam-se mais complexos
-- Demanda por verificação aumenta proporcionalmente
-
-Estudos de 2025 [10] confirmam: 35% dos desenvolvedores reportam aumento de dívida técnica apesar (ou por causa) do uso de IA.
+O Paradoxo de Jevons, descrito por Jevons em 1865, afirma que ganhos de eficiencia podem aumentar o consumo total do recurso quando isso reduz seu custo efetivo. Neste guia, ele e usado como uma analogia operacional: se o custo marginal de produzir codigo cai, pode haver incentivo a produzir mais codigo e mais variacao, elevando o custo total de verificacao e manutencao. Isso e uma hipotese de dinamica economica e deve ser validada por metricas do proprio contexto organizacional.
 
 ### Implicações Práticas
 
@@ -213,13 +201,9 @@ Estes princípios orientam a reinterpretação de todas as áreas de conheciment
 
 ## References
 
-1. Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot". arXiv. https://arxiv.org/abs/2302.06590
-2. MIT/Accenture/Microsoft. (2025). "The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers". MIT Economics. https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf
-3. Stanford HAI. (2025). "AI Index Report 2025". https://hai.stanford.edu/ai-index/2025-ai-index-report
-4. The New Stack. (2025). "AI Code Generation: Trust and Verify, Always". https://thenewstack.io/ai-code-generation-trust-and-verify-always/
-5. IEEE Software. (2024). "Human-AI Collaboration in Software Engineering". IEEE Xplore. https://ieeexplore.ieee.org/document/10653701
-6. AlterSquare. (2026). "Why AI Systems Create New Forms of Technical Debt". https://altersquare.io/ai-systems-create-new-forms-technical-debt/
-7. Sierra AI. (2024). "τ-Bench: Benchmarking AI Agents for Real-World Settings". https://sierra.ai/uk/blog/benchmarking-ai-agents
-8. Song, J. (2025). "Why Glass Is Cheap but Installation Is Expensive: Jevons-Baumol and AI". https://jimmysong.io/blog/jevons-baumol-ai-china/
-9. Brynjolfsson, E. (2025). Discussed in NPR. "Why the AI world is suddenly obsessed with a 160-year-old economics paradox". https://www.npr.org/sections/planet-money/2025/02/04/g-s1-46018/ai-deepseek-economics-jevons-paradox
-10. Kodus. (2025). "How AI-Generated Code is messing with your Technical Debt". https://kodus.io/en/ai-generated-code-is-messing-with-your-technical-debt/
+1. PENG, S. et al. The Impact of AI on Developer Productivity: Evidence from GitHub Copilot. arXiv, 2023. Disponivel em: https://arxiv.org/abs/2302.06590
+2. MIT; ACCENTURE; MICROSOFT. The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers. 2025. Disponivel em: https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf
+3. STANFORD HAI. AI Index Report 2025. 2025. Disponivel em: https://hai.stanford.edu/ai-index
+4. IEEE Software. Human-AI Collaboration in Software Engineering. 2024. Disponivel em: https://ieeexplore.ieee.org/document/10653701
+5. SIERRA AI. TAU-Bench: Benchmarking AI Agents for Real-World Settings. 2024. Disponivel em: https://sierra.ai/uk/blog/benchmarking-ai-agents
+6. JEVONS, W. S. The Coal Question. London: Macmillan, 1865.

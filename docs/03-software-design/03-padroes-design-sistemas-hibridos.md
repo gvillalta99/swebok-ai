@@ -2,12 +2,12 @@
 title: "03. Padrões de Design para Sistemas Híbridos"
 created_at: "2025-01-31"
 tags: ["software-design", "padroes", "sistemas-hibridos", "ia", "human-ai"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 03. Padrões de Design para Sistemas Híbridos
+# Padrões de Design para Sistemas Híbridos
 
 ## Overview
 

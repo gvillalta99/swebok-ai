@@ -2,12 +2,12 @@
 title: "Público-Alvo e Pré-requisitos"
 created_at: "2025-01-31"
 tags: ["introducao", "publico-alvo", "pre-requisitos", "audiencia", "perfil"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 5. Público-Alvo e Pré-requisitos
+# Público-Alvo e Pré-requisitos
 
 ## Overview
 
@@ -243,5 +243,4 @@ Se você não conseguiu marcar todos os itens, recomendamos:
 
 ## References
 
-1. SWEBOK v4.0. (2024). "Introduction to the Guide — Audience and Prerequisites". IEEE Computer Society.
-2. IEEE-CS/ACM. (2024). "Software Engineering Curriculum Guidelines".
+1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.

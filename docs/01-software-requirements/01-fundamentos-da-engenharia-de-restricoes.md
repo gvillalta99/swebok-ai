@@ -1,25 +1,19 @@
 ---
-title: 01 - Fundamentos da Engenharia de Restrições
-created_at: '2025-01-31'
-tags:
-  - requisitos
-  - restricoes
-  - fundamentos
-  - engenharia-de-software
-  - llm
-  - contexto
-status: draft
-updated_at: '2025-01-31'
-ai_model: kimi-k2.5
+title: "Fundamentos da Engenharia de Restrições"
+created_at: "2025-01-31"
+tags: ["requisitos", "restricoes", "fundamentos", "engenharia-de-software", "llm", "contexto"]
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 1. Fundamentos da Engenharia de Restrições
+# Fundamentos da Engenharia de Restrições
 
 ## Overview
 
-A Engenharia de Restrições e Contexto representa uma mudança de paradigma fundamental na era dos Large Language Models (LLMs). Enquanto a engenharia de requisitos tradicional focava em capturar "o que construir", a nova disciplina concentra-se em estabelecer "o que NÃO deixar a IA construir". Este capítulo estabelece os fundamentos teóricos e práticos dessa transição, reconhecendo que a geração de código tornou-se commodity, mas a definição de fronteiras de domínio, invariantes críticas e comportamentos de degradação graciosa requer expertise humana insubstituível.
+A Engenharia de Restrições e Contexto reorienta a engenharia de requisitos para sistemas com componentes probabilisticos (por exemplo, Large Language Models, LLMs). Enquanto a engenharia de requisitos tradicional enfatiza “o que construir”, aqui o foco inclui explicitar “o que nao pode acontecer”, sob quais condicoes a autonomia deve parar, e como verificar que o sistema permaneceu dentro de limites aceitaveis.
 
-O engenheiro de software do futuro não é um tradutor de requisitos em código, mas um curador de restrições que garante que sistemas autônomos operem dentro de limites seguros, auditáveis e responsabilizáveis. Esta seção estabelece as bases conceituais para essa nova função.
+Em vez de tratar a geracao como o centro do trabalho, a disciplina trata restricoes verificaveis como artefatos de engenharia: limites de dominio, invariantes, politicas de seguranca, e mecanismos de degradacao graciosa.
 
 ## Learning Objectives
 
@@ -31,9 +25,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Aplicar o conceito de "contexto" como elemento central da engenharia de restrições
 5. Avaliar o impacto econômico da mudança de paradigma na engenharia de requisitos
 
-## 1.1 O Paradigma Shift: De Requisitos para Restrições
+## O Paradigma Shift: De Requisitos para Restrições
 
-### 1.1.1 A Commoditização do Código
+### A Commoditização do Código (escopo)
 
 A ascensão dos LLMs transformou radicalmente a engenharia de software. Tarefas que antes demandavam horas de trabalho especializado — escrever funções, criar testes unitários, gerar documentação — agora são realizadas em segundos por modelos de linguagem. Esta commoditização do código cria uma nova realidade:
 
@@ -44,9 +38,9 @@ A ascensão dos LLMs transformou radicalmente a engenharia de software. Tarefas 
 | **Risco Principal** | Bugs de implementação | Alucinações arquiteturais |
 | **Documentação Crítica** | Especificação funcional | Contexto e limites de domínio |
 
-A pesquisa de 2025 publicada em *Information and Software Technology* [1] demonstra que a integração de Métodos Formais (FMs) com LLMs é essencial para garantir a confiabilidade de sistemas gerados por IA, especialmente em domínios críticos para segurança.
+Trabalhos recentes discutem como Metodos Formais podem complementar LLMs para aumentar confiabilidade, especialmente em dominios criticos. Este guia trata essa direcao como promissora, mas dependente de evidencias, ferramentas e custo de verificacao no contexto [1].
 
-### 1.1.2 O Que São Restrições no Contexto de IA
+### O Que São Restrições no Contexto de IA
 
 No SWEBOK-AI v5.0, uma **restrição** é definida como:
 
@@ -59,7 +53,7 @@ Esta definição estende a noção tradicional de requisitos não-funcionais, in
 - **Restrições de Responsabilidade**: Determinação de quando a intervenção humana é obrigatória
 - **Restrições de Auditabilidade**: Requisitos de rastreabilidade e explicabilidade
 
-### 1.1.3 A Especificação Negativa
+### A Especificação Negativa
 
 A **especificação negativa** é uma técnica emergente que define explicitamente o que um sistema NÃO deve fazer. Diferente da abordagem tradicional que foca em comportamentos desejados, a especificação negativa é crucial para sistemas com IA porque:
 
@@ -78,9 +72,9 @@ RESTRICAO-R001: O sistema NÃO DEVE:
 - Gerar código para sistemas de controle de infraestrutura crítica
 ```
 
-## 1.2 Categorias de Restrições para Sistemas com IA
+## Categorias de Restrições para Sistemas com IA
 
-### 1.2.1 Restrições Funcionais vs. Restrições de Comportamento
+### Restrições Funcionais vs. Restrições de Comportamento
 
 **Restrições Funcionais** limitam o que o sistema pode produzir:
 - Formatos de saída permitidos
@@ -94,7 +88,7 @@ RESTRICAO-R001: O sistema NÃO DEVE:
 - Políticas de retry e timeout
 - Estratégias de fallback
 
-### 1.2.2 Restrições de Qualidade de Serviço (QoS)
+### Restrições de Qualidade de Serviço (QoS)
 
 As restrições de QoS em sistemas com IA incluem dimensões tradicionais e novas:
 
@@ -105,9 +99,9 @@ As restrições de QoS em sistemas com IA incluem dimensões tradicionais e nova
 | **Precisão** | Taxa de erro | Coerência semântica, factualidade |
 | **Escalabilidade** | Throughput | Custo por token, eficiência de cache |
 
-A pesquisa de 2024 sobre MCP-Solver [2] demonstra como a integração de LLMs com Sistemas de Programação por Restrições (CP) permite transformar especificações em linguagem natural em modelos de restrições formais, validando e verificando soluções de forma rigorosa.
+Trabalhos sobre integrações entre LLMs e programacao por restricoes (Constraint Programming) sugerem abordagens para traduzir descricoes em modelos formais e checar solucoes [2]. A aplicabilidade depende de dominio, custo de modelagem e disponibilidade de verificadores.
 
-### 1.2.3 Restrições de Segurança e Governança
+### Restrições de Segurança e Governança
 
 **Restrições de Segurança**:
 - Prevenção de injeção de prompts
@@ -121,9 +115,9 @@ A pesquisa de 2024 sobre MCP-Solver [2] demonstra como a integração de LLMs co
 - Conformidade com LGPD/GDPR
 - Transparência em decisões algorítmicas
 
-## 1.3 O Papel do Contexto
+## O Papel do Contexto
 
-### 1.3.1 Contexto como Fronteira de Domínio
+### Contexto como Fronteira de Domínio
 
 O **contexto** em sistemas com IA é mais do que informação de background — é a definição explícita do domínio de competência do sistema. Um contexto bem definido:
 
@@ -132,7 +126,7 @@ O **contexto** em sistemas com IA é mais do que informação de background — 
 3. **Facilita a Validação**: Permite verificar se as saídas são contextualmente apropriadas
 4. **Habilita Degradação Graciosa**: Permite fallback quando o contexto é insuficiente
 
-### 1.3.2 Elicitação de Contexto
+### Elicitacao de Contexto
 
 A elicitação de contexto vai além da elicitação tradicional de requisitos. Envolve:
 
@@ -141,7 +135,7 @@ A elicitação de contexto vai além da elicitação tradicional de requisitos. 
 - **Identificação de Casos Limite**: Mapear situações ambíguas ou não cobertas
 - **Documentação de Raciocínio**: Capturar não apenas o "o quê", mas o "porquê" das decisões
 
-### 1.3.3 Contexto Dinâmico vs. Estático
+### Contexto Dinamico vs. Estatico
 
 **Contexto Estático**: Definido em tempo de design, raramente muda
 - Regras de negócio fundamentais
@@ -154,9 +148,9 @@ A elicitação de contexto vai além da elicitação tradicional de requisitos. 
 - Condições operacionais do sistema
 - Aprendizados de interações anteriores
 
-## 1.4 Implicações Econômicas
+## Implicacoes Economicas
 
-### 1.4.1 O Paradoxo de Jevons na Engenharia de Software
+### O Paradoxo de Jevons na Engenharia de Software (analogia)
 
 O Paradoxo de Jevons sugere que aumentos de eficiência podem levar a aumentos no consumo total. Na engenharia de software com IA:
 
@@ -184,9 +178,9 @@ Valor
                     Ano
 ```
 
-## 1.5 Transição do SWEBOK v4.0
+## Transicao do SWEBOK v4.0
 
-### 1.5.1 O Que Permanece Relevante
+### O Que Permanece Relevante
 
 Do SWEBOK v4.0 [3], mantemos:
 - A importância da comunicação entre stakeholders
@@ -194,7 +188,7 @@ Do SWEBOK v4.0 [3], mantemos:
 - A gestão de conflitos entre requisitos
 - A rastreabilidade ao longo do ciclo de vida
 
-### 1.5.2 O Que Evolui
+### O Que Evolui
 
 | Conceito v4.0 | Evolução para v5.0 |
 |---------------|-------------------|
@@ -203,7 +197,7 @@ Do SWEBOK v4.0 [3], mantemos:
 | Elicitação de Requisitos | Elicitação de Contexto e Intenção |
 | Validação de Requisitos | Verificação de Conformidade Semântica |
 
-### 1.5.3 LEGADO: Práticas em Declínio
+### LEGADO: Praticas em Declinio
 
 As seguintes práticas são marcadas como **LEGADO**:
 - Documentação extensiva de especificação funcional detalhada
@@ -230,9 +224,11 @@ A abordagem de restrições é particularmente crítica quando:
 
 ### Ferramentas Emergentes
 
-- **MCP-Solver**: Integração de LLMs com Constraint Programming [2]
-- **Req2Spec, SpecGen**: Geração de especificações formais a partir de requisitos [4]
-- **VeriGuard**: Verificação formal de código gerado por IA [5]
+Esta secao descreve categorias de suporte (nao uma lista prescritiva de ferramentas):
+
+- Integracoes LLM + verificador/solver (por exemplo, Constraint Programming)
+- Geracao/cheque de especificacoes formais a partir de linguagem natural (tema de pesquisa)
+- Geracao de codigo com provas ou evidencias verificaveis (tema de pesquisa)
 
 ## Summary
 
@@ -253,9 +249,9 @@ A abordagem de restrições é particularmente crítica quando:
 
 ## References
 
-1. Formal requirements engineering and large language models: A two-way street. *Information and Software Technology*, Vol. 181, May 2025.
-2. MCP-Solver: Integrating Language Models with Constraint Programming Systems. arXiv:2501.00539, 2024.
-3. SWEBOK v4.0 - Software Requirements Knowledge Area. IEEE Computer Society, 2014.
-4. Leveraging LLMs for Formal Software Requirements: Challenges and Prospects. arXiv:2507.14330, 2025.
-5. VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation. arXiv:2510.05156, 2025.
-6. Research directions for using LLM in software requirement engineering. *Frontiers in Computer Science*, March 2025.
+1. Formal requirements engineering and large language models: A two-way street. Information and Software Technology, v. 181, 2025.
+2. MCP-Solver: Integrating Language Models with Constraint Programming Systems. arXiv, 2024. Disponivel em: https://arxiv.org/abs/2501.00539
+3. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
+4. Leveraging LLMs for Formal Software Requirements: Challenges and Prospects. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2507.14330
+5. VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2510.05156
+6. Research directions for using LLM in software requirement engineering. Frontiers in Computer Science, 2025.

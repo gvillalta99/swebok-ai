@@ -2,12 +2,12 @@
 title: "04 - Modelagem de Degradação Graciosa e Falhas"
 created_at: "2025-01-31"
 tags: ["degradacao-graciosa", "falhas", "resiliencia", "circuit-breaker", "fallback", "sistemas-distribuidos"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 4. Modelagem de Degradação Graciosa e Falhas
+# Modelagem de Degradação Graciosa e Falhas
 
 ## Overview
 
@@ -25,11 +25,11 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Modelar e mitigar falhas em cadeia (cascading failures)
 5. Estabelecer métricas e SLAs para operação degradada
 
-## 4.1 Modos de Falha em Sistemas com IA
+## Modos de Falha em Sistemas com IA
 
-### 4.1.1 Taxonomia de Falhas
+### Taxonomia de Falhas (modelo mental)
 
-A pesquisa de 2025 da Microsoft [1] apresenta uma taxonomia abrangente de modos de falha em agentes de IA, organizados em quatro categorias:
+Uma taxonomia pratica de modos de falha em sistemas com IA pode ser organizada em quatro categorias:
 
 **Falhas de Segurança (Safety)**:
 - Alucinações factuais
@@ -47,12 +47,12 @@ A pesquisa de 2025 da Microsoft [1] apresenta uma taxonomia abrangente de modos 
 - Latência excessiva
 - Timeout de inferência
 - Degradação de qualidade sob carga
-- Cost-driven performance collapse [2]
+- colapso de performance por pressao de custo (por exemplo, throttling, limites de quota)
 
 **Falhas Operacionais**:
 - Indisponibilidade de APIs de LLM
 - Version drift (mudanças no modelo)
-- Context-boundary degradation [2]
+- degradacao por fronteiras de contexto (contexto insuficiente, incoerente ou desatualizado)
 - Multi-step reasoning drift
 
 ### 4.1.2 Falhas Específicas de LLMs
@@ -94,11 +94,11 @@ Fatores que exacerbam falhas em cadeia:
 - Retry agressivo sem backoff
 - Recursos compartilhados sem isolamento
 
-## 4.2 Princípios de Degradação Graciosa
+## Principios de Degradacao Graciosa
 
 ### 4.2.1 Definição e Objetivos
 
-**Degradação Graciosa** é a capacidade de um sistema de continuar operando, mesmo com funcionalidade reduzida, quando componentes falham ou operam abaixo de parâmetros aceitáveis [3].
+**Degradacao graciosa** e a capacidade de um sistema continuar operando, mesmo com funcionalidade reduzida, quando componentes falham ou operam abaixo de parametros aceitaveis.
 
 Objetivos:
 1. **Manter Funcionalidade Essencial**: Preservar operações críticas
@@ -106,9 +106,9 @@ Objetivos:
 3. **Manter Experiência do Usuário**: Fornecer respostas úteis mesmo degradadas
 4. **Facilitar Recuperação**: Permitir retorno automático à operação normal
 
-### 4.2.2 Níveis de Degradação
+### Niveis de Degradacao
 
-A pesquisa de 2025 [4] propõe quatro níveis de degradação:
+Um esquema simples de quatro niveis de degradacao:
 
 | Nível | Estado | Descrição |
 |-------|--------|-----------|
@@ -134,7 +134,7 @@ A pesquisa de 2025 [4] propõe quatro níveis de degradação:
 - Cache distribuído como fallback
 - Modo read-only quando necessário
 
-## 4.3 Padrões de Resiliência
+## Padroes de Resiliencia
 
 ### 4.3.1 Circuit Breaker
 
@@ -184,13 +184,13 @@ class CircuitBreaker:
 
 Estratégias de fallback para componentes de IA:
 
-**Fallback em Camadas**:
+**Fallback em Camadas (exemplo conceitual)**:
 ```
-Chamada LLM Principal (GPT-4)
+Chamada LLM principal
     ↓ (falha ou timeout)
-Modelo Secundário (Claude)
+Modelo secundario
     ↓ (falha)
-Modelo Local Menor (Llama)
+Modelo local menor
     ↓ (falha)
 Sistema Baseado em Regras
     ↓ (falha)
@@ -203,9 +203,9 @@ Resposta Estática/Cache
 class LLMServiceWithFallback:
     def __init__(self):
         self.providers = [
-            OpenAIProvider(),
-            AnthropicProvider(),
-            LocalLLMProvider(),
+            PrimaryProvider(),
+            SecondaryProvider(),
+            LocalProvider(),
             RuleBasedProvider()
         ]
     
@@ -359,7 +359,7 @@ class LLMChaosExperiment:
         return metrics
 ```
 
-## 4.5 Métricas e SLAs para Operação Degradada
+## Metricas e SLAs para Operacao Degradada
 
 ### 4.5.1 Métricas de Resiliência
 
@@ -380,18 +380,19 @@ class LLMChaosExperiment:
 
 ### 4.5.2 Definição de SLAs
 
-**SLA em Múltiplos Níveis**:
+**SLA em Multiplos Niveis (exemplo; valores dependem do contexto)**:
 
 | Nível | Disponibilidade | Latência P95 | Qualidade Mínima |
 |-------|----------------|--------------|------------------|
-| **Normal** | 99.9% | < 2s | > 90% |
-| **Degradado** | 99.5% | < 5s | > 70% |
-| **Crítico** | 99.0% | < 10s | > 50% |
+| **Normal** | alvo definido | limite definido | minimo definido |
+| **Degradado** | alvo definido | limite definido | minimo definido |
+| **Crítico** | alvo definido | limite definido | minimo definido |
 
-**SLAs Específicos para IA**:
-- Taxa máxima de alucinações: < 1%
-- Taxa de fallback para revisão humana: < 5%
-- Tempo máximo de indisponibilidade do LLM: < 30s
+**SLAs especificos para componentes de IA (exemplos de dimensoes)**:
+- taxa de fallback para revisao humana
+- limite de indisponibilidade de provedores/servicos
+- limites de custo por periodo e por transacao
+- limites de degradacao de qualidade (quando mensuravel)
 
 ## Practical Considerations
 
@@ -422,13 +423,9 @@ class LLMChaosExperiment:
 | Cache agressivo | Baixa latência | Dados potencialmente desatualizados |
 | Modelos locais | Independência de terceiros | Qualidade potencialmente inferior |
 
-### Ferramentas e Frameworks
+### Ferramentas e Frameworks (nao prescritivo)
 
-- **Resilience4j**: Biblioteca de resiliência para Java
-- **Polly**: Framework de resiliência para .NET
-- **Tenacity**: Biblioteca de retry para Python
-- **Istio/Envoy**: Service mesh com circuit breaker integrado
-- **Chaos Monkey**: Ferramenta de chaos engineering
+Use bibliotecas e mecanismos equivalentes no ecossistema da sua linguagem/plataforma (por exemplo, circuit breaker, retry com backoff, rate limiting, timeouts e chaos engineering).
 
 ## Summary
 
@@ -450,10 +447,5 @@ class LLMChaosExperiment:
 
 ## References
 
-1. Microsoft Security Blog. New whitepaper outlines the taxonomy of failure modes in AI agents. April 2025.
-2. Vinay et al. Failure Modes in LLM Systems: A System-Level Taxonomy for Reliable AI Applications. November 2025.
-3. Google Cloud Architecture Center. Design for graceful degradation. 2024.
-4. Field Guide to AI. AI Failure Modes and Mitigations: When AI Goes Wrong. December 2025.
-5. Medium. Building AI That Never Goes Down: The Graceful Degradation Playbook. December 2025.
-6. NIST. Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations. NIST AI 100-2 E2025, March 2025.
-7. Newman, S. Building Microservices. O'Reilly Media, 2021.
+1. NEWMAN, S. Building Microservices. 2. ed. Sebastopol: O'Reilly Media, 2021.
+2. NIST. Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations. 2025.

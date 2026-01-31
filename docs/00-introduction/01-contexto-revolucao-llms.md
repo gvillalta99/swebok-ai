@@ -2,16 +2,16 @@
 title: "Contexto da Revolução dos LLMs"
 created_at: "2025-01-31"
 tags: ["introducao", "llm", "revolucao-ia", "historia", "fundamentos"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 1. Contexto da Revolução dos LLMs
+# Contexto da Revolução dos LLMs
 
 ## Overview
 
-A engenharia de software está vivenciando uma transição paradigmática sem precedentes desde o advento dos computadores pessoais na década de 1980. A revolução dos Large Language Models (LLMs) não representa apenas uma nova ferramenta de produtividade, mas uma reconfiguração fundamental da própria natureza do trabalho de desenvolvimento de software. Esta seção contextualiza historicamente essa transformação, traçando a evolução desde os fundamentos teóricos em 2017 até os sistemas autônomos de 2025.
+A engenharia de software atravessa uma transição em que modelos de linguagem (Large Language Models, LLMs) deixam de ser apenas ferramentas de apoio e passam a influenciar o modo como sistemas são especificados, implementados e verificados. Esta seção contextualiza marcos técnicos e evidências de capacidade relevantes para engenharia de software, indicando limites conhecidos e implicações práticas para profissionais e organizações.
 
 ## Learning Objectives
 
@@ -19,10 +19,10 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 1. Identificar os marcos históricos críticos na evolução dos LLMs para engenharia de software (2017-2025)
 2. Compreender a progressão das métricas de avaliação, especialmente o SWE-bench
-3. Reconhecer os limites atuais dos sistemas autônomos de codificação
+3. Reconhecer limites atuais de sistemas de codificação assistida por IA
 4. Contextualizar o momento histórico atual dentro da trajetória de desenvolvimento da IA
 
-## Marcos Evolutivos: Da Teoria à Autonomia
+## Marcos Evolutivos: Da Teoria à Aplicação em Engenharia de Software
 
 ### 2017: A Arquitetura Transformer
 
@@ -48,30 +48,21 @@ O lançamento do GPT-4 em 2023 marcou o início da era de raciocínio complexo a
 
 Este ano consolidou a transição de curiosidade acadêmica para ferramenta de produtividade empresarial, com adoção massiva em organizações de tecnologia.
 
-### 2024: Claude 3.5, GPT-4o e a Autonomia Inicial
+### 2024–2025: Benchmarking Orientado a Repositórios
 
-Em 2024, a Anthropic lançou o Claude 3.5 Sonnet e a OpenAI apresentou o GPT-4o, modelos que alcançaram 33% de resolução no SWE-bench Verified [5]. Este marco representou a transição de assistentes passivos para agentes capazes de resolver issues reais de repositórios GitHub.
+Em 2024, consolidou-se o uso de benchmarks baseados em issues reais de repositórios como forma de avaliar agentes de codificação. O SWE-bench, introduzido por Jimenez et al. [5], mede a capacidade de um modelo resolver issues reais a partir de descrições em linguagem natural.
 
-O SWE-bench, introduzido por Jimenez et al. [6], tornou-se o padrão ouro para avaliar capacidades de coding agents, medindo a capacidade de resolver issues reais a partir de descrições em linguagem natural.
+Para manter este guia verificável, resultados numéricos específicos de modelos devem ser tratados como dados dependentes de uma fonte primária (por exemplo, paper, leaderboard oficial do benchmark ou comunicado técnico do provedor). Quando tais fontes não estiverem disponíveis ou forem voláteis, esta seção privilegia o princípio: progresso rápido em benchmark != autonomia operacional sem verificação.
 
-### 2025: Claude 4, OpenAI o3 e o Raciocínio Profundo
+## Métricas de Progresso: Limites do Benchmarking
 
-O ano de 2025 testemunhou o surgimento de modelos de raciocínio profundo (reasoning models). O Claude 4 Opus alcançou 72,5% no SWE-bench Verified, enquanto o OpenAI o3 atingiu 69,1% [7]. Estes modelos introduziram capacidades de raciocínio multi-etapas, críticas para resolver bugs complexos em código de produção.
+Benchmarks como o SWE-bench são úteis para:
 
-Mais recentemente, o Claude Opus 4.5 (novembro de 2025) tornou-se o primeiro modelo a superar a barreira dos 80%, atingindo 80,9% no SWE-bench Verified [8], superando inclusive o desempenho de candidatos humanos nos testes técnicos da Anthropic.
+- comparar abordagens sob um protocolo padronizado;
+- identificar classes de tarefas em que um agente é mais frágil;
+- orientar investimentos em verificação (testes, observabilidade, revisão).
 
-## Métricas de Progresso: A Evolução do SWE-bench
-
-O SWE-bench Verified tornou-se a métrica definitiva para avaliar agentes de codificação. A progressão dos scores demonstra o crescimento exponencial das capacidades:
-
-| Modelo | Ano | SWE-bench Verified | Salto |
-|--------|-----|-------------------|-------|
-| GPT-4 | 2023 | 3,1% | baseline |
-| GPT-4o | 2024 | 33,0% | 10x |
-| Claude 4 / o3 | 2025 | ~71% | 2x |
-| Claude Opus 4.5 | 2025 | 80,9% | 1,15x |
-
-Esta progressão ilustra a Lei de Moore aplicada à engenharia de software assistida por IA: capacidades duplicam em períodos cada vez menores.
+Ao mesmo tempo, resultados em benchmark não substituem validação em contexto (base de código específica, restrições de negócio, compliance, segurança e custos de verificação).
 
 ## Limites Documentados da Autonomia
 
@@ -91,22 +82,20 @@ O SWE-Bench Pro [11] focou especificamente em tarefas de software engineering de
 
 ## O Estado Atual do Ecossistema
 
-### Adoção Industrial
+### Adoção e Mudança no Trabalho
 
-Segundo o AI Index Report 2025 [12]:
-- 77% dos desenvolvedores usam IA regularmente
-- 60% reportam aumento de produtividade
-- 45% dedicam mais tempo a revisão de código
-- 35% reportam aumento de dívida técnica
+Relatórios agregados do setor e estudos empíricos sugerem aumento de adoção de ferramentas de IA e uma redistribuição do trabalho: menos tempo em escrita inicial e mais tempo em revisão, integração e verificação. Números específicos variam por pesquisa, amostra e definição operacional de “produtividade”; portanto, devem ser citados com cuidado e preferencialmente a partir de fontes primárias (estudos com metodologia explicitada).
 
 ### Categorias de Ferramentas
 
-O ecossistema atual compreende:
+Em termos funcionais, o ecossistema pode ser organizado em:
 
-1. **Assistentes de Autocomplete**: GitHub Copilot, Codeium, Tabnine
-2. **Agentes Conversacionais**: ChatGPT, Claude, Gemini
-3. **Agentes Autônomos**: Claude Code, OpenAI Codex, Devin, Cursor Agent
-4. **IDEs com IA Integrada**: Cursor, Windsurf, GitHub Copilot Workspace
+1. Assistentes de autocomplete (sugestões locais no editor)
+2. Assistentes conversacionais (chat orientado a tarefas)
+3. Agentes com execução (planejamento + ações em ferramentas/repositórios)
+4. IDEs e ambientes integrados com IA (orquestração de fluxos de trabalho)
+
+Exemplos de produtos mudam rapidamente; ao avaliar ferramentas, priorize capacidades verificáveis (observabilidade, controle de permissões, integração com testes e auditoria).
 
 ## Practical Considerations
 
@@ -140,15 +129,12 @@ O ecossistema atual compreende:
 
 ## References
 
-1. Vaswani, A., et al. (2017). "Attention Is All You Need". NeurIPS. https://arxiv.org/abs/1706.03762
-2. Chen, M., et al. (2021). "Evaluating Large Language Models Trained on Code". arXiv. https://arxiv.org/abs/2107.03374
-3. Li, Y., et al. (2022). "Competition-Level Code Generation with AlphaCode". Science. https://www.science.org/doi/10.1126/science.abq1158
-4. Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot". arXiv. https://arxiv.org/abs/2302.06590
-5. OpenAI. (2024). "Introducing SWE-bench Verified". https://openai.com/index/introducing-swe-bench-verified
-6. Jimenez, C.E., et al. (2024). "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?". ICLR. https://www.swebench.com/
-7. Nurix AI. (2025). "Claude 4 Opus vs Gemini 2.5 Pro vs OpenAI o3 Coding Comparison". https://www.nurix.ai/blogs/claude-4-opus-gemini-2-5-openai-o3-coding-comparison
-8. Claude5.com. (2025). "Claude Opus 4.5 Released: 80.9% SWE-bench Score". https://claude5.com/news/claude-opus-4-5-release-80-percent-swe-bench-beats-humans
-9. METR. (2025). "Measuring AI Ability to Complete Long Tasks". https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/
-10. METR. (2025). "Early 2025 AI-Experienced OS Dev Study". https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
-11. OpenReview. (2025). "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Tasks?". https://openreview.net/forum?id=9R2iUHhVfr
-12. Stanford HAI. (2025). "AI Index Report 2025 - Technical Performance". https://hai.stanford.edu/ai-index/2025-ai-index-report/technical-performance
+1. VASWANI, A. et al. Attention Is All You Need. NeurIPS, 2017. Disponivel em: https://arxiv.org/abs/1706.03762
+2. CHEN, M. et al. Evaluating Large Language Models Trained on Code. arXiv, 2021. Disponivel em: https://arxiv.org/abs/2107.03374
+3. LI, Y. et al. Competition-Level Code Generation with AlphaCode. Science, 2022. DOI: 10.1126/science.abq1158
+4. PENG, S. et al. The Impact of AI on Developer Productivity: Evidence from GitHub Copilot. arXiv, 2023. Disponivel em: https://arxiv.org/abs/2302.06590
+5. JIMENEZ, C. E. et al. SWE-bench: Can Language Models Resolve Real-World GitHub Issues? ICLR, 2024. Disponivel em: https://www.swebench.com/
+6. METR. Measuring AI Ability to Complete Long Tasks. 2025. Disponivel em: https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/
+7. METR. Early 2025 AI-Experienced OS Dev Study. 2025. Disponivel em: https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/
+8. OpenReview. SWE-Bench Pro: Can AI Agents Solve Long-Horizon Tasks? 2025. Disponivel em: https://openreview.net/forum?id=9R2iUHhVfr
+9. STANFORD HAI. AI Index Report 2025. 2025. Disponivel em: https://hai.stanford.edu/ai-index

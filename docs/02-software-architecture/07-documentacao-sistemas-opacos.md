@@ -2,12 +2,12 @@
 title: "Documentação Arquitetural para Sistemas Opaços"
 created_at: "2026-01-31"
 tags: ["arquitetura", "documentacao", "sistemas-opacos", "transparencia", "model-cards"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 7. Documentação Arquitetural para Sistemas Opaços
+# Documentação Arquitetural para Sistemas Opaços
 
 ## Overview
 

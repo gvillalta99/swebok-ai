@@ -2,12 +2,12 @@
 title: "06. Design para Verificabilidade"
 created_at: "2025-01-31"
 tags: ["software-design", "verificabilidade", "testabilidade", "codigo-gerado", "validacao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 06. Design para Verificabilidade
+# Design para Verificabilidade
 
 ## Overview
 

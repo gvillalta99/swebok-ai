@@ -2,23 +2,23 @@
 title: "Mudança de Paradigma na Engenharia de Software"
 created_at: "2025-01-31"
 tags: ["introducao", "paradigma", "engenharia-software", "mudanca", "verificacao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Mudança de Paradigma na Engenharia de Software
+# Mudança de Paradigma na Engenharia de Software
 
 ## Overview
 
-A engenharia de software está atravessando uma transformação paradigmática que redefine seus fundamentos epistemológicos e práticos. Enquanto o SWEBOK v4.0 assumia que o valor do engenheiro de software residia primariamente na capacidade de transformar requisitos em código eficiente, o SWEBOK-AI v5.0 reconhece que geração algorítmica tornou-se commodity. O novo paradigma estabelece que o gargalo da engenharia de software deslocou-se da produção para a verificação, exigindo uma reconfiguração completa das competências, processos e estruturas organizacionais.
+A engenharia de software atravessa uma transformação em que a geração de artefatos (especialmente código) tende a ser acelerada por LLMs, enquanto a entrega responsável continua dependente de verificação, integração e governança. Nesta leitura, o valor profissional desloca-se de “escrever” para “especificar, verificar e responder” — isto e, definir restrições, validar resultados e operar sistemas com rastreabilidade.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
 1. Articular a diferença fundamental entre o paradigma tradicional e o paradigma AI-first
-2. Explicar o conceito de "commoditização do código" e suas implicações econômicas
+2. Explicar o conceito de “commoditização do código” e suas implicações
 3. Reconhecer evidências empíricas da inversão do gargalo produtivo
 4. Identificar os novos papéis profissionais emergentes neste paradigma
 
@@ -39,7 +39,7 @@ O engenheiro de software era valorizado pela velocidade e precisão com que conv
 
 ### O Paradigma AI-First: Verificação como Gargalo
 
-A revolução dos LLMs inverteu fundamentalmente esta equação. Quando um modelo como Claude 4 ou GPT-4o pode gerar milhares de linhas de código funcional em segundos, a escassez deixa de ser a capacidade de produção e torna-se a capacidade de verificação.
+LLMs podem reduzir o custo marginal de produzir rascunhos de código, testes e documentação. Em contrapartida, a escassez tende a migrar para atividades que continuam exigindo julgamento: verificação de correção, segurança, compatibilidade com o sistema existente, e conformidade com restrições de domínio.
 
 No novo paradigma:
 - **Restrições** definem o que NÃO deixar construir
@@ -54,7 +54,7 @@ O engenheiro de software é valorizado pela capacidade de estabelecer restriçõ
 
 ### O Princípio Fundamental
 
-> **"O código tornou-se comodity; o contexto tornou-se capital."**
+> **"O código tornou-se commodity; o contexto tornou-se capital."**
 
 Esta afirmação encapsula a transformação econômica fundamental. Código — antes escasso e valioso — tornou-se abundantemente disponível através de sistemas de IA. O valor migrou para:
 
@@ -63,35 +63,25 @@ Esta afirmação encapsula a transformação econômica fundamental. Código —
 3. **Verificação e validação**: Garantir que o código gerado atende requisitos
 4. **Integração e governança**: Gerenciar sistemas complexos de código gerado
 
-### Evidências Empíricas
+### Evidências Empíricas (com cautela)
 
-Dellermann et al. [1], em pesquisa publicada na Communications of the ACM (2024), demonstraram que desenvolvedores relatam maior produtividade percebida com ferramentas de IA, mas nem sempre a percepção corresponde às métricas objetivas. Esta discrepância evidencia a complexidade do novo paradigma: produtividade de geração não equivale a produtividade de entrega.
+Dellermann et al. [1] discutem a relação entre produtividade percebida e métricas observáveis em contextos com ferramentas de IA. Para o leitor, a implicação prática e: separar “velocidade de geração” de “qualidade entregue” e projetar métricas e processos que enxerguem a diferença.
 
 Weber et al. [2] (2024) compararam interfaces de autocomplete (Copilot) versus conversacional (GPT-3), demonstrando ganhos significativos em ambos os formatos, mas com trade-offs diferentes. Interfaces conversacionais permitem maior especificidade (contexto), enquanto autocomplete oferece velocidade.
 
-## A Inversão do Gargalo: Evidências
+## A Inversão do Gargalo: Evidências e Sinais
 
-### Dados de Produtividade
+### Produtividade: o que os estudos medem
 
-Estudos empíricos recentes revelam uma transformação na estrutura do trabalho:
+Estudos empíricos sobre ferramentas de IA costumam medir recortes (tempo em tarefa, taxa de conclusao, volume de commits/pull requests, auto-relato de satisfacao). Isso e util para comparacoes controladas, mas pode distorcer a leitura se for interpretado como “produtividade total do produto” (que inclui qualidade, manutencao, riscos e governanca).
 
-**MIT/Accenture/Microsoft Study (2025)** [3]:
-- 26,08% de aumento em tarefas completadas (pull requests)
-- 38,38% de aumento em commits
-- Maiores ganhos para desenvolvedores menos experientes
+### O Paradoxo da Produtividade (hipótese operacional)
 
-**GitHub Research (2024)** [4]:
-- 60-75% dos usuários reportam maior satisfação
-- 73% conseguem manter estado de flow
-- 87% conservam esforço em tarefas repetitivas
+Hipótese operacional adotada neste guia: a medida que a geracao acelera, cresce a demanda por atividades de verificação, integração e manutencao, e o “ganho” pode se deslocar para outras filas do sistema (revisao, incidentes, retrabalho).
 
-### O Paradoxo da Produtividade
-
-Estes dados revelam um paradoxo: enquanto a produção de código acelera, outros aspectos do trabalho tornam-se mais complexos:
-
-1. **Aumento da revisão**: 45% dos desenvolvedores dedicam mais tempo a revisão de código
-2. **Dívida técnica crescente**: 35% reportam aumento de dívida técnica
-3. **Coordenação**: Aumento de 8% no tempo de coordenação para integração de código
+1. mais revisao e triagem de mudancas
+2. maior risco de divida tecnica por volume e variabilidade
+3. maior carga de coordenacao e alinhamento
 
 Esta é a manifestação prática da inversão do gargalo: o tempo economizado na geração é reinvestido (e frequentemente superado) na verificação.
 
@@ -135,9 +125,9 @@ Pesquisa da IEEE Software [7] (2024) demonstrou que ChatGPT melhora eficiência 
 
 ## Os Novos Papéis Profissionais
 
-### Emergência de Novas Especializações
+### Emergência de Novas Especializações (terminologia ainda instável)
 
-A mudança de paradigma está criando novos papéis profissionais:
+Termos e cargos variam por organizacao e por mercado. A lista a seguir deve ser lida como categorias de responsabilidade (nao como taxonomia padrao):
 
 1. **AI System Designer**: Projeta arquiteturas de sistemas híbridos humanos-IA
 2. **Verification Specialist**: Especialista em verificação de código gerado por IA
@@ -195,7 +185,7 @@ As seguintes práticas são marcadas como **LEGADO** no novo paradigma:
 1. **Reestruturar processos**: Adaptar SDLC para incluir verificação sistemática de código de IA
 2. **Investir em ferramentas**: Adotar plataformas de análise estática e dinâmica integradas
 3. **Treinar equipes**: Capacitar desenvolvedores em verificação e governança
-4. **Mudar métricas**: Evoluir de "velocity" para "quality throughput"
+4. **Mudar métricas**: Evoluir de métricas de velocidade para métricas de qualidade e risco
 
 ### Para a Academia
 
@@ -221,10 +211,10 @@ As seguintes práticas são marcadas como **LEGADO** no novo paradigma:
 
 ## References
 
-1. Dellermann, D., et al. (2024). "Measuring GitHub Copilot's Impact on Productivity". Communications of the ACM. https://cacm.acm.org/research/measuring-github-copilots-impact-on-productivity/
-2. Weber, F., et al. (2024). "Significant Productivity Gains through Programming with Large Language Models". LMU Munich. https://www.mmi.ifi.lmu.de/pubdb/publications/pub/weber2024eics-llm/weber2024eics-llm.pdf
-3. MIT/Accenture/Microsoft. (2025). "The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers". MIT Economics. https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf
-4. GitHub. (2024). "Research: Quantifying GitHub Copilot's Impact on Developer Productivity and Happiness". GitHub Blog. https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/
-5. Arxiv. (2025). "Generative AI and Empirical Software Engineering". https://arxiv.org/abs/2502.08108
-6. The New Stack. (2025). "AI Code Generation: Trust and Verify, Always". https://thenewstack.io/ai-code-generation-trust-and-verify-always/
-7. IEEE Software. (2024). "Human-AI Collaboration in Software Engineering". IEEE Xplore. https://ieeexplore.ieee.org/document/10653701
+1. DELLERMANN, D. et al. Measuring GitHub Copilot's Impact on Productivity. Communications of the ACM, 2024. Disponivel em: https://cacm.acm.org/research/measuring-github-copilots-impact-on-productivity/
+2. WEBER, F. et al. Significant Productivity Gains through Programming with Large Language Models. 2024. Disponivel em: https://www.mmi.ifi.lmu.de/pubdb/publications/pub/weber2024eics-llm/weber2024eics-llm.pdf
+3. MIT; ACCENTURE; MICROSOFT. The Effects of Generative AI on High-Skilled Work: Evidence from Three Field Experiments with Software Developers. 2025. Disponivel em: https://economics.mit.edu/sites/default/files/inline-files/draft_copilot_experiments.pdf
+4. GITHUB. Research: Quantifying GitHub Copilot's Impact on Developer Productivity and Happiness. 2024. Disponivel em: https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-developer-productivity-and-happiness/
+5. Generative AI and Empirical Software Engineering. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2502.08108
+6. The New Stack. AI Code Generation: Trust and Verify, Always. 2025. Disponivel em: https://thenewstack.io/ai-code-generation-trust-and-verify-always/
+7. IEEE Software. Human-AI Collaboration in Software Engineering. 2024. Disponivel em: https://ieeexplore.ieee.org/document/10653701

@@ -2,12 +2,12 @@
 title: "07 - Ferramentas e Técnicas Modernas"
 created_at: "2025-01-31"
 tags: ["ferramentas", "tecnicas", "rag", "prompt-engineering", "vector-databases", "mlops", "llmops"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 7. Ferramentas e Técnicas Modernas
+# Ferramentas e Técnicas Modernas
 
 ## Overview
 
@@ -25,7 +25,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## 7.1 Arquitetura e Frameworks
 
-### 7.1.1 Frameworks de Desenvolvimento LLM
+### 7.1.1 Frameworks de Desenvolvimento LLM (nao prescritivo)
+
+Exemplos (nao exaustivo):
 
 **LangChain**:
 - Orquestração de cadeias de chamadas LLM
@@ -45,7 +47,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 - Suporte a fine-tuning
 - Integração com modelos open source
 
-**Comparação**:
+**Comparacao (heuristica, nao ranking)**:
 
 | Framework | Melhor Para | Curva de Aprendizado | Ecossistema |
 |-----------|-------------|---------------------|-------------|
@@ -85,7 +87,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 | **Recursive** | Hierarquias de documentos | Mantém estrutura | Overlap complexo |
 | **Agentic** | Documentos muito complexos | Alta precisão | Custo computacional |
 
-### 7.1.3 Vector Databases
+### 7.1.3 Vector Databases (classes de solucao)
+
+Exemplos (nao exaustivo):
 
 **Pinecone**:
 - Managed service, serverless
@@ -115,7 +119,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### 7.2.1 Padrões de Prompt
 
-**Chain-of-Thought (CoT)**:
+**Chain-of-Thought (CoT) (exemplo didatico)**:
 ```
 Pergunta: Quanto é 25 × 36?
 
@@ -146,20 +150,19 @@ Input: [SEU INPUT AQUI]
 Sentimento:
 ```
 
-**ReAct (Reasoning + Acting)**:
+**ReAct (Reasoning + Acting) (exemplo simplificado)**:
 ```
-Pergunta: Qual a população da capital do Brasil?
+Pergunta: Qual a populacao da capital do Brasil?
 
-Pensamento: Preciso encontrar a capital do Brasil primeiro.
-Ação: Buscar "capital do Brasil"
-Observação: Brasília é a capital do Brasil.
+Pensamento: Preciso confirmar a capital.
+Acao: Buscar "capital do Brasil"
+Observacao: [resultado da busca]
 
-Pensamento: Agora preciso encontrar a população de Brasília.
-Ação: Buscar "população de Brasília 2024"
-Observação: A população de Brasília é aproximadamente 3,1 milhões.
+Pensamento: Agora preciso confirmar a populacao com uma fonte.
+Acao: Buscar "populacao de Brasilia (fonte oficial)"
+Observacao: [resultado da busca]
 
-Resposta Final: A população da capital do Brasil (Brasília) é 
-aproximadamente 3,1 milhões de habitantes.
+Resposta Final: [resposta citando a fonte consultada]
 ```
 
 ### 7.2.2 Técnicas Avançadas
@@ -451,12 +454,7 @@ optimized_classifier = teleprompter.compile(
 4. **Custo**: Total cost of ownership
 5. **Vendor Lock-in**: Facilidade de migração
 
-**Stack Recomendado para Início**:
-- **Framework**: LangChain ou LlamaIndex
-- **Vector DB**: Pinecone (produção) ou Chroma (dev)
-- **Observabilidade**: LangSmith ou W&B
-- **Deployment**: Hugging Face ou Modal
-- **Verificação**: DeepEval + RAGAS
+Evite “stacks recomendados” fixos. Prefira definir requisitos (custos, latencia, privacidade, lock-in, observabilidade, integracao com CI) e selecionar componentes que atendam a esses requisitos.
 
 ### Anti-Padrões
 
@@ -468,16 +466,7 @@ optimized_classifier = teleprompter.compile(
 
 ### Custos e ROI
 
-**Custos Típicos**:
-- **APIs de LLM**: $0.01-0.10 por 1K tokens
-- **Vector DB**: $0.10-1.00 por 1M vetores
-- **Observabilidade**: $50-500/mês
-- **Deployment**: Variável por uso
-
-**ROI**:
-- Redução de 30-70% no tempo de desenvolvimento
-- Melhoria de 20-40% em métricas de negócio
-- Redução de 50%+ em tarefas repetitivas
+Custos e retorno variam por provedor, volume, arquitetura, cache, e politicas de uso. Trate precos e estimativas de ROI como dados dependentes de contexto e, quando usados, documente fonte, periodo e assuncoes.
 
 ## Summary
 

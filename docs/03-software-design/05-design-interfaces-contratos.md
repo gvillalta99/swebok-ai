@@ -2,11 +2,11 @@
 title: "05. Design de Interfaces e Contratos"
 created_at: "2025-01-31"
 tags: ["software-design", "interfaces", "contratos", "api", "sistemas-hibridos"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
-# 05. Design de Interfaces e Contratos
+# Design de Interfaces e Contratos
 
 ## Overview
 

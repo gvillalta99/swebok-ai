@@ -2,12 +2,12 @@
 title: "02. Princípios de Design para Código Gerado"
 created_at: "2025-01-31"
 tags: ["software-design", "principios", "solid", "codigo-gerado", "verificacao"]
-status: "draft"
-updated_at: "2025-01-31"
-ai_model: "kimi-k2.5"
+status: "review"
+updated_at: "2026-01-31"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 02. Princípios de Design para Código Gerado
+# Princípios de Design para Código Gerado
 
 ## Overview
 

@@ -2,12 +2,12 @@
 title: "Design para Auditabilidade e Rastreamento"
 created_at: "2026-01-31"
 tags: ["arquitetura", "auditabilidade", "rastreamento", "observability", "compliance"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 4. Design para Auditabilidade e Rastreamento
+# Design para Auditabilidade e Rastreamento
 
 ## Overview
 

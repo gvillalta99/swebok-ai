@@ -2,12 +2,12 @@
 title: "Ferramentas e Técnicas Modernas"
 created_at: "2026-01-31"
 tags: ["arquitetura", "ferramentas", "frameworks", "langchain", "llamaindex", "agentes"]
-status: "draft"
+status: "review"
 updated_at: "2026-01-31"
-ai_model: "kimi-k2.5"
+ai_model: "openai/gpt-5.2"
 ---
 
-# 8. Ferramentas e Técnicas Modernas
+# Ferramentas e Técnicas Modernas
 
 ## Overview
 
