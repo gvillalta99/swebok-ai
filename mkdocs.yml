@@ -29,6 +29,13 @@ theme:
 
 plugins:
   - search
+  - exporter:
+      formats:
+        pdf:
+          enabled: true
+          aggregator:
+            enabled: true
+            output: assets/swebok-ai.pdf
 
 markdown_extensions:
   - admonition

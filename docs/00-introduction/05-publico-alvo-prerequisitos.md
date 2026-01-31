@@ -6,7 +6,6 @@ status: "review"
 updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
-
 # Público-Alvo e Pré-requisitos
 
 ## Overview
