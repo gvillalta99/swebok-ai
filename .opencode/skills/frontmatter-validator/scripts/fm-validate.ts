@@ -50,12 +50,14 @@ function isValidDate(dateStr: string): boolean {
   const regex = /^\d{4}-\d{2}-\d{2}$/;
   if (!regex.test(dateStr)) return false;
   
-  const date = new Date(dateStr);
   const [year, month, day] = dateStr.split("-").map(Number);
   
-  return date.getFullYear() === year &&
-         date.getMonth() + 1 === month &&
-         date.getDate() === day;
+  // Use UTC to avoid timezone issues
+  const date = new Date(Date.UTC(year, month - 1, day));
+  
+  return date.getUTCFullYear() === year &&
+         date.getUTCMonth() + 1 === month &&
+         date.getUTCDate() === day;
 }
 
 function extractFrontmatter(content: string): { frontmatter: string | null; body: string } {

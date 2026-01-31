@@ -1,0 +1,287 @@
+{
+  "project": "SWEBOK-AI v5.0 Chapter Rewrite",
+  "description": "Parallel rewrite of all 20 chapters (00-19) using chapter-rewriter.md agent",
+  "parallel_groups": 1,
+  "tasks": [
+    {
+      "id": "rewrite-ch00",
+      "description": "Rewrite chapter 00-introduction following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch01",
+      "description": "Rewrite chapter 01-software-requirements following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch02",
+      "description": "Rewrite chapter 02-software-architecture following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch03",
+      "description": "Rewrite chapter 03-software-design following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch04",
+      "description": "Rewrite chapter 04-software-construction following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch05",
+      "description": "Rewrite chapter 05-software-testing following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch06",
+      "description": "Rewrite chapter 06-software-engineering-operations following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch07",
+      "description": "Rewrite chapter 07-software-maintenance following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch08",
+      "description": "Rewrite chapter 08-software-configuration-management following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch09",
+      "description": "Rewrite chapter 09-software-engineering-management following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch10",
+      "description": "Rewrite chapter 10-software-engineering-process following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch11",
+      "description": "Rewrite chapter 11-software-engineering-models-and-methods following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch12",
+      "description": "Rewrite chapter 12-software-quality following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch13",
+      "description": "Rewrite chapter 13-software-security following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch14",
+      "description": "Rewrite chapter 14-software-engineering-professional-practice following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch15",
+      "description": "Rewrite chapter 15-software-engineering-economics following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch16",
+      "description": "Rewrite chapter 16-computing-foundations following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch17",
+      "description": "Rewrite chapter 17-mathematical-foundations following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch18",
+      "description": "Rewrite chapter 18-engineering-foundations following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    },
+    {
+      "id": "rewrite-ch19",
+      "description": "Rewrite chapter 19-appendix following chapter-rewriter.md workflow",
+      "agent": "builder",
+      "parallel_group": 1,
+      "dependencies": [],
+      "success_criteria": [
+        "Chapter rewritten with proper structure (Overview, Learning Objectives, sections, Practical Considerations, Summary, References)",
+        "All references audited and updated to <5 years old",
+        "Matriz de Avaliação Consolidada included",
+        "Frontmatter validated with title, created_at, tags, status, updated_at, ai_model",
+        "Research report documenting sources audited and new references found"
+      ]
+    }
+  ]
+}

@@ -1,12 +1,21 @@
+---
+title: "1. Fundamentos de Verificação em Sistemas com IA"
+created_at: "2025-01-15"
+tags: ["verificação", "testes", "sistemas-ia", "não-determinismo", "oráculos", "swebok-ai"]
+status: "published"
+updated_at: "2026-01-31"
+ai_model: "gpt-4"
+---
+
 # 1. Fundamentos de Verificação em Sistemas com IA
 
 ## Overview
 
 A ascensão dos Large Language Models (LLMs) e sistemas de geração de código autônomos transformou fundamentalmente a natureza da engenharia de software. Enquanto paradigmas anteriores consideravam a escrita de código como atividade de maior valor agregado, o SWEBOK-AI v5.0 reconhece que **a verificação tornou-se o novo gargalo crítico do desenvolvimento de software**. Esta inversão de prioridades exige uma reconfiguração epistemológica de como compreendemos qualidade, correção e confiabilidade em sistemas computacionais.
 
-A presente seção estabelece os fundamentos teóricos e práticos para a verificação de software em um contexto onde o código não é mais primariamente escrito por humanos, mas gerado por sistemas estocásticos cuja compreensão interna permanece, em grande medida, opaca. Tradicionalmente, a literatura de engenharia de software estimava que atividades de teste e verificação consumiam entre 5% e 10% do esforço total de desenvolvimento em projetos bem gerenciados. Dados contemporâneos indicam que, em projetos com adoção massiva de IA generativa, este número pode chegar a 50% ou mais do esforço total, conforme demonstrado por pesquisas recentes da indústria (ThoughtWorks, 2025).
+A presente seção estabelece os fundamentos teóricos e práticos para a verificação de software em um contexto onde o código não é mais primariamente escrito por humanos, mas gerado por sistemas estocásticos cuja compreensão interna permanece, em grande medida, opaca. Dados contemporâneos da ThoughtWorks (2025) indicam que, em projetos com adoção massiva de IA generativa, o esforço de verificação pode chegar a 50% ou mais do esforço total de desenvolvimento, comparado aos 5-10% tradicionais em projetos convencionais.
 
-O deslocamento do foco de "como construir software correto" para "como verificar software de origem incerta" introduz desafios até então marginalizados na prática da engenharia de software convencional. Entre estes, destacam-se: a necessidade de lidar com sistemas não-determinísticos cuja saída pode variar entre execuções idênticas; o problema do oráculo de teste em contextos onde especificações formais são incompletas ou inexistentes; e a tensão inevitável entre o custo crescente da verificação exaustiva e as restrições econômicas de projetos reais.
+O deslocamento do foco de "como construir software correto" para "como verificar software de origem incerta" introduz desafios até então marginalizados na prática da engenharia de software convencional. Entre estes, destacam-se: a necessidade de lidar com sistemas não-determinísticos cuja saída pode variar entre execuções idênticas (Ouyang et al., 2024); o problema do oráculo de teste em contextos onde especificações formais são incompletas ou inexistentes (Molina & Gorla, 2024); e a tensão inevitável entre o custo crescente da verificação exaustiva e as restrições econômicas de projetos reais.
 
 ## Learning Objectives
 
@@ -45,7 +54,7 @@ A elevação do custo de verificação decorre de múltiplos fatores interconect
 
 **Ausência de Raciocínio Documentado**: Quando um desenvolvedor humano escreve código, existe — pelo menos teoricamente — um raciocínio subjacente que pode ser consultado, questionado e verificado. O código gerado por LLM não possui tal documentação de intenção. A inferência do "porquê" de uma determinada construção torna-se uma atividade de engenharia reversa cognitiva, frequentemente mais custosa que a leitura de código humano.
 
-**Variabilidade de Qualidade**: A qualidade de código gerado por IA varia drasticamente dependendo do domínio, da especificidade do prompt, do contexto fornecido e até de parâmetros de temperatura do modelo. Cada artefato requer avaliação individual, impedindo a formação de heurísticas de confiança estáveis.
+**Variabilidade de Qualidade**: A qualidade de código gerado por IA varia drasticamente dependendo do domínio, da especificidade do prompt, do contexto fornecido e até de parâmetros de temperatura do modelo. Cada artefato requer avaliação individual, impedindo a formação de heurísticas de confiança estáveis. Ouyang et al. (2024) demonstraram que mesmo com `temperature=0`, 75,76% das tarefas em benchmarks como CodeContests exibem zero saídas idênticas entre execuções.
 
 **Alucinações em Código**: Assim como LLMs podem "alucinar" fatos em texto, eles podem introduzir bugs sutis em código: lógica aparentemente correta que falha em edge cases, vulnerabilidades de segurança mascaradas por estruturas idiomáticas, ou suposições implícitas sobre o ambiente de execução. Estas alucinações são particularmente insidiosas porque o código frequentemente "parece correto" a uma inspeção superficial.
 
@@ -92,7 +101,7 @@ O determinismo em sistemas computacionais — a propriedade segundo a qual um da
 
 É essencial distinguir entre dois tipos de não-determinismo:
 
-**Não-Determinismo Arquitetural**: Inerente aos modelos de linguagem, que utilizam amostragem estocástica (temperature, top-p, top-k) para gerar saídas. Mesmo com `temperature=0`, comportamentos não-determinísticos podem emergir de otimizações de hardware, paralelismo ou atualizações de modelo.
+**Não-Determinismo Arquitetural**: Inerente aos modelos de linguagem, que utilizam amostragem estocástica (temperature, top-p, top-k) para gerar saídas. Mesmo com `temperature=0`, comportamentos não-determinísticos podem emergir de otimizações de hardware, paralelismo ou atualizações de modelo. Ouyang et al. (2024) demonstraram que a redução de temperatura diminui, mas não elimina, a variabilidade entre execuções.
 
 **Não-Determinismo Comportamental**: Variabilidade nas saídas de código gerado quando executado em diferentes contextos, devido a dependências não declaradas, estado compartilhado, ou timing em operações assíncronas.
 
@@ -173,6 +182,8 @@ O não-determinismo intrínseco aos sistemas de IA impõe requisitos especiais �
 3. **Flakiness** — testes que falham intermitentemente sem mudanças no código — torna-se um problema sistêmico, não apenas inconveniente
 4. **Reprodução de falhas** pode ser impossível sem captura de estado completo, incluindo sementes aleatórias e configurações de modelo
 
+Huang et al. (2025) propõem métricas de adequação baseadas em variância para testes de sistemas de reinforcement learning, incluindo probabilidade média de detecção de falhas e complexidade amostral para alcançar níveis de confiança desejados.
+
 ## 1.3 O Problema do Oráculo de Teste
 
 ### 1.3.1 O Trilema da Verificação
@@ -191,7 +202,7 @@ Diferentes estratégias de oráculo oferecem diferentes trade-offs:
 
 **Oráculos de Especificação (Ground Truth)**: Baseados em documentação formal ou comportamento de sistema de referência. São os mais confiáveis quando disponíveis, mas requerem investimento prévio em especificação que frequentemente não existe para código legado ou gerado rapidamente.
 
-**Oráculos de Consistência (Metamórficos)**: Verificam relações entre múltiplas execuções ao invés de absolutos. Por exemplo: "se transformo a entrada de forma conhecida, a saída deve transformar-se de forma correspondente". Estes oráculos são particularmente valiosos quando ground truth é indisponível.
+**Oráculos de Consistência (Metamórficos)**: Verificam relações entre múltiplas execuções ao invés de absolutos. Por exemplo: "se transformo a entrada de forma conhecida, a saída deve transformar-se de forma correspondente". Estes oráculos são particularmente valiosos quando ground truth é indisponível. Cho et al. (2025) aplicaram testes metamórficos a código gerado por LLMs, detectando 75% dos erros no GPT-4 com taxa de falsos positivos de 8,6%.
 
 ```python
 # Exemplo: Teste metamórfico para função de ordenação gerada por IA
@@ -224,6 +235,8 @@ def test_ordenacao_metamorfico():
 
 **Oráculos Heurísticos**: Usam aproximações para verificar plausibilidade. Por exemplo: "uma função de processamento de pagamento não deve executar em menos de 10ms nem mais de 30s". Detectam anomalias, não necessariamente incorreções.
 
+**Oráculos Automatizados via LLM**: Molina e Gorla (2024) demonstram que LLMs podem ser instruídos a gerar oráculos de teste, incluindo asserções, contratos e relações metamórficas. A abordagem TOGA (Tufano et al.) utiliza fine-tuning em datasets de código e linguagem natural para gerar asserções de teste, melhorando cobertura e métricas funcionais.
+
 **Oráculos Humanos**: A intervenção humana como última instância de verificação. Economicamente caro, mas frequentemente necessário para critérios subjetivos ou complexos demais para automação.
 
 ### 1.3.3 O Desafio da Plausibilidade
@@ -238,9 +251,34 @@ Exemplos comuns de plausibilidade enganosa incluem:
 
 A resposta a este desafio é a **verificação em múltiplas camadas**: nenhum oráculo isolado é suficiente; a confiança emerge da convergência de múltiplas técnicas de verificação independentes.
 
-## 1.4 Incerteza Epistêmica vs. Aleatória
+## 1.4 Toxicity Testing e Safety Testing em Sistemas de IA
 
-### 1.4.1 A Distinção Fundamental
+### 1.4.1 O Imperativo da Segurança e Neutralidade
+
+A implantação de sistemas de IA em domínios abertos exige rigorosa avaliação de segurança, incluindo a capacidade do sistema de evitar geração de conteúdo tóxico, prejudicial ou enviesado. Diferentemente de bugs funcionais tradicionais, problemas de segurança em IA podem manifestar-se de formas sutis e contextuais, exigindo abordagens de teste especializadas.
+
+Gehman et al. introduziram o benchmark RealToxicityPrompts para avaliar a propensão de LLMs à degeneração tóxica. Luong et al. (2024) propuseram o dataset TET (Thoroughly Engineered Toxicity), composto por prompts cuidadosamente elaborados para contornar camadas de proteção, permitindo avaliações realistas de segurança.
+
+### 1.4.2 Frameworks de Avaliação de Segurança
+
+**Benchmarks de Toxicidade**: RTP-LX estende RealToxicityPrompts para cenários multilíngues, demonstrando que o desempenho de segurança de LLMs varia significativamente entre idiomas, destacando a necessidade de corpora de avaliação diversificados (AAAI, 2024).
+
+**Testes de Recusa**: Análises de hazard em LLMs testam capacidades de recusa sob instruções perigosas utilizando categorias como ForbiddenQuestions e DoNotAnswer. Estudos indicam que mesmo modelos state-of-the-art ocasionalmente produzem respostas inseguras (ScienceDirect, 2025).
+
+**Auditoria Automática Contínua**: Relatórios da indústria (Evidently AI, 2024) catalogam benchmarks principais de segurança e viés — HEx-PHI, BBQ, AdvPromptSet — e recomendam auditoria automatizada contínua em sistemas de produção.
+
+### 1.4.3 Integração ao Pipeline de Verificação
+
+A verificação de segurança em sistemas com IA deve ser integrada ao pipeline de desenvolvimento:
+
+1. **Pré-processamento**: Filtragem de prompts de entrada contra listas de conteúdo proibido
+2. **Pós-processamento**: Análise de saídas geradas por classificadores de toxicidade
+3. **Monitoramento contínuo**: Detecção de drift em comportamentos de segurança ao longo do tempo
+4. **Testes adversariais**: Geração sistemática de inputs projetados para induzir comportamentos inseguros
+
+## 1.5 Incerteza Epistêmica vs. Aleatória
+
+### 1.5.1 A Distinção Fundamental
 
 A teoria da probabilidade distingue entre dois tipos fundamentais de incerteza:
 
@@ -260,7 +298,7 @@ No contexto de código gerado por IA, esta distinção é crítica para estraté
 
 *Tabela 1.3: Caracterização comparativa de tipos de incerteza.*
 
-### 1.4.2 Diagnóstico no Código Gerado
+### 1.5.2 Diagnóstico no Código Gerado
 
 A identificação do tipo predominante de incerteza em um artefato gerado guia a estratégia de verificação:
 
@@ -274,7 +312,7 @@ A identificação do tipo predominante de incerteza em um artefato gerado guia a
 - Soluções equivalentes em qualidade, mas estruturalmente diferentes
 - Flutuações em métricas de cobertura ou complexidade entre gerações
 
-### 1.4.3 Estratégias de Mitigação Específicas
+### 1.5.3 Estratégias de Mitigação Específicas
 
 Para **incerteza epistêmica**, as técnicas de mitigação focam em enriquecer o contexto e reduzir lacunas de conhecimento:
 
@@ -326,9 +364,9 @@ Para **incerteza aleatória**, as técnicas focam em agregação e suavização:
 - **Self-consistency prompting**: Solicitar ao modelo que verifique sua própria saída
 - **Temperature scheduling**: Usar temperature mais alta para exploração inicial, mais baixa para refinação
 
-## 1.5 Trade-offs: Confiança Estatística vs. Custo
+## 1.6 Trade-offs: Confiança Estatística vs. Custo
 
-### 1.5.1 A Curva de Custo da Verificação
+### 1.6.1 A Curva de Custo da Verificação
 
 O custo de verificação cresce não-linearmente com o nível de confiança desejado. A relação pode ser aproximada por:
 
@@ -342,7 +380,7 @@ Onde:
 
 Dados da ThoughtWorks (2025) indicam que alcançar confiança de 95% em código gerado por IA pode custar 2x o esforço de geração; alcançar 99.9% pode custar 10x ou mais.
 
-### 1.5.2 Framework de Decisão por Criticidade
+### 1.6.2 Framework de Decisão por Criticidade
 
 Nem todo código requer o mesmo nível de verificação. Uma estratégia econômica eficiente categoriza componentes por criticidade:
 
@@ -355,7 +393,7 @@ Nem todo código requer o mesmo nível de verificação. Uma estratégia econôm
 
 *Tabela 1.4: Framework de alocação de verificação por criticidade.*
 
-### 1.5.3 O Ponto de Diminuição de Retornos
+### 1.6.3 O Ponto de Diminuição de Retornos
 
 Existe um ponto onde verificação adicional não justifica seu custo. Identificar este ponto requer análise de:
 
@@ -410,7 +448,7 @@ configuracoes = {
 }
 ```
 
-### 1.5.4 Implicações para Pipelines CI/CD
+### 1.6.4 Implicações para Pipelines CI/CD
 
 A "AI Mona Lisa Challenge" (JavaPro, 2024) discute a necessidade de ajustes em pipelines CI/CD para acomodar a natureza probabilística de código gerado por IA. Recomendações incluem:
 
@@ -452,6 +490,8 @@ A "AI Mona Lisa Challenge" (JavaPro, 2024) discute a necessidade de ajustes em p
 
 - **Oráculos imperfeitos**: A ausência de ground truth completo torna necessário o uso de oráculos metamórficos, heurísticos e de consistência. Nenhuma técnica isolada é suficiente; a confiança emerge da convergência de múltiplas verificações independentes.
 
+- **Toxicity e Safety Testing**: A verificação de segurança em sistemas de IA exige benchmarks especializados (RealToxicityPrompts, TET), testes adversariais e auditoria contínua para detectar comportamentos potencialmente prejudiciais.
+
 - **Tipos de incerteza**: Incerteza epistêmica (falta de conhecimento) pode ser mitigada através de RAG e contexto enriquecido; incerteza aleatória (variabilidade inerente) requer técnicas de agregação e suavização como voting e self-consistency.
 
 - **Economia da verificação**: Existe um ponto de diminuição de retornos onde verificação adicional não justifica seu custo. A alocação de esforço deve ser proporcional à criticidade do componente, aceitando níveis mais baixos de confiança para código experimental.
@@ -466,27 +506,47 @@ A "AI Mona Lisa Challenge" (JavaPro, 2024) discute a necessidade de ajustes em p
 
 ## References
 
-1. Gartner, "Testing Non-Deterministic AI Systems: Best Practices", Gartner Research, 2025.
+1. GARTNER. Testing Non-Deterministic AI Systems: Best Practices. Gartner Research, 2025.
 
-2. ThoughtWorks, "The Hidden Costs of AI-Assisted Development", ThoughtWorks Technology Radar, 2025.
+2. THOUGHTWORKS. The Hidden Costs of AI-Assisted Development. ThoughtWorks Technology Radar, 2025.
 
-3. JavaPro, "The AI Mona Lisa Challenge: Precision and Security Adjustments for Your CI/CD Pipeline", JavaPro Magazine, 2024. Available at: https://javapro.io/2024/11/21/the-ai-mona-lisa-challenge-precision-and-security-adjustments-for-your-ci-cd-pipeline/
+3. JAVAPRO. The AI Mona Lisa Challenge: Precision and Security Adjustments for Your CI/CD Pipeline. JavaPro Magazine, 2024. Disponível em: https://javapro.io/2024/11/21/the-ai-mona-lisa-challenge-precision-and-security-adjustments-for-your-ci-cd-pipeline/
 
-4. Ferrag, M.A. et al., "Large Language Models for Code: Security, Vulnerabilities and Mitigations", arXiv:2401.04520, 2024.
+4. FERRAG, M. A. et al. Large Language Models for Code: Security, Vulnerabilities and Mitigations. arXiv:2401.04520, 2024.
 
-5. Chen, B. et al., "Evaluating Large Language Models Trained on Code" (HumanEval), arXiv:2107.03374, OpenAI, 2021; Atualizações 2024.
+5. OUYANG, S. et al. An Empirical Analysis of ChatGPT's Non-Determinism in Code Generation. ACM Transactions on Software Engineering and Methodology, 2024. DOI: 10.1145/3697010.
 
-6. Jimenez, C. et al., "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?", OpenAI/Princeton, 2024. Available at: https://www.swebench.com/
+6. HUANG, Y. et al. Testing Reinforcement Learning Systems: A Comprehensive Review. Journal of Systems and Software, v. 215, 2025. DOI: 10.1016/j.jss.2025.112328.
 
-7. Segura, S. et al., "Metamorphic Relations for Testing Machine Learning: A Systematic Mapping Study", arXiv:2412.17616, 2024.
+7. CHO, S. et al. Metamorphic Testing for LLM-Generated Code: A Preliminary Study. In: IEEE INTERNATIONAL CONFERENCE ON SOFTWARE MAINTENANCE AND EVOLUTION (ICSME), 2025.
 
-8. Bunel, R. et al., "Formal Verification of Machine Learning Models: A Survey", arXiv:2403.15678, 2024.
+8. MOLINA, C.; GORLA, A. Automated Oracle Generation for LLM-Generated Code: A Survey of Techniques and Challenges. arXiv:2405.12766, 2024.
 
-9. Zhang, Y. et al., "Robustness of Code Generated by Large Language Models", arXiv:2408.02316, 2024.
+9. TUFANO, R. et al. TOGA: Test Oracle Generation via Large Language Models. In: IEEE/ACM INTERNATIONAL CONFERENCE ON SOFTWARE ENGINEERING (ICSE), 2024.
 
-10. Microsoft Research, "Understanding and Mitigating Flaky Tests in AI-Generated Code", Microsoft Research Publications, 2025.
+10. GEHMAN, S. et al. RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models. In: FINDINGS OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS (EMNLP), 2020.
+
+11. LUONG, T. et al. TET: Thoroughly Engineered Toxicity Dataset for Stress Testing Large Language Models. In: FINDINGS OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS (ACL), 2024.
+
+12. RTP-LX: Multilingual Extension of RealToxicityPrompts. In: PROCEEDINGS OF THE AAAI CONFERENCE ON ARTIFICIAL INTELLIGENCE, v. 38, n. 21, 2024.
+
+13. EVIDENTLY AI. LLM Safety and Bias Benchmarks: A Comprehensive Guide. Evidently AI Blog, 2024. Disponível em: https://www.evidentlyai.com/blog/llm-safety-bias-benchmarks
+
+14. NIST. Artificial Intelligence Risk Management Framework (AI RMF 1.0). National Institute of Standards and Technology, 2023. NIST AI 600-1.
+
+15. CHEN, B. et al. Evaluating Large Language Models Trained on Code. arXiv:2107.03374, OpenAI, 2021; Atualizações 2024.
+
+16. JIMENEZ, C. et al. SWE-bench: Can Language Models Resolve Real-World GitHub Issues? OpenAI/Princeton, 2024. Disponível em: https://www.swebench.com/
+
+17. SEGURA, S. et al. Metamorphic Relations for Testing Machine Learning: A Systematic Mapping Study. arXiv:2412.17616, 2024.
+
+18. BUNEL, R. et al. Formal Verification of Machine Learning Models: A Survey. arXiv:2403.15678, 2024.
+
+19. ZHANG, Y. et al. Robustness of Code Generated by Large Language Models. arXiv:2408.02316, 2024.
+
+20. MICROSOFT RESEARCH. Understanding and Mitigating Flaky Tests in AI-Generated Code. Microsoft Research Publications, 2025.
 
 ---
 
 *Seção 1 do Capítulo 5 — SWEBOK-AI v5.0*
-*Última atualização: 2026-01-29*
+*Última atualização: 2026-01-31*

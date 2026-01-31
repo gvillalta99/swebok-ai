@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "agents/chapter-rewriter.md",
+                "file": "docs/01-software-requirements/PLAN.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "chapter-rewriter"
+              "title": "PLAN"
             }
           }
         ]
@@ -197,25 +197,28 @@
   },
   "active": "14757e0a862abc14",
   "lastOpenFiles": [
+    "docs/01-software-requirements/02-elicitacao-contexto-intencao.md",
+    "docs/01-software-requirements/01-fundamentos-engenharia-restricoes.md",
+    "agents/chapter-rewriter.md",
+    "site/search/search_index.json",
+    "site/search",
+    "site/19-appendix/swebok-v4/index.html",
+    "site/19-appendix/swebok-v4",
+    "site/19-appendix/01-recursos-complementares/index.html",
+    "site/19-appendix/01-recursos-complementares",
+    "site/19-appendix",
+    "site/18-engineering-foundations/swebok-v4/index.html",
+    "site/18-engineering-foundations/swebok-v4",
+    "site/18-engineering-foundations/02-qualidade-etica-engenharia/index.html",
+    "site/08-software-configuration-management/swebok-v4.md",
+    "site/assets/images/favicon.png",
+    "docs/19-appendix/01-recursos-complementares.md",
+    "agents/book-writer.md",
     "docs/01-software-requirements/06-gestao-variabilidade-evolucao.md",
     "docs/01-software-requirements/04-modelagem-degradacao-graciosa-falhas.md",
     "docs/01-software-requirements/05-governanca-responsabilidade-requisitos.md",
     "docs/01-software-requirements/03-especificacao-invariantes-contratos.md",
-    "docs/01-software-requirements/02-elicitacao-contexto-intencao.md",
-    "docs/01-software-requirements/01-fundamentos-engenharia-restricoes.md",
     "docs/01-software-requirements/07-ferramentas-tecnicas-modernas.md",
-    "site/16-computing-foundations/02-processamento-geracao-codigo.html",
-    "site/16-computing-foundations/01-sistemas-cognitivos-artificiais.html",
-    "site/16-computing-foundations",
-    "site/15-software-engineering-economics/swebok-v4.html",
-    "site/15-software-engineering-economics/02-metricas-kpis.html",
-    "site/15-software-engineering-economics/01-economia-software-ia.html",
-    "site/15-software-engineering-economics",
-    "site/14-software-engineering-professional-practice/swebok-v4.html",
-    "site/14-software-engineering-professional-practice/02-etica-responsabilidade.html",
-    "site/14-software-engineering-professional-practice/02-5-regulamentacao-engenharia-software.html",
-    "site/assets/images/favicon.png",
-    "site/08-software-configuration-management/swebok-v4.md",
     "environment.md",
     "docs/02-software-architecture/02-arquitetura-supervisao-controle.md",
     "docs/02-software-architecture/09-curadoria-arquitetural.md",
@@ -223,16 +226,12 @@
     "docs/03-software-design/RESEARCH-REPORT.md",
     "docs/02-software-architecture/08-ferramentas-tecnicas-modernas.md",
     "docs/02-software-architecture/RESEARCH-REPORT.md",
-    "agents/chapter-rewriter.md",
     "agents/book-editor.md",
-    "agents/book-writer.md",
     "book-x.md",
     "docs/06-software-engineering-operations/swebok-v4.md",
     "docs/08-software-configuration-management/04-rastreabilidade-proveniencia.md",
     "docs/19-appendix/swebok-v4.md",
     "docs/18-engineering-foundations/swebok-v4.md",
-    "docs/17-mathematical-foundations/swebok-v4.md",
-    "docs/16-computing-foundations/swebok-v4.md",
-    "docs/15-software-engineering-economics/swebok-v4.md"
+    "docs/17-mathematical-foundations/swebok-v4.md"
   ]
 }

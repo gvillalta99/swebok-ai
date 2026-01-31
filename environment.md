@@ -1,25 +1,50 @@
-## Environment Scan (Phase 1)
+# Environment Scan (SWEBOK-AI)
 
-### INFRA
-- Platform: Linux, local filesystem.
-- Execution context: OS-native (no container indicators).
-- Container tooling: no `Dockerfile` or `docker-compose*.yml` found.
+## Infra
 
-### DOMAIN
-- Primary domain: documentation/book project (SWEBOK-AI v5.0) composed of Markdown chapters organized by Knowledge Areas.
-- Auxiliary domain: small Python utilities to extract chapter text from `swebok-v4.pdf`.
+- OS: Linux (Arch Linux).
+- Container: nao detectado (`/.dockerenv` ausente).
+- Repo: Git (workspace: `/home/gustavo/Documentos/swebok-ai`).
+- Docker: sem `Dockerfile*` e sem `docker-compose*.yml` no repo.
 
-### STACK
-- Content: Markdown (`.md`), PT-BR as primary language.
-- Agent configs: Markdown files with YAML front matter (example: `book-writer.md`).
-- Python: `pyproject.toml` specifies Python >= 3.12 and dependency `docling>=2.70.0`.
-- Python utilities: minimal packaging via `pyproject.toml` (Python >= 3.12, `docling>=2.70.0`).
-- Build system: none for docs; no application runtime.
+## Domain
 
-### DOCS
-- Read: `README.md`, `AGENTS.md`, `book-writer.md`, `book-editor.md`.
-- `/docs` directory: not present.
+- Tipo: projeto de documentacao (SWEBOK-AI v5.0) gerado com MkDocs.
+- Fonte de verdade: conteudo em `docs/`.
+- Saida gerada: `site/` (definido em `mkdocs.yml`).
 
-### REPO STRUCTURE NOTES
-- Directories: `00-*` (intro/meta), `01-18-*` (Knowledge Areas), `19-appendix`.
-- Content status: KA01 contains substantive content; most other KAs are placeholders with `README.md`.
+## Stack
+
+- Python: `>=3.12` (em `pyproject.toml`).
+- MkDocs:
+  - `mkdocs==1.6.1`
+  - `mkdocs-material==9.5.50`
+  - `mkdocs-exporter==6.2.0` (gera PDF em `assets/swebok-ai.pdf`)
+  - `playwright==1.49.1`
+  - `pymdown-extensions==10.14.3`
+- Python libs adicionais: `docling>=2.70.0`.
+- OpenCode: `.opencode/package.json` com `@opencode-ai/plugin`.
+- DB/Auth: nao aplicavel (site estatico; sem backend observado).
+
+## Docs Read
+
+- `README.md`
+- `mkdocs.yml`
+- `docs/README.md`
+- `docs/index.md`
+- `requirements-docs.txt`
+- `pyproject.toml`
+
+## Estrutura de Capitulos
+
+- Capitulos / KAs em pastas `docs/00-introduction` ate `docs/18-engineering-foundations`.
+- Apice/Apice: `docs/19-appendix` (existe `PLAN.md`).
+- Navegacao principal: `mkdocs.yml` (nav aponta para arquivos iniciais por capitulo).
+
+## Execution Status
+
+- Phase 1 (00-05): In Progress (parallel execution attempted)
+- Phase 2 (06-11): Pending
+- Phase 3 (12-17): Pending
+- Phase 4 (18-19): Pending
+- Integration: Pending
