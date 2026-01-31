@@ -229,13 +229,13 @@ A introdução de supervisão humana introduz latência significativa. Segundo b
 │                    ESPECTRO DE LATÊNCIA                     │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  Síncrono          Híbrido           Assíncrono            │
-│  (0.5-2.0s)       (Threshold)        (Near-zero)           │
+│  Síncrono          Híbrido           Assíncrono             │
+│  (0.5-2.0s)       (Threshold)        (Near-zero)            │
 │                                                             │
-│  ████████████     ████████░░░░       ░░░░░░░░░░░░         │
+│  ████████████     ████████░░░░       ░░░░░░░░░░░░           │
 │                                                             │
-│  Máxima           Balanceado         Máxima                │
-│  Segurança                             Velocidade          │
+│  Máxima           Balanceado         Máxima                 │
+│  Segurança                             Velocidade           │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
 ```
