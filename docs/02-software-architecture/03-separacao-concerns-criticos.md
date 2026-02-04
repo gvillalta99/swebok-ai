@@ -1,402 +1,126 @@
 ---
-title: "Padrões de Separação de Concerns Críticos"
+title: "Separação de Concerns Críticos em Sistemas com IA"
 created_at: "2026-01-31"
 tags: ["arquitetura", "separacao-concerns", "critical-systems", "seguranca", "design-patterns"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "google/gemini-3-pro-preview"
 ---
 
-# Padrões de Separação de Concerns Críticos
+# Separação de Concerns Críticos em Sistemas com IA
 
-## Overview
+## Contexto
+A engenharia de software tradicional foi construída sobre a premissa da redução de incerteza: mesmo input, mesmo output. A introdução de LLMs inverte essa lógica, trazendo componentes estocásticos (probabilísticos) para o coração de sistemas críticos. O erro mais comum em 2025/2026 é tratar chamadas de LLM como chamadas de API determinísticas. Sem uma separação rígida entre o "Núcleo Determinístico" (regras de negócio, transações) e a "Borda Probabilística" (IA), você cria sistemas impossíveis de testar, auditar e confiar. Este capítulo define como isolar o caos criativo da IA da ordem necessária para a operação do negócio.
 
-A separação de concerns é um princípio fundamental da engenharia de software que ganha novas dimensões na era dos sistemas híbridos. Quando componentes de IA operam ao lado de código determinístico, a separação clara de responsabilidades torna-se crítica para segurança, auditabilidade e manutenibilidade. Esta seção apresenta padrões arquiteturais para separar concerns em sistemas onde o não-determinismo é uma característica, não um bug.
+## 3.1 O Novo Paradigma: Núcleo vs. Borda
 
-## Learning Objectives
+A arquitetura de sistemas híbridos exige uma distinção mental e física entre dois mundos:
 
-Após estudar esta seção, o leitor deve ser capaz de:
+1.  **Núcleo Determinístico (The Trust Zone):** Onde a verdade reside. Bancos de dados SQL, cálculos fiscais, controle de acesso (RBAC), orquestração de estado. Aqui, 1 + 1 deve ser sempre 2.
+2.  **Borda Probabilística (The Fuzzy Zone):** Onde a inferência ocorre. LLMs, RAG, classificação semântica. Aqui, 1 + 1 é "provavelmente 2, mas talvez uma metáfora para união".
 
-1. Identificar concerns que devem ser isolados de componentes de IA
-2. Projetar boundaries arquiteturais que previnam vazamento de responsabilidades
-3. Implementar padrões de isolamento para dados sensíveis
-4. Avaliar trade-offs entre acoplamento e separação em sistemas híbridos
+**Regra de Ouro:** O Núcleo Determinístico nunca deve *depender* da Borda Probabilística para manter sua integridade. A IA é um plugin, não uma fundação.
 
-## 3.1 Fundamentos da Separação em Sistemas Híbridos
+## 3.2 O Padrão "Sanduíche de IA" (AI Sandwich)
 
-### 3.1.1 Por Que a Separação é Crítica
+A maneira mais segura de integrar LLMs é encapsulá-los completamente entre camadas determinísticas. O LLM nunca "vai buscar" dados e nunca "salva" dados diretamente. Ele apenas transforma texto A em texto B.
 
-Em sistemas tradicionais, a separação de concerns facilita manutenção e evolução. Em sistemas híbridos, ela é **essencial para segurança**:
+### Camada 1: Preparação Determinística (Bottom Bun)
+Antes de invocar o modelo, o sistema coleta *todos* os dados necessários usando código tradicional.
+*   **Responsabilidade:** Busca em DB, chamadas de API, verificação de permissões do usuário.
+*   **Output:** Um contexto limpo, anonimizado e estruturado (JSON/XML) para o prompt.
+*   **Por que:** Evita que a IA alucine dados ou tente acessar APIs com credenciais que não deveria ter.
 
-**Riscos da Separação Inadequada**:
-- Vazamento de dados sensíveis para prompts de IA
-- Execução de operações críticas por componentes não-determinísticos
-- Dificuldade de auditoria quando lógica de negócio está misturada com IA
-- Propagação de erros de IA para sistemas críticos
+### Camada 2: Processamento Probabilístico (The Meat)
+O LLM recebe o contexto e a instrução. Ele opera em modo "puro" (sem efeitos colaterais).
+*   **Responsabilidade:** Raciocínio, sumarização, extração, tradução.
+*   **Restrição:** Zero acesso à rede, zero acesso ao disco. Apenas Input -> Processamento -> Output.
+*   **Output:** Texto ou JSON estruturado sugerindo uma ação ou resposta.
 
-**Benefícios da Separação Adequada**:
-- Controle granular de acesso a dados
-- Isolamento de falhas
-- Clareza de responsabilidade
-- Facilidade de compliance
+### Camada 3: Validação e Atuação Determinística (Top Bun)
+O código tradicional retoma o controle. Ele não confia cegamente na saída da Camada 2.
+*   **Responsabilidade:** Parsing (Zod/Pydantic), validação de regras de negócio (ex: "o valor do reembolso não pode exceder R$ 500"), execução da ação (DB write).
+*   **Por que:** Garante que, mesmo se a IA enlouquecer, o sistema não corrompa o estado da aplicação.
 
-### 3.1.2 Categorização de Concerns
+## 3.3 Isolamento de Efeitos Colaterais (Side Effects)
 
-**Tier 1: Concerns Críticos (Determinísticos Obrigatórios)**
-- Autenticação e autorização
-- Validação de transações financeiras
-- Cálculos regulatórios
-- Auditoria e logging de segurança
-- Controle de acesso a dados sensíveis
-
-**Tier 2: Concerns Importantes (Híbridos)**
-- Validação de entrada de usuário
-- Enriquecimento de dados
-- Classificação de conteúdo
-- Detecção de anomalias
+Um sistema robusto trata a IA como **Read-Only** ou **Suggest-Only**.
 
-**Tier 3: Concerns Auxiliares (IA Apropriada)**
-- Geração de conteúdo
-- Análise de sentimento
-- Sumarização
-- Tradução
+*   **Errado:** Dar ao agente uma *tool* `database.execute_sql(query)`. Isso é dar `sudo` para um estagiário alucinado.
+*   **Certo:** O agente retorna uma *intenção* estruturada: `{"intent": "UPDATE_ADDRESS", "params": {"new_zip": "12345"}}`.
+*   **Execução:** Um *handler* determinístico recebe essa intenção, valida se o CEP existe, se o usuário tem permissão para mudar o endereço, e então executa o SQL.
 
-### 3.1.3 O Princípio da Menor Privilégio para IA
+Isso reduz o "Blast Radius" (raio de explosão). Se o modelo for comprometido (Prompt Injection), o máximo que ele consegue fazer é gerar um JSON malformado que o validador rejeitará.
 
-**Definição**: Componentes de IA devem ter acesso apenas aos dados estritamente necessários para sua função, e nunca a dados que possam comprometer segurança ou privacidade.
+## Checklist Prático
 
-**Implementação**:
-- Data minimization nos prompts
-- Anonimização antes do processamento
-- Tokenização de identificadores sensíveis
-- Sanitização de inputs
+O que implementar para garantir a separação:
 
-## 3.2 Padrões de Isolamento Arquitetural
+1.  [ ] **Auditoria de Tools:** Remova qualquer ferramenta que permita à IA escrever diretamente em banco ou disco.
+2.  [ ] **Protocolo de Intenção:** Converta todas as saídas de ação da IA em objetos de intenção (Command Pattern) que precisam ser processados por código determinístico.
+3.  [ ] **Validação de Schema:** Use bibliotecas como Zod (TS) ou Pydantic (Python) para forçar a saída da IA a um formato estrito. Se falhar na validação, a IA não "agiu".
+4.  [ ] **Sanitização de Input:** Nunca passe dados brutos do usuário (PII) para o prompt sem anonimização ou verificação de necessidade.
+5.  [ ] **Timeout Rígido:** Processos probabilísticos podem entrar em loops. Defina timeouts curtos na camada de infraestrutura.
+6.  [ ] **Log Dual:** Registre o *raw output* da IA (para debug) e a *ação validada* (para auditoria) separadamente.
+7.  [ ] **Fallback Determinístico:** Se a camada de validação rejeitar a saída da IA 3 vezes, o sistema deve degradar para um erro padrão ou fluxo manual, não travar.
 
-### 3.2.1 Padrão Air Gap de Dados
+## Armadilhas Comuns
 
-**Contexto**: Dados altamente sensíveis nunca devem ser expostos a componentes de IA.
-
-**Estrutura**:
-```
-[Dados Sensíveis] ←→ [Sistema Determinístico]
-       ↑                    ↓
-   [Nunca]              [Dados Sanitizados]
-       ↑                    ↓
-[Componente IA] ←→ [Gateway de Dados]
-```
-
-**Implementação**:
-- Bases de dados separadas
-- Redes isoladas
-- Protocolos de transferência controlados
-- Auditoria de todo acesso
-
-**Exemplo**:
-```
-# ANTI-PATTERN: Dados sensíveis no prompt
-prompt = f"Analise este cliente: {cliente.nome}, CPF: {cliente.cpf}"
-
-# PATTERN: Dados anonimizados
-prompt = f"Analise este perfil: ID: {hash_id}, Segmento: {cliente.segmento}"
-```
-
-### 3.2.2 Padrão Validation Layer
-
-**Contexto**: Todas as entradas e saídas de componentes de IA devem passar por validação determinística.
-
-**Estrutura**:
-```
-[Input] → [Validação de Entrada] → [IA] → [Validação de Saída] → [Output]
-              ↓                         ↓
-         [Rejeição]               [Fallback]
-```
-
-**Responsabilidades**:
-
-*Validação de Entrada*:
-- Sanitização de injeção de prompt
-- Verificação de tamanho e formato
-- Detecção de conteúdo malicioso
-- Rate limiting
-
-*Validação de Saída*:
-- Verificação de formato esperado
-- Detecção de alucinações óbvias
-- Filtragem de conteúdo inapropriado
-- Validação de schema
-
-### 3.2.3 Padrão Service Boundary
-
-**Contexto**: Delimitar claramente o que é responsabilidade do serviço de IA versus outros serviços.
-
-**Princípios**:
-1. **Single Responsibility**: Cada serviço faz uma coisa bem definida
-2. **Explicit Interface**: Contratos claros de entrada e saída
-3. **No Shared State**: Estado compartilhado apenas via interfaces explícitas
-4. **Failure Isolation**: Falha em um serviço não afeta outros
-
-**Exemplo de Boundary**:
-```
-Serviço de IA: "Geração de Descrições de Produto"
-- Input: Atributos do produto (nome, categoria, features)
-- Output: Texto descritivo
-- NÃO faz: Persistência, validação de negócio, precificação
-
-Serviço de Negócio: "Catalogação de Produtos"
-- Input: Dados completos do produto
-- Output: Produto catalogado
-- Usa: Serviço de IA para geração de descrição
-- Responsável por: Validação, persistência, auditoria
-```
-
-## 3.3 Isolamento de Dados Sensíveis
-
-### 3.3.1 Estratégias de Data Masking
-
-**Tokenização**:
-- Substituição de dados sensíveis por tokens
-- Mapeamento reversível mantido em sistema seguro
-- Exemplo: CPF "123.456.789-00" → "TKN_7a3f9b"
-
-**Anonimização**:
-- Remoção irreversível de identificadores
-- Agregação de dados
-- Perturbação estatística
-
-**Pseudonimização**:
-- Substituição por pseudônimos
-- Re-identificação possível com chave separada
-- Compliance com GDPR/CCPA
-
-### 3.3.2 Arquitetura de Processamento Seguro
-
-**Data Flow Seguro**:
-```
-[Fonte de Dados] 
-      ↓
-[Camada de Extração]
-      ↓
-[Classificação de Sensibilidade]
-      ↓
-[Sanitização/Tokenização]
-      ↓
-[Componente IA] ←→ [Dados Não-Sensíveis]
-      ↓
-[Re-identificação] (se necessário)
-      ↓
-[Camada de Persistência]
-```
-
-**Pontos de Controle**:
-- Auditoria de acesso a dados sensíveis
-- Log de transformações
-- Alertas de tentativas de acesso indevido
-- Rotação de tokens
-
-### 3.3.3 Context Windows e Segurança
-
-**Riscos de Contexto**:
-- Dados sensíveis em histórico de conversa
-- Prompt injection via contexto
-- Vazamento através de embeddings
-
-**Mitigações**:
-- Janelas de contexto limitadas
-- Sanitização de histórico
-- Separação de contexto por tenant
-- Expiração de contexto
-
-## 3.4 Separação de Responsabilidades
-
-### 3.4.1 Separação Orquestração vs. Execução
-
-**Orquestração (Determinística)**:
-- Controle de fluxo
-- Gerenciamento de estado
-- Roteamento de decisões
-- Coordenação de serviços
-
-**Execução (Pode ser IA)**:
-- Processamento de linguagem natural
-- Geração de conteúdo
-- Análise de padrões
-- Classificação
-
-**Exemplo**:
-```
-Orquestrador (Código):
-- Recebe requisição
-- Valida autenticação
-- Determina necessidade de análise de IA
-- Chama serviço de IA
-- Valida resposta
-- Persiste resultado
-- Retorna ao cliente
-
-Serviço de IA:
-- Recebe dados sanitizados
-- Realiza análise
-- Retorna resultado estruturado
-```
-
-### 3.4.2 Separação Lógica de Negócio vs. Capacidades de IA
-
-**Lógica de Negócio (Determinística)**:
-- Regras de negócio críticas
-- Cálculos financeiros
-- Workflow de aprovação
-- Políticas de compliance
-
-**Capacidades de IA (Probabilísticas)**:
-- Insights e recomendações
-- Análise preditiva
-- Processamento de linguagem
-- Reconhecimento de padrões
-
-**Interface Entre Ambos**:
-- IA fornece recomendações, não decisões
-- Lógica de negócio decide baseada em recomendações + regras
-- Feedback loop para melhoria
-
-### 3.4.3 Separação de Camadas de Segurança
-
-**Camada de Perímetro**:
-- Autenticação
-- Rate limiting
-- WAF (Web Application Firewall)
-
-**Camada de Aplicação**:
-- Autorização
-- Validação de input
-- Sanitização
-
-**Camada de Domínio**:
-- Regras de negócio
-- Consistência de dados
-- Auditoria
-
-**Camada de IA**:
-- Processamento de linguagem
-- Inferência
-- Geração
-
-## 3.5 Padrões de Comunicação Segura
-
-### 3.5.1 Padrão API Gateway com Sanitização
-
-**Propósito**: Centralizar sanitização de dados antes de chegar a componentes de IA.
-
-**Funcionalidades**:
-- Inspeção de payloads
-- Remoção de campos sensíveis
-- Validação de schema
-- Rate limiting por tenant
-
-**Fluxo**:
-```
-[Cliente] → [API Gateway]
-               ↓
-         [Sanitização]
-               ↓
-         [Autenticação]
-               ↓
-         [Roteamento]
-               ↓
-    [Serviço de IA] ←→ [Serviços de Negócio]
-```
-
-### 3.5.2 Padrão Message Filter
-
-**Contexto**: Sistemas baseados em eventos onde mensagens podem conter dados sensíveis.
-
-**Implementação**:
-- Filtro de campos sensíveis antes de publicar
-- Routing baseado em classificação de dados
-- Dead letter queue para mensagens não-conformes
-
-**Exemplo**:
-```json
-// Mensagem Original
-{
-  "cliente_id": "12345",
-  "nome": "João Silva",
-  "cpf": "123.456.789-00",
-  "transacao": { ... }
-}
-
-// Mensagem Filtrada para IA
-{
-  "cliente_id": "HASH_7a3f9b",
-  "segmento": "premium",
-  "transacao": { "valor": 1000, "tipo": "compra" }
-}
-```
-
-### 3.5.3 Padrão Secure Channel
-
-**Contexto**: Comunicação entre serviços críticos e serviços de IA.
-
-**Requisitos**:
-- TLS 1.3 obrigatório
-- mTLS para serviço-a-serviço
-- Criptografia de dados em trânsito
-- Validação de certificados
-
-## Practical Considerations
-
-### Trade-offs de Separação
-
-**Benefícios**:
-- Segurança aprimorada
-- Clareza de responsabilidade
-- Facilidade de auditoria
-- Isolamento de falhas
-
-**Custos**:
-- Latência adicional
-- Complexidade de deployment
-- Overhead de transformação de dados
-- Manutenção de múltiplos componentes
-
-### Decisões de Design
-
-**Quando Separar**:
-- Dados sensíveis estão envolvidos
-- Operações são irreversíveis
-- Compliance exige auditoria
-- Risco de erro é alto
-
-**Quando Integrar**:
-- Performance é crítica
-- Dados são públicos
-- Operações são reversíveis
-- Custo de separação supera benefício
-
-## Summary
-
-- A separação de concerns em sistemas híbridos é essencial para segurança e auditabilidade
-- Concerns críticos (Tier 1) devem permanecer determinísticos e isolados de IA
-- Padrões como Air Gap de Dados, Validation Layer e Service Boundary fornecem estruturas de isolamento
-- Estratégias de data masking (tokenização, anonimização) protegem dados sensíveis
-- A separação entre orquestração (determinística) e execução (pode ser IA) é fundamental
-- Trade-offs entre segurança e performance devem ser avaliados cuidadosamente
-
-## Matriz de Avaliação Consolidada
+*   **O "God Prompt":** Tentar fazer a IA buscar dados, processar e salvar em uma única chamada. Quebre em etapas do Sanduíche.
+*   **Confiança no `json_mode`:** O modo JSON dos LLMs garante a sintaxe, não a semântica. Um JSON válido ainda pode conter valores destrutivos ou alucinados.
+*   **Lógica de Negócio no Prompt:** "Se o usuário for VIP, dê 10% de desconto". Isso deve estar no código determinístico (Camada 3), não na instrução da IA. A IA deve apenas classificar a intenção de compra.
+*   **Vazamento de Abstração:** Permitir que exceções de timeout ou rate-limit da API da IA subam não tratadas para o usuário final.
+
+## Exemplo Mínimo: Chatbot de Reembolso
+
+**Cenário:** Um usuário pede reembolso de uma compra.
+
+### Abordagem Ingênua (Perigosa)
+O Agente recebe a mensagem, decide que é justo, e chama a função `refund_transaction(id)`.
+*   *Risco:* O Agente pode ser convencido a reembolsar valores acima do permitido ou transações antigas via engenharia social.
+
+### Abordagem "Sanduíche de IA" (Segura)
+
+1.  **Camada 1 (Determinística):**
+    *   Sistema busca dados da transação no DB.
+    *   Verifica elegibilidade básica (data < 7 dias). Se falhar aqui, a IA nem é chamada.
+    *   Monta prompt com dados anonimizados.
+
+2.  **Camada 2 (IA):**
+    *   Analisa o sentimento e a razão do pedido.
+    *   Output: `{"decision": "APPROVE", "reason": "Product defective", "confidence": 0.95}`.
+
+3.  **Camada 3 (Determinística):**
+    *   Recebe o JSON.
+    *   Verifica: `decision == "APPROVE"` E `confidence > 0.9` E `valor < limite_automatico`.
+    *   Se tudo OK -> Executa reembolso.
+    *   Se algo falhar -> Encaminha para humano.
+
+## Resumo Executivo
+
+*   **Inversão de Controle:** O código determinístico chama a IA, nunca o contrário (em arquiteturas críticas).
+*   **Sanduíche de IA:** Dados Determinísticos -> Processamento IA -> Validação Determinística.
+*   **Intenção vs. Ação:** A IA gera intenções (dados); o código executa ações (efeitos colaterais).
+*   **Validação de Schema:** É a barreira de fogo que impede que alucinações virem corrupção de dados.
+*   **Princípio do Menor Privilégio:** O componente de IA deve ter zero permissões de escrita em infraestrutura.
+
+## Próximos Passos
+
+*   Implementar **Structured Outputs** (ex: OpenAI Functions/Tools) como padrão para qualquer interação de sistema.
+*   Criar uma biblioteca interna de **Guardrails** que valide saídas antes da execução.
+*   Estabelecer testes de regressão que verifiquem se a camada de validação barra outputs maliciosos simulados.
+
+## Matriz de Avaliação
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa - princípios de separação de concerns são atemporais e fundamentais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto - requer análise de segurança profunda e testes de penetração |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica - vazamento de dados ou falha de isolamento tem consequências legais severas |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Modelos ficarão melhores, mas a necessidade de isolar lógica probabilística de sistemas críticos é um princípio de engenharia perene. |
+| **Custo de Verificação** | Quanto custa validar esta atividade? | **Médio**. Requer escrever validadores fortes (Pydantic/Zod) e testes de unidade para a camada de "Top Bun". |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica**. Se a IA executar uma ação financeira errada por falta de isolamento, a responsabilidade é inteiramente da engenharia, não do modelo. |
 
 ## References
-
-1. Fernandez-Buglioni, E. (2013). *Security Patterns in Practice: Designing Secure Architectures Using Software Patterns*. Wiley.
-2. Chmielinski, K., et al. (2024). "The CLeAR Documentation Framework for AI Transparency." Harvard Kennedy School Shorenstein Center.
-3. NTIA. (2024). "AI System Documentation." National Telecommunications and Information Administration.
-4. Vaughan, J. W., & Liao, Q. V. (2024). "AI Transparency in the Age of LLMs: A Human-Centered Research Roadmap." Harvard Data Science Review.
-5. Capitella, D. (2025). "Design Patterns to Secure LLM Agents In Action." Reversec Labs.
-6. Dextralabs. (2025). "The Agent Safety Playbook 2025: Guardrails, Permissions, and Auditability."
-7. GDPR. (2018). "General Data Protection Regulation." Art. 25 - Data Protection by Design.
-8. NIST. (2024). "AI Risk Management Framework." NIST AI 100-1.
+1.  Fowler, M. (2023). *Patterns of Legacy Displacement*. Addison-Wesley. (Adaptado para contexto de IA).
+2.  Google PAIR. (2024). *People + AI Guidebook: Patterns for Trust*.
+3.  OpenAI. (2024). *Safety Best Practices: Reducing Hallucinations with Structured Outputs*.
+4.  NIST. (2024). *AI Risk Management Framework (AI RMF 1.0)*.
+5.  Adkins, H., et al. (2020). *Building Secure and Reliable Systems*. O'Reilly Media. (Conceitos de isolamento de falhas).
