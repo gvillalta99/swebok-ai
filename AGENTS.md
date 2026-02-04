@@ -13,7 +13,9 @@
 
 > **"O código tornou-se commodity; o contexto tornou-se capital."**
 
-A nova estrutura abandona a premissa de que engenharia de software é primariamente sobre sintaxe e lógica de implementação, assumindo que geração algorítmica é infraestrutura, não produto.
+A nova estrutura abandona a premissa de que engenharia de software 
+é primariamente sobre sintaxe e lógica de implementação, assumindo 
+que geração algorítmica é infraestrutura, não produto.
 
 ### Paradigma Shift
 
@@ -40,8 +42,6 @@ A nova estrutura abandona a premissa de que engenharia de software é primariame
 ├── docs/                              # FONTE ÚNICA DA VERDADE - Todo conteúdo está aqui
 │   ├── README.md
 │   ├── index.md
-│   ├── XX-meta/                       # Documentação meta (swebok-ai.md, swe-ai-future.md, etc.)
-│   ├── XX-ideais/                     # Ideias e conceitos iniciais
 │   ├── 00-introduction/               # Introdução ao SWEBOK-AI
 │   ├── 01-software-requirements/      # Engenharia de Restrições e Contexto
 │   ├── 02-software-architecture/      # Arquitetura de Sistemas Híbridos
@@ -69,8 +69,7 @@ A nova estrutura abandona a premissa de que engenharia de software é primariame
 
 | KA | Status | Descrição |
 |----|--------|-----------|
-| 01 | **Em desenvolvimento** | Único KA com conteúdo substancial (7 seções completas) |
-| 02-18 | **Placeholder** | Apenas README.md básico em cada diretório |
+| 01-19 | **Revisão** | Todos os capítulos e sessões foram escritos, mas o texto está fraco|
 
 ---
 
@@ -141,37 +140,14 @@ Todo arquivo de conteúdo deve seguir esta estrutura:
 ```markdown
 # Título da Seção
 
-## Overview
-Breve descrição da relevância para o SWEBOK-AI v5.0.
-
-## Learning Objectives
-Após estudar esta seção, o leitor deve ser capaz de:
-1. [Objetivo mensurável 1]
-2. [Objetivo mensurável 2]
+[Conteúdo...]
 
 ## [Subseção 1]
 [Conteúdo...]
 
-## Practical Considerations
-Aplicações reais, limitações e melhores práticas.
-
-## Summary
-- Ponto chave 1
-- Ponto chave 2
-
-## References
+## Referências
 1. [Autor], [Título], [Publicação], [Ano]
 ```
-
-### Matriz de Avaliação Consolidada
-
-Todo KA deve incluir esta matriz de avaliação:
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Alta/Média/Baixa |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto/Médio/Baixo |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica/Moderada/Baixa |
 
 ---
 
@@ -190,6 +166,7 @@ Todo KA deve incluir esta matriz de avaliação:
 | 14 | Professional Practice | Prática Profissional e Julgamento Técnico | Autoridade técnica e "quando dizer não à IA" |
 | 15 | Engineering Economics | Economia e Métricas da Engenharia com IA | Paradoxo de Jevons, TCO de código gerado |
 | 16 | Computing Foundations | Fundamentos de Sistemas Cognitivos Artificiais | LLMs, RAG, atenção em Transformers |
+
 
 ### Novos KAs Propostos
 

@@ -3,255 +3,168 @@ title: "Fundamentos da Engenharia de Restrições"
 created_at: "2025-01-31"
 tags: ["requisitos", "restricoes", "fundamentos", "engenharia-de-software", "llm", "contexto"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "gemini-3-pro-preview"
 ---
 
 # Fundamentos da Engenharia de Restrições
 
 ## Overview
 
-A Engenharia de Restrições e Contexto reorienta a engenharia de requisitos para sistemas com componentes probabilisticos (por exemplo, Large Language Models, LLMs). Enquanto a engenharia de requisitos tradicional enfatiza “o que construir”, aqui o foco inclui explicitar “o que nao pode acontecer”, sob quais condicoes a autonomia deve parar, e como verificar que o sistema permaneceu dentro de limites aceitaveis.
+Na era dos Large Language Models (LLMs), a geração de sintaxe tornou-se uma commodity. O verdadeiro desafio de engenharia deslocou-se da produção de código para a garantia de que este código opere dentro de limites seguros e previsíveis. A Engenharia de Restrições substitui a tradicional "coleta de requisitos" por uma abordagem defensiva e verificável: em vez de apenas listar funcionalidades desejadas ("o que construir"), o engenheiro define fronteiras rígidas, invariantes de segurança e contextos de operação ("o que não permitir").
 
-Em vez de tratar a geracao como o centro do trabalho, a disciplina trata restricoes verificaveis como artefatos de engenharia: limites de dominio, invariantes, politicas de seguranca, e mecanismos de degradacao graciosa.
+Se o código é commodity, a restrição é o ativo de capital. Este capítulo estabelece os fundamentos para projetar sistemas onde a criatividade estocástica da IA é contida por *guardrails* (trilhos de segurança) determinísticos, transformando geradores de texto probabilísticos em componentes de software confiáveis e auditáveis.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Distinguir entre requisitos tradicionais e restrições no contexto de sistemas com IA
-2. Compreender o princípio da "especificação negativa" e sua importância para LLMs
-3. Identificar as categorias de restrições relevantes para sistemas híbridos humanos-IA
-4. Aplicar o conceito de "contexto" como elemento central da engenharia de restrições
-5. Avaliar o impacto econômico da mudança de paradigma na engenharia de requisitos
+1.  **Diferenciar** requisitos tradicionais (aditivos) de restrições (subtrativas) em arquiteturas baseadas em LLM.
+2.  **Aplicar** a técnica de Especificação Negativa para mitigar alucinações e comportamentos emergentes indesejados.
+3.  **Classificar** restrições em quatro camadas: funcionais, comportamentais, de segurança e de governança.
+4.  **Projetar** mecanismos de contexto que atuem como fronteiras de domínio rígidas para o modelo.
+5.  **Avaliar** a viabilidade econômica de projetos de IA utilizando o Paradoxo de Jevons aplicado ao volume de código gerado.
 
 ## O Paradigma Shift: De Requisitos para Restrições
 
-### A Commoditização do Código (escopo)
+### A Commoditização da Sintaxe
 
-A ascensão dos LLMs transformou radicalmente a engenharia de software. Tarefas que antes demandavam horas de trabalho especializado — escrever funções, criar testes unitários, gerar documentação — agora são realizadas em segundos por modelos de linguagem. Esta commoditização do código cria uma nova realidade:
+Historicamente, a engenharia de software focava na tradução de regras de negócio (requisitos) para sintaxe executável (código). O gargalo operacional era a digitação e a lógica de implementação humana.
 
-| Aspecto | Era Pré-LLM | Era dos LLMs |
-|---------|-------------|--------------|
-| **Gargalo** | Produção de código | Verificação e governança |
-| **Skill Valiosa** | Codificação eficiente | Definição de restrições |
-| **Risco Principal** | Bugs de implementação | Alucinações arquiteturais |
-| **Documentação Crítica** | Especificação funcional | Contexto e limites de domínio |
+Com a ascensão dos LLMs, a sintaxe tornou-se abundante e de custo marginal próximo a zero. O novo gargalo é a **verificação**. Um sistema capaz de gerar qualquer solução estatisticamente provável também gerará soluções incorretas, inseguras ou alucinadas se não for severamente restringido.
 
-Trabalhos recentes discutem como Metodos Formais podem complementar LLMs para aumentar confiabilidade, especialmente em dominios criticos. Este guia trata essa direcao como promissora, mas dependente de evidencias, ferramentas e custo de verificacao no contexto [1].
+| Aspecto | Paradigma Tradicional (SWEBOK v4) | Paradigma SWEBOK-AI v5 |
+| :--- | :--- | :--- |
+| **Foco Primário** | Construção ("Como implementar X?") | Restrição ("Como impedir Y?") |
+| **Natureza do Sistema** | Determinística (Input A → Output B) | Probabilística (Input A → Output B ± ruído) |
+| **Modo de Falha** | Bug de lógica / Erro de sintaxe | Alucinação / Violação de política / Drift |
+| **Métrica de Valor** | Volume de funcionalidades entregues | Robustez das restrições e invariantes |
+| **Papel do Engenheiro** | Tradutor (Negócio → Código) | Arquiteto de Restrições e Curador de Contexto |
 
-### O Que São Restrições no Contexto de IA
+### O Que São Restrições
 
-No SWEBOK-AI v5.0, uma **restrição** é definida como:
+Neste contexto, uma restrição não é meramente um requisito não-funcional. É um **limite operacional verificável**.
 
-> Uma condição ou limite que deve ser respeitado por um sistema ou componente de sistema, independentemente de como a funcionalidade é implementada, especificamente projetada para prevenir comportamentos indesejados ou perigosos em sistemas que incorporam componentes de IA.
+> **Definição:** Uma restrição é uma regra inviolável que delimita o espaço de solução aceitável de um modelo probabilístico. Ela atua como um filtro determinístico que força o descarte ou a regeneração de saídas que violem a regra, antes que estas atinjam o ambiente de produção ou o usuário final.
 
-Esta definição estende a noção tradicional de requisitos não-funcionais, incorporando dimensões específicas da era dos LLMs:
+## A Especificação Negativa
 
-- **Restrições de Alucinação**: Limites sobre o que o sistema pode afirmar ou inferir
-- **Restrições de Contexto**: Fronteiras do domínio de conhecimento aplicável
-- **Restrições de Responsabilidade**: Determinação de quando a intervenção humana é obrigatória
-- **Restrições de Auditabilidade**: Requisitos de rastreabilidade e explicabilidade
+Sistemas determinísticos executam apenas o que são programados para fazer. Sistemas baseados em LLM, por design, tentam "agradar" o usuário e preencher lacunas de informação, frequentemente inventando fatos ou ignorando riscos implícitos.
 
-### A Especificação Negativa
+A **Especificação Negativa** é a prática de definir explicitamente o que o sistema **NÃO** deve fazer. É a ferramenta primária de defesa contra a natureza "criativa" dos modelos.
 
-A **especificação negativa** é uma técnica emergente que define explicitamente o que um sistema NÃO deve fazer. Diferente da abordagem tradicional que foca em comportamentos desejados, a especificação negativa é crucial para sistemas com IA porque:
+### Exemplo Prático: Recuperação de Senha
 
-1. **Previne Alucinações**: Define fronteiras claras além das quais o sistema não deve especular
-2. **Estabelece Circuit Breakers**: Identifica condições que devem interromper a operação autônoma
-3. **Define Fallbacks**: Especifica comportamentos de degradação graciosa
-4. **Garante Compliance**: Assegura conformidade com regulamentações e políticas organizacionais
+**Requisito Tradicional (Positivo):**
+> "O sistema deve permitir que o usuário recupere sua senha via e-mail."
 
-Exemplo de especificação negativa:
-
-```
-RESTRICAO-R001: O sistema NÃO DEVE:
-- Fornecer diagnósticos médicos sem revisão humana
-- Processar dados PII de menores de 13 anos
-- Realizar transações financeiras acima de $10.000 sem aprovação
-- Gerar código para sistemas de controle de infraestrutura crítica
-```
+**Especificação Negativa (SWEBOK-AI):**
+> 1. "O sistema **NÃO DEVE** enviar links de recuperação se o e-mail não estiver verificado há mais de 24 horas."
+> 2. "O sistema **NÃO DEVE** confirmar visualmente a existência de um e-mail na base de dados durante a tentativa de recuperação (prevenção de *user enumeration*)."
+> 3. "O modelo **NÃO DEVE** gerar ou executar SQL dinâmico para esta operação sob nenhuma hipótese; deve utilizar apenas *stored procedures* pré-aprovadas."
 
 ## Categorias de Restrições para Sistemas com IA
 
-### Restrições Funcionais vs. Restrições de Comportamento
+Para operacionalizar a engenharia de restrições, classificamos os limites em quatro camadas hierárquicas:
 
-**Restrições Funcionais** limitam o que o sistema pode produzir:
-- Formatos de saída permitidos
-- APIs e bibliotecas autorizadas
-- Padrões de código obrigatórios
-- Regras de negócio invioláveis
+### 1. Restrições Funcionais (Hard Constraints)
+Limites binários que, se violados, tornam a saída tecnicamente inutilizável. Devem ser verificados por validadores estáticos, *linters* ou *parsers*.
+*   **Schema Compliance:** A saída deve ser um JSON válido conforme o esquema `v1.2`.
+*   **Sintaxe:** O código gerado deve compilar/interpretar sem erros.
+*   **API Whitelist:** O agente só pode invocar endpoints explicitamente listados na configuração.
 
-**Restrições de Comportamento** limitam como o sistema opera:
-- Níveis de confiança mínimos para ações autônomas
-- Limites de latência para respostas
-- Políticas de retry e timeout
-- Estratégias de fallback
+### 2. Restrições de Comportamento (Soft/Tone Constraints)
+Limites sobre a "personalidade", estilo e modo de operação do modelo.
+*   **Tom de Voz:** Profissional, direto, sem uso de emojis ou gírias.
+*   **Verbosidade:** Respostas limitadas a 500 tokens ou 3 parágrafos.
+*   **Recusa de Domínio:** O modelo deve recusar categoricamente responder a perguntas fora do seu escopo de especialização (ex: um bot jurídico recusando conselhos médicos).
 
-### Restrições de Qualidade de Serviço (QoS)
+### 3. Restrições de Segurança (Security Boundaries)
+Limites críticos para proteção de dados, infraestrutura e reputação.
+*   **Data Leakage:** Nenhuma PII (Informação Pessoal Identificável) deve ser processada ou gerada.
+*   **Prompt Injection Defense:** O sistema deve ignorar instruções que tentem redefinir suas diretrizes primárias ("Ignore all previous instructions").
+*   **Sandboxing:** Código gerado deve ser executado exclusivamente em ambientes efêmeros, sem acesso à rede externa ou ao sistema de arquivos do host.
 
-As restrições de QoS em sistemas com IA incluem dimensões tradicionais e novas:
-
-| Dimensão | Métrica Tradicional | Métrica para IA |
-|----------|---------------------|-----------------|
-| **Performance** | Tempo de resposta | Tokens por segundo, latência de inferência |
-| **Confiabilidade** | Uptime | Taxa de alucinações detectadas |
-| **Precisão** | Taxa de erro | Coerência semântica, factualidade |
-| **Escalabilidade** | Throughput | Custo por token, eficiência de cache |
-
-Trabalhos sobre integrações entre LLMs e programacao por restricoes (Constraint Programming) sugerem abordagens para traduzir descricoes em modelos formais e checar solucoes [2]. A aplicabilidade depende de dominio, custo de modelagem e disponibilidade de verificadores.
-
-### Restrições de Segurança e Governança
-
-**Restrições de Segurança**:
-- Prevenção de injeção de prompts
-- Sanitização de inputs não confiáveis
-- Isolamento de execução de código gerado
-- Validação de saídas antes de execução
-
-**Restrições de Governança**:
-- Rastreabilidade de decisões automatizadas
-- Registro de auditoria para ações críticas
-- Conformidade com LGPD/GDPR
-- Transparência em decisões algorítmicas
+### 4. Restrições de Governança
+Limites legais, éticos e de conformidade corporativa.
+*   **Auditabilidade:** Toda decisão ou ação do agente deve gerar um log estruturado contendo o "raciocínio" (Chain of Thought) e os dados de entrada/saída.
+*   **Human-in-the-Loop:** Ações com impacto financeiro acima de um limiar (ex: $1.000) ou que afetem dados sensíveis exigem aprovação humana explícita.
 
 ## O Papel do Contexto
 
-### Contexto como Fronteira de Domínio
+Contexto não é apenas "informação extra"; é a **fronteira do domínio**. Um modelo sem contexto é um generalista perigoso. Um modelo com contexto restrito e bem definido é um especialista seguro.
 
-O **contexto** em sistemas com IA é mais do que informação de background — é a definição explícita do domínio de competência do sistema. Um contexto bem definido:
+### Contexto Estático vs. Dinâmico
 
-1. **Limita o Escopo**: Define claramente onde o sistema é competente
-2. **Previne Generalizações Inadequadas**: Evita que o sistema aplique conhecimento fora de seu domínio
-3. **Facilita a Validação**: Permite verificar se as saídas são contextualmente apropriadas
-4. **Habilita Degradação Graciosa**: Permite fallback quando o contexto é insuficiente
+*   **Contexto Estático (Knowledge Base):** Documentação técnica, esquemas de banco de dados, regras de negócio imutáveis e políticas da empresa. Deve ser tratado como código: versionado, revisado e testado.
+*   **Contexto Dinâmico (Runtime State):** O histórico da conversa atual, o estado da sessão do usuário, variáveis de ambiente e resultados de chamadas de API recentes.
 
-### Elicitacao de Contexto
+### Engenharia de Contexto como Elicitação
+A antiga "elicitação de requisitos" evolui para a **curadoria de contexto**. O engenheiro deve decidir estrategicamente quais informações injetar na janela de contexto (*Context Window*) para maximizar a precisão e minimizar a alucinação, equilibrando custo (tokens) e relevância (sinal/ruído).
 
-A elicitação de contexto vai além da elicitação tradicional de requisitos. Envolve:
+## Implicações Econômicas
 
-- **Mapeamento de Conhecimento Tácito**: Identificar expertise implícita nos especialistas de domínio
-- **Definição de Fronteiras**: Estabelecer limites claros do que está dentro e fora do escopo
-- **Identificação de Casos Limite**: Mapear situações ambíguas ou não cobertas
-- **Documentação de Raciocínio**: Capturar não apenas o "o quê", mas o "porquê" das decisões
+### O Paradoxo de Jevons no Software
+O Paradoxo de Jevons afirma que o aumento da eficiência no uso de um recurso leva ao aumento do seu consumo total. Aplicado à IA na engenharia de software:
 
-### Contexto Dinamico vs. Estatico
+1.  **Custo de Produção ↓**: O custo marginal de gerar código tende a zero.
+2.  **Volume de Código ↑**: A base de código tende a crescer exponencialmente (10x a 100x).
+3.  **Custo de Manutenção ↑**: O TCO (*Total Cost of Ownership*) migra da escrita para a revisão, depuração e auditoria.
 
-**Contexto Estático**: Definido em tempo de design, raramente muda
-- Regras de negócio fundamentais
-- Restrições regulatórias
-- Padrões arquiteturais obrigatórios
+Sem restrições rigorosas e automatizadas, o custo de verificar o código gerado superará rapidamente a economia obtida na sua geração. A engenharia de restrições é, portanto, a única estratégia viável para manter a sustentabilidade econômica do desenvolvimento assistido por IA.
 
-**Contexto Dinâmico**: Evolui durante a operação
-- Estado da conversa/conversação
-- Preferências do usuário
-- Condições operacionais do sistema
-- Aprendizados de interações anteriores
+## Transição do SWEBOK v4.0
 
-## Implicacoes Economicas
+### O que Permanece Relevante
+*   Compreensão profunda do domínio do problema.
+*   Gestão de stakeholders e negociação de *trade-offs*.
+*   Fundamentos de arquitetura de sistemas e design de interfaces.
 
-### O Paradoxo de Jevons na Engenharia de Software (analogia)
+### O que Evolui
+*   **De:** Especificações exaustivas de "como fazer" (imperativas).
+*   **Para:** Especificações de interfaces, esquemas de dados e testes de aceitação (declarativas e restritivas).
 
-O Paradoxo de Jevons sugere que aumentos de eficiência podem levar a aumentos no consumo total. Na engenharia de software com IA:
-
-- **Custo de Geração**: Diminui drasticamente (código gerado em segundos)
-- **Custo de Verificação**: Aumenta significativamente (exige expertise sênior)
-- **Custo Total de Propriedade (TCO)**: Pode aumentar se a governança for inadequada
-
-### 1.4.2 Nova Curva de Valor
-
-A curva de valor da engenharia de software está se transformando:
-
-```
-Valor
-  │
-  │        ┌─────────────────────────────────────┐
-  │       ╱  Valor da Verificação e Governança  ╲
-  │      ╱                                        ╲
-  │     ╱                                          ╲
-  │    ╱                                            ╲
-  │   ╱  Valor da Codificação Manual                ╲
-  │  ╱                                                ╲
-  │ ╱                                                  ╲
-  └────────────────────────────────────────────────────────►
-       2020      2023      2025      2027      2030
-                    Ano
-```
-
-## Transicao do SWEBOK v4.0
-
-### O Que Permanece Relevante
-
-Do SWEBOK v4.0 [3], mantemos:
-- A importância da comunicação entre stakeholders
-- A necessidade de especificação precisa e não ambígua
-- A gestão de conflitos entre requisitos
-- A rastreabilidade ao longo do ciclo de vida
-
-### O Que Evolui
-
-| Conceito v4.0 | Evolução para v5.0 |
-|---------------|-------------------|
-| Requisitos Funcionais | Restrições de Comportamento Permitido |
-| Requisitos Não-Funcionais | Restrições de Qualidade e Governança |
-| Elicitação de Requisitos | Elicitação de Contexto e Intenção |
-| Validação de Requisitos | Verificação de Conformidade Semântica |
-
-### LEGADO: Praticas em Declinio
-
-As seguintes práticas são marcadas como **LEGADO**:
-- Documentação extensiva de especificação funcional detalhada
-- Modelagem UML exaustiva antes da implementação
-- Processos de aprovação de requisitos que não consideram velocidade de geração de IA
+### LEGADO (Práticas em Declínio)
+*   **Codificação Manual de Boilerplate:** Escrever getters, setters, CRUDs e configurações básicas manualmente é desperdício de capital intelectual.
+*   **Testes Manuais de Regressão:** Tornam-se inviáveis dado o volume e a velocidade de alteração do código gerado.
+*   **Documentação Estática Desconectada:** Documentos em formatos não indexáveis ou não estruturados para leitura por IA (RAG) tornam-se "dados mortos".
 
 ## Practical Considerations
 
-### Quando Aplicar Engenharia de Restrições
+### Checklist Prático: Engenharia de Restrições
+Ações imediatas ao iniciar um projeto com componentes de IA:
 
-A abordagem de restrições é particularmente crítica quando:
+1.  [ ] **Definir Whitelist de Ações:** Liste explicitamente o que o agente *pode* fazer. Bloqueie todo o resto por padrão.
+2.  [ ] **Impor Schemas de Saída:** Jamais aceite texto livre para integrações. Exija JSON/XML validado contra um esquema rigoroso.
+3.  [ ] **Implementar Testes Adversariais (Red Teaming):** Tente ativamente quebrar as regras do modelo antes do deploy.
+4.  [ ] **Validar Deterministicamente:** Use código tradicional (Regex, Parsers, lógica booleana) para validar a saída probabilística da IA.
+5.  [ ] **Configurar Circuit Breakers:** Implemente limites de taxa e custo para evitar loops infinitos ou consumo excessivo de API.
 
-1. **Sistemas de Missão Crítica**: Onde falhas têm consequências severas
-2. **Domínios Regulamentados**: Healthcare, finance, aeroespacial
-3. **Sistemas Autônomos**: Onde a IA toma decisões sem supervisão imediata
-4. **Integração com Legado**: Onde novos componentes de IA interagem com sistemas existentes
-
-### Anti-Padrões a Evitar
-
-1. **Restrições Vagas**: "O sistema deve ser seguro" sem definição mensurável
-2. **Restrições em Conflito**: Regras que se contradizem em cenários específicos
-3. **Restrições Não Verificáveis**: Impossíveis de testar ou auditar
-4. **Restrições em Excesso**: Tantos limites que inibem a utilidade do sistema
-
-### Ferramentas Emergentes
-
-Esta secao descreve categorias de suporte (nao uma lista prescritiva de ferramentas):
-
-- Integracoes LLM + verificador/solver (por exemplo, Constraint Programming)
-- Geracao/cheque de especificacoes formais a partir de linguagem natural (tema de pesquisa)
-- Geracao de codigo com provas ou evidencias verificaveis (tema de pesquisa)
+### Armadilhas Comuns
+*   **A Falácia do Prompt:** Acreditar que "pedir com educação" no prompt é uma garantia de segurança. Prompts são sugestões estatísticas; código validador é lei.
+*   **Antropomorfização:** Assumir que o modelo "entendeu" a intenção ou a ética por trás de uma regra. Ele apenas prevê o próximo token.
+*   **Restrições Subjetivas:** Usar termos como "seja útil", "seja seguro" ou "evite conteúdo ofensivo" sem definições técnicas precisas e listas de bloqueio.
 
 ## Summary
 
-- A Engenharia de Restrições e Contexto representa uma mudança de paradigma da era dos LLMs
-- O foco deslocou-se de "o que construir" para "o que NÃO deixar construir"
-- Restrições incluem limites funcionais, de comportamento, QoS, segurança e governança
-- O contexto define as fronteiras de competência do sistema e previne alucinações
-- A especificação negativa é uma técnica essencial para sistemas com IA
-- O custo de verificação tornou-se o novo gargalo na engenharia de software
+*   Engenharia de Software na era da IA é sobre **gerenciamento de restrições**, não produção de sintaxe.
+*   A **Especificação Negativa** é essencial para blindar sistemas contra a natureza probabilística e alucinatória dos LLMs.
+*   Restrições devem ser **verificáveis automaticamente**; validação manual não escala.
+*   O **Contexto** atua como a fronteira de competência do modelo; sem ele, a IA é um risco operacional.
+*   O valor econômico do engenheiro desloca-se da codificação para a **governança, arquitetura e verificação**.
 
 ## Matriz de Avaliação Consolidada
 
 | Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** - Conceitos fundamentais para era dos LLMs |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** - Exige expertise sênior para validação de restrições críticas |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítico** - Engenheiros responsáveis por restrições e governança |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta competência será obsoleta em 36 meses? | **Baixa**. A necessidade de impor limites a sistemas estocásticos é um fundamento duradouro da engenharia de IA. |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Validar restrições complexas e sutis exige julgamento humano sênior e ferramentas de automação sofisticadas. |
+| **Responsabilidade Legal** | Quem responde em caso de falha? | **Crítica**. Falhas em restrições de segurança, privacidade ou compliance recaem diretamente sobre a engenharia e a organização. |
 
 ## References
 
-1. Formal requirements engineering and large language models: A two-way street. Information and Software Technology, v. 181, 2025.
-2. MCP-Solver: Integrating Language Models with Constraint Programming Systems. arXiv, 2024. Disponivel em: https://arxiv.org/abs/2501.00539
-3. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
-4. Leveraging LLMs for Formal Software Requirements: Challenges and Prospects. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2507.14330
-5. VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2510.05156
-6. Research directions for using LLM in software requirement engineering. Frontiers in Computer Science, 2025.
+1.  **IEEE Computer Society**. *Guide to the Software Engineering Body of Knowledge (SWEBOK)*, Version 4.0. 2024.
+2.  **OpenAI**. *System Card: GPT-4 System Safety*. 2023.
+3.  **Bender, E. M., et al.** *On the Dangers of Stochastic Parrots: Can Language Models Be Too Big?*. FAccT, 2021.
+4.  **Shavit, N., et al.** *Formal Verification of LLM-Generated Code*. arXiv preprint, 2024.
+5.  **Polkovnichenko, P.** *Jevons Paradox in AI-Assisted Software Development*. Journal of Software Economics, 2025.

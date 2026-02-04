@@ -3,89 +3,102 @@ title: "01 - Fundamentos de Processos de Engenharia com IA"
 created_at: "2025-01-31"
 tags: ["processos", "engenharia-de-software", "ia", "fundamentos", "ciclo-de-vida", "hibrido"]
 status: "draft"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "google/gemini-3-pro-preview"
 ---
 
-# 1. Fundamentos de Processos de Engenharia com IA
+# Fundamentos de Processos de Engenharia com IA
 
-## Overview
+A introdução de Large Language Models (LLMs) na engenharia de software não é apenas uma melhoria de produtividade; é uma mudança fundamental na economia da produção de código. Tradicionalmente, o processo de engenharia era limitado pela velocidade de digitação e raciocínio humano (o gargalo da produção). Hoje, o gargalo deslocou-se para a **verificação e validação**.
 
-Processos de engenharia com IA precisam explicitar um deslocamento: a geracao de artefatos (codigo, testes, documentacao) pode ser barata, mas a verificacao e a governanca continuam sendo o mecanismo que reduz risco. Um processo hibrido bem definido descreve onde a IA pode atuar, quais evidencias sao exigidas e em quais pontos a decisao humana e obrigatoria.
+Em um ambiente onde a geração de código é trivial e quase instantânea, o processo de engenharia deve evoluir de um modelo de "construção linear" para um modelo de "especificação, geração e curadoria". O risco não é mais "não conseguir entregar a feature", mas sim entregar uma feature que parece correta, passa nos testes unitários superficiais, mas introduz vulnerabilidades sutis ou dívida técnica massiva.
 
-Esta secao define o “ciclo de vida” AI-first como orquestracao de especificacao, geracao, verificacao e curadoria, com gates proporcionais a criticidade.
+## 1. O Novo Ciclo de Vida: Geração e Verificação Contínua
 
-## Learning Objectives
+Esqueça a dicotomia Agile vs. Waterfall. O ciclo de vida moderno é definido pela interação entre agentes estocásticos (IA) e validadores determinísticos (compiladores, testes, humanos).
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### 1.1 Inversão da Escassez
+No modelo anterior (SWEBOK v4), o código era um recurso escasso e caro. Processos como Code Review eram otimizados para encontrar erros *antes* que eles se tornassem caros.
+No modelo atual (SWEBOK-AI v5), o código é abundante e barato. O recurso escasso é a **atenção humana** necessária para validar se o código gerado atende à intenção original.
 
-1. Explicar por que o gargalo migra para verificacao e decisao.
-2. Descrever um ciclo de vida hibrido com gates e evidencias.
-3. Diferenciar atividades legadas, transformadas e novas.
-4. Definir papeis e responsabilidades (incluindo curadoria).
-5. Aplicar um modelo simples de maturidade orientado a evidencias.
+### 1.2 O Loop de Feedback Híbrido
+O processo de desenvolvimento agora segue um loop contínuo de quatro estágios:
 
-## 1.1 O Processo Hibrido: Principios
+1.  **Intenção e Restrição (Humano):** Definição do problema, interfaces e, crucialmente, o que o sistema *não* deve fazer (guardrails).
+2.  **Geração Probabilística (IA):** Produção de múltiplos candidatos de solução baseados no contexto fornecido.
+3.  **Verificação Determinística (Máquina):** Testes automatizados, linters, verificação formal e análise estática executados imediatamente.
+4.  **Julgamento e Refinamento (Humano):** Avaliação de arquitetura, segurança e alinhamento de negócio sobre o artefato pré-validado.
 
-Principios operacionais:
+> **Nota:** Se o humano está revisando sintaxe ou estilo, o processo falhou. A automação (estágio 3) deve filtrar o ruído antes que ele consuma a atenção humana (estágio 4).
 
-1. Geracao e infraestrutura: trate como capacidade abundante.
-2. Verificacao e governanca sao restricoes: trate como capacidade finita.
-3. Human-in-the-loop em pontos de irreversibilidade (seguranca, compliance, arquitetura).
+## 2. Engenharia de Contexto como Processo
 
-## 1.2 Ciclo de Vida AI-first
+O "prompt" não é uma tarefa isolada; é um artefato de engenharia que deve ser versionado, testado e gerenciado. O processo de engenharia deve formalizar a gestão do contexto.
 
-Um ciclo de vida pratico:
+*   **Contexto Estático:** Documentação, padrões de arquitetura, *style guides*.
+*   **Contexto Dinâmico:** Estado atual do repositório, *diffs* recentes, logs de erro.
 
-1. Especificar: intencao, contratos, criterios de aceitacao.
-2. Gerar: artefatos candidatos.
-3. Verificar: sintatico, semantico e comportamental.
-4. Curar: aprovacao humana quando aplicavel.
-5. Integrar e monitorar: rollout, regressao e incidentes.
+Um processo maduro garante que a IA nunca opere em "vácuo de contexto". A qualidade da saída é diretamente proporcional à qualidade e relevância do contexto injetado no momento da geração.
 
-## 1.3 Papeis e Responsabilidades
+## 3. Definição de Pronto (DoD) na Era da IA
 
-Papéis tipicos (sem depender de nomenclatura organizacional):
+A "Definition of Done" (DoD) precisa ser mais rigorosa para código gerado por IA devido à propensão a alucinações plausíveis.
 
-- quem define intencao e prioridades,
-- quem valida evidencias e qualidade,
-- quem aprova mudancas de alto risco,
-- quem garante rastreabilidade e auditoria.
+*   **Rastreabilidade:** Todo código gerado deve ter um link para a *intencionalidade* (ticket, spec ou prompt) que o originou.
+*   **Explicabilidade:** O código deve ser acompanhado de documentação (docstrings, comentários) que explique o *porquê*, não apenas o *como*.
+*   **Isolamento:** Código gerado deve ser isolado por interfaces claras para facilitar a substituição futura (descartabilidade).
 
-## 1.4 Maturidade Orientada a Evidencias
+## Checklist Prático: Implementando o Processo
 
-| Nivel | Caracteristica | Evidencia |
-|------|----------------|----------|
-| Inicial | uso ad hoc | sem padrao de evidencias |
-| Gerenciado | gates basicos | testes e reviews consistentes |
-| Definido | contratos e manifests | rastreabilidade de baselines |
-| Quantitativo | metricas de fluxo | backlog e tempo de verificacao |
-| Otimizando | melhoria continua | reducao sustentada de retrabalho |
+O que implementar na sua equipe amanhã para adaptar o processo:
 
-## Practical Considerations
+1.  [ ] **Pipeline de Rejeição Automática:** Configure CI para rodar *antes* do code review humano. Se o linter falhar, o humano nem deve ser notificado.
+2.  [ ] **Review de Intenção, não de Sintaxe:** Instrua revisores a focar em lógica de negócio e segurança. A IA acerta a sintaxe, mas erra a semântica.
+3.  [ ] **Versionamento de Prompts:** Trate os prompts de sistema e arquivos de contexto (`.cursorrules`, `AGENTS.md`) como código-fonte crítico.
+4.  [ ] **Política de "Human-in-the-Loop":** Defina explicitamente quais módulos (ex: autenticação, pagamentos) exigem aprovação humana sênior e quais podem ter aprovação simplificada.
+5.  [ ] **Testes de Regressão Visual/Comportamental:** Aumente a cobertura de testes de integração, pois a IA pode quebrar fluxos complexos mesmo mantendo testes unitários verdes.
+6.  [ ] **Documentação de Decisão (ADR):** Exija que decisões arquiteturais sugeridas pela IA sejam registradas em *Architecture Decision Records* validados por humanos.
 
-### Anti-padroes
+## Armadilhas Comuns
 
-1. Acelerar geracao sem aumentar verificacao.
-2. Centralizar curadoria em poucas pessoas.
-3. Tratar mudanca de modelo/contexto como “mudanca menor”.
+*   **Fadiga de Revisão (Review Fatigue):** O volume de código gerado sobrecarrega os revisores, levando a aprovações "LGTM" (Looks Good To Me) sem leitura real.
+    *   *Mitigação:* Limite o tamanho dos PRs gerados e imponha pausas obrigatórias.
+*   **O Oráculo Falho:** Confiar que a IA entende o contexto implícito do negócio ("nós nunca fazemos X aqui").
+    *   *Mitigação:* Explicitar todo contexto implícito em arquivos de configuração do agente.
+*   **Dívida Técnica Oculta:** Aceitar código complexo que funciona, mas que ninguém na equipe entende ou conseguiria manter manualmente.
+    *   *Mitigação:* Regra dos 5 minutos. Se o revisor não entende o código gerado em 5 minutos, ele deve ser rejeitado e regenerado com instruções de simplificação.
+*   **Drift de Processo:** A equipe para de atualizar a documentação porque "a IA lê o código".
+    *   *Mitigação:* A documentação é o *input* da IA. Se ela desatualiza, a IA degrada.
 
-### Matriz de Avaliação Consolidada
+## Exemplo Mínimo: Refatoração de Legado
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Medio |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica |
+**Cenário:** Uma equipe precisa refatorar um módulo de faturamento legado em Python sem testes.
 
-## Summary
+**Abordagem Tradicional (SWEBOK v4):**
+1.  Engenheiro estuda o código por 3 dias.
+2.  Escreve testes unitários para garantir comportamento atual.
+3.  Refatora manualmente.
+4.  Code Review.
 
-- Processos com IA precisam ser definidos por gates e evidencias, nao por volume de geracao.
-- O ciclo de vida AI-first combina especificacao, verificacao e curadoria.
-- Maturidade cresce quando rastreabilidade e metrica de verificacao se tornam rotina.
+**Abordagem SWEBOK-AI v5:**
+1.  **Engenharia de Contexto:** Engenheiro coleta logs de produção e exemplos de input/output reais.
+2.  **Geração de Testes:** Engenheiro fornece o código legado + logs para a IA e solicita: "Gere testes de caracterização (snapshot tests) para este módulo".
+3.  **Verificação:** Engenheiro valida se os testes passam no código atual.
+4.  **Geração de Refatoração:** Engenheiro solicita: "Refatore este código para usar o padrão Strategy, mantendo os testes verdes".
+5.  **Validação:** CI roda os testes. Se passarem, engenheiro revisa a legibilidade e segurança.
 
-## References
+**Resultado:** Redução de tempo de 3 dias para 4 horas, com foco humano deslocado da escrita de boilerplate para a validação da cobertura de testes.
 
-1. ISO/IEC/IEEE. ISO/IEC/IEEE 12207:2017. Systems and software engineering — Software life cycle processes. Geneva: ISO, 2017.
-2. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering — Configuration management. Geneva: ISO, 2012.
-3. Farley, D. Modern Software Engineering: Doing What Works to Build Better Software Faster. Boston: Addison-Wesley, 2021.
+## Resumo Executivo
+
+*   **Gargalo:** Moveu-se da produção (escrita) para a verificação (leitura e testes).
+*   **Custo:** Código não verificado é passivo tóxico. Só código validado é ativo.
+*   **Papel Humano:** Deixa de ser "pedreiro de código" para ser "arquiteto de restrições" e "auditor de qualidade".
+*   **Segurança:** A automação deve servir como *guardrail* para impedir que alucinações cheguem à produção.
+*   **Contexto:** Gerenciar o contexto (documentação, regras) é tão importante quanto gerenciar o código.
+
+## Próximos Passos
+
+*   Ler **[05 - Verificação e Validação em Escala](../05-software-testing/README.md)** para aprofundar em estratégias de teste para código não-determinístico.
+*   Consultar **[01 - Engenharia de Restrições e Contexto](../01-software-requirements/README.md)** para aprender a estruturar inputs para agentes.
+*   Implementar **[Governança de IA](../09-software-engineering-management/README.md)** para definir níveis de risco e aprovação.
