@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "docs/00-introduction/05-publico-alvo-prerequisitos.md",
+                "file": "docs/XX-ideais/workflow.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "05-publico-alvo-prerequisitos"
+              "title": "workflow"
             }
           }
         ]
@@ -197,6 +197,9 @@
   },
   "active": "14757e0a862abc14",
   "lastOpenFiles": [
+    "docs/XX-ideais/workflow-new.md",
+    "docs/00-introduction/05-publico-alvo-prerequisitos.md",
+    "docs/XX-ideais/workflow.md",
     "docs/00-introduction/04-estrutura-organizacao.md",
     "docs/00-introduction/03-principios-diretores.md",
     "docs/00-introduction/01-contexto-revolucao-llms.md",
@@ -230,9 +233,6 @@
     "docs/19-appendix/04-glossario-de-termos-de-ia.md",
     "docs/19-appendix/03-referencias-consolidadas.md",
     "docs/19-appendix/02-padroes-iso-iec-ieee.md",
-    "docs/19-appendix/01-especificacoes-de-descricao-de-kas.md",
-    "docs/16-computing-foundations/07-fundamentos-deterministicos-legado.md",
-    "docs/16-computing-foundations/06-hardware-para-computacao-de-ia.md",
-    "docs/16-computing-foundations/05-agentes-e-workflows-agenticos.md"
+    "docs/19-appendix/01-especificacoes-de-descricao-de-kas.md"
   ]
 }
