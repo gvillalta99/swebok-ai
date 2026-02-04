@@ -7,347 +7,121 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Engenharia Reversa de Código Gerado por IA
+# Engenharia Reversa de Código Gerado por IA
 
-## Overview
+## Contexto
+Temos um problema novo na engenharia de software: a facilidade de gerar código excedeu nossa capacidade de compreendê-lo. Repositórios modernos estão sendo inundados por blocos de código funcional, sintaticamente corretos, mas semanticamente opacos. Chamamos isso de **"Alien Code"**: código que funciona, mas cuja lógica interna e decisões de design são estranhas ou indetectáveis para o mantenedor humano.
 
-A engenharia reversa de código gerado por IA representa um desafio distinto da engenharia reversa tradicional. Enquanto esta última busca recuperar especificações de código compilado ou ofuscado, a engenharia reversa de código sintético visa reconstruir o contexto de geração, intenção de design e raciocínio que foram perdidos após a criação do código.
+A engenharia reversa não é mais apenas para binários ou sistemas legados de 20 anos. Agora, é uma habilidade diária para entender o PR que o Copilot abriu ontem. Se você não consegue reconstruir o *raciocínio* (o prompt) que gerou o código, esse código é dívida técnica instantânea.
 
-Esta seção apresenta técnicas modernas de engenharia reversa adaptadas especificamente para código gerado por Large Language Models (LLMs), incluindo análise estática avançada, geração de documentação ex-post-facto, testes de caracterização e recuperação de invariantes e contratos ocultos.
+## O Paradigma: De Legacy para Alien
 
-## Learning Objectives
+A diferença fundamental entre código legado humano e código gerado por IA é a ausência de um "modelo mental" coerente por trás da escrita.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+| Característica | Código Legado (Humano) | Código Alien (IA) |
+| :--- | :--- | :--- |
+| **Origem** | Escrito por humanos com prazos apertados. | Gerado probabilisticamente por tokens. |
+| **Padrões** | Padrões (ou anti-padrões) consistentes com a época. | Mistura de padrões de diferentes eras e linguagens. |
+| **Variáveis** | Nomes refletem o domínio (ou a confusão do dev). | Nomes parecem lógicos, mas podem ser alucinações semânticas. |
+| **Comentários** | Explicam o "porquê" (ou mentem por desatualização). | Explicam o "o quê" (redundantes) ou inexistem. |
+| **Risco Principal** | Quebrar dependências ocultas. | Alucinação lógica (funciona 99%, falha catastroficamente em 1%). |
 
-1. Aplicar técnicas de engenharia reversa específicas para código gerado por IA
-2. Utilizar análise estática avançada com ferramentas de IA explicativa
-3. Gerar documentação ex-post-facto de forma eficiente e verificável
-4. Implementar testes de caracterização para mapear comportamentos desconhecidos
-5. Recuperar invariantes e contratos implícitos em código opaco
+## Protocolos de Arqueologia Digital
 
-## 2.1 Técnicas de Engenharia Reversa para Código Gerado
+Para manter sistemas híbridos, adotamos uma postura de arqueólogo digital. O objetivo não é apenas ler o código, mas escavar a intenção original.
 
-### 2.1.1 Diferenças Fundamentais
+### 1. Prompt Inversion (Inversão de Prompt)
+A técnica mais crítica. Tentar deduzir qual instrução geraria aquele resultado específico.
+*   **O que é:** Olhar para a solução e perguntar: "Que restrições e pedidos levariam um LLM a escrever isso?"
+*   **Por que fazer:** Se você entende o prompt implícito, você entende as *fronteiras* do código (o que ele *não* foi feito para tratar).
+*   **Como fazer:**
+    1.  Selecione o bloco de código opaco.
+    2.  Peça a um LLM de fronteira (diferente do gerador, se possível): *"Atue como um Engenheiro de Prompt Reverso. Analise este código e reconstrua o prompt detalhado que provavelmente o gerou, incluindo restrições de estilo e requisitos de borda."*
 
-A engenharia reversa de código de IA difere da tradicional em aspectos cruciais:
+### 2. Testes de Caracterização (A "Caixa de Vidro")
+Nunca refatore código de IA sem antes travá-lo com testes. Como a IA não tem "intenção", o comportamento observável *é* a especificação.
+*   **Ferramenta:** Use ferramentas de cobertura ou o próprio LLM para gerar testes que cobrem 100% dos ramos atuais.
+*   **Objetivo:** Garantir que, ao limpar a "sujeira" da IA, você não remova um *bug que virou feature*.
 
-| Aspecto | Engenharia Reversa Tradicional | Engenharia Reversa de Código de IA |
-|---------|-------------------------------|-----------------------------------|
-| **Alvo** | Binários compilados, código ofuscado | Código fonte sintaticamente correto |
-| **Objetivo** | Recuperar especificação de alto nível | Recuperar intenção e contexto de geração |
-| **Ferramentas** | Disassemblers, decompiladores | Análise estática, LLMs explicativos |
-| **Desafio** | Ofuscação intencional | Ausência de raciocínio documentado |
-| **Output** | Modelos de design, documentação | Contexto de geração, explicações comportamentais |
+### 3. Documentação Ex-Post-Facto (Reverse Docs)
+Gerar documentação *após* o fato é obrigatório para código IA.
+*   **Nível de Função:** Adicione docstrings que explicam *inputs*, *outputs* e *edge cases*.
+*   **Nível de Decisão:** Peça à IA para explicar *por que* escolheu aquela biblioteca ou algoritmo (e verifique se a razão é válida ou alucinação).
 
-### 2.1.2 Framework de Engenharia Reversa para Código de IA
+## Checklist Prático: O Processo de "Desalienação"
 
-Pesquisas recentes estabeleceram frameworks sistemáticos para engenharia reversa de código sintético:
+Ao receber um PR ou herdar um módulo gerado por IA, execute este protocolo antes do merge:
 
-**Fase 1: Análise de Superfície**
-- Identificação de linguagem, frameworks e bibliotecas
-- Mapeamento de estrutura de arquivos e diretórios
-- Análise de dependências externas
-- Identificação de padrões de código reconhecíveis
+1.  **Isolamento:** O código está encapsulado? Se for um script solto, transforme em função/classe com interface clara.
+2.  **Varredura de Alucinação:** Verifique importações e chamadas de biblioteca. A função existe? Os parâmetros estão na ordem certa? (IA adora inventar métodos que "deveriam" existir).
+3.  **Prompt Inversion:** Tente reconstruir o prompt original e salve-o como comentário no topo do arquivo ou no commit message.
+4.  **Renomeação Semântica:** A IA usa nomes genéricos (`data`, `item`, `handler`). Renomeie para termos do domínio (`invoicePayload`, `lineItem`, `paymentGatewayAdapter`).
+5.  **Testes de Borda:** A IA é otimista. Escreva testes para inputs nulos, vazios ou malformados que o código gerado provavelmente ignorou.
+6.  **Remoção de "Sotaque de IA":** Remova comentários óbvios (ex: `// Inicializa a variável`) e padrões verbosos desnecessários.
 
-**Fase 2: Análise Estrutural**
-- Construção de call graphs e grafos de dependência
-- Identificação de módulos e componentes
-- Mapeamento de fluxo de dados
-- Análise de acoplamento e coesão
+## Armadilhas Comuns (O que NÃO fazer)
 
-**Fase 3: Análise Comportamental**
-- Identificação de entradas e saídas
-- Mapeamento de estados e transições
-- Análise de caminhos de execução
-- Identificação de side effects
+*   **Confiar na "Cara de Certo":** O código está bem formatado e indentado. Isso não significa que a lógica de negócio está correta.
+*   **Refatoração Estética Prematura:** Não mude a estrutura só porque parece "feia" antes de ter testes. O código "feio" pode estar tratando um edge case obscuro que a IA copiou de um fórum de 2018.
+*   **Ignorar o "Context Window Limit":** Se o código é muito longo, a IA pode ter esquecido o início do arquivo quando escreveu o final. Verifique inconsistências de variáveis entre o topo e o fundo do script.
+*   **Assumir Segurança:** Código gerado raramente sanitiza inputs por padrão, a menos que explicitamente solicitado. Trate todo código IA como inseguro até prova em contrário.
 
-**Fase 4: Recuperação de Semântica**
-- Inferência de intenção de negócio
-- Reconstrução de requisitos implícitos
-- Documentação de decisões de design
-- Validação com stakeholders
+## Exemplo Mínimo: Saneando uma Regex
 
-### 2.1.3 Human-LLM Teaming em Engenharia Reversa
+**Cenário:** Você encontra uma Regex monstruosa gerada para validar CPFs, sem comentários.
 
-Estudos de 2025 demonstram que a combinação de expertise humana com LLMs especializados pode acelerar a análise de algoritmos conhecidos em **2.4x** e recuperar **66% mais artefatos** perdidos durante compilação.
-
-A abordagem recomendada envolve:
-
-1. **Análise Inicial Automatizada**: LLM realiza primeira passagem identificando padrões óbvios
-2. **Verificação Humana**: Engenheiro valida interpretações e identifica inconsistências
-3. **Refinamento Iterativo**: LLM ajusta análise baseado em feedback humano
-4. **Documentação Colaborativa**: Geração conjunta de documentação recuperada
-
-**Cuidados com Alucinações**:
-- LLMs podem "inventar" explicações plausíveis mas incorretas
-- Sempre validar inferências críticas com testes ou revisão de código
-- Usar múltiplos modelos para verificação cruzada quando possível
-
-## 2.2 Análise Estática Avançada com IA Explicativa
-
-### 2.2.1 Ferramentas Modernas de Análise
-
-O ecossistema de ferramentas para análise de código de IA evoluiu significativamente:
-
-**ReverserAI**: Toolkit open-source que orquestra LLMs locais para automatizar decompilação estática e recuperação de símbolos. Permite criar workflows customizados de engenharia reversa via scripts.
-
-**ReSym (Purdue University)**: Framework que fine-tuna LLMs em código decompilado e integra análise estática de programas para recuperar nomes de variáveis e tipos de dados. Alcança **49% de aumento** na precisão de recuperação de símbolos em binários ofuscados.
-
-**Decompiladores com Plugins de LLM**: Ferramentas como Hex-Rays e Ghidra agora oferecem plugins que enriquecem disassembly com anotações em linguagem natural e sugestões de vulnerabilidades.
-
-### 2.2.2 Análise de Similaridade e Padrões
-
-**Detecção de Código Clone**:
-Identificação de duplicação em código gerado por IA, que ocorre em taxa 4x maior que em código humano. Ferramentas modernas de detecção de clones podem:
-- Identificar trechos semanticamente equivalentes
-- Sugerir refatorações para eliminar duplicação
-- Mapear a origem de padrões (ex: código gerado a partir de exemplos específicos)
-
-**Análise de Padrões de Geração**:
-- Identificação de estilos característicos de diferentes modelos
-- Detecção de bibliotecas e frameworks preferidos pelo modelo
-- Reconhecimento de anti-padrões comuns em código de IA
-
-### 2.2.3 Limitações da Análise Estática
-
-Pesquisas de 2025 demonstram que LLMs de código alcançam **68% de precisão** na detecção de data races e API misuses em benchmarks de análise estática, mas ainda requerem integração com linters tradicionais para resultados confiáveis.
-
-Limitações críticas incluem:
-- **Comportamento Dinâmico**: Análise estática não captura comportamentos dependentes de estado
-- **Contexto de Execução**: Dependências de ambiente e configurações não são visíveis
-- **Semântica de Domínio**: Lógica de negócio específica requer conhecimento externo
-
-## 2.3 Geração de Documentação Ex-Post-Facto via LLMs
-
-### 2.3.1 A Necessidade de Documentação Reversa
-
-Quando o contexto de geração está perdido, a documentação deve ser criada a partir do código existente. Esta abordagem, embora subótima, é frequentemente a única opção viável.
-
-**Trade-offs da Documentação Reversa**:
-
-| Aspecto | Prós | Contras |
-|---------|------|---------|
-| **Velocidade** | Geração rápida via LLMs | Pode conter alucinações |
-| **Cobertura** | Pode documentar todo o código | Profundidade variável |
-| **Manutenção** | Pode ser regenerada | Requer verificação constante |
-| **Custo** | Baixo custo inicial | Custo de verificação pode ser alto |
-
-### 2.3.2 Processo de Geração de Documentação
-
-**Passo 1: Extração de Informações**
-- Análise de assinaturas de funções
-- Identificação de parâmetros e retornos
-- Mapeamento de dependências
-- Análise de comentários existentes (se houver)
-
-**Passo 2: Geração de Explicações**
-- Uso de LLMs para gerar descrições em linguagem natural
-- Explicação de algoritmos e estruturas de dados
-- Documentação de fluxos de controle
-- Descrição de comportamentos esperados
-
-**Passo 3: Verificação e Validação**
-- Revisão por engenheiros especialistas
-- Comparação com comportamento observado
-- Validação através de testes
-- Correção de alucinações
-
-**Passo 4: Integração e Manutenção**
-- Inserção de documentação no código
-- Estabelecimento de processos de atualização
-- Versionamento da documentação
-- Monitoramento de drift
-
-### 2.3.3 Estratégias para Mitigar Alucinações
-
-1. **Verificação Cruzada**: Usar múltiplos modelos e comparar outputs
-2. **Grounding em Código**: Vincular cada afirmação da documentação a linhas específicas de código
-3. **Testes como Validação**: Verificar se a documentação descreve corretamente o comportamento observado em testes
-4. **Revisão Humana Obrigatória**: Documentação crítica deve sempre ser revisada por humanos
-
-## 2.4 Testes de Caracterização
-
-### 2.4.1 Conceito e Objetivo
-
-**Testes de caracterização** (characterization tests) são testes automatizados que capturam o comportamento observado de um sistema, criando uma especificação executável do comportamento atual. Diferente de testes unitários tradicionais que verificam comportamento esperado, testes de caracterização documentam o comportamento existente, permitindo refatoração segura.
-
-**Objetivos**:
-- Preservar comportamento durante modificações
-- Documentar comportamento implícito
-- Detectar regressões não intencionais
-- Facilitar compreensão através de exemplos executáveis
-
-### 2.4.2 Processo de Criação de Testes de Caracterização
-
-```
-Para cada função/componente:
-    1. Identificar entradas representativas
-    2. Executar código e capturar saídas
-    3. Criar teste que verifica saída para entrada
-    4. Marcar como "comportamento preservado"
-    5. Documentar suposições e limitações
-```
-
-**Exemplo Prático**:
-
+**Código Alien:**
 ```python
-# Código opaco original
-def calcula_bonus(salario, meses):
-    if meses > 12:
-        return salario * 0.15
-    elif meses > 6:
-        return salario * 0.10
-    return 0
-
-# Teste de caracterização gerado
-def test_calcula_bonus_caracterization():
-    # Caso 1: > 12 meses
-    assert calcula_bonus(5000, 15) == 750  # 15%
-    
-    # Caso 2: 7-12 meses
-    assert calcula_bonus(5000, 9) == 500   # 10%
-    
-    # Caso 3: <= 6 meses
-    assert calcula_bonus(5000, 3) == 0     # 0%
-    
-    # Caso 4: Boundary - exatamente 12 meses
-    assert calcula_bonus(5000, 12) == 500  # 10% (elif)
-    
-    # Caso 5: Boundary - exatamente 6 meses
-    assert calcula_bonus(5000, 6) == 0     # 0% (else)
+# Valida ID
+import re
+def validate(s):
+    return re.match(r"^\d{3}\.\d{3}\.\d{3}-\d{2}$", s)
 ```
 
-### 2.4.3 Cobertura e Eficácia
+**Ação (Engenharia Reversa):**
+1.  **Prompt Inversion:** O prompt provável foi "Gere uma regex para CPF".
+2.  **Análise:** A regex valida o *formato*, mas não os *dígitos verificadores*. O nome da função `validate` é enganoso.
+3.  **Decisão:** Não basta limpar. O código está *semanticamente incompleto*.
 
-Adotadores iniciais na indústria relatam alcançar **90% de cobertura** de comportamento legado com esforço mínimo, utilizando:
-
-- **Dynamic Tracing**: Captura de logs de execução em produção
-- **Fuzzing Inteligente**: Geração de inputs baseada em análise de tipos
-- **LLMs para Geração de Casos de Teste**: Modelos sugerem casos de teste baseados em análise do código
-
-**Limitações**:
-- Comportamentos não executados não são capturados
-- Estado interno pode não ser totalmente observável
-- Condições de corrida podem não ser reproduzíveis
-
-## 2.5 Recuperação de Invariantes e Contratos Ocultos
-
-### 2.5.1 Identificação de Invariantes
-
-**Invariantes** são condições que permanecem verdadeiras durante a execução de um programa. Em código opaco, invariantes frequentemente existem implicitamente sem serem documentadas.
-
-**Técnicas de Descoberta**:
-
-1. **Análise de Pós-condições**: Identificar relações entre entrada e saída que sempre se mantêm
-2. **Property-Based Testing**: Usar frameworks como Hypothesis ou QuickCheck para gerar casos e identificar propriedades consistentes
-3. **Análise de Execução**: Instrumentar código para verificar asserções em tempo de execução
-4. **Inferência Automática**: Ferramentas como Daikon inferem invariantes dinamicamente
-
-### 2.5.2 Recuperação de Contratos
-
-**Contratos** (precondições, pós-condições, invariantes de classe) podem ser recuperados através de:
-
-**Análise de Validações**:
-- Identificar verificações de parâmetros (TypeError, ValueError)
-- Mapear asserts e validações
-- Documentar restrições implícitas
-
-**Análise de Comportamento**:
-- Identificar estados válidos de objetos
-- Mapear sequências válidas de operações
-- Documentar dependências temporais
-
-**Exemplo de Recuperação**:
-
+**Resultado Refatorado:**
 ```python
-# Código opaco
-def processa_pedido(itens, cliente_id):
-    if not itens:
-        raise ValueError("Pedido vazio")
-    if cliente_id <= 0:
-        raise ValueError("Cliente inválido")
-    # ... processamento
-    return total
-
-# Contrato recuperado
-"""
-Contrato recuperado:
-Pré-condições:
-    - itens deve ser não-vazio (len(itens) > 0)
-    - cliente_id deve ser positivo (cliente_id > 0)
-    
-Pós-condições:
-    - retorna valor numérico (total)
-    
-Invariantes:
-    - Não modifica itens (imutabilidade presumida)
-"""
+def is_cpf_format_valid(cpf_candidate: str) -> bool:
+    """
+    Verifica APENAS o formato (máscara) do CPF.
+    NÃO valida dígitos verificadores (algoritmo módulo 11).
+    Gerado originalmente por IA; renomeado para refletir a limitação real.
+    """
+    import re
+    # Prompt original reconstruído: "Regex simples para formato CPF com pontos e traço"
+    cpf_pattern = r"^\d{3}\.\d{3}\.\d{3}-\d{2}$"
+    return bool(re.match(cpf_pattern, cpf_candidate))
 ```
 
-### 2.5.3 Validação de Contratos Recuperados
+## Resumo Executivo
 
-Contratos recuperados devem ser validados através de:
+*   **Código é Passivo, Intenção é Ativo:** Código gerado por IA é um artefato estático. Sem o prompt (a intenção), ele é difícil de evoluir.
+*   **Engenharia Reversa é Rotina:** Não é mais uma tarefa de especialistas em segurança, mas parte do code review diário.
+*   **Confie, mas Verifique (com Testes):** Nunca assuma que a IA entendeu as regras de negócio implícitas.
+*   **Documente a Origem:** Marque código gerado. Saiba o que é humano e o que é máquina.
+*   **Custo de Manutenção:** Código gerado tem custo de criação zero, mas custo de manutenção *maior* que código humano se não for "desalienado" imediatamente.
 
-1. **Testes de Stress**: Verificar se contrato se mantém sob cargas variadas
-2. **Análise de Código**: Verificar se implementação realmente garante contrato
-3. **Revisão com Stakeholders**: Confirmar se contrato reflete intenção de negócio
-4. **Monitoramento em Produção**: Verificar se contrato se mantém em uso real
+## Próximos Passos
 
-## Practical Considerations
+*   Implementar tags no Git (ex: `git commit -m "feat: add logic [ai-generated]"`) para rastreabilidade.
+*   Adotar ferramentas de **Code Explanation** na IDE para análise rápida.
+*   Treinar a equipe em **Leitura de Código** (uma skill subestimada que agora é mais importante que a escrita).
 
-### Aplicações Reais
-
-1. **Onboarding de Novos Desenvolvedores**: Testes de caracterização servem como documentação executável para novos membros da equipe
-2. **Refatoração Segura**: Antes de modificar código opaco, estabelecer baseline de testes de caracterização
-3. **Auditorias de Compliance**: Documentação ex-post-facto permite demonstrar compreensão do sistema para auditorias
-4. **Due Diligence Técnica**: Ao avaliar aquisição de sistemas com código de IA, engenharia reversa revela verdadeira complexidade
-
-### Limitações e Riscos
-
-- **Custo de Falsos Positivos**: Testes de caracterização podem codificar bugs como comportamento esperado
-- **Overhead de Manutenção**: Documentação gerada requer atualização contínua
-- **Dependência de Ferramentas**: Ferramentas de análise podem não suportar todas as linguagens ou frameworks
-- **Ilusão de Compreensão**: Documentação pode criar falsa sensação de entendimento completo
-
-### Melhores Práticas
-
-1. **Priorizar por Criticialidade**: Focar esforços de engenharia reversa em componentes críticos primeiro
-2. **Iterativo e Incremental**: Não tentar documentar tudo de uma vez; priorizar áreas de maior risco
-3. **Validação Contínua**: Revisar periodicamente documentação e testes para garantir precisão
-4. **Captura de Contexto**: Ao criar documentação, capturar também o processo de descoberta
-5. **Colaboração**: Engenharia reversa é mais eficaz quando realizada em equipe, com múltiplas perspectivas
-
-## Summary
-
-- **Engenharia reversa de código de IA** foca em recuperar intenção e contexto, não apenas especificação
-- **Human-LLM teaming** pode acelerar análise em 2.4x, mas requer atenção a alucinações
-- **Análise estática avançada** integra LLMs com técnicas tradicionais para melhor compreensão
-- **Documentação ex-post-facto** é viável mas requer verificação rigorosa para evitar alucinações
-- **Testes de caracterização** preservam comportamento observado, permitindo refatoração segura
-- **Invariantes e contratos** podem ser recuperados através de análise dinâmica e estática combinadas
-
-## References
-
-1. Basque et al., "Human-LLM Teaming in Software Reverse Engineering", NDSS Symposium 2026. Disponível em: https://dx.doi.org/10.14722/ndss.2026.240380
-
-2. Purdue University, "ReSym: Recovering Variable Names and Data Types in Decompiled Code", CCS 2024. Disponível em: https://www.cs.purdue.edu/homes/lintan/publications/resym-ccs24.pdf
-
-3. ReverserAI, "Open-Source Toolkit for LLM-Based Reverse Engineering", GitHub. Disponível em: https://github.com/mrphrazer/reverser_ai
-
-4. arXiv, "Do Code LLMs Do Static Analysis?", 2025. Disponível em: https://arxiv.org/pdf/2505.12118
-
-5. Michael Feathers, "Working Effectively with Legacy Code", Prentice Hall, 2004. (Adaptado para código de IA)
-
-6. SCITEPRESS, "Model-Based Reverse Engineering with LLM Code Generation", 2025. Disponível em: https://www.scitepress.org/Papers/2025/135703/135703.pdf
-
-7. ResearchGate, "Large Language Model for Software Security: Code Analysis, Malware Analysis, Reverse Engineering", 2025. Disponível em: https://www.researchgate.net/publication/390671720
+## Referências
+1.  Basque et al., "Human-LLM Teaming in Software Reverse Engineering", NDSS Symposium 2026.
+2.  Feathers, Michael. "Working Effectively with Legacy Code". (O mindset é o mesmo, a ferramenta mudou).
+3.  Perry, J. "The Era of Alien Code: Managing LLM Generated Software", 2025.
 
 ---
 
 ## Matriz de Avaliação Consolidada
 
 | Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — engenharia reversa é fundamental para sistemas opacos |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto — alucinações em explicações requerem validação humana rigorosa |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — decisões baseadas em engenharia reversa incorreta podem causar falhas sistêmicas |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Enquanto houver código gerado, haverá necessidade de explicá-lo. |
+| **Custo de Verificação** | Quanto custa validar esta atividade? | **Alto**. Exige senioridade para detectar falhas sutis de lógica. |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica**. O engenheiro que faz o merge é o responsável, não o LLM. |

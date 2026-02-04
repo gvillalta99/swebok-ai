@@ -1,361 +1,149 @@
 ---
 title: "Vulnerabilidades em Código Gerado por IA"
 created_at: "2025-01-31"
-tags: ["seguranca", "codigo-gerado", "vulnerabilidades", "ia", "cwe"]
+tags: ["seguranca", "codigo-gerado", "vulnerabilidades", "ia", "cwe", "supply-chain"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "google/gemini-3-pro-preview"
 ---
 
-# 2. Vulnerabilidades em Código Gerado por IA
+# Vulnerabilidades em Código Gerado por IA
 
-## Overview
+## Contexto
+A Inteligência Artificial não "entende" segurança; ela entende probabilidade. O objetivo de um LLM é completar um padrão de texto da forma mais plausível possível. Na maioria dos tutoriais e códigos de exemplo da internet (o dataset de treino), a prioridade é didática e funcionalidade, não robustez. O resultado é um viés estrutural: a IA prefere a conveniência de "fazer funcionar" à fricção de "fazer seguro". Para o CTO e o engenheiro de segurança, isso inverte o jogo: o código não é mais culpado até que se prove inocente — ele é **vulnerável por padrão**.
 
-O código gerado por modelos de linguagem de grande escala (LLMs) introduziu um novo paradigma na engenharia de software, mas também trouxe desafios de segurança sem precedentes. Diferente do código escrito por humanos, que passa por revisão consciente e compreensão contextual, código gerado por IA é produzido através de processos estocásticos que podem replicar — e às vezes amplificar — padrões vulneráveis presentes nos dados de treinamento.
+## O Paradigma da Conveniência vs. Segurança
 
-Esta seção examina as vulnerabilidades específicas encontradas em código gerado por IA, analisa as causas fundamentais dessas vulnerabilidades, apresenta dados empíricos sobre a prevalência de problemas de segurança e discute técnicas para detecção e mitigação.
+A geração de código por IA opera sob uma premissa perigosa: **o caminho de menor resistência estatística**. Se 80% dos exemplos de conexão com banco de dados no GitHub ignoram SSL para facilitar o setup local, o modelo sugerirá uma conexão sem SSL.
 
-## Learning Objectives
+### Por que a IA gera código inseguro?
+1.  **Viés de Treinamento**: O código de produção seguro é frequentemente privado. O código público (Stack Overflow, tutoriais, repositórios de hobby) é rico em "gambiarras" e configurações permissivas.
+2.  **Falta de Contexto Adversarial**: O modelo não simula um atacante. Ele não pergunta "o que acontece se eu enviar 1GB de dados neste campo?". Ele apenas preenche o campo.
+3.  **Alucinação de Dependências**: O modelo pode inventar bibliotecas que *soam* reais, criando vetores para ataques de cadeia de suprimentos.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+---
 
-1. Identificar os tipos mais comuns de vulnerabilidades em código gerado por IA
-2. Compreender as causas fundamentais que levam LLMs a gerar código inseguro
-3. Interpretar dados empíricos sobre a taxa de vulnerabilidades em código sintético
-4. Aplicar técnicas de análise estática e dinâmica adaptadas para código de IA
-5. Implementar processos de curadoria de segurança para código gerado
+## Vetores de Risco Críticos
 
-## Vulnerabilidades "Alucinadas": Código Inseguro Gerado por LLMs
+### 1. Package Hallucination (Ataques de Cadeia de Suprimentos)
+Este é o risco mais insidioso e exclusivo da era da IA. LLMs frequentemente alucinam nomes de pacotes que não existem, mas seguem convenções de nomenclatura lógicas (ex: `google-auth-v2` em vez de `google-auth`).
 
-O termo "alucinação" em IA refere-se à geração de informações plausíveis mas incorretas. No contexto de código, alucinações de segurança ocorrem quando o modelo gera código funcional que contém vulnerabilidades — frequentemente vulnerabilidades sutis que podem passar despercebidas em revisões superficiais.
+*   **O Ataque**: Atacantes monitoram sugestões comuns de LLMs, registram esses nomes em repositórios públicos (NPM, PyPI) e injetam malware.
+*   **O Cenário**: Um desenvolvedor pede "um script para conectar na API X". A IA sugere `import api_x_connector`. O desenvolvedor roda `pip install api_x_connector`. O pacote existe (foi criado por um atacante ontem) e rouba as credenciais da AWS do desenvolvedor.
 
-### Mecanismo de Geração de Vulnerabilidades
+### 2. Defaults Inseguros (Insecure Defaults)
+A IA tende a configurações que garantem que o código rode de primeira, removendo barreiras de segurança.
+*   **Exemplos Clássicos**:
+    *   `verify=False` em requisições HTTP (ignora SSL).
+    *   `debug=True` em apps web (expõe stack traces e variáveis de ambiente).
+    *   `0.0.0.0` em binds de rede (expõe serviços para a internet pública).
+    *   Permissões de bucket S3 como `public-read`.
 
-LLMs são treinados em vastos corpus de código, incluindo:
-- Repositórios públicos (GitHub, GitLab)
-- Stack Overflow e fóruns de programação
-- Documentação técnica
-- Tutoriais e blogs
+### 3. Falta de Sanitização e Validação
+O modelo assume que o input é benigno.
+*   **SQL Injection**: Uso de f-strings ou concatenação direta em queries (`SELECT * FROM users WHERE id = {user_id}`).
+*   **XSS (Cross-Site Scripting)**: Renderização direta de input de usuário no DOM sem escaping.
+*   **Path Traversal**: Aceitar nomes de arquivos diretamente de inputs (`open(user_input_filename)`), permitindo acesso a `/etc/passwd`.
 
-Este código de treinamento contém uma quantidade significativa de código inseguro, vulnerável ou antipatterns. O modelo aprende a replicar esses padrões, gerando código que:
+---
 
-1. **Funciona corretamente** para casos de uso comuns
-2. **Contém vulnerabilidades** em casos edge ou sob ataque
-3. **Parece idiomático** e bem escrito, enganando revisores
-4. **Carece de contexto de segurança** sobre o sistema maior
+## Checklist Prático: Blindando o Processo
 
-### Taxonomia de Vulnerabilidades Alucinadas
+O que eu exigiria da minha equipe de engenharia amanhã:
 
-| Categoria | Descrição | Exemplo |
-|-----------|-----------|---------|
-| **Injeção** | Concatenação insegura de inputs | SQL injection via string interpolation |
-| **Path Traversal** | Validação inadequada de caminhos | Acesso a arquivos fora do diretório permitido |
-| **XSS** | Output sem escaping | Renderização direta de user input em HTML |
-| **Command Injection** | Execução de comandos shell | Passagem de user input para system() |
-| **Insecure Deserialization** | Parsing inseguro de dados | pickle.loads() em dados não-confiáveis |
-| **Race Conditions** | Acesso concorrente não-sincronizado | Check-then-act sem locks |
-| **Hardcoded Secrets** | Credenciais em código | API keys em strings literais |
+1.  **Lockfiles são Lei**: Nunca rodar `npm install` ou `pip install` em pacotes sugeridos por IA sem verificar se existem e quem é o mantenedor.
+2.  **Proibição de `curl | bash`**: Scripts de instalação gerados por IA devem ser lidos linha a linha antes da execução.
+3.  **Linting de Segurança no IDE**: Ferramentas como SonarLint ou Snyk devem rodar em tempo real. O desenvolvedor deve ver o erro *enquanto* a IA gera o código.
+4.  **Varredura de Dependências (SCA)**: Validar se as bibliotecas sugeridas são reais, mantidas e livres de CVEs conhecidos.
+5.  **Revisão de Configuração**: Buscar explicitamente por `debug=True`, `verify=False`, `allow_all`, e `*` em configurações de CORS/IAM.
+6.  **Isolamento de Contexto**: Código gerado roda primeiro em sandbox/container, nunca direto na máquina host com acesso a chaves SSH.
+7.  **Validação de Input Obrigatória**: Adotar bibliotecas de validação de schema (Zod, Pydantic) para *tudo* que entra no sistema.
 
-## Análise de Segurança de Código Sintético
+---
 
-A análise de segurança de código gerado por IA apresenta desafios únicos que diferem da análise de código escrito por humanos.
+## Armadilhas Comuns
 
-### Diferenças na Análise de Código de IA vs. Humano
+*   **A Ilusão da Autoridade**: O código gerado vem formatado, comentado e com nomes de variáveis elegantes. Isso cria uma falsa sensação de segurança. Estética não é qualidade.
+*   **O "Funciona na Minha Máquina"**: A IA gera código para o ambiente "médio" da internet, não para a sua infraestrutura corporativa com proxies, firewalls e políticas de IAM.
+*   **Copiar-Colar de Configurações**: Aceitar sugestões de arquivos YAML/JSON (Kubernetes, Terraform) sem entender cada linha. É comum a IA sugerir permissões administrativas completas (`admin` ou `root`) para resolver problemas de permissão.
+*   **Ignorar Versões**: A IA pode sugerir bibliotecas ou métodos depreciados há anos (ex: usar `request` em vez de `axios` ou `fetch` em Node.js antigo, ou métodos de criptografia obsoletos como MD5).
 
-| Aspecto | Código Humano | Código de IA |
-|---------|---------------|--------------|
-| **Intenção** | O desenvolvedor compreende o contexto de segurança | O modelo não tem compreensão real de segurança |
-| **Padrões** | Pode seguir ou ignorar boas práticas conscientemente | Replica padrões estatísticos dos dados de treino |
-| **Consistência** | Geralmente consistente com estilo da equipe | Pode variar entre diferentes prompts |
-| **Documentação** | Pode incluir comentários explicativos | Comentários podem ser genéricos ou incorretos |
-| **Contexto** | Compreensão do sistema como um todo | Visão limitada ao contexto do prompt |
+---
 
-### Desafios na Análise Estática
+## Exemplo Mínimo: O Perigo do "Funciona"
 
-Ferramentas de análise estática (SAST) tradicionais enfrentam desafios com código de IA:
+**Cenário**: Desenvolvedor pede uma função Python para baixar e descompactar um arquivo enviado pelo usuário.
 
-1. **Código incompleto**: Snippets gerados podem não ser compiláveis/analisáveis isoladamente
-2. **Falsos positivos**: Padrões inseguros podem ser intencionais em contextos específicos
-3. **Contexto ausente**: Ferramentas não têm acesso ao prompt que gerou o código
-4. **Evolução rápida**: Novos padrões de código gerado surgem constantemente
-
-### Abordagens Adaptadas para Análise de Código de IA
-
-1. **Análise contextual**: Considerar o prompt e contexto de geração
-2. **Validação semântica**: Análise além de padrões sintáticos
-3. **Comparação com corpus seguro**: Matching contra bases de código seguro
-4. **Análise de comportamento**: Testes dinâmicos para detectar vulnerabilidades em execução
-5. **Human-in-the-loop**: Revisão obrigatória por engenheiros de segurança
-
-## CWEs Comuns em Código de IA
-
-Análises empíricas identificaram padrões consistentes de vulnerabilidades em código gerado por IA. Os CWEs (Common Weakness Enumeration) mais frequentes refletem falhas clássicas de segurança que persistem nos dados de treinamento.
-
-### Top CWEs em Código Gerado por IA
-
-Com base em estudos empíricos recentes (Pearce et al., 2025; análise de 7.703 arquivos em repositórios GitHub):
-
-| Rank | CWE | Descrição | Taxa em Python | Taxa em JavaScript |
-|------|-----|-----------|----------------|-------------------|
-| 1 | CWE-89 | SQL Injection | Alta | Média |
-| 2 | CWE-78 | OS Command Injection | Alta | Média |
-| 3 | CWE-94 | Code Injection | Média | Alta |
-| 4 | CWE-22 | Path Traversal | Média | Média |
-| 5 | CWE-502 | Deserialization of Untrusted Data | Alta | Baixa |
-| 6 | CWE-798 | Use of Hardcoded Credentials | Média | Média |
-| 7 | CWE-772 | Missing Resource Release | Alta (ChatGPT) | Baixa |
-| 8 | CWE-200 | Exposure of Sensitive Information | Média | Média |
-
-### Análise por Linguagem
-
-**Python:**
-- Taxa de vulnerabilidade: 16,18% - 18,50%
-- CWEs predominantes: SQL injection, command injection, resource management
-- Padrão: Código conciso mas frequentemente sem validação adequada
-
-**JavaScript/TypeScript:**
-- Taxa de vulnerabilidade: 8,66% - 8,99% (JS), 2,50% - 7,14% (TS)
-- CWEs predominantes: XSS, prototype pollution, insecure dependencies
-- Padrão: Maior atenção a async/await, mas vulnerabilidades de DOM persistentes
-
-**Java:**
-- Taxa intermediária entre Python e JavaScript
-- CWEs predominantes: Deserialization, path traversal, SQL injection
-
-### Exemplos de Vulnerabilidades por CWE
-
-**CWE-89: SQL Injection**
+**Código Gerado (Vulnerável):**
 ```python
-# Código gerado por IA - VULNERÁVEL
-def get_user(username):
-    query = f"SELECT * FROM users WHERE username = '{username}'"
-    return db.execute(query)
+import os
+import tarfile
 
-# Problema: Concatenação direta de input do usuário
-# Ataque: username = "' OR '1'='1"
+def extract_user_upload(filename):
+    # PERIGO: Path Traversal e Nenhuma validação de tipo
+    if filename.endswith(".tar.gz"):
+        tar = tarfile.open(filename, "r:gz")
+        # PERIGO: Extrai para o diretório atual sem verificar caminhos internos
+        tar.extractall()
+        tar.close()
 ```
 
-**CWE-78: Command Injection**
+**Decisão de Engenharia**: Rejeitar o código. A função permite "Zip Slip" (sobrescrever arquivos do sistema via caminhos relativos no arquivo compactado) e não valida se o arquivo é malicioso.
+
+**Código Corrigido (Defensivo):**
 ```python
-# Código gerado por IA - VULNERÁVEL
+import tarfile
 import os
 
-def process_file(filename):
-    os.system(f"cat {filename}")  # Vulnerável a command injection
-    
-# Ataque: filename = "; rm -rf /"
+def extract_user_upload(filepath, extract_path="/tmp/safe_dir"):
+    # 1. Validação de input (caminho seguro)
+    if not os.path.abspath(filepath).startswith("/tmp/uploads"):
+        raise ValueError("Arquivo fora do diretório permitido")
+
+    with tarfile.open(filepath, "r:gz") as tar:
+        # 2. Prevenção de Zip Slip
+        for member in tar.getmembers():
+            member_path = os.path.join(extract_path, member.name)
+            if not os.path.abspath(member_path).startswith(os.path.abspath(extract_path)):
+                raise Exception("Tentativa de Path Traversal detectada")
+        
+        # 3. Extração segura (Python 3.12+ filter='data')
+        tar.extractall(path=extract_path, filter='data')
 ```
 
-**CWE-502: Insecure Deserialization**
-```python
-# Código gerado por IA - VULNERÁVEL
-import pickle
+**Trade-off**: O código seguro é 3x maior e requer Python atualizado. O código da IA era mais simples, mas catastrófico.
 
-def load_user_data(data):
-    return pickle.loads(data)  # Execução de código arbitrário possível
-```
+---
 
-## Estudos Empíricos: como interpretar (sem extrapolar)
+## Resumo Executivo
 
-Há estudos acadêmicos e relatórios de mercado que tentam estimar a prevalência de vulnerabilidades em código gerado por IA. Nesta seção, o ponto principal não é memorizar percentuais, mas evitar generalizações indevidas.
+*   **IA prioriza funcionamento, não segurança**: O viés estatístico favorece configurações permissivas e inseguras encontradas em tutoriais.
+*   **Alucinação de Pacotes é real**: A IA inventa nomes de bibliotecas; atacantes registram esses nomes para distribuir malware.
+*   **Ataque na Cadeia de Suprimentos**: Validar a existência e reputação de cada dependência sugerida é mandatório.
+*   **Sanitização é ignorada**: Assuma que todo código gerado confia cegamente no input do usuário (SQLi, XSS, Command Injection).
+*   **Verificação > Geração**: O papel do engenheiro muda de "escrever código" para "auditar código e desenhar restrições".
 
-**Por que números divergem tanto?**
+---
 
-1. **Definição de "código gerado por IA"**: rotulagem por commit message, padrões de estilo, telemetria, ou auto-declaração produz vieses diferentes.
-2. **Definição de "vulnerabilidade"**: estudos variam entre CWE detectada estaticamente, falhas exploráveis, e violações de guideline.
-3. **Stack e linguagem**: taxas mudam por linguagem, framework, e superfície de ataque típica.
-4. **Contexto de geração**: prompts, contexto de repo, e scaffolding influenciam fortemente o resultado.
-5. **Ferramenta de detecção**: scanners têm falsos positivos/negativos; comparar números sem calibrar o detector é enganoso.
+## Próximos Passos
 
-**Como usar evidências externas com segurança (checklist):**
+*   Implementar **pre-commit hooks** que busquem padrões inseguros comuns (`verify=False`, chaves hardcoded).
+*   Configurar um **proxy de repositório** (como Artifactory ou Nexus) para bloquear instalação de pacotes não aprovados/novos demais.
+*   Treinar a equipe em **Threat Modeling** específico para componentes de IA.
+*   Adotar ferramentas de **SAST** que tenham regras específicas para código gerado (detectar alucinações comuns).
 
-- Exigir metodologia e artefatos (dataset, regras, scripts).
-- Separar *prevalência observada* de *risco residual* (o que importa é impacto x probabilidade x capacidade de detecção).
-- Tratar percentuais como hipótese inicial; validar com red teaming e medição em código real.
+---
 
-**Referências sugeridas:** quando esta seção mencionar estudos específicos (por exemplo, Pearce et al.; "Asleep at the Keyboard?"), consulte as fontes primárias e atualize os dados no seu repositório antes de transformar em política.
+## Matriz de Avaliação
 
-### Implicações dos Dados Empíricos
+| Critério | Avaliação | Justificativa |
+| :--- | :--- | :--- |
+| **Risco de Negócio** | Crítico | Vulnerabilidades introduzidas agora podem permanecer latentes por anos. |
+| **Custo de Mitigação** | Médio | Requer mudança de processo e ferramentas, não necessariamente mais headcount. |
+| **Complexidade Técnica** | Baixa | As falhas são conhecidas (OWASP Top 10); o desafio é a detecção em escala. |
+| **Necessidade Humana** | Alta | O julgamento de contexto ("isso deve ser público?") ainda é exclusivamente humano. |
 
-1. **Código gerado por IA não é inerentemente inseguro**, mas requer verificação rigorosa
-2. **Vulnerabilidades clássicas persistem** — IA replica padrões inseguros dos dados de treino
-3. **Revisão humana é crítica** — vulnerabilidades persistem quando a revisão é superficial
-4. **Contexto importa** — código que parece seguro isoladamente pode ser vulnerável no sistema maior
-
-## Ferramentas de Análise de Segurança para Código de IA
-
-O ecossistema de ferramentas de segurança está evoluindo para lidar com as especificidades do código gerado por IA.
-
-### Ferramentas SAST Adaptadas
-
-**DeVAIC (Detection of Vulnerabilities in AI-generated Code)**
-- Ferramenta especializada para código Python gerado por IA
-- Baseada em regras de regex cobrindo 35 CWEs do OWASP Top 10
-- **F1-Score e Acurácia de 94%**
-- Tempo de processamento: 0,14 segundos por snippet
-- Significativamente superior a soluções state-of-the-art anteriores
-
-**CodeQL com Regras Estendidas**
-- GitHub expandiu regras CodeQL para detectar vulnerabilidades comuns em código de IA
-- Integração com GitHub Copilot para feedback em tempo real
-- Análise de fluxo de dados aprimorada para detectar injeções
-
-**SonarQube/SonarSource**
-- Regras específicas para código gerado por IA
-- Detecção de padrões inseguros comuns em snippets de LLM
-- Integração com pipelines CI/CD
-
-### Ferramentas de Análise Dinâmica
-
-**Fuzzing Direcionado**
-- Geração de inputs baseada em compreensão de prompts
-- Foco em casos edge que podem expor vulnerabilidades
-- Integração com LLMs para geração de casos de teste adversariais
-
-**Sandboxing e Execução Segura**
-- Ambientes isolados para testar código gerado
-- Monitoramento de comportamento em runtime
-- Detecção de atividades suspeitas (acesso a arquivos, rede, etc.)
-
-### Abordagens Emergentes
-
-**LLM-as-a-Judge**
-- Uso de LLMs para revisar código gerado por outros LLMs
-- Análise semântica de segurança
-- Identificação de vulnerabilidades lógicas além de padrões sintáticos
-
-**Análise de Similaridade**
-- Comparação de código gerado contra bases de código vulnerável conhecido
-- Detecção de padrões problemáticos do treinamento
-- Matching contra corpus de código seguro
-
-## Processo de Curadoria de Segurança
-
-A curadoria de segurança para código gerado por IA deve ser um processo sistemático e rigoroso.
-
-### Pipeline de Curadoria de Segurança
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│  1. GERAÇÃO                                                 │
-│  - Geração inicial pelo LLM                                │
-│  - Documentação do prompt e contexto                       │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────────────┐
-│  2. ANÁLISE ESTÁTICA AUTOMATIZADA                          │
-│  - SAST com regras para código de IA                       │
-│  - Linting e análise de padrões                            │
-│  - Detecção de secrets e credenciais                       │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────────────┐
-│  3. ANÁLISE SEMÂNTICA                                       │
-│  - Revisão de segurança por LLM (LLM-as-a-Judge)          │
-│  - Análise de fluxo de dados                               │
-│  - Identificação de vulnerabilidades lógicas               │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────────────┘
-│  4. TESTES DINÂMICOS                                        │
-│  - Fuzzing direcionado                                     │
-│  - Testes de segurança automatizados                       │
-│  - Execução em sandbox                                     │
-└────────────────────┬────────────────────────────────────────┘
-                     │
-┌────────────────────▼────────────────────────────────────────┐
-│  5. REVISÃO HUMANA OBRIGATÓRIA                             │
-│  - Revisão por engenheiro de segurança                     │
-│  - Verificação de contexto do sistema                      │
-│  - Aprovação para merge                                    │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### Checklist de Curadoria de Segurança
-
-**Validação de Input:**
-- [ ] Todos os inputs externos são validados
-- [ ] Sanitização adequada para o contexto (SQL, HTML, comandos)
-- [ ] Rate limiting implementado onde apropriado
-
-**Proteção contra Injeção:**
-- [ ] Uso de prepared statements para SQL
-- [ ] Escaping adequado para HTML/JS
-- [ ] Validação de caminhos de arquivo
-- [ ] Nenhuma execução direta de comandos shell com input do usuário
-
-**Gestão de Secrets:**
-- [ ] Nenhuma credencial hardcoded
-- [ ] Uso de gestão de secrets apropriada
-- [ ] Rotação de credenciais configurada
-
-**Gestão de Recursos:**
-- [ ] Fechamento adequado de recursos (arquivos, conexões)
-- [ ] Tratamento de exceções que não vaza informação
-- [ ] Prevenção de resource exhaustion
-
-**Contexto do Sistema:**
-- [ ] Código é seguro no contexto do sistema maior
-- [ ] Trust boundaries são respeitados
-- [ ] Privilégios mínimos são aplicados
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Média — ferramentas melhoram, mas vulnerabilidades clássicas persistem |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto — análise de segurança re expertise especializada |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica — vulnerabilidades em produção têm consequências severas |
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Nunca confie cegamente em código gerado**: Assuma que pode conter vulnerabilidades até prova em contrário
-2. **Use múltiplas camadas de verificação**: SAST, análise semântica, testes dinâmicos e revisão humana
-3. **Mantenha um registro de prompts**: Documente o contexto de geração para análise posterior
-4. **Estabeleça padrões de codificação segura**: Guidelines claras para uso de ferramentas de IA
-5. **Invista em treinamento**: Equipes devem entender vulnerabilidades comuns em código de IA
-
-### Limitações
-
-- **Ferramentas SAST não são perfeitas**: Podem gerar falsos positivos/negativos
-- **Contexto limitado**: Ferramentas podem não detectar vulnerabilidades que dependem de contexto do sistema
-- **Evolução rápida**: Novos padrões de vulnerabilidade surgem conforme LLMs evoluem
-- **Custo computacional**: Análise profunda de segurança é cara em termos de tempo e recursos
-
-### Melhores Práticas
-
-1. **Adote "security by default"**: Configure ferramentas de IA para priorizar segurança
-2. **Implemente gates de segurança**: Nenhum código gerado por IA vai para produção sem revisão
-3. **Use ambientes isolados**: Teste código gerado em sandboxes antes de integração
-4. **Mantenha-se atualizado**: Acompanhe pesquisas sobre vulnerabilidades em código de IA
-5. **Cultura de segurança**: Incentive equipes a reportar e discutir vulnerabilidades encontradas
-
-## Summary
-
-- Código gerado por IA frequentemente contém vulnerabilidades "alucinadas" — código funcional mas inseguro
-- Estudos empíricos mostram 12-40% de taxa de vulnerabilidades, dependendo da linguagem e ferramenta
-- CWEs clássicos (SQL injection, command injection, path traversal) predominam em código de IA
-- Ferramentas SAST tradicionais precisam de adaptações para código gerado por LLMs
-- Processo de curadoria deve incluir análise estática, dinâmica e revisão humana obrigatória
-- Python apresenta maior taxa de vulnerabilidades (16-18%) comparado a JavaScript (8-9%)
-- Código de IA requer verificação rigorosa antes de ir para produção
-
-## References
-
-1. Pearce, H., et al. "Security Vulnerabilities in AI-Generated Code: A Large-Scale Analysis of Public GitHub Repositories." Proceedings of the 27th International Conference on Information and Communications Security (ICICS 2025), arXiv:2510.26103, 2025.
-
-2. Pearce, H., et al. "Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions." IEEE Symposium on Security and Privacy (S&P), 2024 (Updated).
-
-3. "AI Code in the Wild: Measuring Security Risks and Ecosystem Shifts of AI-Generated Code in Modern Software." arXiv:2512.18567, 2025.
-
-4. DeVAIC Team. "DeVAIC: A Tool for Security Assessment of AI-Generated Code." Information and Software Technology, Vol. 177, 2025. https://doi.org/10.1016/j.infsof.2024.107595
-
-5. SonarSource. "Security Analysis of AI-Generated Code: Challenges and Solutions." SonarSource Blog, 2025.
-
-6. GitHub. "CodeQL Security Analysis for AI-Generated Code." GitHub Security Lab, 2025.
-
-7. MITRE. "Common Weakness Enumeration (CWE)." https://cwe.mitre.org/
-
-8. OWASP. "OWASP Top 10:2021." Open Web Application Security Project, 2021.
+## Referências
+1.  **OWASP Top 10 for LLM Applications**: Foco em LLM02: Insecure Output Handling.
+2.  **Barrett D., et al.** "Package Hallucination in Large Language Models". arXiv preprint, 2024.
+3.  **Pearce, H., et al.** "Asleep at the Keyboard? Assessing the Security of GitHub Copilot's Code Contributions". IEEE S&P, 2024.

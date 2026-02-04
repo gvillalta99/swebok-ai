@@ -9,336 +9,137 @@ ai_model: "openai/gpt-5.2"
 
 # Elicitação de Contexto e Intenção
 
-## Overview
+## Contexto
+Em sistemas determinísticos, requisitos incompletos geram erros de lógica ou exceções não tratadas. Em sistemas probabilísticos (LLMs), requisitos incompletos geram **alucinações plausíveis**.
 
-A elicitação de contexto e intenção representa a evolução das técnicas tradicionais de elicitação de requisitos para a era dos LLMs. Enquanto a abordagem clássica focava em capturar funcionalidades desejadas, a elicitação moderna concentra-se em compreender o **contexto operacional** e a **intenção subjacente** que devem guiar o comportamento de sistemas autônomos.
+O modelo não "sabe" o que você quer; ele completa padrões estatísticos. Se você não fornecer o contexto restritivo (quem somos, o que vendemos, o que é proibido falar), o modelo preencherá as lacunas com a média da internet. Na Engenharia de Software 2.0, elicitar requisitos não é mais sobre listar funcionalidades, mas sobre **curar o contexto** que impede a IA de improvisar.
 
-Esta seção apresenta técnicas avançadas para extrair não apenas o "o quê", mas o "porquê", "quando" e "sob quais condições" que definem as fronteiras de operação segura de sistemas com IA.
+## O Novo Paradigma: De Features para Restrições
 
-## Learning Objectives
+A elicitação tradicional perguntava: *"O que o sistema deve fazer?"*
+A elicitação para IA pergunta: *"O que o sistema deve saber para não errar?"* e *"O que o sistema está proibido de fazer?"*
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### A Mudança de Eixo
+| Engenharia Tradicional | Engenharia de IA (SWEBOK-AI) |
+|------------------------|------------------------------|
+| **Artefato:** Documento de Requisitos (PRD) | **Artefato:** System Prompt & Base de Conhecimento (RAG) |
+| **Foco:** Regras de Negócio explícitas (`if-then`) | **Foco:** Intenção, Tom e Fronteiras de Segurança |
+| **Erro:** Bug de lógica (crash) | **Erro:** Desalinhamento (resposta tóxica ou incorreta) |
+| **Manutenção:** Atualizar código | **Manutenção:** Atualizar contexto e vetores |
 
-1. Distinguir entre elicitação de requisitos e elicitação de contexto
-2. Aplicar técnicas modernas de extração de intenção em sistemas com IA
-3. Identificar e mapear conhecimento tácito de especialistas de domínio
-4. Estruturar contexto para maximizar a eficácia de LLMs
-5. Avaliar a qualidade e completude do contexto elicitado
+O "requisito" agora é a **Janela de Contexto**. Tudo que não está na janela de contexto no momento da inferência não existe para o modelo. Portanto, a engenharia de requisitos tornou-se um problema de gestão de dados em tempo real.
 
-## 2.1 Do Requisito ao Contexto: Uma Nova Abordagem
+## Engenharia de Prompt como Especificação
 
-### Limitações da Elicitação Tradicional
+Prompt Engineering não é "arte de falar com robôs"; é a forma mais alto nível de codificação. Um prompt bem estruturado é uma especificação executável.
 
-A elicitação tradicional de requisitos, conforme descrita no SWEBOK v4.0 [1], enfrenta desafios fundamentais no contexto de sistemas com IA:
+### 1. System Prompts como Requisitos Não-Funcionais
+O *System Prompt* define a "constituição" do agente. Ele carrega os requisitos globais de segurança, tom e limites operacionais.
 
-- **Incompletude Estrutural**: Stakeholders não conseguem antecipar todos os cenários de uso
-- **Ambiguidade Semântica**: Linguagem natural é insuficiente para capturar nuances de contexto
-- **Conhecimento Tácito**: Expertise crítica reside em práticas não documentadas
-- **Evolução Rápida**: Requisitos mudam mais rapidamente que a capacidade de documentação
+*   **Identidade e Papel:** Define a autoridade técnica.
+*   **Guardrails de Saída:** Formatos obrigatórios (JSON, Markdown) e proibição de verbosidade.
+*   **Protocolos de Falha:** O que fazer quando não souber a resposta (ex.: "Responda apenas 'Desconhecido', não invente").
 
-### O Que É Contexto em Sistemas com IA
+### 2. Few-Shot Prompting como Requisitos por Exemplo
+Em vez de descrever uma regra complexa abstratamente, forneça pares de entrada/saída (Few-Shot). Isso reduz a ambiguidade semântica drasticamente.
+*   *Tradicional:* "O sistema deve classificar o sentimento."
+*   *AI-Native:* "Aqui estão 5 exemplos de classificação correta e 5 exemplos de erros comuns a evitar."
 
-No SWEBOK-AI v5.0, **contexto** é definido como:
+### 3. Chain-of-Thought como Validação de Lógica
+Forçar o modelo a "pensar passo a passo" não é apenas para melhorar a precisão; é para gerar **logs de auditoria** da intenção. Se o modelo errar, você pode inspecionar o raciocínio intermediário para entender onde a especificação (contexto) falhou.
 
-> O conjunto de informações, restrições, regras de negócio, conhecimento de domínio e condições operacionais que definem o espaço de comportamento válido e seguro para um sistema que incorpora componentes de IA.
+## RAG como Gestão Dinâmica de Requisitos
 
-O contexto inclui:
+Retrieval-Augmented Generation (RAG) é o mecanismo que injeta requisitos de dados *just-in-time*.
 
-- **Contexto de Domínio**: Conhecimento específico da área de aplicação
-- **Contexto Operacional**: Condições e restrições de execução
-- **Contexto Organizacional**: Políticas, processos e cultura
-- **Contexto Regulatório**: Leis, normas e compliance
-- **Contexto Técnico**: Arquitetura, integrações e limitações tecnológicas
+*   **O Problema:** Você não pode colocar todas as regras de negócio da empresa no prompt (limite de tokens e custo).
+*   **A Solução:** O sistema de RAG busca apenas os "requisitos" (documentos, políticas, histórico de cliente) relevantes para *aquela* interação específica.
 
-### A Pirâmide do Contexto
+**Qualidade do RAG = Qualidade do Requisito.**
+Se o seu sistema de busca recupera documentos obsoletos, a IA executará com base em requisitos obsoletos. A higiene da base de conhecimento (Knowledge Base) é a nova manutenção de especificações.
 
-```
-                    ┌─────────────────┐
-                    │   INTENÇÃO      │ ← Por que o sistema existe?
-                    │   ESTRATÉGICA   │
-                    └────────┬────────┘
-                             │
-              ┌──────────────┴──────────────┐
-              │      REGRAS DE NEGÓCIO      │ ← O que deve/pode fazer?
-              │        E POLÍTICAS          │
-              └──────────────┬──────────────┘
-                             │
-        ┌────────────────────┴────────────────────┐
-        │         RESTRIÇÕES OPERACIONAIS         │ ← Como deve operar?
-        │        E COMPORTAMENTAIS                │
-        └────────────────────┬────────────────────┘
-                             │
-  ┌──────────────────────────┴──────────────────────────┐
-  │              DADOS E CONHECIMENTO DE DOMÍNIO        │ ← Com base em quê?
-  │                   (Contexto Técnico)                │
-  └─────────────────────────────────────────────────────┘
-```
+## Checklist Prático: Elicitação Hands-on
 
-## Técnicas de Elicitação de Contexto
+O que fazer antes de escrever uma linha de código de integração:
 
-### Elicitacao por Prompt Engineering
+1.  **Defina a "Persona Negativa":** Liste explicitamente o que o agente NÃO é (ex.: "Você não é um consultor jurídico, você é um suporte técnico").
+2.  **Mapeie a "Verdade":** Onde está a fonte da verdade? (PDFs, Notion, SQL?). Se a informação não está digitalizada, a IA não pode usá-la.
+3.  **Crie o "Golden Dataset" de Perguntas:** Colete 50 perguntas reais dos usuários. Use isso para testar se o contexto recuperado é suficiente.
+4.  **Estabeleça o Orçamento de Tokens:** Quanto contexto você pode pagar por chamada? Isso define o limite físico dos seus requisitos.
+5.  **Formalize a Saída:** Exija formatos estruturados (JSON/XML) para facilitar a validação automatizada posterior.
 
-O **Prompt Engineering** tornou-se uma técnica fundamental de elicitação. Diferente de entrevistas tradicionais, utiliza interações estruturadas com LLMs para:
+## Armadilhas Comuns
 
-- **Exploração de Domínio**: Gerar questões que especialistas podem não ter considerado
-- **Identificação de Casos Limite**: Descobrir cenários extremos e edge cases
-- **Refinamento de Conceitos**: Iterar sobre definições até alcançar precisão
-- **Validação de Compreensão**: Verificar se o contexto foi corretamente interpretado
+### 1. Context Stuffing (Lixão de Contexto)
+Jogar documentos inteiros e desestruturados na janela de contexto esperando que a IA "se vire".
+*   *Consequência:* Aumento de custo, latência e o efeito "Lost in the Middle" (a IA esquece instruções no meio do texto).
+*   *Correção:* Curadoria e chunking (fragmentação) inteligente dos dados.
 
-**Padrão de Prompt para Elicitação**:
+### 2. Prompt Voodoo
+Tentar corrigir falhas de contexto com "frases mágicas" no prompt (ex.: "seja muito inteligente").
+*   *Consequência:* Comportamento instável entre versões do modelo.
+*   *Correção:* Melhore os dados (contexto), não a retórica.
 
-```
-Você é um especialista em [DOMÍNIO]. Estou desenvolvendo um sistema 
-que [OBJETIVO]. Para garantir que o sistema opere de forma segura 
-e eficaz, preciso compreender:
+### 3. Ignorar a Intenção do Usuário
+O usuário pergunta "Como cancelo minha conta?", mas a intenção real é "Estou frustrado com o preço".
+*   *Consequência:* A IA dá a instrução de cancelamento perfeitamente, e a empresa perde o cliente.
+*   *Correção:* Instruir o modelo a classificar a intenção antes de gerar a resposta.
 
-1. Quais são as regras fundamentais que nunca devem ser violadas?
-2. Quais situações requerem intervenção humana obrigatória?
-3. Quais são os casos limite ou ambíguos neste domínio?
-4. Que tipo de erros são inaceitáveis vs. toleráveis?
-5. Quais decisões exigem rastreabilidade e auditoria?
+## Exemplo Mínimo: Classificador de Suporte
 
-Forneça exemplos concretos para cada ponto.
-```
+**Cenário:** Um bot que tria tickets de suporte para uma SaaS.
 
-### Mapeamento de Conhecimento Tacito
+**Abordagem Ingênua (Falha):**
+> "Você é um assistente útil. Classifique este email."
+> *Resultado:* Classificações genéricas ("Problema", "Dúvida") sem utilidade para o time de engenharia.
 
-O conhecimento tácito — expertise que especialistas possuem mas não conseguem articular facilmente — é crítico para sistemas com IA. Técnicas incluem:
-
-**Protocol Analysis**:
-- Especialistas verbalizam seu raciocínio enquanto resolvem problemas
-- opcionalmente, ferramentas (incluindo LLMs) podem ajudar a sintetizar transcricoes; o resultado precisa de revisao humana
-- Identificação de heurísticas e regras implícitas
-
-**Shadowing**:
-- Observação de especialistas em seu ambiente de trabalho natural
-- Captura de decisões micro e contextos sutis
-- Documentação de "intuição" em regras explícitas
-
-**Apprenticing**:
-- Engenheiro aprende a executar tarefas do domínio
-- Exposição direta à complexidade e nuances
-- Identificação de gaps entre teoria e prática
-
-### Elicitacao Baseada em Cenarios
-
-Cenários são narrativas que descrevem interações entre usuários e sistema. Na era dos LLMs, evoluíram para:
-
-**Cenários de Sucesso**:
-- Descrevem operação ideal
-- Definem expectativas de comportamento
-- Servem como exemplos de treinamento
-
-**Cenários de Falha**:
-- Documentam comportamentos indesejados
-- Especificam respostas esperadas a erros
-- Definem limites de degradação
-
-**Cenários de Stress**:
-- Testam limites do sistema
-- Identificam pontos de ruptura
-- Especificam comportamentos de fallback
-
-Exemplo de estrutura de cenário:
-
-```yaml
-Cenário: Processamento de Solicitação de Empréstimo
-Contexto: Cliente solicita empréstimo pessoal via chatbot
-
-Fluxo Normal:
-  - Cliente fornece informações básicas
-  - Sistema consulta histórico de crédito
-  - Sistema calcula score de risco
-  - Sistema apresenta oferta preliminar
-
-Restrições:
-  - Valor máximo sem análise humana: R$ 10.000
-  - Tempo máximo de resposta: 30 segundos
-  - Dados PII devem ser mascarados em logs
-
-Casos Limite:
-  - Cliente sem histórico de crédito
-  - Score de risco na fronteira entre aprovação/rejeição
-  - Sistema de crédito externo indisponível
-
-Fallback:
-  - Acima de R$ 10.000: encaminhar para analista humano
-  - Timeout: oferecer callback em até 2h
-  - Indisponibilidade: modo offline com cache
-```
-
-## Fontes de Contexto
-
-### 2.3.1 Stakeholders e Suas Perspectivas
-
-A análise de stakeholders continua essencial, mas com foco expandido:
-
-| Classe de Stakeholder | Contexto Específico | Técnica de Elicitação |
-|----------------------|---------------------|----------------------|
-| **Usuários Finais** | Necessidades, frustrações, workflows | Entrevistas, observação, journey mapping |
-| **Especialistas de Domínio** | Regras de negócio, casos limite, exceções | Protocol analysis, apprenticing |
-| **Equipe de Compliance** | Requisitos regulatórios, políticas internas | Workshops, análise documental |
-| **Equipe de Segurança** | Ameaças, controles, vulnerabilidades | Threat modeling, análise de risco |
-| **Equipe de Operações** | Limites operacionais, métricas de saúde | SRE interviews, análise de incidentes |
-| **Desenvolvedores** | Restrições técnicas, dívidas técnicas | Code archaeology, análise de arquitetura |
-
-### 2.3.2 Documentação e Sistemas Existentes
-
-**Documentação Legada**:
-- Manuais de usuário (definem comportamento esperado)
-- Documentação técnica (revela restrições arquiteturais)
-- Regulamentos e normas (definem compliance)
-- Histórico de incidentes (identificam falhas passadas)
-
-**Sistemas Legados**:
-- Interfaces de integração (definem contratos)
-- Bancos de dados (revelam modelo de domínio)
-- Logs e métricas (mostram padrões de uso)
-- Código fonte (contém regras de negócio implícitas)
-
-### 2.3.3 Dados como Fonte de Contexto
-
-Em sistemas com IA, os próprios dados tornam-se fonte de contexto:
-
-**Análise de Dados Históricos**:
-- Padrões de comportamento do usuário
-- Distribuição de casos e exceções
-- Frequência de diferentes tipos de solicitações
-
-**Data Quality Assessment**:
-- Completude e consistência dos dados
-- Viés nos dados de treinamento
-- Representatividade das amostras
-
-## Captura da Intencao
-
-### 2.4.1 Intenção vs. Requisito
-
-Enquanto um **requisito** especifica o que o sistema deve fazer, a **intenção** captura:
-
-- **Propósito Estratégico**: Por que esta funcionalidade existe?
-- **Objetivo de Negócio**: Que valor deve entregar?
-- **Restrições Implícitas**: O que está subentendido mas não dito?
-- **Preferências de Trade-off**: O que é mais importante quando há conflito?
-
-### 2.4.2 Técnicas de Captura de Intenção
-
-**As 5 Intenções (Adaptação das 5 Whys)**:
-
-1. **Por que esta funcionalidade é necessária?**
-2. **Por que é importante para o negócio?**
-3. **Por que os usuários se beneficiarão?**
-4. **Por que não pode ser feito de outra forma?**
-5. **Por que estas restrições específicas?**
-
-**Story Mapping com Foco em Intenção**:
-- Mapeia não apenas funcionalidades, mas objetivos de usuário
-- Identifica dependências entre intenções
-- Revela gaps na compreensão do domínio
-
-### 2.4.3 Documentação da Intenção
-
-A intenção deve ser documentada explicitamente:
-
+**Abordagem Engenharia de Contexto (Sucesso):**
 ```markdown
-## Intenção: [Nome da Intenção]
+# SYSTEM ROLE
+Você é um Engenheiro de Triagem Nível 3.
+Sua tarefa é classificar tickets para roteamento automático.
 
-**Propósito**: [Descrição clara do objetivo estratégico]
+# CONTEXTO DE NEGÓCIO
+- "Bug Crítico": Sistema fora do ar ou perda de dados.
+- "Bug Visual": Glitches que não impedem uso.
+- "Feature Request": Pedidos de algo que não existe.
 
-**Stakeholders Primários**: [Quem se beneficia]
+# RESTRIÇÕES
+- Se o usuário estiver irritado (palavrões, CAPS LOCK), adicione a flag "SENTIMENT_NEGATIVE".
+- NUNCA classifique como "Outros" se houver menção a "Login" ou "Senha".
 
-**Contexto de Uso**: [Quando e onde se aplica]
-
-**Restrições Implícitas**:
-- [Restrição 1]
-- [Restrição 2]
-
-**Preferências de Trade-off**:
-- [Preferência 1] > [Preferência 2]
-
-**Critérios de Sucesso**:
-- [Critério mensurável 1]
-- [Critério mensurável 2]
-
-**Riscos se Mal Implementada**:
-- [Risco 1]
-- [Risco 2]
+# FORMATO DE SAÍDA (JSON)
+{
+  "category": "string",
+  "priority": "P1-P4",
+  "routing_team": "string",
+  "reasoning": "string"
+}
 ```
 
-## Validacao do Contexto Elicitado
+## Resumo Executivo
 
-### 2.5.1 Critérios de Qualidade
+*   **Contexto é Rei:** O modelo é apenas um motor de raciocínio; o contexto é o combustível. Combustível ruim = motor engasgado.
+*   **Prompt é Código:** Trate prompts com versionamento, testes e code review.
+*   **RAG é Requisito Vivo:** A busca vetorial define o que o modelo "sabe" a cada milissegundo.
+*   **Defina o "Não":** Restrições negativas são mais importantes que instruções positivas para segurança.
+*   **Estrutura > Texto:** Force saídas estruturadas para integrar a IA em sistemas determinísticos.
 
-O contexto elicitado deve ser:
+## Próximos Passos
 
-- **Completo**: Cobre todos os cenários relevantes
-- **Consistente**: Não contém contradições internas
-- **Preciso**: Define fronteiras claras
-- **Verificável**: Pode ser testado ou auditado
-- **Rastreável**: Liga-se a fontes e stakeholders
-- **Atualizável**: Pode evoluir com o sistema
+*   Ir para **[01-03] Engenharia de Prompt Estruturada** para técnicas avançadas de formatação.
+*   Consultar **[05-01] Avaliação de RAG** para métricas de qualidade de contexto (Recall/Precision).
+*   Revisar **[13-02] Prompt Injection** para entender como usuários maliciosos tentam subverter o contexto.
 
-### 2.5.2 Técnicas de Validação
-
-**Review por Especialistas**:
-- Especialistas de domínio revisam contexto elicitado
-- Identificam omissões e imprecisões
-- Validam representatividade
-
-**Prototipação Exploratória**:
-- Criação rápida de protótipos com LLMs
-- Teste de cenários com contexto parcial
-- Identificação de gaps através de comportamento inesperado
-
-**Simulação de Casos**:
-- Execução de cenários de teste
-- Verificação de comportamento em casos limite
-- Validação de estratégias de fallback
-
-## Practical Considerations
-
-### Desafios na Elicitação de Contexto
-
-1. **Resistência de Stakeholders**: Especialistas podem não ver valor em documentar "óbvio"
-2. **Contexto em Constante Mudança**: Domínios dinâmicos exigem elicitação contínua
-3. **Sobrecarga de Informação**: Muito contexto pode ser tão prejudicial quanto pouco
-4. **Conflitos de Perspectiva**: Diferentes stakeholders podem ter visões conflitantes
-
-### Melhores Práticas
-
-- **Comece Amplo, Refine**: Inicie com contexto amplo e refine iterativamente
-- **Documente Raciocínio**: Capture não apenas decisões, mas o porquê delas
-- **Versione o Contexto**: Mantenha histórico de evolução do entendimento
-- **Valide Frequentemente**: Reavalie contexto em cada iteração
-- **Automatize quando Possível**: Use LLMs para sintetizar e organizar contexto
-
-### Ferramentas e Tecnologias
-
-- **RAG (Retrieval-Augmented Generation)**: Para enriquecer contexto com conhecimento externo
-- **Vector Databases**: Para armazenar e recuperar contexto semântico
-- **Knowledge Graphs**: Para modelar relações complexas no contexto
-- **LLM-based Elicitation Assistants**: Para auxiliar na descoberta de contexto
-
-## Summary
-
-- A elicitação de contexto vai além da elicitação tradicional de requisitos
-- Contexto inclui domínio, operacional, organizacional, regulatório e técnico
-- Técnicas modernas incluem prompt engineering, mapeamento de conhecimento tácito e cenários
-- A captura da intenção é tão importante quanto a captura de requisitos
-- Validação contínua é essencial para manter contexto relevante
-- O contexto é um ativo vivo que evolui com o sistema
-
-## Matriz de Avaliação Consolidada
+## Matriz de Avaliação
 
 | Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** - Elicitação de contexto é fundamental e crescentemente importante |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Médio** - Requer validação humana, mas ferramentas de IA podem auxiliar |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítico** - Contexto inadequado leva a falhas sistêmicas |
+| :--- | :--- | :--- |
+| **Descartabilidade** | Esta técnica será obsoleta em 3 anos? | **Baixa.** Modelos ficarão melhores, mas a necessidade de definir contexto de negócio é eterna. |
+| **Custo de Verificação** | Quão difícil é checar se o contexto está certo? | **Médio.** Requer inspeção humana dos chunks recuperados pelo RAG. |
+| **Risco de Segurança** | O que acontece se falhar? | **Alto.** Vazamento de dados (se o contexto trouxer PII) ou alucinação crítica. |
 
-## References
-
-1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
-2. Research directions for using LLM in software requirement engineering. Frontiers in Computer Science, 2025.
-3. Formalising Software Requirements with Large Language Models. arXiv, 2025. Disponivel em: https://arxiv.org/abs/2506.10704
-4. ERICSSON, K. A.; SIMON, H. A. Protocol Analysis: Verbal Reports as Data. Cambridge, MA: MIT Press, 1993.
+## Referências
+1.  **Wei, J., et al. (2022).** "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models." NeurIPS.
+2.  **Lewis, P., et al. (2020).** "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks." NeurIPS.
+3.  **OpenAI Cookbook.** "Techniques to improve reliability." (Documentação Técnica).

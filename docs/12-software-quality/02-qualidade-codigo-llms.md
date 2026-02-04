@@ -7,518 +7,136 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# 2. Qualidade de Código Gerado por LLMs
+# Qualidade de Código em LLMs
 
-## Overview
+A geração de código por IA transformou a escassez de sintaxe em abundância de lógica probabilística. O problema não é mais "como escrever", mas "como garantir que o que foi escrito funciona e é seguro". Código gerado por LLMs é frequentemente plausível, sintaticamente correto, mas semanticamente desastroso. Adotamos aqui a filosofia de **"Culpado até que se prove inocente"**: todo bloco de código sintético deve ser tratado como um vetor de risco até passar por validação rigorosa.
 
-Esta seção aborda as métricas, padrões e análises específicas para avaliar código gerado por Large Language Models (LLMs). Enquanto métricas tradicionais de qualidade de código (complexidade ciclomática, duplicação, cobertura) permanecem relevantes, código gerado por IA apresenta padrões de defeitos distintos que exigem adaptações e novas categorias de análise.
+## 1. O Paradigma da Desconfiança (Zero Trust Code)
 
-O foco desloca-se de "medir qualidade de código humano" para "detectar artefatos específicos de geração automática, avaliar qualidade de prompts e estabelecer benchmarks comparativos entre modelos."
+Engenharia de Software tradicional foca em gerenciar complexidade humana. Engenharia com IA foca em mitigar alucinação estocástica. O código humano falha por erro de lógica ou cansaço; o código de IA falha porque o padrão probabilístico mais comum na internet pode ser inseguro, obsoleto ou simplesmente errado para o seu contexto específico.
 
-## Learning Objectives
+A mudança fundamental é econômica: o custo de produção de código caiu para zero, mas o **custo de verificação** subiu exponencialmente. Se sua equipe faz "LGTM" (Looks Good To Me) em PRs gerados por IA sem ler linha por linha, você está acumulando dívida técnica tóxica.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### Diferenças Fundamentais de Risco
 
-1. Aplicar métricas tradicionais adaptadas para código gerado por LLMs
-2. Identificar e classificar code smells específicos de código de IA
-3. Avaliar a relação entre qualidade de prompts e qualidade de código gerado
-4. Implementar análise estática efetiva para código sintético
-5. Interpretar benchmarks de qualidade para comparação entre LLMs
+| Característica | Código Humano | Código LLM |
+| :--- | :--- | :--- |
+| **Origem do Erro** | Falha de lógica, typo, má compreensão do requisito. | Alucinação, mistura de contextos, bibliotecas inexistentes. |
+| **Estilo** | Tende a ser consistente com o autor. | Tende a ser "médio", verboso ou inconsistente entre arquivos. |
+| **Segurança** | Erros conhecidos (OWASP Top 10). | Inventa dependências, usa protocolos inseguros se o prompt for vago. |
+| **Verificação** | Code Review foca em design e lógica. | Code Review deve focar em **existência** (de libs/métodos) e **intenção**. |
 
-## 2.1 Métricas Tradicionais Adaptadas
+## 2. Métricas de Qualidade para a Era Sintética
 
-### 2.1.1 Complexidade Ciclomática
+Esqueça a complexidade ciclomática isolada. Para código sintético, precisamos medir o risco de integridade e manutenção.
 
-**Métrica Tradicional:** Mede o número de caminhos independentes através do código. Thresholds convencionais:
-- 1-10: Baixa complexidade (bom)
-- 11-20: Complexidade moderada
-- 21-50: Complexidade alta (refatorar)
-- >50: Complexidade muito alta (testar extensivamente)
+### 2.1 Hallucination Rate (Taxa de Alucinação)
+Mede a frequência com que o modelo inventa chamadas de função, parâmetros ou bibliotecas que não existem.
+*   **Como medir:** Execução em sandbox (CI) + Análise estática de imports.
+*   **Alvo:** 0%. Uma única alucinação invalida o trecho.
+*   **Sintoma:** `AttributeError: module 'pandas' has no attribute 'read_super_csv'`.
 
-**Adaptação para Código de IA:**
+### 2.2 Security Density (Densidade de Segurança)
+Número de vulnerabilidades ou práticas inseguras por 1.000 linhas de código (KLOC).
+*   **Por que importa:** LLMs treinaram em código antigo e vulnerável. Eles "amam" `eval()`, SQL sem parâmetros e chaves hardcoded.
+*   **Ação:** Scanners de segurança (SAST) devem rodar *antes* do humano olhar o código.
 
-| Complexidade | Interpretação Tradicional | Interpretação Código IA |
-|--------------|---------------------------|-------------------------|
-| < 5 | Excelente | **Suspeito** — pode ser excessivamente simplificado |
-| 5-15 | Bom | Adequado |
-| 15-25 | Moderado | Aceitável com justificativa |
-| > 25 | Alto risco | Requer revisão cuidadosa |
+### 2.3 Maintainability Index (Índice de Manutenibilidade)
+Código de IA tende a ser verboso ("boilerplate generator").
+*   **Sinal de Alerta:** Se o PR adiciona 500 linhas para uma tarefa de 50, o índice de manutenibilidade despencou.
+*   **Regra de Ouro:** Código gerado deve ser tão conciso quanto o código que um sênior escreveria. Se for mais longo, é lixo.
 
-**Racional:** Código gerado por IA frequentemente apresenta complexidade anormalmente baixa devido a:
-- Falta de tratamento adequado de edge cases
-- Uso de bibliotecas sem compreensão profunda
-- Soluções "ingênuas" que não consideram cenários complexos
+## 3. Anatomia dos Defeitos Sintéticos
 
-### 2.1.2 Duplicação de Código
+Identificar código ruim de IA exige um "olho treinado" para novos padrões de erro.
 
-**Evidência e limitações:**
+### O "Confident Hallucination"
+O código parece perfeito. As variáveis têm nomes bons, a indentação é ótima, os comentários são úteis. Mas a função `utils.validate_email_strict()` não existe na biblioteca importada.
+*   **Mitigação:** Nunca confie na leitura estática. O código *precisa* compilar/rodar em ambiente isolado.
 
-Relatórios de mercado e análises em larga escala frequentemente apontam aumento de clonagem/duplicação em projetos com alta adoção de assistentes de IA. Trate quaisquer números específicos como dependentes de metodologia (amostra, linguagem, heurísticas de detecção) e valide com medições no seu repositório antes de usar como meta.
+### O "Context Drift"
+O modelo começa escrevendo em Python moderno (3.12+) e, no meio da função, usa um padrão de Python 2.7 ou muda a convenção de `snake_case` para `camelCase`.
+*   **Mitigação:** Linters rigorosos (Ruff, ESLint) com autofix desabilitado para forçar o desenvolvedor a revisar.
 
-**Thresholds Adaptados (HIPÓTESE de trabalho):**
+### O "Dependency Bloat"
+Para resolver um problema simples (ex: formatar data), o LLM importa três bibliotecas pesadas (`dateutil`, `pytz`, `arrow`) em vez de usar a `datetime` nativa.
+*   **Mitigação:** Revisão de dependências. Pergunte: "Podemos fazer isso com a stdlib?"
 
-| Contexto | Threshold Tradicional | Meta inicial (ajustar) |
-|----------|----------------------|---------------------|
-| Novo projeto | 5% | 3% (exemplo) |
-| Projeto legado | 7% | 5% (exemplo) |
-| Código crítico | 3% | 2% (exemplo) |
+## 4. Checklist Prático: Blindando o Repositório
 
-**Tipos de Duplicação Específicos de IA:**
+O que implementar amanhã para proteger sua base de código:
 
-1. **Duplicação de Templates:**
-   ```python
-   # Padrão repetido em múltiplas funções geradas
-   def funcao_a():
-       try:
-           # ... código ...
-       except Exception as e:
-           print(f"Erro: {e}")
-           return None
-   
-   def funcao_b():
-       try:
-           # ... código diferente ...
-       except Exception as e:
-           print(f"Erro: {e}")  # Mesmo padrão
-           return None
-   ```
+1.  **CI como Juiz Supremo:** Nada entra na `main` sem passar por build e testes automatizados. Código de IA que não roda é spam.
+2.  **Bloqueio de Dependências:** Configure o CI para falhar se novos pacotes forem adicionados sem aprovação explícita (evita *typosquatting* e bloat).
+3.  **Linter Paranoico:** Ative regras de "unused imports", "undefined variables" e "complexity" no nível máximo.
+4.  **Regra dos Comentários:** Exija que o desenvolvedor remova comentários óbvios gerados pela IA (ex: `# define função x`). Comentários devem explicar o *porquê*, não o *o quê*.
+5.  **Testes Gerados vs. Código Gerado:** Nunca aceite testes gerados na mesma sessão do código. O modelo cometerá o mesmo erro lógico em ambos e o teste passará (falso positivo).
+6.  **Isolamento de Contexto:** Se usar RAG para codar, limite o contexto aos arquivos relevantes para evitar contaminação de padrões antigos.
 
-2. **Duplicação de Imports:**
-   - Importação de bibliotecas não utilizadas
-   - Imports duplicados em arquivos diferentes
-   - Imports desnecessários "por precaução"
+## 5. Armadilhas Comuns (O que não fazer)
 
-3. **Duplicação Semântica:**
-   - Código com funcionalidade similar mas sintaxe diferente
-   - Difícil de detectar por ferramentas tradicionais
+*   **Acreditar no "Self-Healing":** Achar que pedir para o agente "corrigir o erro" vai resolver magicamente. Muitas vezes ele entra em loop de correções erradas.
+*   **Review Visual Apenas:** Aprovar PRs no celular ou olhando apenas o diff visual. Código de IA exige execução.
+*   **Ignorar a Economia:** Deixar a IA gerar 5.000 linhas de boilerplate que agora você tem que manter. Se a IA gerou, você é o dono da dívida técnica.
+*   **Júnior sem Supervisão:** Deixar juniores cometerem código 100% gerado sem entender o funcionamento. Isso cria uma "caixa preta" dentro do próprio time.
 
-### 2.1.3 Code Churn
+## 6. Exemplo Mínimo: A Ilusão da Correção
 
-**Definição:** Taxa de modificação de código ao longo do tempo.
+**Cenário:** Precisamos validar um URL em Python.
 
-**Padrões em Código de IA:**
-
-| Padrão | Indicação | Ação Recomendada |
-|--------|-----------|------------------|
-| Churn alto inicial | Instabilidade da solução | Revisar arquitetura |
-| Churn crescente | Débito técnico acumulado | Refatorar |
-| Churn baixo + bugs | Solução frágil | Testes adicionais |
-| Churn concentrado | Problemas em módulo específico | Análise focada |
-
-**Hipótese (evidência a confirmar):** em alguns contextos, a proporção de mudanças classificadas como refatoração pode cair com adoção de IA (por exemplo, porque há mais geração incremental e menos reestruturação explícita). Use esta observação como pergunta de diagnóstico ("estamos refatorando menos do que precisamos?") e meça com métricas internas.
-
-### 2.1.4 Cobertura de Testes
-
-**Limitações em Código de IA:**
-
-Cobertura de testes tradicional é **necessária mas não suficiente** para código gerado por IA porque:
-
-1. **Testes não capturam comportamento estocástico:**
-   - Código pode passar em testes mas falhar em execuções reais
-   - Edge cases podem não ser cobertos
-
-2. **Testes gerados por IA podem ser inválidos:**
-   - Asserções que sempre passam
-   - Testes que não verificam comportamento correto
-   - Mock excessivo que esconde problemas
-
-**Métricas Complementares:**
-
-| Métrica | Descrição | Threshold |
-|---------|-----------|-----------|
-| Cobertura de Linha | % de linhas executadas | > 80% |
-| Cobertura de Branch | % de branches executados | > 70% |
-| Cobertura de Mutação | % de mutantes detectados | > 60% |
-| Consistência de Teste | Variação entre execuções | < 5% |
-| Taxa de Falsos Positivos | Testes que passam incorretamente | < 2% |
-
-## 2.2 Code Smells Específicos de Código de IA
-
-### 2.2.1 Catálogo de Code Smells de IA
-
-Pesquisas recentes (2024-2025) identificaram padrões recorrentes de problemas em código gerado por LLMs:
-
-#### 1. AI Verbosity (Verbosidade de IA)
-
-**Descrição:** Código excessivamente longo com implementações desnecessariamente complexas.
-
-**Sintomas:**
-- Funções com múltiplos níveis de aninhamento
-- Uso excessivo de padrões de design quando soluções simples bastam
-- Código "defensivo" em excesso
-
-**Exemplo:**
+**Código Gerado (Parece bom):**
 ```python
-# ANTI-PADRÃO: Verbosidade excessiva
-def processar_dados(dados):
-    if dados is not None:
-        if isinstance(dados, list):
-            if len(dados) > 0:
-                resultado = []
-                for item in dados:
-                    if item is not None:
-                        resultado.append(item)
-                return resultado
-    return []
+import validators  # Biblioteca externa (risco de supply chain)
 
-# MELHOR: Conciso e idiomático
-def processar_dados(dados):
-    return [item for item in (dados or []) if item is not None]
+def is_valid_url(url):
+    # Parece robusto, mas adiciona dependência desnecessária
+    if validators.url(url):
+        return True
+    return False
 ```
 
-**Detecção:**
-- Linhas de código por função > 50
-- Nesting depth > 4
-- Ratio comentários/código > 0.5
+**Problema:** Adicionamos uma dependência externa (`validators`) para algo trivial, aumentando a superfície de ataque e o tamanho do build. Além disso, se a lib não estiver no `requirements.txt`, o código quebra em produção.
 
-#### 2. Defensive Overkill (Excesso de Defesa)
-
-**Descrição:** Tratamento excessivo de edge cases improváveis.
-
-**Sintomas:**
-- Verificações de tipo redundantes
-- Try-catch em operações seguras
-- Validações de inputs já validados
-
-**Impacto:**
-- Código difícil de ler
-- Performance degradada
-- Falsa sensação de segurança
-
-#### 3. Inconsistent Abstraction (Abstração Inconsistente)
-
-**Descrição:** Mistura de estilos e níveis de abstração.
-
-**Sintomas:**
-- Uso misto de paradigmas (OO e funcional)
-- Nomes de variáveis inconsistentes
-- Padrões arquiteturais conflitantes
-
-**Causa:** IA não mantém contexto de estilo do projeto ao longo de múltiplas gerações.
-
-#### 4. Hallucinated Dependencies (Dependências Alucinadas)
-
-**Descrição:** Imports ou uso de bibliotecas inexistentes.
-
-**Sintomas:**
-- `import` de módulos que não existem
-- Uso de APIs fictícias
-- Versões incompatíveis
-
-**Exemplo:**
+**Abordagem Pragmática (Refatorado):**
 ```python
-# DEPENDÊNCIA ALUCINADA
-import pandas_ml  # Não existe
-from sklearn.supervised import MagicClassifier  # API fictícia
+from urllib.parse import urlparse
+
+def is_valid_url(url: str) -> bool:
+    # Uso da stdlib: zero dependências extras, comportamento previsível
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
 ```
 
-**Prevenção:**
-- Análise estática de imports
-- Verificação em ambiente isolado
-- Lista de dependências aprovadas
+**Decisão:** Rejeitar a primeira versão. Priorizar stdlib e simplicidade. O trade-off é escrever mais 3 linhas para economizar megabytes e riscos de segurança.
 
-#### 5. Pattern Amnesia (Amnésia de Padrões)
+## 7. Resumo Executivo
 
-**Descrição:** Código que não segue padrões estabelecidos do projeto.
+*   **Confiança Zero:** Código de IA é culpado até que testes provem o contrário.
+*   **Foco na Verificação:** O gargalo da engenharia mudou de *escrita* para *revisão e validação*.
+*   **Métricas de Risco:** Monitore alucinações e densidade de segurança, não apenas cobertura de testes.
+*   **Higiene de Dependências:** LLMs adoram importar o mundo. Corte impiedosamente dependências inúteis.
+*   **Responsabilidade Humana:** O autor do commit é 100% responsável pelo código, não a ferramenta que o gerou.
 
-**Sintomas:**
-- Convenções de nomenclatura diferentes
-- Estrutura de diretórios inconsistente
-- Padrões de erro não padronizados
+## 8. Próximos Passos
 
-**Mitigação:**
-- Fornecer exemplos de código do projeto no contexto
-- Usar linting rigoroso
-- Revisão focada em consistência
-
-#### 6. Comment Overcompensation (Compensação por Comentários)
-
-**Descrição:** Código confuso compensado por comentários excessivos.
-
-**Sintomas:**
-- Comentários explicam o óbvio
-- Comentários desatualizados
-- Código não autoexplicativo
-
-**Princípio:** Comentários devem explicar "por quê", não "o quê".
-
-#### 7. Mock Explosion (Explosão de Mocks)
-
-**Descrição:** Testes com mocks excessivos que não testam comportamento real.
-
-**Sintomas:**
-- Testes que passam mesmo com código quebrado
-- Mocks de funções internas
-- Falta de testes de integração
-
-### 2.2.2 Detecção Automatizada
-
-**Ferramentas e Técnicas:**
-
-| Ferramenta | Capacidade | Limitação |
-|------------|------------|-----------|
-| SonarQube | Smells tradicionais + alguns de IA | Não detecta dependências alucinadas |
-| CodeQL | Análise semântica profunda | Requer configuração especializada |
-| ESLint/Pylint | Estilo e padrões | Limitado a regras definidas |
-| IA de Análise | Padrões contextuais | Pode ter falsos positivos |
-
-**Recomendação:** Combinar análise estática tradicional com revisão humana focada em smells de IA.
-
-## 2.3 Qualidade de Prompts e sua Relação com Qualidade de Código
-
-### 2.3.1 O Prompt como Requisito
-
-Em sistemas híbridos, o prompt funciona como especificação de requisitos. Sua qualidade diretamente impacta a qualidade do código gerado.
-
-**Hierarquia de Qualidade de Prompt:**
-
-```
-Nível 5: Prompt Estruturado com Contexto
-├── Especificação clara de requisitos
-├── Contexto do projeto fornecido
-├── Exemplos de código existente
-├── Restrições explícitas
-└── Critérios de aceitação
-
-Nível 4: Prompt com Contexto
-├── Requisitos claros
-├── Contexto parcial
-└── Algumas restrições
-
-Nível 3: Prompt Específico
-├── Requisitos definidos
-└── Sem contexto adicional
-
-Nível 2: Prompt Vago
-├── Intenção geral
-└── Detalhes omitidos
-
-Nível 1: Prompt Ambíguo
-└── Instruções imprecisas
-```
-
-### 2.3.2 Elementos de Prompts de Alta Qualidade
-
-**1. Especificação Clara:**
-```
-RUIM: "Crie uma função para processar dados"
-BOM: "Implemente uma função Python que receba uma lista de dicionários 
-      com campos 'nome' e 'idade', filtre registros com idade > 18, 
-      e retorne uma lista ordenada por nome"
-```
-
-**2. Contexto do Projeto:**
-```
-INCLUIR:
-- Framework utilizado
-- Padrões de código existentes
-- Estrutura de diretórios
-- Convenções de nomenclatura
-```
-
-**3. Restrições Explícitas:**
-```
-ESPECIFICAR:
-- Complexidade máxima aceitável
-- Bibliotecas permitidas/proibidas
-- Requisitos de performance
-- Padrões de erro
-```
-
-**4. Exemplos (Few-Shot):**
-```
-FORNECER:
-- Exemplos de código similar no projeto
-- Padrões de implementação
-- Casos de uso esperados
-```
-
-### 2.3.3 Métricas de Qualidade de Prompt
-
-| Métrica | Descrição | Threshold |
-|---------|-----------|-----------|
-| Especificidade | Grau de detalhamento | > 80% dos requisitos cobertos |
-| Contextualidade | Informação de projeto incluída | Contexto completo fornecido |
-| Restritividade | Limitações claras | ≥ 3 restrições explícitas |
-| Exemplificação | Presença de exemplos | ≥ 1 exemplo relevante |
-| Testabilidade | Critérios de aceitação definidos | Testes passíveis de automação |
-
-## 2.4 Análise Estática para Código Sintético
-
-### 2.4.1 Adaptações Necessárias
-
-Ferramentas de análise estática tradicionais precisam de adaptações para código de IA:
-
-**1. Thresholds Mais Rigorosos:**
-- Duplicação: 3% vs 5%
-- Complexidade: Alerta em valores anormalmente baixos
-- Comentários: Verificar se são compensação por código confuso
-
-**2. Novas Regras:**
-- Detecção de dependências alucinadas
-- Identificação de inconsistências de estilo
-- Verificação de tratamento de exceções excessivo
-
-**3. Análise de Contexto:**
-- Comparação com código existente do projeto
-- Verificação de aderência a padrões
-- Detecção de "AI fingerprints"
-
-### 2.4.2 Pipeline de Análise Estática
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│              PIPELINE DE ANÁLISE ESTÁTICA                  │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. ANÁLISE SINTÁTICA                                       │
-│     ├── Parsing do código                                   │
-│     ├── Verificação de sintaxe                            │
-│     └── Detecção de erros de compilação                   │
-│                                                             │
-│  2. ANÁLISE DE ESTILO                                       │
-│     ├── Linting (PEP8, ESLint, etc.)                      │
-│     ├── Formatação                                          │
-│     └── Convenções de nomenclatura                        │
-│                                                             │
-│  3. ANÁLISE DE MÉTRICAS                                     │
-│     ├── Complexidade ciclomática                          │
-│     ├── Duplicação                                          │
-│     └── Tamanho de funções/classes                        │
-│                                                             │
-│  4. ANÁLISE DE SMELLS                                       │
-│     ├── Smells tradicionais                               │
-│     ├── Smells específicos de IA                          │
-│     └── Análise de dependências                           │
-│                                                             │
-│  5. ANÁLISE DE SEGURANÇA                                    │
-│     ├── Vulnerabilidades conhecidas                       │
-│     ├── Práticas inseguras                                │
-│     └── Injeção de código                                 │
-│                                                             │
-│  6. ANÁLISE DE CONTEXTO                                     │
-│     ├── Consistência com codebase                         │
-│     ├── Aderência a padrões                               │
-│     └── Verificação de imports                            │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 2.4.3 Ferramentas Recomendadas
-
-**Análise Geral:**
-- SonarQube/SonarCloud
-- Code Climate
-- DeepSource
-
-**Análise Específica para IA:**
-- Sonar AI Code Assurance (2025)
-- Ferramentas customizadas com regras específicas
-
-**Integração:**
-- Pre-commit hooks
-- CI/CD pipeline
-- IDE plugins
-
-## 2.5 Benchmarks de Qualidade para Código Gerado
-
-### 2.5.1 Benchmarks Acadêmicos
-
-**HumanEval (OpenAI):**
-- 164 problemas de programação
-- Foco em Python
-- Métrica: pass@k (taxa de soluções corretas)
-
-**MBPP (Mostly Basic Python Problems):**
-- 974 problemas
-- Maior variedade de dificuldade
-- Inclui testes
-
-**DS-1000:**
-- Problemas de ciência de dados reais
-- Foco em bibliotecas populares (pandas, numpy)
-
-### 2.5.2 Métricas de Benchmark
-
-| Métrica | Descrição | Interpretação |
-|---------|-----------|---------------|
-| pass@1 | Taxa de acerto na primeira tentativa | Qualidade "zero-shot" |
-| pass@10 | Taxa de acerto em 10 tentativas | Qualidade com múltiplas chances |
-| pass@100 | Taxa de acerto em 100 tentativas | Potencial máximo |
-| Consistency | Variabilidade entre execuções | Estabilidade |
-| Efficiency | Performance computacional | Qualidade de implementação |
-
-### 2.5.3 Resultados Comparativos: como usar sem se enganar
-
-Benchmarks de LLMs para geração de código variam fortemente em desenho experimental (tarefas algorítmicas vs. tarefas de produto, contexto disponível, critérios de avaliação, instrumentação). Para manter utilidade sem transformar comparações em "métricas mágicas":
-
-1. **Exija rastreabilidade de metodologia** (dataset, tarefas, critérios, scripts de avaliação).
-2. **Separe eixos de avaliação**: corretude funcional (test suite), qualidade estrutural (smells/complexidade/duplicação), e qualidade operacional (observabilidade, resiliência, segurança).
-3. **Priorize benchmarks internos** com tarefas representativas do seu domínio e do seu stack.
-4. **Trate números externos como indícios**: úteis para formular hipóteses, insuficientes para decidir política de qualidade sem validação local.
-
-### 2.5.4 Limitações de Benchmarks
-
-1. **Foco em Problemas Algorítmicos:** Não refletem desenvolvimento real
-2. **Falta de Contexto:** Benchmarks isolados vs. código integrado
-3. **Métricas Limitadas:** Funcionalidade ≠ Qualidade de software
-4. **Viés de Treinamento:** Modelos podem ter visto problemas durante treinamento
-
-**Recomendação:** Usar benchmarks como indicador inicial, mas priorizar avaliação em projetos reais.
-
-## Practical Considerations
-
-### Aplicações Reais
-
-**Padrão 1: Quality gates para código gerado**
-- Definir critérios mínimos (estilo, segurança básica, testes mínimos) antes de aceitar PRs com contribuição significativa de IA.
-- Escalonar rigor por criticidade (mais rígido em componentes de segurança, billing, e dados sensíveis).
-
-**Padrão 2: Regras de análise estática específicas para artefatos de IA**
-- Introduzir regras para detectar sinais comuns: duplicação mecânica, tratamento de erro genérico, uso de dependências desnecessárias, e inconsistência de padrões.
-- Medir ruído (falsos positivos) e ajustar regras antes de bloquear merges.
-
-**Padrão 3: Benchmark interno e regressão de qualidade**
-- Definir tarefas representativas (bugs reais, refactors típicos, integração com padrões internos).
-- Reexecutar periodicamente para detectar regressões por mudança de modelo/prompt/contexto.
-
-### Limitações
-
-1. **Ferramentas em Evolução:** Suporte a smells de IA ainda limitado
-2. **Falsos Positivos:** Regras rigorosas podem gerar ruído
-3. **Custo de Análise:** Pipelines complexos aumentam tempo de build
-4. **Manutenção:** Regras customizadas requerem atualização
-
-### Melhores Práticas
-
-1. **Comece com regras básicas:** Não tudo de uma vez
-2. **Envolva o time:** Definir thresholds em conjunto
-3. **Monitore falsos positivos:** Ajustar regras conforme necessário
-4. **Documente exceções:** Justificar quando ignorar regras
-5. **Integre cedo:** Shift-left na pipeline
-
-## Summary
-
-- **Métricas tradicionais precisam de adaptação:** thresholds mais rigorosos para duplicação, alerta para complexidade anormalmente baixa
-- **Code smells de IA são distintos:** verbosidade excessiva, dependências alucinadas, inconsistência de padrões, tratamento defensivo excessivo
-- **Qualidade de prompts é crítica:** o prompt funciona como especificação de requisitos
-- **Análise estática requer extensão:** novas regras para detectar artefatos de geração automática
-- **Benchmarks têm limitações:** foco em problemas algorítmicos não reflete qualidade em projetos reais
+*   [ ] Instalar ferramentas de SAST (Static Application Security Testing) no pipeline de CI.
+*   [ ] Criar um guia de "Code Review para IA" para o time, focando em detectar alucinações.
+*   [ ] Estabelecer limite de complexidade para PRs (ex: máximo 200 linhas) para garantir revisão humana eficaz.
 
 ## Matriz de Avaliação Consolidada
 
 | Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — métricas de qualidade evoluem mas fundamentos permanecem |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — análise de código gerado requer múltiplas camadas de validação |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — engenharia e organização respondem por falhas em produção, independentemente da origem do código |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Média** — Ferramentas melhorarão, mas o julgamento de qualidade permanecerá essencial. |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Exige execução, testes e leitura atenta. |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — A empresa responde por falhas de segurança, independente se foi o GPT ou o estagiário. |
 
 ## References
 
-1. MCCABE, T. J. A complexity measure. *IEEE Transactions on Software Engineering*, 1976. (Dados bibliográficos a completar.)
-2. FOWLER, Martin. *Refactoring: Improving the Design of Existing Code*. 2. ed. Addison-Wesley, 2018.
-3. MARTIN, Robert C. *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall, 2008.
-4. CHEN, et al. Refining ChatGPT-generated code: characterizing and mitigating code quality issues. 2024. (Dados bibliográficos a completar.)
-5. GITCLEAR. *AI Copilot Code Quality* (relatório de mercado). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
-6. QODO. *State of AI Code Quality* (relatório de mercado). 2025. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
-7. SONARSOURCE. *AI code assurance: building confidence in AI-generated code*. 2024. (Disponível em: <inserir URL>. Acesso em: 31 jan. 2026.)
+1.  **OWASP Top 10 for LLM Applications**. Open Web Application Security Project, 2025.
+2.  **Google Engineering Practices Documentation**. "Code Review Developer Guide".
+3.  **SWEBOK v4**. IEEE Computer Society. (Base para métricas tradicionais).
+4.  **"Thephish"**. *Security risks in AI generated code*. USENIX Security Symposium, 2024.
