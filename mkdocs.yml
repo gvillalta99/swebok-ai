@@ -48,8 +48,6 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Visao Geral: XX-meta/swebok-ai.md
-  - Ideais: XX-ideais/gargalo.md
   
   - PARTE I - Fundamentos e Contexto:
       - Introducao: 00-introduction/01-contexto-revolucao-llms.md
@@ -193,7 +191,4 @@ nav:
           - 05 - Matriz de Conformidade: 16-appendix/05-matriz-de-conformidade.md
           - 06 - Matriz de Referencias Cruzadas: 16-appendix/06-matriz-referencias-cruzadas.md
   
-  - Ensaios:
-      - Futuro da Profissao: XX-meta/swe-ai-future.md
-      - Artefatos 2026: XX-meta/swe-ai-artifacts.md
-      - Organizational Patterns: XX-meta/swe-ai-organizational-patterns.md
+
