@@ -11,10 +11,14 @@
             "id": "6f4a3e10ef148830",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "docs/00-introduction/01-contexto-revolucao-llms.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "01-contexto-revolucao-llms"
             }
           }
         ]
@@ -190,8 +194,10 @@
       "obsidian-opencode:OpenCode": false
     }
   },
-  "active": "2f53563e67feb826",
+  "active": "6f4a3e10ef148830",
   "lastOpenFiles": [
+    "docs/00-introduction/01-contexto-revolucao-llms.md~",
+    "docs/00-introduction/PLAN.md~",
     "agents/book-writer.md~",
     "agents/book-writer.md",
     "agents/book-editor.md",
@@ -225,7 +231,6 @@
     "site/XX-meta/swe-ai-organizational-patterns/index.html",
     "site/XX-meta/swe-ai-organizational-patterns",
     "site/XX-meta/swe-ai-future/index.html",
-    "site/XX-meta/swe-ai-future",
     "site/assets/images/favicon.png",
     "docs/19-appendix/05-matriz-de-conformidade.md"
   ]

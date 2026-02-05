@@ -2,7 +2,6 @@
 description: Specialized agent for writing software engineering books
 mode: subagent
 temperature: 0.3
-model: google/gemini-3-pro-preview
 tools:
   write: true
   edit: true
