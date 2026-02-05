@@ -25,6 +25,27 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Compreender as implicações de responsabilidade civil em software IA-intensive
 5. Desenvolver estratégias de mitigação de risco apropriadas
 
+!!! note "Box: Fundamentos de Análise de Risco"
+    
+    Esta seção utiliza técnicas de análise de risco. Aqui está o essencial:
+    
+    **Conceitos-chave:**
+    - **Risco = Probabilidade × Impacto**: Quão provável é um evento e quão grave são suas consequências
+    - **Simulação de Monte Carlo**: Executar milhares de cenários aleatórios para estimar distribuição de resultados
+    - **Valor Esperado**: Média ponderada de todos os possíveis resultados
+    - **Cenário Pessimista/Realista/Otimista**: Análise de "o que acontece se..."
+    
+    **Exemplo intuitivo:**
+    ```
+    Se há 10% de chance de um bug custar R$ 100.000,
+    o risco esperado é: 0.10 × R$ 100.000 = R$ 10.000
+    ```
+    
+    **Ferramentas:** Excel, Python (NumPy/Pandas), ou software especializado calculam automaticamente.
+    O importante é entender como interpretar os resultados para tomar decisões.
+    
+    **Referência:** Veja [Fundamentos Essenciais de IA](../../00-introduction/07-fundamentos-essenciais-ia.md) Seção 5 sobre incerteza.
+
 ## 6.1 Natureza do Risco em Sistemas Não-Determinísticos
 
 ### 6.1.1 Determinístico vs. Não-Determinístico
