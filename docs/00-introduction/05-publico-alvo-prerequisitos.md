@@ -91,10 +91,11 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 **Caminho Recomendado**:
 1. Capítulo 00 (Introdução completa — foco em referências)
-2. Todos os KAs em sequência (1-18)
+2. Todos os KAs em sequência (1-16)
 3. Atenção especial a seções de "Research Directions" e "Open Problems"
-4. Capítulo 16 (Computing Foundations) — fundamentos teóricos
-5. Capítulo 11 (Models and Methods) — metodologias
+4. KA 11 (Models and Methods) — metodologias
+
+**Nota**: Pesquisadores podem precisar complementar com literatura específica de fundamentos de IA (deep learning, estatística, etc.) não cobertos neste guia.
 
 ### Perfil 4: Executivos de Negócio
 
@@ -136,12 +137,12 @@ Após estudar esta seção, o leitor deve ser capaz de:
 - Preparar-se para carreira em ambiente híbrido
 
 **Caminho Recomendado**:
-1. Capítulo 00 (Introdução completa)
-2. Capítulo 16 (Computing Foundations)
-3. Capítulo 17 (Mathematical Foundations)
-4. Capítulo 18 (Engineering Foundations)
-5. KAs 1-5 em sequência (ciclo de desenvolvimento)
-6. Demais KAs conforme interesse e necessidade
+1. Capítulo 00 (Introdução completa — incluindo Fundamentos Essenciais de IA)
+2. KAs 1-5 em sequência (ciclo de desenvolvimento)
+3. KAs 12-13 (Qualidade e Segurança)
+4. Demais KAs conforme interesse e necessidade
+
+**Nota**: Este guia não inclui KAs de Fundamentos (16-18). Estudantes devem complementar com cursos de fundamentos de computação e matemática.
 
 ## Pré-requisitos por Perfil
 
@@ -198,7 +199,7 @@ Antes de prosseguir para os capítulos subsequentes, avalie se você consegue:
 - [ ] Estar aberto a reconfigurar práticas estabelecidas
 
 Se você não conseguiu marcar todos os itens, recomendamos:
-- **Estudantes**: Começar pelos Capítulos 16-18 (Fundamentos)
+- **Estudantes**: Começar pelo Capítulo 00 (incluindo Fundamentos Essenciais de IA), depois KAs 1-5
 - **Praticantes**: Revisar Capítulo 00 e experimentar ferramentas de IA
 - **Líderes**: Focar em Seções 2 e 3 do Capítulo 00
 
@@ -219,8 +220,8 @@ Se você não conseguiu marcar todos os itens, recomendamos:
 - Desenvolver experiência prática com ferramentas
 
 **Executivo → Mais Técnico**:
-- Aprofundar em KA 16 (Computing Foundations)
-- Estudar KA 05 (Testing) e KA 12 (Quality)
+- Estudar Fundamentos Essenciais de IA na Introdução
+- Aprofundar em KA 05 (Testing) e KA 12 (Quality)
 
 ## Armadilhas Comuns
 
@@ -265,6 +266,7 @@ Assumir que ferramentas de IA são "plug-and-play" resulta em:
 - Pré-requisitos: programação, Git, noções de IA
 - Checklist de prontidão valida preparação
 - Navegação flexível entre perfis
+- KAs 16-18 (Fundamentos) removidos — conteúdo essencial integrado na Introdução
 - Recomendações específicas maximizam aproveitamento
 
 ## References
