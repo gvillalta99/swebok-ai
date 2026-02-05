@@ -26,14 +26,6 @@ A introdução estabelece:
 
 ---
 
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| Descartabilidade Geracional | Esta seção será obsoleta em 36 meses? | Muito Baixa — fundamentos históricos e conceituais permanecem relevantes |
-| Custo de Verificação | Quanto custa validar esta atividade quando feita por IA? | Baixo — conceitos de alto nível, não código executável |
-| Responsabilidade Legal | Quem é culpado se falhar? | Baixa a Moderada — contexto e fundamentação, mas define accountability |
-
 ---
 
 ## Relacionamento com Outros KAs
@@ -361,6 +353,37 @@ A introdução estabelece:
 
 ---
 
+## Curadoria de Documentos e Gestão do Conhecimento
+
+### 34. RAG and LLMs for Enterprise Knowledge Management (2025)
+- **Link:** https://www.mdpi.com/2076-3417/16/1/368
+- **Título:** "Retrieval-Augmented Generation (RAG) and Large Language Models (LLMs) for Enterprise Knowledge Management and Document Automation: A Systematic Literature Review"
+- **Autores:** MDPI Applied Sciences
+- **Resumo:** Revisão sistemática da literatura sobre aplicações de RAG e LLMs para gestão do conhecimento empresarial e automação documental. Analisa arquiteturas, desafios de implementação e métricas de sucesso em contextos organizacionais.
+- **Conexão com conteúdo:** 
+  - **Seção 1 (Contexto):** Fundamenta a discussão sobre como empresas devem estruturar seu conhecimento documental para maximizar o valor dos LLMs. Suporta a tese de que "contexto é capital".
+  - **Seção 3 (Princípios):** Base para o Princípio 2 (Contexto como Capital), demonstrando que a qualidade do output da IA depende diretamente da qualidade da curadoria documental.
+
+### 35. Document Curation for AI Agents (2025)
+- **Link:** https://engagesq.com/insights/ground-rules-curating-knowledge-sources-for-ai-agents/
+- **Título:** "How to make your documents work for AI Agents (and get better results)"
+- **Autores:** EngageSQ
+- **Resumo:** Guia prático sobre regras fundamentais para curadoria de fontes de conhecimento destinadas a agentes de IA. Aborda estruturação, atualização, e organização hierárquica de documentação empresarial.
+- **Conexão com conteúdo:**
+  - **Seção 1 (Contexto):** Exemplifica práticas concretas de preparação de documentação para sistemas RAG.
+  - **Seção 3 (Princípios):** Ilustra como a curadoria humana se torna competência crítica no novo paradigma (Princípio 4 - Verificação como Gargalo).
+
+### 36. AI Knowledge Management: Enterprise Guide 2026 (2026)
+- **Link:** https://www.instinctools.com/blog/ai-knowledge-management/
+- **Título:** "AI Knowledge Management: Complete Enterprise Guide 2026"
+- **Autores:** Instinctools
+- **Resumo:** Guia abrangente sobre implementação de sistemas de gestão do conhecimento baseados em IA em ambientes corporativos. Inclui frameworks de maturidade, ROI, e integração com fluxos de trabalho existentes.
+- **Conexão com conteúdo:**
+  - **Seção 1 (Contexto):** Contextualiza a revolução dos LLMs do ponto de vista da infraestrutura de conhecimento organizacional necessária.
+  - **Seção 3 (Princípios):** Suporta a transição de "código como ativo" para "contexto como ativo", detalhando investimentos necessários em bibliotecas de conhecimento e processos de manutenção.
+
+---
+
 ## Notas sobre Qualidade e Tipos de Referências
 
 ### Hierarquia de Evidência
@@ -452,4 +475,4 @@ Referências foram selecionadas segundo:
 ---
 
 *Documento de planejamento - SWEBOK-AI v5.0*
-*Total de referências: 33*
+*Total de referências: 36*
