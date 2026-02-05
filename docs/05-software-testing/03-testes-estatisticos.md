@@ -27,6 +27,28 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## Fundamentos de Testes Estatísticos
 
+!!! note "Box: Fundamentos Estatísticos para Testes de IA"
+    
+    Esta seção utiliza conceitos estatísticos básicos. Aqui está o essencial:
+    
+    **Conceitos-chave:**
+    - **Distribuição**: Como os resultados se espalham (ex: normal, uniforme)
+    - **Média (μ)**: Valor central típico dos resultados
+    - **Desvio padrão (σ)**: Quanto os resultados variam em torno da média
+    - **Intervalo de confiança**: Faixa onde esperamos encontrar 95% dos resultados
+    - **p-value**: Probabilidade de um resultado ser devido ao acaso (p < 0.05 = significativo)
+    
+    **Exemplo intuitivo:**
+    ```
+    Se um sistema responde em 100ms ± 20ms (95% das vezes),
+    então 95% das execuções estarão entre 80ms e 120ms.
+    ```
+    
+    **Não é necessário ser estatístico.** Usamos ferramentas que calculam automaticamente.
+    O importante é entender o que os números significam para a qualidade do sistema.
+    
+    **Referência:** Veja [Fundamentos Essenciais de IA](../../00-introduction/07-fundamentos-essenciais-ia.md) Seção 5 sobre não-determinismo.
+
 ### O Problema do Não-Determinismo
 
 Em sistemas tradicionais [SWEBOK v4, Seção 1.2.14]:
