@@ -1,19 +1,26 @@
 ---
-title: "05 - Medicao e Melhoria de Processos"
-created_at: "2025-01-31"
-tags: ["processos", "metricas", "medicao", "melhoria", "dora", "lead-time", "throughput", "ciclo-continuo"]
-status: "draft"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: 05 - Medicao e Melhoria de Processos
+created_at: '2025-01-31'
+tags: [processos, metricas, medicao, melhoria, dora, lead-time, throughput, ciclo-continuo]
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 5. Medição e Melhoria de Processos
 
 ## Overview
 
-A medição de processos de software na era dos LLMs requer uma reconfiguração fundamental das métricas tradicionais. Enquanto abordagens como DORA (DevOps Research and Assessment) focavam em velocidade e estabilidade de times que codificam manualmente, **a nova realidade exige métricas que capturem a eficiência da verificação, a qualidade da curadoria e o balanceamento entre geração automática e supervisão humana**.
+A medição de processos de software na era dos LLMs requer uma reconfiguração
+fundamental das métricas tradicionais. Enquanto abordagens como DORA (DevOps
+Research and Assessment) focavam em velocidade e estabilidade de times que
+codificam manualmente, **a nova realidade exige métricas que capturem a
+eficiência da verificação, a qualidade da curadoria e o balanceamento entre
+geração automática e supervisão humana**.
 
-Esta seção apresenta adaptações das métricas tradicionais, novas métricas específicas para processos com IA, e frameworks para melhoria contínua baseada em dados.
+Esta seção apresenta adaptações das métricas tradicionais, novas métricas
+específicas para processos com IA, e frameworks para melhoria contínua baseada
+em dados.
 
 ## Learning Objectives
 
@@ -33,20 +40,21 @@ As quatro métricas DORA [1] continuam relevantes, mas requerem reinterpretaçã
 
 **1. Deployment Frequency (Frequência de Deploy)**
 
-| Contexto | Interpretação Tradicional | Interpretação com IA |
-|----------|--------------------------|---------------------|
-| Alta frequência | Muitas mudanças pequenas | Muitos candidatos gerados |
-| Risco | Mudanças rápidas podem ser instáveis | Geração rápida sem verificação adequada |
-| Foco | Velocidade de entrega | Velocidade de validação |
+| Contexto        | Interpretação Tradicional            | Interpretação com IA                    |
+| --------------- | ------------------------------------ | --------------------------------------- |
+| Alta frequência | Muitas mudanças pequenas             | Muitos candidatos gerados               |
+| Risco           | Mudanças rápidas podem ser instáveis | Geração rápida sem verificação adequada |
+| Foco            | Velocidade de entrega                | Velocidade de validação                 |
 
-**Adaptação**: Medir "frequência de deploy de código verificado e curado" — não apenas gerado.
+**Adaptação**: Medir "frequência de deploy de código verificado e curado" — não
+apenas gerado.
 
 **2. Lead Time for Changes (Tempo de Lead para Mudanças)**
 
 Deve ser decomposto em fases:
 
 ```
-Lead Time Total = 
+Lead Time Total =
     Tempo de Especificação +
     Tempo de Geração +
     Tempo de Verificação Sintática +
@@ -55,14 +63,15 @@ Lead Time Total =
     Tempo de Deploy
 ```
 
-Evite benchmarks externos como regra. Prefira baselines do proprio time e tendencias (melhorando/piorando) com definicoes consistentes.
+Evite benchmarks externos como regra. Prefira baselines do proprio time e
+tendencias (melhorando/piorando) com definicoes consistentes.
 
 **3. Change Failure Rate (Taxa de Falha de Mudanças)**
 
 Incluir falhas atribuíveis a código gerado por IA:
 
 ```
-Change Failure Rate = 
+Change Failure Rate =
     (Defeitos em produção / Total de deploys) × 100
 
 Subcategorias:
@@ -77,7 +86,7 @@ Subcategorias:
 Adicionar dimensão de "tempo para regenerar correção":
 
 ```
-Time to Restore = 
+Time to Restore =
     Tempo para detectar +
     Tempo para especificar correção +
     Tempo para gerar correção +
@@ -89,7 +98,8 @@ Time to Restore =
 
 **Problema com Story Points Tradicionais:**
 
-Story points medem esforço relativo de implementação. Com IA, a implementação é "instantânea", tornando story points obsoletos como medida de capacidade.
+Story points medem esforço relativo de implementação. Com IA, a implementação é
+"instantânea", tornando story points obsoletos como medida de capacidade.
 
 **Nova Abordagem: Verified Feature Points (VFP)**
 
@@ -103,11 +113,11 @@ Onde:
 
 **Exemplo:**
 
-| Feature | Complexidade Especificação | Esforço Verificação | VFP |
-|---------|---------------------------|---------------------|-----|
-| CRUD simples | 1 (padrão conhecido) | 1 (testes triviais) | 1 |
-| API com regras de negócio | 3 (lógica complexa) | 3 (testes de cenários) | 9 |
-| Integração de pagamentos | 4 (múltiplos cenários) | 5 (segurança crítica) | 20 |
+| Feature                   | Complexidade Especificação | Esforço Verificação    | VFP |
+| ------------------------- | -------------------------- | ---------------------- | --- |
+| CRUD simples              | 1 (padrão conhecido)       | 1 (testes triviais)    | 1   |
+| API com regras de negócio | 3 (lógica complexa)        | 3 (testes de cenários) | 9   |
+| Integração de pagamentos  | 4 (múltiplos cenários)     | 5 (segurança crítica)  | 20  |
 
 **Throughput Medido em Features Verificadas:**
 
@@ -141,6 +151,7 @@ Trabalho
 ```
 
 **Interpretação:**
+
 - Gap entre as curvas = backlog de verificação
 - Curvas convergindo = processo saudável
 - Curvas divergindo = gargalo de verificação
@@ -152,7 +163,7 @@ Trabalho
 **Definição**: Quantidade de código gerado por unidade de tempo
 
 ```
-Generation Rate = 
+Generation Rate =
     Linhas de Código Geradas / Dia
     ou
     Features Geradas / Sprint
@@ -160,10 +171,10 @@ Generation Rate =
 
 **Contexto Importante:**
 
-| Métrica | Valor Alto Indica... | Valor Baixo Indica... |
-|---------|---------------------|----------------------|
-| Generation Rate | Produtividade de geração | Possível subutilização de IA |
-| Acceptance Rate (baixo) | Problemas de qualidade | Especificações ruins |
+| Métrica                 | Valor Alto Indica...     | Valor Baixo Indica...        |
+| ----------------------- | ------------------------ | ---------------------------- |
+| Generation Rate         | Produtividade de geração | Possível subutilização de IA |
+| Acceptance Rate (baixo) | Problemas de qualidade   | Especificações ruins         |
 
 **Uso**: Monitorar eficiência da IA, não como objetivo isolado.
 
@@ -172,7 +183,7 @@ Generation Rate =
 **Definição**: Percentual de código gerado que é aceito sem retrabalho
 
 ```
-Acceptance Rate = 
+Acceptance Rate =
     (Código Aceito na Primeira Verificação / Total Gerado) × 100
 ```
 
@@ -193,43 +204,49 @@ Acceptance Rate por Tipo:
 **Definição**: Quantidade de código aguardando revisão humana
 
 ```
-Curation Backlog = 
+Curation Backlog =
     Σ (Itens Gerados - Itens Verificados - Itens Rejeitados)
 ```
 
 **Métricas Relacionadas:**
 
-| Métrica | Fórmula | Alvo |
-|---------|---------|------|
+| Métrica                  | Fórmula                 | Alvo            |
+| ------------------------ | ----------------------- | --------------- |
 | **Curation Queue Depth** | Número de itens na fila | < 5 por curador |
-| **Curation Wait Time** | Tempo médio na fila | < 4 horas |
-| **Curation Cycle Time** | Tempo médio de revisão | < 1 hora/item |
+| **Curation Wait Time**   | Tempo médio na fila     | < 4 horas       |
+| **Curation Cycle Time**  | Tempo médio de revisão  | < 1 hora/item   |
 
 **Alertas:**
+
 - Backlog crescendo: Adicionar mais curadores ou melhorar especificações
-- Backlog zerado constantemente: Possível subutilização ou especificações muito simples
+- Backlog zerado constantemente: Possível subutilização ou especificações muito
+  simples
 
 ### 5.2.4 Rework Rate
 
 **Definição**: Percentual de código retornado para regeneração
 
 ```
-Rework Rate = 
+Rework Rate =
     (Itens Retornados para Regeneração / Total Verificado) × 100
 ```
 
 **Causas Comuns de Rework:**
 
 1. **Especificacao ambigua**
+
    - Solução: Melhorar qualidade de especificações
 
 2. **Contexto insuficiente**
+
    - Solução: Fornecer mais contexto de domínio
 
 3. **Mudanca de requisitos**
+
    - Solução: Estabilizar requisitos antes de gerar
 
 4. **Geracao inadequada ao dominio**
+
    - Solução: Ajustar prompts ou usar modelo diferente
 
 ### 5.2.5 Quality Metrics de Processo
@@ -279,6 +296,7 @@ O lead time deve ser analisado em cada fase para identificar gargalos:
 ```
 
 **Análise de Gargalo:**
+
 - Verificação consome 40% do tempo — oportunidade de otimização
 - Especificação é 20% — investir em templates pode reduzir
 - Geração é apenas 1% — confirmando que não é mais o gargalo
@@ -303,6 +321,7 @@ TOTAL              │ 8h45m │ 100% │                │
 ```
 
 **Foco de Melhoria:**
+
 1. Reduzir espera/fila (11% de desperdício)
 2. Otimizar verificação manual (20% com potencial de automação)
 3. Acelerar especificação via templates
@@ -314,28 +333,33 @@ TOTAL              │ 8h45m │ 100% │                │
 O ciclo Plan-Do-Check-Act (PDCA) [3] é fundamental para melhoria contínua:
 
 **PLAN (Planejar):**
+
 - Identificar métricas fora do alvo
 - Analisar causas raiz
 - Definir hipóteses de melhoria
 - Estabelecer métricas de sucesso
 
 **DO (Executar):**
+
 - Implementar mudanças em escala controlada
 - Documentar processo e resultados
 - Coletar dados continuamente
 
 **CHECK (Verificar):**
+
 - Comparar resultados com baseline
 - Analisar desvios
 - Validar hipóteses
 
 **ACT (Agir):**
+
 - Se funcionou: padronizar e escalar
 - Se não funcionou: voltar ao PLAN com novo aprendizado
 
 ### 5.4.2 Framework de Melhoria para Processos com IA
 
 **Etapa 1: Baseline (Semana 1-2)**
+
 ```
 - Medir métricas atuais por 2 semanas
 - Identificar top 3 gargalos
@@ -343,6 +367,7 @@ O ciclo Plan-Do-Check-Act (PDCA) [3] é fundamental para melhoria contínua:
 ```
 
 **Etapa 2: Experimentação (Semana 3-6)**
+
 ```
 - Selecionar um gargalo para atacar
 - Propor mudança (ex: novo template de especificação)
@@ -351,6 +376,7 @@ O ciclo Plan-Do-Check-Act (PDCA) [3] é fundamental para melhoria contínua:
 ```
 
 **Etapa 3: Validação (Semana 7-8)**
+
 ```
 - Analisar dados do piloto
 - Comparar com baseline
@@ -358,6 +384,7 @@ O ciclo Plan-Do-Check-Act (PDCA) [3] é fundamental para melhoria contínua:
 ```
 
 **Etapa 4: Escala (Semana 9+)**
+
 ```
 - Implementar mudança validada em todos os times
 - Monitorar métricas
@@ -398,7 +425,7 @@ Escape Rate: 3% (meta: <5%) ✓
 ─── AÇÕES ───
 1. [Pessoa] Criar template específico para integrações
    Métrica de sucesso: Rework de integração < 20%
-   
+
 2. [Pessoa] Implementar verificação automática de segurança básica
    Métrica de sucesso: 50% das verificações de segurança automatizadas
 
@@ -412,58 +439,69 @@ Escape Rate: 3% (meta: <5%) ✓
 Um dashboard efetivo para processos com IA deve incluir:
 
 **Visão Geral (Tempo Real):**
+
 - Throughput do dia/semana
 - Curation backlog atual
 - Acceptance rate do sprint
 
 **Tendências (Semanal):**
+
 - Lead time ao longo do tempo
 - Decomposição por fase
 - Rework rate trend
 
 **Alertas:**
+
 - Acceptance rate abaixo de 60%
 - Curation backlog > 10 items
 - Lead time > 150% da média
 
 ### Anti-Padrões de Medição
 
-**1. Vanity Metrics**
-Focar apenas em generation rate sem considerar acceptance rate.
+**1. Vanity Metrics** Focar apenas em generation rate sem considerar acceptance
+rate.
 
-**2. Gaming the Metrics**
-Time otimiza para métricas em vez de valor real (ex: aceitar código ruim para aumentar acceptance rate).
+**2. Gaming the Metrics** Time otimiza para métricas em vez de valor real (ex:
+aceitar código ruim para aumentar acceptance rate).
 
-**3. Medição em Silo**
-Medir apenas parte do processo (ex: só geração) sem ver o todo.
+**3. Medição em Silo** Medir apenas parte do processo (ex: só geração) sem ver o
+todo.
 
-**4. Análise sem Ação**
-Coletar métricas mas não usar para decisões.
+**4. Análise sem Ação** Coletar métricas mas não usar para decisões.
 
 ### Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Medio |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
+| Critério                        | Descrição                                                | Avaliação |
+| ------------------------------- | -------------------------------------------------------- | --------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa     |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Medio     |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Moderada  |
 
 ## Summary
 
 - Métricas DORA tradicionais requerem **reinterpretação** para processos com IA
-- Lead time deve ser **decomposto** em fases de especificação, geração, verificação e curadoria
+- Lead time deve ser **decomposto** em fases de especificação, geração,
+  verificação e curadoria
 - **Throughput** deve medir features verificadas e aprovadas, não apenas geradas
-- Novas métricas essenciais: **Acceptance Rate**, **Curation Backlog**, **Rework Rate**
+- Novas métricas essenciais: **Acceptance Rate**, **Curation Backlog**, **Rework
+  Rate**
 - Times elite gastam **60-70% do lead time em verificação**, não em geração
 - Melhoria contínua requer **ciclo PDCA** adaptado com foco em dados
 - Retrospectivas devem ser **baseadas em métricas** com ações mensuráveis
 
 ## References
 
-1. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software and DevOps. IT Revolution Press, 2018.
-2. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software and DevOps. Portland: IT Revolution Press, 2018.
-3. Shewhart, W.A.; Deming, W.E. Statistical Method from the Viewpoint of Quality Control. Dover, 1986.
-4. Fenton, N.; Bieman, J. Software Metrics: A Rigorous and Practical Approach. 3. ed. Boca Raton: CRC Press, 2014.
-6. Fenton, N.; Bieman, J. Software Metrics: A Rigorous and Practical Approach. 3rd ed. CRC Press, 2014.
-7. Laporte, C.Y.; April, A. Software Quality Assurance. IEEE Computer Society Press, 2018.
-8. ISO/IEC. ISO/IEC 33001:2015 - Information technology - Process assessment. ISO, 2015.
+1. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software
+   and DevOps. IT Revolution Press, 2018.
+2. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software
+   and DevOps. Portland: IT Revolution Press, 2018.
+3. Shewhart, W.A.; Deming, W.E. Statistical Method from the Viewpoint of Quality
+   Control. Dover, 1986.
+4. Fenton, N.; Bieman, J. Software Metrics: A Rigorous and Practical Approach.
+   3\. ed. Boca Raton: CRC Press, 2014.
+5. Fenton, N.; Bieman, J. Software Metrics: A Rigorous and Practical Approach.
+   3rd ed. CRC Press, 2014.
+6. Laporte, C.Y.; April, A. Software Quality Assurance. IEEE Computer Society
+   Press, 2018.
+7. ISO/IEC. ISO/IEC 33001:2015 - Information technology - Process assessment.
+   ISO, 2015.

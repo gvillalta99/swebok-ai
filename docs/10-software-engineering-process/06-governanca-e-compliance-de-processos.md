@@ -1,25 +1,30 @@
 ---
-title: "06 - Governanca e Compliance de Processos"
-created_at: "2025-01-31"
-tags: ["processos", "governanca", "compliance", "auditoria", "proveniencia", "regulatorio", "documentacao"]
-status: "draft"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: 06 - Governanca e Compliance de Processos
+created_at: '2025-01-31'
+tags: [processos, governanca, compliance, auditoria, proveniencia, regulatorio, documentacao]
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 6. Governanca e Compliance de Processos
 
 ## Overview
 
-Em processos assistidos por IA, governanca significa garantir que (1) decisoes sejam atribuiveis, (2) evidencias existam e sejam recuperaveis, e (3) mudancas de alto risco sejam controladas. Isso exige rastreabilidade para baselines (prompts/politicas, modelos, contexto) e auditoria de curadoria humana.
+Em processos assistidos por IA, governanca significa garantir que (1) decisoes
+sejam atribuiveis, (2) evidencias existam e sejam recuperaveis, e (3) mudancas
+de alto risco sejam controladas. Isso exige rastreabilidade para baselines
+(prompts/politicas, modelos, contexto) e auditoria de curadoria humana.
 
-Esta secao descreve um modelo de governanca centrado em evidencias e trilha de auditoria, aplicavel mesmo quando a regulacao varia por dominio.
+Esta secao descreve um modelo de governanca centrado em evidencias e trilha de
+auditoria, aplicavel mesmo quando a regulacao varia por dominio.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Definir principios de governanca (accountability, rastreabilidade, controle de mudancas).
+1. Definir principios de governanca (accountability, rastreabilidade, controle
+   de mudancas).
 2. Especificar quais registros de processo sao obrigatorios.
 3. Planejar auditorias focadas em evidencia e gaps.
 4. Adaptar controles de compliance por criticidade e dominio.
@@ -28,8 +33,10 @@ Após estudar esta seção, o leitor deve ser capaz de:
 ## 6.1 Principios de Governanca
 
 1. Accountability: toda decisao critica tem responsavel identificavel.
-2. Rastreabilidade: qualquer artefato em producao aponta para baseline e execucao (run_id).
-3. Controle de mudancas: mudancas de modelo/contexto/politica seguem gates proporcionais.
+2. Rastreabilidade: qualquer artefato em producao aponta para baseline e
+   execucao (run_id).
+3. Controle de mudancas: mudancas de modelo/contexto/politica seguem gates
+   proporcionais.
 
 ## 6.2 Registros Obrigatorios (Modelo Minimo)
 
@@ -69,11 +76,11 @@ Em vez de mapear toda regulacao possivel, trate compliance como capacidade:
 
 ### Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Crítica |
+| Critério                        | Descrição                                                | Avaliação |
+| ------------------------------- | -------------------------------------------------------- | --------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa     |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Crítica   |
 
 ## Summary
 
@@ -83,7 +90,11 @@ Em vez de mapear toda regulacao possivel, trate compliance como capacidade:
 
 ## References
 
-1. NIST. AI Risk Management Framework 1.0. Gaithersburg: National Institute of Standards and Technology, 2023.
-2. ISO/IEC. ISO/IEC 42001:2023. Information technology — Artificial intelligence — Management system. Geneva: ISO, 2023.
-3. ISO/IEC. ISO/IEC 27001:2022. Information security management systems. Geneva: ISO, 2022.
-4. ISO/IEC/IEEE. ISO/IEC/IEEE 12207:2017. Software life cycle processes. Geneva: ISO, 2017.
+1. NIST. AI Risk Management Framework 1.0. Gaithersburg: National Institute of
+   Standards and Technology, 2023.
+2. ISO/IEC. ISO/IEC 42001:2023. Information technology — Artificial intelligence
+   — Management system. Geneva: ISO, 2023.
+3. ISO/IEC. ISO/IEC 27001:2022. Information security management systems. Geneva:
+   ISO, 2022.
+4. ISO/IEC/IEEE. ISO/IEC/IEEE 12207:2017. Software life cycle processes. Geneva:
+   ISO, 2017.

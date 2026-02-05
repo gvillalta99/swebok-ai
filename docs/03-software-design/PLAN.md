@@ -2,13 +2,25 @@
 
 ## Visão Geral
 
-O capítulo de Software Design no SWEBOK-AI v5.0 representa uma reconfiguração profunda da disciplina de design de software. Enquanto o SWEBOK v4.0 tratava design como o processo de traduzir requisitos em estruturas de código através de padrões e princípios orientados a objetos, a versão 5.0 reconhece que na era dos LLMs, design tornou-se primariamente sobre **curadoria e orquestração de código gerado**.
+O capítulo de Software Design no SWEBOK-AI v5.0 representa uma reconfiguração
+profunda da disciplina de design de software. Enquanto o SWEBOK v4.0 tratava
+design como o processo de traduzir requisitos em estruturas de código através de
+padrões e princípios orientados a objetos, a versão 5.0 reconhece que na era dos
+LLMs, design tornou-se primariamente sobre **curadoria e orquestração de código
+gerado**.
 
-Este capítulo estabelece os fundamentos do **Design de Sistemas Híbridos** — uma disciplina que assume que engenheiros de software atuam como curadores de código gerado por IA, aplicando julgamento técnico para avaliar, refinar e integrar soluções automáticas dentro de arquiteturas determinísticas.
+Este capítulo estabelece os fundamentos do **Design de Sistemas Híbridos** — uma
+disciplina que assume que engenheiros de software atuam como curadores de código
+gerado por IA, aplicando julgamento técnico para avaliar, refinar e integrar
+soluções automáticas dentro de arquiteturas determinísticas.
 
-A transição proposta recontextualiza o design de software: princípios SOLID adaptam-se para avaliar código não-escrito; padrões de design evoluem para contemplar variabilidade e não-determinismo; interfaces são projetadas para comunicar incerteza; e a qualidade de design é medida pela facilidade de verificação humana.
+A transição proposta recontextualiza o design de software: princípios SOLID
+adaptam-se para avaliar código não-escrito; padrões de design evoluem para
+contemplar variabilidade e não-determinismo; interfaces são projetadas para
+comunicar incerteza; e a qualidade de design é medida pela facilidade de
+verificação humana.
 
----
+______________________________________________________________________
 
 ## Estrutura do Capítulo
 
@@ -21,28 +33,31 @@ A transição proposta recontextualiza o design de software: princípios SOLID a
 7. **Seção 7: Refatoração e Modernização Assistida**
 8. **Seção 8: Ferramentas e Técnicas Modernas**
 
----
+______________________________________________________________________
 
 ## Matriz de Avaliação Consolidada
 
-| Critério | Avaliação |
-|----------|-----------|
+| Critério                    | Avaliação                                                                |
+| --------------------------- | ------------------------------------------------------------------------ |
 | Descartabilidade Geracional | Média - princípios fundamentais permanecem, técnicas específicas evoluem |
-| Custo de Verificação | Alto - verificação de código gerado exige expertise |
-| Responsabilidade Legal | Alto - designers responsáveis por integridade de código gerado |
+| Custo de Verificação        | Alto - verificação de código gerado exige expertise                      |
+| Responsabilidade Legal      | Alto - designers responsáveis por integridade de código gerado           |
 
----
+______________________________________________________________________
 
 ## Relacionamento com Outros KAs
 
-- **Software Requirements:** Design traduz restrições em estruturas implementáveis
+- **Software Requirements:** Design traduz restrições em estruturas
+  implementáveis
 - **Software Architecture:** Design detalha componentes arquiteturais
 - **Software Construction:** Design determina padrões para geração de código
 - **Software Testing:** Design para testabilidade de código gerado
 - **Software Quality:** Design influencia atributos de qualidade do sistema
-- **Engenharia de Garantia e Verificação em Escala:** Design para verificação eficiente
-- **Governança de IA para Engenharia de Software:** Design para compliance e auditabilidade
+- **Engenharia de Garantia e Verificação em Escala:** Design para verificação
+  eficiente
+- **Governança de IA para Engenharia de Software:** Design para compliance e
+  auditabilidade
 
----
+______________________________________________________________________
 
 *Documento de planejamento - SWEBOK-AI v5.0*

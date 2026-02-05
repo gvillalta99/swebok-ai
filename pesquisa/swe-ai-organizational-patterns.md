@@ -7,13 +7,16 @@ updated_at: '2026-01-31'
 ai_model: openai/gpt-5.2
 ---
 
-Aqui estão 5 abordagens distintas para organizar esses artefatos em repositórios, cada uma otimizada para diferentes contextos organizacionais e maturidades de IA:
+Aqui estão 5 abordagens distintas para organizar esses artefatos em
+repositórios, cada uma otimizada para diferentes contextos organizacionais e
+maturidades de IA:
 
----
+______________________________________________________________________
 
 1. Estrutura por Domínio de Negócio (Domain-Centric)
 
-Ideal para: Organizações com múltiplos produtos/bounded contexts claros, onde o domínio é mais estável que a tecnologia.
+Ideal para: Organizações com múltiplos produtos/bounded contexts claros, onde o
+domínio é mais estável que a tecnologia.
 
 ```
 /repos
@@ -41,13 +44,15 @@ Ideal para: Organizações com múltiplos produtos/bounded contexts claros, onde
     └── /audit-logs                # Artefato 2 - logs de geração cruzados
 ```
 
-Fluxo: A IA consulta primeiro `/domain` para não alucinar regras de negócio, depois `/architecture` para constraints, e só então gera em `/src`.
+Fluxo: A IA consulta primeiro `/domain` para não alucinar regras de negócio,
+depois `/architecture` para constraints, e só então gera em `/src`.
 
----
+______________________________________________________________________
 
 2. Estrutura por Função de Mitigação (Risk-First)
 
-Ideal para: Ambientes regulados (fintechs, healthtechs) onde compliance > velocidade.
+Ideal para: Ambientes regulados (fintechs, healthtechs) onde compliance >
+velocidade.
 
 ```
 /governance-repo                   # Gitops da governança
@@ -81,13 +86,16 @@ Ideal para: Ambientes regulados (fintechs, healthtechs) onde compliance > veloci
     └── ai-manifest.yaml
 ```
 
-Fluxo: Repositórios de código são "espertos" - eles importam governança via `ai-manifest.yaml`. A IA é instruída a nunca gerar código em `/src` sem validar contra `/constraints` no repo de governança.
+Fluxo: Repositórios de código são "espertos" - eles importam governança via
+`ai-manifest.yaml`. A IA é instruída a nunca gerar código em `/src` sem validar
+contra `/constraints` no repo de governança.
 
----
+______________________________________________________________________
 
 3. Estrutura Mono-Repo Temporal (Time-Boxed)
 
-Ideal para: Startups em hiper-crescimento, onde o contexto muda rápido e o problema é "o que a IA sugeriu ontem vs hoje".
+Ideal para: Startups em hiper-crescimento, onde o contexto muda rápido e o
+problema é "o que a IA sugeriu ontem vs hoje".
 
 ```
 /mono-repo
@@ -113,13 +121,16 @@ Ideal para: Startups em hiper-crescimento, onde o contexto muda rápido e o prob
     └── /api-specs
 ```
 
-Fluxo: A IA sempre lê `/current/context` para gerar código. Quando um "modo de falha" novo é descoberto, cria-se um `/2026-Q3` com prompts corrigidos. Permite debugar código antigo entendendo qual "mentalidade" da IA o gerou.
+Fluxo: A IA sempre lê `/current/context` para gerar código. Quando um "modo de
+falha" novo é descoberto, cria-se um `/2026-Q3` com prompts corrigidos. Permite
+debugar código antigo entendendo qual "mentalidade" da IA o gerou.
 
----
+______________________________________________________________________
 
 4. Estrutura GitOps de Agentes (Agent-Native)
 
-Ideal para: Times usando múltiplos agentes simultâneos (Claude para código, GPT para review, Cody para debug).
+Ideal para: Times usando múltiplos agentes simultâneos (Claude para código, GPT
+para review, Cody para debug).
 
 ```
 /project
@@ -148,13 +159,16 @@ Ideal para: Times usando múltiplos agentes simultâneos (Claude para código, G
     └── trace-matrix/              # Artefato 3 - rastreabilidade
 ```
 
-Fluxo: Cada agente é um "diretório" com seu contexto. A IA não gera código diretamente - ela gera propostas em `/agents/*/proposals/` que são mergeadas via PR humano. O `/audit` é append-only (WORM - Write Once Read Many).
+Fluxo: Cada agente é um "diretório" com seu contexto. A IA não gera código
+diretamente - ela gera propostas em `/agents/*/proposals/` que são mergeadas via
+PR humano. O `/audit` é append-only (WORM - Write Once Read Many).
 
----
+______________________________________________________________________
 
 5. Estrutura mínima "Docs-as-Code" Lean
 
-Ideal para: Times pequenos (<10 devs) migrando gradualmente, quem precisa de valor imediato sem burocracia.
+Ideal para: Times pequenos (\<10 devs) migrando gradualmente, quem precisa de
+valor imediato sem burocracia.
 
 ```
 /repo
@@ -175,26 +189,36 @@ Ideal para: Times pequenos (<10 devs) migrando gradualmente, quem precisa de val
     └── (normal)
 ```
 
-Fluxo: A IA é instruída a sempre ler `/docs/ai-rules/` antes de tocar em `/src`. Em code review, o revisor verifica tanto o código quanto se algum padrão novo de `/docs/.hallucinations` precisa ser adicionado. Simples, mas cobre os 3 artefatos críticos (ADR, Prompts, Verificação).
+Fluxo: A IA é instruída a sempre ler `/docs/ai-rules/` antes de tocar em `/src`.
+Em code review, o revisor verifica tanto o código quanto se algum padrão novo de
+`/docs/.hallucinations` precisa ser adicionado. Simples, mas cobre os 3
+artefatos críticos (ADR, Prompts, Verificação).
 
----
+______________________________________________________________________
 
 Recomendação de adoção:
 
-- Começando agora: Use a opção 5 (Lean) + gradualmente vá criando `/schemas/` e `/adr/`.
-- Escala média (múltiplos times): Migre para opção 1 (Domain-Centric), separando contexts.
-- Regulamentado/Enterprise: Adote opção 2 (Risk-First) com repo de governança centralizado.
-- Debugging caótico: Se o problema é entender o que a IA fez no passado, opção 3 (Temporal).
-- Multi-agente complexo: Opção 4 quando tiver diferentes IAs com papéis distintos.
+- Começando agora: Use a opção 5 (Lean) + gradualmente vá criando `/schemas/` e
+  `/adr/`.
+- Escala média (múltiplos times): Migre para opção 1 (Domain-Centric), separando
+  contexts.
+- Regulamentado/Enterprise: Adote opção 2 (Risk-First) com repo de governança
+  centralizado.
+- Debugging caótico: Se o problema é entender o que a IA fez no passado, opção 3
+  (Temporal).
+- Multi-agente complexo: Opção 4 quando tiver diferentes IAs com papéis
+  distintos.
 
----
+______________________________________________________________________
 
-Aqui estão 6 padrões arquiteturais adicionais que complementam as estruturas anteriores, focados em segurança, evolução e governança distribuída no cenário de IA generativa:
+Aqui estão 6 padrões arquiteturais adicionais que complementam as estruturas
+anteriores, focados em segurança, evolução e governança distribuída no cenário
+de IA generativa:
 
----
+______________________________________________________________________
 
-1. The Walled Garden (Isolamento Hierárquico)
-Separação física entre "zonas de risco" em que a IA pode operar livremente vs. zonas críticas protegidas.
+1. The Walled Garden (Isolamento Hierárquico) Separação física entre "zonas de
+   risco" em que a IA pode operar livremente vs. zonas críticas protegidas.
 
 ```
 /src
@@ -210,12 +234,14 @@ Separação física entre "zonas de risco" em que a IA pode operar livremente vs
     └── /financial-calc # Cálculos regulados (FEFO, juros compostos auditáveis)
 ```
 
-Regra: O `.gitattributes` marca `/sanctum/** linguist-generated=false` e triggers bloqueiam commits com autoria "AI" nestes paths.
+Regra: O `.gitattributes` marca `/sanctum/** linguist-generated=false` e
+triggers bloqueiam commits com autoria "AI" nestes paths.
 
----
+______________________________________________________________________
 
-2. Event Sourcing for AI Decisions (Contexto Imutável)
-Não versionar apenas o código, mas o estado completo que o gerou, permitindo "reproduzir" uma geração posteriormente.
+2. Event Sourcing for AI Decisions (Contexto Imutável) Não versionar apenas o
+   código, mas o estado completo que o gerou, permitindo "reproduzir" uma
+   geração posteriormente.
 
 ```
 /ai-decisions-log/              # Append-only, WORM storage
@@ -241,12 +267,16 @@ Não versionar apenas o código, mas o estado completo que o gerou, permitindo "
 │       }
 ```
 
-Uso: Quando um bug surge 6 meses depois, você "reproduz" o contexto exato para ver se a IA atual cometeria o mesmo erro, ou se a falha era inevitável dado o contexto da época.
+Uso: Quando um bug surge 6 meses depois, você "reproduz" o contexto exato para
+ver se a IA atual cometeria o mesmo erro, ou se a falha era inevitável dado o
+contexto da época.
 
----
+______________________________________________________________________
 
-3. Blue/Green AI Contexts (Promoção de Contexto)
-Ter dois contextos de IA paralelos: um "estável" (Green) que gera código produtivo, e um "experimental" (Blue) que testa novos prompts/modeos. Promoção via gates de qualidade.
+3. Blue/Green AI Contexts (Promoção de Contexto) Ter dois contextos de IA
+   paralelos: um "estável" (Green) que gera código produtivo, e um
+   "experimental" (Blue) que testa novos prompts/modeos. Promoção via gates de
+   qualidade.
 
 ```
 /ai-context/
@@ -260,12 +290,15 @@ Ter dois contextos de IA paralelos: um "estável" (Green) que gera código produ
     # Ex: "0 alucinações detectadas em 100 gerações + approval de 2 seniors"
 ```
 
-Fluxo: Novos recursos são gerados primeiro em `/blue`. Se passarem 2 semanas sem incidentes nos logs de `hallucination-reports/`, o contexto Blue é promovido a Green (com atomic commit renomeando diretórios).
+Fluxo: Novos recursos são gerados primeiro em `/blue`. Se passarem 2 semanas sem
+incidentes nos logs de `hallucination-reports/`, o contexto Blue é promovido a
+Green (com atomic commit renomeando diretórios).
 
----
+______________________________________________________________________
 
-4. Contract-First Generation (Geração por Contrato)
-Proibir a IA de escrever implementação antes de definir formalmente o contrato (OpenAPI, AsyncAPI, GraphQL Schema). O contrato age como "molde" que a IA não pode transgredir.
+4. Contract-First Generation (Geração por Contrato) Proibir a IA de escrever
+   implementação antes de definir formalmente o contrato (OpenAPI, AsyncAPI,
+   GraphQL Schema). O contrato age como "molde" que a IA não pode transgredir.
 
 ```
 /features/
@@ -278,12 +311,15 @@ Proibir a IA de escrever implementação antes de definir formalmente o contrato
 │       └── (aqui sim a IA entra, implementando OS contratos acima)
 ```
 
-Obrigatoriedade: O CI verifica se o código em `/generated` viola os contratos em `/contracts` via `spectral lint` ou testes de contrato (Pact). Se houver divergência, o commit é rejeitado independente de quem gerou.
+Obrigatoriedade: O CI verifica se o código em `/generated` viola os contratos em
+`/contracts` via `spectral lint` ou testes de contrato (Pact). Se houver
+divergência, o commit é rejeitado independente de quem gerou.
 
----
+______________________________________________________________________
 
-5. Quantum Prompts (Atomicidade Contexto-Código)
-Garantir que prompt + código gerado sejam tratados como uma única unidade atômica em commits. Não se pode alterar o código sem explicitar qual contexto (prompt) mudou.
+5. Quantum Prompts (Atomicidade Contexto-Código) Garantir que prompt + código
+   gerado sejam tratados como uma única unidade atômica em commits. Não se pode
+   alterar o código sem explicitar qual contexto (prompt) mudou.
 
 ```
 Commit Message Estruturado:
@@ -300,12 +336,15 @@ diff:
 + (código novo gerado por prompt-v2.2)
 ```
 
-Impacto: Se rollback for necessário, você reverte tanto o código quanto o contexto mental que o originou, evitando inconsistências onde "código antigo" é mantido com "prompts novos" (causa de alucinações silenciosas).
+Impacto: Se rollback for necessário, você reverte tanto o código quanto o
+contexto mental que o originou, evitando inconsistências onde "código antigo" é
+mantido com "prompts novos" (causa de alucinações silenciosas).
 
----
+______________________________________________________________________
 
-6. Federated Constraints (Hierarquia de Restrições)
-Distribuir regras em camadas cumulativas (Global → Domain → Feature), onde a IA deve obedecer a interseção de todas.
+6. Federated Constraints (Hierarquia de Restrições) Distribuir regras em camadas
+   cumulativas (Global → Domain → Feature), onde a IA deve obedecer a interseção
+   de todas.
 
 ```
 /constraints/
@@ -319,18 +358,25 @@ Distribuir regras em camadas cumulativas (Global → Domain → Feature), onde a
     └── performance.json        # "Latência < 50ms sob pena de rejeição"
 ```
 
-IA Behavior: Antes de gerar código para `/feature/pix-instantaneo`, a IA mergeia os 3 arquivos JSON hierarquicamente. Conflitos (ex: global diz "log tudo", domain diz "não loga valores") são resolvidos pela hierarquia mais específica, mas registrados em `constraint-conflicts.log` para revisão humana.
+IA Behavior: Antes de gerar código para `/feature/pix-instantaneo`, a IA mergeia
+os 3 arquivos JSON hierarquicamente. Conflitos (ex: global diz "log tudo",
+domain diz "não loga valores") são resolvidos pela hierarquia mais específica,
+mas registrados em `constraint-conflicts.log` para revisão humana.
 
----
+______________________________________________________________________
 
 Sumário de Aplicação
 
-Padrão	Resolve	Quando Usar	
-Walled Garden	IA tocando em código crítico	Sistemas financeiros, cripto, saúde	
-Event Sourcing AI	Debugging forense de geração	Debugging complexo, auditoria regulatória	
-Blue/Green Contexts	Prompts imaturos em produção	Migração entre versões de modelo (GPT-4→5)	
-Contract-First	Alucinações de interface	Microsserviços, integrações externas	
-Quantum Prompts	Inconsistência contexto/código	Times grandes, commits frequentes	
-Federated Constraints	Conflito de regras entre squads	Enterprise, múltiplos times autônomos	
+Padrão Resolve Quando Usar Walled Garden IA tocando em código crítico Sistemas
+financeiros, cripto, saúde Event Sourcing AI Debugging forense de geração
+Debugging complexo, auditoria regulatória Blue/Green Contexts Prompts imaturos
+em produção Migração entre versões de modelo (GPT-4→5) Contract-First
+Alucinações de interface Microsserviços, integrações externas Quantum Prompts
+Inconsistência contexto/código Times grandes, commits frequentes Federated
+Constraints Conflito de regras entre squads Enterprise, múltiplos times
+autônomos
 
-Estes padrões são ortogonais às estruturas de repo anteriores (você pode aplicar "Walled Garden" dentro da estrutura "Domain-Centric", por exemplo). O segredo é começar com Walled Garden + Contract-First - eles dão o maior retorno imediato em termos de redução de risco.
+Estes padrões são ortogonais às estruturas de repo anteriores (você pode aplicar
+"Walled Garden" dentro da estrutura "Domain-Centric", por exemplo). O segredo é
+começar com Walled Garden + Contract-First - eles dão o maior retorno imediato
+em termos de redução de risco.

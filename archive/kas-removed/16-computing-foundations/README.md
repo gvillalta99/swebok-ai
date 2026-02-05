@@ -1,6 +1,7 @@
 # Computing Foundations
 
 ## Subchapters
+
 1. Basic Concepts of a System or Solution
 2. Computer Architecture and Organization
 3. Data Structures and Algorithms

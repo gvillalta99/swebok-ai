@@ -1,20 +1,22 @@
 # Material for MkDocs Theme Reference
 
-Complete configuration reference for Material for MkDocs theme. Material is a powerful theme that transforms MkDocs into a modern, feature-rich documentation platform with extensive customization options.
+Complete configuration reference for Material for MkDocs theme. Material is a
+powerful theme that transforms MkDocs into a modern, feature-rich documentation
+platform with extensive customization options.
 
 **Official Documentation**: <https://squidfunk.github.io/mkdocs-material/>
 
 ## Table of Contents
 
-1. [Installation](#installation)
-2. [Basic Theme Configuration](#basic-theme-configuration)
-3. [Color Schemes and Palettes](#color-schemes-and-palettes)
-4. [Typography and Fonts](#typography-and-fonts)
-5. [Navigation Configuration](#navigation-configuration)
-6. [Search Configuration](#search-configuration)
-7. [Header Configuration](#header-configuration)
-8. [Footer Configuration](#footer-configuration)
-9. [Social Cards](#social-cards)
+01. [Installation](#installation)
+02. [Basic Theme Configuration](#basic-theme-configuration)
+03. [Color Schemes and Palettes](#color-schemes-and-palettes)
+04. [Typography and Fonts](#typography-and-fonts)
+05. [Navigation Configuration](#navigation-configuration)
+06. [Search Configuration](#search-configuration)
+07. [Header Configuration](#header-configuration)
+08. [Footer Configuration](#footer-configuration)
+09. [Social Cards](#social-cards)
 10. [Analytics Integration](#analytics-integration)
 11. [Version Management](#version-management)
 12. [Privacy and Cookie Consent](#privacy-and-cookie-consent)
@@ -25,7 +27,7 @@ Complete configuration reference for Material for MkDocs theme. Material is a po
 17. [Icons and Logos](#icons-and-logos)
 18. [Advanced Features](#advanced-features)
 
----
+______________________________________________________________________
 
 ## Installation
 
@@ -1048,6 +1050,7 @@ extra_javascript:
    - Document data collection practices
 
 5. **Version Management**
+
    - Use mike for documentation versioning
    - Maintain clear version aliases
    - Implement version warnings for outdated docs
@@ -1058,9 +1061,11 @@ extra_javascript:
 - **Official Documentation**: <https://squidfunk.github.io/mkdocs-material/>
 - **GitHub Repository**: <https://github.com/squidfunk/mkdocs-material>
 - **Insiders Edition**: <https://squidfunk.github.io/mkdocs-material/insiders/>
-- **Community Forum**: <https://github.com/squidfunk/mkdocs-material/discussions>
+- **Community Forum**:
+  <https://github.com/squidfunk/mkdocs-material/discussions>
 - **Issue Tracker**: <https://github.com/squidfunk/mkdocs-material/issues>
 
----
+______________________________________________________________________
 
-_This reference covers Material for MkDocs version 9.x. Features may vary based on version and Insiders subscription._
+_This reference covers Material for MkDocs version 9.x. Features may vary based
+on version and Insiders subscription._

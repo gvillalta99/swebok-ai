@@ -1,21 +1,30 @@
 ---
-title: "Defesas e Mitigações"
-created_at: "2025-01-31"
-tags: ["seguranca", "defesas", "mitigacoes", "llm-firewall", "sandboxing"]
-status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: Defesas e Mitigações
+created_at: '2025-01-31'
+tags: [seguranca, defesas, mitigacoes, llm-firewall, sandboxing]
+status: review
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 5. Defesas e Mitigações
 
 ## Overview
 
-A proteção de aplicações com LLM requer uma arquitetura de segurança em camadas que combine múltiplas técnicas de defesa. Diferente de sistemas tradicionais, onde firewalls e validação de input podem ser suficientes, sistemas híbridos com IA exigem defesas específicas que compreendam semântica, comportamento estocástico e vetores de ataque únicos dos LLMs.
+A proteção de aplicações com LLM requer uma arquitetura de segurança em camadas
+que combine múltiplas técnicas de defesa. Diferente de sistemas tradicionais,
+onde firewalls e validação de input podem ser suficientes, sistemas híbridos com
+IA exigem defesas específicas que compreendam semântica, comportamento
+estocástico e vetores de ataque únicos dos LLMs.
 
-Esta seção apresenta as principais técnicas de defesa: validação e sanitização de input, firewalls e gateways de segurança para LLM, sandboxing e isolamento, rate limiting e proteção contra DoS, e verificação de comportamento seguro.
+Esta seção apresenta as principais técnicas de defesa: validação e sanitização
+de input, firewalls e gateways de segurança para LLM, sandboxing e isolamento,
+rate limiting e proteção contra DoS, e verificação de comportamento seguro.
 
-**Nota de verificabilidade:** a categoria de "LLM firewall"/"gateway" ainda não é um padrão consolidado. Trate os mecanismos descritos aqui como padrões de controle (entrada, execução, saída, observabilidade e resposta a incidentes) que podem ser implementados por diferentes soluções e arquiteturas.
+**Nota de verificabilidade:** a categoria de "LLM firewall"/"gateway" ainda não
+é um padrão consolidado. Trate os mecanismos descritos aqui como padrões de
+controle (entrada, execução, saída, observabilidade e resposta a incidentes) que
+podem ser implementados por diferentes soluções e arquiteturas.
 
 ## Learning Objectives
 
@@ -29,7 +38,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## Input Validation e Sanitization para Prompts
 
-A validação de input é a primeira linha de defesa contra ataques a aplicações com LLM. Diferente de validação tradicional (regex, schema), validação de prompts requer compreensão semântica.
+A validação de input é a primeira linha de defesa contra ataques a aplicações
+com LLM. Diferente de validação tradicional (regex, schema), validação de
+prompts requer compreensão semântica.
 
 ### Técnicas de Input Validation
 
@@ -43,20 +54,21 @@ Verificações básicas antes do processamento:
 - **Encoding validation**: Garantir encoding correto (UTF-8)
 
 **Exemplo de Implementação:**
+
 ```python
 def validate_prompt(prompt: str) -> bool:
     # Limite de tamanho
     if len(prompt) > MAX_PROMPT_LENGTH:
         return False
-    
+
     # Detecção de encoding suspeito
     if contains_obfuscated_encoding(prompt):
         return False
-    
+
     # Detecção de padrões de injection
     if contains_injection_patterns(prompt):
         return False
-    
+
     return True
 ```
 
@@ -70,13 +82,14 @@ Identificação de tentativas de prompt injection:
 - **Encoding detection**: Base64, hex, ROT13, etc.
 
 **Padrões Comuns a Detectar:**
-```
+
+````
 - "Ignore todas as instruções"
 - "Você é um [persona sem restrições]"
 - "[SYSTEM OVERRIDE]"
 - "Disregard previous"
 - Delimitadores maliciosos: ```, <|endoftext|>, etc.
-```
+````
 
 #### 3. Análise Semântica
 
@@ -85,9 +98,11 @@ Uso de NLP para detectar intenções maliciosas:
 - **Intent classification**: Classificar intenção do prompt
 - **Sentiment analysis**: Detectar tom manipulativo
 - **Topic modeling**: Identificar tópicos sensíveis
-- **Semantic similarity**: Comparar contra banco de prompts maliciosos conhecidos
+- **Semantic similarity**: Comparar contra banco de prompts maliciosos
+  conhecidos
 
 **Implementação com LLM-as-a-Judge:**
+
 ```python
 def semantic_validation(prompt: str) -> RiskScore:
     # Usar modelo separado para analisar risco
@@ -117,26 +132,28 @@ Validação do contexto em sistemas com histórico:
 4. **Replacement**: Substituir padrões perigosos por tokens seguros
 
 **Exemplo de Sanitização:**
+
 ```python
 def sanitize_prompt(prompt: str) -> str:
     # Normalizar Unicode
     prompt = unicodedata.normalize('NFKC', prompt)
-    
+
     # Remover zero-width characters usados para obfuscation
     prompt = remove_zero_width_chars(prompt)
-    
+
     # Escapar delimitadores potencialmente perigosos
     prompt = escape_delimiters(prompt)
-    
+
     # Limitar repetição de caracteres (evade alguns filtros)
     prompt = limit_char_repetition(prompt)
-    
+
     return prompt
 ```
 
 ## LLM Firewalls e Gateways de Segurança
 
-LLM firewalls são componentes especializados que atuam como gatekeepers entre usuários e modelos de linguagem, implementando múltiplas camadas de proteção.
+LLM firewalls são componentes especializados que atuam como gatekeepers entre
+usuários e modelos de linguagem, implementando múltiplas camadas de proteção.
 
 ### Arquitetura de LLM Firewall
 
@@ -199,18 +216,21 @@ LLM firewalls são componentes especializados que atuam como gatekeepers entre u
 ### Soluções de Mercado (2025)
 
 **Radware LLM Firewall:**
+
 - Proteção em tempo real baseada em IA
 - Detecção de PII em tempo real
 - Prevenção de prompt injection
 - Economia de tokens e recursos
 
 **GitGuardian Secure LLM Gateway:**
+
 - Detecção de secrets em prompts e respostas
 - Two-way protection (input e output)
 - Redação automática de credenciais
 - Compliance com HIPAA, GDPR, SOC 2
 
 **Kong AI Gateway:**
+
 - Integração com API management maduro
 - Rate limiting avançado
 - Observabilidade completa
@@ -229,7 +249,8 @@ LLM firewalls são componentes especializados que atuam como gatekeepers entre u
 
 ## Sandboxing e Isolamento de Execução
 
-Sandboxing é essencial quando LLMs geram ou executam código, acessam ferramentas ou interagem com sistemas externos.
+Sandboxing é essencial quando LLMs geram ou executam código, acessam ferramentas
+ou interagem com sistemas externos.
 
 ### Técnicas de Sandboxing
 
@@ -243,6 +264,7 @@ Uso de containers Docker para isolar execução:
 - **Capability dropping**: Remover capabilities desnecessárias
 
 **Exemplo de Configuração:**
+
 ```dockerfile
 # Dockerfile para sandbox seguro
 FROM python:3.11-slim
@@ -275,6 +297,7 @@ Restrições dentro da própria linguagem:
 - **V8 isolates**: Isolamento em JavaScript/Node.js
 
 **Exemplo com RestrictedPython:**
+
 ```python
 from RestrictedPython import compile_restricted
 from RestrictedPython.Guards import safe_builtins
@@ -300,6 +323,7 @@ Restrições a nível de sistema operacional:
 - **SELinux**: Mandatory Access Control
 
 **Exemplo de Perfil Seccomp:**
+
 ```json
 {
   "defaultAction": "SCMP_ACT_ERRNO",
@@ -325,7 +349,8 @@ Em agentes autônomos com acesso a ferramentas:
 
 ## Rate Limiting e Proteção contra DoS
 
-Proteção contra abuso e negação de serviço é crítica dada a natureza computacionalmente intensiva dos LLMs.
+Proteção contra abuso e negação de serviço é crítica dada a natureza
+computacionalmente intensiva dos LLMs.
 
 ### Estratégias de Rate Limiting
 
@@ -337,6 +362,7 @@ Proteção contra abuso e negação de serviço é crítica dada a natureza comp
 - **Leaky bucket**: Rate constante com buffer
 
 **Implementação com Token Bucket:**
+
 ```python
 class TokenBucket:
     def __init__(self, rate: float, capacity: int):
@@ -344,14 +370,14 @@ class TokenBucket:
         self.capacity = capacity
         self.tokens = capacity
         self.last_update = time.time()
-    
+
     def consume(self, tokens: int = 1) -> bool:
         now = time.time()
         elapsed = now - self.last_update
-        self.tokens = min(self.capacity, 
+        self.tokens = min(self.capacity,
                          self.tokens + elapsed * self.rate)
         self.last_update = now
-        
+
         if self.tokens >= tokens:
             self.tokens -= tokens
             return True
@@ -422,7 +448,8 @@ Interromper serviço sob condições extremas:
 
 ## Verificação de Comportamento Seguro
 
-Além de validação de input, é necessário verificar que o comportamento do sistema permanece seguro durante a operação.
+Além de validação de input, é necessário verificar que o comportamento do
+sistema permanece seguro durante a operação.
 
 ### Técnicas de Verificação
 
@@ -457,7 +484,8 @@ Verificações de segurança específicas:
 
 Testes proativos de segurança:
 
-1. **Automated adversarial testing**: Uso de LLMs para gerar casos de teste adversariais
+1. **Automated adversarial testing**: Uso de LLMs para gerar casos de teste
+   adversariais
 2. **Manual red teaming**: Especialistas tentando quebrar o sistema
 3. **Fuzzing semântico**: Geração aleatória de prompts para testar robustez
 4. **Benchmarks de segurança**: Testes padronizados (HarmBench, StrongREJECT)
@@ -473,11 +501,11 @@ Supervisão humana para decisões críticas:
 
 ## Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — defesas fundamentais sao persistentes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — requer testes extensivos |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — falhas de seguranca tem consequencias severas |
+| Critério                        | Descrição                                                | Avaliação                                                   |
+| ------------------------------- | -------------------------------------------------------- | ----------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa** — defesas fundamentais sao persistentes           |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — requer testes extensivos                         |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — falhas de seguranca tem consequencias severas |
 
 ## Practical Considerations
 
@@ -487,7 +515,8 @@ Supervisão humana para decisões críticas:
 2. **Monitore continuamente**: Segurança é um processo contínuo, não um estado
 3. **Teste adversarialmente**: Red team exercises regulares são essenciais
 4. **Automatize onde possível**: Automação reduz erro humano e aumenta cobertura
-5. **Documente tudo**: Políticas, procedimentos e decisões devem ser documentados
+5. **Documente tudo**: Políticas, procedimentos e decisões devem ser
+   documentados
 
 ### Limitações
 
@@ -507,28 +536,42 @@ Supervisão humana para decisões críticas:
 
 ## Summary
 
-- Input validation para prompts requer técnicas semânticas além de validação estrutural tradicional
-- LLM firewalls fornecem proteção em múltiplas camadas: input filter, semantic analysis, context check, policy engine e output filter
-- Sandboxing é essencial para execução de código gerado, com técnicas incluindo containers, VMs, language-based restrictions e seccomp
-- Rate limiting deve considerar tokens, compute, memory e cost, com adaptive limiting baseado em condições do sistema
-- Proteção contra DoS específica de LLM inclui prompt complexity analysis, execution time limits e circuit breakers
-- Verificação de comportamento seguro requer output validation, behavioral monitoring, safety checks e red teaming contínuo
+- Input validation para prompts requer técnicas semânticas além de validação
+  estrutural tradicional
+- LLM firewalls fornecem proteção em múltiplas camadas: input filter, semantic
+  analysis, context check, policy engine e output filter
+- Sandboxing é essencial para execução de código gerado, com técnicas incluindo
+  containers, VMs, language-based restrictions e seccomp
+- Rate limiting deve considerar tokens, compute, memory e cost, com adaptive
+  limiting baseado em condições do sistema
+- Proteção contra DoS específica de LLM inclui prompt complexity analysis,
+  execution time limits e circuit breakers
+- Verificação de comportamento seguro requer output validation, behavioral
+  monitoring, safety checks e red teaming contínuo
 - Human-in-the-loop é crítico para decisões de alto risco
 
 ## References
 
-1. "Defending Against Prompt Injection Attacks: Best Practices." arXiv:2503.89012, 2025.
+1. "Defending Against Prompt Injection Attacks: Best Practices."
+   arXiv:2503.89012, 2025.
 
-2. Gartner. "Market Guide for LLM Firewalls and Security Gateways." Gartner Research, 2025.
+2. Gartner. "Market Guide for LLM Firewalls and Security Gateways." Gartner
+   Research, 2025.
 
-3. "Secure Execution Environments for LLM-Generated Code." arXiv:2502.90123, 2025.
+3. "Secure Execution Environments for LLM-Generated Code." arXiv:2502.90123,
+   2025\.
 
-4. Radware. "LLM Firewall: Real-time AI-based Protection." Radware Product Documentation, 2025. https://www.radware.com/products/llm-firewall/
+4. Radware. "LLM Firewall: Real-time AI-based Protection." Radware Product
+   Documentation, 2025. <https://www.radware.com/products/llm-firewall/>
 
-5. GitGuardian. "Building a Secure LLM Gateway." GitGuardian Blog, 2025. https://blog.gitguardian.com/building-a-secure-llm-gateway/
+5. GitGuardian. "Building a Secure LLM Gateway." GitGuardian Blog, 2025.
+   <https://blog.gitguardian.com/building-a-secure-llm-gateway/>
 
-6. Pomerium. "Best LLM Gateways in 2025." Pomerium Blog, 2025. https://www.pomerium.com/blog/best-llm-gateways-in-2025
+6. Pomerium. "Best LLM Gateways in 2025." Pomerium Blog, 2025.
+   <https://www.pomerium.com/blog/best-llm-gateways-in-2025>
 
-7. OWASP Foundation. "LLM01:2025 Prompt Injection - Mitigation Strategies." OWASP, 2025.
+7. OWASP Foundation. "LLM01:2025 Prompt Injection - Mitigation Strategies."
+   OWASP, 2025.
 
-8. "Sandboxing and Isolation for LLM Applications." IEEE Symposium on Security and Privacy (S&P), 2025.
+8. "Sandboxing and Isolation for LLM Applications." IEEE Symposium on Security
+   and Privacy (S&P), 2025.

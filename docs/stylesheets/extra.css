@@ -1,0 +1,110 @@
+/* SWEBOK-AI v5.0 - Custom Styles */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Rounded corners for code blocks and images */
+.md-typeset code,
+.md-typeset .highlight,
+.md-typeset img {
+  border-radius: 8px;
+}
+
+/* Enhanced shadows for images */
+.md-typeset img {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.md-typeset img:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--md-default-bg-color--lightest);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--md-default-fg-color--lighter);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--md-default-fg-color--light);
+}
+
+/* Enhanced admonitions */
+.md-typeset .admonition {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Better table styling */
+.md-typeset table {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Enhanced code blocks */
+.md-typeset .highlight {
+  border-radius: 8px;
+  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Better focus states for accessibility */
+.md-typeset a:focus,
+.md-nav__link:focus,
+.md-search__input:focus {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+/* Navigation improvements */
+.md-nav__item--active > .md-nav__link {
+  font-weight: 600;
+}
+
+/* Tabbed content styling */
+.md-typeset .tabbed-set {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Task list styling */
+.md-typeset .task-list-item {
+  list-style-type: none;
+}
+
+.md-typeset .task-list-control {
+  margin-right: 0.5em;
+}
+
+/* Print optimizations */
+@media print {
+  .md-typeset img {
+    box-shadow: none;
+  }
+
+  .md-header,
+  .md-tabs,
+  .md-footer {
+    display: none;
+  }
+}
+
+/* Mobile optimizations */
+@media screen and (max-width: 76.1875em) {
+  .md-typeset img {
+    max-width: 100%;
+  }
+}

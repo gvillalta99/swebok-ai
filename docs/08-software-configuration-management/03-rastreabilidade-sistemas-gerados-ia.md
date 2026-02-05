@@ -1,27 +1,34 @@
 ---
-title: "03 - Rastreabilidade em Sistemas Gerados por IA"
-created_at: "2025-01-31"
-tags: ["rastreabilidade", "proveniencia", "auditoria", "compliance", "metadata"]
-status: "draft"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: 03 - Rastreabilidade em Sistemas Gerados por IA
+created_at: '2025-01-31'
+tags: [rastreabilidade, proveniencia, auditoria, compliance, metadata]
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 3. Rastreabilidade em Sistemas Gerados por IA
 
 ## Overview
 
-Em sistemas assistidos por IA, rastreabilidade deixa de ser apenas “requisito -> codigo -> teste”. Ela passa a incluir a cadeia de geracao: quais entradas, politicas, modelos e contextos produziram determinado artefato, e quais decisoes humanas autorizaram sua integracao.
+Em sistemas assistidos por IA, rastreabilidade deixa de ser apenas “requisito ->
+codigo -> teste”. Ela passa a incluir a cadeia de geracao: quais entradas,
+politicas, modelos e contextos produziram determinado artefato, e quais decisoes
+humanas autorizaram sua integracao.
 
-Esta secao define um modelo minimo de rastreabilidade (proveniencia + auditoria + evidencias) aplicavel a codigo, configuracoes, respostas geradas e decisoes de curadoria, com foco em investigacao de incidentes, compliance e manutencao.
+Esta secao define um modelo minimo de rastreabilidade (proveniencia + auditoria
+\+ evidencias) aplicavel a codigo, configuracoes, respostas geradas e decisoes de
+curadoria, com foco em investigacao de incidentes, compliance e manutencao.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Definir a cadeia de proveniencia para artefatos gerados por IA (codigo e nao codigo).
+1. Definir a cadeia de proveniencia para artefatos gerados por IA (codigo e nao
+   codigo).
 2. Especificar metadados minimos para reproducao forense.
-3. Projetar registros de curadoria (aprovacao/rejeicao) com criterios verificaveis.
+3. Projetar registros de curadoria (aprovacao/rejeicao) com criterios
+   verificaveis.
 4. Aplicar lineage para contexto (corpus/indice) e para saidas.
 5. Identificar lacunas tipicas de rastreabilidade e como corrigi-las.
 
@@ -29,7 +36,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### 3.1.1 O Que Precisa Ser Rastreado
 
-Uma cadeia de proveniencia deve permitir reconstruir (ou explicar) a geracao com um identificador unico (run_id) e referencias imutaveis (ids/hashes) para entradas e saidas.
+Uma cadeia de proveniencia deve permitir reconstruir (ou explicar) a geracao com
+um identificador unico (run_id) e referencias imutaveis (ids/hashes) para
+entradas e saidas.
 
 ```
 Código Gerado (artefato final)
@@ -47,7 +56,8 @@ Entrada do Usuário (query original)
 Decisão de Curadoria (quem aprovou, quando, por quê)
 ```
 
-Evite depender de “memoria humana” para explicar geracoes antigas: a rastreabilidade precisa ser automatizavel.
+Evite depender de “memoria humana” para explicar geracoes antigas: a
+rastreabilidade precisa ser automatizavel.
 
 ### 3.1.2 Identificadores e Integridade
 
@@ -81,11 +91,13 @@ Para garantir integridade:
 }
 ```
 
-O uso de hashes criptográficos permite verificar se o conteúdo foi alterado desde a geração original.
+O uso de hashes criptográficos permite verificar se o conteúdo foi alterado
+desde a geração original.
 
 ### 3.1.3 Grafo de Proveniencia (Quando a Cadeia nao e Linear)
 
-Em workflows com multiplos passos, a proveniencia vira um DAG. O ganho pratico e permitir analise de impacto:
+Em workflows com multiplos passos, a proveniencia vira um DAG. O ganho pratico e
+permitir analise de impacto:
 
 - “que saidas dependem deste corpus_version?”,
 - “que codigo foi gerado com esta politica?”,
@@ -101,7 +113,9 @@ Em workflows com multiplos passos, a proveniencia vira um DAG. O ganho pratico e
 [Integration]
 ```
 
-Cada nó representa uma etapa do processo, e as arestas representam dependências de dados. Esta estrutura permite:
+Cada nó representa uma etapa do processo, e as arestas representam dependências
+de dados. Esta estrutura permite:
+
 - Análise de impacto (quais outputs são afetados por uma mudança)
 - Debugging (identificar onde a cadeia falhou)
 - Auditoria (reconstruir o processo completo)
@@ -110,7 +124,8 @@ Cada nó representa uma etapa do processo, e as arestas representam dependência
 
 ### 3.2.1 Conjunto Minimo
 
-Evite metadados excessivos sem uso; comece com o minimo que viabiliza auditoria e depuracao:
+Evite metadados excessivos sem uso; comece com o minimo que viabiliza auditoria
+e depuracao:
 
 - identificacao: run_id, timestamps, solicitante e aprovador (quando aplicavel),
 - configuracao: modelo_id, prompt_id/policy_id, parametros,
@@ -165,32 +180,40 @@ Evite metadados excessivos sem uso; comece com o minimo que viabiliza auditoria 
 ### 3.2.2 Estrategias de Captura
 
 **Captura sincrona**: metadados sao coletados durante a geracao
+
 - Prós: Completa, consistente
 - Contras: Adiciona latência
 
 **Captura assincrona**: metadados sao coletados em background
+
 - Prós: Mínimo impacto em performance
 - Contras: Risco de perda em caso de falha
 
 **Captura Híbrida**: Dados críticos são síncronos, demais são assíncronos
+
 - Balanceamento entre completude e performance
 
 ### 3.2.3 Retencao e Acesso
 
-Politicas de retencao precisam ser justificadas por risco, auditoria e investigacao de incidentes. O ponto editorial aqui e: retenha o suficiente para reconstruir decisoes; elimine o que nao agrega (inclusive para reduzir exposicao de dados).
+Politicas de retencao precisam ser justificadas por risco, auditoria e
+investigacao de incidentes. O ponto editorial aqui e: retenha o suficiente para
+reconstruir decisoes; elimine o que nao agrega (inclusive para reduzir exposicao
+de dados).
 
-| Tipo de Dado | Storage Ideal | Retenção |
-|--------------|---------------|----------|
-| Metadados de geração | Time-series DB (InfluxDB, TimescaleDB) | 2-5 anos |
-| Logs de auditoria | Immutable storage (S3 Glacier) | 7+ anos (compliance) |
-| Proveniência de código | Graph DB (Neo4j) | Indefinida |
-| Métricas de uso | Data warehouse (BigQuery) | 1-3 anos |
+| Tipo de Dado           | Storage Ideal                          | Retenção             |
+| ---------------------- | -------------------------------------- | -------------------- |
+| Metadados de geração   | Time-series DB (InfluxDB, TimescaleDB) | 2-5 anos             |
+| Logs de auditoria      | Immutable storage (S3 Glacier)         | 7+ anos (compliance) |
+| Proveniência de código | Graph DB (Neo4j)                       | Indefinida           |
+| Métricas de uso        | Data warehouse (BigQuery)              | 1-3 anos             |
 
 ## 3.3 Lineage do Contexto (RAG)
 
 ### 3.3.1 Pipeline: Documento -> Trecho Recuperado
 
-Em RAG, o “dado usado” nao e apenas o documento, mas o trecho efetivamente recuperado (após parsing, chunking e busca). Portanto, o lineage deve ligar a resposta a:
+Em RAG, o “dado usado” nao e apenas o documento, mas o trecho efetivamente
+recuperado (após parsing, chunking e busca). Portanto, o lineage deve ligar a
+resposta a:
 
 - referencia do documento e versao,
 - identificador do chunk,
@@ -219,11 +242,13 @@ Contexto para LLM (referenciado)
 Resposta Gerada
 ```
 
-Cada etapa deve ser versionada independentemente, permitindo reconstruir exatamente qual contexto foi fornecido em uma geração específica.
+Cada etapa deve ser versionada independentemente, permitindo reconstruir
+exatamente qual contexto foi fornecido em uma geração específica.
 
 ### 3.3.2 Manifesto de Dataset/Corpus
 
-Datasets utilizados em sistemas de IA devem seguir princípios rigorosos de versionamento:
+Datasets utilizados em sistemas de IA devem seguir princípios rigorosos de
+versionamento:
 
 ```yaml
 # dataset-manifest.yaml
@@ -237,7 +262,7 @@ sources:
     url: "https://wiki.company.com"
     last_sync: "2025-01-30"
     pages: 1500
-    
+
   - type: "github"
     repo: "company/docs"
     commit: "a1b2c3d"
@@ -248,12 +273,12 @@ processing:
   chunk_size: 512
   overlap: 50
   embedding_model: "text-embedding-3-large"
-  
+
 quality_checks:
   - "duplicate_detection"
   - "pii_scan"
   - "content_freshness"
-  
+
 statistics:
   total_chunks: 15000
   avg_chunk_size: 480
@@ -262,21 +287,24 @@ statistics:
 
 ### 3.3.3 Analise de Impacto
 
-Mudancas em corpus/indice podem alterar respostas sem tocar no codigo. Trate como mudanca de risco (especialmente quando ha consequencias reguladas).
+Mudancas em corpus/indice podem alterar respostas sem tocar no codigo. Trate
+como mudanca de risco (especialmente quando ha consequencias reguladas).
 
-| Tipo de Mudança | Impacto Potencial | Estratégia de Mitigação |
-|-----------------|-------------------|------------------------|
-| Adição de documentos | Novos comportamentos possíveis | Testes de regressão |
-| Remoção de documentos | Perda de conhecimento | Auditoria de coverage |
-| Atualização de conteúdo | Mudanças em respostas | A/B testing |
-| Mudança em chunking | Alteração no contexto retornado | Validação de relevance |
-| Novo embedding model | Mudança semântica no retrieval | Reindexação completa |
+| Tipo de Mudança         | Impacto Potencial               | Estratégia de Mitigação |
+| ----------------------- | ------------------------------- | ----------------------- |
+| Adição de documentos    | Novos comportamentos possíveis  | Testes de regressão     |
+| Remoção de documentos   | Perda de conhecimento           | Auditoria de coverage   |
+| Atualização de conteúdo | Mudanças em respostas           | A/B testing             |
+| Mudança em chunking     | Alteração no contexto retornado | Validação de relevance  |
+| Novo embedding model    | Mudança semântica no retrieval  | Reindexação completa    |
 
 ## 3.4 Audit Trail de Curadoria Humana
 
 ### 3.4.1 Decisao como Artefato
 
-O registro de curadoria deve responder: “quem decidiu?”, “o que foi avaliado?” e “qual evidencia suportou a decisao?”. Evite campos subjetivos como “confidence_score” sem definicao operacional.
+O registro de curadoria deve responder: “quem decidiu?”, “o que foi avaliado?” e
+“qual evidencia suportou a decisao?”. Evite campos subjetivos como
+“confidence_score” sem definicao operacional.
 
 ```json
 {
@@ -326,6 +354,7 @@ Integração no Sistema
 ```
 
 Cada etapa deve registrar:
+
 - Quem executou a ação
 - Quando foi executada
 - Qual foi o resultado
@@ -356,13 +385,17 @@ Rejeições são tão importantes quanto aprovações para aprendizado:
 
 ## 3.5 Governanca (Sem Pressupor Regulacao Especifica)
 
-Em muitos dominios, a rastreabilidade e exigida por combinacao de requisitos: governanca interna, seguranca, auditoria e normas setoriais. Em vez de assumir um conjunto fixo de regulacoes, trate rastreabilidade como capacidade transversal e configure politicas por dominio.
+Em muitos dominios, a rastreabilidade e exigida por combinacao de requisitos:
+governanca interna, seguranca, auditoria e normas setoriais. Em vez de assumir
+um conjunto fixo de regulacoes, trate rastreabilidade como capacidade
+transversal e configure politicas por dominio.
 
 ### 3.5.2 Politicas como Codigo (Padrão)
 
 Implementação de frameworks de governança:
 
 **Policy-as-Code**: Regras de compliance codificadas
+
 ```yaml
 # governance-policy.yaml
 policies:
@@ -370,13 +403,13 @@ policies:
     description: "Bloquear geração contendo PII não autorizada"
     trigger: "pre-generation"
     action: "block"
-    
+
   - name: "approval-required"
     description: "Requerer aprovação humana para código em produção"
     trigger: "post-generation"
     condition: "environment == 'production'"
     action: "require_approval"
-    
+
   - name: "audit-logging"
     description: "Logar todas as gerações para auditoria"
     trigger: "always"
@@ -418,21 +451,25 @@ Sistemas devem suportar geração de relatórios de auditoria:
 
 ### Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Critica |
+| Critério                        | Descrição                                                | Avaliação |
+| ------------------------------- | -------------------------------------------------------- | --------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa     |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Critica   |
 
 ## Summary
 
-- Rastreabilidade exige cadeia de proveniencia (inputs, politicas, contexto, decisoes e evidencias).
+- Rastreabilidade exige cadeia de proveniencia (inputs, politicas, contexto,
+  decisoes e evidencias).
 - Metadados minimos devem suportar reproducao forense e auditoria.
 - Em RAG, lineage precisa ligar resposta ao trecho recuperado e ao indice usado.
 - Curadoria humana deve ser registrada como decisao auditavel.
 
 ## References
 
-1. W3C. PROV-O: The PROV Ontology. W3C Recommendation, 2013. Disponivel em: https://www.w3.org/TR/prov-o/
-2. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering — Configuration management. Geneva: ISO, 2012.
-3. NIST. AI Risk Management Framework 1.0. Gaithersburg: National Institute of Standards and Technology, 2023.
+1. W3C. PROV-O: The PROV Ontology. W3C Recommendation, 2013. Disponivel em:
+   <https://www.w3.org/TR/prov-o/>
+2. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering —
+   Configuration management. Geneva: ISO, 2012.
+3. NIST. AI Risk Management Framework 1.0. Gaithersburg: National Institute of
+   Standards and Technology, 2023.

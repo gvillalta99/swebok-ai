@@ -1,0 +1,46 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+
+repos:
+  # Formatação automática de Markdown
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        name: Format Markdown
+        args:
+          - --wrap
+          - "80"
+          - --number
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-frontmatter
+          - mdformat-footnote
+        files: ^docs/.*\.md$
+
+  # Linter de Markdown - verifica links e estilo
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.44.0
+    hooks:
+      - id: markdownlint
+        name: Lint Markdown
+        args:
+          - --fix
+          - --config
+          - .markdownlint.json
+          - --ignore
+          - docs/README.md
+        files: ^docs/.*\.md$
+
+  # Verificação geral de arquivos
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        exclude: ^\.agents/|^\.opencode/|^archive/
+      - id: end-of-file-fixer
+        name: Fix end of files
+        exclude: ^\.agents/|^\.opencode/|^archive/
+      - id: check-yaml
+        name: Check YAML syntax

@@ -246,7 +246,8 @@ mkdocs get-deps -f custom-config.yml
 mkdocs get-deps -p https://example.com/projects.yml
 ```
 
-**Output Format:** Prints a list of required PyPI packages that should be installed for the plugins specified in your configuration.
+**Output Format:** Prints a list of required PyPI packages that should be
+installed for the plugins specified in your configuration.
 
 ## Environment Variables
 
@@ -353,12 +354,17 @@ mkdocs gh-deploy --strict
 ## Tips and Best Practices
 
 1. **Always use `--strict` in CI/CD** to catch documentation errors early
-2. **Use `--dirtyreload` for large documentation sites** to improve rebuild performance
-3. **Watch additional directories** with `-w` when documentation depends on external files
-4. **Use environment variables** for sensitive data instead of hardcoding in mkdocs.yml
+2. **Use `--dirtyreload` for large documentation sites** to improve rebuild
+   performance
+3. **Watch additional directories** with `-w` when documentation depends on
+   external files
+4. **Use environment variables** for sensitive data instead of hardcoding in
+   mkdocs.yml
 5. **Test builds locally** before deploying with `mkdocs build --strict`
-6. **Use `--no-history` carefully** as it removes all git history from gh-pages branch
-7. **Custom domains:** Create `CNAME` file in docs/ directory for GitHub Pages custom domains
+6. **Use `--no-history` carefully** as it removes all git history from gh-pages
+   branch
+7. **Custom domains:** Create `CNAME` file in docs/ directory for GitHub Pages
+   custom domains
 
 ## Related Commands
 

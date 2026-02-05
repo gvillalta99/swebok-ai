@@ -1,6 +1,7 @@
 # Software Configuration Management
 
 ## Subchapters
+
 1. Management of the SCM Process
 2. Software Configuration Identification
 3. Software Configuration Change Control

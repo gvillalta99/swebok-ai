@@ -2,13 +2,11 @@
 
 Use this template to generate human-readable analysis reports.
 
----
+______________________________________________________________________
 
 # Analysis Report: {BOOK_TITLE}
 
-**Author:** {AUTHOR}
-**Analysis Date:** {DATE}
-**Source File:** {FILE_PATH}
+**Author:** {AUTHOR} **Analysis Date:** {DATE} **Source File:** {FILE_PATH}
 
 ## Summary
 
@@ -18,25 +16,25 @@ Use this template to generate human-readable analysis reports.
 
 ### Concept Distribution by Type
 
-| Type | Count | Percentage |
-|------|-------|------------|
+| Type      | Count             | Percentage       |
+| --------- | ----------------- | ---------------- |
 | Principle | {PRINCIPLE_COUNT} | {PRINCIPLE_PCT}% |
 | Mechanism | {MECHANISM_COUNT} | {MECHANISM_PCT}% |
-| Pattern | {PATTERN_COUNT} | {PATTERN_PCT}% |
-| Strategy | {STRATEGY_COUNT} | {STRATEGY_PCT}% |
-| Tactic | {TACTIC_COUNT} | {TACTIC_PCT}% |
+| Pattern   | {PATTERN_COUNT}   | {PATTERN_PCT}%   |
+| Strategy  | {STRATEGY_COUNT}  | {STRATEGY_PCT}%  |
+| Tactic    | {TACTIC_COUNT}    | {TACTIC_PCT}%    |
 
 ### Concept Distribution by Layer
 
-| Layer | Name | Count | Percentage |
-|-------|------|-------|------------|
-| 0 | Foundational | {LAYER_0_COUNT} | {LAYER_0_PCT}% |
-| 1 | Theoretical | {LAYER_1_COUNT} | {LAYER_1_PCT}% |
-| 2 | Strategic | {LAYER_2_COUNT} | {LAYER_2_PCT}% |
-| 3 | Tactical | {LAYER_3_COUNT} | {LAYER_3_PCT}% |
-| 4 | Specific | {LAYER_4_COUNT} | {LAYER_4_PCT}% |
+| Layer | Name         | Count           | Percentage     |
+| ----- | ------------ | --------------- | -------------- |
+| 0     | Foundational | {LAYER_0_COUNT} | {LAYER_0_PCT}% |
+| 1     | Theoretical  | {LAYER_1_COUNT} | {LAYER_1_PCT}% |
+| 2     | Strategic    | {LAYER_2_COUNT} | {LAYER_2_PCT}% |
+| 3     | Tactical     | {LAYER_3_COUNT} | {LAYER_3_PCT}% |
+| 4     | Specific     | {LAYER_4_COUNT} | {LAYER_4_PCT}% |
 
----
+______________________________________________________________________
 
 ## Key Concepts
 
@@ -48,16 +46,16 @@ Use this template to generate human-readable analysis reports.
 
 **Type:** {TYPE} | **Layer:** {LAYER}
 
-> "{EXACT_QUOTE}"
-> — {CHAPTER_TITLE}, position {START_POSITION}
+> "{EXACT_QUOTE}" — {CHAPTER_TITLE}, position {START_POSITION}
 
 **Significance:** {EXTRACTION_NOTES}
 
 **Related Concepts:**
+
 - {RELATIONSHIP_TYPE} → {RELATED_CONCEPT_NAME}
 - ...
 
----
+______________________________________________________________________
 
 ### Strategic Frameworks (Layer 2)
 
@@ -67,13 +65,13 @@ Use this template to generate human-readable analysis reports.
 
 **Type:** {TYPE} | **Layer:** {LAYER}
 
-> "{EXACT_QUOTE}"
-> — {CHAPTER_TITLE}, position {START_POSITION}
+> "{EXACT_QUOTE}" — {CHAPTER_TITLE}, position {START_POSITION}
 
 **Components/Related:**
+
 - {COMPOSED_OF concepts}
 
----
+______________________________________________________________________
 
 ### Tactical Guidance (Layer 3-4)
 
@@ -84,26 +82,27 @@ Use this template to generate human-readable analysis reports.
 - **{CONCEPT_NAME}:** "{EXACT_QUOTE}" (p. {POSITION})
 - ...
 
----
+______________________________________________________________________
 
 ## Concept Network
 
 ### Most Connected Concepts (Hubs)
 
-| Concept | Connections | Types |
-|---------|-------------|-------|
+| Concept        | Connections        | Types                |
+| -------------- | ------------------ | -------------------- |
 | {CONCEPT_NAME} | {CONNECTION_COUNT} | {RELATIONSHIP_TYPES} |
-| ... | ... | ... |
+| ...            | ...                | ...                  |
 
 ### Key Relationships
 
 {For each significant relationship:}
 
 **{SOURCE_CONCEPT}** —[{RELATIONSHIP_TYPE}]→ **{TARGET_CONCEPT}**
+
 - Strength: {STRENGTH}
 - Evidence: {EVIDENCE}
 
----
+______________________________________________________________________
 
 ## Themes
 
@@ -112,22 +111,24 @@ Use this template to generate human-readable analysis reports.
 ### Primary Themes
 
 1. **{THEME_NAME}** ({CONCEPT_COUNT} concepts)
+
    - Key concepts: {CONCEPT_LIST}
 
 2. **{THEME_NAME}** ({CONCEPT_COUNT} concepts)
+
    - Key concepts: {CONCEPT_LIST}
 
----
+______________________________________________________________________
 
 ## Citations Requiring Review
 
 {List concepts flagged for human review:}
 
-| Concept | Issue | Quote |
-|---------|-------|-------|
+| Concept        | Issue           | Quote                |
+| -------------- | --------------- | -------------------- |
 | {CONCEPT_NAME} | {REVIEW_REASON} | "{QUOTE_SNIPPET}..." |
 
----
+______________________________________________________________________
 
 ## Methodology Notes
 
@@ -136,7 +137,7 @@ Use this template to generate human-readable analysis reports.
 - **Classification approach:** LLM judgment with reference materials
 - **Review status:** {REVIEW_STATUS}
 
----
+______________________________________________________________________
 
 ## Export Information
 
@@ -145,6 +146,6 @@ Use this template to generate human-readable analysis reports.
 - **Citations file:** {CITATIONS_JSON_PATH}
 - **Graph export:** {GRAPH_EXPORT_PATH} (if applicable)
 
----
+______________________________________________________________________
 
 *Generated by ebook-analysis skill on {DATE}*

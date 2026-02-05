@@ -1,0 +1,33 @@
+{
+  "default": true,
+  "MD013": false,
+  "MD024": {
+    "siblings_only": true
+  },
+  "MD029": false,
+  "MD025": false,
+  "MD033": {
+    "allowed_elements": [
+      "br",
+      "details",
+      "summary",
+      "code",
+      "pre",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td"
+    ]
+  },
+  "MD036": false,
+  "MD040": false,
+  "MD041": false,
+  "MD046": {
+    "style": "fenced"
+  },
+  "MD048": {
+    "style": "backtick"
+  }
+}

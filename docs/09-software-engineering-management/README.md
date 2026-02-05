@@ -1,6 +1,7 @@
 # Software Engineering Management
 
 ## Subchapters
+
 1. Initiation and Scope Definition
 2. Software Project Planning
 3. Software Project Execution

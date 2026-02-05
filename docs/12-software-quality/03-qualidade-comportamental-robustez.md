@@ -1,19 +1,25 @@
 ---
-title: "Qualidade Comportamental e Robustez"
-created_at: "2026-01-31"
-tags: ["software-quality", "comportamento", "robustez", "consistencia", "quality-gates", "testes-estresse"]
-status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: Qualidade Comportamental e Robustez
+created_at: '2026-01-31'
+tags: [software-quality, comportamento, robustez, consistencia, quality-gates, testes-estresse]
+status: review
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 3. Qualidade Comportamental e Robustez
 
 ## Overview
 
-Esta seção aborda as dimensões de qualidade específicas de sistemas com componentes gerados por IA: consistência comportamental, robustez a variações e determinismo parcial. Diferente de sistemas tradicionais onde comportamento é determinístico, sistemas híbridos operam com variabilidade intrínseca que exige novas abordagens de verificação e novos critérios de aceitação.
+Esta seção aborda as dimensões de qualidade específicas de sistemas com
+componentes gerados por IA: consistência comportamental, robustez a variações e
+determinismo parcial. Diferente de sistemas tradicionais onde comportamento é
+determinístico, sistemas híbridos operam com variabilidade intrínseca que exige
+novas abordagens de verificação e novos critérios de aceitação.
 
-O foco está em garantir que, apesar da natureza estocástica da geração, o sistema mantenha comportamento previsível e robusto em condições operacionais reais.
+O foco está em garantir que, apesar da natureza estocástica da geração, o
+sistema mantenha comportamento previsível e robusto em condições operacionais
+reais.
 
 ## Learning Objectives
 
@@ -32,16 +38,19 @@ Após estudar esta seção, o leitor deve ser capaz de:
 Código gerado por LLMs apresenta variabilidade em diferentes níveis:
 
 **Variabilidade Inter-Geração:**
+
 - Mesmo prompt pode produzir implementações diferentes
 - Temperatura do modelo afeta criatividade vs. determinismo
 - Contexto e histórico influenciam saída
 
 **Variabilidade Intra-Execução:**
+
 - Comportamento pode variar com mesmos inputs
 - Dependências de estado externo
 - Race conditions em código concorrente
 
 **Variabilidade Temporal:**
+
 - Comportamento muda ao longo do tempo
 - Degradação de performance
 - Acúmulo de estado
@@ -49,6 +58,7 @@ Código gerado por LLMs apresenta variabilidade em diferentes níveis:
 ### 3.1.2 Métricas de Consistência
 
 **Coeficiente de Variação (CV):**
+
 ```
 CV = σ / μ
 
@@ -58,19 +68,22 @@ Onde:
 ```
 
 **Interpretação:**
-| CV | Classificação |
-|----|---------------|
-| < 1% | Altamente consistente |
-| 1-5% | Consistente |
+
+| CV    | Classificação          |
+| ----- | ---------------------- |
+| < 1%  | Altamente consistente  |
+| 1-5%  | Consistente            |
 | 5-15% | Moderadamente variável |
-| > 15% | Altamente variável |
+| > 15% | Altamente variável     |
 
 **Taxa de Divergência:**
+
 ```
 Taxa de Divergência = (Número de execuções diferentes / Total de execuções) × 100
 ```
 
 **Estabilidade Temporal:**
+
 ```
 Estabilidade = 1 - (Variação entre períodos / Variação total)
 ```
@@ -78,6 +91,7 @@ Estabilidade = 1 - (Variação entre períodos / Variação total)
 ### 3.1.3 Testes de Estabilidade
 
 **Teste de Repetição:**
+
 ```python
 def test_consistency_repetition():
     """Executa múltiplas vezes e verifica consistência."""
@@ -85,40 +99,42 @@ def test_consistency_repetition():
     for i in range(100):
         result = function_under_test(input_data)
         results.append(result)
-    
+
     # Verifica se todos os resultados são equivalentes
     assert all(equivalent(r, results[0]) for r in results)
 ```
 
 **Teste de Equivalência Semântica:**
+
 ```python
 def equivalent(result1, result2):
     """Verifica equivalência semântica, não necessariamente igualdade."""
     # Para números de ponto flutuante
     if isinstance(result1, float):
         return abs(result1 - result2) < epsilon
-    
+
     # Para coleções
     if isinstance(result1, (list, set)):
         return set(result1) == set(result2)
-    
+
     # Para dicionários
     if isinstance(result1, dict):
         return result1 == result2
-    
+
     return result1 == result2
 ```
 
 **Teste de Determinismo Estatístico:**
+
 ```python
 def test_statistical_determinism():
     """Verifica se comportamento está dentro de limites estatísticos."""
     results = [function_under_test(input_data) for _ in range(1000)]
-    
+
     mean = statistics.mean(results)
     stdev = statistics.stdev(results)
     cv = stdev / mean
-    
+
     assert cv < ACCEPTABLE_CV_THRESHOLD
 ```
 
@@ -126,21 +142,23 @@ def test_statistical_determinism():
 
 **Definição de Thresholds por Criticidade:**
 
-| Criticidade do Sistema | CV Aceitável | Divergência Aceitável |
-|------------------------|--------------|----------------------|
-| Crítico (saúde, segurança) | 0% | 0% |
-| Alto (financeiro, legal) | < 0.5% | < 1% |
-| Médio (operacional) | < 2% | < 5% |
-| Baixo (análise, relatórios) | < 5% | < 10% |
-| Experimental | < 15% | < 20% |
+| Criticidade do Sistema      | CV Aceitável | Divergência Aceitável |
+| --------------------------- | ------------ | --------------------- |
+| Crítico (saúde, segurança)  | 0%           | 0%                    |
+| Alto (financeiro, legal)    | < 0.5%       | < 1%                  |
+| Médio (operacional)         | < 2%         | < 5%                  |
+| Baixo (análise, relatórios) | < 5%         | < 10%                 |
+| Experimental                | < 15%        | < 20%                 |
 
 **Contextos onde Variabilidade é Aceitável:**
+
 - Sistemas de recomendação
 - Análise de sentimento
 - Geração de conteúdo criativo
 - Classificação com múltiplas classes válidas
 
 **Contextos onde Variabilidade é Inaceitável:**
+
 - Cálculos financeiros
 - Controle de sistemas físicos
 - Decisões médicas
@@ -151,12 +169,14 @@ def test_statistical_determinism():
 ### 3.2.1 Tipos de Variações
 
 **Variações de Input:**
+
 1. **Perturbações:** Pequenas alterações nos dados de entrada
 2. **Edge Cases:** Inputs nos limites do domínio
 3. **Inputs Inválidos:** Dados fora do domínio esperado
 4. **Inputs Adversários:** Dados projetados para induzir falhas
 
 **Variações de Contexto:**
+
 1. **Mudanças Ambientais:** Versões de bibliotecas, configurações
 2. **Mudanças de Estado:** Estado do sistema, sessão do usuário
 3. **Mudanças Temporais:** Hora do dia, dia da semana, sazonalidade
@@ -165,6 +185,7 @@ def test_statistical_determinism():
 ### 3.2.2 Testes de Perturbação
 
 **Perturbação de Strings:**
+
 ```python
 def perturb_string(s):
     """Gera variações de uma string."""
@@ -185,7 +206,7 @@ def test_string_robustness():
     """Testa robustez a variações de string."""
     base_input = "Hello World"
     base_result = process(base_input)
-    
+
     for perturbed in perturb_string(base_input):
         result = process(perturbed)
         # Resultado deve ser equivalente ou tratado adequadamente
@@ -193,6 +214,7 @@ def test_string_robustness():
 ```
 
 **Perturbação Numérica:**
+
 ```python
 def perturb_number(n):
     """Gera variações de um número."""
@@ -209,6 +231,7 @@ def perturb_number(n):
 ```
 
 **Perturbação de Estruturas:**
+
 ```python
 def perturb_dict(d):
     """Gera variações de um dicionário."""
@@ -224,6 +247,7 @@ def perturb_dict(d):
 ### 3.2.3 Testes de Edge Cases
 
 **Framework de Testes de Limite:**
+
 ```python
 class EdgeCaseTests:
     def test_empty_inputs(self):
@@ -233,14 +257,14 @@ class EdgeCaseTests:
         assert process({}) == expected_empty_dict
         assert process(0) == expected_zero
         assert process(None) == expected_none
-    
+
     def test_boundary_values(self):
         """Testa valores nos limites do domínio."""
         assert process(MAX_INT) == expected_max
         assert process(MIN_INT) == expected_min
         assert process(MAX_FLOAT) == expected_max_float
         assert process(MIN_FLOAT) == expected_min_float
-    
+
     def test_extreme_sizes(self):
         """Testa comportamento com tamanhos extremos."""
         assert process("a" * 1000000)  # String muito grande
@@ -250,11 +274,13 @@ class EdgeCaseTests:
 
 ### 3.2.4 Tolerância a Ambiguidade
 
-**Definição:** Capacidade do sistema de lidar com inputs ambíguos ou parcialmente definidos.
+**Definição:** Capacidade do sistema de lidar com inputs ambíguos ou
+parcialmente definidos.
 
 **Estratégias:**
 
 1. **Graceful Degradation:**
+
    ```python
    def process_with_fallback(input_data):
        try:
@@ -266,6 +292,7 @@ class EdgeCaseTests:
    ```
 
 2. **Solicitação de Clareza:**
+
    ```python
    def process_or_request_clarification(input_data):
        confidence = assess_confidence(input_data)
@@ -275,6 +302,7 @@ class EdgeCaseTests:
    ```
 
 3. **Múltiplas Interpretações:**
+
    ```python
    def process_ambiguous(input_data):
        interpretations = generate_interpretations(input_data)
@@ -285,12 +313,14 @@ class EdgeCaseTests:
 ### 3.2.5 Graceful Degradation
 
 **Princípios:**
+
 1. **Nunca falhe silenciosamente:** Sempre comunique problemas
 2. **Forneça valor parcial:** Melhor que nada
 3. **Documente limitações:** Seja transparente sobre restrições
 4. **Recupere-se automaticamente:** Quando possível
 
 **Implementação:**
+
 ```python
 class RobustProcessor:
     def process(self, input_data):
@@ -311,9 +341,11 @@ class RobustProcessor:
 
 ### 3.3.1 Conceito de Determinismo Parcial
 
-**Definição:** Sistema que é determinístico em aspectos críticos e não-determinístico em aspectos não-críticos.
+**Definição:** Sistema que é determinístico em aspectos críticos e
+não-determinístico em aspectos não-críticos.
 
 **Exemplo:**
+
 ```python
 # Determinístico: Cálculo de preço
 def calculate_price(base, tax):
@@ -330,19 +362,20 @@ def recommend_products(user_id):
 
 **Classificação de Componentes:**
 
-| Componente | Determinismo Requerido | Justificativa |
-|------------|------------------------|---------------|
-| Cálculos financeiros | 100% | Compliance, auditoria |
-| Logs e auditoria | 100% | Rastreabilidade |
-| Autenticação | 100% | Segurança |
-| Cache | Alto (>99%) | Consistência |
-| Recomendações | Moderado | Diversidade desejada |
-| UI/UX | Baixo | Personalização |
-| Análise exploratória | Baixo | Flexibilidade |
+| Componente           | Determinismo Requerido | Justificativa         |
+| -------------------- | ---------------------- | --------------------- |
+| Cálculos financeiros | 100%                   | Compliance, auditoria |
+| Logs e auditoria     | 100%                   | Rastreabilidade       |
+| Autenticação         | 100%                   | Segurança             |
+| Cache                | Alto (>99%)            | Consistência          |
+| Recomendações        | Moderado               | Diversidade desejada  |
+| UI/UX                | Baixo                  | Personalização        |
+| Análise exploratória | Baixo                  | Flexibilidade         |
 
 ### 3.3.3 Implementação de Determinismo Controlado
 
 **Semente Aleatória:**
+
 ```python
 import random
 
@@ -361,6 +394,7 @@ result3 = deterministic_sample(items, 5)  # Seed aleatória
 ```
 
 **Versionamento de Comportamento:**
+
 ```python
 class BehaviorVersion:
     V1_0 = "1.0"  # Comportamento original
@@ -437,7 +471,7 @@ sistema_critico:
   robustez:
     perturbacao_taxa_sucesso: 1.0
     edge_cases_cobertos: 1.0
-  
+
 sistema_alto_risco:
   consistencia:
     cv_max: 0.005      # 0.5%
@@ -466,6 +500,7 @@ sistema_baixo_risco:
 ### 3.4.3 Automação de Quality Gates
 
 **Pipeline de CI/CD:**
+
 ```yaml
 # .github/workflows/quality-gates.yml
 name: Quality Gates
@@ -481,7 +516,7 @@ jobs:
         run: |
           python -m py_compile src/**/*.py
           flake8 src/
-  
+
   gate-2-static-analysis:
     needs: gate-1-syntax
     runs-on: ubuntu-latest
@@ -490,7 +525,7 @@ jobs:
         uses: sonarqube-quality-gate-action@master
         with:
           scanMetadataReportFile: .scannerwork/report-task.txt
-  
+
   gate-3-functional-tests:
     needs: gate-2-static-analysis
     runs-on: ubuntu-latest
@@ -500,7 +535,7 @@ jobs:
       - name: Coverage Threshold
         run: |
           coverage report --fail-under=80
-  
+
   gate-4-behavioral-consistency:
     needs: gate-3-functional-tests
     runs-on: ubuntu-latest
@@ -511,7 +546,7 @@ jobs:
       - name: Check CV
         run: |
           python scripts/check_cv.py --threshold=0.02
-  
+
   gate-5-robustness:
     needs: gate-4-behavioral-consistency
     runs-on: ubuntu-latest
@@ -527,38 +562,41 @@ jobs:
 ### 3.5.1 Tipos de Testes de Estresse
 
 **1. Testes de Carga:**
+
 ```python
 def stress_test_load():
     """Testa comportamento sob alta carga."""
     import concurrent.futures
-    
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=100) as executor:
-        futures = [executor.submit(process, input_data) 
+        futures = [executor.submit(process, input_data)
                   for _ in range(10000)]
         results = [f.result() for f in concurrent.futures.as_completed(futures)]
-    
+
     # Verifica consistência sob carga
     assert consistency_check(results)
 ```
 
 **2. Testes de Longa Duração:**
+
 ```python
 def stress_test_duration():
     """Testa comportamento ao longo do tempo."""
     start_time = time.time()
     duration = 3600  # 1 hora
-    
+
     results = []
     while time.time() - start_time < duration:
         result = process(input_data)
         results.append(result)
         time.sleep(1)
-    
+
     # Analisa drift temporal
     assert temporal_stability(results)
 ```
 
 **3. Testes de Recuperação:**
+
 ```python
 def stress_test_recovery():
     """Testa recuperação após falhas."""
@@ -569,13 +607,14 @@ def stress_test_recovery():
                 process(input_data)
             except:
                 pass
-        
+
         # Verifica recuperação
         result = process(input_data)
         assert result is not None
 ```
 
 **4. Testes de Degradação:**
+
 ```python
 def stress_test_degradation():
     """Testa degradação gradual de recursos."""
@@ -587,22 +626,24 @@ def stress_test_degradation():
 
 ### 3.5.2 Métricas de Estresse
 
-| Métrica | Descrição | Threshold |
-|---------|-----------|-----------|
-| Throughput | Requisições por segundo | > 100 req/s |
-| Latência P99 | Latência no percentil 99 | < 500ms |
-| Taxa de Erro | Percentual de falhas | < 0.1% |
-| Recuperação | Tempo para recuperação | < 5s |
-| Degradação | Perda de performance | < 20% |
+| Métrica      | Descrição                | Threshold   |
+| ------------ | ------------------------ | ----------- |
+| Throughput   | Requisições por segundo  | > 100 req/s |
+| Latência P99 | Latência no percentil 99 | < 500ms     |
+| Taxa de Erro | Percentual de falhas     | < 0.1%      |
+| Recuperação  | Tempo para recuperação   | < 5s        |
+| Degradação   | Perda de performance     | < 20%       |
 
 ### 3.5.3 Ferramentas de Teste de Estresse
 
 **Ferramentas Gerais:**
+
 - Locust (testes de carga)
 - JMeter (testes de performance)
 - k6 (testes modernos)
 
 **Ferramentas Específicas para IA:**
+
 - Chaos Monkey (testes de resiliência)
 - Toxiproxy (simulação de falhas de rede)
 - Custom frameworks para perturbação
@@ -612,18 +653,21 @@ def stress_test_degradation():
 ### Aplicações Reais
 
 **Caso 1: Sistema de Trading Algorítmico**
+
 - Implementou quality gates estatísticos rigorosos
 - CV máximo de 0.1% para cálculos de preço
 - 99.99% de consistência em testes de estresse
 - Resultado: Zero incidentes de consistência em 12 meses
 
 **Caso 2: Sistema de Recomendação E-commerce**
+
 - Aceita variabilidade moderada (CV < 5%)
 - Testes de perturbação identificaram 15 edge cases
 - Implementou graceful degradation
 - Resultado: +23% em engajamento, -40% em reclamações
 
 **Caso 3: Sistema de Processamento de Documentos**
+
 - Testes de robustez com 50+ tipos de perturbação
 - Identificou falhas em inputs não-latinos
 - Melhorou tratamento de encoding
@@ -632,7 +676,8 @@ def stress_test_degradation():
 ### Limitações
 
 1. **Custo Computacional:** Testes extensivos aumentam tempo de CI/CD
-2. **Falsos Negativos:** Variabilidade natural pode ser confundida com instabilidade
+2. **Falsos Negativos:** Variabilidade natural pode ser confundida com
+   instabilidade
 3. **Complexidade:** Implementação de testes de perturbação requer expertise
 4. **Manutenção:** Thresholds precisam de ajuste contínuo
 
@@ -646,29 +691,41 @@ def stress_test_degradation():
 
 ## Summary
 
-- **Consistência comportamental** é crítica em sistemas híbridos e deve ser medida através de coeficiente de variação, taxa de divergência e estabilidade temporal
-- **Robustez a variações** requer testes de perturbação, edge cases e graceful degradation
-- **Determinismo parcial** permite balancear previsibilidade e flexibilidade conforme criticidade
-- **Quality gates estatísticos** adicionam camadas de verificação específicas para comportamento estocástico
+- **Consistência comportamental** é crítica em sistemas híbridos e deve ser
+  medida através de coeficiente de variação, taxa de divergência e estabilidade
+  temporal
+- **Robustez a variações** requer testes de perturbação, edge cases e graceful
+  degradation
+- **Determinismo parcial** permite balancear previsibilidade e flexibilidade
+  conforme criticidade
+- **Quality gates estatísticos** adicionam camadas de verificação específicas
+  para comportamento estocástico
 - **Testes de estresse** devem incluir carga, duração, recuperação e degradação
 
 ## Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — consistência e robustez são fundamentos atemporais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — testes comportamentais exigem execuções múltiplas e análise estatística |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — inconsistências em sistemas críticos podem ter consequências graves |
+| Critério                        | Descrição                                                | Avaliação                                                                          |
+| ------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa** — consistência e robustez são fundamentos atemporais                     |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — testes comportamentais exigem execuções múltiplas e análise estatística |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — inconsistências em sistemas críticos podem ter consequências graves  |
 
 ## References
 
-1. ACM Computing Surveys, "ConTested: Consistency-Aided Tested Code Generation with LLM," ACM, 2025.
-2. ScienceDirect, "Functional Consistency of LLM Code Embeddings: A Self-Evolving Framework," Expert Systems with Applications, 2025.
-3. arXiv, "Quality Assurance of LLM-generated Code: Addressing Non-Functional Quality Characteristics," arXiv:2511.10271, 2025.
-4. OpenAI, "Evaluating chain-of-thought monitorability," OpenAI Research, 2025.
-5. IEEE, "Statistical Quality Gates for Non-Deterministic Software Systems," IEEE Transactions on Software Engineering, 2025.
-6. Martin, R., "Clean Architecture: A Craftsman's Guide to Software Structure and Design," Prentice Hall, 2017.
-7. Nygard, M., "Release It! Design and Deploy Production-Ready Software," 2nd Edition, Pragmatic Bookshelf, 2018.
-8. Newman, S., "Building Microservices," O'Reilly Media, 2021.
-9. Beyer, B., et al., "Site Reliability Engineering," O'Reilly Media, 2016.
-10. Fowlkes, C., "Robustness Testing for AI-Generated Code," arXiv:2502.90123, 2025.
+01. ACM Computing Surveys, "ConTested: Consistency-Aided Tested Code Generation
+    with LLM," ACM, 2025.
+02. ScienceDirect, "Functional Consistency of LLM Code Embeddings: A
+    Self-Evolving Framework," Expert Systems with Applications, 2025.
+03. arXiv, "Quality Assurance of LLM-generated Code: Addressing Non-Functional
+    Quality Characteristics," arXiv:2511.10271, 2025.
+04. OpenAI, "Evaluating chain-of-thought monitorability," OpenAI Research, 2025.
+05. IEEE, "Statistical Quality Gates for Non-Deterministic Software Systems,"
+    IEEE Transactions on Software Engineering, 2025.
+06. Martin, R., "Clean Architecture: A Craftsman's Guide to Software Structure
+    and Design," Prentice Hall, 2017.
+07. Nygard, M., "Release It! Design and Deploy Production-Ready Software," 2nd
+    Edition, Pragmatic Bookshelf, 2018.
+08. Newman, S., "Building Microservices," O'Reilly Media, 2021.
+09. Beyer, B., et al., "Site Reliability Engineering," O'Reilly Media, 2016.
+10. Fowlkes, C., "Robustness Testing for AI-Generated Code," arXiv:2502.90123,
+    2025\.

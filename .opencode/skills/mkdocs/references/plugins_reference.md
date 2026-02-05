@@ -1,23 +1,28 @@
 # MkDocs Plugins Reference
 
-This reference provides comprehensive configuration options for essential MkDocs plugins used in documentation projects. Each plugin section includes all configuration options, YAML examples, and common usage patterns.
+This reference provides comprehensive configuration options for essential MkDocs
+plugins used in documentation projects. Each plugin section includes all
+configuration options, YAML examples, and common usage patterns.
 
 ## Table of Contents
 
 1. [mkdocstrings](#mkdocstrings) - Automatic documentation from docstrings
-2. [mkdocs-gen-files](#mkdocs-gen-files) - Programmatically generate documentation pages
+2. [mkdocs-gen-files](#mkdocs-gen-files) - Programmatically generate
+   documentation pages
 3. [mkdocs-literate-nav](#mkdocs-literate-nav) - Specify navigation in Markdown
 4. [mkdoxy](#mkdoxy) - C/C++ Doxygen documentation integration
 5. [mkdocs-typer2](#mkdocs-typer2) - Typer CLI documentation
 6. [mermaid2](#mermaid2) - Mermaid diagrams support
 7. [termynal](#termynal) - Terminal animations
-8. [mkdocs-git-latest-changes-plugin](#mkdocs-git-latest-changes-plugin) - Recently updated pages
+8. [mkdocs-git-latest-changes-plugin](#mkdocs-git-latest-changes-plugin) -
+   Recently updated pages
 
----
+______________________________________________________________________
 
 ## mkdocstrings
 
-**Purpose**: Automatically generate API documentation from source code docstrings.
+**Purpose**: Automatically generate API documentation from source code
+docstrings.
 
 **Official Documentation**: <https://mkdocstrings.github.io/>
 
@@ -213,11 +218,12 @@ With custom handler:
 See [`mypackage.MyClass`][] for more details.
 ```
 
----
+______________________________________________________________________
 
 ## mkdocs-gen-files
 
-**Purpose**: Programmatically generate documentation pages during the build process.
+**Purpose**: Programmatically generate documentation pages during the build
+process.
 
 **Official Documentation**: <https://oprypin.github.io/mkdocs-gen-files/>
 
@@ -320,7 +326,7 @@ with mkdocs_gen_files.open("CHANGELOG.md", "w") as f:
         print(f"- {line}", file=f)
 ```
 
----
+______________________________________________________________________
 
 ## mkdocs-literate-nav
 
@@ -411,7 +417,7 @@ plugins:
   - mkdocstrings
 ```
 
----
+______________________________________________________________________
 
 ## mkdoxy
 
@@ -527,7 +533,7 @@ plugins:
 ::: doxy.myProjectCpp full-doc: true
 ```
 
----
+______________________________________________________________________
 
 ## mkdocs-typer2
 
@@ -612,7 +618,7 @@ Document it with:
 ::: mkdocs-typer2 :module: myapp.admin_cli :name: Admin Tools :pretty: true
 ```
 
----
+______________________________________________________________________
 
 ## mermaid2
 
@@ -754,7 +760,7 @@ extra_javascript:
 # }
 ```
 
----
+______________________________________________________________________
 
 ## termynal
 
@@ -879,13 +885,14 @@ With custom settings
 ```
 ````
 
----
+______________________________________________________________________
 
 ## mkdocs-git-latest-changes-plugin
 
 **Purpose**: Display a list of recently modified pages from the Git log.
 
-**Official Documentation**: <https://tombreit.github.io/mkdocs-git-latest-changes-plugin/>
+**Official Documentation**:
+<https://tombreit.github.io/mkdocs-git-latest-changes-plugin/>
 
 ### Installation
 
@@ -961,7 +968,8 @@ Below are the most recently modified pages:
 
 #### Multiple Instances
 
-You can use `{{ latest_changes }}` multiple times in different pages, each will render independently based on the plugin configuration.
+You can use `{{ latest_changes }}` multiple times in different pages, each will
+render independently based on the plugin configuration.
 
 ### Custom Styling
 
@@ -1000,7 +1008,8 @@ extra_css:
 
 ### Integration with CI/CD
 
-The plugin works best with a complete Git history. In CI/CD pipelines, ensure full history is fetched:
+The plugin works best with a complete Git history. In CI/CD pipelines, ensure
+full history is fetched:
 
 ```yaml
 # GitHub Actions example
@@ -1010,7 +1019,7 @@ The plugin works best with a complete Git history. In CI/CD pipelines, ensure fu
     fetch-depth: 0 # Fetch all history
 ```
 
----
+______________________________________________________________________
 
 ## Common Multi-Plugin Configurations
 
@@ -1090,11 +1099,12 @@ plugins:
       show_commit: true
 ```
 
----
+______________________________________________________________________
 
 ## Tips and Best Practices
 
-1. **Plugin Order Matters**: Some plugins depend on others. Generally use this order:
+1. **Plugin Order Matters**: Some plugins depend on others. Generally use this
+   order:
 
    - gen-files (generates files)
    - literate-nav (processes navigation)
@@ -1107,7 +1117,8 @@ plugins:
    - Use `show_source: false` if source code display isn't needed
    - Consider using `enable_inventory: false` if cross-references aren't needed
 
-3. **Version Pinning**: Pin plugin versions in requirements.txt for reproducible builds:
+3. **Version Pinning**: Pin plugin versions in requirements.txt for reproducible
+   builds:
 
    ```text
    mkdocstrings==0.24.0
@@ -1122,6 +1133,7 @@ plugins:
    ```
 
 5. **Debugging**: Enable verbose output to debug plugin issues:
+
    ```bash
    mkdocs build --verbose
    ```

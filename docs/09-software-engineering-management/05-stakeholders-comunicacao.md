@@ -1,19 +1,24 @@
 ---
-title: "Gestão de Stakeholders e Comunicação"
-created_at: "2026-01-31"
-tags: ["stakeholders", "comunicacao", "expectativas", "transparencia", "ia"]
-status: "draft"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: Gestão de Stakeholders e Comunicação
+created_at: '2026-01-31'
+tags: [stakeholders, comunicacao, expectativas, transparencia, ia]
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 5. Gestao de Stakeholders e Comunicacao
 
 ## Overview
 
-Em projetos com IA, a velocidade de geracao pode criar uma ilusao de progresso. Se a comunicacao focar apenas em “o que foi gerado”, stakeholders superestimam previsibilidade, subestimam risco e pressionam por escopo. O efeito pratico e atraso, retrabalho e conflito.
+Em projetos com IA, a velocidade de geracao pode criar uma ilusao de progresso.
+Se a comunicacao focar apenas em “o que foi gerado”, stakeholders superestimam
+previsibilidade, subestimam risco e pressionam por escopo. O efeito pratico e
+atraso, retrabalho e conflito.
 
-Esta secao oferece um kit de comunicacao reader-first: como alinhar expectativas, como reportar progresso com foco em verificacao e como negociar trade-offs de forma auditavel.
+Esta secao oferece um kit de comunicacao reader-first: como alinhar
+expectativas, como reportar progresso com foco em verificacao e como negociar
+trade-offs de forma auditavel.
 
 ## Learning Objectives
 
@@ -57,13 +62,14 @@ Decisoes da semana: <lista curta>
 
 Use uma regra de triagem:
 
-| Valor | Custo de verificacao | Decisao |
-|------|-----------------------|---------|
-| Alto | Baixo | Incluir |
-| Alto | Alto | Replanejar e incluir |
-| Baixo | Alto | Deferir/rejeitar |
+| Valor | Custo de verificacao | Decisao              |
+| ----- | -------------------- | -------------------- |
+| Alto  | Baixo                | Incluir              |
+| Alto  | Alto                 | Replanejar e incluir |
+| Baixo | Alto                 | Deferir/rejeitar     |
 
-Exija que trade-offs sejam registrados: o que foi reduzido (testes, cobertura de casos, gates) e qual mitigação compensatória foi aceita.
+Exija que trade-offs sejam registrados: o que foi reduzido (testes, cobertura de
+casos, gates) e qual mitigação compensatória foi aceita.
 
 ## 5.4 Transparencia sobre Uso de IA
 
@@ -85,11 +91,11 @@ Transparencia nao e “listar ferramentas”; e explicitar politicas:
 
 ### Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada |
+| Critério                        | Descrição                                                | Avaliação |
+| ------------------------------- | -------------------------------------------------------- | --------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa     |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Moderada  |
 
 ## Summary
 
@@ -100,5 +106,7 @@ Transparencia nao e “listar ferramentas”; e explicitar politicas:
 
 ## References
 
-1. PMI. A Guide to the Project Management Body of Knowledge (PMBOK Guide). 7. ed. Newtown Square: Project Management Institute, 2021.
-2. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software and DevOps. Portland: IT Revolution Press, 2018.
+1. PMI. A Guide to the Project Management Body of Knowledge (PMBOK Guide). 7.
+   ed. Newtown Square: Project Management Institute, 2021.
+2. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software
+   and DevOps. Portland: IT Revolution Press, 2018.

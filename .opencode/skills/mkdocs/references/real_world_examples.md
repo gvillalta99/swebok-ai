@@ -1,6 +1,7 @@
 # Real-World MkDocs Examples
 
-A comprehensive collection of active MkDocs implementations, deployment workflows, and best practices from production projects.
+A comprehensive collection of active MkDocs implementations, deployment
+workflows, and best practices from production projects.
 
 ## Active GitHub Repositories Using MkDocs
 
@@ -31,6 +32,7 @@ A comprehensive collection of active MkDocs implementations, deployment workflow
    - Stars: 28k+
 
 4. **Material for MkDocs** - <https://github.com/squidfunk/mkdocs-material>
+
    - The most popular MkDocs theme
    - Self-documenting (uses itself)
    - Configuration: `mkdocs.yml`
@@ -54,6 +56,7 @@ A comprehensive collection of active MkDocs implementations, deployment workflow
    - Stars: 400+
 
 7. **Docling** - <https://github.com/docling-project/docling>
+
    - Document preparation for Gen AI
    - MkDocs with custom configuration
    - Workflow: `.github/workflows/docs.yml`
@@ -61,22 +64,23 @@ A comprehensive collection of active MkDocs implementations, deployment workflow
 
 ### Developer Tools
 
-8. **Titiler** - <https://github.com/developmentseed/titiler>
+08. **Titiler** - <https://github.com/developmentseed/titiler>
 
-   - Dynamic map tile services
-   - Material for MkDocs
-   - Workflow: `.github/workflows/deploy_mkdocs.yml`
-   - Live site: <https://developmentseed.org/titiler/>
-   - Stars: 800+
+    - Dynamic map tile services
+    - Material for MkDocs
+    - Workflow: `.github/workflows/deploy_mkdocs.yml`
+    - Live site: <https://developmentseed.org/titiler/>
+    - Stars: 800+
 
-9. **Google Timesketch** - <https://github.com/google/timesketch>
+09. **Google Timesketch** - <https://github.com/google/timesketch>
 
-   - Collaborative forensic timeline analysis
-   - MkDocs Material theme
-   - Workflow: `.github/workflows/documentation.yml`
-   - Stars: 2.5k+
+    - Collaborative forensic timeline analysis
+    - MkDocs Material theme
+    - Workflow: `.github/workflows/documentation.yml`
+    - Stars: 2.5k+
 
 10. **APIO (FPGAwars)** - <https://github.com/FPGAwars/apio>
+
     - Open source ecosystem for FPGA boards
     - MkDocs documentation
     - Workflow: `.github/workflows/publish-mkdocs-docs.yaml`
@@ -113,6 +117,7 @@ A comprehensive collection of active MkDocs implementations, deployment workflow
     - Stars: 300+
 
 15. **Django File Form** - <https://github.com/mbraak/django-file-form>
+
     - Django form component docs
     - MkDocs implementation
     - Workflow: `.github/workflows/mkdocs.yml`
@@ -126,7 +131,8 @@ A comprehensive collection of active MkDocs implementations, deployment workflow
    - Live site: <https://pages.gitlab.io/mkdocs>
    - Default template for GitLab MkDocs projects
 
-2. **to-be-continuous MkDocs** - <https://to-be-continuous.gitlab.io/doc/ref/mkdocs/>
+2. **to-be-continuous MkDocs** -
+   <https://to-be-continuous.gitlab.io/doc/ref/mkdocs/>
 
    - CI/CD pipeline templates for MkDocs
    - Provides reusable GitLab CI configurations
@@ -142,6 +148,7 @@ A comprehensive collection of active MkDocs implementations, deployment workflow
    - Private repositories but similar patterns
 
 5. **Open Source GitLab Projects**
+
    - Various FOSS projects hosted on GitLab
    - Similar CI/CD patterns to GitHub
 
@@ -530,6 +537,7 @@ Deploy PR previews to separate URLs:
    - Rich examples
 
 3. **Material for MkDocs** - <https://squidfunk.github.io/mkdocs-material/>
+
    - Feature showcase
    - Insiders program docs
    - Blog integration
@@ -550,6 +558,7 @@ Deploy PR previews to separate URLs:
    - Community contributions
 
 9. **Hummingbot** - <https://docs.hummingbot.org/>
+
    - Trading bot documentation
    - Complex navigation structure
    - API references

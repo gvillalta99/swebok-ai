@@ -1,26 +1,33 @@
 ---
-title: "03 - Model-Driven Development com LLMs"
-created_at: "2025-01-31"
-tags: ["processos", "mdd", "model-driven", "llm", "especificacoes", "geracao", "uml"]
-status: "draft"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: 03 - Model-Driven Development com LLMs
+created_at: '2025-01-31'
+tags: [processos, mdd, model-driven, llm, especificacoes, geracao, uml]
+status: draft
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 3. Model-Driven Development com LLMs
 
 ## Overview
 
-Model-Driven Development (MDD) tenta elevar o nivel de abstracao, usando modelos e especificacoes como artefatos primarios. Em uma perspectiva AI-first, essa ideia reaparece com outra forma: especificacoes estruturadas (em linguagem natural ou notacoes formais) podem orientar geracao, mas continuam exigindo verificacao rigorosa.
+Model-Driven Development (MDD) tenta elevar o nivel de abstracao, usando modelos
+e especificacoes como artefatos primarios. Em uma perspectiva AI-first, essa
+ideia reaparece com outra forma: especificacoes estruturadas (em linguagem
+natural ou notacoes formais) podem orientar geracao, mas continuam exigindo
+verificacao rigorosa.
 
-Esta secao trata MDD como disciplina de especificacao: definir contratos, invariantes e modelos de dominio que reduzam ambiguidade e tornem o sistema geravel e verificavel.
+Esta secao trata MDD como disciplina de especificacao: definir contratos,
+invariantes e modelos de dominio que reduzam ambiguidade e tornem o sistema
+geravel e verificavel.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
 1. Distinguir MDD tradicional (transformacoes) de MDD orientado por geracao.
-2. Escrever especificacoes executaveis (contratos e exemplos) para reduzir ambiguidade.
+2. Escrever especificacoes executaveis (contratos e exemplos) para reduzir
+   ambiguidade.
 3. Projetar um ciclo iterativo de geracao + verificacao.
 4. Escolher nivel de abstracao conforme criticidade e risco.
 5. Identificar anti-padroes (especificacoes vagas, geracao sem oraculo).
@@ -29,7 +36,8 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### 3.1.1 Do MDD Tradicional ao MDD com IA
 
-O Model-Driven Development tradicional, popularizado pela OMG com MDA (Model-Driven Architecture), baseava-se em:
+O Model-Driven Development tradicional, popularizado pela OMG com MDA
+(Model-Driven Architecture), baseava-se em:
 
 - Modelos formais (UML, SysML, DSLs) como artefatos primários
 - Transformações automatizadas entre níveis de abstração
@@ -37,6 +45,7 @@ O Model-Driven Development tradicional, popularizado pela OMG com MDA (Model-Dri
 - Sincronização bidirecional entre modelo e código
 
 **Limitações do MDD Tradicional:**
+
 - Curva de aprendizado íngreme de linguagens de modelagem
 - Dificuldade em manter modelos e código sincronizados
 - Rigidez nas transformações predefinidas
@@ -44,21 +53,24 @@ O Model-Driven Development tradicional, popularizado pela OMG com MDA (Model-Dri
 
 **MDD com IA (visao operacional):**
 
-- a especificacao vira o artefato central (contratos, exemplos, modelos de dominio),
+- a especificacao vira o artefato central (contratos, exemplos, modelos de
+  dominio),
 - a geracao produz candidatos,
 - a verificacao (testes/validadores) decide aceitacao.
 
-| Aspecto | MDD Tradicional | MDD com LLMs |
-|---------|----------------|--------------|
-| **Artefato Primário** | Modelos formais (UML, DSLs) | Especificações em linguagem natural + constraints |
-| **Geração** | Transformações predefinidas | Geração contextual por LLM |
-| **Iteração** | Lenta (sincronização manual) | Rápida (regeneração em segundos) |
-| **Flexibilidade** | Baixa (regras rígidas) | Alta (adaptação contextual) |
-| **Custo de Entrada** | Alto (ferramentas, treinamento) | Baixo (acesso a LLMs) |
+| Aspecto               | MDD Tradicional                 | MDD com LLMs                                      |
+| --------------------- | ------------------------------- | ------------------------------------------------- |
+| **Artefato Primário** | Modelos formais (UML, DSLs)     | Especificações em linguagem natural + constraints |
+| **Geração**           | Transformações predefinidas     | Geração contextual por LLM                        |
+| **Iteração**          | Lenta (sincronização manual)    | Rápida (regeneração em segundos)                  |
+| **Flexibilidade**     | Baixa (regras rígidas)          | Alta (adaptação contextual)                       |
+| **Custo de Entrada**  | Alto (ferramentas, treinamento) | Baixo (acesso a LLMs)                             |
 
 ### 3.1.2 Especificacao como Entrada de Geracao
 
-O conceito central do MDD com LLMs é que **a especificação é a geração**. Uma especificação bem estruturada não apenas descreve o comportamento desejado, mas serve como input direto para a geração de código funcional.
+O conceito central do MDD com LLMs é que **a especificação é a geração**. Uma
+especificação bem estruturada não apenas descreve o comportamento desejado, mas
+serve como input direto para a geração de código funcional.
 
 **Elementos de uma Especificação Geradora:**
 
@@ -100,7 +112,9 @@ Entrada: {amount: 100.00, currency: "USD", card_token: "tok_123"}
 Saída: {status: "approved", transaction_id: "txn_456", timestamp: "..."}
 ```
 
-Esta especificação, quando processada por um LLM com contexto adequado, pode gerar código funcional completo, incluindo validações, tratamento de erros e logging.
+Esta especificação, quando processada por um LLM com contexto adequado, pode
+gerar código funcional completo, incluindo validações, tratamento de erros e
+logging.
 
 ## 3.2 Especificacao Executavel: Contratos e Exemplos
 
@@ -108,21 +122,21 @@ Esta especificação, quando processada por um LLM com contexto adequado, pode g
 
 Prompts efetivos para geração de código seguem princípios específicos:
 
-**1. Clareza de Intenção**
-O prompt deve comunicar claramente o objetivo, não apenas a implementação.
+**1. Clareza de Intenção** O prompt deve comunicar claramente o objetivo, não
+apenas a implementação.
 
 ```
 # BOM: Foca no objetivo
-"Crie uma função que calcule o frete baseado em peso, 
+"Crie uma função que calcule o frete baseado em peso,
 dimensões e distância, aplicando taxas regionais"
 
 # RUIM: Foca na implementação
-"Crie uma função com 4 parâmetros: peso, altura, 
+"Crie uma função com 4 parâmetros: peso, altura,
 largura, distância. Use if-else para taxas."
 ```
 
-**2. Contexto Completo**
-Fornecer informação suficiente para decisões de design apropriadas.
+**2. Contexto Completo** Fornecer informação suficiente para decisões de design
+apropriadas.
 
 Nao confunda “contexto” com “lista de ferramentas”. O que importa e declarar:
 
@@ -131,8 +145,8 @@ Nao confunda “contexto” com “lista de ferramentas”. O que importa e decl
 - restricoes (seguranca, performance),
 - exemplos.
 
-**3. Constraints Explícitas**
-Definir limites claros do que pode e não pode ser feito.
+**3. Constraints Explícitas** Definir limites claros do que pode e não pode ser
+feito.
 
 ```markdown
 ## Constraints
@@ -142,8 +156,8 @@ Definir limites claros do que pode e não pode ser feito.
 - MÁXIMO 100 registros por página
 ```
 
-**4. Exemplos de Entrada/Saída**
-Demonstrar comportamento esperado com exemplos concretos.
+**4. Exemplos de Entrada/Saída** Demonstrar comportamento esperado com exemplos
+concretos.
 
 ```markdown
 ## Exemplo
@@ -160,37 +174,39 @@ Output: {
 
 **Padrao 1: Contrato-first**
 
-```markdown
-Você é um engenheiro de software sênior. Gere código baseado na seguinte 
+````markdown
+Você é um engenheiro de software sênior. Gere código baseado na seguinte
 especificação de contrato:
 
 ## Interface
 ```python
-def process_payment(amount: Decimal, currency: str, 
+def process_payment(amount: Decimal, currency: str,
                    customer_id: str) -> PaymentResult:
     """
     Processa pagamento garantindo idempotência.
-    
+
     Args:
         amount: Valor positivo com 2 casas decimais
         currency: Código ISO 4217 (3 letras)
         customer_id: UUID válido
-    
+
     Returns:
         PaymentResult com status e transaction_id
-    
+
     Raises:
         InvalidAmountError: se amount <= 0
         CurrencyNotSupportedError: se moeda não suportada
     """
-```
+````
 
 ## Implementação Requerida
+
 - Usar padrão Unit of Work
 - Implementar idempotência via idempotency_key
 - Logar todas as transações
 - Validar precondições
-```
+
+````
 
 **Padrao 2: Especificacao por exemplo**
 
@@ -213,7 +229,7 @@ Output: 30.0  # 15% de desconto por volume
 - Clientes PREMIUM: 20% desconto
 - Quantidade >= 10: +15% desconto
 - Valor mínimo para desconto: $100
-```
+````
 
 **Padrao 3: Transformacao (LEGADO -> moderno)**
 
@@ -254,18 +270,21 @@ Antes de usar uma especificação para geração em larga escala, valide:
 O desenvolvimento iterativo com LLMs segue um ciclo acelerado:
 
 **Fase 1: Exploração (Protótipo)**
+
 - Especificação inicial em linguagem natural
 - Geração rápida de protótipo funcional
 - Feedback imediato de stakeholders
 - Validação de conceito
 
 **Fase 2: Refinamento (MVP)**
+
 - Especificação detalhada baseada no aprendizado
 - Geração com constraints adicionais
 - Implementação de testes
 - Validação de qualidade
 
 **Fase 3: Produção (Produto)**
+
 - Especificação formalizada e versionada
 - Geração com padrões arquiteturais
 - Curadoria de todo código gerado
@@ -320,8 +339,8 @@ O desenvolvimento iterativo com LLMs segue um ciclo acelerado:
 
 ### 3.3.3 Estratégias de Refinamento
 
-**Refinamento por Decomposição:**
-Quando uma especificação gera código muito complexo, decompor em partes menores:
+**Refinamento por Decomposição:** Quando uma especificação gera código muito
+complexo, decompor em partes menores:
 
 ```markdown
 ## Especificação Original (Complexa)
@@ -337,8 +356,7 @@ Quando uma especificação gera código muito complexo, decompor em partes menor
 "Integre os módulos 1-4 seguindo o padrão API Gateway"
 ```
 
-**Refinamento por Exemplificação:**
-Adicionar mais exemplos para casos de borda:
+**Refinamento por Exemplificação:** Adicionar mais exemplos para casos de borda:
 
 ```markdown
 ## Especificação Inicial
@@ -350,8 +368,8 @@ Inválidos: user@, @domain.com, user@@domain.com
 Casos de borda: user+tag@domain.com, user@sub.domain.com
 ```
 
-**Refinamento por Constraint:**
-Adicionar restrições quando o código gerado excede limites:
+**Refinamento por Constraint:** Adicionar restrições quando o código gerado
+excede limites:
 
 ```markdown
 ## Constraint Adicionada
@@ -365,7 +383,9 @@ Adicionar restrições quando o código gerado excede limites:
 
 ### 3.4.1 UML/OCL como Precisao Adicional
 
-UML e OCL podem reduzir ambiguidade ao explicitar estrutura e invariantes. Mesmo assim, a geracao precisa de oraculos: testes e validadores que confirmem conformidade.
+UML e OCL podem reduzir ambiguidade ao explicitar estrutura e invariantes. Mesmo
+assim, a geracao precisa de oraculos: testes e validadores que confirmem
+conformidade.
 
 **Fluxo de Trabalho:**
 
@@ -382,7 +402,7 @@ class Produto {
   +nome: String
   +preco: Decimal
   +estoque: Integer
-  
+
   context Produto inv: preco > 0
   context Produto inv: estoque >= 0
 }
@@ -391,7 +411,7 @@ class Pedido {
   +id: UUID
   +data: DateTime
   +status: StatusPedido
-  
+
   context Pedido inv: itens->notEmpty()
 }
 
@@ -399,6 +419,7 @@ Produto "0..*" -- "1..*" Pedido : contém >
 ```
 
 O LLM pode gerar:
+
 - Classes Python/Django com validações
 - Migrations de banco de dados
 - Serializers para API
@@ -418,7 +439,7 @@ resource Produto {
     preco: Decimal (required, min: 0)
     estoque: Integer (min: 0)
   }
-  
+
   endpoints {
     GET /produtos (paginated, filter: nome)
     GET /produtos/:id
@@ -430,6 +451,7 @@ resource Produto {
 ```
 
 Esta DSL pode ser processada por um LLM para gerar:
+
 - Models Django/SQLAlchemy
 - Views/Controllers
 - Serializers
@@ -441,6 +463,7 @@ Esta DSL pode ser processada por um LLM para gerar:
 ### Quando Usar MDD com LLMs
 
 **Cenários Ideais:**
+
 - APIs CRUD com padrões bem definidos
 - Microsserviços com arquitetura consistente
 - Migrações de sistemas legados
@@ -448,6 +471,7 @@ Esta DSL pode ser processada por um LLM para gerar:
 - Geração de código boilerplate
 
 **Cenários Desafiadores:**
+
 - Algoritmos altamente especializados
 - Sistemas com requisitos de performance extremos
 - Código com dependências complexas de estado
@@ -455,38 +479,41 @@ Esta DSL pode ser processada por um LLM para gerar:
 
 ### Anti-Padroes
 
-**1. Especificações Vagas**
-Prompts genéricos geram código genérico. Especificar claramente o contexto e constraints.
+**1. Especificações Vagas** Prompts genéricos geram código genérico. Especificar
+claramente o contexto e constraints.
 
-**2. Over-Engineering de Modelos**
-Criar modelos UML excessivamente detalhados antes de validar conceitos. Preferir iteração rápida.
+**2. Over-Engineering de Modelos** Criar modelos UML excessivamente detalhados
+antes de validar conceitos. Preferir iteração rápida.
 
-**3. Geração sem Verificação**
-Aceitar código gerado sem validar contra especificação. Sempre verificar conformidade.
+**3. Geração sem Verificação** Aceitar código gerado sem validar contra
+especificação. Sempre verificar conformidade.
 
-**4. Dependência Excessiva de IA**
-Usar geração para problemas que requerem design profundo. Reconhecer limites da IA.
+**4. Dependência Excessiva de IA** Usar geração para problemas que requerem
+design profundo. Reconhecer limites da IA.
 
 ### Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Media |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Alto |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Alta |
+| Critério                        | Descrição                                                | Avaliação |
+| ------------------------------- | -------------------------------------------------------- | --------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Media     |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Alta      |
 
 ## Summary
 
 - MDD com LLMs transforma **modelos em especificações executáveis**
 - Especificações bem estruturadas servem como **input direto para geração**
-- Prompts efetivos seguem princípios de clareza, contexto, constraints e exemplos
+- Prompts efetivos seguem princípios de clareza, contexto, constraints e
+  exemplos
 - Processos iterativos permitem **refinamento rápido** de protótipos a produtos
 - UML e OCL podem ser interpretados por LLMs para geração de código
 - DSLs informais permitem criar linguagens de domínio customizadas
-- O foco desloca-se de "modelar para documentar" para **"especificar para gerar"**
+- O foco desloca-se de "modelar para documentar" para **"especificar para
+  gerar"**
 
 ## References
 
 1. OMG. Model Driven Architecture (MDA). Object Management Group.
 2. OMG. Unified Modeling Language (UML). Object Management Group.
-3. Adzic, G. Specification by Example: How Successful Teams Deliver the Right Software. New York: Manning, 2011.
+3. Adzic, G. Specification by Example: How Successful Teams Deliver the Right
+   Software. New York: Manning, 2011.

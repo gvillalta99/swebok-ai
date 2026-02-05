@@ -6,7 +6,8 @@ Official Documentation: <https://www.mkdocs.org/user-guide/configuration/>
 
 ## Configuration File
 
-MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in the project root.
+MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in
+the project root.
 
 ## Project Information Settings
 
@@ -16,6 +17,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Required:** Yes
 - **Description:** The name of your documentation site
 - **Example:**
+
   ```yaml
   site_name: My Documentation
   ```
@@ -24,8 +26,10 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 
 - **Type:** `string` (URL)
 - **Default:** `null`
-- **Description:** The canonical URL of the site. Adds canonical link and helps with sitemap generation
+- **Description:** The canonical URL of the site. Adds canonical link and helps
+  with sitemap generation
 - **Example:**
+
   ```yaml
   site_url: https://example.com/docs/
   ```
@@ -36,6 +40,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `null`
 - **Description:** A description of the documentation site (added as meta tag)
 - **Example:**
+
   ```yaml
   site_description: Comprehensive API documentation for our project
   ```
@@ -46,6 +51,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `null`
 - **Description:** The author of the documentation (added as meta tag)
 - **Example:**
+
   ```yaml
   site_author: John Doe
   ```
@@ -54,8 +60,10 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 
 - **Type:** `string` (URL)
 - **Default:** `null`
-- **Description:** Repository URL. Adds a link to your repository (GitHub, GitLab, Bitbucket, etc.)
+- **Description:** Repository URL. Adds a link to your repository (GitHub,
+  GitLab, Bitbucket, etc.)
 - **Example:**
+
   ```yaml
   repo_url: https://github.com/username/repository
   ```
@@ -66,6 +74,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** Automatically detected from `repo_url`
 - **Description:** Repository link text
 - **Example:**
+
   ```yaml
   repo_name: username/repository
   ```
@@ -73,8 +82,11 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 ### edit_uri
 
 - **Type:** `string`
+
 - **Default:** Automatically computed from `repo_url`
+
 - **Description:** Path from `repo_url` to the docs directory for edit links
+
 - **Examples:**
 
   ```yaml
@@ -97,6 +109,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `null`
 - **Description:** Template for edit links using Python string formatting
 - **Example:**
+
   ```yaml
   edit_uri_template: "https://github.com/org/repo/edit/main/docs/{path}"
   ```
@@ -107,6 +120,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `null`
 - **Description:** Copyright notice to display in the footer
 - **Example:**
+
   ```yaml
   copyright: Copyright &copy; 2024 My Company
   ```
@@ -119,6 +133,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `gh-pages`
 - **Description:** The remote branch to commit to for `mkdocs gh-deploy`
 - **Example:**
+
   ```yaml
   remote_branch: gh-pages
   ```
@@ -129,6 +144,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `origin`
 - **Description:** The remote name to push to for `mkdocs gh-deploy`
 - **Example:**
+
   ```yaml
   remote_name: origin
   ```
@@ -141,6 +157,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** Automatically generated from file structure
 - **Description:** Defines the navigation structure
 - **Example:**
+
   ```yaml
   nav:
     - Home: index.md
@@ -166,6 +183,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
   - Any file with `.pyc` extension
   - Hidden files (starting with `.`)
 - **Example:**
+
   ```yaml
   exclude_docs: |
     *.py
@@ -177,8 +195,10 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 
 - **Type:** `string` or `list of strings` (glob patterns)
 - **Default:** `null`
-- **Description:** Files to treat as drafts (shown in `serve`, excluded from `build`)
+- **Description:** Files to treat as drafts (shown in `serve`, excluded from
+  `build`)
 - **Example:**
+
   ```yaml
   draft_docs: |
     drafts/**
@@ -189,8 +209,10 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 
 - **Type:** `string` or `list of strings` (glob patterns)
 - **Default:** `null`
-- **Description:** Pages to include in build but not warn about if missing from nav
+- **Description:** Pages to include in build but not warn about if missing from
+  nav
 - **Example:**
+
   ```yaml
   not_in_nav: |
     api/**
@@ -205,6 +227,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `docs`
 - **Description:** Directory containing documentation source files
 - **Example:**
+
   ```yaml
   docs_dir: documentation
   ```
@@ -215,6 +238,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `site`
 - **Description:** Directory where the output HTML is built
 - **Example:**
+
   ```yaml
   site_dir: public
   ```
@@ -227,10 +251,13 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `mkdocs`
 - **Description:** The theme to use for the documentation
 - **Simple Example:**
+
   ```yaml
   theme: readthedocs
   ```
+
 - **Advanced Example:**
+
   ```yaml
   theme:
     name: material
@@ -270,6 +297,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `null`
 - **Description:** Directory with custom theme overrides
 - **Example:**
+
   ```yaml
   theme:
     name: material
@@ -282,6 +310,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `[]`
 - **Description:** Static template pages to render
 - **Example:**
+
   ```yaml
   theme:
     name: mkdocs
@@ -296,6 +325,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `en`
 - **Description:** Language locale for the theme
 - **Example:**
+
   ```yaml
   theme:
     name: material
@@ -310,6 +340,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `[]`
 - **Description:** Additional CSS files to include
 - **Example:**
+
   ```yaml
   extra_css:
     - css/custom.css
@@ -323,12 +354,15 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `[]`
 - **Description:** Additional JavaScript files to include
 - **Simple Example:**
+
   ```yaml
   extra_javascript:
     - js/custom.js
     - https://cdn.example.com/script.js
   ```
+
 - **Advanced Example with attributes:**
+
   ```yaml
   extra_javascript:
     - path: js/custom.js
@@ -345,6 +379,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `[]`
 - **Description:** Additional template files to render
 - **Example:**
+
   ```yaml
   extra_templates:
     - custom.html
@@ -357,6 +392,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `{}`
 - **Description:** Extra context variables for templates
 - **Example:**
+
   ```yaml
   extra:
     version:
@@ -380,6 +416,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `true`
 - **Description:** Use directory URLs (`page/` vs `page.html`)
 - **Example:**
+
   ```yaml
   use_directory_urls: true  # Results in /page/
   use_directory_urls: false # Results in /page.html
@@ -391,6 +428,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `false`
 - **Description:** Enable strict mode (halt on warnings)
 - **Example:**
+
   ```yaml
   strict: true
   ```
@@ -401,6 +439,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `127.0.0.1:8000`
 - **Description:** Address to use for `mkdocs serve`
 - **Example:**
+
   ```yaml
   dev_addr: 0.0.0.0:8080
   ```
@@ -411,6 +450,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `[]`
 - **Description:** Additional directories to watch for changes
 - **Example:**
+
   ```yaml
   watch:
     - ../my_module
@@ -424,6 +464,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Type:** `mapping`
 - **Description:** Controls for build warnings and validation
 - **Full Example:**
+
   ```yaml
   validation:
     nav:
@@ -485,8 +526,11 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 ### markdown_extensions
 
 - **Type:** `list` or `mapping`
+
 - **Default:** `[]`
+
 - **Description:** Python Markdown extensions to enable
+
 - **Example:**
 
   ```yaml
@@ -527,6 +571,7 @@ MkDocs uses a YAML configuration file named `mkdocs.yml` (or `mkdocs.yaml`) in t
 - **Default:** `['search']` if not specified
 - **Description:** Plugins to enable
 - **Example:**
+
   ```yaml
   plugins:
     - search:
@@ -594,6 +639,7 @@ The built-in search plugin accepts these options:
 - **Default:** `[]`
 - **Description:** Python scripts with event hooks
 - **Example:**
+
   ```yaml
   hooks:
     - scripts/hooks.py
@@ -623,7 +669,9 @@ def on_page_content(html, page, config, files):
 ### Using !ENV tag
 
 - **Description:** Reference environment variables in configuration
+
 - **Syntax:** `!ENV [VAR_NAME, 'default_value']` or `!ENV VAR_NAME`
+
 - **Example:**
 
   ```yaml
@@ -644,7 +692,9 @@ def on_page_content(html, page, config, files):
 ### Using !relative tag
 
 - **Description:** Specify paths relative to config file or docs directory
+
 - **Syntax:** `!relative $config_dir/path` or `!relative $docs_dir/path`
+
 - **Example:**
 
   ```yaml
@@ -930,5 +980,6 @@ validation:
 
 - Configuration Guide: <https://www.mkdocs.org/user-guide/configuration/>
 - YAML Syntax: <https://yaml.org/>
-- Environment Variables: <https://www.mkdocs.org/user-guide/configuration/#environment-variables>
+- Environment Variables:
+  <https://www.mkdocs.org/user-guide/configuration/#environment-variables>
 - Plugin Catalog: <https://github.com/mkdocs/catalog>

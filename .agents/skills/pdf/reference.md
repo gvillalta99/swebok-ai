@@ -1,13 +1,18 @@
 # PDF Processing Advanced Reference
 
-This document contains advanced PDF processing features, detailed examples, and additional libraries not covered in the main skill instructions.
+This document contains advanced PDF processing features, detailed examples, and
+additional libraries not covered in the main skill instructions.
 
 ## pypdfium2 Library (Apache/BSD License)
 
 ### Overview
-pypdfium2 is a Python binding for PDFium (Chromium's PDF library). It's excellent for fast PDF rendering, image generation, and serves as a PyMuPDF replacement.
+
+pypdfium2 is a Python binding for PDFium (Chromium's PDF library). It's
+excellent for fast PDF rendering, image generation, and serves as a PyMuPDF
+replacement.
 
 ### Render PDF to Images
+
 ```python
 import pypdfium2 as pdfium
 from PIL import Image
@@ -34,6 +39,7 @@ for i, page in enumerate(pdf):
 ```
 
 ### Extract Text with pypdfium2
+
 ```python
 import pypdfium2 as pdfium
 
@@ -47,9 +53,11 @@ for i, page in enumerate(pdf):
 
 ### pdf-lib (MIT License)
 
-pdf-lib is a powerful JavaScript library for creating and modifying PDF documents in any JavaScript environment.
+pdf-lib is a powerful JavaScript library for creating and modifying PDF
+documents in any JavaScript environment.
 
 #### Load and Manipulate Existing PDF
+
 ```javascript
 import { PDFDocument } from 'pdf-lib';
 import fs from 'fs';
@@ -78,6 +86,7 @@ async function manipulatePDF() {
 ```
 
 #### Create Complex PDFs from Scratch
+
 ```javascript
 import { PDFDocument, rgb, StandardFonts } from 'pdf-lib';
 import fs from 'fs';
@@ -139,6 +148,7 @@ async function createPDF() {
 ```
 
 #### Advanced Merge and Split Operations
+
 ```javascript
 import { PDFDocument } from 'pdf-lib';
 import fs from 'fs';
@@ -172,6 +182,7 @@ async function mergePDFs() {
 PDF.js is Mozilla's JavaScript library for rendering PDFs in the browser.
 
 #### Basic PDF Loading and Rendering
+
 ```javascript
 import * as pdfjsLib from 'pdfjs-dist';
 
@@ -206,6 +217,7 @@ async function renderPDF() {
 ```
 
 #### Extract Text with Coordinates
+
 ```javascript
 import * as pdfjsLib from 'pdfjs-dist';
 
@@ -242,6 +254,7 @@ async function extractText() {
 ```
 
 #### Extract Annotations and Forms
+
 ```javascript
 import * as pdfjsLib from 'pdfjs-dist';
 
@@ -267,6 +280,7 @@ async function extractAnnotations() {
 ### poppler-utils Advanced Features
 
 #### Extract Text with Bounding Box Coordinates
+
 ```bash
 # Extract text with bounding box coordinates (essential for structured data)
 pdftotext -bbox-layout document.pdf output.xml
@@ -275,6 +289,7 @@ pdftotext -bbox-layout document.pdf output.xml
 ```
 
 #### Advanced Image Conversion
+
 ```bash
 # Convert to PNG images with specific resolution
 pdftoppm -png -r 300 document.pdf output_prefix
@@ -287,6 +302,7 @@ pdftoppm -jpeg -jpegopt quality=85 -r 200 document.pdf jpeg_output
 ```
 
 #### Extract Embedded Images
+
 ```bash
 # Extract all embedded images with metadata
 pdfimages -j -p document.pdf page_images
@@ -301,6 +317,7 @@ pdfimages -all document.pdf images/img
 ### qpdf Advanced Features
 
 #### Complex Page Manipulation
+
 ```bash
 # Split PDF into groups of pages
 qpdf --split-pages=3 input.pdf output_group_%02d.pdf
@@ -313,6 +330,7 @@ qpdf --empty --pages doc1.pdf 1-3 doc2.pdf 5-7 doc3.pdf 2,4 -- combined.pdf
 ```
 
 #### PDF Optimization and Repair
+
 ```bash
 # Optimize PDF for web (linearize for streaming)
 qpdf --linearize input.pdf optimized.pdf
@@ -329,6 +347,7 @@ qpdf --show-all-pages input.pdf > structure.txt
 ```
 
 #### Advanced Encryption
+
 ```bash
 # Add password protection with specific permissions
 qpdf --encrypt user_pass owner_pass 256 --print=none --modify=none -- input.pdf encrypted.pdf
@@ -345,6 +364,7 @@ qpdf --password=secret123 --decrypt encrypted.pdf decrypted.pdf
 ### pdfplumber Advanced Features
 
 #### Extract Text with Precise Coordinates
+
 ```python
 import pdfplumber
 
@@ -361,6 +381,7 @@ with pdfplumber.open("document.pdf") as pdf:
 ```
 
 #### Advanced Table Extraction with Custom Settings
+
 ```python
 import pdfplumber
 import pandas as pd
@@ -385,6 +406,7 @@ with pdfplumber.open("complex_table.pdf") as pdf:
 ### reportlab Advanced Features
 
 #### Create Professional Reports with Tables
+
 ```python
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
@@ -428,12 +450,14 @@ doc.build(elements)
 ### Extract Figures/Images from PDF
 
 #### Method 1: Using pdfimages (fastest)
+
 ```bash
 # Extract all images with original quality
 pdfimages -all document.pdf images/img
 ```
 
 #### Method 2: Using pypdfium2 + Image Processing
+
 ```python
 import pypdfium2 as pdfium
 from PIL import Image
@@ -461,6 +485,7 @@ def extract_figures(pdf_path, output_dir):
 ```
 
 ### Batch PDF Processing with Error Handling
+
 ```python
 import os
 import glob
@@ -507,6 +532,7 @@ def batch_process_pdfs(input_dir, operation='merge'):
 ```
 
 ### Advanced PDF Cropping
+
 ```python
 from pypdf import PdfWriter, PdfReader
 
@@ -528,24 +554,29 @@ with open("cropped.pdf", "wb") as output:
 ## Performance Optimization Tips
 
 ### 1. For Large PDFs
+
 - Use streaming approaches instead of loading entire PDF in memory
 - Use `qpdf --split-pages` for splitting large files
 - Process pages individually with pypdfium2
 
 ### 2. For Text Extraction
+
 - `pdftotext -bbox-layout` is fastest for plain text extraction
 - Use pdfplumber for structured data and tables
 - Avoid `pypdf.extract_text()` for very large documents
 
 ### 3. For Image Extraction
+
 - `pdfimages` is much faster than rendering pages
 - Use low resolution for previews, high resolution for final output
 
 ### 4. For Form Filling
+
 - pdf-lib maintains form structure better than most alternatives
 - Pre-validate form fields before processing
 
 ### 5. Memory Management
+
 ```python
 # Process PDFs in chunks
 def process_large_pdf(pdf_path, chunk_size=10):
@@ -567,6 +598,7 @@ def process_large_pdf(pdf_path, chunk_size=10):
 ## Troubleshooting Common Issues
 
 ### Encrypted PDFs
+
 ```python
 # Handle password-protected PDFs
 from pypdf import PdfReader
@@ -580,6 +612,7 @@ except Exception as e:
 ```
 
 ### Corrupted PDFs
+
 ```bash
 # Use qpdf to repair
 qpdf --check corrupted.pdf
@@ -587,6 +620,7 @@ qpdf --replace-input corrupted.pdf
 ```
 
 ### Text Extraction Issues
+
 ```python
 # Fallback to OCR for scanned PDFs
 import pytesseract

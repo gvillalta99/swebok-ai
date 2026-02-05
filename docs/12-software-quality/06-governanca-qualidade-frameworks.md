@@ -1,25 +1,32 @@
 ---
-title: "Governança de Qualidade e Frameworks"
-created_at: "2026-01-31"
-tags: ["software-quality", "governanca", "frameworks", "iso-25010", "compliance", "maturidade"]
-status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+title: Governança de Qualidade e Frameworks
+created_at: '2026-01-31'
+tags: [software-quality, governanca, frameworks, iso-25010, compliance, maturidade]
+status: review
+updated_at: '2026-01-31'
+ai_model: openai/gpt-5.2
 ---
 
 # 6. Governança de Qualidade e Frameworks
 
 ## Overview
 
-Esta seção aborda os frameworks, políticas e estruturas de governança necessários para garantir qualidade em sistemas híbridos humanos-IA. Enquanto frameworks tradicionais (ISO, IEEE, CMMI) foram desenvolvidos para software escrito por humanos, a era dos LLMs exige adaptações e extensões que abordem as características únicas de código gerado automaticamente.
+Esta seção aborda os frameworks, políticas e estruturas de governança
+necessários para garantir qualidade em sistemas híbridos humanos-IA. Enquanto
+frameworks tradicionais (ISO, IEEE, CMMI) foram desenvolvidos para software
+escrito por humanos, a era dos LLMs exige adaptações e extensões que abordem as
+características únicas de código gerado automaticamente.
 
-O foco está em estabelecer estruturas de governança que garantam não apenas qualidade técnica, mas também compliance regulatório, accountability e maturidade organizacional no uso de IA.
+O foco está em estabelecer estruturas de governança que garantam não apenas
+qualidade técnica, mas também compliance regulatório, accountability e
+maturidade organizacional no uso de IA.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Adaptar frameworks de qualidade existentes (ISO, IEEE) para código gerado por IA
+1. Adaptar frameworks de qualidade existentes (ISO, IEEE) para código gerado por
+   IA
 2. Estabelecer políticas de qualidade efetivas para desenvolvimento com IA
 3. Navegar requisitos de conformidade regulatória em sistemas com IA
 4. Avaliar e melhorar maturidade organizacional em qualidade de IA
@@ -29,9 +36,11 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### 6.1.1 ISO 25010: Extensões para IA
 
-O modelo de qualidade ISO 25010:2011 define oito características de qualidade de produto. Para sistemas híbridos, propomos as seguintes extensões:
+O modelo de qualidade ISO 25010:2011 define oito características de qualidade de
+produto. Para sistemas híbridos, propomos as seguintes extensões:
 
 **Características Originais ISO 25010:**
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │              ISO 25010:2011 - MODELO ORIGINAL              │
@@ -136,16 +145,19 @@ O modelo de qualidade ISO 25010:2011 define oito características de qualidade d
 O padrão IEEE 730 para SQA precisa de extensões para cobrir:
 
 1. **Planejamento de Qualidade para IA:**
+
    - Seleção e aprovação de modelos
    - Definição de thresholds de qualidade para código gerado
    - Processos de curadoria
 
 2. **Processos de Geração:**
+
    - Documentação de prompts
    - Versionamento de contexto
    - Rastreabilidade de geração
 
 3. **Verificação e Validação:**
+
    - Testes de consistência comportamental
    - Validação de robustez
    - Verificação de explicabilidade
@@ -172,13 +184,13 @@ Seções:
 
 **Extensão do Modelo de Maturidade:**
 
-| Nível | CMMI Tradicional | CMMI para IA |
-|-------|------------------|--------------|
-| 1 - Inicial | Processo imprevisível | Uso ad-hoc de IA |
-| 2 - Gerenciado | Projetos gerenciados | Uso controlado de IA em projetos |
-| 3 - Definido | Processos definidos | Processos de IA padronizados |
-| 4 - Quantitativamente Gerenciado | Medição e análise | Métricas de qualidade de IA |
-| 5 - Otimização | Melhoria contínua | Otimização de geração e curadoria |
+| Nível                            | CMMI Tradicional      | CMMI para IA                      |
+| -------------------------------- | --------------------- | --------------------------------- |
+| 1 - Inicial                      | Processo imprevisível | Uso ad-hoc de IA                  |
+| 2 - Gerenciado                   | Projetos gerenciados  | Uso controlado de IA em projetos  |
+| 3 - Definido                     | Processos definidos   | Processos de IA padronizados      |
+| 4 - Quantitativamente Gerenciado | Medição e análise     | Métricas de qualidade de IA       |
+| 5 - Otimização                   | Melhoria contínua     | Otimização de geração e curadoria |
 
 **Áreas de Processo Específicas para IA:**
 
@@ -267,6 +279,7 @@ Aplica-se a todo código gerado ou assistido por IA.
 ### 6.2.2 Políticas por Criticidade
 
 **Código Crítico (Segurança, Financeiro, Médico):**
+
 ```
 ✓ Modelo aprovado por comitê de arquitetura
 ✓ Prompt revisado por tech lead
@@ -278,6 +291,7 @@ Aplica-se a todo código gerado ou assistido por IA.
 ```
 
 **Código de Negócio:**
+
 ```
 ✓ Modelo da lista aprovada
 ✓ Prompt documentado
@@ -287,6 +301,7 @@ Aplica-se a todo código gerado ou assistido por IA.
 ```
 
 **Código de Infraestrutura/Utilitários:**
+
 ```
 ✓ Modelo da lista aprovada
 ✓ Verificação automatizada
@@ -295,6 +310,7 @@ Aplica-se a todo código gerado ou assistido por IA.
 ```
 
 **Código Experimental/Prototipagem:**
+
 ```
 ✓ Qualquer modelo pode ser usado
 ✓ Documentação mínima
@@ -305,23 +321,23 @@ Aplica-se a todo código gerado ou assistido por IA.
 
 **Critérios de Aprovação de Modelos:**
 
-| Critério | Peso | Métrica |
-|----------|------|---------|
-| Qualidade de código | 30% | Benchmark HumanEval |
-| Segurança | 25% | Taxa de vulnerabilidades |
-| Consistência | 20% | Coeficiente de variação |
-| Explicabilidade | 15% | Capacidade de CoT |
-| Custo | 10% | Custo por token |
+| Critério            | Peso | Métrica                  |
+| ------------------- | ---- | ------------------------ |
+| Qualidade de código | 30%  | Benchmark HumanEval      |
+| Segurança           | 25%  | Taxa de vulnerabilidades |
+| Consistência        | 20%  | Coeficiente de variação  |
+| Explicabilidade     | 15%  | Capacidade de CoT        |
+| Custo               | 10%  | Custo por token          |
 
 **Lista de Modelos Aprovados (Exemplo):**
 
-| Modelo | Versão | Status | Aplicação |
-|--------|--------|--------|-----------|
-| GPT-4 | Latest | Aprovado | Geral |
-| Claude 3 | Opus | Aprovado | Geral |
-| Claude 3 | Sonnet | Aprovado | Não-crítico |
-| CodeLlama | 70B | Aprovado | Prototipagem |
-| Copilot | Latest | Aprovado | Assistência |
+| Modelo    | Versão | Status   | Aplicação    |
+| --------- | ------ | -------- | ------------ |
+| GPT-4     | Latest | Aprovado | Geral        |
+| Claude 3  | Opus   | Aprovado | Geral        |
+| Claude 3  | Sonnet | Aprovado | Não-crítico  |
+| CodeLlama | 70B    | Aprovado | Prototipagem |
+| Copilot   | Latest | Aprovado | Assistência  |
 
 ### 6.2.4 Thresholds de Qualidade
 
@@ -412,31 +428,38 @@ low:
 **Obrigações para Sistemas de Alto Risco:**
 
 1. **Sistema de Gestão de Risco:**
+
    - Identificação e mitigação contínua de riscos
    - Documentação de medidas de mitigação
 
 2. **Gestão de Dados:**
+
    - Qualidade de dados de treinamento
    - Preparação de dados adequada
 
 3. **Documentação Técnica:**
+
    - Propósito do sistema
    - Arquitetura e design
    - Métricas de performance
 
 4. **Registro de Logs:**
+
    - Audit trail completo
    - Rastreabilidade de decisões
 
 5. **Transparência:**
+
    - Informação clara para usuários
    - Direito a explicação
 
 6. **Supervisão Humana:**
+
    - Human-in-the-loop obrigatório
    - Circuit breakers
 
 7. **Conformidade:**
+
    - Conformity assessment
    - Registro em base de dados da UE
 
@@ -475,21 +498,25 @@ low:
 **Aplicação a Código Gerado por IA:**
 
 1. **Governança:**
+
    - Políticas de uso de IA
    - Papéis e responsabilidades
    - Processos de decisão
 
 2. **Mapeamento:**
+
    - Inventário de código gerado por IA
    - Classificação por criticidade
    - Análise de stakeholders
 
 3. **Medição:**
+
    - Métricas de qualidade de código
    - Taxas de defeitos
    - Performance em produção
 
 4. **Gerenciamento:**
+
    - Plano de resposta a incidentes
    - Processos de rollback
    - Melhoria contínua
@@ -497,16 +524,19 @@ low:
 ### 6.3.3 Setores Específicos
 
 **Setor Financeiro:**
+
 - SR 11-7 (Federal Reserve): Model Risk Management
 - GDPR: Proteção de dados
 - Requisitos de audit trail
 
 **Setor de Saúde:**
+
 - FDA: AI/ML-Based Software as Medical Device
 - HIPAA: Proteção de informações de saúde
 - IEC 62304: Software médico
 
 **Setor Automotivo:**
+
 - ISO 26262: Segurança funcional
 - ISO/SAE 21434: Cibersegurança
 - UN R79/R157: Sistemas automatizados
@@ -591,6 +621,7 @@ low:
 ```
 
 **Pontuação:**
+
 - 0-25: Nível 1 - Inicial
 - 26-50: Nível 2 - Gerenciado
 - 51-75: Nível 3 - Definido
@@ -600,24 +631,28 @@ low:
 ### 6.4.3 Roadmap de Melhoria
 
 **De Nível 1 para 2:**
+
 - Documentar política de uso de IA
 - Estabelecer lista de modelos aprovados
 - Implementar revisão obrigatória
 - Começar a medir qualidade básica
 
 **De Nível 2 para 3:**
+
 - Padronizar processos de curadoria
 - Criar checklists de qualidade
 - Treinar revisores
 - Integrar ferramentas
 
 **De Nível 3 para 4:**
+
 - Definir métricas abrangentes
 - Implementar dashboards
 - Analisar tendências
 - Estabelecer metas de qualidade
 
 **De Nível 4 para 5:**
+
 - Otimizar prompts continuamente
 - Implementar meta-verificação
 - Fechar feedback loops
@@ -673,6 +708,7 @@ low:
 ### 6.5.2 Stack Recomendado
 
 **Para Times Pequenos (Startup):**
+
 ```
 - GitHub + Actions (CI/CD)
 - SonarCloud (análise estática)
@@ -682,6 +718,7 @@ low:
 ```
 
 **Para Times Médios:**
+
 ```
 - GitLab (CI/CD + code review)
 - SonarQube (análise estática)
@@ -691,6 +728,7 @@ low:
 ```
 
 **Para Enterprise:**
+
 ```
 - GitHub Enterprise / GitLab Ultimate
 - SonarQube Enterprise
@@ -765,21 +803,30 @@ deploy_production:
 **Exemplos ilustrativos (HIPÓTESES):**
 
 **Caso 1: Organizacao regulada (por exemplo, financeiro)**
-- Estende modelos de qualidade existentes (por exemplo, ISO/IEC 25010) com dimensoes de variabilidade, rastreabilidade e governanca de prompts.
+
+- Estende modelos de qualidade existentes (por exemplo, ISO/IEC 25010) com
+  dimensoes de variabilidade, rastreabilidade e governanca de prompts.
 - Mapeia controles para exigencias regulatórias e auditoria.
 
 **Caso 2: Saude/dispositivos medicos**
-- Adota um framework de gestao de risco para IA (por exemplo, NIST AI RMF) e operacionaliza evidencias de qualidade (logs, criterios de aceitacao, rastreabilidade).
-- Trata qualidade como requisito de compliance e nao apenas como atributo tecnico.
+
+- Adota um framework de gestao de risco para IA (por exemplo, NIST AI RMF) e
+  operacionaliza evidencias de qualidade (logs, criterios de aceitacao,
+  rastreabilidade).
+- Trata qualidade como requisito de compliance e nao apenas como atributo
+  tecnico.
 
 **Caso 3: Produto B2B em escala**
+
 - Define politicas de qualidade por criticidade e formaliza gates de aceitacao.
-- Mantem pipeline observavel e auditavel, evitando dependencia de uma ferramenta especifica.
+- Mantem pipeline observavel e auditavel, evitando dependencia de uma ferramenta
+  especifica.
 
 ### Limitações
 
 1. **Evolução Regulatória:** Regulamentações ainda em desenvolvimento
-2. **Ferramentas Imaturas:** Muitas ferramentas não suportam casos de uso específicos
+2. **Ferramentas Imaturas:** Muitas ferramentas não suportam casos de uso
+   específicos
 3. **Custo:** Implementação completa requer investimento significativo
 4. **Complexidade:** Frameworks adicionam overhead
 
@@ -793,29 +840,39 @@ deploy_production:
 
 ## Summary
 
-- **Frameworks precisam de extensão:** ISO 25010, IEEE, CMMI precisam de dimensões específicas para IA
-- **Políticas devem ser por criticidade:** código crítico requer controles mais rigorosos
-- **Compliance é complexo:** EU AI Act, NIST, regulamentações setoriais criam matriz de requisitos
+- **Frameworks precisam de extensão:** ISO 25010, IEEE, CMMI precisam de
+  dimensões específicas para IA
+- **Políticas devem ser por criticidade:** código crítico requer controles mais
+  rigorosos
+- **Compliance é complexo:** EU AI Act, NIST, regulamentações setoriais criam
+  matriz de requisitos
 - **Maturidade é um journey:** modelo de 5 níveis guia melhoria contínua
-- **Ferramentas habilitam governança:** escolha stack adequado ao tamanho e necessidades
+- **Ferramentas habilitam governança:** escolha stack adequado ao tamanho e
+  necessidades
 
 ## Matriz de Avaliação Consolidada
 
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — governança e compliance são fundamentos atemporais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto** — governança requer julgamento humano e accountability |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — accountability legal sempre reside em humanos |
+| Critério                        | Descrição                                                | Avaliação                                                       |
+| ------------------------------- | -------------------------------------------------------- | --------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa** — governança e compliance são fundamentos atemporais  |
+| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — governança requer julgamento humano e accountability |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — accountability legal sempre reside em humanos     |
 
 ## References
 
-1. ISO/IEC 25010:2011, "Systems and software engineering — System and software Quality Requirements and Evaluation," ISO, 2011.
-2. IEEE 730:2014, "IEEE Standard for Software Quality Assurance Processes," IEEE, 2014.
-3. CMMI Institute, "CMMI for Development," Version 2.0, 2018.
-4. European Commission, "Artificial Intelligence Act," Regulation (EU) 2024/1689, 2024.
-5. NIST, "Artificial Intelligence Risk Management Framework," NIST AI 100-1, 2023.
-6. Federal Reserve, "Supervisory Guidance on Model Risk Management," SR 11-7, 2011.
-7. FDA, "Artificial Intelligence/Machine Learning-Based Software as a Medical Device," FDA Guidance, 2021.
-8. ISO 26262:2018, "Road vehicles — Functional safety," ISO, 2018.
-9. ISO/IEC 27001:2022, "Information security management systems," ISO, 2022.
+01. ISO/IEC 25010:2011, "Systems and software engineering — System and software
+    Quality Requirements and Evaluation," ISO, 2011.
+02. IEEE 730:2014, "IEEE Standard for Software Quality Assurance Processes,"
+    IEEE, 2014.
+03. CMMI Institute, "CMMI for Development," Version 2.0, 2018.
+04. European Commission, "Artificial Intelligence Act," Regulation (EU)
+    2024/1689, 2024.
+05. NIST, "Artificial Intelligence Risk Management Framework," NIST AI 100-1,
+    2023\.
+06. Federal Reserve, "Supervisory Guidance on Model Risk Management," SR 11-7,
+    2011\.
+07. FDA, "Artificial Intelligence/Machine Learning-Based Software as a Medical
+    Device," FDA Guidance, 2021.
+08. ISO 26262:2018, "Road vehicles — Functional safety," ISO, 2018.
+09. ISO/IEC 27001:2022, "Information security management systems," ISO, 2022.
 10. Gartner, "Market Guide for AI Code Quality Tools," Gartner Research, 2025.
