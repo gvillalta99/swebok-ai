@@ -3,8 +3,8 @@ title: "Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padroes"
 created_at: "2026-01-31"
 tags: ["apendice", "conformidade", "governanca", "padroes", "swebok-ai"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-05"
+ai_model: "kimi-k2.5"
 ---
 
 # Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padroes
@@ -33,24 +33,22 @@ Apos estudar este apendice, o leitor deve ser capaz de:
 
 | KA (SWEBOK-AI v5.0) | Standards e referencias (core) | Standards e referencias (contexto) |
 |---------------------|-------------------------------|------------------------------------|
+| 11 - Modelos e Metodos de Engenharia | ISO/IEC 23894; ISO/IEC 42001 | TS 42119 (quando houver avaliacao/validacao formal) |
 | 01 - Engenharia de Restricoes e Contexto | ISO/IEC 23894; ISO/IEC 42001 | EU AI Act; NIST AI RMF |
 | 02 - Arquitetura de Sistemas Hibridos | ISO/IEC 42001; IEEE 7000-2021 | ISO/IEC TS 42119-2 (evidencias para V&V de arquitetura) |
 | 03 - Design de Sistemas Hibridos | IEEE 7000-2021; ISO/IEC 42001 | EU AI Act (requisitos de transparencia/uso) |
 | 04 - Orquestracao e Curadoria de Codigo | ISO/IEC 42001; ISO/IEC 23894 | NIST AI RMF; TS 42119 (teste de sistemas de IA) |
 | 05 - Verificacao e Validacao em Escala | ISO/IEC TS 42119-2; ISO/IEC 23894 | ISO/IEC DTS 42119-3 |
-| 06 - Software Engineering Operations | ISO/IEC 42001; ISO/IEC 23894 | EU AI Act (monitoramento e incidentes) |
-| 07 - Manutencao de Sistemas Opacos | ISO/IEC 42001; ISO/IEC 23894 | EU AI Act; NIST AI RMF |
-| 08 - Software Configuration Management | ISO/IEC 42001 | NIST AI RMF |
-| 09 - Software Engineering Management | ISO/IEC 42001; ISO/IEC 38507 | EU AI Act |
-| 10 - Software Engineering Process | ISO/IEC 42001; ISO/IEC 23894 | NIST AI RMF |
-| 11 - Models and Methods | ISO/IEC 23894; ISO/IEC 42001 | TS 42119 (quando houver avaliacao/validacao formal) |
-| 12 - Software Quality | ISO/IEC TS 42119-2; ISO/IEC 42001 | EU AI Act (qualidade e transparencia por risco) |
-| 13 - Software Security | ISO/IEC 23894; ISO/IEC 42001 | EU AI Act (seguranca/abuso em alto risco) |
-| 14 - Professional Practice | ISO/IEC 38507; IEEE 7000-2021 | EU AI Act |
-| 15 - Economics | ISO/IEC 42001 (custos de governanca); ISO/IEC 23894 (custo de risco) | Relatorios setoriais (quando exigidos por auditoria interna) |
-| 16 - Fundamentos de Sistemas Cognitivos Artificiais | ISO/IEC 42001; ISO/IEC 23894 | NIST AI RMF |
-| 17 - Governanca de IA para Engenharia de Software | ISO/IEC 42001; ISO/IEC 42006; ISO/IEC 38507 | EU AI Act |
-| 18 - Engenharia de Manutencao de Sistemas Opacos (novo) | ISO/IEC 42001; ISO/IEC 23894 | EU AI Act |
+| 06 - Operacoes de Engenharia de Software | ISO/IEC 42001; ISO/IEC 23894 | EU AI Act (monitoramento e incidentes) |
+| 07 - Manutencao de Sistemas Opaços | ISO/IEC 42001; ISO/IEC 23894 | EU AI Act; NIST AI RMF |
+| 12 - Qualidade de Software | ISO/IEC TS 42119-2; ISO/IEC 42001 | EU AI Act (qualidade e transparencia por risco) |
+| 13 - Seguranca em Sistemas com IA | ISO/IEC 23894; ISO/IEC 42001 | EU AI Act (seguranca/abuso em alto risco) |
+| 08 - Gestao de Configuracao e Contexto | ISO/IEC 42001 | NIST AI RMF |
+| 14 - Pratica Profissional e Julgamento Tecnico | ISO/IEC 38507; IEEE 7000-2021 | EU AI Act |
+| 09 - Gestao de Engenharia de Software | ISO/IEC 42001; ISO/IEC 38507 | EU AI Act |
+| 10 - Processos de Engenharia com IA | ISO/IEC 42001; ISO/IEC 23894 | NIST AI RMF |
+| 15 - Economia e Metricas | ISO/IEC 42001 (custos de governanca); ISO/IEC 23894 (custo de risco) | Relatorios setoriais (quando exigidos por auditoria interna) |
+| 16 - Apendice | - | - |
 
 ## E.3 Como usar esta matriz para evidencias
 Um padrao pratico para cada KA:
@@ -64,6 +62,16 @@ Um padrao pratico para cada KA:
 - Se voce precisa de auditoria/certificacao de AIMS, inclua desde cedo requisitos de trilha de decisao e governanca (ISO/IEC 42006 implica capacidade de auditoria).
 - Trate mudancas de modelo e de prompt como mudancas de comportamento; atualize avaliacao e risco como parte da gestao de configuracao.
 
+## Nota sobre Reestruturacao
+
+Esta matriz foi atualizada para refletir a **nova estrutura de 5 Partes** do SWEBOK-AI v5.0:
+
+- **KAs 16-18 removidos**: Computing Foundations, Mathematical Foundations, e Engineering Foundations nao fazem mais parte do corpo principal
+- **KA 11 reposicionado**: Modelos e Metodos agora e KA 11 na Parte I (Fundamentos)
+- **Ordem reorganizada**: A matriz segue a nova ordem pedagogica (11, 01-07, 12-13, 08, 14, 09-10, 15, 16)
+
+Os conceitos de fundamentos foram integrados na Introducao (Parte I) e distribuidos nos KAs aplicaveis.
+
 ## Matriz de Avaliacao Consolidada
 
 | Criterio | Descricao | Avaliacao |
@@ -76,6 +84,7 @@ Um padrao pratico para cada KA:
 - A matriz fornece um "crosswalk" pratico: KA -> standards, para apoiar evidencias e auditoria.
 - Standards de AIMS (42001/42006) e risco (23894/NIST AI RMF) atravessam a maioria das KAs.
 - Conformidade deve ser implementada como evidencias verificaveis, nao como checklist.
+- Estrutura atualizada para refletir reorganizacao em 5 Partes e remocao dos KAs de Fundamentos.
 
 ## References
 1. ISO. ISO/IEC 42001:2023 - Artificial intelligence management system. 2023. Disponivel em: https://www.iso.org/standard/81230.html.
