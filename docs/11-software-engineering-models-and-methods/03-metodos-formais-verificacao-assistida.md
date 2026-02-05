@@ -25,6 +25,27 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Avaliar o balanceamento entre rigor formal e velocidade de entrega
 5. Implementar workflows de verificação assistida em projetos reais
 
+!!! note "Box: Fundamentos de Métodos Formais"
+    
+    Esta seção explora métodos formais aplicados. Aqui está o essencial:
+    
+    **O que são Métodos Formais:**
+    Técnicas matematicamente rigorosas para especificar e verificar software.
+    
+    **Conceitos-chave:**
+    - **Especificação Formal**: Descrever comportamento usando matemática (não linguagem natural)
+    - **Invariante**: Propriedade que sempre deve ser verdadeira (ex: "saldo nunca negativo")
+    - **Pré-condição**: O que deve ser verdadeiro ANTES da execução
+    - **Pós-condição**: O que deve ser verdadeiro APÓS a execução
+    - **Model Checking**: Verificação automática de todas as possíveis execuções
+    
+    **Por que usar com IA:**
+    - IA gera código rapidamente, mas pode introduzir bugs sutis
+    - Métodos formais verificam automaticamente a correção
+    - Combinação: velocidade da IA + rigor da verificação formal
+    
+    **Referência:** Veja também [KA 01 - Invariantes e Contratos](../../01-software-requirements/03-especificacao-de-invariantes-e-contratos.md) para aplicação em requisitos.
+
 ## 3.1 Métodos Formais com Assistência de IA
 
 ### 3.1.1 O Desafio da Verificação Formal Tradicional
