@@ -206,13 +206,55 @@ Erro humano na lógica.
 
 ## References
 
-1. **Brooks, F. P.** (1975). *The Mythical Man-Month*. Addison-Wesley. (Conceito
-   fundamental de que adicionar força de trabalho/velocidade não escala
-   linearmente).
-2. **Jevons, W. S.** (1865). *The Coal Question*. (Origem do Paradoxo de
-   Jevons).
-3. **Google SRE Book.** (2016). *Site Reliability Engineering*. O'Reilly Media.
-   (Conceitos de Toil e Automação relevantes para o novo paradigma).
-4. **Ziegler, A. et al.** (2024). *Measuring GitHub Copilot's Impact on
-   Productivity*. Communications of the ACM, Vol. 67, No. 3, pp. 54-63. DOI:
-   10.1145/3633453.
+01. **Brooks Jr., F. P.** (1975). *The Mythical Man-Month: Essays on Software
+    Engineering*. Addison-Wesley. ISBN: 978-0-201-00650-6. (Conceito fundamental
+    de que adicionar força de trabalho/velocidade não escala linearmente).
+
+02. **Jevons, W. S.** (1865). *The Coal Question: An Inquiry Concerning the
+    Progress of the Nation, and the Probable Exhaustion of Our Coal-Mines*.
+    London: Macmillan and Co.
+
+03. **Beyer, B., Jones, C., Petoff, J., & Murphy, N. R.** (Eds.). (2016). *Site
+    Reliability Engineering: How Google Runs Production Systems*. O'Reilly
+    Media. ISBN: 978-1-491-92791-7. (Conceitos de Toil e Automação relevantes
+    para o novo paradigma).
+
+04. **Ziegler, A., Kalliamvakou, E., Li, X. A., Rice, A., Rifkin, D., Simister,
+    S., Sittampalam, G., & Aftandilian, E.** (2024). Measuring GitHub Copilot's
+    Impact on Productivity. *Communications of the ACM*, 67(3), 54-63.
+    <https://doi.org/10.1145/3633453>.
+
+05. **Peng, S., Kalliamvakou, E., Cihon, P., & Demirer, M.** (2023). The Impact
+    of AI on Developer Productivity: Evidence from GitHub Copilot.
+    *arXiv:2302.06590 [cs.SE]*. <https://doi.org/10.48550/arXiv.2302.06590>.
+
+06. **Cui, K. Z., Demirer, M., Jaffe, S., Musolff, L., Peng, S., & Salz, T.**
+    (2024). The Productivity Effects of Generative AI: Evidence from a Field
+    Experiment with GitHub Copilot. *MIT Generative AI Impact Consortium*.
+    <https://doi.org/10.21428/e4baedd9.3ad85f1c>.
+
+07. **Xu, F., Medappa, P. K., Tunc, M. M., Vroegindeweij, M., & Fransoo, J. C.**
+    (2025). AI-Assisted Programming Decreases the Productivity of Experienced
+    Developers by Increasing the Technical Debt and Maintenance Burden.
+    *arXiv:2510.10165 [econ.GN]*. <https://doi.org/10.48550/arXiv.2510.10165>.
+
+08. **Anderson, E., Parker, G., & Tan, B.** (2025). The Hidden Costs of Coding
+    With Generative AI. *MIT Sloan Management Review*, 67(1).
+
+09. **Ferrari, A., & Spoletini, P.** (2025). Formal requirements engineering and
+    large language models: A two-way roadmap. *Information and Software
+    Technology*, 181, 107697. <https://doi.org/10.1016/j.infsof.2025.107697>.
+
+10. **Alshahwan, N., Harman, M., Harper, I., Marginean, A., Sengupta, S., &
+    Wang, E.** (2024). Assured LLM-Based Software Engineering. *arXiv:2402.04380
+    [cs.SE]*. <https://doi.org/10.48550/arXiv.2402.04380>.
+
+11. **Dolcetti, G., & Iotti, E.** (2025). A dual perspective review on large
+    language models and code verification. *Frontiers in Computer Science*, 7,
+    1655469\. <https://doi.org/10.3389/fcomp.2025.1655469>.
+
+12. **Claessen, K., & Hughes, J.** (2000). QuickCheck: A Lightweight Tool for
+    Random Testing of Haskell Programs. *ACM SIGPLAN Notices*, 35(9), 268-279.
+    <https://doi.org/10.1145/357766.351266>.
+
+13. **Chesterton, G. K.** (1929). *The Thing*. London: Sheed & Ward.
