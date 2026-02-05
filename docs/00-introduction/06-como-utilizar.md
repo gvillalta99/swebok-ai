@@ -3,8 +3,8 @@ title: "Como Utilizar este Guia"
 created_at: "2025-01-31"
 tags: ["introducao", "guia", "uso", "navegacao", "metodologia"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "kimi-k2.5"
 ---
 
 # Como Utilizar este Guia
@@ -13,7 +13,7 @@ ai_model: "openai/gpt-5.2"
 
 O SWEBOK-AI v5.0 é uma obra de referência abrangente que pode ser utilizada de múltiplas formas: como material de estudo sequencial, como referência rápida para tópicos específicos, ou como guia de transformação organizacional. Esta seção apresenta as diferentes modalidades de uso, estratégias de navegação e convenções adotadas ao longo do guia para maximizar o aproveitamento do conteúdo.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -35,9 +35,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Revisão de Matrizes de Avaliação
 5. Consulta a referências para aprofundamento
 
-**Tempo Estimado (estimativa)**: ordem de grandeza de dezenas de horas para leitura e estudo; varia por experiencia previa e profundidade desejada.
+**Tempo Estimado**: ordem de grandeza de dezenas de horas para leitura e estudo; varia por experiência prévia e profundidade desejada.
 
-**Público-Recomendado**: Pesquisadores, estudantes de pós-graduação, profissionais em transição de carreira
+**Público recomendado**: Pesquisadores, estudantes de pós-graduação, profissionais em transição de carreira
 
 ### Modalidade 2: Referência Rápida (Consulta)
 
@@ -51,7 +51,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 **Tempo Estimado**: 5-30 minutos por consulta
 
-**Público-Recomendado**: Praticantes, líderes técnicos, consultores
+**Público recomendado**: Praticantes, líderes técnicos, consultores
 
 ### Modalidade 3: Transformação Organizacional
 
@@ -64,9 +64,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Seleção de KAs técnicos conforme contexto organizacional
 5. Desenvolvimento de plano de implementação
 
-**Tempo Estimado (estimativa)**: varia por maturidade organizacional e escopo; considere separar tempo de estudo de tempo de implantacao.
+**Tempo Estimado**: varia conforme maturidade organizacional. Separe tempo de estudo do tempo de implantação.
 
-**Público-Recomendado**: Executivos, CTOs, Engineering Managers
+**Público recomendado**: Executivos, CTOs, Engineering Managers
 
 ### Modalidade 4: Preparação para Certificação
 
@@ -79,9 +79,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 4. Revisão de Matrizes de Avaliação
 5. Prática com casos e exemplos
 
-**Tempo Estimado (estimativa)**: depende do curriculo e do nivel de profundidade cobrado.
+**Tempo Estimado**: depende do currículo do exame e do nível de profundidade exigido.
 
-**Público-Recomendado**: Candidatos a certificações IEEE, ACM ou equivalentes
+**Público recomendado**: Candidatos a certificações IEEE, ACM ou equivalentes
 
 ## Estrutura de Navegação
 
@@ -176,7 +176,7 @@ Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence f
 
 ### Para Estudo Individual
 
-1. **Defina objetivos claros**: Qual perfil (Seção 5) melhor descreve você?
+1. **Defina objetivos claros**: Qual perfil (ver Seção 5: Público-Alvo) melhor descreve você?
 2. **Siga o caminho recomendado**: Utilize as recomendações de navegação por perfil
 3. **Faça anotações**: Registre insights e questões durante a leitura
 4. **Pratique**: Aplique conceitos em projetos reais ou exercícios
@@ -213,9 +213,9 @@ Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence f
 - **Contribuições**: O guia é vivo; contribuições são bem-vindas
 - **Atualizações**: O campo evolui rapidamente; verifique atualizações
 
-### Ferramentas de IA (exemplos, nao prescritivo)
+### Ferramentas de IA (exemplos, não prescritivo)
 
-Para aproveitar as partes praticas do guia, e util ter acesso a pelo menos uma ferramenta de IA em cada categoria (autocomplete, chat e agente com execucao). A selecao deve considerar governanca, observabilidade, custos e restricoes de seguranca da organizacao.
+Para aproveitar as partes práticas do guia, é útil ter acesso a pelo menos uma ferramenta de IA em cada categoria (autocomplete, chat e agente com execução). A seleção deve considerar governança, observabilidade, custos e restrições de segurança da organização.
 
 ## Checklist de Uso Efetivo
 
@@ -263,3 +263,5 @@ Após o estudo:
 ## References
 
 1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
+2. DUNLOSKY, J., et al. "Improving Students' Learning With Effective Learning Techniques: Promising Directions From Cognitive and Educational Psychology". Psychological Science in the Public Interest, v. 14, n. 1, 2013. DOI: 10.1177/1529100612453266
+3. WEINSTEIN, Y., MADAN, C. R., SUVAKOVIC, M. "Teaching the Science of Learning". Cognitive Research: Principles and Implications, v. 3, n. 2, 2018. DOI: 10.1186/s41235-018-0094-y
