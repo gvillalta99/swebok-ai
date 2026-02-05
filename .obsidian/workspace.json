@@ -4,17 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "2a8f664d4cae78f9",
+        "id": "994616180183d964",
         "type": "tabs",
         "children": [
           {
-            "id": "d31e33d4005c5d41",
+            "id": "96eb6b97d676aaf6",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "docs/00-fim-codificacao-fundamentos-ai-first/PLAN.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "PLAN"
             }
           }
         ]
@@ -177,8 +181,8 @@
             "state": {
               "type": "footnotes",
               "state": {},
-              "icon": "lucide-file-signature",
-              "title": "Footnotes"
+              "icon": "lucide-ghost",
+              "title": "footnotes"
             }
           }
         ],
@@ -197,12 +201,12 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "obsidian-opencode:OpenCode": false,
-      "random-note:Open random note": false
+      "obsidian-opencode:OpenCode": false
     }
   },
-  "active": "2f53563e67feb826",
+  "active": "96eb6b97d676aaf6",
   "lastOpenFiles": [
+    "2026-02-05.md",
     "README.md",
     "docs/index.md",
     "docs/README.md",
@@ -233,7 +237,6 @@
     "docs/11-software-engineering-models-and-methods/README.md",
     "docs/11-software-engineering-models-and-methods/PLAN.md",
     "docs/11-software-engineering-models-and-methods/06-metodos-especificacao-validacao.md",
-    "docs/11-software-engineering-models-and-methods/05-modelagem-arquitetural-sistemas.md",
     "docs/11-software-engineering-models-and-methods",
     "docs/temp-reorg/15-software-engineering-economics",
     "docs/temp-reorg/08-software-configuration-management",
