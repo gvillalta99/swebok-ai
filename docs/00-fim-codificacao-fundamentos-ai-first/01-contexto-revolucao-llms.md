@@ -360,31 +360,42 @@ da IA sem comprometer a qualidade e segurança.
 
 ## Referências
 
-1. VASWANI, A. et al. **Attention Is All You Need**. NeurIPS, 2017. Disponível
-   em: <https://arxiv.org/abs/1706.03762>. Acesso em: 2025.
+1. VASWANI, A. et al. **Attention Is All You Need**. In: ADVANCES IN NEURAL
+   INFORMATION PROCESSING SYSTEMS 30 (NIPS 2017). Long Beach, CA, USA, 2017.
+   Disponível em: <https://arxiv.org/abs/1706.03762>. Acesso em: 2025.
+
 2. BROOKS, F. P. **No Silver Bullet — Essence and Accidents of Software
-   Engineering**. IEEE Computer, 1987. Leitura essencial para entender que a IA
-   ataca os "acidentes", mas não necessariamente a "essência" da complexidade.
-3. CHEN, M. et al. **Evaluating Large Language Models Trained on Code**. arXiv,
-   2021\. Disponível em: <https://arxiv.org/abs/2107.03374>. Acesso em: 2025.
-4. JIMENEZ, C. E. et al. **SWE-bench: Can Language Models Resolve Real-World
-   GitHub Issues?**. ICLR, 2024. Disponível em: <https://www.swebench.com/>.
+   Engineering**. In: PROCEEDINGS OF THE IFIP TENTH WORLD COMPUTING CONFERENCE.
+   Dublin, Ireland, 1986. Também publicado em: IEEE Computer, v. 20, n. 4, p.
+   10-19, abr. 1987.
+
+3. CHEN, M. et al. **Evaluating Large Language Models Trained on Code**.
+   arXiv:2107.03374, 2021. Disponível em: <https://arxiv.org/abs/2107.03374>.
    Acesso em: 2025.
-5. ALISTARH, D. et al. **The Jevons Paradox and Software Engineering**.
-   Communications of the ACM, 2024. Análise econômica do impacto da IA na
-   produção de software.
-6. MDPI. **Retrieval-Augmented Generation (RAG) and Large Language Models (LLMs)
-   for Enterprise Knowledge Management and Document Automation: A Systematic
-   Literature Review**. Applied Sciences, v. 16, n. 1, 2025. Disponível em:
-   <https://www.mdpi.com/2076-3417/16/1/368>. Acesso em: 2025. Revisão
-   sistemática sobre RAG e LLMs para gestão do conhecimento empresarial e
-   automação documental.
-7. ENGAGESQ. **How to make your documents work for AI Agents (and get better
-   results)**. 2025. Disponível em:
+
+4. JIMENEZ, C. E. et al. **SWE-bench: Can Language Models Resolve Real-World
+   GitHub Issues?**. In: INTERNATIONAL CONFERENCE ON LEARNING REPRESENTATIONS
+   (ICLR 2024). Viena, Austria, 2024. Disponível em:
+   <https://arxiv.org/abs/2310.06774>. Acesso em: 2025.
+
+5. LUCCIONI, A. S.; STRUBELL, E.; CRAWFORD, K. **From Efficiency Gains to
+   Rebound Effects: The Problem of Jevons' Paradox in AI's Polarized
+   Environmental Debate**. In: 2025 ACM CONFERENCE ON FAIRNESS, ACCOUNTABILITY,
+   AND TRANSPARENCY (FAccT '25). Atenas, Greece, 2025. Disponível em:
+   <https://arxiv.org/abs/2501.16548>. Acesso em: 2025.
+
+6. AKBULUT, A.; KARAKURT, E. **Retrieval-Augmented Generation (RAG) and Large
+   Language Models (LLMs) for Enterprise Knowledge Management and Document
+   Automation: A Systematic Literature Review**. Applied Sciences, v. 16, n. 1,
+   p. 368, 2025. Disponível em: <https://www.mdpi.com/2076-3417/16/1/368>.
+   Acesso em: 2025.
+
+7. JOLLY, A. **Ground Rules: Curating Knowledge Sources for AI Agents**. Engage
+   Squared, 2025. Disponível em:
    <https://engagesq.com/insights/ground-rules-curating-knowledge-sources-for-ai-agents/>.
-   Acesso em: 2025. Guia prático sobre curadoria de documentos para maximizar
-   resultados de agentes de IA.
-8. INSTINCTOOLS. **AI Knowledge Management: Complete Enterprise Guide 2026**.
-   2026\. Disponível em:
+   Acesso em: 2025.
+
+8. ARTSYMAN, L. **AI Knowledge Management: Complete Enterprise Guide 2026**.
+   Instinctools, 2026. Disponível em:
    <https://www.instinctools.com/blog/ai-knowledge-management/>. Acesso em:
-   2026\. Guia completo sobre gestão do conhecimento com IA para empresas.
+   2026\.
