@@ -54,9 +54,16 @@ nav:
   - PARTE I - Fundamentos e Contexto:
       - Introducao: 00-introduction/01-contexto-revolucao-llms.md
       - Fundamentos Essenciais de IA: 00-introduction/07-fundamentos-essenciais-ia.md
+      - KA 11 - Modelos e Metodos:
+          - 01 - Fundamentos: 11-software-engineering-models-and-methods/01-fundamentos-modelos-executaveis-generativos.md
+          - 02 - Modelagem de Dominio: 11-software-engineering-models-and-methods/02-modelagem-dominio-engenharia-contexto.md
+          - 03 - Metodos Formais: 11-software-engineering-models-and-methods/03-metodos-formais-verificacao-assistida.md
+          - 04 - Prototipagem: 11-software-engineering-models-and-methods/04-prototipagem-design-iterativo.md
+          - 05 - Modelagem Arquitetural: 11-software-engineering-models-and-methods/05-modelagem-arquitetural-sistemas.md
+          - 06 - Especificacao e Validacao: 11-software-engineering-models-and-methods/06-metodos-especificacao-validacao.md
   
   - PARTE II - Engenharia Aplicada:
-      - KA 01 - Requirements:
+      - KA 01 - Engenharia de Restricoes:
           - 01 - Fundamentos: 01-software-requirements/01-fundamentos-da-engenharia-de-restricoes.md
           - 02 - Elicitacao de Contexto: 01-software-requirements/02-elicitacao-de-contexto-e-intencao.md
           - 03 - Invariantes e Contratos: 01-software-requirements/03-especificacao-de-invariantes-e-contratos.md
@@ -65,7 +72,7 @@ nav:
           - 06 - Variabilidade e Evolucao: 01-software-requirements/06-gestao-de-variabilidade-e-evolucao.md
           - 07 - Ferramentas Modernas: 01-software-requirements/07-ferramentas-e-tecnicas-modernas.md
       
-      - KA 02 - Architecture:
+      - KA 02 - Arquitetura de Sistemas Hibridos:
           - 01 - Fundamentos: 02-software-architecture/01-fundamentos-arquitetura-hibrida.md
           - 02 - Supervisao e Controle: 02-software-architecture/02-arquitetura-supervisao-controle.md
           - 03 - Separacao de Concerns: 02-software-architecture/03-separacao-concerns-criticos.md
@@ -75,7 +82,7 @@ nav:
           - 07 - Documentacao: 02-software-architecture/07-documentacao-sistemas-opacos.md
           - 08 - Ferramentas Modernas: 02-software-architecture/08-ferramentas-tecnicas-modernas.md
       
-      - KA 03 - Design:
+      - KA 03 - Design de Sistemas Hibridos:
           - 01 - Fundamentos: 03-software-design/01-fundamentos-design-era-llms.md
           - 02 - Principios para Codigo Gerado: 03-software-design/02-principios-design-codigo-gerado.md
           - 03 - Padroes Sistemas Hibridos: 03-software-design/03-padroes-design-sistemas-hibridos.md
@@ -85,7 +92,7 @@ nav:
           - 07 - Refatoracao Modernizacao: 03-software-design/07-refatoracao-modernizacao-assistida.md
           - 08 - Ferramentas Modernas: 03-software-design/08-ferramentas-tecnicas-modernas.md
       
-      - KA 04 - Construction:
+      - KA 04 - Orquestracao e Curadoria:
           - 01 - Fundamentos: 04-software-construction/01-fundamentos-orquestracao-curadoria.md
           - 02 - Pipeline de Verificacao: 04-software-construction/02-pipeline-verificacao-integracao.md
           - 03 - Gestao de Qualidade: 04-software-construction/03-gestao-qualidade-codigo-gerado.md
@@ -93,7 +100,7 @@ nav:
           - 05 - Padroes Colaboracao: 04-software-construction/05-padroes-colaboracao-humano-ia.md
           - 06 - Ferramentas: 04-software-construction/06-ferramentas-tecnologias.md
       
-      - KA 05 - Testing:
+      - KA 05 - Verificacao e Validacao:
           - 01 - Fundamentos: 05-software-testing/01-fundamentos-verificacao-ia.md
           - 02 - Tecnicas de Teste LLM: 05-software-testing/02-tecnicas-teste-llm.md
           - 03 - Testes Estatisticos: 05-software-testing/03-testes-estatisticos.md
@@ -101,7 +108,7 @@ nav:
           - 05 - Avaliacao de Agentes: 05-software-testing/05-avaliacao-agentes.md
           - 06 - Metricas e Governanca: 05-software-testing/06-metricas-governanca.md
       
-      - KA 06 - Operations:
+      - KA 06 - Operacoes de Engenharia:
           - 01 - Fundamentos: 06-software-engineering-operations/01-fundamentos-operacoes-sistemas-ia.md
           - 02 - Planejamento em Escala: 06-software-engineering-operations/02-planejamento-operacoes-escala.md
           - 03 - Entrega e Deployment: 06-software-engineering-operations/03-entrega-deployment-continuo.md
@@ -109,7 +116,7 @@ nav:
           - 05 - Consideracoes Praticas: 06-software-engineering-operations/05-consideracoes-praticas-operacoes.md
           - 06 - Ferramentas Modernas: 06-software-engineering-operations/06-ferramentas-tecnologias-modernas.md
       
-      - KA 07 - Maintenance:
+      - KA 07 - Manutencao de Sistemas Opaços:
           - 01 - Fundamentos: 07-software-maintenance/01-fundamentos-de-manutencao-de-sistemas-opacos.md
           - 02 - Engenharia Reversa: 07-software-maintenance/02-engenharia-reversa-de-codigo-gerado-por-ia.md
           - 03 - Refatoracao Assistida: 07-software-maintenance/03-refatoracao-e-modernizacao-assistida.md
@@ -117,41 +124,8 @@ nav:
           - 05 - Evolucao de Legados: 07-software-maintenance/05-evolucao-e-migracao-de-sistemas-legados.md
           - 06 - Ferramentas Modernas: 07-software-maintenance/06-ferramentas-e-tecnicas-modernas.md
   
-  - PARTE III - Governanca e Gerenciamento:
-      - KA 08 - Config Mgmt:
-          - 01 - Fundamentos: 08-software-configuration-management/01-fundamentos-gestao-configuracao-ia.md
-          - 02 - Versionamento de Modelos: 08-software-configuration-management/02-versionamento-modelos-prompts-contexto.md
-          - 03 - Rastreabilidade: 08-software-configuration-management/03-rastreabilidade-sistemas-gerados-ia.md
-          - 04 - Gestao de Mudancas: 08-software-configuration-management/04-gestao-mudancas-ambientes-hibridos.md
-          - 05 - Reprodutibilidade: 08-software-configuration-management/05-reprodutibilidade-ambientes-execucao.md
-          - 06 - Ferramentas Modernas: 08-software-configuration-management/06-ferramentas-tecnologias-modernas.md
-      
-      - KA 09 - Management:
-          - 01 - Equipes Hibridas: 09-software-engineering-management/01-equipes-hibridas.md
-          - 02 - Planejamento: 09-software-engineering-management/02-planejamento-projetos.md
-          - 03 - Metricas: 09-software-engineering-management/03-metricas-produtividade.md
-          - 04 - Gestao de Riscos: 09-software-engineering-management/04-gestao-riscos.md
-          - 05 - Stakeholders: 09-software-engineering-management/05-stakeholders-comunicacao.md
-          - 06 - Formacao: 09-software-engineering-management/06-formacao-competencias.md
-      
-      - KA 10 - Process:
-          - 01 - Fundamentos: 10-software-engineering-process/01-fundamentos-de-processos-de-engenharia-com-ia.md
-          - 02 - Processos Ageis: 10-software-engineering-process/02-processos-ageis-adaptados-para-o-uso-de-ia.md
-          - 03 - MDD com LLMs: 10-software-engineering-process/03-model-driven-development-com-llms.md
-          - 04 - Workflows Agenticos: 10-software-engineering-process/04-workflows-agenticos-e-automacao.md
-          - 05 - Medicao e Melhoria: 10-software-engineering-process/05-medicao-e-melhoria-de-processos.md
-          - 06 - Governanca: 10-software-engineering-process/06-governanca-e-compliance-de-processos.md
-      
-      - KA 11 - Models & Methods:
-          - 01 - Fundamentos: 11-software-engineering-models-and-methods/01-fundamentos-modelos-executaveis-generativos.md
-          - 02 - Modelagem de Dominio: 11-software-engineering-models-and-methods/02-modelagem-dominio-engenharia-contexto.md
-          - 03 - Metodos Formais: 11-software-engineering-models-and-methods/03-metodos-formais-verificacao-assistida.md
-          - 04 - Prototipagem: 11-software-engineering-models-and-methods/04-prototipagem-design-iterativo.md
-          - 05 - Modelagem Arquitetural: 11-software-engineering-models-and-methods/05-modelagem-arquitetural-sistemas.md
-          - 06 - Especificacao e Validacao: 11-software-engineering-models-and-methods/06-metodos-especificacao-validacao.md
-  
-  - PARTE IV - Qualidade, Seguranca e Etica:
-      - KA 12 - Quality:
+  - PARTE III - Qualidade, Seguranca e Governanca:
+      - KA 12 - Qualidade de Software:
           - 01 - Fundamentos: 12-software-quality/01-fundamentos-qualidade-sistemas-hibridos.md
           - 02 - Qualidade de Codigo: 12-software-quality/02-qualidade-codigo-llms.md
           - 03 - Qualidade Comportamental: 12-software-quality/03-qualidade-comportamental-robustez.md
@@ -159,7 +133,7 @@ nav:
           - 05 - Garantia e Curadoria: 12-software-quality/05-garantia-qualidade-curadoria.md
           - 06 - Governanca: 12-software-quality/06-governanca-qualidade-frameworks.md
       
-      - KA 13 - Security:
+      - KA 13 - Seguranca em Sistemas com IA:
           - 01 - Fundamentos: 13-software-security/01-fundamentos-seguranca-sistemas-hibridos.md
           - 02 - Vulnerabilidades: 13-software-security/02-vulnerabilidades-codigo-gerado.md
           - 03 - Ataques LLM: 13-software-security/03-ataques-aplicacoes-llm.md
@@ -167,7 +141,15 @@ nav:
           - 05 - Defesas: 13-software-security/05-defesas-mitigacoes.md
           - 06 - Governanca: 13-software-security/06-governanca-gestao-risco.md
       
-      - KA 14 - Professional Practice:
+      - KA 08 - Gestao de Configuracao:
+          - 01 - Fundamentos: 08-software-configuration-management/01-fundamentos-gestao-configuracao-ia.md
+          - 02 - Versionamento de Modelos: 08-software-configuration-management/02-versionamento-modelos-prompts-contexto.md
+          - 03 - Rastreabilidade: 08-software-configuration-management/03-rastreabilidade-sistemas-gerados-ia.md
+          - 04 - Gestao de Mudancas: 08-software-configuration-management/04-gestao-mudancas-ambientes-hibridos.md
+          - 05 - Reprodutibilidade: 08-software-configuration-management/05-reprodutibilidade-ambientes-execucao.md
+          - 06 - Ferramentas Modernas: 08-software-configuration-management/06-ferramentas-tecnologias-modernas.md
+      
+      - KA 14 - Pratica Profissional:
           - 01 - Fundamentos: 14-software-engineering-professional-practice/01-fundamentos-julgamento-tecnico.md
           - 02 - Responsabilidade Legal: 14-software-engineering-professional-practice/02-responsabilidade-legal-accountability.md
           - 03 - Etica: 14-software-engineering-professional-practice/03-etica-codigos-conduta.md
@@ -176,8 +158,24 @@ nav:
           - 06 - Comunicacao: 14-software-engineering-professional-practice/06-comunicacao-especificacao.md
           - 07 - Dinamica de Equipes: 14-software-engineering-professional-practice/07-dinamica-equipes-orquestracao.md
   
-  - PARTE V - Economia e Metricas:
-      - KA 15 - Economics:
+  - PARTE IV - Gerenciamento e Processos:
+      - KA 09 - Gestao de Engenharia:
+          - 01 - Equipes Hibridas: 09-software-engineering-management/01-equipes-hibridas.md
+          - 02 - Planejamento: 09-software-engineering-management/02-planejamento-projetos.md
+          - 03 - Metricas: 09-software-engineering-management/03-metricas-produtividade.md
+          - 04 - Gestao de Riscos: 09-software-engineering-management/04-gestao-riscos.md
+          - 05 - Stakeholders: 09-software-engineering-management/05-stakeholders-comunicacao.md
+          - 06 - Formacao: 09-software-engineering-management/06-formacao-competencias.md
+      
+      - KA 10 - Processos de Engenharia:
+          - 01 - Fundamentos: 10-software-engineering-process/01-fundamentos-de-processos-de-engenharia-com-ia.md
+          - 02 - Processos Ageis: 10-software-engineering-process/02-processos-ageis-adaptados-para-o-uso-de-ia.md
+          - 03 - MDD com LLMs: 10-software-engineering-process/03-model-driven-development-com-llms.md
+          - 04 - Workflows Agenticos: 10-software-engineering-process/04-workflows-agenticos-e-automacao.md
+          - 05 - Medicao e Melhoria: 10-software-engineering-process/05-medicao-e-melhoria-de-processos.md
+          - 06 - Governanca: 10-software-engineering-process/06-governanca-e-compliance-de-processos.md
+      
+      - KA 15 - Economia e Metricas:
           - 01 - Fundamentos: 15-software-engineering-economics/01-fundamentos-da-nova-economia-do-software.md
           - 02 - Paradoxo de Jevons: 15-software-engineering-economics/02-o-paradoxo-de-jevons-na-era-dos-llms.md
           - 03 - TCO: 15-software-engineering-economics/03-custo-total-de-propriedade-tco-de-codigo-gerado-por-ia.md
@@ -186,13 +184,14 @@ nav:
           - 06 - Risco e Incerteza: 15-software-engineering-economics/06-avaliacao-de-risco-e-incerteza-em-sistemas-nao-deterministicos.md
           - 07 - Modelos de Negocio: 15-software-engineering-economics/07-modelos-de-negocio-e-valorizacao-na-economia-da-ia.md
   
-  - PARTE VI - Referencias:
-      - KA 16 - Appendix:
-          - 01 - Especificacoes KAs: 19-appendix/01-especificacoes-de-descricao-de-kas.md
-          - 02 - Padroes ISO/IEC/IEEE: 19-appendix/02-padroes-iso-iec-ieee.md
-          - 03 - Referencias: 19-appendix/03-referencias-consolidadas.md
-          - 04 - Glossario: 19-appendix/04-glossario-de-termos-de-ia.md
-          - 05 - Matriz de Conformidade: 19-appendix/05-matriz-de-conformidade.md
+  - PARTE V - Referencias:
+      - KA 16 - Apendice:
+          - 01 - Especificacoes KAs: 16-appendix/01-especificacoes-de-descricao-de-kas.md
+          - 02 - Padroes ISO/IEC/IEEE: 16-appendix/02-padroes-iso-iec-ieee.md
+          - 03 - Referencias: 16-appendix/03-referencias-consolidadas.md
+          - 04 - Glossario: 16-appendix/04-glossario-de-termos-de-ia.md
+          - 05 - Matriz de Conformidade: 16-appendix/05-matriz-de-conformidade.md
+          - 06 - Matriz de Referencias Cruzadas: 16-appendix/06-matriz-referencias-cruzadas.md
   
   - Ensaios:
       - Futuro da Profissao: XX-meta/swe-ai-future.md
