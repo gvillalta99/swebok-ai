@@ -148,9 +148,9 @@ ______________________________________________________________________
 
 ### KAs Tradicionais Reconfigurados
 
-
 | Nº  | Nome Original         | Novo Nome (SWEBOK-AI)                          | Foco Principal                               |
 | --- | --------------------- | ---------------------------------------------- | -------------------------------------------- |
+| 00  | -                     | Nova Era                                       | Contexto da inteligencia artificial atual                  |
 | 01  | Software Requirements | Engenharia de Restrições e Contexto            | Limites e fronteiras para IA                 |
 | 02  | Software Architecture | Arquitetura de Sistemas Híbridos               | Padrões humanos-IA                           |
 | 03  | Software Design       | Design de Sistemas Híbridos                    | Auditabilidade e supervisão                  |
@@ -160,7 +160,6 @@ ______________________________________________________________________
 | 14  | Professional Practice | Prática Profissional e Julgamento Técnico      | Autoridade técnica e "quando dizer não à IA" |
 | 15  | Engineering Economics | Economia e Métricas da Engenharia com IA       | Paradoxo de Jevons, TCO de código gerado     |
 | 16  | Computing Foundations | Fundamentos de Sistemas Cognitivos Artificiais | LLMs, RAG, atenção em Transformers           |
-
 
 ______________________________________________________________________
 
