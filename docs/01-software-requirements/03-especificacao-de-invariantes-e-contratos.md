@@ -27,6 +27,22 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## Fundamentos de Invariantes e Contratos
 
+!!! note "Box: Fundamentos de Lógica para Engenheiros"
+    
+    Esta seção utiliza conceitos de lógica formal. Aqui está o essencial:
+    
+    **Notação Básica:**
+    - `∀` (para todo): "Para todo usuário, a idade é maior que zero"
+    - `∃` (existe): "Existe um administrador no sistema"
+    - `→` (implica): "Se usuário está logado → usuário tem sessão válida"
+    - `∧` (e): Condição A E condição B devem ser verdadeiras
+    - `∨` (ou): Condição A OU condição B (ou ambas)
+    
+    **Para este guia, você não precisa dominar provas formais.**
+    O objetivo é compreender a notação suficiente para especificar restrições claras.
+    
+    **Referência:** Veja [Fundamentos Essenciais de IA](../../00-introduction/07-fundamentos-essenciais-ia.md) para contexto sobre especificação de restrições.
+
 ### 3.1.1 Definições Fundamentais
 
 **Invariante**: Uma condição que deve permanecer verdadeira antes e após a execução de qualquer operação em um sistema ou componente.
