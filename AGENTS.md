@@ -195,9 +195,8 @@ ______________________________________________________________________
 3. Fase de Revisão: Buscar referências recentes sobre o tema e adicioná-las ao PLAN.md
 4. **Fase de Escrita**: Desenvolver o texto, use o agent @book-writer
 5. **Fase de Revisão**: Revisar o texto e as referências bibliográficas, use o agent @book-reviewer
-    1. A revisão tem algum problema,
-    2. Corrija os problemas
-    3. Volte para a etapa 4
+    1. A revisão tem algum problema, ressalva ou correção, corrija qualquer problema
+    2. Volte para a etapa 4
 6. Marcar como published
 7. Fazer o commit com o skill commiter
 8. Fazer o push
