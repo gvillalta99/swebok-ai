@@ -95,13 +95,14 @@ nav:
   - Home: index.md
 
   - PARTE I - Fundamentos e Contexto:
-      - 01 - Contexto e Revolucao: 00-introduction/01-contexto-revolucao-llms.md
-      - 02 - Mudanca de Paradigma: 00-introduction/02-mudanca-paradigma.md
-      - 03 - Principios Diretores: 00-introduction/03-principios-diretores.md
-      - 04 - Estrutura e Organizacao: 00-introduction/04-estrutura-organizacao.md
-      - 05 - Publico-Alvo e Prerequisitos: 00-introduction/05-publico-alvo-prerequisitos.md
-      - 06 - Como Utilizar: 00-introduction/06-como-utilizar.md
-      - 07 - Fundamentos Essenciais de IA: 00-introduction/07-fundamentos-essenciais-ia.md
+      - 00 - O Fim da Codificacao:
+          - 01 - Contexto e Revolucao: 00-fim-codificacao-fundamentos-ai-first/01-contexto-revolucao-llms.md
+          - 02 - Mudanca de Paradigma: 00-fim-codificacao-fundamentos-ai-first/02-mudanca-paradigma.md
+          - 03 - Principios Diretores: 00-fim-codificacao-fundamentos-ai-first/03-principios-diretores.md
+          - 04 - Estrutura e Organizacao: 00-fim-codificacao-fundamentos-ai-first/04-estrutura-organizacao.md
+          - 05 - Publico-Alvo e Prerequisitos: 00-fim-codificacao-fundamentos-ai-first/05-publico-alvo-prerequisitos.md
+          - 06 - Como Utilizar: 00-fim-codificacao-fundamentos-ai-first/06-como-utilizar.md
+          - 07 - Fundamentos Essenciais de IA: 00-fim-codificacao-fundamentos-ai-first/07-fundamentos-essenciais-ia.md
       - KA 11 - Modelos e Metodos:
           - 01 - Fundamentos: 11-software-engineering-models-and-methods/01-fundamentos-modelos-executaveis-generativos.md
           - 02 - Modelagem de Dominio: 11-software-engineering-models-and-methods/02-modelagem-dominio-engenharia-contexto.md

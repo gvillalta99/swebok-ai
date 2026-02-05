@@ -13,15 +13,43 @@ ai_model: openai/gpt-5.2
 
 > **"O código tornou-se commodity; o contexto tornou-se capital."**
 
-O **SWEBOK-AI v5.0** (Software Engineering Body of Knowledge - AI Edition) é uma
-reimaginação completa do Guia do Conhecimento em Engenharia de Software
-tradicional para a era dos Large Language Models (LLMs) e agentes de IA.
+Esta é a premissa que rege o SWEBOK-AI v5.0. Não se trata de mais uma ferramenta
+ou framework, mas de uma transformação estrutural na natureza do trabalho de
+engenharia de software.
+
+Grandes Modelos de Linguagem (LLMs) eliminaram a barreira da sintaxe. Hoje,
+qualquer desenvolvedor pode gerar milhares de linhas de código funcional em
+minutos. O gargalo produtivo deslocou-se radicalmente: não é mais *escrever*
+código, mas *verificar* se o código gerado é correto, seguro e alinhado ao
+negócio.
+
+Este guia nasce de uma constatação urgente: a engenharia de software
+tradicional, construída sobre a escassez de código, colapsa diante da abundância
+de código. As práticas que dominamos — especificação de requisitos, design
+imperativo, testes baseados em cobertura — foram projetadas para um mundo onde
+código era caro e atenção era abundante. Esse mundo não existe mais.
+
+O SWEBOK-AI v5.0 propõe uma disciplina nova: a **Engenharia de Restrições e
+Verificação**. Aqui, o engenheiro não é mais o autor do código, mas o arquiteto
+de limites dentro dos quais sistemas autônomos operam. O valor profissional
+reside na capacidade de definir *o que não pode ser feito*, fornecer *contexto
+organizacional* que a IA não possui, e estabelecer *garantias de corretude* para
+artefatos probabilísticos.
+
+Este livro é para engenheiros que reconhecem que a IA não substitui o julgamento
+técnico — o amplifica. Para líderes que entendem que mais código não significa
+mais valor. Para profissionais dispostos a abandonar a ilusão de que código bem
+formatado implica código correto.
+
+A engenharia de software como a conhecemos terminou. Longa vida à engenharia de
+software.
 
 [![Versão](https://img.shields.io/badge/Vers%C3%A3o-5.0.0--beta-blue)](https://github.com/gvillalta99/swebok-ai)
 [![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)](https://github.com/gvillalta99/swebok-ai)
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-CC%20BY%204.0-green)](LICENSE)
 
-[📖 Começar a Ler](00-introduction/){ .md-button .md-button--primary }
+[📖 Começar a Ler](00-fim-codificacao-fundamentos-ai-first/){ .md-button
+.md-button--primary }
 [📥 Baixar PDF](https://gvillalta99.github.io/swebok-ai/assets/swebok-ai.pdf){
 .md-button } [⭐ GitHub](https://github.com/gvillalta99/swebok-ai){ .md-button }
 
@@ -68,10 +96,10 @@ reconfigurados para o paradigma AI-First:
 
 ### Fundamentos
 
-| Capítulo | Título                                                           | O Que Você Vai Dominar                                    |
-| -------- | ---------------------------------------------------------------- | --------------------------------------------------------- |
-| 0        | [Introdução ao SWEBOK-AI](00-introduction/)                      | O paradigma AI-First e por que a engenharia precisa mudar |
-| 1        | [Engenharia de Restrições e Contexto](01-software-requirements/) | Definir limites e fronteiras para sistemas autônomos      |
+| Capítulo | Título                                                                                               | O Que Você Vai Dominar                                    |
+| -------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| 0        | [O Fim da Codificação: Fundamentos da Engenharia AI-First](00-fim-codificacao-fundamentos-ai-first/) | O paradigma AI-First e por que a engenharia precisa mudar |
+| 1        | [Engenharia de Restrições e Contexto](01-software-requirements/)                                     | Definir limites e fronteiras para sistemas autônomos      |
 
 ### Knowledge Areas Principais
 
@@ -86,8 +114,9 @@ reconfigurados para o paradigma AI-First:
 | 8-18     | Knowledge Areas em Expansão                                                | Em desenvolvimento ativo              |
 
 !!! tip "Comece Aqui" Novo no SWEBOK-AI? Leia o
-[Capítulo 0: Introdução](00-introduction/) primeiro. Ele estabelece os
-fundamentos conceituais para todo o restante do guia.
+[Capítulo 0: O Fim da Codificação](00-fim-codificacao-fundamentos-ai-first/)
+primeiro. Ele estabelece os fundamentos conceituais para todo o restante do
+guia.
 
 ## Para Quem É Este Guia?
 
