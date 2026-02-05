@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "d0b09b9d6b99bb83",
+        "id": "2a8f664d4cae78f9",
         "type": "tabs",
         "children": [
           {
-            "id": "6f4a3e10ef148830",
+            "id": "d31e33d4005c5d41",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "README.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "README"
+              "title": "New tab"
             }
           }
         ]
@@ -174,13 +170,23 @@
               "icon": "opencode-logo",
               "title": "OpenCode"
             }
+          },
+          {
+            "id": "e60f70ae6e247e14",
+            "type": "leaf",
+            "state": {
+              "type": "footnotes",
+              "state": {},
+              "icon": "lucide-file-signature",
+              "title": "Footnotes"
+            }
           }
         ],
         "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 511.5
+    "width": 778.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -191,11 +197,13 @@
       "templates:Insert template": false,
       "command-palette:Open command palette": false,
       "bases:Create new base": false,
-      "obsidian-opencode:OpenCode": false
+      "obsidian-opencode:OpenCode": false,
+      "random-note:Open random note": false
     }
   },
-  "active": "6f4a3e10ef148830",
+  "active": "2f53563e67feb826",
   "lastOpenFiles": [
+    "README.md",
     "docs/index.md",
     "docs/README.md",
     "docs/imgs/logo.png",
@@ -226,7 +234,6 @@
     "docs/11-software-engineering-models-and-methods/PLAN.md",
     "docs/11-software-engineering-models-and-methods/06-metodos-especificacao-validacao.md",
     "docs/11-software-engineering-models-and-methods/05-modelagem-arquitetural-sistemas.md",
-    "docs/11-software-engineering-models-and-methods/04-prototipagem-design-iterativo.md",
     "docs/11-software-engineering-models-and-methods",
     "docs/temp-reorg/15-software-engineering-economics",
     "docs/temp-reorg/08-software-configuration-management",
