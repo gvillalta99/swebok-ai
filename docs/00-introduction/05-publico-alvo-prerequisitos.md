@@ -3,16 +3,16 @@ title: "Público-Alvo e Pré-requisitos"
 created_at: "2025-01-31"
 tags: ["introducao", "publico-alvo", "pre-requisitos", "audiencia", "perfil"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "kimi-k2.5"
 ---
 # Público-Alvo e Pré-requisitos
 
-## Overview
+## Visão Geral
 
 O SWEBOK-AI v5.0 foi projetado para atender a múltiplos perfis de leitores, desde estudantes iniciantes até executivos de tecnologia. No entanto, o guia assume certo nível de familiaridade com conceitos de engenharia de software e, cada vez mais, com ferramentas de IA. Esta seção define o público-alvo, os pré-requisitos esperados e os diferentes caminhos de navegação recomendados para cada perfil.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -34,7 +34,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 - Necessidade de compreender limites e responsabilidades
 
 **Objetivos de Aprendizagem**:
-- Adaptar práticas de desenvolvimento para o paradigma AI-first
+- Adaptar práticas de desenvolvimento para o paradigma IA-first
 - Desenvolver competências de verificação e governança
 - Compreender trade-offs econômicos e técnicos
 - Estabelecer processos de trabalho híbridos humanos-IA
@@ -67,10 +67,10 @@ Após estudar esta seção, o leitor deve ser capaz de:
 **Caminho Recomendado**:
 1. Capítulo 00 (Introdução — foco em Seções 2 e 3)
 2. Capítulo 02 (Arquitetura)
-3. Capítulo 09 (Management)
-4. Capítulo 14 (Professional Practice)
-5. Capítulo 15 (Economics)
-6. Capítulo 12 (Quality) — visão gerencial
+3. Capítulo 09 (Gestão - Management)
+4. Capítulo 14 (Prática Profissional - Professional Practice)
+5. Capítulo 15 (Economia - Economics)
+6. Capítulo 12 (Qualidade - Quality) — visão gerencial
 7. Retorno a KAs técnicos conforme necessidade
 
 ### Perfil 3: Pesquisadores e Acadêmicos
@@ -114,9 +114,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 **Caminho Recomendado**:
 1. Capítulo 00 (Introdução — Seções 1-3)
-2. Capítulo 09 (Management) — visão estratégica
-3. Capítulo 15 (Economics) — análise de valor
-4. Capítulo 14 (Professional Practice) — riscos e accountability
+2. Capítulo 09 (Gestão - Management) — visão estratégica
+3. Capítulo 15 (Economia - Economics) — análise de valor
+4. Capítulo 14 (Prática Profissional - Professional Practice) — riscos e accountability
 5. Seções específicas de KAs conforme contexto de negócio
 
 ### Perfil 5: Estudantes e Iniciantes
@@ -161,7 +161,6 @@ Após estudar esta seção, o leitor deve ser capaz de:
 **Conceitos de IA**:
 - Noções básicas de Large Language Models
 - Experiência prática com chatbots de IA
-- Compreensão de que IA gera código, mas não substitui completamente o julgamento humano
 
 ### Pré-requisitos Avançados (Pesquisadores e Líderes)
 
@@ -173,8 +172,8 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 **Experiência**:
 - 3+ anos em desenvolvimento de software (para líderes)
-- Experiência em pesquisa ou revisão de literatura (para pesquisadores)
-- Gestão de equipes ou projetos (para executivos)
+- Experiência em revisão sistemática de literatura (para pesquisadores)
+- Gestão de orçamento técnico em escala (para executivos)
 
 ## Checklist de Prontidão
 
@@ -193,8 +192,8 @@ Antes de prosseguir para os capítulos subsequentes, avalie se você consegue:
 - [ ] Compreender trade-offs entre velocidade e qualidade
 
 ### Mentalidade
-- [ ] Aceitar que a profissão está em transformação acelerada
-- [ ] Reconhecer que aprendizado contínuo é obrigatório
+- [ ] Listar 3 práticas de desenvolvimento que você reconsideraria com o uso de IA
+- [ ] Identificar uma área onde você delegaria tarefas para IA hoje
 - [ ] Compreender que julgamento técnico supera conhecimento sintático
 - [ ] Estar aberto a reconfigurar práticas estabelecidas
 
@@ -208,12 +207,12 @@ Se você não conseguiu marcar todos os itens, recomendamos:
 ### Transições Comuns
 
 **Desenvolvedor → Tech Lead**:
-- Adicionar foco em KA 09 (Management) e KA 02 (Architecture)
-- Aprofundar em KA 14 (Professional Practice)
+- Adicionar foco em KA 09 (Gestão - Management) e KA 02 (Arquitetura)
+- Aprofundar em KA 14 (Prática Profissional - Professional Practice)
 
 **Tech Lead → Engineering Manager**:
-- Foco intenso em KA 09 (Management) e KA 15 (Economics)
-- Visão estratégica de KA 12 (Quality) e KA 13 (Security)
+- Foco intenso em KA 09 (Gestão - Management) e KA 15 (Economia - Economics)
+- Visão estratégica de KA 12 (Qualidade - Quality) e KA 13 (Segurança - Security)
 
 **Acadêmico → Praticante**:
 - Focar em KAs aplicados (1-7) com ênfase em Practical Considerations
@@ -222,6 +221,34 @@ Se você não conseguiu marcar todos os itens, recomendamos:
 **Executivo → Mais Técnico**:
 - Aprofundar em KA 16 (Computing Foundations)
 - Estudar KA 05 (Testing) e KA 12 (Quality)
+
+## Armadilhas Comuns
+
+Evite estes erros ao utilizar o SWEBOK-AI v5.0:
+
+### 1. Assumir que Todos os Perfis Precisam Ler Todos os KAs
+Cada perfil tem um caminho otimizado. Tentar ler todos os KAs linearmente resulta em:
+- Perda de foco em conteúdo relevante ao seu contexto
+- Exaustão cognitiva com material não aplicável
+- Subaproveitamento das recomendações específicas
+
+**Solução**: Siga o caminho recomendado para seu perfil, retornando a outros KAs apenas quando necessário.
+
+### 2. Ignorar o Checklist de Prontidão
+Pular diretamente para conteúdo avançado sem validar fundamentos resulta em:
+- Dificuldade para contextualizar conceitos de IA-first
+- Subestimação da mudança de paradigma
+- Frustração com exemplos que parecem óbvios demais ou complexos demais
+
+**Solução**: Complete o checklist de prontidão antes de avançar para KAs técnicos.
+
+### 3. Subestimar a Curva de Aprendizado das Ferramentas de IA
+Assumir que ferramentas de IA são "plug-and-play" resulta em:
+- Expectativas irreais sobre produtividade imediata
+- Frustração com outputs de baixa qualidade
+- Abandono prematuro de ferramentas promissoras
+
+**Solução**: Reserve tempo para experimentação controlada (2-4 semanas) antes de avaliar ROI.
 
 ## Matriz de Avaliação Consolidada
 
@@ -233,13 +260,13 @@ Se você não conseguiu marcar todos os itens, recomendamos:
 
 ## Summary
 
-- Cinco perfis principais: Praticantes, Líderes, Pesquisadores, Executivos, Estudantes
-- Cada perfil tem objetivos, caminhos e pré-requisitos específicos
-- Pré-requisitos básicos incluem programação, Git e noções de IA
-- Checklist de prontidão ajuda a avaliar preparação para o conteúdo
-- Navegação flexível permite transições entre perfis
-- Recomendações específicas para cada perfil maximizam aproveitamento
+- Cinco perfis: Praticantes, Líderes, Pesquisadores, Executivos, Estudantes
+- Cada perfil com objetivos, caminhos e pré-requisitos específicos
+- Pré-requisitos: programação, Git, noções de IA
+- Checklist de prontidão valida preparação
+- Navegação flexível entre perfis
+- Recomendações específicas maximizam aproveitamento
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
+1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. Los Alamitos, CA: IEEE Computer Society Press, 2024.
