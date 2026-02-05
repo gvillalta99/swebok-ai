@@ -48,10 +48,9 @@ software.
 [![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)](https://github.com/gvillalta99/swebok-ai)
 [![Licença](https://img.shields.io/badge/Licen%C3%A7a-CC%20BY%204.0-green)](LICENSE)
 
-[📖 Começar a Ler](00-fim-codificacao-fundamentos-ai-first/){ .md-button
-.md-button--primary }
-[📥 Baixar PDF](https://gvillalta99.github.io/swebok-ai/assets/swebok-ai.pdf){
-.md-button } [⭐ GitHub](https://github.com/gvillalta99/swebok-ai){ .md-button }
+[📖 Começar a Ler](00-fim-codificacao-fundamentos-ai-first/)
+[📥 Baixar PDF](https://gvillalta99.github.io/swebok-ai/assets/swebok-ai.pdf)
+[⭐ GitHub](https://github.com/gvillalta99/swebok-ai)
 
 ![Capa SWEBOK-AI v5.0](imgs/capa.png)
 
@@ -159,5 +158,5 @@ bem-vinda:
 
 ## Licença
 
-O conteúdo original deste repositório está sob a licença em `LICENSE`. Materiais
-de terceiros não são distribuídos aqui; veja `NOTICE`.
+O conteúdo original deste repositório está sob a licença em . Materiais de
+terceiros não são distribuídos aqui; veja `NOTICE`.

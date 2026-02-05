@@ -1,4 +1,4 @@
-# AGENTS.md - SWEBOK-AI v5.0
+# Livro:
 
 > Guia de orientação para agentes de IA trabalhando neste projeto. Última
 > atualização: 2026-01-29
@@ -19,39 +19,27 @@ A nova estrutura abandona a premissa de que engenharia de software é
 primariamente sobre sintaxe e lógica de implementação, assumindo que geração
 algorítmica é infraestrutura, não produto.
 
-### Paradigma Shift
-
-| Antes (SWEBOK v4)                                       | Depois (SWEBOK-AI v5)                                                                                                                |
-| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Engenharia = Transformar requisitos em código eficiente | Engenharia = Estabelecer restrições para sistemas autônomos gerarem soluções provavelmente corretas, auditáveis e responsabilizáveis |
-| Foco na produção de código                              | Foco na verificação e governança                                                                                                     |
-| Gargalo: escrever código                                | Gargalo: validar código gerado por IA                                                                                                |
-| Requisitos = "o que construir"                          | Restrições = "o que NÃO deixar construir"                                                                                            |
-
-______________________________________________________________________
+---
 
 ## Estrutura do Projeto
 
 ### Organização de Diretórios
 
 ```
-02-projetos/09-swebok-ai-v5.0/
-├── README.md                          # Visão geral da arquitetura futura
-├── AGENTS.md                          # Este arquivo
-├── book-writer.md                     # Configuração do agente escritor
-├── mkdocs.yml                         # Configuração do site
-│
-├── docs/                              # FONTE ÚNICA DA VERDADE - Todo conteúdo está aqui
+├── README.md
+├── AGENTS.md
+├── mkdocs.yml
+├── docs/
 │   ├── README.md
 │   ├── index.md
-│   ├── 00-introduction/               # Introdução ao SWEBOK-AI
-│   ├── 01-software-requirements/      # Engenharia de Restrições e Contexto
-│   ├── 02-software-architecture/      # Arquitetura de Sistemas Híbridos
-│   ├── 03-software-design/            # Design de Sistemas Híbridos (Humanos-IA)
-│   ├── 04-software-construction/      # Orquestração e Curadoria de Código
-│   ├── 05-software-testing/           # Verificação e Validação em Escala
+│   ├── 00-new-era/
+│   ├── 01-software-requirements/
+│   ├── 02-software-architecture/
+│   ├── 03-software-design/
+│   ├── 04-software-construction/
+│   ├── 05-software-testing/
 │   ├── 06-software-engineering-operations/
-│   ├── 07-software-maintenance/       # Manutenção de Sistemas Opaços
+│   ├── 07-software-maintenance/
 │   ├── 08-software-configuration-management/
 │   ├── 09-software-engineering-management/
 │   ├── 10-software-engineering-process/
@@ -59,19 +47,9 @@ ______________________________________________________________________
 │   ├── 12-software-quality/
 │   ├── 13-software-security/
 │   ├── 14-software-engineering-professional-practice/
-│   ├── 15-software-engineering-economics/
-│   ├── 16-computing-foundations/
-│   ├── 17-mathematical-foundations/
-│   └── 18-engineering-foundations/
-│
-└── site/                              # Site gerado (não versionado)
+│   └── 15-software-engineering-economics/
+└── site/
 ```
-
-### Status dos Knowledge Areas (KAs)
-
-| KA    | Status      | Descrição                                                           |
-| ----- | ----------- | ------------------------------------------------------------------- |
-| 01-19 | **Revisão** | Todos os capítulos e sessões foram escritos, mas o texto está fraco |
 
 ______________________________________________________________________
 
@@ -116,7 +94,7 @@ O arquivo `mkdocs.yml` define:
 
 - Todo conteúdo fica em `docs/`
 - Site gerado vai para `site/` (não versionado)
-- Arquivos excluídos da navegação: `**/PLAN.md`, `**/README.md`, `/00-pesquisa/`
+- Arquivos excluídos da navegação: `**/PLAN.md`, `**/README.md`
 - PDF consolidado gerado em `assets/swebok-ai.pdf`
 
 ______________________________________________________________________
@@ -142,14 +120,25 @@ ______________________________________________________________________
 Todo arquivo de conteúdo deve seguir esta estrutura:
 
 ```markdown
+---
+title: TITULO
+created_at: DATA
+tags: [tag1, tag2, tag3] # tags relevantes
+status: STATUS # (draft, in-progress, research, published)
+updated_at: DATA
+ai_model: MODELO
+---
+
 # Título da Seção
 
 [Conteúdo...]
 
 ## [Subseção 1]
+
 [Conteúdo...]
 
 ## Referências
+
 1. [Autor], [Título], [Publicação], [Ano]
 ```
 
@@ -158,6 +147,7 @@ ______________________________________________________________________
 ## Mapeamento dos KAs
 
 ### KAs Tradicionais Reconfigurados
+
 
 | Nº  | Nome Original         | Novo Nome (SWEBOK-AI)                          | Foco Principal                               |
 | --- | --------------------- | ---------------------------------------------- | -------------------------------------------- |
@@ -171,11 +161,6 @@ ______________________________________________________________________
 | 15  | Engineering Economics | Economia e Métricas da Engenharia com IA       | Paradoxo de Jevons, TCO de código gerado     |
 | 16  | Computing Foundations | Fundamentos de Sistemas Cognitivos Artificiais | LLMs, RAG, atenção em Transformers           |
 
-### Novos KAs Propostos
-
-- **Engenharia de Garantia e Verificação em Escala**
-- **Governança de IA para Engenharia de Software**
-- **Engenharia de Manutenção de Sistemas Opaços**
 
 ______________________________________________________________________
 
@@ -183,67 +168,40 @@ ______________________________________________________________________
 
 ### Antes de Escrever
 
-1. **Consulte o `book-writer.md`**: Contém diretrizes detalhadas para o agente
-   escritor
-2. **Verifique o `PLAN.md`**: Se existir no KA, segue o plano estabelecido
-3. **Mantenha consistência**: Use a mesma terminologia entre seções e KAs
+1. **Verifique o `PLAN.md`**: Se existir no KA, segue o plano estabelecido
+2. **Mantenha consistência**: Use a mesma terminologia entre seções e KAs
 
 ### Princípios de Escrita
 
 1. **Perspectiva AI-First:** Assuma que geração de código é infraestrutura
-2. **Centrado em Verificação:** O gargalo é validação, não produção
-3. **Human-in-the-Loop:** Defina quando supervisão humana é obrigatória
+2. **Gargalos:** Qual é o novo gargalo?
+3. **Human-in-the-Loop:** Onde o humano participa?
 4. **Realidade Econômica:** Considere TCO e Paradoxo de Jevons
-
-### Conteúdo LEGADO
-
-Marque explicitamente como **LEGADO**:
-
-- Técnicas de codificação manual de baixo nível
-- Modelos de carreira baseados em volume de código
-- Testes baseados apenas em cobertura de código
 
 ### Checklist de Qualidade
 
 Antes de finalizar conteúdo:
 
-- [ ] Estrutura segue o padrão estabelecido
 - [ ] Termos técnicos definidos no primeiro uso
 - [ ] Exemplos práticos e relevantes
 - [ ] Referências citadas corretamente
-- [ ] Matriz de avaliação incluída
 - [ ] Considerações econômicas abordadas
-- [ ] Alinhamento com filosofia SWEBOK-AI v5.0
 
 ______________________________________________________________________
 
-## Arquivos de Referência Importantes
-
-| Arquivo                             | Propósito                                                                              |
-| ----------------------------------- | -------------------------------------------------------------------------------------- |
-| `book-writer.md`                    | Configuração e diretrizes para agentes escritores                                      |
-| `swebok-ai.md`                      | Resumo executivo da arquitetura                                                        |
-| `swe-ai-future.md`                  | Análise crítica do impacto da IA no mercado de trabalho                                |
-| `swe-ai-artifacts.md`               | Artefatos estratégicos essenciais para 2026                                            |
-| `swe-ai-organizational-patterns.md` | Padrões de organização de código/repositórios                                          |
-| `swebok-v4.pdf`                     | Documento de referência original (SWEBOK v4) - NAO versionado (obter de fonte oficial) |
-
-______________________________________________________________________
-
-## Considerações de Segurança
-
-- Não incluir informações sensíveis ou proprietárias em exemplos
-- Ao discutir casos de estudo, usar dados anonimizados
-- Referências a vulnerabilidades devem ser acompanhadas de mitigações
-
-______________________________________________________________________
-
-## Processo de Desenvolvimento
+## Processo de escrita
 
 1. **Fase de Planejamento**: Criar `PLAN.md` no diretório do KA
-2. **Fase de Escrita**: Desenvolver conteúdo seguindo templates
-3. **Fase de Revisão**: Verificar qualidade e consistência
-4. **Fase de Integração**: Garantir coerência entre KAs relacionados
+2. Fase de Pesquisa: Use o mcp exa ou o web search para pesquisar sobre o tema e escrever um rascunho.
+3. Fase de Revisão: Buscar referências recentes sobre o tema e adicioná-las ao PLAN.md
+4. **Fase de Escrita**: Desenvolver o texto
+5. **Fase de Revisão**: Revisar o texto e as referências bibliográficas
+    1. A revisão tem algum problema,
+    2. Corrija os problemas
+    3. Volte para a etapa 4
+6. Marcar como published
+7. Fazer o commit com o skill commiter
+8. Fazer o push
 
 ______________________________________________________________________
 
