@@ -194,8 +194,8 @@ ______________________________________________________________________
 1. **Fase de Planejamento**: Criar `PLAN.md` no diretório do KA
 2. Fase de Pesquisa: Use o mcp exa ou o web search para pesquisar sobre o tema e escrever um rascunho.
 3. Fase de Revisão: Buscar referências recentes sobre o tema e adicioná-las ao PLAN.md
-4. **Fase de Escrita**: Desenvolver o texto
-5. **Fase de Revisão**: Revisar o texto e as referências bibliográficas
+4. **Fase de Escrita**: Desenvolver o texto, use o agent @book-writer
+5. **Fase de Revisão**: Revisar o texto e as referências bibliográficas, use o agent @book-reviewer
     1. A revisão tem algum problema,
     2. Corrija os problemas
     3. Volte para a etapa 4
