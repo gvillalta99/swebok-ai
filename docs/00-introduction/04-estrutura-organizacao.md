@@ -3,15 +3,15 @@ title: "Estrutura e Organização do Guia"
 created_at: "2025-01-31"
 tags: ["introducao", "estrutura", "organizacao", "ka", "knowledge-areas"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "kimi-k2.5"
 ---
 
 # Estrutura e Organização do Guia
 
 ## Overview
 
-O SWEBOK-AI v5.0 mantém a estrutura de 18 Knowledge Areas (KAs) do SWEBOK v4.0, mas as reconfigura fundamentalmente para refletir o paradigma AI-first. Cada KA foi reinterpretada à luz dos seis princípios diretores, resultando em mudanças de foco, novas competências e redefinição de papéis. Esta seção apresenta o mapeamento completo das transformações e estabelece as conexões entre as áreas de conhecimento.
+O SWEBOK-AI v5.0 mantém a estrutura de 18 Knowledge Areas (KAs) do SWEBOK v4.0, mas as reconfigura fundamentalmente para refletir o paradigma AI-first. Cada KA foi reinterpretada à luz dos seis princípios diretores (verificação-centrismo, contexto como capital, sistemas híbridos, governança, economicidade e julgamento técnico), resultando em mudanças de foco, novas competências e redefinição de papéis. Esta seção apresenta o mapeamento completo das transformações e estabelece as conexões entre as áreas de conhecimento.
 
 ## Learning Objectives
 
@@ -26,7 +26,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ### Os Três Pilares
 
-O SWEBOK-AI v5.0 organiza as 18 KAs em três pilares fundamentais:
+O SWEBOK-AI v5.0 organiza as 18 KAs em três pilares fundamentais (sendo que o Pilar 3 contém disciplinas externas não numeradas como KAs):
 
 ```
 SWEBOK-AI v5.0
@@ -78,7 +78,7 @@ SWEBOK-AI v5.0
 
 **Foco AI-First**:
 - Definição de restrições e limites
-- Engenharia de contexto para LLMs
+- Engenharia de contexto (preparação e estruturação de informações para alimentar LLMs de forma eficaz)
 - Validação de especificações
 - Especificação do que NÃO fazer
 
@@ -149,7 +149,7 @@ SWEBOK-AI v5.0
 **Conexões Principais**: KA 04 (Construction), KA 12 (Qualidade), KA 13 (Segurança)
 
 ### KA 06: Software Engineering Operations
-**Transformação**: Operações com suporte de IA
+**Transformação**: De "Operações" para "Operações Autônomas e Supervisionadas"
 
 **Foco Tradicional**:
 - DevOps
@@ -196,7 +196,7 @@ SWEBOK-AI v5.0
 **Conexões Principais**: KA 06 (Operations), KA 09 (Management)
 
 ### KA 09: Software Engineering Management
-**Transformação**: Gestão de equipes e projetos com IA
+**Transformação**: Gestão de equipes híbridas humanos-IA e projetos com IA
 
 **Foco Tradicional**:
 - Planejamento de projetos
@@ -266,7 +266,7 @@ SWEBOK-AI v5.0
 - Gestão de riscos de segurança
 
 **Foco AI-First**:
-- Segurança em codigo e configuracoes geradas por IA (risco variavel por contexto)
+- Segurança em código e configurações geradas por IA
 - Segurança de sistemas autônomos
 - Verificação de segurança em escala
 - Supply chain de modelos
@@ -316,7 +316,7 @@ SWEBOK-AI v5.0
 **Foco AI-First**:
 - Fundamentos de LLMs
 - Arquitetura Transformer
-- RAG (Retrieval-Augmented Generation)
+- RAG (Retrieval-Augmented Generation — recuperação de informações relevantes para enriquecer respostas de LLMs)
 - Mecanismos de atenção
 
 **Conexões Principais**: KA 01-15 (fundamentação técnica)
@@ -361,12 +361,12 @@ SWEBOK-AI v5.0
 
 ## Summary
 
-- O SWEBOK-AI v5.0 mantém 18 KAs do v4.0, mas as reconfigura para o paradigma AI-first
-- Cada KA tem um novo foco que reflete a mudança de "produção" para "verificação"
-- Três pilares: Engenharia Aplicada (1-15), Fundamentos (16-18), Disciplinas Relacionadas
-- Transformações específicas incluem: Restrições (KA 1), Sistemas Híbridos (KA 2), Curadoria (KA 4), Verificação em Escala (KA 5), Sistemas Opaços (KA 7)
-- KA 15 (Economics) torna-se transversal, fundamentando análises de valor em todas as áreas
+1. O SWEBOK-AI v5.0 mantém 18 KAs do v4.0, mas as reconfigura para o paradigma AI-first
+2. Cada KA tem um novo foco que reflete a mudança de "produção" para "verificação"
+3. Três pilares: Engenharia Aplicada (1-15), Fundamentos (16-18), Disciplinas Relacionadas
+4. Transformações específicas incluem: Restrições (KA 1), Sistemas Híbridos (KA 2), Curadoria (KA 4), Verificação em Escala (KA 5), Sistemas Opaços (KA 7)
+5. KA 15 (Economics) torna-se transversal, fundamentando análises de valor em todas as áreas
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024.
+1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge (SWEBOK), Version 4.0. 2024. Disponível em: https://www.computer.org/education/bodies-of-knowledge/software-engineering
