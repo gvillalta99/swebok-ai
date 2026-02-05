@@ -1,332 +1,273 @@
 ---
-title: Público-Alvo e Pré-requisitos
-created_at: '2025-01-31'
-tags: [introducao, publico-alvo, pre-requisitos, audiencia, perfil]
+title: 'Público-Alvo e Pré-requisitos'
+created_at: '2026-02-05'
+tags: [publico, prerequisitos, perfis, checklist, leitores]
 status: published
-updated_at: '2026-02-04'
-ai_model: kimi-k2.5
+updated_at: '2026-02-05'
+ai_model: k2p5
 ---
 
 # Público-Alvo e Pré-requisitos
 
-## Visão Geral
+## Overview
 
-O SWEBOK-AI v5.0 foi projetado para atender a múltiplos perfis de leitores,
-desde estudantes iniciantes até executivos de tecnologia. No entanto, o guia
-assume certo nível de familiaridade com conceitos de engenharia de software e,
-cada vez mais, com ferramentas de IA. Esta seção define o público-alvo, os
-pré-requisitos esperados e os diferentes caminhos de navegação recomendados para
-cada perfil.
+O SWEBOK-AI v5.0 é projetado para atender múltiplos perfis profissionais envolvidos na engenharia de software na era dos LLMs. Esta seção identifica os públicos-alvo, define pré-requisitos de conhecimento e fornece orientações para diferentes trajetórias de leitura.
 
-## Objetivos de Aprendizagem
+O guia assume familiaridade com fundamentos de engenharia de software, mas não requer expertise prévia em inteligência artificial ou machine learning. O KA 16 (Fundamentos de Sistemas Cognitivos Artificiais) fornece base técnica suficiente para compreensão dos demais KAs.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+## Learning Objectives
 
-1. Identificar seu perfil dentro do público-alvo do SWEBOK-AI v5.0
-2. Reconhecer os pré-requisitos necessários para aproveitamento máximo do guia
-3. Selecionar o caminho de navegação mais adequado ao seu perfil
-4. Avaliar sua própria prontidão para absorver o conteúdo
+Após estudar esta seção, você deve ser capaz de:
 
-## Perfis de Público-Alvo
+1. Identificar seu perfil de leitor e trajetória recomendada através do guia
+2. Avaliar sua prontidão para absorver o conteúdo através do checklist fornecido
+3. Selecionar KAs prioritários baseado em seus objetivos profissionais
+4. Reconhecer lacunas de conhecimento prévio que devem ser endereçadas
 
-### Perfil 1: Praticantes de Engenharia de Software
+## Perfis de Leitores
 
-**Descrição**: Desenvolvedores, engenheiros de software, arquitetos e tech leads
-atuantes na indústria.
+### Perfil 1: Praticantes (Developers, Engenheiros, Arquitetos)
 
-**Características**:
+**Descrição:**
+Profissionais que trabalham diretamente no desenvolvimento, arquitetura ou manutenção de sistemas de software e buscam integrar ferramentas de IA em seu workflow diário.
 
-- Experiência prática em desenvolvimento de software
-- Uso atual ou iminente de ferramentas de IA (Copilot, ChatGPT, Claude, etc.)
-- Busca por orientação prática sobre como integrar IA ao workflow
-- Necessidade de compreender limites e responsabilidades
+**Objetivos Típicos:**
+- Adotar assistentes de codificação de forma efetiva
+- Implementar verificação rigorosa de código gerado por IA
+- Projetar sistemas que incorporam componentes de IA
+- Gerenciar dívida técnica em código gerado automaticamente
 
-**Objetivos de Aprendizagem**:
+**KAs Prioritários:**
+1. KA 00 (Nova Era) — Fundamentação conceitual
+2. KA 04 (Orquestração e Curadoria) — Workflow diário
+3. KA 05 (Verificação e Validação) — Qualidade
+4. KA 12 (Qualidade em Escala) — Garantia
+5. KA 07 (Manutenção de Sistemas Opaços) — Longo prazo
 
-- Adaptar práticas de desenvolvimento para o paradigma IA-first
-- Desenvolver competências de verificação e governança
-- Compreender trade-offs econômicos e técnicos
-- Estabelecer processos de trabalho híbridos humanos-IA
+**Pré-requisitos:**
+- Experiência prática em desenvolvimento de software (2+ anos)
+- Familiaridade com pelo menos uma linguagem de programação moderna
+- Conhecimento básico de versionamento (Git)
+- Experiência com code review e testes
 
-**Caminho Recomendado**:
+### Perfil 2: Líderes Técnicos e Gestores de Engenharia
 
-1. Capítulo 00 (Introdução completa)
-2. Capítulo 02 (Arquitetura de Sistemas Híbridos)
-3. Capítulo 03 (Design de Sistemas Híbridos)
-4. Capítulo 04 (Orquestração e Curadoria)
-5. Capítulo 05 (Verificação e Validação)
-6. Capítulo 12 (Qualidade)
-7. Capítulos específicos conforme área de atuação
+**Descrição:**
+Profissionais responsáveis por liderar equipes, definir processos e tomar decisões estratégicas sobre adoção de tecnologia e organização do trabalho.
 
-### Perfil 2: Líderes Técnicos e Gestores
+**Objetivos Típicos:**
+- Estabelecer governança para uso de IA em equipes
+- Redefinir processos de desenvolvimento
+- Avaliar trade-offs econômicos de adoção de IA
+- Definir novos papéis e responsabilidades
 
-**Descrição**: CTOs, VPs de Engenharia, Engineering Managers, Diretores de
-Tecnologia.
+**KAs Prioritários:**
+1. KA 00 (Nova Era) — Contexto estratégico
+2. KA 03 (Princípios Diretores) — Fundamentação
+3. KA 09 (Gestão de Engenharia) — Liderança
+4. KA 15 (Economia e Métricas) — Viabilidade
+5. KA 14 (Prática Profissional) — Responsabilidade
 
-**Características**:
-
-- Responsabilidade por estratégia tecnológica e equipes
-- Decisões de adoção e governança de IA
-- Necessidade de compreender impactos organizacionais
-- Foco em métricas, ROI e gestão de riscos
-
-**Objetivos de Aprendizagem**:
-
-- Estabelecer estratégias de adoção de IA na organização
-- Definir frameworks de governança e compliance
-- Compreender transformação de papéis e competências
-- Avaliar trade-offs econômicos e de risco
-
-**Caminho Recomendado**:
-
-1. Capítulo 00 (Introdução — foco em Seções 2 e 3)
-2. Capítulo 02 (Arquitetura)
-3. Capítulo 09 (Gestão - Management)
-4. Capítulo 14 (Prática Profissional - Professional Practice)
-5. Capítulo 15 (Economia - Economics)
-6. Capítulo 12 (Qualidade - Quality) — visão gerencial
-7. Retorno a KAs técnicos conforme necessidade
+**Pré-requisitos:**
+- Experiência em gestão de equipes de engenharia
+- Familiaridade com metodologias ágeis
+- Conhecimento de métricas de engenharia de software
+- Experiência em tomada de decisão tecnológica
 
 ### Perfil 3: Pesquisadores e Acadêmicos
 
-**Descrição**: Pesquisadores em engenharia de software, professores
-universitários, alunos de pós-graduação.
+**Descrição:**
+Pesquisadores em engenharia de software, ciência da computação e áreas relacionadas que buscam compreender o estado-da-arte e identificar lacunas para investigação.
 
-**Características**:
-
-- Interesse em fundamentação teórica e evidências empíricas
-- Necessidade de compreender estado da arte e lacunas de pesquisa
-- Foco em rigor metodológico e referências
-- Busca por contribuições originais ao campo
-
-**Objetivos de Aprendizagem**:
-
-- Compreender o estado atual da pesquisa em IA para engenharia de software
-- Identificar lacunas e oportunidades de pesquisa
+**Objetivos Típicos:**
+- Mapear estado atual da pesquisa em IA para software
+- Identificar questões em aberto e oportunidades de pesquisa
+- Compreender metodologias empíricas aplicadas ao tema
 - Contextualizar trabalhos próprios no panorama atual
-- Desenvolver currículos atualizados para formação de engenheiros
 
-**Caminho Recomendado**:
+**KAs Prioritários:**
+1. Todos os KAs — Leitura completa recomendada
+2. KA 16 (Fundamentos) — Base teórica
+3. KA 11 (Modelos e Métodos) — Formalismos
+4. KA 15 (Economia) — Análises empíricas
 
-1. Capítulo 00 (Introdução completa — foco em referências)
-2. Todos os KAs em sequência (1-16)
-3. Atenção especial a seções de "Research Directions" e "Open Problems"
-4. KA 11 (Models and Methods) — metodologias
+**Pré-requisitos:**
+- Formação em ciência da computação ou área relacionada
+- Familiaridade com metodologia científica
+- Conhecimento de estatística e análise de dados
+- Experiência com revisão de literatura acadêmica
 
-**Nota**: Pesquisadores podem precisar complementar com literatura específica de
-fundamentos de IA (deep learning, estatística, etc.) não cobertos neste guia.
+### Perfil 4: Executivos e Tomadores de Decisão
 
-### Perfil 4: Executivos de Negócio
+**Descrição:**
+C-levels, VPs e diretores que precisam compreender implicações estratégicas e econômicas da IA na engenharia de software para alocação de recursos e definição de estratégia.
 
-**Descrição**: CEOs, CIOs, Diretores de Negócio, Product Managers, investidores
-em tecnologia.
-
-**Características**:
-
-- Foco em impacto de negócio e vantagem competitiva
-- Necessidade de compreender riscos e oportunidades estratégicas
-- Decisões de investimento em tecnologia
-- Comunicação com equipes técnicas
-
-**Objetivos de Aprendizagem**:
-
-- Compreender oportunidades e riscos da IA em software
-- Estabelecer expectativas realistas sobre capacidades e limites
-- Avaliar investimentos em ferramentas e treinamento
+**Objetivos Típicos:**
+- Avaliar ROI de investimentos em IA
+- Compreender riscos e mitigações
+- Definir estratégia de adoção
 - Comunicar-se efetivamente com equipes técnicas
 
-**Caminho Recomendado**:
+**KAs Prioritários:**
+1. KA 00 (Nova Era) — Contexto e marcos
+2. KA 03 (Princípios Diretores) — Framework de decisão
+3. KA 09 (Gestão) — Organização
+4. KA 15 (Economia) — Análise de custo-benefício
 
-1. Capítulo 00 (Introdução — Seções 1-3)
-2. Capítulo 09 (Gestão - Management) — visão estratégica
-3. Capítulo 15 (Economia - Economics) — análise de valor
-4. Capítulo 14 (Prática Profissional - Professional Practice) — riscos e
-   accountability
-5. Seções específicas de KAs conforme contexto de negócio
+**Pré-requisitos:**
+- Experiência em gestão estratégica
+- Familiaridade com conceitos de tecnologia
+- Conhecimento de finanças corporativas
+- Experiência em gestão de mudança organizacional
 
-### Perfil 5: Estudantes e Iniciantes
+### Perfil 5: Estudantes e Profissionais em Transição
 
-**Descrição**: Estudantes de graduação em computação, engenharia de software,
-bootcamps, profissionais em transição de carreira.
+**Descrição:**
+Estudantes de graduação/pós-graduação em computação e profissionais de outras áreas buscando ingressar ou transicionar para engenharia de software na era dos LLMs.
 
-**Características**:
+**Objetivos Típicos:**
+- Compreender o estado atual da profissão
+- Identificar habilidades críticas para desenvolver
+- Navegar a transição paradigmática desde o início da carreira
+- Evitar armadilhas de aprendizado obsoleto
 
-- Formação básica em programação e algoritmos
-- Familiaridade inicial com conceitos de engenharia de software
-- Busca por fundamentação sólida para carreira
-- Necessidade de compreender o campo em transformação
+**KAs Prioritários:**
+1. KA 00 (Nova Era) — Contexto histórico
+2. KA 16 (Fundamentos) — Base técnica
+3. KA 14 (Prática Profissional) — Profissão
+4. KA 04 (Orquestração) — Habilidades práticas
 
-**Objetivos de Aprendizagem**:
-
-- Estabelecer fundamentos sólidos em engenharia de software
-- Compreender o contexto de transformação da profissão
-- Desenvolver mentalidade de aprendizado contínuo
-- Preparar-se para carreira em ambiente híbrido
-
-**Caminho Recomendado**:
-
-1. Capítulo 00 (Introdução completa — incluindo Fundamentos Essenciais de IA)
-2. KAs 1-5 em sequência (ciclo de desenvolvimento)
-3. KAs 12-13 (Qualidade e Segurança)
-4. Demais KAs conforme interesse e necessidade
-
-**Nota**: Este guia não inclui KAs de Fundamentos (16-18). Estudantes devem
-complementar com cursos de fundamentos de computação e matemática.
-
-## Pré-requisitos por Perfil
-
-### Pré-requisitos Básicos (Todos os Perfis)
-
-**Conhecimentos Fundamentais**:
-
-- Programação em pelo menos uma linguagem de alto nível
-- Conceitos básicos de algoritmos e estruturas de dados
-- Familiaridade com sistemas de controle de versão (Git)
-- Noções de desenvolvimento de software (ciclo de vida, requisitos, testes)
-
-**Ferramentas**:
-
-- Experiência básica com IDEs e editores de código
-- Familiaridade com linha de comando
-- Acesso a ferramentas de IA (recomendado: GitHub Copilot, ChatGPT, Claude ou
-  similar)
-
-**Conceitos de IA**:
-
-- Noções básicas de Large Language Models
-- Experiência prática com chatbots de IA
-
-### Pré-requisitos Avançados (Pesquisadores e Líderes)
-
-**Conhecimentos Técnicos**:
-
-- Arquitetura de software e design patterns
-- Metodologias ágeis e DevOps
-- Garantia de qualidade e testes
-- Segurança de software
-
-**Experiência**:
-
-- 3+ anos em desenvolvimento de software (para líderes)
-- Experiência em revisão sistemática de literatura (para pesquisadores)
-- Gestão de orçamento técnico em escala (para executivos)
+**Pré-requisitos:**
+- Conhecimento básico de programação
+- Familiaridade com conceitos de algoritmos e estruturas de dados
+- Disposição para aprendizado contínuo
+- Acesso a ferramentas de IA para prática
 
 ## Checklist de Prontidão
 
-Antes de prosseguir para os capítulos subsequentes, avalie se você consegue:
+Antes de mergulhar no conteúdo principal, avalie sua prontidão respondendo às seguintes questões:
 
 ### Conhecimentos Fundamentais
 
-- [ ] Explicar a diferença entre um assistente de IA (Copilot) e um agente
-  autônomo (Claude Code)
-- [ ] Compreender o conceito de "commoditização do código"
-- [ ] Reconhecer que o gargalo deslocou-se da produção para a verificação
-- [ ] Entender o Paradoxo de Jevons e sua aplicação à engenharia de software
+- [ ] Consigo explicar a diferença entre um assistente de codificação (ex: Copilot) e um agente autônomo (ex: Claude Code)
+- [ ] Compreendo que LLMs são modelos probabilísticos, não determinísticos
+- [ ] Entendo o conceito de "prompt" e como ele influencia saídas de modelos
+- [ ] Reconheço que código gerado por IA pode conter erros e vulnerabilidades
 
-### Competências Práticas
+### Compreensão de Trade-offs
 
-- [ ] Usar ferramentas de IA para gerar código
-- [ ] Revisar código gerado por IA criticamente
-- [ ] Identificar quando supervisão humana é obrigatória
-- [ ] Compreender trade-offs entre velocidade e qualidade
+- [ ] Consigo articular o trade-off entre velocidade de geração e custo de verificação
+- [ ] Entendo que maior produtividade individual pode levar a maior complexidade sistêmica
+- [ ] Reconheço que facilidade de geração não implica facilidade de manutenção
+- [ ] Compreendo a diferença entre produtividade percebida e produtividade real
 
-### Mentalidade
+### Responsabilidade Profissional
 
-- [ ] Listar 3 práticas de desenvolvimento que você reconsideraria com o uso de
-  IA
-- [ ] Identificar uma área onde você delegaria tarefas para IA hoje
-- [ ] Compreender que julgamento técnico supera conhecimento sintático
-- [ ] Estar aberto a reconfigurar práticas estabelecidas
+- [ ] Sei identificar quando supervisão humana é obrigatória versus quando autonomia é aceitável
+- [ ] Compreendo que accountability por código gerado permanece com humanos
+- [ ] Reconheço a importância de verificação rigorosa de código de fontes automatizadas
+- [ ] Entendo que "IA fez isso" não é justificativa aceitável para falhas
 
-Se você não conseguiu marcar todos os itens, recomendamos:
+### Habilidades Práticas
 
-- **Estudantes**: Começar pelo Capítulo 00 (incluindo Fundamentos Essenciais de
-  IA), depois KAs 1-5
-- **Praticantes**: Revisar Capítulo 00 e experimentar ferramentas de IA
-- **Líderes**: Focar em Seções 2 e 3 do Capítulo 00
+- [ ] Tenho experiência com pelo menos uma ferramenta de IA para codificação
+- [ ] Consigo realizar code review efetivo
+- [ ] Entendo fundamentos de testes automatizados
+- [ ] Tenho familiaridade com versionamento e integração contínua
 
-## Navegação entre Perfis
+### Pontuação
 
-### Transições Comuns
+- **16-20 pontos:** Prontidão alta — pode prosseguir para qualquer KA
+- **11-15 pontos:** Prontidão moderada — recomendado iniciar com KA 00 e KA 16
+- **6-10 pontos:** Prontidão básica — fortalecer fundamentos antes de KAs avançados
+- **0-5 pontos:** Prontidão inicial — recomendado estudo prévio de fundamentos
 
-**Desenvolvedor → Tech Lead**:
+## Lacunas de Conhecimento Comuns
 
-- Adicionar foco em KA 09 (Gestão - Management) e KA 02 (Arquitetura)
-- Aprofundar em KA 14 (Prática Profissional - Professional Practice)
+### Lacuna 1: Fundamentos de IA/ML
 
-**Tech Lead → Engineering Manager**:
+**Sintomas:**
+- Dificuldade em compreender limites de LLMs
+- Confusão sobre por que modelos cometem certos tipos de erro
+- Incapacidade de estimar confiabilidade de saídas
 
-- Foco intenso em KA 09 (Gestão - Management) e KA 15 (Economia - Economics)
-- Visão estratégica de KA 12 (Qualidade - Quality) e KA 13 (Segurança -
-  Security)
+**Mitigação:**
+- KA 16 (Fundamentos de Sistemas Cognitivos Artificiais) — leitura obrigatória
+- Recursos complementares sobre Transformers e attention
 
-**Acadêmico → Praticante**:
+### Lacuna 2: Experiência Prática com Ferramentas
 
-- Focar em KAs aplicados (1-7) com ênfase em Practical Considerations
-- Desenvolver experiência prática com ferramentas
+**Sintomas:**
+- Dificuldade em contextualizar recomendações
+- Incredulidade sobre capacidades ou limitações
+- Visão idealizada ou excessivamente pessimista
 
-**Executivo → Mais Técnico**:
+**Mitigação:**
+- Experimentação prática com Copilot, Cursor, Claude Code
+- Participação em projetos pilotos antes de adoção em escala
 
-- Estudar Fundamentos Essenciais de IA na Introdução
-- Aprofundar em KA 05 (Testing) e KA 12 (Quality)
+### Lacuna 3: Experiência em Engenharia de Software
 
-## Armadilhas Comuns
+**Sintomas:**
+- Dificuldade em compreender implicações de longo prazo
+- Subestimação de desafios de manutenção
+- Foco excessivo em velocidade inicial
 
-Evite estes erros ao utilizar o SWEBOK-AI v5.0:
+**Mitigação:**
+- Estudo de casos de sistemas legados
+- Mentoria com profissionais experientes
+- Participação em atividades de manutenção
 
-### 1. Assumir que Todos os Perfis Precisam Ler Todos os KAs
+## Estratégias de Preparação
 
-Cada perfil tem um caminho otimizado. Tentar ler todos os KAs linearmente
-resulta em:
+### Para Praticantes sem Experiência em IA
 
-- Perda de foco em conteúdo relevante ao seu contexto
-- Exaustão cognitiva com material não aplicável
-- Subaproveitamento das recomendações específicas
+1. **Semana 1:** Experimente GitHub Copilot ou Cursor em projeto pessoal
+2. **Semana 2:** Documente experiências, especialmente falhas e surpresas
+3. **Semana 3:** Leia KA 00 e KA 16
+4. **Semana 4:** Prossiga para KAs de interesse específico
 
-**Solução**: Siga o caminho recomendado para seu perfil, retornando a outros KAs
-apenas quando necessário.
+### Para Gestores sem Background Técnico
 
-### 2. Ignorar o Checklist de Prontidão
+1. **Módulo 1:** Leitura executiva de KA 00 (foco em seções 1-3)
+2. **Módulo 2:** Workshop prático com equipe técnica
+3. **Módulo 3:** Estudo de caso de adoção (sucesso ou fracasso)
+4. **Módulo 4:** Leitura de KA 09 e KA 15
 
-Pular diretamente para conteúdo avançado sem validar fundamentos resulta em:
+### Para Pesquisadores
 
-- Dificuldade para contextualizar conceitos de IA-first
-- Subestimação da mudança de paradigma
-- Frustração com exemplos que parecem óbvios demais ou complexos demais
-
-**Solução**: Complete o checklist de prontidão antes de avançar para KAs
-técnicos.
-
-### 3. Subestimar a Curva de Aprendizado das Ferramentas de IA
-
-Assumir que ferramentas de IA são "plug-and-play" resulta em:
-
-- Expectativas irreais sobre produtividade imediata
-- Frustração com outputs de baixa qualidade
-- Abandono prematuro de ferramentas promissoras
-
-**Solução**: Reserve tempo para experimentação controlada (2-4 semanas) antes de
-avaliar ROI.
+1. **Fase 1:** Mapeamento completo de referências do guia
+2. **Fase 2:** Identificação de lacunas e oportunidades
+3. **Fase 3:** Leitura aprofundada de KAs relevantes à área de pesquisa
+4. **Fase 4:** Integração com literatura existente
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                                                | Avaliação                                           |
-| ------------------------------- | -------------------------------------------------------- | --------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa — orientação de navegação permanece relevante |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Baixo — orientação conceitual                       |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Baixa — orientação educacional                      |
+| Perfil | Pré-requisitos Críticos | KAs Iniciais | Nível de Profundidade |
+|--------|------------------------|--------------|----------------------|
+| Praticantes | Experiência em desenvolvimento | 00, 04, 05 | Técnica detalhada |
+| Líderes | Gestão de equipes | 00, 03, 09, 15 | Estratégica |
+| Pesquisadores | Metodologia científica | Todos | Acadêmica |
+| Executivos | Gestão estratégica | 00, 03, 15 | Executiva |
+| Estudantes | Fundamentos de programação | 00, 16, 14 | Introdução |
 
 ## Summary
 
-- Cinco perfis: Praticantes, Líderes, Pesquisadores, Executivos, Estudantes
-- Cada perfil com objetivos, caminhos e pré-requisitos específicos
-- Pré-requisitos: programação, Git, noções de IA
-- Checklist de prontidão valida preparação
-- Navegação flexível entre perfis
-- KAs 16-18 (Fundamentos) removidos — conteúdo essencial integrado na Introdução
-- Recomendações específicas maximizam aproveitamento
+- Cinco perfis de leitores são atendidos: Praticantes, Líderes, Pesquisadores, Executivos e Estudantes
+- Cada perfil tem objetivos distintos, KAs prioritários e pré-requisitos específicos
+- Checklist de prontidão permite auto-avaliação antes de início do estudo
+- Lacunas comuns incluem fundamentos de IA, experiência prática com ferramentas e experiência em engenharia de software
+- Estratégias de preparação são fornecidas para diferentes contextos de entrada
+- O guia é projetado para ser acessível a múltiplos públicos, com profundidade ajustável
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge
-   (SWEBOK), Version 4.0. Los Alamitos, CA: IEEE Computer Society Press, 2024.
+1. IEEE Computer Society. (2024). "SWEBOK v4.0 — Software Engineering Body of Knowledge".
+
+2. Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot". arXiv:2302.06590.
+
+3. Ziegler, A., et al. (2024). "Measuring GitHub Copilot's Impact on Productivity". Communications of the ACM, 67(3), 54-63.
+
+4. Stanford HAI. (2025). "AI Index Report 2025". https://hai.stanford.edu/ai-index/2025-ai-index-report/
+
+5. Greptile. (2025). "The State of AI Coding 2025". https://www.greptile.com/state-of-ai-coding-2025

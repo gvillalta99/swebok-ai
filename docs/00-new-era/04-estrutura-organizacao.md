@@ -1,428 +1,313 @@
 ---
-title: Estrutura e Organização do Guia
-created_at: '2025-01-31'
-tags: [introducao, estrutura, organizacao, ka, knowledge-areas]
+title: 'Estrutura e Organização do Guia'
+created_at: '2026-02-05'
+tags: [estrutura, kas, mapeamento, organizacao, navegacao]
 status: published
 updated_at: '2026-02-05'
-ai_model: kimi-k2.5
+ai_model: k2p5
 ---
 
 # Estrutura e Organização do Guia
 
 ## Overview
 
-O SWEBOK-AI v5.0 reconfigura a estrutura tradicional de 18 KAs para **16
-Knowledge Areas**, eliminando os KAs de Fundamentos (16-18) do corpo principal e
-concentrando-se na **aplicação prática** da engenharia de software na era dos
-LLMs. Esta mudança reflete o princípio de que este é um guia para praticantes,
-não para pesquisadores de IA.
+O SWEBOK-AI v5.0 reestrutura completamente o guia tradicional de 18 áreas de conhecimento (KAs) para 16 KAs, refletindo a transição paradigmática da engenharia de software na era dos LLMs. Esta seção apresenta a organização do guia, o racional por trás das transformações e orientações para navegação efetiva.
 
-Os conceitos fundamentais essenciais foram:
-
-- **Integrados na Introdução**: Fundamentos Essenciais de IA (LLMs,
-  Transformers, RAG, Agentes)
-- **Distribuídos nos KAs aplicáveis**: Estatística em Testing, métodos formais
-  em Models, etc.
+A estrutura preserva a fundamentação conceitual do SWEBOK v4.0 enquanto reinterpreta cada área através dos princípios diretores estabelecidos na seção anterior.
 
 ## Learning Objectives
 
-Após estudar esta seção, o leitor deve ser capaz de:
+Após estudar esta seção, você deve ser capaz de:
 
-1. Compreender a estrutura de 16 KAs do SWEBOK-AI v5.0
-2. Navegar pelas 6 Partes do guia de forma lógica
-3. Identificar quais KAs ler baseado em seu perfil
-4. Entender a progressão do fundamental à aplicação prática
+1. Navegar a estrutura de 16 KAs do SWEBOK-AI e compreender o racional das transformações
+2. Mapear KAs tradicionais para suas reconfigurações no novo paradigma
+3. Identificar dependências e conexões entre diferentes áreas de conhecimento
+4. Selecionar KAs relevantes para seu perfil e objetivos específicos
 
-## Estrutura em 6 Partes
+## Evolução da Estrutura: Do v4.0 para o v5.0
 
-O SWEBOK-AI v5.0 organiza as 16 KAs em **6 Partes**, seguindo uma progressão
-pedagógica clara:
+### Redução de 18 para 16 KAs
+
+O SWEBOK v4.0 organizava o conhecimento em 18 áreas. O SWEBOK-AI v5.0 consolida para 16 KAs através de:
+
+**Fusões Estratégicas:**
+- Software Design e Software Construction são tratados como aspectos interdependentes de um mesmo paradigma de curadoria
+- Foundations são reorganizadas para refletir fundamentos de sistemas cognitivos artificiais
+
+**Recontextualizações:**
+- KAs tradicionais são reinterpretados, não eliminados
+- O conhecimento fundamental é preservado, mas enquadrado no novo paradigma
+
+### KAs do SWEBOK-AI v5.0
+
+| Nº | Nome Original (v4.0) | Novo Nome (v5.0) | Foco Principal |
+|----|---------------------|------------------|----------------|
+| 00 | - | Nova Era | Contexto da revolução dos LLMs |
+| 01 | Software Requirements | Engenharia de Restrições e Contexto | Limites e fronteiras para IA |
+| 02 | Software Architecture | Arquitetura de Sistemas Híbridos | Padrões humanos-IA |
+| 03 | Software Design | Design de Sistemas Híbridos | Auditabilidade e supervisão |
+| 04 | Software Construction | Orquestração e Curadoria de Código | Avaliação de código gerado |
+| 05 | Software Testing | Verificação e Validação em Escala | Teste de sistemas não-determinísticos |
+| 06 | Software Engineering Operations | Engenharia de Operações com IA | DevOps e SRE com agentes |
+| 07 | Software Maintenance | Manutenção de Sistemas Opaços | Código legado sem documentação de raciocínio |
+| 08 | Software Configuration Management | Gestão de Configuração Inteligente | Versionamento de código e contexto |
+| 09 | Software Engineering Management | Gestão de Engenharia com IA | Novos papéis e métricas |
+| 10 | Software Engineering Process | Processos de Engenharia Adaptativos | Workflows humanos-IA |
+| 11 | Software Engineering Models and Methods | Modelos e Métodos para Sistemas Híbridos | Formalismos para verificação |
+| 12 | Software Quality | Qualidade em Escala de IA | Garantia com geração automática |
+| 13 | Software Security | Segurança de Sistemas com IA | Vulnerabilidades em código gerado |
+| 14 | Software Engineering Professional Practice | Prática Profissional e Julgamento Técnico | Autoridade técnica e "quando dizer não à IA" |
+| 15 | Software Engineering Economics | Economia e Métricas da Engenharia com IA | Paradoxo de Jevons, TCO de código gerado |
+| 16 | Computing Foundations | Fundamentos de Sistemas Cognitivos Artificiais | LLMs, RAG, atenção em Transformers |
+
+## Mapeamento de Transformações
+
+### KA 01: Requirements → Engenharia de Restrições e Contexto
+
+**Transformação Fundamental:**
+De especificação de funcionalidades para definição de limites e fronteiras dentro das quais agentes de IA operam.
+
+**Racional:**
+No paradigma tradicional, requisitos especificavam o que o sistema deveria fazer. No novo paradigma, o foco desloca-se para:
+- Restrições de domínio que agentes não devem violar
+- Contexto necessário para geração contextualizada
+- Critérios de aceitação verificáveis automaticamente
+- Guardrails (barreiras de segurança) para comportamento de IA
+
+**Conexão com Princípios:**
+- Princípio 1 (Contexto como Capital)
+- Princípio 2 (Inversão do Ônus da Prova)
+
+### KA 02-03: Architecture/Design → Sistemas Híbridos
+
+**Transformação Fundamental:**
+De design de sistemas determinísticos para arquitetura de sistemas que incorporam componentes probabilísticos.
+
+**Racional:**
+Sistemas modernos são híbridos por natureza: componentes determinísticos coexistem com componentes de IA. A arquitetura deve endereçar:
+- Separação de responsabilidades entre humanos e IA
+- Interfaces entre componentes determinísticos e probabilísticos
+- Padrões para verificabilidade e auditabilidade
+- Estratégias de degradação graciosa
+
+**Conexão com Princípios:**
+- Princípio 3 (Determinismo sobre Probabilidade)
+- Princípio 5 (Transparência)
+- Princípio 6 (Degradação Graciosa)
+
+### KA 04: Construction → Orquestração e Curadoria
+
+**Transformação Fundamental:**
+De codificação manual para orquestração de geração e curadoria de código.
+
+**Racional:**
+A atividade central deixou de ser escrever código para ser:
+- Definir contexto e restrições para geração
+- Avaliar e verificar código gerado
+- Orquestrar múltiplos agentes e ferramentas
+- Curadoria de padrões e anti-padrões
+
+**Conexão com Princípios:**
+- Princípio 1 (Contexto como Capital)
+- Princípio 2 (Verificação)
+- Princípio 4 (Jevons/Disciplina)
+
+### KA 05: Testing → Verificação e Validação em Escala
+
+**Transformação Fundamental:**
+De teste de sistemas determinísticos para verificação de sistemas não-determinísticos.
+
+**Racional:**
+Quando código é gerado por IA, testes tradicionais são insuficientes:
+- Verificação semântica (o que o código faz) versus sintática
+- Testes de propriedades (property-based testing) ganham importância
+- Validação de comportamento em cenários de borda
+- Verificação de ausência de vulnerabilidades
+
+**Conexão com Princípios:**
+- Princípio 2 (Inversão do Ônus da Prova)
+- Princípio 5 (Transparência)
+
+### KA 07: Maintenance → Sistemas Opaços
+
+**Transformação Fundamental:**
+De manutenção de código legado para gestão de sistemas cuja lógica de raciocínio não está documentada.
+
+**Racional:**
+Código gerado por IA apresenta desafios únicos:
+- Ausência de raciocínio documentado (por que foi escrito assim?)
+- Dificuldade de compreensão sem contexto de geração
+- Novas categorias de dívida técnica
+- Dependências de modelos e prompts
+
+**Conexão com Princípios:**
+- Princípio 4 (Jevons)
+- Princípio 5 (Transparência)
+
+### KA 14: Professional Practice → Julgamento Técnico
+
+**Transformação Fundamental:**
+De práticas profissionais estabelecidas para exercício de julgamento sobre quando e como usar IA.
+
+**Racional:**
+A profissão de engenheiro de software adquire novas dimensões éticas e técnicas:
+- Autoridade técnica e responsabilidade por decisões de IA
+- "Quando dizer não à IA": reconhecimento de limites
+- Supervisão obrigatória versus autonomia permitida
+- Accountability em sistemas híbridos
+
+**Conexão com Princípios:**
+- Princípio 2 (Responsabilidade pela verificação)
+- Princípio 5 (Transparência)
+
+### KA 15: Economics → Economia com IA
+
+**Transformação Fundamental:**
+De análise de custo-benefício tradicional para economia da abundância e escassez no contexto de IA.
+
+**Racional:**
+As leis econômicas da engenharia de software foram reconfiguradas:
+- Paradoxo de Jevons: eficiência leva a maior consumo
+- Custo de Baumol: tarefas humanas tornam-se proporcionalmente mais caras
+- TCO de código gerado: custos ocultos de manutenção
+- Novas métricas de produtividade
+
+**Conexão com Princípios:**
+- Princípio 1 (Commodity/Capital)
+- Princípio 4 (Jevons)
+
+### KA 16: Computing Foundations → Sistemas Cognitivos Artificiais
+
+**Transformação Fundamental:**
+De fundamentos computacionais tradicionais para fundamentos de LLMs e sistemas cognitivos artificiais.
+
+**Racional:**
+Engenheiros de software precisam compreender:
+- Arquitetura Transformer e mecanismos de atenção
+- Retrieval-Augmented Generation (RAG)
+- Limites e capacidades de LLMs
+- Fundamentos de agentes autônomos
+
+**Conexão com Princípios:**
+- Fundamenta todos os princípios com compreensão técnica
+
+## Organização Interna de Cada KA
+
+Cada KA no SWEBOK-AI v5.0 segue estrutura padronizada:
+
+### Estrutura de Arquivos
 
 ```
-SWEBOK-AI v5.0 (16 KAs)
-│
-├── PARTE I: Fundamentos e Contexto
-│   └── Introdução + Fundamentos Essenciais de IA
-│
-├── PARTE II: Engenharia de Software Aplicada (KAs 1-7)
-│   ├── KA 01: Software Requirements
-│   ├── KA 02: Software Architecture
-│   ├── KA 03: Software Design
-│   ├── KA 04: Software Construction
-│   ├── KA 05: Software Testing
-│   ├── KA 06: Software Engineering Operations
-│   └── KA 07: Software Maintenance
-│
-├── PARTE III: Governança e Gerenciamento (KAs 8-11)
-│   ├── KA 08: Software Configuration Management
-│   ├── KA 09: Software Engineering Management
-│   ├── KA 10: Software Engineering Process
-│   └── KA 11: Software Engineering Models and Methods
-│
-├── PARTE IV: Qualidade, Segurança e Ética (KAs 12-14)
-│   ├── KA 12: Software Quality
-│   ├── KA 13: Software Security
-│   └── KA 14: Software Engineering Professional Practice
-│
-├── PARTE V: Economia e Métricas (KA 15)
-│   └── KA 15: Software Engineering Economics
-│
-└── PARTE VI: Referências (KA 16)
-    └── KA 16: Appendix
+docs/XX-nome-do-ka/
+├── PLAN.md                    # Plano detalhado do KA
+├── README.md                  # Visão geral e navegação
+├── 01-secao-principal.md      # Seções numeradas
+├── 02-outra-secao.md
+└── ...
 ```
 
-## Por Que 16 KAs?
+### Template de Seção
 
-### O Que Foi Removido
+Cada arquivo de seção segue formato padronizado:
 
-Os **KAs 16, 17 e 18 (Foundations)** foram removidos do corpo principal:
+```markdown
+---
+title: 'Título da Seção'
+created_at: 'YYYY-MM-DD'
+tags: [tag1, tag2, tag3]
+status: published
+updated_at: 'YYYY-MM-DD'
+ai_model: modelo
+---
 
-| KA Removido | Conteúdo                 | Destino                          |
-| ----------- | ------------------------ | -------------------------------- |
-| **KA 16**   | Computing Foundations    | Archive (não faz parte do livro) |
-| **KA 17**   | Mathematical Foundations | Archive (não faz parte do livro) |
-| **KA 18**   | Engineering Foundations  | Archive (não faz parte do livro) |
+# Título da Seção
 
-### Justificativa
+## Overview
+[Visão geral]
 
-**Este não é um livro de fundamentos teóricos.**
+## Learning Objectives
+1. [Objetivo 1]
+2. [Objetivo 2]
 
-O público-alvo do SWEBOK-AI v5.0 são **engenheiros de software praticantes**,
-não pesquisadores de IA. Conceitos como:
+## [Conteúdo]
 
-- Álgebra linear para deep learning
-- Teoria dos números e criptografia
-- Cálculo e otimização matemática
-- Hardware para computação de IA
+## Matriz de Avaliação Consolidada
+| Critério | Descrição | Avaliação |
 
-...são importantes para pesquisadores, mas não essenciais para engenheiros
-aplicando IA em projetos.
+## Summary
+- [Pontos chave]
 
-### O Que Foi Preservado
-
-Os **conceitos essenciais** dos KAs removidos foram:
-
-1. **Movidos para Introdução** (Parte I):
-
-   - O que são LLMs (conceitual)
-   - Transformers e Atenção (alto nível)
-   - RAG e Contexto
-   - Agentes e Autonomia
-   - Estatística básica para testes
-
-2. **Distribuídos nos KAs aplicáveis**:
-
-   - **KA 01**: Fundamentos de lógica para invariantes
-   - **KA 05**: Fundamentos estatísticos para testes
-   - **KA 11**: Introdução a métodos formais
-   - **KA 15**: Fundamentos de análise de risco
-
-## Mapeamento de Transformações por KA
-
-### PARTE II: Engenharia Aplicada
-
-#### KA 01: Software Requirements
-
-**Transformação**: De "Engenharia de Requisitos" para "Engenharia de Restrições
-e Contexto"
-
-**Foco Tradicional**:
-
-- Elicitação de requisitos funcionais
-- Especificação de comportamento desejado
-
-**Foco AI-First**:
-
-- Definição de restrições e limites
-- Engenharia de contexto
-- Especificação do que NÃO fazer
-- Invariantes e contratos
-
-**Conexões Principais**: KA 02 (Arquitetura), KA 12 (Qualidade), KA 15
-(Economia)
-
-______________________________________________________________________
-
-#### KA 02: Software Architecture
-
-**Transformação**: De "Arquitetura de Software" para "Arquitetura de Sistemas
-Híbridos"
-
-**Foco Tradicional**:
-
-- Padrões arquiteturais
-- Decisões estruturais
-
-**Foco AI-First**:
-
-- Arquiteturas humanos-IA
-- Degradação graciosa
-- Circuit breakers e fallback
-- Governança de agentes autônomos
-
-**Conexões Principais**: KA 01 (Requisitos), KA 03 (Design), KA 13 (Segurança)
-
-______________________________________________________________________
-
-#### KA 03: Software Design
-
-**Transformação**: De "Design de Software" para "Design de Sistemas Híbridos"
-
-**Foco Tradicional**:
-
-- Padrões de design
-- Princípios SOLID
-
-**Foco AI-First**:
-
-- Design para auditabilidade
-- Interfaces humano-IA
-- Supervisão e controle
-- Componentes determinísticos vs. não-determinísticos
-
-**Conexões Principais**: KA 02 (Arquitetura), KA 04 (Construction), KA 14
-(Prática Profissional)
-
-______________________________________________________________________
-
-#### KA 04: Software Construction
-
-**Transformação**: De "Construção de Software" para "Orquestração e Curadoria de
-Código"
-
-**Foco Tradicional**:
-
-- Codificação manual
-- Debugging
-
-**Foco AI-First**:
-
-- Engenharia de prompts
-- Avaliação de código gerado
-- Pipeline de verificação
-- **LEGADO**: Codificação manual extensiva
-
-**Conexões Principais**: KA 03 (Design), KA 05 (Testing), KA 07 (Manutenção)
-
-______________________________________________________________________
-
-#### KA 05: Software Testing
-
-**Transformação**: De "Testes de Software" para "Verificação e Validação em
-Escala"
-
-**Foco Tradicional**:
-
-- Testes unitários, integração, sistema
-- Cobertura de código
-
-**Foco AI-First**:
-
-- Verificação de código não-determinístico
-- Testes estatísticos
-- Validação semântica
-- Testes de comportamento emergente
-
-**Conexões Principais**: KA 04 (Construction), KA 12 (Qualidade), KA 13
-(Segurança)
-
-______________________________________________________________________
-
-#### KA 06: Software Engineering Operations
-
-**Transformação**: Operações de sistemas com IA
-
-**Foco Tradicional**:
-
-- DevOps
-- CI/CD
-
-**Foco AI-First**:
-
-- Agentes de operações
-- Detecção anômala com IA
-- Automação inteligente
-- Resposta a incidentes assistida por IA
-
-**Conexões Principais**: KA 08 (CM), KA 09 (Management), KA 13 (Segurança)
-
-______________________________________________________________________
-
-#### KA 07: Software Maintenance
-
-**Transformação**: De "Manutenção de Software" para "Manutenção de Sistemas
-Opaços"
-
-**Foco Tradicional**:
-
-- Correção de defeitos
-- Adaptação a novos ambientes
-
-**Foco AI-First**:
-
-- Manutenção de código sem documentação de raciocínio
-- Refatoração de código gerado por IA
-- Gestão de dívida técnica de sistemas opacos
-- Arqueologia de código de IA
-
-**Conexões Principais**: KA 04 (Construction), KA 12 (Qualidade), KA 15
-(Economia)
-
-______________________________________________________________________
-
-### PARTE III: Governança e Gerenciamento
-
-#### KA 08: Software Configuration Management
-
-**Transformação**: CM em ambientes com geração massiva de código
-
-**Foco**: Versionamento de prompts, contexto e modelos
-
-**Conexões Principais**: KA 06 (Operations), KA 09 (Management)
-
-______________________________________________________________________
-
-#### KA 09: Software Engineering Management
-
-**Transformação**: Gestão de equipes híbridas humanos-IA
-
-**Foco**: Novos papéis, métricas de qualidade vs. velocidade, gestão de mudança
-
-**Conexões Principais**: Todos os KAs aplicados
-
-______________________________________________________________________
-
-#### KA 10: Software Engineering Process
-
-**Transformação**: Processos adaptados para verificação-centrismo
-
-**Foco**: Integração de agentes no SDLC, workflows agenticos
-
-**Conexões Principais**: KA 09 (Management), KA 11 (Models and Methods)
-
-______________________________________________________________________
-
-#### KA 11: Software Engineering Models and Methods
-
-**Transformação**: Métodos com suporte de IA
-
-**Foco**: Modelagem assistida por IA, métodos formais aplicados
-
-**Conexões Principais**: KA 01 (Requirements), KA 03 (Design)
-
-______________________________________________________________________
-
-### PARTE IV: Qualidade, Segurança e Ética
-
-#### KA 12: Software Quality
-
-**Transformação**: Qualidade de código gerado por IA
-
-**Foco**: Qualidade não-determinística, verificação como gargalo,
-explicabilidade
-
-**Conexões Principais**: KA 05 (Testing), KA 07 (Maintenance), KA 13 (Segurança)
-
-______________________________________________________________________
-
-#### KA 13: Software Security
-
-**Transformação**: Segurança em sistemas com IA
-
-**Foco**: Vulnerabilidades em código gerado, segurança de sistemas autônomos
-
-**Conexões Principais**: KA 05 (Testing), KA 12 (Quality), KA 02 (Architecture)
-
-______________________________________________________________________
-
-#### KA 14: Software Engineering Professional Practice
-
-**Transformação**: Julgamento técnico em era de IA
-
-**Foco**: Accountability, "quando dizer não à IA", competências de verificação
-
-**Conexões Principais**: KA 09 (Management), KA 15 (Economics)
-
-______________________________________________________________________
-
-### PARTE V: Economia
-
-#### KA 15: Software Engineering Economics
-
-**Transformação**: Economia da engenharia com IA
-
-**Foco**: Paradoxo de Jevons, TCO de código gerado, custos de verificação
-
-**Conexões Principais**: Todos os KAs (transversal)
-
-______________________________________________________________________
-
-### PARTE VI: Referências
-
-#### KA 16: Appendix
-
-**Conteúdo**: Especificações, padrões, referências, glossário, matrizes
-
-______________________________________________________________________
-
-## Caminhos de Leitura Recomendados
-
-### Para Engenheiros de Software (começando com IA)
-
-**Perfil**: Já trabalha com software, quer aplicar IA em projetos
-
-```
-Parte I → KA 01 → KA 04 → KA 05 → KA 12
-(Fundamentos) (Requisitos) (Construction) (Testing) (Quality)
+## References
+1. [Referências]
 ```
 
-### Para Arquitetos de Software
+## Dependências entre KAs
 
-**Perfil**: Define arquitetura de sistemas, precisa integrar componentes de IA
+### Sequência Recomendada
 
-```
-Parte I → KA 01 → KA 02 → KA 03 → KA 08 → KA 11
-(Fundamentos) (Requisitos) (Arquitetura) (Design) (Config) (Models)
-```
+**Fundamental:**
+1. KA 00 (Nova Era) — Contexto e princípios
+2. KA 16 (Fundamentos) — Base técnica
 
-### Para Líderes Técnicos
+**Núcleo de Engenharia:**
+3. KA 01 (Restrições) — Definição de limites
+4. KA 02-03 (Arquitetura/Design) — Estrutura de sistemas
+5. KA 04 (Orquestração) — Implementação
+6. KA 05 (Verificação) — Qualidade
 
-**Perfil**: Gerencia equipes, toma decisões estratégicas sobre IA
+**Operações e Gestão:**
+7. KA 06 (Operations) — Execução
+8. KA 07 (Manutenção) — Evolução
+9. KA 08 (Configuração) — Controle
 
-```
-Parte I → KA 09 → KA 14 → KA 15 → KA 10 → KA 13
-(Fundamentos) (Management) (Prática) (Economia) (Processo) (Segurança)
-```
+**Processos e Práticas:**
+10. KA 09 (Gestão) — Liderança
+11. KA 10 (Processos) — Workflows
+12. KA 11 (Modelos) — Formalismos
 
-### Para Engenheiros de Qualidade
+**Qualidade e Profissão:**
+13. KA 12 (Qualidade) — Garantia
+14. KA 13 (Segurança) — Proteção
+15. KA 14 (Prática) — Profissão
+16. KA 15 (Economia) — Viabilidade
 
-**Perfil**: Foca em testes, verificação e garantia de qualidade
+### Conexões Transversais
 
-```
-Parte I → KA 05 → KA 12 → KA 13 → KA 04 → KA 07
-(Fundamentos) (Testing) (Quality) (Security) (Construction) (Maintenance)
-```
+| Tema | KAs Relacionados |
+|------|------------------|
+| Verificação | 01, 04, 05, 12, 13 |
+| Contexto | 00, 01, 04, 16 |
+| Arquitetura Híbrida | 02, 03, 06, 13 |
+| Governança | 09, 10, 14, 15 |
+| Manutenibilidade | 04, 07, 12, 15 |
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                                                | Avaliação                              |
-| ------------------------------- | -------------------------------------------------------- | -------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Muito Baixa — estrutura organizacional |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Baixo — mapeamento conceitual          |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Baixa — estrutura de navegação         |
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| Cobertura Conceitual | Preservação de conhecimento fundamental do SWEBOK v4.0 | Completa |
+| Relevância Temporal | Foco em tecnologias e práticas de 2024-2025 | Atualizada |
+| Coerência Interna | Consistência entre princípios e KAs | Verificada |
+| Navegabilidade | Facilidade de localização de conteúdo | Estruturada |
+| Profundidade | Equilíbrio entre abrangência e detalhe | Balanceada |
 
 ## Summary
 
-1. O SWEBOK-AI v5.0 tem **16 KAs** (reduzido de 18 no v4.0)
-2. **KAs 16-18 (Foundations) removidos** — conteúdo movido para Introdução ou
-   distribuído
-3. Estrutura organizada em **6 Partes** com progressão lógica
-4. **Foco em aplicação prática**, não teoria de IA
-5. Fundamentos essenciais integrados onde são aplicados
-6. Público-alvo: **engenheiros de software praticantes**
+- O SWEBOK-AI v5.0 reestrutura 18 KAs tradicionais em 16 KAs reinterpretados para a era dos LLMs
+- Mapeamentos fundamentais: Requirements → Restrições, Design → Sistemas Híbridos, Construction → Orquestração, Testing → Verificação em Escala
+- Cada transformação é fundamentada nos seis princípios diretores estabelecidos no KA 00
+- A estrutura preserva conhecimento fundamental enquanto o recontextualiza para o novo paradigma
+- Dependências entre KAs são explicitadas, permitindo navegação sequencial ou por temas transversais
+- Organização interna padronizada facilita localização e consumo de conteúdo
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge
-   (SWEBOK), Version 4.0. 2024. Disponível em:
-   <https://www.computer.org/education/bodies-of-knowledge/software-engineering>
+1. IEEE Computer Society. (2014). "Guide to the Software Engineering Body of Knowledge (SWEBOK v3.0)".
+
+2. IEEE Computer Society. (2024). "SWEBOK v4.0 — Software Engineering Body of Knowledge".
+
+3. Bourque, P., & Fairley, R.E. (Eds.). (2014). "Guide to the Software Engineering Body of Knowledge (SWEBOK)". IEEE Computer Society Press.
+
+4. Arxiv. (2025). "Generative AI and Empirical Software Engineering". https://arxiv.org/abs/2502.08108. Autores: Survey paper colaborativo da comunidade de Engenharia de Software Empírica.
+
+5. MDPI Applied Sciences. (2025). "Retrieval-Augmented Generation (RAG) and Large Language Models (LLMs) for Enterprise Knowledge Management". https://www.mdpi.com/2076-3417/16/1/368

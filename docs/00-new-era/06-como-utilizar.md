@@ -1,306 +1,337 @@
 ---
-title: Como Utilizar este Guia
-created_at: '2025-01-31'
-tags: [introducao, guia, uso, navegacao, metodologia]
+title: 'Como Utilizar Este Guia'
+created_at: '2026-02-05'
+tags: [uso, navegacao, estudo, modalidades, caminhos]
 status: published
-updated_at: '2026-02-04'
-ai_model: kimi-k2.5
+updated_at: '2026-02-05'
+ai_model: k2p5
 ---
 
-# Como Utilizar este Guia
+# Como Utilizar Este Guia
 
 ## Overview
 
-O SWEBOK-AI v5.0 é uma obra de referência abrangente que pode ser utilizada de
-múltiplas formas: como material de estudo sequencial, como referência rápida
-para tópicos específicos, ou como guia de transformação organizacional. Esta
-seção apresenta as diferentes modalidades de uso, estratégias de navegação e
-convenções adotadas ao longo do guia para maximizar o aproveitamento do
-conteúdo.
+O SWEBOK-AI v5.0 é um recurso abrangente projetado para múltiplas modalidades de uso: estudo sequencial, consulta referencial, navegação por temas e aplicação prática. Esta seção fornece orientações para maximizar o valor do guia de acordo com seus objetivos, perfil e contexto de tempo disponível.
 
-## Objetivos de Aprendizagem
+O guia pode ser utilizado como texto de referência, material de estudo estruturado ou manual de consulta rápida. A estrutura modular permite diferentes trajetórias de leitura sem perda de coerência.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+## Learning Objectives
 
-1. Escolher a modalidade de uso mais adequada aos seus objetivos
+Após estudar esta seção, você deve ser capaz de:
+
+1. Selecionar a modalidade de estudo mais adequada aos seus objetivos e constraints
 2. Navegar eficientemente entre KAs e seções relacionadas
-3. Interpretar as convenções e estruturas utilizadas no guia
-4. Aplicar o conteúdo em contextos práticos de estudo ou trabalho
+3. Aplicar estratégias de leitura para diferentes contextos (aprofundamento, revisão, consulta)
+4. Integrar conhecimento de múltiplos KAs para análise de cenários complexos
+
+## Modalidades de Estudo
+
+### Modalidade 1: Estudo Sequencial Completo
+
+**Descrição:**
+Leitura linear do guia, do KA 00 ao KA 16, seguindo a organização lógica da obra.
+
+**Público-Alvo:**
+- Pesquisadores buscando compreensão abrangente
+- Profissionais em transição de carreira
+- Estudantes de pós-graduação
+- Revisores e críticos do guia
+
+**Tempo Estimado:**
+40-60 horas de estudo ativo
+
+**Trajetória:**
+1. KA 00 (Nova Era) — Fundamentação contextual
+2. KA 16 (Fundamentos) — Base técnica
+3. KA 01-05 (Núcleo de Engenharia) — Desenvolvimento
+4. KA 06-08 (Operações) — Execução
+5. KA 09-11 (Gestão e Processos) — Organização
+6. KA 12-15 (Qualidade e Profissão) — Excelência
+
+**Vantagens:**
+- Compreensão sistêmica completa
+- Identificação de conexões entre KAs
+- Absorção progressiva de complexidade
+
+**Desvantagens:**
+- Alto investimento de tempo
+- Pode incluir conteúdo menos relevante a objetivos específicos
+
+### Modalidade 2: Navegação por Perfil
+
+**Descrição:**
+Seleção de KAs e seções baseada no perfil profissional identificado na Seção 5.
+
+**Público-Alvo:**
+- Praticantes com objetivos específicos
+- Líderes buscando orientação estratégica
+- Executivos focados em decisão
+
+**Tempo Estimado:**
+15-25 horas para perfil de Praticantes
+10-15 horas para perfil de Líderes
+5-10 horas para perfil de Executivos
+
+**Trajetórias por Perfil:**
+
+**Praticantes:**
+- KA 00 (completo)
+- KA 04 (Orquestração) — aprofundado
+- KA 05 (Verificação) — aprofundado
+- KA 12 (Qualidade) — seletivo
+- KA 07 (Manutenção) — seletivo
+
+**Líderes:**
+- KA 00 (seções 1-3)
+- KA 03 (Princípios) — completo
+- KA 09 (Gestão) — aprofundado
+- KA 15 (Economia) — aprofundado
+- KA 14 (Prática) — seletivo
+
+**Executivos:**
+- KA 00 (seções 1-3)
+- KA 03 (Princípios) — resumido
+- KA 09 (Gestão) — seletivo
+- KA 15 (Economia) — aprofundado
+
+### Modalidade 3: Consulta Referencial
+
+**Descrição:**
+Uso do guia como referência para consulta pontual de conceitos, práticas ou decisões específicas.
+
+**Público-Alvo:**
+- Profissionais em atividade buscando orientação para decisões imediatas
+- Equipes implementando práticas específicas
+- Revisores de código ou arquitetura
+
+**Tempo Estimado:**
+5-30 minutos por consulta
+
+**Estratégia:**
+1. Use o índice para localizar KA relevante
+2. Consulte Overview da seção para contexto
+3. Localize subseção específica ao tópico
+4. Verifique Matriz de Avaliação para síntese
+5. Consulte Referências para aprofundamento
+
+**Casos de Uso Típicos:**
+- "Como verificar código gerado por IA?" → KA 05
+- "Quando devo intervir em decisão de agente autônomo?" → KA 14
+- "Como calcular TCO de projeto com IA?" → KA 15
+- "Quais restrições devo definir para agente de refactoring?" → KA 01
+
+### Modalidade 4: Estudo por Temas Transversais
+
+**Descrição:**
+Navegação horizontal através de múltiplos KAs focada em tema específico.
+
+**Público-Alvo:**
+- Pesquisadores explorando tópicos específicos
+- Profissionais resolvendo problemas complexos
+- Equipes definindo políticas organizacionais
+
+**Temas e KAs Relacionados:**
+
+**Verificação e Qualidade:**
+- KA 01 (Restrições verificáveis)
+- KA 04 (Verificação de código gerado)
+- KA 05 (Verificação em escala)
+- KA 12 (Qualidade sistêmica)
+- KA 13 (Segurança)
+
+**Contexto e Governança:**
+- KA 00 (Princípio do Contexto)
+- KA 01 (Engenharia de contexto)
+- KA 04 (Curadoria)
+- KA 09 (Governança organizacional)
+- KA 14 (Responsabilidade)
+
+**Arquitetura Híbrida:**
+- KA 02 (Padrões arquiteturais)
+- KA 03 (Design para auditabilidade)
+- KA 06 (Operações de sistemas híbridos)
+- KA 13 (Segurança em sistemas híbridos)
+
+**Economia e Sustentabilidade:**
+- KA 04 (Paradoxo de Jevons)
+- KA 07 (Custo de manutenção)
+- KA 15 (Métricas econômicas)
 
-## Modalidades de Uso
+## Estratégias de Navegação
 
-### Modalidade 1: Estudo Sequencial (Completo)
+### Navegação por Objetivo de Decisão
 
-**Objetivo**: Compreensão abrangente e sistemática da engenharia de software na
-era da IA.
+**Cenário:** Você precisa tomar uma decisão específica
 
-**Abordagem**:
+**Passos:**
+1. Identifique o tipo de decisão (arquitetural, processo, ferramenta, etc.)
+2. Mapeie para KA relevante usando a tabela abaixo
+3. Consulte seções específicas de trade-offs e armadilhas
+4. Verifique exemplos mínimos para contextualização
 
-1. Leitura completa do Capítulo 00 (Introdução)
-2. Estudo sequencial dos KAs 1-16
-3. Atenção a Learning Objectives em cada seção
-4. Revisão de Matrizes de Avaliação
-5. Consulta a referências para aprofundamento
+| Tipo de Decisão | KA Primário | Seções Relevantes |
+|-----------------|-------------|-------------------|
+| Adotar agente autônomo | KA 04 | Trade-offs, Checklist |
+| Definir processo de review | KA 05 | Verificação semântica |
+| Arquitetar sistema com IA | KA 02 | Padrões híbridos |
+| Estabelecer governança | KA 09 | Políticas, Métricas |
+| Calcular ROI de IA | KA 15 | TCO, Métricas |
 
-**Tempo Estimado**: ordem de grandeza de dezenas de horas para leitura e estudo;
-varia por experiência prévia e profundidade desejada.
+### Navegação por Problema
 
-**Público recomendado**: Pesquisadores, estudantes de pós-graduação,
-profissionais em transição de carreira
+**Cenário:** Você está enfrentando um problema específico
 
-### Modalidade 2: Referência Rápida (Consulta)
+**Passos:**
+1. Caracterize o problema (qualidade, processo, pessoas, tecnologia)
+2. Consulte KA de diagnóstico correspondente
+3. Verifique "Armadilhas Comuns" nas seções relevantes
+4. Aplique "Checklist Prático" para avaliação
 
-**Objetivo**: Acesso pontual a informações específicas sobre tópicos
-particulares.
+| Problema | KA de Diagnóstico | Recursos |
+|----------|-------------------|----------|
+| Código IA com bugs | KA 05 | Matriz de verificação |
+| Dívida técnica crescente | KA 07 | Padrões de opacidade |
+| Equipe resistente a IA | KA 14 | Mudança de paradigma |
+| Custos de manutenção altos | KA 15 | Análise TCO |
+| Falhas em produção | KA 12 | Qualidade em escala |
 
-**Abordagem**:
+### Navegação por Profundidade
 
-1. Uso do índice para localização de tópicos
-2. Consulta a seções específicas conforme necessidade
-3. Foco em "Practical Considerations" e "Summary"
-4. Verificação de conexões com outros KAs
+**Nível 1: Visão Executiva (5-10 minutos por KA)**
+- Leia apenas Overview
+- Consulte Summary
+- Verifique Matriz de Avaliação
 
-**Tempo Estimado**: 5-30 minutos por consulta
+**Nível 2: Compreensão Operacional (30-60 minutos por KA)**
+- Leia Overview e Learning Objectives
+- Estude conteúdo principal
+- Aplique Checklist Prático
 
-**Público recomendado**: Praticantes, líderes técnicos, consultores
+**Nível 3: Maestria (2-4 horas por KA)**
+- Leitura completa
+- Estudo de Referências
+- Análise de Exemplos Mínimos
+- Aplicação em cenários próprios
 
-### Modalidade 3: Transformação Organizacional
+## Integração de Múltiplos KAs
 
-**Objetivo**: Guia de mudança para adoção de práticas AI-first em organizações.
+### Análise de Cenários Complexos
 
-**Abordagem**:
+Problemas reais frequentemente exigem integração de múltiplos KAs:
 
-1. Leitura focada do Capítulo 00 (Seções 2-3)
-2. Estudo de KA 09 (Management) e KA 15 (Economics)
-3. Análise de KA 14 (Professional Practice)
-4. Seleção de KAs técnicos conforme contexto organizacional
-5. Desenvolvimento de plano de implementação
+**Cenário: Adoção de Agente Autônomo em Equipe Enterprise**
 
-**Tempo Estimado**: varia conforme maturidade organizacional. Separe tempo de
-estudo do tempo de implantação.
+KAs Envolvidos:
+- KA 01: Definição de restrições para o agente
+- KA 02: Arquitetura para integração
+- KA 04: Orquestração do agente
+- KA 05: Verificação de saídas
+- KA 09: Gestão da mudança
+- KA 14: Definição de responsabilidades
+- KA 15: Análise de custo-benefício
 
-**Público recomendado**: Executivos, CTOs, Engineering Managers
+**Abordagem:**
+1. Inicie com KA 15 para viabilidade econômica
+2. Prossiga para KA 01 e KA 02 para fundamentação técnica
+3. Consulte KA 04 e KA 05 para implementação
+4. Enderece KA 09 e KA 14 para aspectos organizacionais
 
-### Modalidade 4: Preparação para Certificação
+### Síntese de Políticas Organizacionais
 
-**Objetivo**: Estudo direcionado para exames de certificação em engenharia de
-software.
+Para definir políticas abrangentes de uso de IA:
 
-**Abordagem**:
+1. **Fundamentação:** KA 00 (contexto) + KA 03 (princípios)
+2. **Escopo:** KA 01 (restrições) + KA 14 (responsabilidades)
+3. **Processos:** KA 04 (orquestração) + KA 05 (verificação)
+4. **Governança:** KA 09 (gestão) + KA 12 (qualidade)
+5. **Métricas:** KA 15 (economia)
 
-1. Mapeamento do guia contra currículo do exame
-2. Foco em Learning Objectives de cada seção
-3. Estudo de termos e definições
-4. Revisão de Matrizes de Avaliação
-5. Prática com casos e exemplos
+## Ferramentas de Navegação
 
-**Tempo Estimado**: depende do currículo do exame e do nível de profundidade
-exigido.
+### Índice e Tags
 
-**Público recomendado**: Candidatos a certificações IEEE, ACM ou equivalentes
+Cada seção inclui tags para facilitar descoberta:
 
-## Estrutura de Navegação
+- **Tags conceituais:** llm, transformers, paradigma, contexto
+- **Tags de prática:** verificacao, curadoria, orquestracao
+- **Tags de tema:** qualidade, seguranca, economia, gestao
 
-### Hierarquia de Conteúdo
+Use tags para encontrar conteúdo relacionado através de múltiplos KAs.
 
-O guia segue uma estrutura hierárquica consistente:
+### Matrizes de Avaliação
 
-```
-Capítulo (KA)
-├── Seção (Tópico principal)
-│   ├── Overview
-│   ├── Learning Objectives
-│   ├── Subseção 1
-│   ├── Subseção 2
-│   ├── ...
-│   ├── Practical Considerations
-│   ├── Matriz de Avaliação Consolidada
-│   ├── Summary
-│   └── References
-```
+Cada seção inclui "Matriz de Avaliação Consolidada" que sintetiza:
+- Critérios relevantes à seção
+- Descrição de cada critério
+- Avaliação ou recomendação
 
-### Convenções de Numeração
+Use estas matrizes para:
+- Revisão rápida de conteúdo
+- Checklist de implementação
+- Comunicação com stakeholders
 
-- **Capítulos**: Números 00-18 (ex: 00-introduction, 01-software-requirements)
-- **Seções**: Números sequenciais dentro de cada KA (ex:
-  01-contexto-revolucao-llms.md)
-- **Subseções**: Hierarquia H2 (##) e H3 (###) dentro de cada arquivo
+### Referências Cruzadas
 
-### Cross-References
-
-Referências cruzadas entre KAs seguem o padrão:
-
-- "Conforme discutido no Capítulo 05 (Testing)..."
-- "Ver Seção 3.2 do Capítulo 02 (Architecture)..."
-- "Matriz de Avaliação no Capítulo 12 (Quality)..."
-
-## Convenções do Guia
-
-### Terminologia
-
-**Termos em Inglês Mantidos**:
-
-- Debugging
-- Framework
-- Pipeline
-- Workflow
-- Prompt engineering
-- LLM (Large Language Model)
-
-**Termos Traduzidos**:
-
-- Software Requirements → Requisitos de Software / Engenharia de Restrições
-- Software Testing → Testes de Software / Verificação e Validação
-- Technical Debt → Dívida Técnica
-
-### Marcadores Especiais
-
-**LEGADO**: Indica práticas em transição ou obsoletas no novo paradigma
-
-> **LEGADO**: Codificação manual extensiva sem assistência de IA é considerada
-> prática legada no paradigma AI-first.
-
-**NOTA**: Informações complementares ou esclarecimentos
-
-> **NOTA**: Esta seção assume familiaridade básica com conceitos de machine
-> learning.
-
-**IMPORTANTE**: Alertas sobre aspectos críticos de segurança, legalidade ou
-risco
-
-> **IMPORTANTE**: Decisões de deploy em produção sempre requerem aprovação
-> humana, independentemente do nível de autonomia do sistema de IA.
-
-### Formato de Referências
-
-Referências bibliográficas seguem padrão ABNT adaptado:
-
-```
-Autor, A. A., Autor, B. B. (Ano). "Título do Trabalho". Publicação. URL/DOI
-```
-
-Exemplo:
-
-```
-Peng, S., et al. (2023). "The Impact of AI on Developer Productivity: Evidence from GitHub Copilot". arXiv. https://arxiv.org/abs/2302.06590
-```
-
-### Tabelas e Matrizes
-
-**Matriz de Avaliação Consolidada**: Presente em todas as seções principais
-
-| Critério                    | Descrição                                                | Avaliação              |
-| --------------------------- | -------------------------------------------------------- | ---------------------- |
-| Descartabilidade Geracional | Esta skill será obsoleta em 36 meses?                    | Alta/Média/Baixa       |
-| Custo de Verificação        | Quanto custa validar esta atividade quando feita por IA? | Alto/Médio/Baixo       |
-| Responsabilidade Legal      | Quem é culpado se falhar?                                | Crítica/Moderada/Baixa |
-
-**Tabelas de Comparação**: Usadas para contrastar paradigmas ou abordagens
-
-## Estratégias de Estudo
-
-### Para Estudo Individual
-
-1. **Defina objetivos claros**: Qual perfil (ver Seção 5: Público-Alvo) melhor
-   descreve você?
-2. **Siga o caminho recomendado**: Utilize as recomendações de navegação por
-   perfil
-3. **Faça anotações**: Registre insights e questões durante a leitura
-4. **Pratique**: Aplique conceitos em projetos reais ou exercícios
-5. **Revise**: Retorne a seções após ganhar experiência prática
-
-### Para Estudo em Grupo
-
-1. **Divida por KAs**: Cada membro aprofunda um KA e apresenta
-2. **Discuta casos**: Analise cenários reais à luz dos princípios
-3. **Debate trade-offs**: Engenharia envolve decisões com múltiplas variáveis
-4. **Compartilhe experiências**: Cada organização enfrenta desafios únicos
-5. **Construa consenso**: Defina abordagens comuns para sua equipe/organização
-
-### Para Implementação Organizacional
-
-1. **Avaliação inicial**: Mapeie práticas atuais contra o guia
-2. **Identifique gaps**: Quais KAs precisam de atenção imediata?
-3. **Priorize**: Comece com mudanças de maior impacto
-4. **Pilote**: Teste novas práticas em projetos menores
-5. **Meça resultados**: Utilize métricas de qualidade, não apenas velocidade
-6. **Itere**: Refine abordagens baseado em resultados
-
-## Ferramentas Complementares
-
-### Recursos Online
-
-- **Repositório GitHub**: Código-fonte, issues e discussões
-- **Site MkDocs**: Versão navegável do guia com busca
-- **Referências**: Links para papers, standards e recursos externos
-
-### Comunidade
-
-- **Discussões**: Fóruns para questões e compartilhamento de experiências
-- **Contribuições**: O guia é vivo; contribuições são bem-vindas
-- **Atualizações**: O campo evolui rapidamente; verifique atualizações
-
-### Ferramentas de IA (exemplos, não prescritivo)
-
-Para aproveitar as partes práticas do guia, é útil ter acesso a pelo menos uma
-ferramenta de IA em cada categoria (autocomplete, chat e agente com execução). A
-seleção deve considerar governança, observabilidade, custos e restrições de
-segurança da organização.
+O guia inclui referências explícitas entre KAs:
+- "Conexão com Princípios" vincula a KA 03
+- "Conexão com KA X" direciona para conteúdo relacionado
+- "Ver também" sugere leituras complementares
 
 ## Checklist de Uso Efetivo
 
-Antes de começar, verifique:
+### Antes de Iniciar
 
-- [ ] Defini seu perfil e objetivos de aprendizagem
-- [ ] Identificou os pré-requisitos necessários
-- [ ] Selecionou a modalidade de uso adequada
-- [ ] Tem acesso às ferramentas de IA mencionadas
-- [ ] Reservou tempo adequado para estudo
-- [ ] Preparou ambiente para anotações e prática
+- [ ] Identifiquei meu perfil de leitor (Seção 5)
+- [ ] Avaliei minha prontidão (checklist da Seção 5)
+- [ ] Selecionei modalidade de estudo apropriada
+- [ ] Defini objetivos específicos de aprendizado
 
-Durante o estudo:
+### Durante o Estudo
 
-- [ ] Está acompanhando Learning Objectives
-- [ ] Consulta referências para aprofundamento
-- [ ] Anota dúvidas e insights
-- [ ] Pratica conceitos em projetos reais
-- [ ] Revisa Matrizes de Avaliação
+- [ ] Estou tomando notas de conceitos-chave
+- [ ] Estou mapeando conexões com minha experiência prática
+- [ ] Estou identificando questões para aprofundamento
+- [ ] Estou aplicando checklists práticos quando relevante
 
-Após o estudo:
+### Após Cada Seção
 
-- [ ] Consegue explicar conceitos para outros
-- [ ] Aplicou aprendizados na prática
-- [ ] Identificou áreas para aprofundamento
-- [ ] Planeja retornar a seções específicas
+- [ ] Revisei Summary para consolidar aprendizado
+- [ ] Verifiquei se objetivos de aprendizado foram atingidos
+- [ ] Identifiquei próximos passos ou KAs relacionados
+- [ ] Documentei insights aplicáveis ao meu contexto
+
+### Para Consulta Referencial
+
+- [ ] Localizei KA relevante ao problema/decisão
+- [ ] Consultei Overview para contexto
+- [ ] Identifiquei seções específicas ao tópico
+- [ ] Verifiquei exemplos e armadilhas
+- [ ] Consultei referências para aprofundamento se necessário
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                                                | Avaliação                                                |
-| ------------------------------- | -------------------------------------------------------- | -------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa — habilidades de navegação e estudo são duradouras |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Baixo — orientações de uso                               |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Baixa — orientação metodológica                          |
+| Modalidade | Tempo | Profundidade | Melhor Para | Desafio |
+|------------|-------|--------------|-------------|---------|
+| Sequencial Completa | 40-60h | Máxima | Pesquisadores, transições | Comprometimento de tempo |
+| Por Perfil | 10-25h | Variável | Profissionais em atividade | Seleção de conteúdo |
+| Consulta Referencial | 5-30min | Pontual | Decisões imediatas | Contexto limitado |
+| Por Temas | 5-15h | Média | Problemas complexos | Requer síntese própria |
 
 ## Summary
 
-- Quatro modalidades de uso: Estudo Sequencial, Referência Rápida, Transformação
-  Organizacional, Preparação para Certificação
-- Estrutura hierárquica consistente: Capítulos → Seções → Subseções
-- Convenções padronizadas: Terminologia, marcadores LEGADO/NOTA/IMPORTANTE,
-  formato de referências
-- Estratégias específicas para estudo individual, em grupo e implementação
-  organizacional
-- Checklist de uso efetivo para maximizar aproveitamento
-- Recursos complementares: Repositório, site, comunidade, ferramentas de IA
+- Quatro modalidades de estudo: Sequencial Completa, Por Perfil, Consulta Referencial e Por Temas
+- Navegação pode ser orientada por objetivo de decisão, problema ou nível de profundidade desejado
+- Ferramentas de navegação incluem tags, matrizes de avaliação e referências cruzadas
+- Problemas complexos frequentemente requerem integração de múltiplos KAs
+- Checklist de uso efetivo garante aplicação adequada do guia ao contexto individual
+- O guia é projetado para múltiplos ciclos de uso: consulta inicial, estudo aprofundado e referência contínua
 
 ## References
 
-1. IEEE COMPUTER SOCIETY. Guide to the Software Engineering Body of Knowledge
-   (SWEBOK), Version 4.0. 2024.
-2. DUNLOSKY, J., et al. "Improving Students' Learning With Effective Learning
-   Techniques: Promising Directions From Cognitive and Educational Psychology".
-   Psychological Science in the Public Interest, v. 14, n. 1, 2013. DOI:
-   10.1177/1529100612453266
-3. WEINSTEIN, Y., MADAN, C. R., SUVAKOVIC, M. "Teaching the Science of
-   Learning". Cognitive Research: Principles and Implications, v. 3, n. 2, 2018.
-   DOI: 10.1186/s41235-018-0094-y
+1. IEEE Computer Society. (2024). "SWEBOK v4.0 — Software Engineering Body of Knowledge".
+
+2. Adler, M.J., & Van Doren, C. (1972). "How to Read a Book: The Classic Guide to Intelligent Reading". Simon & Schuster.
+
+3. Stanford HAI. (2025). "AI Index Report 2025". https://hai.stanford.edu/ai-index/2025-ai-index-report/
+
+4. Greptile. (2025). "The State of AI Coding 2025". https://www.greptile.com/state-of-ai-coding-2025
