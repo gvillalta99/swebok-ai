@@ -26,98 +26,99 @@ O SWEBOK-AI v5.0 está organizado em **16 Knowledge Areas (KAs)** distribuídos 
 - Princípios Diretores
 - Estrutura do Guia
 - Público-Alvo e Pré-requisitos
-- **NOVO: Fundamentos Essenciais de IA** (conceitos básicos de LLMs, Transformers, RAG, Agentes)
+- **Fundamentos Essenciais de IA** (conceitos básicos de LLMs, Transformers, RAG, Agentes)
+
+**KA 11. Modelos e Métodos de Engenharia**
+- Modelagem de domínio e contexto
+- Métodos formais aplicados
+- Prototipagem iterativa
+- Modelagem arquitetural
+- Especificação e validação
 
 ### PARTE II: Engenharia de Software Aplicada
 
-**KA 01. Software Requirements: Engenharia de Restrições e Contexto**
+**KA 01. Engenharia de Restrições e Contexto**
 - De "capturar requisitos" para "estabelecer fronteiras que a IA não deve transgredir"
 - Especificação negativa, invariantes, degradação graciosa
 
-**KA 02. Software Architecture: Arquitetura de Sistemas Híbridos**
+**KA 02. Arquitetura de Sistemas Híbridos**
 - Padrões para human-in-the-loop
 - Design para auditabilidade e rastreamento
 - Separação de concerns críticos
 
-**KA 03. Software Design: Design de Sistemas Híbridos**
+**KA 03. Design de Sistemas Híbridos**
 - Princípios para código gerado
 - Componentes determinísticos vs. não-determinísticos
 - Verificabilidade no design
 
-**KA 04. Software Construction: Orquestração e Curatoria de Código**
+**KA 04. Orquestração e Curadoria de Código**
 - Avaliação e integração de código gerado
 - Pipeline de verificação
 - Gestão de qualidade
 
-**KA 05. Software Testing: Verificação e Validação em Escala**
+**KA 05. Verificação e Validação em Escala**
 - Testes estatísticos para sistemas não-determinísticos
 - Verificação de contratos
 - Avaliação de agentes
 
-**KA 06. Software Engineering Operations: Operações de Engenharia com IA**
+**KA 06. Operações de Engenharia de Software**
 - Planejamento em escala
 - Entrega e deployment contínuo
 - Monitoramento de sistemas híbridos
 
-**KA 07. Software Maintenance: Manutenção de Sistemas Opaços**
+**KA 07. Manutenção de Sistemas Opaços**
 - Engenharia reversa de código gerado
 - Refatoração assistida
 - Gestão de dívida técnica
 
-### PARTE III: Governança e Gerenciamento
+### PARTE III: Qualidade, Segurança e Governança
 
-**KA 08. Software Configuration Management: Gestão de Configuração e Contexto**
-- Versionamento de modelos e prompts
-- Rastreabilidade em sistemas gerados
-- Reprodutibilidade de ambientes
-
-**KA 09. Software Engineering Management: Gestão de Projetos e Equipes**
-- Equipes híbridas humanos-IA
-- Planejamento e métricas
-- Gestão de riscos
-
-**KA 10. Software Engineering Process: Processos com IA**
-- Processos ágeis adaptados
-- Workflows agenticos
-- Governança de processos
-
-**KA 11. Software Engineering Models and Methods: Modelos e Métodos**
-- Modelagem de domínio
-- Métodos formais aplicados
-- Prototipagem iterativa
-
-### PARTE IV: Qualidade, Segurança e Ética
-
-**KA 12. Software Quality: Qualidade em Sistemas com IA**
+**KA 12. Qualidade de Software**
 - Qualidade de código gerado
 - Qualidade comportamental e robustez
 - Explicabilidade e interpretabilidade
 
-**KA 13. Software Security: Segurança em Sistemas com IA**
+**KA 13. Segurança em Sistemas com IA**
 - Vulnerabilidades em código gerado
 - Ataques a aplicações LLM
 - Segurança da cadeia de suprimentos
 
-**KA 14. Software Engineering Professional Practice: Prática Profissional e Julgamento Técnico**
+**KA 08. Gestão de Configuração e Contexto**
+- Versionamento de modelos e prompts
+- Rastreabilidade em sistemas gerados
+- Reprodutibilidade de ambientes
+
+**KA 14. Prática Profissional e Julgamento Técnico**
 - Responsabilidade legal e accountability
 - Ética e códigos de conduta
 - Governança de IA e compliance
 
-### PARTE V: Economia e Métricas
+### PARTE IV: Gerenciamento e Processos
 
-**KA 15. Software Engineering Economics: Economia da Engenharia com IA**
+**KA 09. Gestão de Engenharia de Software**
+- Equipes híbridas humanos-IA
+- Planejamento e métricas
+- Gestão de riscos
+
+**KA 10. Processos de Engenharia com IA**
+- Processos ágeis adaptados
+- Workflows agenticos
+- Governança de processos
+
+**KA 15. Economia e Métricas**
 - Paradoxo de Jevons aplicado ao software
 - Custo total de propriedade (TCO)
 - Decisões de make vs. buy vs. generate
 
-### PARTE VI: Referências
+### PARTE V: Referências
 
-**KA 16. Appendix: Apêndice**
+**KA 16. Apêndice**
 - Especificações de KAs
 - Padrões ISO/IEC/IEEE
 - Referências consolidadas
 - Glossário de termos
 - Matriz de conformidade
+- Matriz de referências cruzadas
 
 ---
 
@@ -138,10 +139,23 @@ O SWEBOK-AI v5.0 está organizado em **16 Knowledge Areas (KAs)** distribuídos 
 
 | Aspecto | Antes (19 KAs) | Depois (16 KAs) |
 |---------|----------------|-----------------|
-| **Estrutura** | Fundamentos no final | Fundamentos integrados |
+| **Estrutura** | 6 Partes | 5 Partes |
+| **Organização** | Fundamentos no final | Fundamentos no início |
+| **KA 11** | Parte III (Governança) | Parte I (Fundamentos) |
+| **KA 08** | Parte III (Governança) | Parte III (Qualidade/Segurança) |
+| **KA 15** | Parte V (Economia isolada) | Parte IV (Gerenciamento) |
 | **Foco** | Teoria + Prática | Prática aplicada |
-| **Progressão** | Linear (01→19) | Por Partes (I→VI) |
 | **Público** | Acadêmico + Praticante | Praticante |
+
+### Nova Progressão Pedagógica
+
+A estrutura foi reorganizada para seguir uma progressão mais lógica:
+
+1. **Parte I**: Fundamentos e métodos (o "como")
+2. **Parte II**: Engenharia aplicada (a "prática")
+3. **Parte III**: Qualidade e governança (o "controle")
+4. **Parte IV**: Gerenciamento (a "gestão")
+5. **Parte V**: Referências (o "apoio")
 
 ### Novo Público-Alvo
 
@@ -186,22 +200,24 @@ Cada tópico do SWEBOK-AI é avaliado por três critérios:
 ### Caminhos de Leitura Recomendados
 
 **Para quem está começando com IA em projetos:**
-1. Introdução (com Fundamentos Essenciais)
-2. KA 01 (Requirements) → KA 04 (Construction)
-3. KA 05 (Testing)
-4. KA 12 (Quality)
+1. Parte I (Introdução + Fundamentos de IA + Modelos)
+2. KA 01 (Restrições) → KA 04 (Curadoria)
+3. KA 05 (Verificação) → KA 12 (Qualidade)
 
 **Para líderes técnicos:**
-1. Introdução
-2. KA 09 (Management) → KA 14 (Professional Practice)
-3. KA 15 (Economics)
-4. KA 13 (Security)
+1. Parte I (Fundamentos)
+2. KA 09 (Gestão) → KA 14 (Prática Profissional)
+3. KA 15 (Economia) → KA 13 (Segurança)
 
 **Para arquitetos:**
-1. Introdução
-2. KA 02 (Architecture) → KA 03 (Design)
-3. KA 08 (Config Management)
-4. KA 11 (Models)
+1. Parte I (Fundamentos + Modelos)
+2. KA 01 (Restrições) → KA 02 (Arquitetura) → KA 03 (Design)
+3. KA 08 (Configuração) → KA 12 (Qualidade)
+
+**Para engenheiros de qualidade:**
+1. Parte I (Fundamentos)
+2. KA 04 (Curadoria) → KA 05 (Verificação)
+3. KA 12 (Qualidade) → KA 13 (Segurança) → KA 07 (Manutenção)
 
 ---
 
