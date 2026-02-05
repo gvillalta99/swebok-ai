@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "ccf5fc295ece2776",
+        "id": "d0b09b9d6b99bb83",
         "type": "tabs",
         "children": [
           {
-            "id": "14757e0a862abc14",
+            "id": "6f4a3e10ef148830",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "docs/XX-ideais/workflow.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "workflow"
+              "title": "New tab"
             }
           }
         ]
@@ -180,8 +176,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 511.5,
-    "collapsed": true
+    "width": 511.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -195,14 +190,19 @@
       "obsidian-opencode:OpenCode": false
     }
   },
-  "active": "14757e0a862abc14",
+  "active": "2f53563e67feb826",
   "lastOpenFiles": [
+    "agents/book-writer.md~",
+    "agents/book-writer.md",
+    "agents/book-editor.md",
+    "agents/book-reviewer.md~",
+    "agents/book-reviewer.md",
+    "docs/00-introduction/01-contexto-revolucao-llms.md",
     "docs/XX-ideais/workflow-new.md",
     "docs/00-introduction/05-publico-alvo-prerequisitos.md",
     "docs/XX-ideais/workflow.md",
     "docs/00-introduction/04-estrutura-organizacao.md",
     "docs/00-introduction/03-principios-diretores.md",
-    "docs/00-introduction/01-contexto-revolucao-llms.md",
     "docs/00-introduction/02-mudanca-paradigma.md",
     "docs/09-software-engineering-management/01-equipes-hibridas.md",
     "docs/17-mathematical-foundations/13-fundamentos-de-ia-e-aprendizado-de-maquina-para-engenheiros-de-software.md",
@@ -226,13 +226,7 @@
     "site/XX-meta/swe-ai-organizational-patterns",
     "site/XX-meta/swe-ai-future/index.html",
     "site/XX-meta/swe-ai-future",
-    "site/XX-meta/swe-ai-artifacts/index.html",
-    "site/XX-meta/swe-ai-artifacts",
     "site/assets/images/favicon.png",
-    "docs/19-appendix/05-matriz-de-conformidade.md",
-    "docs/19-appendix/04-glossario-de-termos-de-ia.md",
-    "docs/19-appendix/03-referencias-consolidadas.md",
-    "docs/19-appendix/02-padroes-iso-iec-ieee.md",
-    "docs/19-appendix/01-especificacoes-de-descricao-de-kas.md"
+    "docs/19-appendix/05-matriz-de-conformidade.md"
   ]
 }

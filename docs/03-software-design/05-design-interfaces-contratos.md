@@ -1,431 +1,173 @@
 ---
-title: "05. Design de Interfaces e Contratos"
+title: "05. Design de Interfaces e Contratos em Sistemas Probabilísticos"
 created_at: "2025-01-31"
-tags: ["software-design", "interfaces", "contratos", "api", "sistemas-hibridos"]
+tags: ["software-design", "interfaces", "contratos", "json-schema", "structured-output", "system-prompt"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "gemini-3-pro-preview"
 ---
-# Design de Interfaces e Contratos
+
+# Design de Interfaces e Contratos em Sistemas Probabilísticos
 
 ## Overview
 
-Em sistemas híbridos humanos-IA, interfaces e contratos assumem um papel crítico: eles são a linha de demarcação entre o determinístico e o probabilístico, entre código escrito por humanos e código gerado por máquinas. Esta seção aborda como projetar interfaces que comuniquem claramente expectativas, limites e comportamentos, especialmente quando componentes de IA estão envolvidos.
+Em sistemas determinísticos, uma interface (API) é uma promessa rígida: se você enviar `X` (tipo correto), receberá `Y`. Em sistemas probabilísticos baseados em LLMs, essa promessa é fluida. O modelo pode "decidir" responder com um poema em vez de um JSON, ou alucinar campos inexistentes.
 
-Segundo Stoica et al. (2024), especificações são o elo perdido para tornar o desenvolvimento de sistemas LLM uma disciplina de engenharia [1].
+O design de interfaces na era da IA não é sobre desenhar telas, mas sobre **impor restrições rígidas sobre um núcleo fluido**. O objetivo é encapsular a incerteza do modelo dentro de fronteiras verificáveis, garantindo que o restante do sistema (o código clássico) nunca seja contaminado por dados não estruturados ou inválidos.
 
-## Learning Objectives
+## O Paradigma Shift: Do Pixel ao Prompt
 
-Após estudar esta seção, o leitor deve ser capaz de:
+A definição de "interface" expandiu-se radicalmente. Não estamos mais falando apenas de GUI (Graphical User Interface) ou API (Application Programming Interface), mas de **NLI (Natural Language Interface)** mediada por contratos estritos.
 
-1. Projetar APIs que comunicam incerteza e limitações de componentes de IA
-2. Definir contratos formais verificáveis entre sistemas
-3. Implementar versionamento e evolução de interfaces híbridas
-4. Avaliar trade-offs entre flexibilidade e rigidez contratual
+| Camada | Era Pré-LLM | Era SWEBOK-AI v5 |
+| :--- | :--- | :--- |
+| **Entrada** | Cliques, Formulários, JSON tipado | Intenção (Prompt), Contexto (RAG), Imagem/Áudio |
+| **Processamento** | Lógica Booleana (If/Else) | Inferência Probabilística (Token Prediction) |
+| **Saída** | Dados Estruturados (DB Rows) | Texto, Código, JSON (potencialmente inválido) |
+| **Contrato** | OpenAPI / Swagger | **System Prompt + JSON Schema** |
+| **Falha Comum** | `TypeError`, `NullPointer` | Alucinação, Recusa de Segurança, Formato Inválido |
 
-## Fundamentos de Interfaces para Sistemas Híbridos
+## Os Dois Contratos Fundamentais
 
-### Comunicando Incerteza
+Para domesticar um LLM em produção, estabelecemos dois níveis de contrato. Se um falha, o sistema quebra.
 
-Diferentemente de APIs tradicionais, interfaces envolvendo IA devem comunicar a natureza probabilística das operações.
+### 1. O Contrato Humano-IA: System Prompt
+Este é o contrato "mole". Ele define a persona, o tom, as restrições comportamentais e as regras de negócio em linguagem natural.
+*   **Função:** Alinhamento e Contexto.
+*   **Mecanismo:** Engenharia de Prompt.
+*   **Fragilidade:** Alta. O modelo pode ignorar instruções se o contexto for muito longo ou se sofrer *prompt injection*.
 
-```python
-from dataclasses import dataclass
-from typing import Optional, Generic, TypeVar
-from enum import Enum
+### 2. O Contrato IA-Código: JSON Schema
+Este é o contrato "duro". É a barreira de fogo que protege seu backend. O LLM **não deve** falar diretamente com seu banco de dados ou frontend sem passar por este validador.
+*   **Função:** Estruturação e Sanitização.
+*   **Mecanismo:** *Structured Output* (OpenAI/Anthropic) ou bibliotecas de coerção (Instructor/Pydantic).
+*   **Fragilidade:** Baixa (se bem implementado). Se o JSON não validar, a execução é abortada ou tentada novamente.
 
-class ConfidenceLevel(Enum):
-    HIGH = "high"      # >= 0.9
-    MEDIUM = "medium"  # 0.7 - 0.9
-    LOW = "low"        # < 0.7
-    UNKNOWN = "unknown"
+## Padrões de Interface
 
-@dataclass
-class UncertainResult(Generic[T]):
-    """
-    Wrapper que comunica incerteza em resultados de IA.
-    """
-    value: T
-    confidence: ConfidenceLevel
-    confidence_score: float
-    alternatives: list[T]
-    model_version: str
-    timestamp: str
-    
-    def is_reliable(self, threshold: ConfidenceLevel = ConfidenceLevel.MEDIUM) -> bool:
-        """Verifica se resultado atinge nível mínimo de confiança."""
-        confidence_order = {
-            ConfidenceLevel.HIGH: 3,
-            ConfidenceLevel.MEDIUM: 2,
-            ConfidenceLevel.LOW: 1,
-            ConfidenceLevel.UNKNOWN: 0
-        }
-        return confidence_order[self.confidence] >= confidence_order[threshold]
-```
+Ao desenhar a interação, escolha o padrão que equilibra controle e flexibilidade:
 
-### Estrutura de Resposta Híbrida
+### A. Chat (Open Loop)
+O padrão mais comum e mais arriscado. O usuário conversa livremente.
+*   **Uso:** Suporte ao cliente, brainstorming, pesquisa.
+*   **Desafio:** O usuário pode levar o modelo para fora do escopo.
+*   **Controle:** Baixo. Exige *guardrails* de saída robustos para evitar toxicidade ou vazamento de dados.
 
-```json
-{
-  "data": {
-    "classification": "urgent",
-    "priority_score": 0.87
-  },
-  "meta": {
-    "confidence": "high",
-    "confidence_score": 0.92,
-    "model": "gpt-4",
-    "model_version": "2024-08",
-    "processing_time_ms": 245,
-    "alternatives": [
-      {"classification": "normal", "confidence": 0.05},
-      {"classification": "low", "confidence": 0.03}
-    ]
-  },
-  "verification": {
-    "checksum": "sha256:abc123...",
-    "input_hash": "sha256:def456...",
-    "cached": false
-  }
-}
-```
+### B. Command (Natural Language to Action)
+O usuário expressa uma intenção ("Agende uma reunião com o João"), e o sistema converte isso em uma chamada de função determinística.
+*   **Uso:** Assistentes virtuais, automação de tarefas.
+*   **Mecanismo:** *Tool Calling* / *Function Calling*.
+*   **Risco:** O modelo invocar a ferramenta errada ou com parâmetros destrutivos (ex: `DELETE /users`). Requer confirmação humana para ações críticas.
 
-## Tipos de Contratos
+### C. Suggestion (Human-in-the-Loop)
+A IA não age; ela propõe. O humano aceita, rejeita ou edita. É o padrão do GitHub Copilot ou corretores gramaticais.
+*   **Uso:** Geração de código, redação de documentos.
+*   **Segurança:** Máxima. O humano é o filtro final de qualidade e segurança.
+*   **UX:** "Ghost text" ou painéis laterais.
 
-### 1. Contratos Síncronos
+## Implementação Técnica: Structured Output
 
-Para operações que requerem resposta imediata com possível fallback.
+Nunca peça JSON em texto livre. Use modos de saída estruturada garantidos pelo provedor do modelo ou frameworks de validação.
+
+### Exemplo: Extração de Dados com Pydantic
+
+Este padrão garante que seu código Python receba objetos tipados, não strings aleatórias.
 
 ```python
-from abc import ABC, abstractmethod
-from typing import Union
-import asyncio
+from pydantic import BaseModel, Field, ValidationError
+from typing import List, Optional
+import openai
 
-class SynchronousContract(ABC):
-    """
-    Contrato para operações síncronas com timeout e fallback.
-    """
-    
-    def __init__(self, timeout_ms: int = 5000):
-        self.timeout_ms = timeout_ms
-    
-    async def execute(self, request) -> Union[Success, FallbackResult, Error]:
-        try:
-            result = await asyncio.wait_for(
-                self._process(request),
-                timeout=self.timeout_ms / 1000
-            )
-            
-            if self._validate(result):
-                return Success(result)
-            else:
-                return await self._fallback(request)
-                
-        except asyncio.TimeoutError:
-            return await self._fallback(request, reason="timeout")
-        except Exception as e:
-            return Error(str(e))
-    
-    @abstractmethod
-    async def _process(self, request):
-        pass
-    
-    @abstractmethod
-    def _validate(self, result) -> bool:
-        pass
-    
-    @abstractmethod
-    async def _fallback(self, request, reason=None):
-        pass
-```
+# 1. Definição do Contrato (Schema)
+class ActionItem(BaseModel):
+    description: str = Field(..., description="Ação clara e executável")
+    assignee: Optional[str] = Field(None, description="Responsável pela tarefa")
+    priority: str = Field(..., enum=["high", "medium", "low"])
 
-### 2. Contratos Assíncronos
+class MeetingSummary(BaseModel):
+    topic: str
+    decisions: List[str]
+    action_items: List[ActionItem]
+    # O modelo é forçado a preencher estes campos
 
-Para operações de longa duração com notificação de progresso.
-
-```python
-from enum import Enum, auto
-
-class JobStatus(Enum):
-    PENDING = auto()
-    PROCESSING = auto()
-    COMPLETED = auto()
-    FAILED = auto()
-    CANCELLED = auto()
-
-class AsynchronousContract:
-    """
-    Contrato para operações assíncronas com tracking.
-    """
-    
-    async def submit(self, request) -> JobId:
-        """Submete job para processamento."""
-        job_id = self._generate_job_id()
-        await self._queue_job(job_id, request)
-        return job_id
-    
-    async def status(self, job_id: JobId) -> JobStatus:
-        """Consulta status do job."""
-        return await self._get_status(job_id)
-    
-    async def result(self, job_id: JobId) -> Optional[Result]:
-        """Obtém resultado (None se ainda não completo)."""
-        status = await self.status(job_id)
-        if status == JobStatus.COMPLETED:
-            return await self._get_result(job_id)
-        return None
-    
-    async def cancel(self, job_id: JobId) -> bool:
-        """Tenta cancelar job pendente."""
-        return await self._attempt_cancel(job_id)
-    
-    async def subscribe(self, job_id: JobId, callback):
-        """Subscreve para notificações de progresso."""
-        await self._add_subscriber(job_id, callback)
-```
-
-### 3. Contratos de Streaming
-
-Para operações que produzem resultados parciais.
-
-```python
-from typing import AsyncIterator
-
-class StreamingContract:
-    """
-    Contrato para operações com resultados parciais.
-    """
-    
-    async def stream(self, request) -> AsyncIterator[PartialResult]:
-        """
-        Gera resultados parciais à medida que ficam disponíveis.
-        Útil para geração de texto, processamento de documentos, etc.
-        """
-        buffer = []
+# 2. Execução com Validação (Pseudo-código)
+def extract_summary(transcription: str) -> MeetingSummary:
+    try:
+        completion = client.beta.chat.completions.parse(
+            model="gpt-4o-2024-08-06",
+            messages=[
+                {"role": "system", "content": "Você é um secretário executivo expert."},
+                {"role": "user", "content": transcription},
+            ],
+            response_format=MeetingSummary, # O Contrato é passado aqui
+        )
         
-        async for chunk in self._generate_chunks(request):
-            buffer.append(chunk)
-            
-            # Emite quando tem conteúdo suficiente
-            if self._should_emit(buffer):
-                yield PartialResult(
-                    content="".join(buffer),
-                    is_complete=False,
-                    tokens_generated=len(buffer)
-                )
-                buffer = []
+        # O retorno já é uma instância validada da classe MeetingSummary
+        return completion.choices[0].message.parsed
         
-        # Emite conteúdo restante
-        if buffer:
-            yield PartialResult(
-                content="".join(buffer),
-                is_complete=True,
-                tokens_generated=len(buffer)
-            )
+    except ValidationError as e:
+        # Falha de contrato: O modelo gerou algo que não bate com o schema
+        log_error(f"Schema violation: {e}")
+        # Estratégia de Retry: Enviar o erro de volta ao modelo para ele corrigir
+        return retry_with_correction(transcription, error=str(e))
+    except Exception as e:
+        # Falha de sistema (rede, auth)
+        raise e
 ```
 
-## Design de APIs REST para IA
+## Tolerância a Falhas na Interface
 
-### Estrutura de Endpoints
+Interfaces probabilísticas falham. Seu design deve assumir a falha como estado nominal.
 
-```
-/api/v1/ai/
-├── generate          # Geração síncrona
-├── generate/async    # Submissão assíncrona
-├── jobs/{id}         # Consulta de job
-├── jobs/{id}/cancel  # Cancelamento
-├── validate          # Validação de entrada
-└── health            # Health check do serviço
-```
+1.  **Retry Loop com Feedback:** Se a validação do schema falhar, não apenas tente de novo. Injete a mensagem de erro da validação (ex: "Campo 'priority' deve ser 'high', 'medium' ou 'low', recebeu 'urgente'") de volta no prompt e peça correção.
+2.  **Degradação Graciosa:** Se a IA estiver fora do ar ou alucinando, a interface deve reverter para um modo manual ou "burro", não travar a tela branca.
+3.  **Confiança e Transparência:** Se o *confidence score* (logprobs) for baixo, a UI deve sinalizar: "A IA acha que é isso, mas verifique".
 
-### Códigos de Status Específicos
+## Checklist Prático
 
-Além dos códigos HTTP padrão, APIs de IA podem usar:
+O que implementar amanhã no seu sistema:
 
-| Código | Significado | Quando Usar |
-|--------|-------------|-------------|
-| 200 OK | Sucesso | Resposta confiável retornada |
-| 202 Accepted | Aceito para processamento | Job assíncrono criado |
-| 206 Partial Content | Conteúdo parcial | Streaming em progresso |
-| 409 Conflict | Conflito | Input viola constraints |
-| 422 Unprocessable | Não processável | IA não conseguiu gerar resultado válido |
-| 503 Service Unavailable | Serviço indisponível | Timeout ou rate limit |
+*   [ ] **Schema-First:** Defina os Pydantic/Zod models *antes* de escrever o prompt.
+*   [ ] **Strict Mode:** Ative `strict: true` ou equivalente na API do LLM para forçar aderência ao schema.
+*   [ ] **Validação de Tipos:** Nunca faça `json.loads()` direto da resposta do LLM sem passar por um validador.
+*   [ ] **Sanitização:** Trate qualquer texto vindo do LLM como "user input" não confiável (risco de XSS ou injeção).
+*   [ ] **Timeout Agressivo:** LLMs podem entrar em loops infinitos. Defina timeouts curtos.
+*   [ ] **Telemetry:** Logue não apenas o erro, mas o prompt exato e a resposta inválida para debug.
 
-### Headers Semânticos
+## Armadilhas Comuns (Anti-Patterns)
 
-```http
-HTTP/1.1 200 OK
-Content-Type: application/json
-X-Confidence-Level: high
-X-Confidence-Score: 0.94
-X-Model-Version: gpt-4-2024-08
-X-Processing-Time: 245
-X-Cache-Status: miss
-X-Request-ID: req_abc123
-```
+1.  **Parsing com Regex:** Tentar extrair JSON de um bloco de texto usando expressões regulares. Isso vai quebrar.
+2.  **"Retorne apenas JSON":** Confiar apenas na instrução do prompt sem usar parâmetros de `response_format` ou `function_calling`.
+3.  **Schema Ambíguo:** Campos como `data` (string? data ISO? timestamp?) confundem o modelo. Seja explícito: `created_at_iso8601`.
+4.  **Loop de Retry Infinito:** O modelo continua errando o schema e você continua pagando tokens. Limite a 2 ou 3 tentativas.
+5.  **Expor o Prompt na UI:** Em caso de erro, nunca mostre o "System Prompt" no stack trace para o usuário final.
 
-## Versionamento e Evolução
+## Resumo Executivo
 
-### Estratégias de Versionamento
+*   **Contrato Duplo:** System Prompt alinha comportamento; JSON Schema garante integridade estrutural.
+*   **Determinismo na Borda:** O núcleo é probabilístico, mas as bordas (I/O) devem ser estritamente tipadas.
+*   **Validação é Obrigatória:** Código gerado ou dados estruturados por IA são "culpados até que se prove o contrário".
+*   **Padrões de UI:** Escolha entre Chat, Comando ou Sugestão baseando-se no risco da operação.
+*   **Custo de Engenharia:** O esforço migra da implementação da lógica para a definição e validação dos contratos.
 
-```python
-class VersionedContract:
-    """
-    Suporte a múltiplas versões de contrato.
-    """
-    
-    SUPPORTED_VERSIONS = ["1.0", "1.1", "2.0"]
-    DEFAULT_VERSION = "2.0"
-    
-    def __init__(self):
-        self.versions = {
-            "1.0": ContractV1(),
-            "1.1": ContractV1_1(),
-            "2.0": ContractV2()
-        }
-    
-    def get_contract(self, version: Optional[str] = None):
-        version = version or self.DEFAULT_VERSION
-        if version not in self.SUPPORTED_VERSIONS:
-            raise UnsupportedVersionError(f"Versão {version} não suportada")
-        return self.versions[version]
-    
-    def migrate_request(self, request, from_version: str, to_version: str):
-        """Migra request entre versões do contrato."""
-        migrator = self._get_migrator(from_version, to_version)
-        return migrator.migrate(request)
-```
+## Próximos Passos
 
-### Depreciação Gradual
+*   Estudar **Function Calling** para transformar intenção em execução de código.
+*   Implementar **Testes de Contrato** que verificam se o prompt atual continua respeitando o schema após alterações.
+*   Explorar **DSPy** para otimizar prompts automaticamente contra métricas de validação.
 
-```python
-from datetime import datetime, timedelta
+## Matriz de Avaliação
 
-class DeprecationPolicy:
-    def __init__(self, version: str, sunset_date: datetime):
-        self.version = version
-        self.sunset_date = sunset_date
-        self.warning_date = sunset_date - timedelta(days=90)
-    
-    def get_headers(self) -> dict:
-        headers = {}
-        
-        if datetime.now() > self.warning_date:
-            headers["Deprecation"] = f"@ {self.sunset_date.isoformat()}"
-            headers["Sunset"] = self.sunset_date.isoformat()
-            
-            if datetime.now() > self.sunset_date:
-                headers["Warning"] = f"Versão {self.version} foi descontinuada"
-        
-        return headers
-```
-
-## Contratos com Schema
-
-### OpenAPI para IA
-
-```yaml
-openapi: 3.0.0
-info:
-  title: AI Service API
-  version: 2.0.0
-
-paths:
-  /generate:
-    post:
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                prompt:
-                  type: string
-                  maxLength: 4000
-                max_tokens:
-                  type: integer
-                  maximum: 4096
-                temperature:
-                  type: number
-                  minimum: 0
-                  maximum: 2
-                required_confidence:
-                  type: string
-                  enum: [low, medium, high]
-              required: [prompt]
-      
-      responses:
-        '200':
-          description: Geração bem-sucedida
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  result:
-                    type: string
-                  meta:
-                    type: object
-                    properties:
-                      confidence:
-                        type: string
-                        enum: [low, medium, high]
-                      confidence_score:
-                        type: number
-                        minimum: 0
-                        maximum: 1
-                      alternatives:
-                        type: array
-                        items:
-                          type: object
-```
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Chatbots**: APIs que retornam confiança para decisões de escalonamento
-2. **Sistemas de Recomendação**: Contratos que comunicam explicabilidade
-3. **Análise de Documentos**: Streaming para documentos grandes
-
-### Limitações
-
-- **Overhead de Metadados**: Informações de confiança aumentam payload
-- **Complexidade de Versionamento**: Múltiplas versões dificultam manutenção
-- **Latência de Validação**: Schema validation adiciona tempo de resposta
-
-### Melhores Práticas
-
-1. **Fail Fast**: Validar inputs rigorosamente antes de processar
-2. **Idempotência**: Garantir que múltiplas chamadas com mesmo ID produzam mesmo resultado
-3. **Observabilidade**: Logging estruturado de todas as interações
-4. **Rate Limiting**: Proteger contra abuso e controlar custos
-5. **Circuit Breaker**: Isolar falhas de serviços de IA
-
-## Summary
-
-- Interfaces devem comunicar incerteza através de metadados de confiança
-- Contratos síncronos, assíncronos e de streaming servem a diferentes casos de uso
-- Versionamento cuidadoso permite evolução sem breaking changes
-- Headers semânticos enriquecem a comunicação entre sistemas
-- Schema-first design garante consistência e facilita validação
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — princípios de design de interfaces são atemporais |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio — contratos podem ser validados com testes de contrato |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Alta — designer de API responsável por contratos claros |
+| Critério | Avaliação | Justificativa |
+| :--- | :--- | :--- |
+| **Maturidade Técnica** | Alta | JSON Schema e Pydantic são padrões industriais sólidos. |
+| **Impacto no Negócio** | Crítico | Sem contratos rígidos, a IA em produção é um brinquedo perigoso. |
+| **Custo de Implementação** | Médio | Exige disciplina de engenharia, mas ferramentas (SDKs) facilitam. |
+| **Risco de Obsolescência** | Baixo | Modelos mudam, mas a necessidade de dados estruturados permanece. |
 
 ## References
 
-1. Stoica, I.; Zaharia, M.; Gonzalez, J.; et al. "Specifications: The missing link to making the development of LLM systems an engineering discipline." arXiv:2412.05299, 2024. https://arxiv.org/abs/2412.05299
-
-2. OpenAPI Initiative. "OpenAPI Specification v3.0.0." https://spec.openapis.org/oas/v3.0.0
-
-3. Fielding, R. "Architectural Styles and the Design of Network-based Software Architectures." PhD Dissertation, UC Irvine, 2000.
-
-4. NIST. "Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile." NIST AI 600-1, 2024. https://doi.org/10.6028/NIST.AI.600-1
-
-5. Richardson, L.; Amundsen, M. "RESTful Web APIs." O'Reilly Media, 2013.
+1.  **OpenAI API Documentation.** "Structured Outputs". https://platform.openai.com/docs/guides/structured-outputs
+2.  **Pydantic Documentation.** "Integration with LLMs". https://docs.pydantic.dev/
+3.  **Chase, Harrison.** "LangChain: Building applications with LLMs". O'Reilly Media, 2024.
+4.  **Fowler, Martin.** "Patterns of Enterprise Application Architecture" (Conceitos de Gateway e Mapper aplicados a LLMs).

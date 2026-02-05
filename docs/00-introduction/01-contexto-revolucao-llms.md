@@ -6,7 +6,6 @@ status: "stable"
 updated_at: "2026-02-04"
 ai_model: "google/gemini-3-pro-preview"
 ---
-
 # Contexto: A Revolução dos Modelos de Linguagem na Engenharia
 
 ## Overview

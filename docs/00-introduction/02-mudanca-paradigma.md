@@ -4,7 +4,7 @@ created_at: "2025-01-31"
 tags: ["paradigma", "economia-software", "jevons-paradox", "verificacao", "engenharia-restricoes"]
 status: "review"
 updated_at: "2026-02-04"
-ai_model: "google/gemini-3-pro-preview"
+ai_model: "kimi-k2.5"
 ---
 
 # Mudança de Paradigma: Da Codificação à Orquestração de Restrições
@@ -24,7 +24,9 @@ Após estudar esta seção, o leitor deve ser capaz de:
 ### De "Code-Scarce" para "Attention-Scarce"
 Historicamente, código era caro. Cada linha representava um investimento de tempo humano, o que naturalmente limitava o inchaço dos sistemas (bloatware) e forçava alguma reflexão antes da implementação.
 
-Com LLMs (Large Language Models), o código tornou-se abundante. Um desenvolvedor júnior com um agente de IA pode gerar mais linhas de código em uma hora do que uma equipe sênior conseguia revisar em uma semana no paradigma anterior. Isso cria uma **crise de atenção**:
+Com LLMs (Large Language Models), o código tornou-se abundante. Um desenvolvedor júnior com um agente de IA pode gerar mais linhas de código em uma hora do que uma equipe sênior conseguia revisar em uma semana no paradigma anterior.
+
+> **Nota sobre terminologia:** Neste documento, usamos **LLM** quando nos referimos à tecnologia subjacente (modelos de linguagem de grande porte) e **agente de IA** quando nos referimos à aplicação prática dessa tecnologia em ferramentas de assistência à programação. Isso cria uma **crise de atenção**:
 *   **Antes:** O gargalo era escrever a lógica.
 *   **Agora:** O gargalo é entender e validar a lógica gerada.
 
@@ -42,12 +44,12 @@ Focava em *Requisitos*: "O sistema deve fazer X". O engenheiro traduzia isso pas
 
 ### O Modelo AI-First (Declarativo/Restritivo)
 Foca em *Restrições*: "O sistema NÃO pode fazer Y, deve respeitar a interface Z e manter o tempo de resposta abaixo de W".
-Como a IA preenche as lacunas de implementação, o papel da engenharia é fechar as portas para implementações indesejadas. Isso é **Engenharia de Restrições**: criar um "cercadinho" (sandbox) de regras de linting, testes de contrato, tipos estáticos e políticas de segurança onde o agente de IA possa operar com segurança.
+Como a IA preenche as lacunas de implementação, o papel da engenharia é fechar as portas para implementações indesejadas. Isso é **Engenharia de Restrições**: criar um *sandbox* (ambiente restrito) de regras de linting, testes de contrato, tipos estáticos e políticas de segurança onde o agente de IA possa operar com segurança.
 
 ## Economia da Engenharia: O Paradoxo de Jevons
 
 ### A Armadilha da Eficiência
-O Paradoxo de Jevons afirma que, à medida que a tecnologia aumenta a eficiência com que um recurso é usado, o consumo total desse recurso aumenta em vez de diminuir.
+O Paradoxo de Jevons — observado na Revolução Industrial com o carvão — afirma que, à medida que a tecnologia aumenta a eficiência com que um recurso é usado, o consumo total desse recurso aumenta em vez de diminuir.
 
 Aplicado à Engenharia de Software com IA:
 1.  Gerar código fica mais barato e rápido.
@@ -55,13 +57,15 @@ Aplicado à Engenharia de Software com IA:
 3.  O volume total de código explode.
 4.  O custo de manutenção (que é proporcional ao volume e complexidade) cresce exponencialmente, superando a economia inicial de geração.
 
-**Implicação Prática:** Se você usar IA apenas para "codar mais rápido", você quebrará sua operação em 18 meses. O ganho de eficiência deve ser reinvestido em **observabilidade, testes automatizados e documentação**, não apenas em mais features.
+**Implicação Prática:** Se você usar IA apenas para "codar mais rápido", você quebrará sua operação em aproximadamente 18 meses¹. O ganho de eficiência deve ser reinvestido em **observabilidade, testes automatizados e documentação**, não apenas em mais features.
+
+> ¹ Estimativa baseada em padrões observados em organizações que implementaram ferramentas de geração de código sem investimento proporcional em governança e qualidade.
 
 ## Checklist Prático: Operando no Novo Paradigma
 
 O que eu faria amanhã ao liderar uma equipe técnica:
 
-1.  **Bloquear Commits Diretos de IA:** Todo código gerado deve passar por uma bateria de testes automatizados *antes* de chegar à revisão humana. Se o teste falha, o humano nem deve ver.
+1.  **Bloquear Commits Diretos de IA:** Todo código gerado deve passar por uma bateria de testes automatizados *antes* de chegar à revisão humana. Se o teste falhar, o humano nem deve ver.
 2.  **Instituir "Reviewability" como Requisito:** Se o código gerado pela IA é complexo demais para um humano entender em 5 minutos, ele deve ser rejeitado e regenerado, mesmo que funcione.
 3.  **Automatizar a Verificação de Estilo:** Linters rígidos são a primeira linha de defesa da Engenharia de Restrições. Não gaste tempo humano discutindo indentação.
 4.  **Focar em Interfaces, não Implementação:** Gaste 80% do tempo definindo contratos (APIs, Tipos, Schemas) e deixe a IA preencher a implementação.
@@ -72,7 +76,7 @@ O que eu faria amanhã ao liderar uma equipe técnica:
 
 *   **Ilusão da Completude:** Achar que porque o código roda e passa nos testes felizes, ele está pronto. A IA é ótima em "happy paths" e péssima em "edge cases".
 *   **Review Fatigue (Fadiga de Revisão):** Bombardear engenheiros seniores com PRs gigantes gerados por juniores assistidos por IA. Isso leva a aprovações "carimbo" (rubber stamping) e bugs críticos em produção.
-*   **Perda de Contexto:** Deixar a IA refatorar código sem entender as regras de negócio implícitas (Chesterton's Fence), removendo proteções vitais que pareciam "código morto".
+*   **Perda de Contexto:** Deixar a IA refatorar código sem entender as regras de negócio implícitas (Cerca de Chesterton — *Chesterton's Fence*, princípio de não remover o que não se entende), removendo proteções vitais que pareciam "código morto".
 *   **Drift de Arquitetura:** Permitir que a IA introduza pequenas variações de padrões (ex: misturar bibliotecas de data/hora) que, acumuladas, tornam o sistema incoerente.
 
 ## Exemplo Mínimo: Refatoração de Legado
@@ -84,7 +88,7 @@ O engenheiro lê o código, entende a lógica, reescreve manualmente buscando ef
 *Tempo:* 4h. *Risco:* Erro humano na lógica.
 
 **Abordagem AI-First (Correta):**
-1.  **Engenharia de Restrições:** O engenheiro cria um teste de propriedade (property-based test) que define: "Para qualquer entrada válida, a saída deve ser igual à da função antiga, mas 50% mais rápida".
+1.  **Engenharia de Restrições:** O engenheiro cria um teste baseado em propriedades (*property-based testing*) que define: "Para qualquer entrada válida, a saída deve ser igual à da função antiga, mas 50% mais rápida".
 2.  **Geração:** O engenheiro instrui a IA: "Otimize esta função. Restrição: deve passar nestes testes de propriedade. Não use bibliotecas externas novas."
 3.  **Verificação:** A IA gera 5 variantes. O sistema de CI roda os testes. 3 falham, 2 passam.
 4.  **Curadoria:** O engenheiro revisa as 2 que passaram, escolhe a mais legível e faz o commit.
@@ -94,7 +98,7 @@ O engenheiro lê o código, entende a lógica, reescreve manualmente buscando ef
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. A capacidade de definir restrições e auditar sistemas é perene, ao contrário da codificação manual. |
+| **Obsolescência de Skills** | Esta skill será obsoleta em 36 meses? | **Baixa**. A capacidade de definir restrições e auditar sistemas é perene, ao contrário da codificação manual.
 | **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Validar arquitetura e segurança exige expertise sênior e ferramentas caras. |
 | **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica**. A responsabilidade final é 100% humana. "A IA gerou errado" não é defesa jurídica válida. |
 
@@ -110,10 +114,11 @@ O engenheiro lê o código, entende a lógica, reescreve manualmente buscando ef
 
 *   Auditar seus repositórios atuais: qual a porcentagem de código coberto por testes automatizados robustos?
 *   Estabelecer uma política de "Zero Trust" para código gerado por IA em sua CI/CD.
-*   Estudar **Engenharia de Restrições e Contexto** (KA 01) para aprender a criar "cercadinhos" eficazes para LLMs.
+*   Estudar **Engenharia de Restrições e Contexto** (KA 01) para aprender a criar *sandboxes* eficazes para LLMs.
+*   Definir métricas de qualidade específicas para código gerado por IA (taxa de aceitação de sugestões, tempo médio de revisão, densidade de bugs por linha gerada).
 
 ## References
 1.  **Brooks, F. P.** (1975). *The Mythical Man-Month*. Addison-Wesley. (Conceito fundamental de que adicionar força de trabalho/velocidade não escala linearmente).
 2.  **Jevons, W. S.** (1865). *The Coal Question*. (Origem do Paradoxo de Jevons).
 3.  **Google SRE Book.** (2016). *Site Reliability Engineering*. O'Reilly Media. (Conceitos de Toil e Automação relevantes para o novo paradigma).
-4.  **Dellermann, D. et al.** (2024). *Measuring GitHub Copilot's Impact on Productivity*. Communications of the ACM.
+4.  **Ziegler, A. et al.** (2024). *Measuring GitHub Copilot's Impact on Productivity*. Communications of the ACM, Vol. 67, No. 3, pp. 54-63. DOI: 10.1145/3633453.

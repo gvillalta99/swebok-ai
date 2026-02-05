@@ -3,288 +3,136 @@ title: "02. Princípios de Design para Código Gerado"
 created_at: "2025-01-31"
 tags: ["software-design", "principios", "solid", "codigo-gerado", "verificacao"]
 status: "review"
-updated_at: "2026-01-31"
-ai_model: "openai/gpt-5.2"
+updated_at: "2026-02-04"
+ai_model: "google/gemini-3-pro-preview"
 ---
 
 # Princípios de Design para Código Gerado
 
-## Overview
+A premissa fundamental da engenharia de software mudou. Antes, otimizávamos código para execução eficiente e escrita rápida. Hoje, com a geração de código a custo marginal zero, o gargalo deslocou-se para a **leitura e verificação**. Se o código gerado por IA não for trivialmente auditável por um humano, ele é passivo tóxico instantâneo. Design, agora, é sobre criar arquiteturas que tolerem a volatilidade e a imperfeição de agentes estocásticos.
 
-Os princípios clássicos de design de software — SOLID, DRY, KISS — foram formulados para código escrito por humanos. Na era dos LLMs, estes princípios precisam ser reconfigurados para lidar com as características únicas do código gerado por IA: não-determinismo, variabilidade de estilo, alucinações e débito técnico invisível.
+## 1. O Novo Paradigma: Design for Reviewability
 
-Esta seção apresenta uma adaptação dos princípios fundamentais de design para o contexto de sistemas híbridos, onde código gerado por IA coexiste com código determinístico escrito por humanos.
+Em um ambiente onde 80% do código pode ser sinteticamente gerado, a "elegância" algorítmica perde espaço para a **clareza cognitiva**. O código deve ser projetado para ser lido, validado e descartado com a mesma facilidade.
 
-## Learning Objectives
+### 1.1. Isolamento de Incerteza (Uncertainty Containment)
+Código gerado por IA tende a alucinar ou introduzir sutilezas inseguras.
+*   **Princípio:** Empurre o código gerado para as bordas do sistema (leaf nodes).
+*   **Prática:** O "core domain" (regras de negócio críticas) deve ser mantido limpo, tipado e, idealmente, escrito ou revisado linha a linha. A IA preenche os detalhes de implementação (adapters, DTOs, testes, scripts).
+*   **Regra de Ouro:** Nunca misture lógica de orquestração crítica com lógica de implementação gerada no mesmo escopo.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### 1.2. Imutabilidade como Padrão
+O estado mutável é a raiz de grande parte da complexidade acidental. Para uma IA, rastrear mudanças de estado em longas funções é difícil; para o revisor humano, é impossível.
+*   **Princípio:** Prefira estruturas de dados imutáveis e funções puras.
+*   **Benefício:** Funções puras são trivialmente testáveis. Você pode pedir para a IA gerar 100 casos de teste para uma função pura e ter alta confiança no resultado.
 
-1. Adaptar os princípios SOLID para avaliar código gerado por IA
-2. Aplicar princípios de design que priorizam verificabilidade
-3. Identificar anti-padrões específicos de código gerado
-4. Estabelecer contratos claros entre componentes humanos e de IA
+### 1.3. Interfaces Explícitas e Contratos Rígidos
+A IA precisa de limites claros ("guardrails").
+*   **Princípio:** Defina a interface *antes* de gerar a implementação.
+*   **Prática:** Use tipos fortes (TypeScript, Rust, Python com Type Hints rigorosos). O compilador é o primeiro revisor do código da IA. Se não compila, nem chega ao humano.
 
-## Reconfigurando os Princípios SOLID
+### 1.4. Descartabilidade (Disposability)
+Não se apegue ao código.
+*   **Princípio:** Trate componentes gerados como artefatos de build. Se um módulo está confuso ou bugado, não faça "debug". Apague e gere novamente com um prompt (especificação) melhor.
+*   **Mentalidade:** O código é o resultado compilado do prompt. O "código-fonte" real é o prompt e o contexto.
 
-### S — Single Responsibility Principle (SRP)
+## 2. Adaptação dos Princípios SOLID
 
-**Versão Tradicional**: Uma classe deve ter um, e apenas um, motivo para mudar.
+Os princípios clássicos ainda valem, mas com nova ênfase:
 
-**Versão para Código Gerado**: Cada componente gerado deve ter uma responsabilidade única e verificável, com testes que comprovam essa responsabilidade independentemente de como o código foi gerado.
+| Princípio | Adaptação para Era da IA |
+| :--- | :--- |
+| **S**ingle Responsibility | **Hiper-especialização**. Funções geradas devem fazer *uma* coisa minúscula. Se a IA gerar um "God Method", rejeite. O contexto limitado dos LLMs exige funções pequenas para manter a coerência. |
+| **O**pen/Closed | **Extensão via Composição**. Evite pedir para a IA modificar classes existentes complexas. Peça para criar novos adaptadores ou estratégias que se plugam no sistema. |
+| **L**iskov Substitution | **Contratos de Teste**. Se a IA gera uma implementação alternativa, ela deve passar exatamente pela mesma bateria de testes de contrato da implementação original. |
+| **I**nterface Segregation | **Interfaces Mínimas**. Interfaces pequenas reduzem a chance de alucinação. É mais fácil para a IA implementar `Reader` e `Writer` separadamente do que um `FileSystemManager`. |
+| **D**ependency Inversion | **Core Blindado**. O núcleo do seu sistema define as abstrações; a IA gera os detalhes de baixo nível que dependem dessas abstrações. Nunca o contrário. |
 
+## 3. Checklist Prático: O que fazer amanhã
+
+Se você lidera um time usando Copilot/Cursor/Windsurf, implemente estas regras:
+
+1.  **Limite de Complexidade Ciclomática Rígido**: Configure o linter para falhar em funções com complexidade > 5 ou 6. Force a IA a quebrar o código.
+2.  **Tipagem Estrita Obrigatória**: Proíba `any` (TS) ou falta de type hints (Python). A IA deve ser forçada a explicar os tipos que está usando.
+3.  **Comentários de "Intenção"**: Exija que blocos de código gerado venham acompanhados de um comentário explicando o *porquê*, não o *o quê*.
+4.  **Testes Gerados Primeiro**: Antes de aceitar a implementação da função, peça para a IA gerar os testes baseados na interface.
+5.  **Review de "Olho Nu"**: Se você precisa rolar a tela para entender a função gerada, ela está errada. Peça refatoração.
+6.  **Isolamento de I/O**: Todo I/O (banco, API, disco) deve estar isolado. A lógica de negócio não deve saber que o banco de dados existe.
+7.  **Nomes Descritivos**: A IA não tem preguiça de digitar. Exija nomes de variáveis longos e extremamente descritivos (`user_list` é ruim; `active_users_with_pending_invoices` é bom).
+
+## 4. Armadilhas Comuns (Anti-Padrões)
+
+*   **O "Mágico de Oz"**: Código que funciona por coincidência, usando dependências globais ou efeitos colaterais que a IA "adivinhou" do contexto, mas que quebram se o contexto mudar.
+*   **Over-Engineering Alucinado**: A IA cria Factories, Builders e Adapters desnecessários porque "leu em algum lugar" que é boa prática. Mantenha o YAGNI (You Ain't Gonna Need It) agressivo.
+*   **Comentários Mentirosos**: O código faz X, mas o comentário gerado diz que faz Y. O revisor lê o comentário e aprova o bug. **Regra:** Nunca confie nos comentários gerados sem ler o código.
+*   **Dependências Fantasmas**: A IA importa uma biblioteca pesada (ex: `pandas`) para fazer uma operação simples que poderia ser feita com `list comprehension`.
+*   **Try/Catch Silencioso**: A IA adora engolir erros para "fazer o código rodar". Verifique sempre os blocos `catch`.
+
+## 5. Exemplo Mínimo: Refatorando Código Gerado
+
+**Cenário:** Precisamos validar um pedido de e-commerce.
+
+### Abordagem Ingênua (O que a IA gera por padrão)
 ```python
-# ANTI-PADRÃO: Código gerado com múltiplas responsabilidades
-class UserManager:
-    def create_user(self, data):
-        # Valida dados
-        # Salva no banco
-        # Envia email
-        # Registra log
-        pass
-
-# PRÁTICA RECOMENDADA: Responsabilidades separadas
-class UserValidator:
-    def validate(self, data): pass
-
-class UserRepository:
-    def save(self, user): pass
-
-class EmailService:
-    def send_welcome(self, user): pass
+# Ruim: Mistura validação, regra de negócio e I/O. Difícil de testar.
+def process_order(order_id):
+    order = db.get(order_id) # Dependência oculta
+    if order['total'] > 1000:
+        if order['user']['is_prime']:
+            apply_discount(order) # Efeito colateral
+        else:
+            print("User not prime") # Log inútil
+    else:
+        return False
+    db.save(order) # I/O misturado
+    return True
 ```
 
-**Justificativa**: Código gerado tende a acumular funcionalidades em um único bloco. A separação explícita facilita a verificação e permite substituir componentes gerados por implementações manuais quando necessário.
-
-### O — Open/Closed Principle (OCP)
-
-**Versão Tradicional**: Entidades devem estar abertas para extensão, mas fechadas para modificação.
-
-**Versão para Código Gerado**: Componentes devem ser projetados para aceitar variações geradas sem modificação do núcleo determinístico.
-
+### Abordagem "SWEBOK-AI" (Design para Verificabilidade)
 ```python
-# Estratégia de extensão para código gerado
-from abc import ABC, abstractmethod
+# Bom: Funções puras, tipos claros, responsabilidade única.
 
-class PaymentProcessor(ABC):
-    @abstractmethod
-    def process(self, amount): pass
+# 1. Definição de Tipos (Contrato)
+from dataclasses import dataclass
 
-# Implementações podem ser geradas ou manuais
-class StripeProcessor(PaymentProcessor):
-    def process(self, amount): 
-        # Código gerado ou manual
-        pass
+@dataclass(frozen=True) # Imutabilidade
+class Order:
+    id: str
+    total: float
+    is_prime_user: bool
 
-class PayPalProcessor(PaymentProcessor):
-    def process(self, amount):
-        # Código gerado ou manual
-        pass
-```
+# 2. Lógica Pura (Fácil de testar e revisar)
+def should_apply_discount(order: Order) -> bool:
+    """Regra explícita: Desconto apenas para Prime acima de 1000."""
+    return order.is_prime_user and order.total > 1000
 
-**Justificativa**: O OCP permite que novas implementações geradas sejam integradas sem risco ao código existente, desde que respeitem o contrato estabelecido.
-
-### L — Liskov Substitution Principle (LSP)
-
-**Versão Tradicional**: Objetos de uma classe derivada devem poder substituir objetos da classe base sem alterar a correção do programa.
-
-**Versão para Código Gerado**: Implementações geradas devem ser substituíveis por implementações manuais (e vice-versa) sem violação de contratos.
-
-**Verificação**: Para cada implementação gerada, deve existir:
-- Testes de contrato que validam pré-condições e pós-condições
-- Verificação de invariantes de classe
-- Testes de comportamento equivalente entre implementações
-
-### I — Interface Segregation Principle (ISP)
-
-**Versão Tradicional**: Clientes não devem ser forçados a depender de interfaces que não utilizam.
-
-**Versão para Código Gerado**: Interfaces devem ser granulares o suficiente para permitir geração parcial e verificação incremental.
-
-```python
-# Interface grande (difícil de gerar e verificar)
-class IUserService:
-    def create_user(self): pass
-    def delete_user(self): pass
-    def update_profile(self): pass
-    def change_password(self): pass
-    def list_users(self): pass
-    def search_users(self): pass
-    def export_data(self): pass
-
-# Interfaces granulares (fáceis de gerar e verificar)
-class IUserCreator:
-    def create_user(self): pass
-
-class IUserDeleter:
-    def delete_user(self): pass
-
-class IUserSearcher:
-    def search_users(self): pass
-```
-
-### D — Dependency Inversion Principle (DIP)
-
-**Versão Tradicional**: Dependa de abstrações, não de implementações concretas.
-
-**Versão para Código Gerado**: O código de alto nível deve depender de abstrações que isolam o não-determinismo do código gerado.
-
-```python
-# Código gerado encapsulado atrás de abstração
-class CodeGenerator:
-    def generate(self, spec: Specification) -> Implementation:
-        # Geração não-determinística
-        pass
-
-class DeterministicService:
-    def __init__(self, generator: CodeGenerator):
-        self._generator = generator
-        self._implementation = None
+# 3. Orquestração (Onde o humano foca a atenção)
+def process_order_handler(repo: OrderRepository, order_id: str) -> None:
+    order = repo.get_by_id(order_id)
     
-    def initialize(self, spec):
-        # Geração isolada
-        self._implementation = self._generator.generate(spec)
-        # Validação obrigatória
-        self._validate_implementation()
+    if should_apply_discount(order):
+        # Apenas aqui ocorre a mutação/efeito colateral
+        repo.apply_discount(order.id)
 ```
 
-## Princípios Adicionais para Código Gerado
+**Decisão:** A segunda versão é mais verbosa, mas separa *decisão* (lógica pura) de *ação* (efeito colateral). A IA pode gerar a lógica pura com risco zero, e o humano revisa apenas a regra de negócio.
 
-### V — Verificability First
+## 6. Resumo Executivo
 
-**Princípio**: O design deve priorizar a facilidade de verificação sobre a elegância do código.
+*   **Código é passivo**: Otimize para leitura e descarte, não para posse.
+*   **Verificação é o gargalo**: Se a IA gera código que você não consegue validar em segundos, rejeite.
+*   **Isole a incerteza**: Empurre código gerado para as bordas; mantenha o núcleo limpo.
+*   **Tipagem é lei**: Use o sistema de tipos como a primeira linha de defesa contra alucinações.
+*   **Prompt é código**: Versionar e refinar o prompt é mais importante que corrigir o código gerado manualmente.
 
-**Práticas**:
-- Cada componente gerado deve ter critérios de aceitação objetivos
-- Interfaces devem permitir injeção de mocks para testes
-- Estado interno deve ser observável para debugging
+## 7. Próximos Passos
 
-### P — Prompt as Specification
+*   Estudar **Engenharia de Restrições** (KA 01) para aprender a limitar o espaço de solução da IA.
+*   Implementar pipelines de **Verificação Automatizada** (KA 05) que rodem antes do code review humano.
+*   Adotar práticas de **Arquitetura Hexagonal** (KA 02) para facilitar o isolamento de componentes gerados.
 
-**Princípio**: Tratar prompts como especificações formais que devem ser versionadas, testadas e validadas.
+## 8. Referências
 
-**Práticas**:
-- Versionar prompts junto com o código
-- Testar prompts com múltiplas amostras
-- Documentar suposições e contexto do prompt
-
-### C — Contract Explicitness
-
-**Princípio**: Contratos entre componentes devem ser explícitos, verificáveis e independentes da origem do código.
-
-**Práticas**:
-- Usar Design by Contract (pré/pós-condições)
-- Definir invariantes claros
-- Documentar comportamentos esperados e limites
-
-## Anti-Padrões em Código Gerado
-
-Segundo pesquisa de Gao et al. (2025) sobre bugs em código gerado por IA [1], os seguintes anti-padrões são comuns:
-
-### 1. Alucinação de APIs
-
-O modelo gera chamadas para APIs que não existem ou com assinaturas incorretas.
-
-**Mitigação**: Verificação estática obrigatória e testes de compilação.
-
-### 2. Lógica de Controle Superficial
-
-Código que lida apenas com casos felizes, ignorando edge cases.
-
-**Mitigação**: Geração com foco em casos de teste de boundary.
-
-### 3. Duplicação de Código
-
-Pesquisa do GitClear (2025) indica crescimento de 4x na duplicação de código gerado por IA [2].
-
-**Mitigação**: Análise estática pós-geração e refatoração assistida.
-
-### 4. Inconsistência de Estilo
-
-Diferentes sessões de geração produzem código com estilos inconsistentes.
-
-**Mitigação**: Uso de linters e formatadores automatizados.
-
-### 5. Débito Técnico Invisível
-
-Código que funciona mas é difícil de manter ou estender.
-
-**Mitigação**: Métricas de complexidade ciclomática e análise de acoplamento.
-
-## Design by Contract para Sistemas Híbridos
-
-O Design by Contract (DbC), popularizado por Eiffel, torna-se essencial quando integrando código gerado:
-
-```python
-class Contract:
-    @staticmethod
-    def requires(condition, message):
-        if not condition:
-            raise PreconditionViolation(message)
-    
-    @staticmethod
-    def ensures(condition, message):
-        if not condition:
-            raise PostconditionViolation(message)
-
-class ServiceWithContract:
-    def process(self, data):
-        # Pré-condição
-        Contract.requires(data is not None, "Data cannot be None")
-        Contract.requires(len(data) > 0, "Data cannot be empty")
-        
-        result = self._implementation.process(data)
-        
-        # Pós-condição
-        Contract.requires(result is not None, "Result cannot be None")
-        
-        return result
-```
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Microserviços**: Cada serviço pode ter componentes gerados, mas interfaces bem definidas
-2. **APIs**: Contratos OpenAPI/Swagger servem como especificações para geração
-3. **Testes**: Geração de testes automatizados baseados em especificações
-
-### Limitações
-
-- **Overhead de Verificação**: Contratos adicionam complexidade e overhead de runtime
-- **Custo de Implementação**: Design by Contract requer disciplina adicional
-- **Curva de Aprendizado**: Equipes precisam adaptar-se aos novos princípios
-
-### Melhores Práticas
-
-1. Começar com princípios SOLID tradicionais e gradualmente adicionar verificações
-2. Usar ferramentas de análise estática automatizada
-3. Estabelecer "gates" de qualidade antes de aceitar código gerado
-4. Documentar decisões de design e trade-offs explicitamente
-
-## Summary
-
-- Princípios SOLID precisam ser adaptados para priorizar verificabilidade
-- Novos princípios (V, P, C) complementam os tradicionais
-- Anti-padrões específicos de código gerado exigem vigilância constante
-- Design by Contract fornece segurança na integração de código gerado
-- O custo de verificação deve ser considerado desde o início do design
-
-## Matriz de Avaliação Consolidada
-
-| Critério | Descrição | Avaliação |
-|----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — princípios fundamentais permanecem relevantes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio — verificação de princípios pode ser parcialmente automatizada |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Moderada — violações de princípios podem ser detectadas em review |
-
-## References
-
-1. Gao, R.; Tahir, A.; Liang, P.; Susnjak, T.; Khomh, F. "A Survey of Bugs in AI-Generated Code." arXiv:2512.05239, 2025. https://arxiv.org/abs/2512.05239
-
-2. GitClear. "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code Clones." GitClear Research, 2025. https://www.gitclear.com/ai_assistant_code_quality_2025_research
-
-3. Martin, R. C. "Clean Architecture: A Craftsman's Guide to Software Structure and Design." Prentice Hall, 2017.
-
-4. Meyer, B. "Object-Oriented Software Construction." Prentice Hall, 1997.
-
-5. Evans, E. "Domain-Driven Design: Tackling Complexity in the Heart of Software." Addison-Wesley, 2003.
+1.  **GitClear Research (2025)**. "AI Copilot Code Quality: 4x Growth in Code Clones". Dados empíricos sobre a degradação da qualidade do código.
+2.  **Google Engineering Practices**. "Code Review Developer Guide". Foco em legibilidade e manutenção.
+3.  **SWEBOK-AI v5.0**. "KA 05: Verificação e Validação em Escala".

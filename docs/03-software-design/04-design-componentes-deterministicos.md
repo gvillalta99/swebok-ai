@@ -7,392 +7,193 @@ updated_at: "2026-01-31"
 ai_model: "openai/gpt-5.2"
 ---
 
-# Design de Componentes Determinísticos
+# Design de Componentes Determinísticos (Ferramentas)
 
-## Overview
+## Contexto
 
-Em sistemas híbridos humanos-IA, a coexistência entre componentes determinísticos (código tradicional) e componentes probabilísticos (código gerado por LLMs) exige fronteiras arquiteturais bem definidas. Esta seção aborda como projetar componentes determinísticos que possam operar de forma segura e previsível quando integrados a sistemas de IA.
+Em uma arquitetura baseada em agentes, a IA é o "cérebro" (probabilístico, criativo, propenso a erros), e o código tradicional são as "mãos" (determinístico, exato, seguro). Se as mãos tremem, a cirurgia falha, não importa quão genial seja o cirurgião.
 
-Segundo Evans (2025), ao incorporar componentes de IA em sistemas maiores que são principalmente software convencional, encontramos várias dificuldades: como domar comportamento intrinsecamente não-determinístico para que possa ser usado em software estruturado e determinístico [1].
+O design de componentes determinísticos — especificamente **Tools** (ferramentas) para uso por LLMs — é a disciplina de engenharia mais crítica de 2026. Não se trata apenas de escrever funções; trata-se de expor interfaces que resistam à alucinação, garantam idempotência e protejam o sistema de decisões erráticas. O código aqui não é o produto final; é a infraestrutura de segurança sobre a qual a inteligência opera.
 
-## Learning Objectives
+## A Anatomia de uma Ferramenta Robusta
 
-Após estudar esta seção, o leitor deve ser capaz de:
+Uma "Tool" para um agente não é apenas uma função Python ou TypeScript. É um pacote composto por três camadas indissociáveis:
 
-1. Projetar fronteiras claras entre componentes determinísticos e probabilísticos
-2. Implementar wrappers e adaptadores para isolamento de IA
-3. Definir contratos formais para comunicação entre componentes
-4. Avaliar quando usar código determinístico vs. código gerado
+1.  **A Interface Semântica (Docstring/Description):** O manual de instruções que o LLM lê. Deve ser inequívoco.
+2.  **A Interface Sintática (Schema):** A barreira rígida de tipos (JSON Schema, Pydantic, Zod).
+3.  **A Implementação (Execution):** O código lógico que realiza a ação, isolado de efeitos colaterais indesejados.
 
-## Características de Componentes Determinísticos
+### 1. Validação Estrita de Input (Schema as Firewall)
 
-### Definição e Propriedades
+Nunca confie no output de um LLM. Trate qualquer chamada de ferramenta vinda de um modelo como "user input" hostil.
 
-Componentes determinísticos são aqueles que, dado um conjunto específico de entradas, sempre produzem a mesma saída, independentemente de quando ou quantas vezes são executados.
+*   **Tipagem Forte:** Use enums para opções limitadas. Não aceite `string` quando você quer `Literal['active', 'inactive']`.
+*   **Validação de Negócio no Schema:** Se um valor deve ser positivo, o schema deve rejeitar negativos antes mesmo de o código executar.
+*   **Mensagens de Erro como Feedback:** Quando a validação falha, a mensagem de erro deve ser instrutiva para o LLM. Retorne *"Erro: o campo 'data' deve ser ISO8601"* em vez de *"Invalid Input"*. Isso permite que o agente se corrija (Self-Correction).
 
-**Propriedades Essenciais**:
+### 2. Idempotência é Obrigatória
 
-| Propriedade | Descrição | Importância |
-|-------------|-----------|-------------|
-| **Idempotência** | Múltiplas execuções com mesma entrada produzem mesmo resultado | Previne efeitos colaterais inesperados |
-| **Previsibilidade** | Comportamento pode ser determinado a priori | Facilita testes e debugging |
-| **Reprodutibilidade** | Resultados são consistentes em diferentes ambientes | Garante confiabilidade |
-| **Transparência** | Estado interno é observável e compreensível | Permite auditoria |
+Agentes falham. Redes caem. LLMs decidem "tentar de novo" porque acharam que a resposta demorou. Se sua ferramenta de pagamento cobra o cartão cada vez que é chamada, você tem um problema financeiro grave.
 
-### Contraste com Componentes Probabilísticos
+*   **Chaves de Idempotência:** Toda operação de escrita (POST/PUT/DELETE) deve aceitar um `idempotency_key`.
+*   **Estado Final vs. Transição:** Prefira APIs que definem o estado desejado (`set_status('active')`) em vez de transições relativas (`toggle_status()`). Se o agente chamar `toggle` duas vezes por erro, o sistema fica no estado errado.
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              DETERMINÍSTICO vs PROBABILÍSTICO                   │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│   DETERMINÍSTICO              PROBABILÍSTICO                   │
-│   ────────────────            ───────────────                  │
-│   f(x) = y (sempre)           P(y|x) ≈ 0.95                   │
-│                                                                 │
-│   • Mesma entrada →           • Mesma entrada →                │
-│     mesma saída                 saídas possivelmente           │
-│                                 diferentes                     │
-│                                                                 │
-│   • Testável com              • Requer testes                  │
-│     asserts exatos              estatísticos                   │
-│                                                                 │
-│   • Debugging direto          • Debugging complexo             │
-│                                                                 │
-│   • Custo previsível          • Custo variável                 │
-│     (CPU/memória)               (tokens/latência)              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+### 3. Isolamento de Efeitos Colaterais (Side-Effects)
+
+O LLM muitas vezes "pensa" executando. Ele pode chamar uma ferramenta apenas para ver o que acontece.
+
+*   **Dry-Run Mode:** Ferramentas críticas (deletar recursos, transferir dinheiro) devem ter um flag `dry_run: boolean`. O agente pode simular a ação para verificar as consequências antes de commitar.
+*   **Read-Only por Padrão:** Separe claramente ferramentas de leitura (seguras para retries infinitos) de ferramentas de escrita (perigosas).
+
+## Padrões de Design para Tools
+
+### O Padrão "Result Object"
+
+Não retorne apenas strings ou booleanos. Retorne objetos estruturados que dão contexto ao agente.
+
+**Ruim:**
+```json
+"Sucesso"
 ```
 
-## Estratégias de Isolamento
+**Bom:**
+```json
+{
+  "status": "success",
+  "transaction_id": "tx_123",
+  "new_balance": 450.00,
+  "message": "Transferência realizada. O saldo atual foi atualizado."
+}
+```
+O objeto rico permite que o agente raciocine sobre o próximo passo sem precisar fazer uma nova consulta (reduzindo latência e custo).
 
-### 1. Wrapper Pattern
+### O Padrão "Human-in-the-Loop" (HITL)
 
-Isola componentes de IA através de uma interface determinística.
+Para ações irreversíveis, a ferramenta não deve executar a ação, mas sim *agendar* a ação para aprovação.
+
+1.  Agente chama `request_deploy_production()`.
+2.  Ferramenta retorna: *"Solicitação #99 criada. Aguardando aprovação humana via Slack."*
+3.  O sistema externo notifica o humano.
+4.  A execução real ocorre fora do ciclo de vida do request do LLM.
+
+## Checklist Prático
+
+O que eu verifico antes de aprovar um PR com novas ferramentas para agentes:
+
+1.  [ ] **Schema Rigoroso:** Todos os parâmetros têm tipos, descrições e validações (min/max, regex)?
+2.  [ ] **Docstrings Inequívocas:** A descrição explica *quando* usar e *quando não* usar a ferramenta?
+3.  [ ] **Idempotência:** Posso chamar essa função 5 vezes seguidas com os mesmos parâmetros sem corromper dados?
+4.  [ ] **Tratamento de Erros:** As exceções retornam mensagens que um "robô" consegue entender para se corrigir?
+5.  [ ] **Limites de Segurança:** Existe um limite máximo (hard limit) para valores numéricos (ex: quantidade, valor monetário)?
+6.  [ ] **Timeout:** A ferramenta falha graciosamente se o backend demorar?
+7.  [ ] **Log de Auditoria:** A ferramenta loga *quem* (qual agente/sessão) solicitou a ação?
+8.  [ ] **Sem Estado Oculto:** A ferramenta depende de algo que o agente "deveria lembrar" da chamada anterior? (Evite isso).
+
+## Armadilhas Comuns (Anti-Patterns)
+
+*   **A "God Tool":** Uma função `manage_system(action, params)` que faz tudo. O LLM se perde na complexidade do schema. Quebre em `create_user`, `delete_user`, `update_user`.
+*   **Retorno Vazio:** Funções que retornam `void` ou `None`. O LLM alucina que funcionou (ou que falhou). Sempre retorne confirmação explícita.
+*   **Dependência de Ordem:** Esperar que o agente chame `init()` antes de `process()`. Agentes são caóticos; projete ferramentas stateless ou que verifiquem o estado prévio explicitamente.
+*   **Vazamento de Abstração:** Retornar stack traces de Python/Java para o LLM. Isso confunde o modelo. Capture o erro e retorne uma mensagem semântica.
+
+## Exemplo Mínimo: Processamento de Reembolso
+
+Cenário: Um agente de suporte precisa processar reembolsos.
+
+### Abordagem Frágil (Não faça isso)
 
 ```python
-from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
-
-T = TypeVar('T')
-U = TypeVar('U')
-
-class DeterministicWrapper(ABC, Generic[T, U]):
-    """
-    Wrapper base que expõe interface determinística
-    para componentes potencialmente não-determinísticos.
-    """
-    
-    def __init__(self, validator, fallback_strategy):
-        self.validator = validator
-        self.fallback = fallback_strategy
-        self._cache = {}
-    
-    def execute(self, input_data: T) -> U:
-        # Verifica cache primeiro (determinístico)
-        cache_key = self._hash_input(input_data)
-        if cache_key in self._cache:
-            return self._cache[cache_key]
-        
-        try:
-            result = self._process(input_data)
-            
-            # Valida resultado
-            if not self.validator.validate(result):
-                raise ValidationError("Resultado inválido")
-            
-            # Cacheia resultado
-            self._cache[cache_key] = result
-            return result
-            
-        except Exception as e:
-            # Fallback determinístico
-            return self.fallback.execute(input_data)
-    
-    @abstractmethod
-    def _process(self, input_data: T) -> U:
-        """Implementação específica do componente."""
-        pass
+def refund(user_id, amount):
+    """Dá dinheiro de volta pro usuário."""
+    db.execute(f"UPDATE users SET balance = balance + {amount} WHERE id = {user_id}")
+    return "Ok"
 ```
+*Crítica: SQL Injection, sem verificação de saldo, não idempotente, retorno vago.*
 
-### 2. Bounded Context para IA
-
-Aplicação do conceito de Domain-Driven Design para isolar domínios onde IA é utilizada.
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│              SISTEMA COM BOUNDED CONTEXTS                       │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────────────┐        ┌──────────────────┐              │
-│  │  Core Domain     │◄──────►│  IA Context      │              │
-│  │  (Determinístico)│        │  (Probabilístico)│              │
-│  │                  │        │                  │              │
-│  │  • Regras de     │        │  • Geração de    │              │
-│  │    negócio       │        │    conteúdo      │              │
-│  │  • Validações    │        │  • Análise de    │              │
-│  │  • Transações    │        │    sentimento    │              │
-│  │  • Auditoria     │        │  • Classificação │              │
-│  │                  │        │                  │              │
-│  └──────────────────┘        └──────────────────┘              │
-│           │                           │                        │
-│           └───────────┬───────────────┘                        │
-│                       │                                        │
-│                       ▼                                        │
-│              ┌──────────────────┐                              │
-│              │  Anti-Corruption │                              │
-│              │  Layer (ACL)     │                              │
-│              │                  │                              │
-│              │  • Adaptação     │                              │
-│              │  • Validação     │                              │
-│              │  • Transformação │                              │
-│              └──────────────────┘                              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-### 3. Port and Adapters (Hexagonal Architecture)
-
-Estrutura que isola o domínio de infraestrutura, incluindo serviços de IA.
+### Abordagem Robusta (SWEBOK-AI Standard)
 
 ```python
-# Port (interface do domínio)
-class ContentGenerator(ABC):
-    @abstractmethod
-    def generate(self, prompt: str) -> GeneratedContent:
-        pass
+from pydantic import BaseModel, Field, PositiveFloat
+from typing import Literal
 
-# Adapter primário (IA)
-class LLMContentGenerator(ContentGenerator):
-    def __init__(self, llm_client, validator):
-        self.client = llm_client
-        self.validator = validator
+class RefundResult(BaseModel):
+    transaction_id: str
+    status: Literal["success", "pending_approval", "rejected"]
+    reason: str
+    new_balance: float
+
+def process_refund(
+    order_id: str, 
+    amount: float, 
+    reason: str, 
+    dry_run: bool = False
+) -> RefundResult:
+    """
+    Processa um reembolso para um pedido específico.
+    Use dry_run=True para verificar elegibilidade sem efetivar o pagamento.
+    """
+    # 1. Validação de Schema (Pydantic faz automático, mas reforçamos regras de negócio)
+    if amount <= 0:
+        raise ValueError("O valor do reembolso deve ser positivo.")
     
-    def generate(self, prompt: str) -> GeneratedContent:
-        raw_output = self.client.complete(prompt)
-        
-        # Validação obrigatória
-        if not self.validator.is_valid(raw_output):
-            raise GenerationError("Output inválido")
-        
-        return GeneratedContent(
-            text=raw_output,
-            source="llm",
-            confidence=self._calculate_confidence(raw_output)
+    # 2. Verificação de Estado (Determinístico)
+    order = db.get_order(order_id)
+    if not order:
+        raise ValueError(f"Pedido {order_id} não encontrado.")
+    
+    if order.refunded_amount + amount > order.total:
+        return RefundResult(
+            transaction_id="",
+            status="rejected",
+            reason="Valor excede o total do pedido.",
+            new_balance=order.user_balance
         )
 
-# Adapter secundário (fallback determinístico)
-class TemplateContentGenerator(ContentGenerator):
-    def __init__(self, template_repository):
-        self.templates = template_repository
-    
-    def generate(self, prompt: str) -> GeneratedContent:
-        # Geração determinística baseada em templates
-        template = self.templates.find_matching(prompt)
-        return GeneratedContent(
-            text=template.fill(prompt),
-            source="template",
-            confidence=1.0
+    # 3. Execução Idempotente (Simulada ou Real)
+    if dry_run:
+        return RefundResult(
+            transaction_id="simulated",
+            status="success",
+            reason="Simulação: Reembolso seria aprovado.",
+            new_balance=order.user_balance + amount
         )
+    
+    # Lógica transacional com chave de idempotência baseada no order_id
+    tx = payment_gateway.refund(order_id, amount, idempotency_key=f"ref_{order_id}")
+    
+    return RefundResult(
+        transaction_id=tx.id,
+        status="success",
+        reason=reason,
+        new_balance=tx.new_balance
+    )
 ```
 
-## Design de Contratos
+## Resumo Executivo
 
-### Contratos Formais
+*   **Ferramentas são Contratos:** O schema da ferramenta é o contrato mais importante do seu sistema. Ele define o que a IA *pode* e *não pode* fazer.
+*   **Idempotência é Segurança:** Em sistemas probabilísticos, a repetição é garantida. O sistema deve suportá-la nativamente.
+*   **Feedback Loop:** Erros de ferramentas são parte do prompt do próximo passo. Torne-os informativos.
+*   **Isolamento:** Separe leitura (barata/segura) de escrita (cara/perigosa).
+*   **Determinismo:** O código da ferramenta deve ser chato, previsível e exaustivamente testado. Deixe a "criatividade" apenas para o prompt.
 
-Definição clara de expectativas entre componentes determinísticos e probabilísticos.
+## Próximos Passos
 
-```python
-from dataclasses import dataclass
-from typing import Optional, List
-from enum import Enum
+*   Implementar **testes de contrato** para garantir que as ferramentas respeitam seus schemas.
+*   Estabelecer **telemetria** específica para uso de ferramentas (taxa de erro por ferramenta, latência).
+*   Revisar o capítulo de **Engenharia de Restrições** para alinhar os schemas com as políticas de segurança.
 
-class ConfidenceLevel(Enum):
-    HIGH = 0.9
-    MEDIUM = 0.7
-    LOW = 0.5
-
-@dataclass(frozen=True)
-class ComponentContract:
-    """
-    Contrato formal entre componentes.
-    """
-    input_schema: dict
-    output_schema: dict
-    max_latency_ms: int
-    min_confidence: ConfidenceLevel
-    required_metadata: List[str]
-    
-    def validate_input(self, data) -> bool:
-        """Valida entrada contra schema."""
-        pass
-    
-    def validate_output(self, data) -> bool:
-        """Valida saída contra schema."""
-        pass
-
-# Exemplo de contrato para serviço de classificação
-classification_contract = ComponentContract(
-    input_schema={
-        "text": "string",
-        "max_length": 1000,
-        "language": ["pt", "en", "es"]
-    },
-    output_schema={
-        "category": "string",
-        "confidence": "float",
-        "alternatives": "list"
-    },
-    max_latency_ms=500,
-    min_confidence=ConfidenceLevel.MEDIUM,
-    required_metadata=["timestamp", "model_version"]
-)
-```
-
-### Agent Contracts
-
-Relari.ai propõe o conceito de "Agent Contracts" para desenvolvimento de agentes de IA com controle [2]:
-
-```python
-class AgentContract:
-    """
-    Contrato para agentes de IA baseado no conceito de Relari.ai.
-    """
-    def __init__(self):
-        self.scenarios = []
-        self.specifications = []
-    
-    def add_scenario(self, name: str, input_data, expected_output):
-        """Adiciona cenário de teste."""
-        self.scenarios.append({
-            "name": name,
-            "input": input_data,
-            "expected": expected_output
-        })
-    
-    def verify_offline(self, agent) -> VerificationReport:
-        """Verificação offline contra cenários."""
-        results = []
-        for scenario in self.scenarios:
-            actual = agent.run(scenario["input"])
-            results.append({
-                "scenario": scenario["name"],
-                "passed": self._match(actual, scenario["expected"]),
-                "actual": actual
-            })
-        return VerificationReport(results)
-```
-
-## Transações e Consistência
-
-### Saga Pattern com IA
-
-Coordenação de transações distribuídas onde alguns passos envolvem IA.
-
-```python
-class SagaStep:
-    def __init__(self, name, action, compensation):
-        self.name = name
-        self.action = action
-        self.compensation = compensation
-
-class Saga:
-    def __init__(self):
-        self.steps = []
-        self.completed = []
-    
-    def add_step(self, step: SagaStep):
-        self.steps.append(step)
-    
-    def execute(self, context):
-        for step in self.steps:
-            try:
-                result = step.action(context)
-                self.completed.append(step)
-                context[step.name] = result
-            except Exception as e:
-                # Compensação
-                self._compensate()
-                raise SagaFailed(step.name, e)
-    
-    def _compensate(self):
-        for step in reversed(self.completed):
-            step.compensation()
-```
-
-## Decisão: Determinístico vs. Gerado
-
-### Framework de Decisão
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│         QUANDO USAR DETERMINÍSTICO vs GERADO                    │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  USE DETERMINÍSTICO QUANDO:          USE GERADO QUANDO:        │
-│                                                                 │
-│  ✓ Regras de negócio claras          ✓ Tarefas criativas       │
-│  ✓ Compliance obrigatório            ✓ Dados não estruturados  │
-│  ✓ Performance previsível            ✓ Padrões complexos       │
-│  ✓ Custo fixo necessário             ✓ Contexto ambíguo        │
-│  ✓ Debugging frequente               ✓ Variação desejada       │
-│  ✓ Transações financeiras            ✓ Personalização          │
-│                                                                 │
-│  HÍBRIDO (DETERMINÍSTICO + IA):                                │
-│  • Validação de entrada/saída                                    │
-│  • Pré-processamento determinístico                              │
-│  • Pós-processamento e normalização                              │
-│  • Fallback para regras quando IA falha                          │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Sistemas Financeiros**: Cálculos determinísticos, análise de risco com IA
-2. **Healthcare**: Diagnóstico assistido por IA, mas com validação médica obrigatória
-3. **E-commerce**: Recomendações por IA, checkout e pagamentos determinísticos
-
-### Limitações
-
-- **Overhead de Isolamento**: Camadas de adaptação adicionam complexidade
-- **Latência**: Validações e normalizações aumentam tempo de resposta
-- **Custo de Manutenção**: Contratos precisam ser atualizados com evolução do sistema
-
-### Melhores Práticas
-
-1. **Fail Fast**: Validar entradas antes de chamar componentes de IA
-2. **Timeout Aggressivo**: Definir timeouts rigorosos para chamadas de IA
-3. **Observability**: Logging completo de todas as interações
-4. **Gradual Rollout**: Introduzir IA gradualmente, começando com casos de baixo risco
-
-## Summary
-
-- Componentes determinísticos fornecem previsibilidade em sistemas híbridos
-- Padrões de isolação (Wrapper, Bounded Context, Ports/Adapters) protegem o núcleo
-- Contratos formais definem expectativas claras entre componentes
-- Saga pattern coordena transações envolvendo IA
-- Decisão entre determinístico e gerado deve ser guiada por requisitos de negócio
-
-## Matriz de Avaliação Consolidada
+## Matriz de Avaliação
 
 | Critério | Descrição | Avaliação |
 |----------|-----------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | Baixa — princípios de isolamento permanecem relevantes |
-| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | Médio — contratos podem ser verificados automaticamente |
-| **Responsabilidade Legal** | Quem é culpado se falhar? | Alta — designer responsável por fronteiras arquiteturais |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Modelos ficarão mais inteligentes, mas a necessidade de interfaces determinísticas seguras para o mundo real é perene. |
+| **Custo de Verificação** | Quanto custa validar esta atividade? | **Baixo**. Testes unitários clássicos e validação de schema resolvem 99% dos casos. |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Alta**. Se a ferramenta permite uma ação ilegal ou destrutiva por falta de validação, a culpa é da engenharia, não da "alucinação" da IA. |
 
-## References
+## Referências
 
-1. Evans, E. "AI Components for a Deterministic System (An Example)." Domain Language, 2025. https://www.domainlanguage.com/articles/ai-components-deterministic-system/
-
-2. Relari.ai. "Agent Contracts: Build powerful AI agents with control." https://agent-contracts.relari.ai/introduction
-
-3. Vernon, V. "Implementing Domain-Driven Design." Addison-Wesley, 2013.
-
-4. Cockburn, A. "Hexagonal Architecture." https://alistair.cockburn.us/hexagonal-architecture/
-
-5. Richardson, C. "Microservices Patterns." Manning Publications, 2018.
+1.  **Function Calling with LLMs**. OpenAI Documentation, 2024.
+2.  **Robustness in AI Agents**. Anthropic Research, 2025.
+3.  **Idempotency Patterns**. Stripe Engineering Blog.
+4.  **Pydantic Documentation**. https://docs.pydantic.dev/
