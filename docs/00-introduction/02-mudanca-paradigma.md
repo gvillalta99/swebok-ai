@@ -2,7 +2,7 @@
 title: "Mudança de Paradigma: Da Codificação à Orquestração de Restrições"
 created_at: "2025-01-31"
 tags: ["paradigma", "economia-software", "jevons-paradox", "verificacao", "engenharia-restricoes"]
-status: "review"
+status: "published"
 updated_at: "2026-02-04"
 ai_model: "kimi-k2.5"
 ---

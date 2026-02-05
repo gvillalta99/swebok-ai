@@ -2,7 +2,7 @@
 title: "Público-Alvo e Pré-requisitos"
 created_at: "2025-01-31"
 tags: ["introducao", "publico-alvo", "pre-requisitos", "audiencia", "perfil"]
-status: "review"
+status: "published"
 updated_at: "2026-02-04"
 ai_model: "kimi-k2.5"
 ---

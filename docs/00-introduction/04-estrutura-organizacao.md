@@ -2,7 +2,7 @@
 title: "Estrutura e Organização do Guia"
 created_at: "2025-01-31"
 tags: ["introducao", "estrutura", "organizacao", "ka", "knowledge-areas"]
-status: "review"
+status: "published"
 updated_at: "2026-02-04"
 ai_model: "kimi-k2.5"
 ---
