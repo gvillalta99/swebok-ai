@@ -1,132 +1,226 @@
-## Arquitetura Futura do SWEBOK-AI (v5.0)
+# SWEBOK-AI v5.0 - Guia do Conhecimento em Engenharia de Software para a Era dos LLMs
 
-### Princípio Diretor
-**"O código tornou-se commodity; o contexto tornou-se capital."** A nova estrutura abandona a premissa de que engenharia de software é primariamente sobre sintaxe e lógica de implementação, assumindo que geração algorítmica é infraestrutura, não produto.
-
----
-
-## 1. Reestruturação dos KAs Tradicionalmente Fundamentais
-
-### 1.1 Software Requirements → **Engenharia de Restrições e Contexto**
-- **Mudança radical**: Deixa de ser sobre "capturar o que o usuário quer" para "estabelecer fronteiras de domínio que a IA não deve transgredir"
-- **Novos tópicos obrigatórios**:
-  - *Especificação Negativa*: Definir explicitamente o que NÃO deve ser automatizado
-  - *Modelagem de Degradação Graciosa*: Requisitos para quando o sistema IA falha
-  - *Especificação por Invariantes*: Uso de contratos formais como barreiras contra alucinações arquiteturais
-  - *Economia da Verificação*: Custo cognitivo da leitura vs. escrita de código gerado
-
-### 1.2 Software Design → **Design de Sistemas Híbridos (Humanos-IA)**
-- **Fusão disciplinar**: Absorve arquitetura de software e engenharia de sistemas complexos
-- **Novos tópicos**:
-  - *Arquitetura de Supervisão*: Padrões para "human-in-the-loop" obrigatórios vs. opcionais
-  - *Design para Auditabilidade*: Rastros de decisão em sistemas gerados por IA
-  - *Padrões de Separação de Concerns*: Isolamento de componentes críticos que não podem ser tocados por agentes
-  - *Antropização de Interfaces*: Design para compreensão humana de saídas probabilísticas
-
-### 1.3 Software Construction → **Orquestração e Curadoria de Código**
-- **Transformação**: Deixa de ser "como escrever código" para "como avaliar, integrar e refinar código gerado"
-- **Estrutura nova**:
-  - *Verificação Sintética*: Técnicas de revisão de código não escrito por humanos
-  - *Gestão de Variabilidade Gerada*: Controle de versionamento de artefatos gerados por IA
-  - *Engenharia de Prompts (Transicional)*: Skill básica posicionada como "uso de IDE avançado", não especialidade
-  - *Debugging de Modelos*: Compreensão de falhas em sistemas opacos vs. bugs determinísticos
+> **Versão 5.0 - Estrutura Reconfigurada (16 KAs)**
+> 
+> *Última atualização: Fevereiro 2026*
 
 ---
 
-## 2. Novos KAs Obrigatórios (Adições Estruturais)
+## Princípio Diretor
 
-### 2.1 **Engenharia de Garantia e Verificação em Escala**
-*Justificativa*: O gargalo deixou de ser produção e passou a ser validação (evidência DORA 2024: +IA correlaciona com -estabilidade quando sem redesenho).
+**"O código tornou-se commodity; o contexto tornou-se capital."**
 
-- Verificação formal de saídas LLM (detectar "plausível mas incorreto")
-- Estratégias de amostragem para auditoria de codebase gerado
-- Metodologias de "teste de toxicidade" (identificar débito técnico introduzido por agentes)
-- Oráculos automatizados para sistemas não-determinísticos
-
-### 2.2 **Governança de IA para Engenharia de Software**
-*Justificativa*: Responsabilidade legal e alocação de culpa em falhas de sistemas geridos por IA.
-
-- Compliance em código gerado (licenciamento, propriedade intelectual)
-- Linhas de responsabilidade em falhas de sistemas "co-pilotados"
-- Gestão de viés em ferramentas de geração
-- Políticas de "circuit breakers" humanos em pipelines automatizados
-
-### 2.3 **Engenharia de Manutenção de Sistemas Opaços**
-*Justificativa*: A crise da "escada quebrada" impõe novas competências para manutenção de código legado gerado por IA sem documentação de raciocínio.
-
-- *Reverse Engineering de Intenções*: Técnicas para recuperar "o que o prompt tentava fazer"
-- *Archeologia de Prompts*: Documentação e recuperação de contexto perdido
-- *Refatoração sob Incerteza*: Quando não se sabe se o comportamento observado é feature ou bug
-- *Migração de Sistemas Gerados*: Transferência entre modelos (e.g., Claude → GPT → Llama)
-
-### 2.4 **Economia e Métricas da Engenharia com IA**
-*Justificativa*: Paradoxo de Jevons aplicado ao software — mais produtividade individual ≠ menos trabalho, mas maior complexidade sistêmica.
-
-- Métricas de Produtividade Real (throughput de entrega vs. velocidade de escrita)
-- Custo Total de Propriedade (TCO) de código gerado (incluindo dívida técnica invisível)
-- Modelos de risco para "confiança cega" (votação estatística como substituto de compreensão)
-- Análise de Retorno sobre Investimento (ROI) de ferramentas generativas
+A nova estrutura abandona a premissa de que engenharia de software é primariamente sobre sintaxe e lógica de implementação, assumindo que geração algorítmica é infraestrutura, não produto.
 
 ---
 
-## 3. KAs Fundacionais Reconfigurados (Fundamentos 2.0)
+## Estrutura do Guia (16 Knowledge Areas)
 
-### 3.1 Computing Foundations → **Fundamentos de Sistemas Cognitivos Artificiais**
-- Remover: Detalhes de sintaxe de linguagens específicas (commoditized)
-- Adicionar:
-  - Comportamento estatístico de modelos de linguagem
-  - Limitações de contexto e atenção em Transformers
-  - Bases de dados vetoriais e sistemas RAG (Retrieval-Augmented Generation)
-  - Custo computacional de inferência vs. execução determinística
+O SWEBOK-AI v5.0 está organizado em **16 Knowledge Areas (KAs)** distribuídos em **5 Partes**, seguindo uma progressão lógica do fundamental à aplicação prática:
 
-### 3.2 Software Engineering Professional Practice → **Prática Profissional e Julgamento Técnico**
-- Ênfase em: *Quando dizer não à IA* (autoridade técnica como exercício de restrição)
-- Novas competências:
-  - Ceticismo sistemático de saídas plausíveis
-  - Tomada de decisão sob incerteza epistemológica
-  - Ética na externalização de decisões para sistemas opacos
-  - Gestão da "fadiga de decisão" em ambientes de supervisão constante
+### PARTE I: Fundamentos e Contexto
+
+**00. Introdução**
+- Contexto da Revolução LLMs
+- Mudança de Paradigma  
+- Princípios Diretores
+- Estrutura do Guia
+- Público-Alvo e Pré-requisitos
+- **NOVO: Fundamentos Essenciais de IA** (conceitos básicos de LLMs, Transformers, RAG, Agentes)
+
+### PARTE II: Engenharia de Software Aplicada
+
+**KA 01. Software Requirements: Engenharia de Restrições e Contexto**
+- De "capturar requisitos" para "estabelecer fronteiras que a IA não deve transgredir"
+- Especificação negativa, invariantes, degradação graciosa
+
+**KA 02. Software Architecture: Arquitetura de Sistemas Híbridos**
+- Padrões para human-in-the-loop
+- Design para auditabilidade e rastreamento
+- Separação de concerns críticos
+
+**KA 03. Software Design: Design de Sistemas Híbridos**
+- Princípios para código gerado
+- Componentes determinísticos vs. não-determinísticos
+- Verificabilidade no design
+
+**KA 04. Software Construction: Orquestração e Curatoria de Código**
+- Avaliação e integração de código gerado
+- Pipeline de verificação
+- Gestão de qualidade
+
+**KA 05. Software Testing: Verificação e Validação em Escala**
+- Testes estatísticos para sistemas não-determinísticos
+- Verificação de contratos
+- Avaliação de agentes
+
+**KA 06. Software Engineering Operations: Operações de Engenharia com IA**
+- Planejamento em escala
+- Entrega e deployment contínuo
+- Monitoramento de sistemas híbridos
+
+**KA 07. Software Maintenance: Manutenção de Sistemas Opaços**
+- Engenharia reversa de código gerado
+- Refatoração assistida
+- Gestão de dívida técnica
+
+### PARTE III: Governança e Gerenciamento
+
+**KA 08. Software Configuration Management: Gestão de Configuração e Contexto**
+- Versionamento de modelos e prompts
+- Rastreabilidade em sistemas gerados
+- Reprodutibilidade de ambientes
+
+**KA 09. Software Engineering Management: Gestão de Projetos e Equipes**
+- Equipes híbridas humanos-IA
+- Planejamento e métricas
+- Gestão de riscos
+
+**KA 10. Software Engineering Process: Processos com IA**
+- Processos ágeis adaptados
+- Workflows agenticos
+- Governança de processos
+
+**KA 11. Software Engineering Models and Methods: Modelos e Métodos**
+- Modelagem de domínio
+- Métodos formais aplicados
+- Prototipagem iterativa
+
+### PARTE IV: Qualidade, Segurança e Ética
+
+**KA 12. Software Quality: Qualidade em Sistemas com IA**
+- Qualidade de código gerado
+- Qualidade comportamental e robustez
+- Explicabilidade e interpretabilidade
+
+**KA 13. Software Security: Segurança em Sistemas com IA**
+- Vulnerabilidades em código gerado
+- Ataques a aplicações LLM
+- Segurança da cadeia de suprimentos
+
+**KA 14. Software Engineering Professional Practice: Prática Profissional e Julgamento Técnico**
+- Responsabilidade legal e accountability
+- Ética e códigos de conduta
+- Governança de IA e compliance
+
+### PARTE V: Economia e Métricas
+
+**KA 15. Software Engineering Economics: Economia da Engenharia com IA**
+- Paradoxo de Jevons aplicado ao software
+- Custo total de propriedade (TCO)
+- Decisões de make vs. buy vs. generate
+
+### PARTE VI: Referências
+
+**KA 16. Appendix: Apêndice**
+- Especificações de KAs
+- Padrões ISO/IEC/IEEE
+- Referências consolidadas
+- Glossário de termos
+- Matriz de conformidade
 
 ---
 
-## 4. Estrutura de Implementação do Guia
+## Mudanças da Versão 5.0
 
-### Fase 1: Descontinuidade (O que morreu)
-Marcar explicitamente como **LEGADO**:
-- Técnicas de codificação manual de baixo nível (4GL, detalhes de sintaxe)
-- Modelos de carreira Júnior→Pleno→Sênior baseados em volume de código
-- Testes baseados apenas em cobertura de código (vs. cobertura de intenção)
+### O Que Foi Removido
 
-### Fase 2: Transição (O que está mudando)
-Reescrever com adaptações:
-- **Requirements**: Incorporar "Perfect Technology Filter" para identificar o que ainda precisa de especificação humana
-- **Testing**: Foco em "Teste de Conformidade Semântica" (o sistema faz o que deveria, não apenas o que foi pedido)
-- **Maintenance**: Tornar-se "Curadoria de Conhecimento Tácito"
+**KAs 16, 17 e 18 (Fundamentos)** foram removidos do corpo principal:
+- Computing Foundations
+- Mathematical Foundations  
+- Engineering Foundations
 
-### Fase 3: Emergência (O que nasceu)
-Criar do zero:
-- Framework de **Autoridade Técnica** (como o engenheiro mantém poder de veto sobre sugestões de IA)
-- **Taxonomia de Verificação** (classificação de tipos de erros específicos de sistemas gerados por IA)
-- **Padrões de Interação Humano-IA** (protocolos de colaboração efetiva)
+**Justificativa**: Este não é um livro de fundamentos teóricos. O público-alvo são praticantes de engenharia de software, não pesquisadores de IA. Os conceitos essenciais foram:
+- **Movidos para Introdução**: Fundamentos básicos de IA (LLMs, Transformers, RAG, Agentes)
+- **Distribuídos nos KAs aplicáveis**: Estatística em Testing, métodos formais em Models, etc.
+
+### O Que Mudou
+
+| Aspecto | Antes (19 KAs) | Depois (16 KAs) |
+|---------|----------------|-----------------|
+| **Estrutura** | Fundamentos no final | Fundamentos integrados |
+| **Foco** | Teoria + Prática | Prática aplicada |
+| **Progressão** | Linear (01→19) | Por Partes (I→VI) |
+| **Público** | Acadêmico + Praticante | Praticante |
+
+### Novo Público-Alvo
+
+**Engenheiros de Software** que:
+- Já trabalham com ferramentas de IA (Copilot, Cursor, etc.)
+- Precisam validar e integrar código gerado
+- Buscam padrões para sistemas híbridos humanos-IA
+- Querem entender governança e responsabilidade em projetos com IA
+
+**NÃO é para**:
+- Pesquisadores de IA (use livros de ML/DL)
+- Iniciantes em programação (pré-requisito: engenharia de software tradicional)
+- Gestores sem background técnico
 
 ---
 
-## 5. Matriz de Avaliação Consolidada
+## Matriz de Avaliação
 
-Cada tópico do novo SWEBOK deve ser avaliado por três critérios:
+Cada tópico do SWEBOK-AI é avaliado por três critérios:
 
 | Critério | Descrição |
 |---------|-----------|
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? (Se sim, marcado como "Skill de Transição") |
-| **Custo de Verificação** | Quanto custa (tempo/cognição) validar esta atividade quando feita por IA? |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? (Skill de Transição) |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? |
 | **Responsabilidade Legal** | Quem é culpado se falhar? (Define necessidade de controle humano) |
 
 ---
 
-## Sumário Executivo da Mudança
+## Paradigma Shift
 
-**Antes (SWEBOK v4)**: Engenharia de Software = Transformar requisitos em código eficiente e correto.
+| Antes (SWEBOK v4) | Depois (SWEBOK-AI v5) |
+|-------------------|----------------------|
+| Engenharia = Transformar requisitos em código eficiente | Engenharia = Estabelecer restrições para sistemas autônomos |
+| Foco na produção de código | Foco na verificação e governança |
+| Gargalo: escrever código | Gargalo: validar código gerado por IA |
+| Requisitos = "o que construir" | Restrições = "o que NÃO deixar construir" |
 
-**Depois (SWEBOK-AI v5)**: Engenharia de Software = **Estabelecer restrições suficientes para que sistemas autônomos gerem soluções provavelmente corretas, auditáveis e responsabilizáveis**, mantendo a capacidade humana de detectar e corrigir falhas em sistemas que nenhum humano compreende totalmente.
+---
 
-O guia não se torna um manual de "como usar Copilot/Cursor/Devin", mas um corpo de conhecimento sobre **como manter a engenharia legítima quando a codificação se tornou trivia**lmente barata e a verificação exponencialmente cara.
+## Como Usar Este Guia
+
+### Caminhos de Leitura Recomendados
+
+**Para quem está começando com IA em projetos:**
+1. Introdução (com Fundamentos Essenciais)
+2. KA 01 (Requirements) → KA 04 (Construction)
+3. KA 05 (Testing)
+4. KA 12 (Quality)
+
+**Para líderes técnicos:**
+1. Introdução
+2. KA 09 (Management) → KA 14 (Professional Practice)
+3. KA 15 (Economics)
+4. KA 13 (Security)
+
+**Para arquitetos:**
+1. Introdução
+2. KA 02 (Architecture) → KA 03 (Design)
+3. KA 08 (Config Management)
+4. KA 11 (Models)
+
+---
+
+## Conteúdo LEGADO
+
+Marcado explicitamente como **LEGADO**:
+- Técnicas de codificação manual de baixo nível
+- Modelos de carreira baseados em volume de código
+- Testes baseados apenas em cobertura de código (vs. cobertura de intenção)
+
+---
+
+## Referências
+
+<p><b> <a href="https://inspirehep.net/literature/2939357"> A 2030 Roadmap for Software Engineering </a> </b></p>
+<p><a href="https://inspirehep.net/authors/2939358">Mauro Pezzè</a>, <a href="https://inspirehep.net/authors/2714519">Silvia Abrahão</a>, <a href="https://inspirehep.net/authors/2925267">Birgit Penzenstadler</a>, <a href="https://inspirehep.net/authors/2852376">Denys Poshyvanyk</a>, <a href="https://inspirehep.net/authors/2527849">Abhik Roychoudhury</a> et al.</p>
+<p> DOI: <a href="https://doi.org/10.1145/3731559"> 10.1145/3731559 </a> </p>
+<p> Published in:<span> ACM Trans.Softw.Eng.Meth. 34 (2025) 5, 1-55</span></p>
+
+---
+
+*Este guia não é um manual de "como usar Copilot/Cursor/Devin", mas um corpo de conhecimento sobre **como manter a engenharia legítima quando a codificação se tornou trivialmente barata e a verificação exponencialmente cara**.*
