@@ -1,6 +1,32 @@
+---
+title: Fundamentos Essenciais de IA para Engenheiros de Software
+created_at: '2025-01-31'
+tags: [fundamentos, llm, transformers, rag, agentes, estatistica]
+status: published
+updated_at: '2026-02-05'
+ai_model: kimi-k2.5
+---
+
 # Fundamentos Essenciais de IA para Engenheiros de Software
 
-## O que você precisa saber (e o que pode ignorar)
+## Overview
+
+Este guia assume que você é um **engenheiro de software**, não um pesquisador de
+IA. Os conceitos abaixo são suficientes para compreender o restante do material.
+Não é necessário dominar matemática avançada, estatística ou teoria dos modelos.
+
+## Learning Objectives
+
+Após estudar esta seção, você deve ser capaz de:
+
+1. **Explicar** o que são LLMs e suas limitações fundamentais para engenharia de
+   software.
+2. **Compreender** o mecanismo de atenção em Transformers e suas implicações
+   práticas.
+3. **Aplicar** o conceito de RAG para enriquecer contexto em prompts.
+4. **Diferenciar** níveis de autonomia de agentes de IA e seus casos de uso.
+5. **Reconhecer** por que testes tradicionais falham com sistemas
+   probabilísticos.
 
 Este guia assume que você é um **engenheiro de software**, não um pesquisador de
 IA. Os conceitos abaixo são suficientes para compreender o restante do material.
@@ -266,15 +292,46 @@ Se desejar ir além dos fundamentos:
 
 ______________________________________________________________________
 
-## Sumário
+## Matriz de Avaliação Consolidada
 
-| Conceito         | O que você precisa saber                                                                |
-| ---------------- | --------------------------------------------------------------------------------------- |
-| **LLMs**         | Motores de previsão estatística com capacidades emergentes; têm limitações importantes  |
-| **Transformers** | Usam "atenção" para focar em partes relevantes; têm limites de contexto                 |
-| **RAG**          | Combina busca com geração; usa embeddings e bancos vetoriais                            |
-| **Agentes**      | Sistemas que planejam e executam; variam de assistidos a autônomos                      |
-| **Estatística**  | Saídas são probabilísticas, não determinísticas; testes tradicionais precisam adaptação |
+| Critério                        | Descrição                                             | Avaliação                                                                               |
+| ------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Estes conceitos serão obsoletos em 36 meses?          | **Muito Baixa**. Fundamentos de LLMs, Transformers e RAG são arquiteturas consolidadas. |
+| **Custo de Verificação**        | Quanto custa validar o entendimento destes conceitos? | **Médio**. Requer prática com ferramentas reais, mas não formalismo matemático.         |
+| **Responsabilidade Legal**      | Quem responde se houver mal-entendido?                | **Baixa**. Erros conceituais afetam qualidade, mas não geram responsabilidade direta.   |
+
+## Summary
+
+- **LLMs**: Motores de previsão estatística com capacidades emergentes; têm
+  limitações importantes como alucinações e não-determinismo.
+- **Transformers**: Usam mecanismo de "atenção" para focar em partes relevantes;
+  têm limites de contexto que impactam engenharia de prompts.
+- **RAG**: Combina busca com geração; usa embeddings e bancos vetoriais para
+  enriquecer contexto.
+- **Agentes**: Sistemas que planejam e executam; variam de assistidos a
+  autônomos, com diferentes níveis de supervisão humana.
+- **Estatística**: Saídas são probabilísticas, não determinísticas; testes
+  tradicionais precisam adaptação para sistemas com IA.
 
 Com estes fundamentos, você está pronto para explorar o restante do SWEBOK-AI
 v5.0.
+
+## References
+
+1. **Vaswani, A. et al.** (2017). Attention Is All You Need. In: Advances in
+   Neural Information Processing Systems 30 (NIPS 2017). Long Beach, CA, USA.
+   Disponível em: <https://arxiv.org/abs/1706.03762>.
+
+2. **Lewis, P. et al.** (2020). Retrieval-Augmented Generation for
+   Knowledge-Intensive NLP Tasks. In: Advances in Neural Information Processing
+   Systems 33 (NeurIPS 2020). Disponível em: <https://arxiv.org/abs/2005.11401>.
+
+3. **Wang, L. et al.** (2024). A Survey on Large Language Model based Autonomous
+   Agents. Frontiers of Computer Science, v. 18, n. 6. Disponível em:
+   <https://arxiv.org/abs/2308.11432>.
+
+4. **OpenAI.** (2024). GPT-4 Technical Report. arXiv:2303.08774. Disponível em:
+   <https://arxiv.org/abs/2303.08774>.
+
+5. **Anthropic.** (2024). Claude 3 Model Card. Disponível em:
+   <https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf>.

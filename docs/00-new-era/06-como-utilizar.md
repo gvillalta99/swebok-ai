@@ -37,7 +37,7 @@ era da IA.
 **Abordagem**:
 
 1. Leitura completa do Capítulo 00 (Introdução)
-2. Estudo sequencial dos KAs 1-18
+2. Estudo sequencial dos KAs 1-16
 3. Atenção a Learning Objectives em cada seção
 4. Revisão de Matrizes de Avaliação
 5. Consulta a referências para aprofundamento

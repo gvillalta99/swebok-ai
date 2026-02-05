@@ -48,7 +48,9 @@ uma equipe sênior conseguia revisar em uma semana no paradigma anterior.
 > **Nota sobre terminologia:** Neste documento, usamos **LLM** quando nos
 > referimos à tecnologia subjacente (modelos de linguagem de grande porte) e
 > **agente de IA** quando nos referimos à aplicação prática dessa tecnologia em
-> ferramentas de assistência à programação. Isso cria uma **crise de atenção**:
+> ferramentas de assistência à programação.
+
+Isso cria uma **crise de atenção**:
 
 - **Antes:** O gargalo era escrever a lógica.
 - **Agora:** O gargalo é entender e validar a lógica gerada.
@@ -84,13 +86,13 @@ Aplicado à Engenharia de Software com IA:
    exponencialmente, superando a economia inicial de geração.
 
 **Implicação Prática:** Se você usar IA apenas para "codar mais rápido", você
-quebrará sua operação em aproximadamente 18 meses¹. O ganho de eficiência deve
+quebrará sua operação em aproximadamente 18 meses. O ganho de eficiência deve
 ser reinvestido em **observabilidade, testes automatizados e documentação**, não
 apenas em mais features.
 
-> ¹ Estimativa baseada em padrões observados em organizações que implementaram
-> ferramentas de geração de código sem investimento proporcional em governança e
-> qualidade.
+> **Nota:** Estimativa baseada em padrões observados em organizações que
+> implementaram ferramentas de geração de código sem investimento proporcional
+> em governança e qualidade.
 
 ### Implicações para TCO e Governança
 
