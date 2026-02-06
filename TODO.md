@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/05-software-testing/03-testes-estatisticos.md
-- @book-reviewer review docs/05-software-testing/04-verificacao-contratos.md
-- @book-reviewer review docs/05-software-testing/05-avaliacao-agentes.md
-- @book-reviewer review docs/05-software-testing/06-metricas-governanca.md
-- @book-reviewer review docs/05-software-testing/index.md
 - @book-reviewer review docs/06-software-engineering-operations/01-fundamentos-operacoes-sistemas-ia.md
 - @book-reviewer review docs/06-software-engineering-operations/02-planejamento-operacoes-escala.md
 - @book-reviewer review docs/06-software-engineering-operations/03-entrega-deployment-continuo.md

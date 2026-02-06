@@ -3,17 +3,17 @@ title: Métricas e Governança de Qualidade em Testes
 created_at: '2025-01-31'
 tags: [metricas, governanca, custo, qualidade, flakiness, risco]
 status: in-progress
-updated_at: '2025-01-31'
-ai_model: vertex-ai/gemini-pro
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # 6. Métricas e Governança de Qualidade em Testes
 
 ## Visão Geral
 
-Ter ferramentas de teste avançadas não serve de nada se não houver um framework
-de decisão sobre **quando** usá-las. A verificação de código gerado por IA
-introduz novos custos e riscos que exigem uma governança explícita.
+Ter ferramentas de teste avançadas é insuficiente sem um framework de decisão
+sobre **quando** usá-las. A verificação de código gerado por IA introduz novos
+custos e riscos que exigem uma governança explícita.
 
 Não podemos revisar 100% do código gerado (perderíamos o ganho de
 produtividade), nem podemos confiar em 0% (perderíamos a segurança). Esta seção
@@ -37,9 +37,11 @@ medir a **eficácia da verificação**.
 
 ### 1. Custo de Verificação
 
-O "Custo de Verificação" é a métrica econômica central. Como apontado por Martin
-Fowler (2025), se o custo de verificar uma tarefa se aproxima do custo de
-realizá-la manualmente, a IA perdeu sua utilidade [2].
+O "Custo de Verificação" é a métrica econômica central. Evidências recentes da
+indústria mostram que ganhos aparentes de velocidade com IA podem vir
+acompanhados de aumento de retrabalho e degradação de qualidade; quando
+verificar se aproxima do custo de implementar manualmente, o benefício econômico
+da IA se reduz drasticamente (refs. 1 e 2).
 
 - **Fórmula:** $Custo\_{Verificação} = (Tempo\_{RevisãoHumana} \\times $/h) +
   (Tokens\_{Testes} \\times $/token) + Infraestrutura$
@@ -53,15 +55,15 @@ Quantos bugs introduzidos pela IA escapam para produção?
 
 ### 3. Índice de Flakiness
 
-Qual a porcentagem de testes que falham intermitentemente devido ao
-não-determinismo da IA? Se este número passar de 5%, a confiança na suite de
-testes colapsa.
+Qual é a porcentagem de testes que falham intermitentemente em razão de não
+determinismo? Como referência operacional inicial, trate valores acima de 5%
+como gatilho para investigação imediata e estabilização da suíte de testes.
 
 ## Governança: A Matriz de Decisão
 
-Nem todo código merece o mesmo nível de escrutínio. O Gartner (2025) propõe
-frameworks de governança adaptativos [3]. Recomendamos uma abordagem baseada em
-risco:
+Nem todo código exige o mesmo nível de escrutínio. A governança deve ser
+adaptativa ao risco e alinhada a estruturas formais de gestão de risco de IA,
+como o NIST AI RMF e seu perfil para IA generativa (refs. 3 e 4).
 
 | Nível de Risco | Exemplos                                                | Verificação Automatizada           | Supervisão Humana       |
 | :------------- | :------------------------------------------------------ | :--------------------------------- | :---------------------- |
@@ -72,7 +74,9 @@ risco:
 
 ## Ferramentas e Ecossistema
 
-O panorama de ferramentas de 2025 evoluiu para suportar esse fluxo \[4\]:
+O ecossistema de ferramentas evolui rapidamente (refs. 5 e 6). Em vez de adotar
+soluções por tendência, avalie continuamente impacto em três eixos: qualidade
+observável, custo de verificação e tempo de ciclo.
 
 - **Auto-Test Generators:** Ferramentas que geram testes *antes* ou *junto* com
   o código (ex: Codium, Qodo).
@@ -93,15 +97,16 @@ O panorama de ferramentas de 2025 evoluiu para suportar esse fluxo \[4\]:
 
 ### Checklist de Implementação
 
-1. [ ] **Classifique seus Repositórios:** Etiquete cada repo ou módulo com um
-   nível de risco (Baixo/Médio/Alto).
+1. [ ] **Classifique seus Repositórios:** Rotule cada repositório ou módulo com
+   um nível de risco (Baixo/Médio/Alto).
 2. [ ] **Configure Políticas de Branch:** No GitHub/GitLab, exija número de
    revisores baseado na etiqueta de risco.
 3. [ ] **Monitore o Tempo de Review:** Se o tempo de review está subindo muito,
    seus testes automatizados não estão capturando o suficiente (ou o código
    gerado é ruim).
-4. [ ] **Orçamento de Testes:** Defina um *budget* mensal para gastos com API de
-   LLM em testes. É fácil gastar milhares de dólares rodando evals excessivos.
+4. [ ] **Orçamento de Testes:** Defina um orçamento mensal para gastos com API
+   de LLM em testes. É fácil gastar milhares de dólares rodando evals
+   excessivos.
 
 ## Resumo
 
@@ -113,22 +118,26 @@ O panorama de ferramentas de 2025 evoluiu para suportar esse fluxo \[4\]:
   antecedente da viabilidade econômica do seu uso de IA.
 - A supervisão humana deve ser **estratégica**, não exaustiva.
 
-## Ver tambem
+## Ver também
 
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **ThoughtWorks**. "Testing AI-Generated Code: Effectiveness and Strategies".
-   *ThoughtWorks Insights*, 2025. Disponível em:
-   <https://www.thoughtworks.com/insights/articles/ai-generated-code-testing-2025>.
-2. **Fowler, M.** "The Hidden Costs of AI-Assisted Development".
-   *MartinFowler.com*, 2025. Disponível em:
-   <https://martinfowler.com/articles/ai-assisted-development-cost.html>.
-3. **Gartner**. "Test Governance Frameworks for AI-Generated Software". *Gartner
-   Press Release*, 2025. Disponível em:
-   <https://www.gartner.com/en/newsroom/press-releases/2025-test-governance-ai>.
-4. **Qodo**. "The State of AI-Powered Testing Tools in 2025". *Qodo Blog*, 2025.
-   Disponível em: <https://www.qodo.ai/blog/ai-testing-tools-2025/>.
+1. Thoughtworks. "Complacency with AI-generated code". *Technology Radar*, 2025.
+   Disponível em:
+   <https://www.thoughtworks.com/en-us/radar/techniques/complacency-with-ai-generated-code>.
+2. GitClear. "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code
+   Clones". 2025. Disponível em:
+   <https://www.gitclear.com/ai_assistant_code_quality_2025_research>.
+3. NIST. *AI Risk Management Framework (AI RMF 1.0)*. 2023. DOI:
+   10.6028/NIST.AI.100-1. Disponível em:
+   <https://www.nist.gov/itl/ai-risk-management-framework>.
+4. NIST. *Artificial Intelligence Risk Management Framework: Generative AI
+   Profile (NIST AI 600-1)*. 2024. DOI: 10.6028/NIST.AI.600-1.
+5. DORA (Google Cloud). *2025 State of AI-assisted Software Development Report*.
+   2025\. Disponível em: <https://dora.dev/research/2025/dora-report>.
+6. Qodo. *2025 State of AI Code Quality*. 2025. Disponível em:
+   <https://www.qodo.ai/wp-content/uploads/2025/06/2025-State-of-AI-Code-Quality.pdf>.

@@ -3,7 +3,7 @@ title: Avaliação e Validação de Agentes Autônomos
 created_at: '2025-01-31'
 tags: [agentes, evals, swe-bench, chain-of-thought, simulacao]
 status: in-progress
-updated_at: '2025-01-31'
+updated_at: '2026-02-06'
 ai_model: vertex-ai/gemini-pro
 ---
 
@@ -44,14 +44,17 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## Técnicas de Validação
 
-### Validação de Cadeias de Raciocínio (CoT)
+### Validação de Trajetória de Decisão
 
-Não basta olhar a saída. Devemos inspecionar o pensamento intermediário.
+Não basta avaliar apenas a saída final. Em agentes, deve-se auditar o rastro
+observável de decisão (plano, ações, chamadas de ferramenta, argumentos e
+resultados intermediários), para verificar consistência lógica e segurança
+operacional.
 
-- **Técnica:** Use um "Agente Crítico" (outro LLM) para analisar o log de
-  pensamento do Agente Atuante.
-- **Critério:** O passo B segue logicamente do passo A? O agente justificou o
-  uso da ferramenta X?
+- **Técnica:** Use um "Agente Crítico" (ou regras determinísticas) para analisar
+  logs de execução, incluindo chamadas de ferramenta e estados intermediários.
+- **Critério:** O passo B decorre do passo A? A ferramenta escolhida era
+  adequada? Os parâmetros foram válidos e seguros?
 
 ### Testes de Uso de Ferramentas (Tool Use)
 
@@ -78,7 +81,8 @@ software dos modelos:
    para testar raciocínio lógico básico, mas limitados para engenharia real [4].
 2. **SWE-bench:** O padrão-ouro atual. Consiste em resolver *issues* reais do
    GitHub em repositórios populares (Django, scikit-learn, etc.). O agente deve
-   navegar na codebase, reproduzir o bug e criar um PR que passe nos testes [1].
+   navegar na codebase, reproduzir o bug, propor um patch e satisfazer a suíte
+   de testes do repositório [1].
 
 > **Nota Crítica:** Benchmarks são proxies, não garantias. Um agente pode
 > pontuar alto no SWE-bench e falhar na sua arquitetura proprietária específica.
@@ -114,20 +118,24 @@ software dos modelos:
 - Validação de **uso de ferramentas** é tão crítica quanto a validação de
   geração de texto.
 
-## Ver tambem
+## Ver também
 
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **Jimenez, C. et al.** "SWE-bench: Can Language Models Resolve Real-World
-   GitHub Issues?". *ICLR*, 2024. Disponível em: <https://www.swebench.com/>.
-2. **Liu, X. et al.** "AgentBench: Evaluating LLMs as Agents". *arXiv preprint*,
-   2024\. Disponível em: <https://arxiv.org/abs/2308.03688>.
-3. **Huang, Q. et al.** "MLAgentBench: Evaluating Language Agents on Machine
-   Learning Experimentation". *arXiv preprint*, 2024. Disponível em:
-   <https://arxiv.org/abs/2310.03302>.
-4. **Chen, M. et al.** "Evaluating Large Language Models Trained on Code".
-   *arXiv preprint*, 2024. Disponível em: <https://arxiv.org/abs/2107.03374>.
+1. Jimenez, C. E. et al. "SWE-bench: Can Language Models Resolve Real-World
+   GitHub Issues?". *arXiv preprint* arXiv:2310.06770, 2023 (ICLR 2024). DOI:
+   10.48550/arXiv.2310.06770. Disponível em: <https://arxiv.org/abs/2310.06770>.
+2. Liu, X. et al. "AgentBench: Evaluating LLMs as Agents". *arXiv preprint*
+   arXiv:2308.03688, 2023 (ICLR 2024). DOI: 10.48550/arXiv.2308.03688.
+   Disponível em: <https://arxiv.org/abs/2308.03688>.
+3. Huang, Q. et al. "MLAgentBench: Evaluating Language Agents on Machine
+   Learning Experimentation". *arXiv preprint* arXiv:2310.03302, 2023;
+   *Proceedings of ICML 2024 (PMLR 235)*. DOI: 10.48550/arXiv.2310.03302.
+   Disponível em: <https://arxiv.org/abs/2310.03302>.
+4. Chen, M. et al. "Evaluating Large Language Models Trained on Code". *arXiv
+   preprint* arXiv:2107.03374, 2021. DOI: 10.48550/arXiv.2107.03374. Disponível
+   em: <https://arxiv.org/abs/2107.03374>.

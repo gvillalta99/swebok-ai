@@ -3,8 +3,8 @@ title: Verificação de Contratos e Invariantes
 created_at: '2025-01-31'
 tags: [contratos, invariantes, design-by-contract, runtime-verification, seguranca]
 status: in-progress
-updated_at: '2025-01-31'
-ai_model: vertex-ai/gemini-pro
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # 4. Verificação de Contratos e Invariantes
@@ -14,7 +14,8 @@ ai_model: vertex-ai/gemini-pro
 Quando não podemos confiar totalmente na implementação (porque foi gerada por
 uma IA probabilística), devemos confiar nos limites impostos a ela. A
 "Verificação de Contratos" recupera o princípio clássico de *Design by Contract*
-(DbC) de Bertrand Meyer e o adapta para a era da IA.
+(DbC), consolidado por Bertrand Meyer [1], e o adapta para sistemas com
+componentes de IA.
 
 A premissa é simples: se não posso garantir que o código interno da função
 gerada está correto linha a linha, posso pelo menos garantir que ela respeita as
@@ -37,8 +38,8 @@ Após estudar esta seção, o leitor deve ser capaz de:
 ## Design by Contract Adaptado para IA
 
 O Design by Contract tradicional assume que o desenvolvedor escreve o contrato e
-o código. Na IA, nós escrevemos o contrato e a IA gera o código. O contrato age
-como uma "jaula" de segurança.
+o código. Na IA, nós escrevemos o contrato e a IA gera o código. Na prática, o
+contrato funciona como um mecanismo explícito de contenção de risco.
 
 ### Componentes do Contrato
 
@@ -46,15 +47,16 @@ como uma "jaula" de segurança.
    - *Exemplo:* O input não deve exceder X tokens; não deve conter PII
      (Informação Pessoal Identificável).
 2. **Pós-condições:** O que o modelo *deve* entregar.
-   - *Exemplo:* O output deve ser um JSON válido; o valor da transação não pode
-     ser negativo; a resposta deve conter as palavras-chave da pergunta.
+   - *Exemplo:* O output deve ser JSON válido conforme *schema*; o valor da
+     transação deve ser não negativo; a resposta deve atender critérios mínimos
+     de completude e rastreabilidade definidos no requisito.
 3. **Invariantes:** O que *nunca* deve mudar.
    - *Exemplo:* O saldo total do sistema (soma de todas as contas) deve
      permanecer constante após uma transferência interna.
 
-A pesquisa recente sugere que a "Verificação em Tempo de Execução usando Design
-by Contract" é uma das abordagens mais promissoras para garantir a
-confiabilidade de redes neurais e sistemas gerativos em produção [1].
+A literatura recente indica avanço em monitoramento e verificação em tempo de
+execução para sistemas inteligentes, incluindo abordagens de verificação
+dinâmica e contratos para componentes neurais e agentes (refs. 2 e 4).
 
 ## Verificação Runtime e Invariantes Críticas
 
@@ -64,7 +66,7 @@ contratos em IA frequentemente precisa acontecer em **tempo de execução**.
 **O Padrão "Guardrail":** O código gerado é envelopado por um interceptador.
 
 ```python
-def safe_execute(input_data):
+def safe_execute(input_data, system_state):
     # 1. Check Preconditions
     if not validate_input(input_data):
         raise SecurityException("Invalid Input")
@@ -85,20 +87,19 @@ que, no pior caso, o sistema reverte para um comportamento seguro e conhecido.
 
 ### Análise Automática de Contratos
 
-Ferramentas modernas começam a permitir a especificação e verificação automática
-de contratos em código gerado [3]. Isso inclui a capacidade de usar LLMs para
-extrair especificações formais de requisitos em linguagem natural e convertê-las
-em asserções de código verificáveis.
+Ferramentas e métodos atuais permitem derivar artefatos de verificação a partir
+de especificações formais e contratos, conectando prova, monitoramento e geração
+de testes automatizados (refs. 3 e 5).
 
 ## Considerações Práticas
 
 ### Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                                                              |
-| :------------------------------ | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — Contratos são a interface de segurança fundamental entre humanos e IA.                                                     |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo/Médio** — Verificação runtime adiciona latência, mas é computacionalmente barata comparada à geração.                          |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica** — Contratos são a última linha de defesa. Se o contrato permite uma falha catastrófica, o erro é de engenharia, não da IA. |
+| Critério                      | Descrição                                           | Avaliação                                                                                                                              |
+| :---------------------------- | :-------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| **Perenidade da Competência** | Esta competência tende a obsolescência em 36 meses? | **Baixa** — Contratos e invariantes permanecem como mecanismo central de governança técnica em sistemas híbridos humano-IA.            |
+| **Custo de Verificação**      | Quanto custa validar esta atividade?                | **Baixo/Médio** — Verificação runtime adiciona latência, mas é computacionalmente barata comparada à geração.                          |
+| **Responsabilidade Legal**    | Quem é culpado se falhar?                           | **Crítica** — Contratos são a última linha de defesa. Se o contrato permite uma falha catastrófica, o erro é de engenharia, não da IA. |
 
 ### Checklist de Implementação
 
@@ -123,20 +124,24 @@ em asserções de código verificáveis.
 - Sempre projete com **fail-safes**: quando o contrato falha, o sistema deve
   degradar graciosamente, não explodir.
 
-## Ver tambem
+## Ver também
 
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **Pesquisa Acadêmica**. "Runtime Verification of Neural Networks using Design
-   by Contract". *arXiv preprint*, 2025. Disponível em:
-   <https://arxiv.org/abs/2502.09876>.
-2. **Bunel, R. et al.** "Formal Verification of Machine Learning Models: A
-   Survey". *arXiv preprint*, 2024. Disponível em:
-   <https://arxiv.org/abs/2403.15678>.
-3. **ACM Computing Surveys**. "Contract-Based Testing for Automatically
-   Generated Software". *ACM*, 2025. Disponível em:
-   <https://dl.acm.org/doi/10.1145/contract-testing-2025>.
+1. Meyer, B. *Object-Oriented Software Construction* (2nd ed.). Prentice Hall,
+   1997\. Edição online autorizada: <https://bertrandmeyer.com/oosc2/>.
+2. Bartocci, E.; Falcone, Y.; Francalanza, A.; Reger, G. "Introduction to
+   Runtime Verification". In: *Lectures on Runtime Verification* (LNCS 10457).
+   Springer, 2018. DOI: <https://doi.org/10.1007/978-3-319-75632-5_1>.
+3. Urban, C.; Mine, A. "A Review of Formal Methods applied to Machine Learning".
+   arXiv, 2021. <https://arxiv.org/abs/2104.02466>.
+4. Henzinger, T. A.; Kueffner, K.; Yu, E. "Formal Verification of Neural
+   Certificates Done Dynamically". arXiv, 2025.
+   <https://arxiv.org/abs/2507.11987>.
+5. Jimenez Gil, S.; Capel, M. I.; Olea Olea, G. "Automatic test cases generation
+   from formal contracts". *Information and Software Technology*, 172, 107467,
+   2024\. DOI: <https://doi.org/10.1016/j.infsof.2024.107467>.
