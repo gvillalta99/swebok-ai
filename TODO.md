@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/04-software-construction/05-padroes-colaboracao-humano-ia.md
-- @book-reviewer review docs/04-software-construction/06-ferramentas-tecnologias.md
-- @book-reviewer review docs/04-software-construction/index.md
-- @book-reviewer review docs/05-software-testing/01-fundamentos-verificacao-ia.md
-- @book-reviewer review docs/05-software-testing/02-tecnicas-teste-llm.md
 - @book-reviewer review docs/05-software-testing/03-testes-estatisticos.md
 - @book-reviewer review docs/05-software-testing/04-verificacao-contratos.md
 - @book-reviewer review docs/05-software-testing/05-avaliacao-agentes.md

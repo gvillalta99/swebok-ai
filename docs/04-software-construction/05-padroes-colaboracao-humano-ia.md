@@ -3,38 +3,41 @@ title: Padrões de Colaboração Humano-IA
 created_at: '2025-01-31'
 tags: [software-construction, colaboracao, humano-ia, pair-programming, code-review, workflow]
 status: in-progress
-updated_at: '2026-02-04'
-ai_model: google/gemini-2.0-flash
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Padrões de Colaboração Humano-IA
 
-A IA não vai "substituir" você, mas vai mudar drasticamente *como* você
-trabalha. A colaboração evoluiu do simples autocomplete para uma relação
-complexa de delegação e supervisão. Entender qual "chapéu" a IA está usando
-(Assistente, Co-piloto ou Agente) é crucial para definir o nível de confiança e
-o rigor da verificação necessária.
+A IA não elimina o papel do engenheiro de software, mas transforma de forma
+substantiva o modo de trabalho. A colaboração evoluiu do autocomplete para um
+regime de delegação com supervisão explícita. Identificar o papel operacional da
+IA (assistente, co-piloto, agente ou automação contínua) é essencial para
+calibrar confiança, risco e rigor de verificação.
 
 ## O Espectro de Autonomia
 
-Não trate toda IA igual. Ajuste seu workflow baseando-se no modelo de interação:
+Não trate todas as interações com IA como equivalentes. Ajuste o workflow ao
+nível de autonomia efetiva:
 
-1. **Assistente (Baixa Autonomia):** O "Autocomplete tunado". Sugere a próxima
-   linha.
-   - *Risco:* Baixo. Você está lendo enquanto escreve.
-   - *Uso:* Remoção de boilerplate, sintaxe rápida.
-2. **Co-piloto (Média Autonomia):** O "Pair Programmer". Você discute a solução,
-   ele implementa blocos inteiros.
-   - *Risco:* Médio. Requer revisão ativa de lógica e design.
-   - *Uso:* Refatoração, escrita de testes, implementação de funções.
-3. **Agente (Alta Autonomia):** O "Estagiário Remoto". Você dá uma tarefa ("crie
-   o CRUD de usuários"), ele volta com 5 arquivos prontos.
-   - *Risco:* Alto. Requer *Code Review* formal e testes de integração.
-   - *Uso:* Tarefas isoladas, migrações, scripts.
-4. **Autônomo (Muito Alta Autonomia):** O "Bot de Manutenção". Roda em
-   background, abrindo PRs para atualizar libs ou corrigir typos.
-   - *Risco:* Crítico se não houver guardrails. Requer aprovação humana
-     obrigatória.
+1. **Assistente (baixa autonomia):** sugere trechos locais com você no controle
+   contínuo da edição.
+   - *Risco predominante:* baixo (erro localizado).
+   - *Controle mínimo:* leitura linha a linha antes do commit.
+2. **Co-piloto (média autonomia):** propõe blocos de implementação a partir de
+   instruções e contexto parcial.
+   - *Risco predominante:* médio (desalinhamento lógico/arquitetural).
+   - *Controle mínimo:* revisão semântica e testes de unidade.
+3. **Agente (alta autonomia):** executa tarefas multiarquivo e retorna artefatos
+   quase completos.
+   - *Risco predominante:* alto (efeitos sistêmicos).
+   - *Controle mínimo:* code review formal, testes de integração e checagens de
+     segurança.
+4. **Automação contínua (autonomia muito alta):** bots que operam em background
+   abrindo PRs recorrentes.
+   - *Risco predominante:* crítico sem guardrails.
+   - *Controle mínimo:* aprovação humana obrigatória, políticas de branch e
+     gates automáticos.
 
 ## O Novo Code Review
 
@@ -52,21 +55,22 @@ O código de IA é uniformemente "plausível".
 
 1. **Defina o Papel no Início:** Antes de começar a task, decida: vou usar a IA
    como "dicionário" (tirar dúvida) ou como "trator" (gerar código)?
-2. **Exija Explicação:** Não aceite código que você não entende. Peça para a IA
-   explicar a lógica passo a passo ("Explain Like I'm 5").
+2. **Exija explicabilidade:** Não aceite código sem entendimento do racional
+   técnico. Solicite decomposição da solução em premissas, decisões e
+   trade-offs.
 3. **Mantenha o Histórico:** Em decisões críticas, salve o prompt e a resposta
    na descrição do PR ou em um ticket. Isso é sua trilha de auditoria.
-4. **Pair Programming Híbrido:** Use a IA para gerar os testes *antes* de você
-   escrever o código (TDD assistido). Ou vice-versa. Nunca peça para ela fazer
-   os dois ao mesmo tempo.
+4. **Aplique TDD assistido com escopo controlado:** Use a IA para gerar testes
+   ou implementação, não ambos simultaneamente, para preservar rastreabilidade
+   de decisão.
 5. **Review Reverso:** Peça para a IA revisar o código que *ela mesma* gerou,
    procurando por bugs ou vulnerabilidades ("Atue como um Security Researcher e
    critique esse código").
 
 ## Armadilhas Comuns (Anti-Patterns)
 
-- **Antropomorfização:** Tratar a IA como "colega". Ela é uma ferramenta
-  estatística. Não peça "por favor", dê instruções claras.
+- **Antropomorfização:** Trate a IA como sistema probabilístico. Formule
+  instruções verificáveis com critérios objetivos de aceite.
 - **Aprovação por Cansaço:** Aceitar o código depois de 5 tentativas frustradas
   só para "se livrar". Se a IA não consegue resolver, assuma o controle e
   escreva manualmente.
@@ -110,16 +114,33 @@ máquina.
 - Ler sobre **Prompt Engineering** para melhorar a qualidade das suas instruções
   para o "Co-piloto".
 
-## Ver tambem
+## Ver também
 
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 06 - Operações de Engenharia](../06-software-engineering-operations/index.md)
 
 ## Referências
 
-1. The New Stack, "Developer Productivity in 2025: More AI, but Mixed Results",
-   2025\.
-2. Index.dev, "Top 100 AI Pair Programming Statistics 2026", 2025.
-3. Medium, "Pair Programming & TDD in 2025: Evolving or Obsolete in an AI-First
-   Era", 2025.
+1. Salva, R. J. *How are developers using AI? Inside our 2025 DORA report*.
+   Google The Keyword, 23 set. 2025. Disponível em:
+   <https://blog.google/technology/developers/dora-report-2025/>. Acesso em: 6
+   fev. 2026.
+2. The New Stack. *Developer Productivity in 2025: More AI, but Mixed Results*.
+   2 jan. 2025. Disponível em:
+   <https://thenewstack.io/developer-productivity-in-2025-more-ai-but-mixed-results/>.
+   Acesso em: 6 fev. 2026.
+3. Yepis, E. *Developers remain willing but reluctant to use AI: The 2025
+   Developer Survey results are here*. Stack Overflow Blog, 29 dez. 2025.
+   Disponível em:
+   <https://stackoverflow.blog/2025/12/29/developers-remain-willing-but-reluctant-to-use-ai-the-2025-developer-survey-results-are-here/>.
+   Acesso em: 6 fev. 2026.
+4. Infante Zumer, J.; Cavero, C.; Barroso, C. *Why test-driven development and
+   pair programming are perfect companions for GitHub Copilot*. Thoughtworks, 8
+   jul. 2024. Disponível em:
+   <https://www.thoughtworks.com/en-us/insights/blog/generative-ai/tdd-and-pair-programming-the-perfect-companions-for-copilot>.
+   Acesso em: 6 fev. 2026.
+5. Index.dev. *Top 100 AI Pair Programming Statistics 2026: Tools, Adoption
+   Rates*. 2025. Disponível em:
+   <https://www.index.dev/blog/ai-pair-programming-statistics>. Acesso em: 6
+   fev. 2026.

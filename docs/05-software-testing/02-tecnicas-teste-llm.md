@@ -3,8 +3,8 @@ title: Técnicas de Teste para Código Gerado por LLMs
 created_at: '2025-01-31'
 tags: [testes, llm, metamorphic-testing, property-based-testing, fuzzing]
 status: in-progress
-updated_at: '2025-01-31'
-ai_model: vertex-ai/gemini-pro
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # 2. Técnicas de Teste para Código Gerado por LLMs
@@ -36,7 +36,7 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## Metamorphic Testing (Teste Metamórfico)
 
-O Teste Metamórfico é a técnica mais poderosa para lidar com o "problema do
+O Teste Metamórfico é uma técnica central para lidar com o "problema do
 oráculo". Em vez de verificar se a saída está correta (o que é difícil),
 verificamos se a **relação** entre as saídas muda consistentemente quando
 alteramos as entradas de forma controlada.
@@ -54,9 +54,9 @@ natural.
   igual).
 - **Teste:** `assert len(result_B) <= len(result_A)`
 
-Segundo Segura et al. (2024), relações metamórficas são essenciais para testar
-sistemas de ML onde a especificação é incompleta ou o custo de verificar a saída
-exata é proibitivo [1].
+A literatura consolidada em teste metamórfico mostra que relações metamórficas
+são especialmente úteis quando o oráculo exato é caro ou indisponível, cenário
+comum em sistemas baseados em IA [1].
 
 ## Property-Based Testing (Teste Baseado em Propriedades)
 
@@ -74,51 +74,49 @@ casos. Para código gerado por IA, isso é vital para garantir robustez contra
 - **Round-trip:** Serializar e deserializar um objeto restaura o objeto
   original?
 
-Ferramentas como Hypothesis (Python) ou fast-check (JS) são fundamentais aqui. A
-pesquisa recente aponta o PBT como mecanismo primário para validação em escala
-de componentes gerados automaticamente [2].
+Ferramentas como Hypothesis (Python) e fast-check (JavaScript) operacionalizam
+esse paradigma; a base conceitual remonta ao QuickCheck, que formaliza geração
+de entradas e verificação de propriedades como estratégia de teste [2].
 
 ## Differential Testing (Teste Diferencial)
 
-Se você não sabe qual é a resposta certa, pergunte a dois ou mais
-"especialistas" e veja se concordam. O Teste Diferencial envolve submeter o
-mesmo prompt a múltiplos modelos (ex: GPT-4, Claude 3.5, Llama 3) e comparar as
-saídas.
+Quando a resposta correta é difícil de obter, o Teste Diferencial envolve
+submeter o mesmo prompt a múltiplos modelos (ex: GPT-4, Claude 3.5, Llama 3) e
+comparar as saídas.
 
 - **Consenso:** Se 3 modelos geram código logicamente equivalente, a confiança
   aumenta.
 - **Divergência:** Se um modelo diverge drasticamente, é um forte indicador de
   alucinação ou ambiguidade no prompt.
 
-**Voting Mechanisms:** Em sistemas críticos, pode-se usar um "voto majoritário"
-em tempo de execução para decidir qual snippet de código executar.
+**Mecanismos de consenso:** Em sistemas críticos, o consenso entre múltiplos
+modelos deve ser usado como sinal de priorização de revisão humana ou execução
+em sandbox, e não como critério único de promoção automática para produção.
 
 ## Técnicas Híbridas: Symbolic Execution e Fuzzing
 
 ### Symbolic Execution Híbrida
 
-A execução simbólica explora todos os caminhos possíveis de um código tratando
-as variáveis como símbolos matemáticos. Combinar isso com IA (Neural Symbolic
-Execution) permite verificar se o código gerado possui caminhos que levam a
-falhas de segurança ou violações de contrato, mesmo sem executar o código com
-dados reais [4].
+A execução simbólica explora caminhos de execução tratando entradas como
+símbolos e resolvendo restrições ao longo dos ramos. Em combinação com testes
+dinâmicos, ela aumenta cobertura de caminhos críticos e apoia detecção precoce
+de falhas de segurança e violações de contrato [4].
 
 ### Fuzzing Direcionado por Semântica
 
-O *Fuzzing* tradicional joga lixo aleatório no programa para ver se ele quebra.
-O *LLM-assisted Fuzzing* usa a compreensão semântica da IA para gerar casos de
-teste que são sintaticamente válidos, mas semanticamente desafiadores (ex:
-inputs adversariais projetados para confundir a lógica do modelo) [5].
+No fuzzing orientado por semântica, LLMs podem auxiliar a geração e mutação de
+entradas válidas e de casos de borda com maior probabilidade de expor falhas,
+elevando a eficiência em domínios com contratos de entrada complexos [5].
 
 ## Considerações Práticas
 
 ### Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                           |
-| :------------------------------ | :------------------------------------ | :-------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — As ferramentas evoluem, mas a lógica de teste metamórfico/propriedades é atemporal.     |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio/Alto** — Executar múltiplos modelos ou fuzzing intensivo consome recursos (tokens/compute). |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica** — Falhas detectáveis por fuzzing que vão para produção são consideradas negligência.    |
+| Critério                        | Descrição                                   | Avaliação                                                                                                                     |
+| :------------------------------ | :------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta competência será obsoleta em 36 meses? | **Baixa** — As ferramentas evoluem, mas os princípios (relações metamórficas e propriedades) permanecem estáveis.             |
+| **Custo de Verificação**        | Quanto custa validar esta atividade?        | **Médio/Alto** — Executar múltiplos modelos ou fuzzing intensivo consome recursos (tokens/compute).                           |
+| **Responsabilidade Legal**      | Quem é culpado se falhar?                   | **Crítica** — Em domínios regulados, falhas previsíveis não mitigadas podem caracterizar não conformidade técnica e jurídica. |
 
 ### Checklist de Implementação
 
@@ -143,25 +141,25 @@ inputs adversariais projetados para confundir a lógica do modelo) [5].
 - A combinação de **Análise Formal** e IA (Symbolic/Fuzzing) representa a
   fronteira da segurança em código gerado.
 
-## Ver tambem
+## Ver também
 
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **Segura, S. et al.** "Metamorphic Relations for Testing Machine Learning: A
-   Systematic Mapping Study". *arXiv preprint*, 2024. Disponível em:
-   <https://arxiv.org/abs/2412.17616>.
-2. **TPTP Researchers**. "Progress in Property-Based Testing: Research and
-   Tools". *Proceedings of TPTP*, 2025. Disponível em:
-   <https://www.tptp.org/TPTP/Proceedings/2025/ProgressInPropertyBasedTesting.pdf>.
-3. **Bunel, R. et al.** "Formal Verification of Machine Learning Models: A
-   Survey". *arXiv preprint*, 2024. Disponível em:
-   <https://arxiv.org/abs/2403.15678>.
-4. **Pesquisa Acadêmica**. "Neural Symbolic Execution: Understanding and Testing
-   Neural Networks". *arXiv preprint*, 2024. Disponível em:
-   <https://arxiv.org/abs/2405.18912>.
-5. **CVE Research**. "Large Language Model-assisted Fuzzing". *arXiv preprint*,
-   2025\. Disponível em: <https://arxiv.org/abs/2503.07654>.
+1. Segura, S.; Fraser, G.; Sanchez, A. B.; Ruiz-Cortes, A. *A Survey on
+   Metamorphic Testing*. IEEE Transactions on Software Engineering, 42(9), 2016.
+   DOI: <https://doi.org/10.1109/TSE.2016.2532875>.
+2. Claessen, K.; Hughes, J. *QuickCheck: A Lightweight Tool for Random Testing
+   of Haskell Programs*. ICFP, 2000. DOI:
+   <https://doi.org/10.1145/351240.351266>.
+3. Pei, K.; Cao, Y.; Yang, J.; Jana, S. *DeepXplore: Automated Whitebox Testing
+   of Deep Learning Systems*. SOSP, 2017. DOI:
+   <https://doi.org/10.1145/3132747.3132785>.
+4. Cadar, C.; Sen, K. *Symbolic Execution for Software Testing*. Communications
+   of the ACM, 56(2), 2013. DOI: <https://doi.org/10.1145/2408776.2408795>.
+5. Deng, Y. et al. *Large Language Models are Edge-Case Fuzzers: Testing Deep
+   Learning Libraries via FuzzGPT*. arXiv, 2023. Disponível em:
+   <https://arxiv.org/abs/2304.02014>.

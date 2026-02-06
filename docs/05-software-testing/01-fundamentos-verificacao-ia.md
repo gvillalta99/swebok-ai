@@ -3,8 +3,8 @@ title: Fundamentos de Verificação em Sistemas com IA
 created_at: '2025-01-31'
 tags: [verificacao, fundamentos, ia, oraculo, incerteza]
 status: in-progress
-updated_at: '2025-01-31'
-ai_model: vertex-ai/gemini-pro
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # 1. Fundamentos de Verificação em Sistemas com IA
@@ -43,11 +43,12 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## A Inversão do Gargalo: De Geração para Verificação
 
-Historicamente, testes consumiam cerca de 10-20% do esforço de desenvolvimento.
-Em sistemas AI-first, dados indicam que a verificação consome agora mais de
-**50% do esforço total**. Segundo a ThoughtWorks (2025), o custo de verificar
-código gerado por IA pode ser **3 a 5 vezes maior** do que o custo de gerá-lo,
-especialmente para sistemas críticos [17].
+Historicamente, a maior parte do esforço de qualidade concentrava-se em testes
+de código determinístico. Em sistemas AI-first, observa-se deslocamento
+relevante do esforço para verificação, avaliação contínua e governança de
+comportamento. Em termos práticos, o custo de validar saídas e limites
+operacionais tende a crescer mais rapidamente que o custo de geração de
+artefatos.
 
 Isso ocorre porque:
 
@@ -57,9 +58,10 @@ Isso ocorre porque:
 3. **Alucinação:** Erros sutis e plausíveis são mais difíceis de detectar do que
    erros de sintaxe óbvios.
 
-> **Dados de Mercado:** Uma pesquisa do Gartner (2025) revela que **78% das
-> organizações** relatam que a "incapacidade de testar efetivamente" é a
-> principal barreira para colocar código gerado por IA em produção [6].
+> **Observação de mercado:** Relatórios setoriais e relatos de prática convergem
+> no diagnóstico de que testar sistemas com componentes probabilísticos é hoje
+> um dos principais gargalos de adoção em produção. A magnitude desse gargalo
+> varia por domínio, criticidade e maturidade de engenharia.
 
 ## O Problema do Oráculo em Código Gerado
 
@@ -70,22 +72,22 @@ passou ou falhou.
 - **Com IA:** `assert summarize(text) == ?`. O oráculo é subjetivo ou
   inexistente.
 
-Enfrentamos aqui o problema de "quem verifica o verificador?". Se usarmos um
-modelo mais forte (ex: GPT-4) para verificar um modelo mais fraco, introduzimos
-uma regressão infinita de confiança. A solução pragmática envolve aceitar
-**oráculos aproximados** e **verificação baseada em propriedades**, em vez de
-igualdade estrita.
+Enfrentamos aqui o problema de "quem verifica o verificador?". Em sistemas com
+LLMs, a estratégia prática é combinar **oráculos aproximados**, **avaliação por
+propriedades** e **revisão humana orientada a risco**, em vez de depender
+exclusivamente de igualdade estrita [1].
 
 ### Incerteza Epistêmica vs. Aleatória
 
 Para testar sistemas de IA, é crucial distinguir dois tipos de incerteza:
 
-1. **Aleatória (Aleatoric):** Inerente ao processo estocástico do modelo. Mesmo
-   com `temperature=0`, variações de hardware (ponto flutuante
-   não-determinístico em GPUs) podem alterar a saída. Isso é irredutível.
-2. **Epistêmica (Epistemic):** Falta de conhecimento ou dados. O modelo alucina
-   porque não viu exemplos suficientes no treino. Isso pode ser mitigado com RAG
-   (Retrieval-Augmented Generation) ou fine-tuning.
+1. **Aleatória (Aleatoric):** Inerente ao processo estocástico e ao ruído de
+   observação. Em LLMs, configurações como `temperature=0` podem reduzir
+   variabilidade, mas não garantem determinismo absoluto em todos os ambientes
+   de execução.
+2. **Epistêmica (Epistemic):** Decorre de limitação de conhecimento do modelo
+   para determinados contextos. Pode ser mitigada com melhor contexto, curadoria
+   de dados, RAG e ajustes supervisionados [2].
 
 Testes devem ser desenhados para tolerar a incerteza aleatória (via estatística)
 enquanto detectam falhas epistêmicas (erros de lógica ou fato).
@@ -96,7 +98,7 @@ enquanto detectam falhas epistêmicas (erros de lógica ou fato).
 
 | Critério                        | Descrição                                                | Avaliação                                                                                                   |
 | :------------------------------ | :------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa** — Os fundamentos de verificação são estáveis, embora as ferramentas mudem.                        |
+| **Descartabilidade Geracional** | Esta competência será obsoleta em 36 meses?              | **Baixa** — Fundamentos de verificação tendem a permanecer estáveis, embora ferramentas mudem.              |
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Crítico** — Verificação é o novo centro de custo; "testar os testes" é necessário.                        |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — O engenheiro/tester mantém total *accountability*. "A IA gerou errado" não é defesa jurídica. |
 
@@ -134,19 +136,28 @@ enquanto detectam falhas epistêmicas (erros de lógica ou fato).
 - A responsabilidade final permanece humana. A IA é uma ferramenta de
   alavancagem, não um substituto de responsabilidade.
 
-## Ver tambem
+## Ver também
 
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **JavaPro**. "The AI Mona Lisa Challenge: Precision and Security Adjustments
-   for Your CI/CD Pipeline". *JavaPro.io*, 2024. Disponível em:
+1. Barr, E. T.; Harman, M.; McMinn, P.; Shahbaz, M.; Yoo, S. *The Oracle Problem
+   in Software Testing: A Survey*. IEEE Transactions on Software Engineering,
+   41(5), 507-525, 2015. DOI: <https://doi.org/10.1109/TSE.2014.2372785>.
+2. Kendall, A.; Gal, Y. *What Uncertainties Do We Need in Bayesian Deep Learning
+   for Computer Vision?* NeurIPS 2017. Disponível em:
+   <https://papers.nips.cc/paper/2017/hash/2650d6089a6d640c5e85b2b88265dc2b-Abstract.html>.
+3. NIST. *Artificial Intelligence Risk Management Framework (AI RMF 1.0)*, 2023.
+   DOI: <https://doi.org/10.6028/NIST.AI.100-1>.
+4. NIST. *Artificial Intelligence Risk Management Framework: Generative
+   Artificial Intelligence Profile*, 2024. Disponível em:
+   <https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence>.
+5. Boeckeler, B. *How far can we push AI autonomy in code generation?*
+   MartinFowler.com, 2025. Disponível em:
+   <https://martinfowler.com/articles/pushing-ai-autonomy.html>.
+6. Poole, S. *The AI Mona Lisa Challenge: Precision and Security Adjustments for
+   Your CI/CD Pipeline*. JavaPro, 2024. Disponível em:
    <https://javapro.io/2024/11/21/the-ai-mona-lisa-challenge-precision-and-security-adjustments-for-your-ci-cd-pipeline/>.
-2. **Gartner**. "Testing Non-Deterministic AI Systems: Best Practices". *Gartner
-   Research*, 2025.
-3. **Fowler, M.** "The Hidden Costs of AI-Assisted Development".
-   *MartinFowler.com*, 2025. Disponível em:
-   <https://martinfowler.com/articles/ai-assisted-development-cost.html>.

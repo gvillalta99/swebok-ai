@@ -3,17 +3,17 @@ title: Ferramentas e Tecnologias
 created_at: '2025-01-31'
 tags: [software-construction, ferramentas, tecnologias, ide, agentes, verificacao]
 status: in-progress
-updated_at: '2026-02-04'
-ai_model: google/gemini-2.0-flash
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Ferramentas e Tecnologias
 
-O mercado de ferramentas de desenvolvimento com IA é o "Velho Oeste": novidades
-diárias, promessas exageradas e pouca consolidação. Como engenheiro, sua
-obrigação não é testar tudo, mas selecionar o stack que resolve problemas reais
-sem introduzir complexidade acidental. A ferramenta certa não é a que gera mais
-código, mas a que se integra melhor ao seu fluxo de verificação.
+O ecossistema de ferramentas de desenvolvimento assistido por IA apresenta alta
+volatilidade, com rápida renovação de produtos e capacidades. Nesse contexto, a
+responsabilidade do engenheiro de software é selecionar um stack que maximize
+produtividade com governança, segurança e verificabilidade, minimizando
+complexidade acidental.
 
 ## O Panorama de Ferramentas (O Ecossistema)
 
@@ -26,23 +26,27 @@ Podemos categorizar as ferramentas em quatro camadas de abstração e autonomia:
    - *Exemplos:* Devin, Claude Code, OpenAI Codex (via API).
    - *Foco:* Resolver issues completas, migrar versões, criar features
      end-to-end.
-3. **Verificadores Especializados (Auditores):** A "polícia" do código.
-   - *Exemplos:* CodeQL, SonarQube (com AI Code Assurance), Snyk.
-   - *Foco:* Encontrar vulnerabilidades e code smells que a IA introduziu.
+3. **Verificadores Especializados (Auditores):** Ferramentas voltadas à análise
+   estática, segurança e qualidade de código.
+   - *Exemplos:* CodeQL, SonarQube, Semgrep, Snyk.
+   - *Foco:* Identificar vulnerabilidades, inconsistências e violações de padrão
+     introduzidas no ciclo de construção.
 4. **Plataformas de Review (Curadores):** Automatizam a primeira camada de
    revisão.
    - *Exemplos:* PR-Agent, CodeRabbit.
    - *Foco:* Resumir PRs, sugerir melhorias de estilo, detectar bugs óbvios
      antes do humano.
 
-## Matriz de Seleção: Escolhendo sua Arma
+## Matriz de Seleção: Critérios de Escolha
 
-Não escolha ferramentas pelo "hype". Use esta matriz simplificada:
+A seleção de ferramentas deve ser orientada por critérios explícitos: integração
+ao fluxo de trabalho, requisitos de segurança e compliance, custo total de
+propriedade (TCO) e auditabilidade.
 
 | Categoria       | Startups (Velocidade)          | Enterprise (Governança)         |
 | :-------------- | :----------------------------- | :------------------------------ |
 | **IDE**         | Cursor (Foco em velocidade/UX) | Copilot (Compliance/Integração) |
-| **Agente**      | Claude Code (Flexibilidade)    | GitHub Workspace (Segurança)    |
+| **Agente**      | Claude Code (Flexibilidade)    | GitHub Copilot (Segurança)      |
 | **Verificação** | Ruff/Semgrep (Rápido/Local)    | SonarQube/CodeQL (Auditável)    |
 | **Review**      | CodeRabbit (Feedback rápido)   | Review Humano Obrigatório       |
 
@@ -63,15 +67,14 @@ Não escolha ferramentas pelo "hype". Use esta matriz simplificada:
 
 ## Armadilhas Comuns (Anti-Patterns)
 
-- **A "Bala de Prata":** Achar que comprar o "Devin" vai permitir demitir os
-  juniores. Agentes precisam de supervisão sênior constante.
-- **Vendor Lock-in Cognitivo:** Ficar tão dependente de uma feature específica
-  de uma ferramenta proprietária que você desaprende a fazer sem ela.
-- **Segurança por Obscuridade:** Achar que a IA não vai vazar suas chaves de API
-  porque "o código é privado". Modelos podem treinar (ou fazer cache) com seus
-  dados se mal configurados.
-- **Tool Fatigue:** Adicionar tantas ferramentas de IA no pipeline que o CI
-  demora 1 hora para rodar.
+- **Automação sem governança:** adoção de agentes sem critérios de revisão,
+  trilha de auditoria e responsabilidade técnica.
+- **Dependência excessiva de fornecedor:** acoplamento a funcionalidades
+  proprietárias sem estratégia de portabilidade.
+- **Suposição de privacidade por padrão:** uso de dados sensíveis sem validação
+  explícita de políticas de retenção e treinamento.
+- **Sobrecarga de pipeline:** inclusão indiscriminada de ferramentas que aumenta
+  latência de CI e reduz fluxo de entrega.
 
 ## Exemplo Mínimo: Stack Enxuta para 2026
 
@@ -103,15 +106,29 @@ Não escolha ferramentas pelo "hype". Use esta matriz simplificada:
 - Revisar o **KA 15 (Economia)** para entender o TCO (Custo Total de
   Propriedade) dessas ferramentas.
 
-## Ver tambem
+## Ver também
 
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 06 - Operações de Engenharia](../06-software-engineering-operations/index.md)
 
 ## Referências
 
-1. Netcorp, "AI-Generated Code Statistics 2026", 2026.
-2. Zencoder, "AI Code Generation Trends: Shaping Software Construction", 2026.
-3. G2 Research, "Development Trends 2025: AI Code Generation Will Drive
-   Productivity", 2024.
+1. DORA (Google Cloud), *Accelerate State of DevOps Report 2024*, DORA Research,
+   2024\. Disponível em: <https://dora.dev/research/2024/dora-report/>
+2. Harvey, N.; DeBellis, D. *Highlights from the 10th DORA report*, Google Cloud
+   Blog, 2024. Disponível em:
+   <https://cloud.google.com/blog/products/devops-sre/announcing-the-2024-dora-report>
+3. Imai, S. et al. *Measuring GitHub Copilot's Impact on Productivity*,
+   Communications of the ACM, 2024. DOI: 10.1145/3633453
+4. Peng, S. et al. *The Impact of AI on Developer Productivity: Evidence from
+   GitHub Copilot*, arXiv, 2023. Disponível em:
+   <https://arxiv.org/abs/2302.06590>
+5. Crivello, A. *Development Trends 2025: AI Code Generation Will Be the Most
+   Productive AI Use Case*, G2 Research, 2024. Disponível em:
+   <https://research.g2.com/insights/development-trends-2025>
+6. OWASP Foundation, *OWASP Top 10 for LLM Applications 2025*, 2024. Disponível
+   em:
+   <https://owasp.org/www-project-top-10-for-large-language-model-applications/>
+7. NIST, *SP 800-218: Secure Software Development Framework (SSDF) v1.1*, 2022.
+   Disponível em: <https://csrc.nist.gov/pubs/sp/800/218/final>
