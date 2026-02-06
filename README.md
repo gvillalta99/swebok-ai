@@ -38,7 +38,7 @@ Este repositório publica o SWEBOK-AI v5.0, uma reimaginação do SWEBOK tradici
 
 ## 📚 Estrutura do Guia
 
-O SWEBOK-AI v5.0 organiza o conhecimento em 18 Knowledge Areas (KAs), reconfigurados para o paradigma AI-First:
+O SWEBOK-AI v5.0 organiza o conhecimento em 16 Knowledge Areas (KAs), reconfigurados para o paradigma AI-First:
 
 ### Fundamentos
 - **Capítulo 0**: Introdução ao SWEBOK-AI
