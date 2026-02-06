@@ -3,7 +3,7 @@ title: Modelagem de Degradação Graciosa e Falhas
 created_at: '2025-01-31'
 tags: [degradacao-graciosa, falhas, resiliencia, circuit-breaker, fallback, sistemas-distribuidos]
 status: in-progress
-updated_at: '2026-02-04'
+updated_at: '2026-02-06'
 ai_model: openai/gpt-5.2
 ---
 
@@ -11,27 +11,28 @@ ai_model: openai/gpt-5.2
 
 ## Contexto
 
-Sistemas tradicionais falham de forma binária: funciona ou crasha. Sistemas com
-IA falham de forma espectral: eles alucinam, degradam, tornam-se lentos ou
-tóxicos. Depender de uma API externa de LLM (como OpenAI ou Anthropic) é
-introduzir um ponto de falha crítico, opaco e lento na sua infraestrutura. Se a
-API cair, seu produto para? Se a IA começar a alucinar, seu sistema detecta?
-Degradação Graciosa não é "nice to have", é a diferença entre um serviço
-profissional e um protótipo de fim de semana.
+Sistemas tradicionais tendem a falhar de modo binário (operacional ou
+indisponível). Em sistemas com IA, os modos de falha são graduais: degradação de
+qualidade, aumento de latência, respostas inconsistentes ou conteúdo inadequado.
+A dependência de APIs externas de LLM introduz risco operacional adicional
+(disponibilidade, custo, opacidade e variabilidade). Portanto, modelar
+degradação graciosa é requisito de engenharia, não opcional.
 
 ## Modos de Falha em Sistemas Cognitivos
 
 ### A Nova Taxonomia de Erros
 
-Esqueça apenas `500 Internal Server Error`. Na era da IA, temos:
+Além de erros de infraestrutura (por exemplo, `500 Internal Server Error`),
+sistemas cognitivos exigem uma taxonomia ampliada:
 
-1. **Falhas de Disponibilidade:** A API está fora do ar ou lenta demais
-   (timeout).
-2. **Falhas de Qualidade:** A resposta veio, mas é lixo (alucinação, repetição,
-   corte).
-3. **Falhas de Segurança:** A resposta veio, mas contém dados sensíveis ou
-   prompt injection bem-sucedido.
-4. **Falhas de Custo:** O sistema entrou em loop e está gastando $10/minuto.
+1. **Falhas de disponibilidade:** indisponibilidade, timeout, degradação de
+   throughput ou saturação.
+2. **Falhas de qualidade:** resposta sintaticamente válida, porém semanticamente
+   inadequada (alucinação, omissão crítica, inconsistência).
+3. **Falhas de segurança e conformidade:** vazamento de dados, prompt injection,
+   violação de política.
+4. **Falhas econômicas:** consumo anômalo de tokens/chamadas, retries excessivos
+   e escalada de custo operacional.
 
 ### O Efeito Cascata
 
@@ -76,8 +77,9 @@ Como blindar sua aplicação contra a instabilidade das LLMs:
    LLM e sirva do cache (Redis/Vector DB). É mais rápido, barato e seguro.
 4. [ ] **Monitore "Token Spikes":** Alerte se o consumo de tokens explodir
    repentinamente (indicativo de loop ou ataque).
-5. [ ] **Crie uma UI Otimista:** Não mostre "Carregando...". Mostre que a
-   requisição foi recebida e avise o usuário quando estiver pronto (Async UX).
+5. [ ] **Projete UX assíncrona e informativa:** apresente confirmação de
+   recebimento, estado de processamento e prazo estimado, evitando espera
+   passiva sem feedback.
 
 ## Armadilhas Comuns
 
@@ -85,8 +87,8 @@ Como blindar sua aplicação contra a instabilidade das LLMs:
   "acertar" na próxima. Só aumenta custo e latência.
 - **Falha Silenciosa:** A IA retorna um erro, mas o frontend mostra "Sucesso" ou
   uma caixa vazia.
-- **Single Point of Failure:** Seu produto é apenas um wrapper da OpenAI. Se
-  eles caem, você morre.
+- **Ponto Único de Falha (SPOF):** concentrar a capacidade cognitiva em um único
+  provedor/modelo sem fallback, cache e rotas de contingência.
 - **Ignorar a UX de Latência:** Deixar o usuário olhando para um spinner por 40
   segundos sem feedback de progresso.
 
@@ -140,8 +142,9 @@ def get_summary(text):
   quando a degradação afeta o cliente.
 - Implementar métricas de observabilidade (Tracing) para visualizar a cascata de
   falhas.
-- Testar sua resiliência com **Chaos Engineering** (desligue a internet do
-  servidor e veja o que acontece).
+- Executar experimentos controlados de **Chaos Engineering** em ambiente de
+  teste para validar comportamento sob perda de conectividade, timeout e
+  degradação parcial de dependências.
 
 ## Matriz de Avaliação Consolidada
 
@@ -151,16 +154,26 @@ def get_summary(text):
 | **Custo de Verificação**        | **Médio.** Testes de caos automatizados ajudam, mas cenários complexos exigem análise manual.                              |
 | **Responsabilidade Legal**      | **Alta.** Se seu sistema falha em um momento crítico (ex: emergência médica), a culpa é da sua arquitetura, não da OpenAI. |
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Métricas](../15-software-engineering-economics/index.md)
 
 ## Referências
 
-1. **Nygard, M.** *Release It!: Design and Deploy Production-Ready Software*.
-   Pragmatic Bookshelf.
-2. **Google SRE Book**. *Embracing Risk*.
-3. **Netflix Tech Blog**. *Fault Tolerance in a High Volume, Distributed
-   System*.
+1. NYGARD, Michael T. *Release It!: Design and Deploy Production-Ready
+   Software*. 2. ed. Raleigh, NC: Pragmatic Bookshelf, 2018. ISBN 9781680502398.
+2. ALVIDREZ, Marc. *Embracing Risk*. In: BEYER, Betsy et al. *Site Reliability
+   Engineering: How Google Runs Production Systems*. Sebastopol: O'Reilly Media,
+   2016\. Disponível em: <https://sre.google/sre-book/embracing-risk/>. Acesso
+   em: 06 fev. 2026.
+3. ULRICH, Mike. *Addressing Cascading Failures*. In: BEYER, Betsy et al. *Site
+   Reliability Engineering: How Google Runs Production Systems*. Sebastopol:
+   O'Reilly Media, 2016. Disponível em:
+   <https://sre.google/sre-book/addressing-cascading-failures/>. Acesso em: 06
+   fev. 2026.
+4. BROOKER, Marc. *Timeouts, retries, and backoff with jitter*. Amazon Builders'
+   Library, 2019. Disponível em:
+   <https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/>.
+   Acesso em: 06 fev. 2026.

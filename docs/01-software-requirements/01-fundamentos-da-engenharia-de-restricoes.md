@@ -3,7 +3,7 @@ title: Fundamentos da Engenharia de Restrições
 created_at: '2025-01-31'
 tags: [requisitos, restricoes, fundamentos, engenharia-de-software, llm, contexto]
 status: in-progress
-updated_at: '2026-02-04'
+updated_at: '2026-02-06'
 ai_model: gemini-3-pro-preview
 ---
 
@@ -15,10 +15,11 @@ Na era dos Large Language Models (LLMs), gerar código é trivial e barato; o
 desafio real é impedir que essa geração viole limites de segurança e lógica. A
 Engenharia de Restrições inverte o foco tradicional de "o que construir" para "o
 que não permitir", estabelecendo fronteiras rígidas (*guardrails*) para sistemas
-estocásticos. Sem isso, você não tem software, tem apenas um gerador de texto
-probabilístico e alucinações.
+estocásticos. Sem essas restrições, o sistema tende a operar como um gerador
+probabilístico de texto, sem garantias suficientes de segurança, correção e
+conformidade.
 
-## O Paradigma Shift: De Requisitos para Restrições
+## Mudança de Paradigma: de Requisitos para Restrições
 
 ### A Commoditização da Sintaxe
 
@@ -56,9 +57,9 @@ Classificamos os limites em quatro camadas para operacionalizar a engenharia:
 3. **Restrições de Segurança:** Proteção de dados e infraestrutura. Ex: Não
    processar PII, ignorar instruções de *prompt injection*, rodar código apenas
    em *sandbox* efêmero.
-4. **Restrições de Governança:** Compliance e auditoria. Ex: Logar o
-   "pensamento" (Chain of Thought), exigir aprovação humana para ações
-   financeiras.
+4. **Restrições de Governança:** Compliance e auditoria. Ex: Registrar trilhas
+   de auditoria (entradas, saídas, justificativas estruturadas e metadados de
+   execução), exigir aprovação humana para ações financeiras.
 
 ## O Papel do Contexto
 
@@ -70,10 +71,11 @@ Você decide estrategicamente o que injetar no prompt (RAG) para limitar a
 
 ## Checklist Prático
 
-O que eu faria na empresa amanhã para implementar engenharia de restrições:
+Ações iniciais recomendadas para implementar engenharia de restrições em
+contexto organizacional:
 
-1. [ ] **Definir Whitelist de Ações:** Liste explicitamente as 3-5 coisas que o
-   agente pode fazer. Bloqueie todo o resto no nível da API.
+1. [ ] **Definir Lista de Ações Permitidas (allowlist):** Liste explicitamente
+   as 3-5 coisas que o agente pode fazer. Bloqueie todo o resto no nível da API.
 2. [ ] **Impor Schemas de Saída:** Nunca aceite texto livre para integrações.
    Use Pydantic/Zod para forçar JSON rigoroso.
 3. [ ] **Implementar "Circuit Breakers":** Se o agente gastar mais de $X ou
@@ -83,7 +85,7 @@ O que eu faria na empresa amanhã para implementar engenharia de restrições:
    em casos específicos de avaliação semântica).
 5. [ ] **Sanitizar Inputs:** Trate todo input do usuário como malicioso
    (potencial *prompt injection*).
-6. [ ] **Logar Inputs e Outputs:** Você não consegue depurar um sistema
+6. [ ] **Registrar Entradas e Saídas:** Você não consegue depurar um sistema
    estocástico sem logs exaustivos do par (prompt + resposta).
 
 ## Armadilhas Comuns
@@ -125,8 +127,8 @@ RESTRIÇÕES CRÍTICAS:
 **Trade-offs:**
 
 - **Pró:** Segurança jurídica e responsabilidade. Evita diagnósticos errados.
-- **Contra:** O bot parece "burro" ou "pouco prestativo" se o usuário insistir
-  em ajuda médica. É um preço aceitável.
+- **Contra:** O bot pode parecer limitado ou pouco prestativo se o usuário
+  insistir em ajuda médica. É um preço aceitável.
 
 ## Resumo Executivo
 
@@ -137,7 +139,7 @@ RESTRIÇÕES CRÍTICAS:
   probabilísticas.
 - **Contexto é Fronteira:** O que não está no contexto não existe para o modelo.
 - **Custo de Verificação:** Prepare-se para gastar mais tempo revisando e
-  testando do que "codando".
+  testando do que implementando código.
 
 ## Próximos Passos
 
@@ -156,18 +158,21 @@ RESTRIÇÕES CRÍTICAS:
 | **Custo de Verificação**        | **Alto**. Validar restrições sutis exige sêniores e ferramentas complexas.                              |
 | **Responsabilidade Legal**      | **Crítica**. Falhas aqui resultam em processos, vazamentos e danos reais.                               |
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Métricas](../15-software-engineering-economics/index.md)
 
 ## Referências
 
-1. **IEEE Computer Society**. *Guide to the Software Engineering Body of
-   Knowledge (SWEBOK)*, Version 4.0. 2024.
-2. **OpenAI**. *System Card: GPT-4 System Safety*. 2023.
-3. **Shavit, N., et al.** *Formal Verification of LLM-Generated Code*. arXiv
-   preprint, 2024.
-4. **Polkovnichenko, P.** *Jevons Paradox in AI-Assisted Software Development*.
-   Journal of Software Economics, 2025.
+1. IEEE Computer Society. *Guide to the Software Engineering Body of Knowledge
+   (SWEBOK) Version 4.0a*. 2025. Disponível em:
+   <https://computer.org/education/bodies-of-knowledge/software-engineering/v4>
+2. OpenAI. *GPT-4 System Card*. 2023. Disponível em:
+   <https://cdn.openai.com/papers/gpt-4-system-card.pdf>
+3. Cramer, M.; McIntyre, L. *Verifying LLM-Generated Code in the Context of
+   Software Verification with Ada/SPARK*. arXiv:2502.07728, 2025. Disponível em:
+   <https://arxiv.org/abs/2502.07728>
+4. Alcott, B. *Jevons' Paradox*. Ecological Economics, v. 54, n. 1, p. 9-21,
+   2005\. <https://doi.org/10.1016/j.ecolecon.2005.03.020>

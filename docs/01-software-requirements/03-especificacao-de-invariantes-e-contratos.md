@@ -3,7 +3,7 @@ title: Especificação de Invariantes e Contratos
 created_at: '2025-01-31'
 tags: [invariantes, contratos, especificacao, formal-methods, design-by-contract, verificacao]
 status: in-progress
-updated_at: '2026-02-04'
+updated_at: '2026-02-06'
 ai_model: openai/gpt-5.2
 ---
 
@@ -81,13 +81,15 @@ Garantem níveis mínimos de serviço.
 Como aplicar DbC em seu projeto de IA hoje:
 
 1. [ ] **Defina "Fail-Safe Defaults":** Se a pós-condição falhar, o sistema deve
-   quebrar (*crash*) ou degradar para uma resposta padrão segura (ex: "Não
-   entendi, tente novamente")? Jamais passe o erro silenciosamente.
+   falhar de modo seguro (*fail closed*) ou degradar para resposta padrão segura
+   (ex.: "Não foi possível concluir a solicitação com segurança"). Nunca
+   silencie a falha.
 2. [ ] **Use Bibliotecas de Validação:** Adote Pydantic, Zod ou Instructor.
    Defina tipos fortes para tudo que entra e sai da LLM.
-3. [ ] **Escreva Asserts em Português:** Use a própria LLM para verificar
-   invariantes semânticas complexas. Ex: "Verifique se a resposta B contradiz a
-   resposta A".
+3. [ ] **Escreva Asserções Semânticas Auditáveis:** Use verificadores
+   determinísticos como camada principal e, opcionalmente, LLM-as-a-Judge como
+   camada auxiliar para heurísticas. Ex.: "Verifique se a resposta B contradiz a
+   resposta A", com registro de evidências.
 4. [ ] **Valide URLs e Referências:** Se a IA gerou um link ou citação, escreva
    código que faz um HEAD request para verificar se o link existe (prevenção de
    alucinação de fontes).
@@ -122,7 +124,7 @@ def executar_consulta_gerada(user_prompt: str):
 
     # 2. Invariante de Segurança (Determinística)
     palavras_proibidas = ["DROP", "DELETE", "ALTER", "UPDATE", "GRANT"]
-    if any(word in sql.upper() for word in palavras_proibidas):
+    if not consulta_read_only(sql):  # valida via parser/AST ou allowlist de comandos SELECT
         raise InvarianteViolada("Tentativa de modificação de dados")
 
     # 3. Pós-condição: Sintaxe (Opcional, pode usar EXPLAIN)
@@ -141,8 +143,8 @@ def executar_consulta_gerada(user_prompt: str):
 
 - **Confiança através de Contratos:** Não confie na IA; confie no contrato que
   envolve a IA.
-- **Invariantes são Binárias:** Uma invariante não pode ser "mais ou menos"
-  verdadeira. É True ou False.
+- **Invariantes são binárias:** Uma invariante não pode ser "mais ou menos"
+  verdadeira; ela é verdadeira ou falsa.
 - **Defesa em Profundidade:** Use pré-condições, pós-condições e invariantes
   juntas.
 - **Formalização Pragmática:** Use ferramentas de tipagem do dia a dia (Type
@@ -165,16 +167,21 @@ def executar_consulta_gerada(user_prompt: str):
 | **Custo de Verificação**        | **Alto.** Exige expertise técnica para escrever contratos que não sejam frágeis.            |
 | **Responsabilidade Legal**      | **Crítica.** Contratos bem definidos provam diligência técnica em caso de auditoria.        |
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Métricas](../15-software-engineering-economics/index.md)
 
 ## Referências
 
-1. **Meyer, B.** *Object-Oriented Software Construction*. Prentice Hall, 1997.
-2. **Pressman, R.** *Software Engineering: A Practitioner's Approach*.
-   McGraw-Hill.
-3. **Formal Verification of LLM-Generated Code**. arXiv, 2025.
-4. **VeriGuard: Enhancing LLM Agent Safety**. arXiv, 2025.
+1. Meyer, B. *Object-Oriented Software Construction*. 2nd ed. Prentice Hall,
+   1997\. ISBN: 0-13-629155-4.
+2. Pressman, R. S.; Maxim, B. R. *Software Engineering: A Practitioner's
+   Approach*. 9th ed. McGraw Hill, 2020. ISBN: 978-1259872976.
+3. Councilman, A.; Fu, D. J.; Gupta, A.; Wang, C.; Grove, D.; Wang, Y.-X.; Adve,
+   V. *Towards Formal Verification of LLM-Generated Code from Natural Language
+   Prompts*. arXiv:2507.13290, 2025. DOI: 10.48550/arXiv.2507.13290.
+4. Miculicich, L.; Parmar, M.; Palangi, H.; Dvijotham, K. D.; Montanari, M.;
+   Pfister, T.; Le, L. T. *VeriGuard: Enhancing LLM Agent Safety via Verified
+   Code Generation*. arXiv:2510.05156, 2025. DOI: 10.48550/arXiv.2510.05156.

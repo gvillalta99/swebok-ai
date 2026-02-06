@@ -3,7 +3,7 @@ title: Elicitação de Contexto e Intenção
 created_at: '2025-01-31'
 tags: [elicitacao, contexto, intencao, stakeholders, requisitos, llm]
 status: in-progress
-updated_at: '2026-02-04'
+updated_at: '2026-02-06'
 ai_model: openai/gpt-5.2
 ---
 
@@ -42,8 +42,9 @@ engenharia de requisitos tornou-se um problema de gestão de dados em tempo real
 
 ## Engenharia de Prompt como Especificação
 
-Prompt Engineering não é "arte de falar com robôs"; é a forma mais alto nível de
-codificação. Um prompt bem estruturado é uma especificação executável.
+Prompt engineering não é "arte de falar com robôs"; é uma forma de especificação
+em alto nível, com impacto direto no comportamento do sistema. Um prompt bem
+estruturado é uma especificação executável.
 
 ### 1. System Prompts como Requisitos Não-Funcionais
 
@@ -58,11 +59,13 @@ entrada/saída (*Few-Shot*). Isso reduz a ambiguidade semântica drasticamente.
 Ex: "Entrada: 'O sistema caiu'. Saída: 'Prioridade Alta'. Entrada: 'Mude a cor
 do botão'. Saída: 'Prioridade Baixa'."
 
-### 3. Chain-of-Thought como Validação de Lógica
+### 3. Rastreabilidade de Decisão como Validação de Lógica
 
-Forçar o modelo a "pensar passo a passo" não é apenas para melhorar a precisão;
-é para gerar **logs de auditoria** da intenção. Se o modelo errar, você pode
-inspecionar o raciocínio intermediário.
+Em produção, não dependa da exposição irrestrita do raciocínio interno do modelo
+como mecanismo de auditoria. Prefira exigir **justificativas estruturadas**,
+**citação de fontes recuperadas** e **campos verificáveis** (por exemplo:
+evidência, regra aplicada, confiança), para permitir inspeção e validação sem
+comprometer segurança ou confiabilidade.
 
 ## RAG como Gestão Dinâmica de Requisitos
 
@@ -155,10 +158,10 @@ Sua tarefa é classificar tickets para roteamento automático.
 
 - Ir para **Especificação de Invariantes e Contratos** para técnicas avançadas
   de validação.
-- Consultar **[05-01] Avaliação de RAG** para métricas de qualidade de contexto
-  (Recall/Precision).
-- Revisar **[13-02] Prompt Injection** para entender como usuários maliciosos
-  tentam subverter o contexto.
+- Consultar **KA 05 — Verificação e Validação em Escala**:
+  [index](../05-software-testing/index.md).
+- Revisar **Prompt Injection** em
+  [03-ataques-aplicacoes-llm](../13-software-security/03-ataques-aplicacoes-llm.md).
 
 ## Matriz de Avaliação Consolidada
 
@@ -168,17 +171,28 @@ Sua tarefa é classificar tickets para roteamento automático.
 | **Custo de Verificação**        | **Médio.** Requer inspeção humana dos chunks recuperados pelo RAG.                              |
 | **Responsabilidade Legal**      | **Alta.** Vazamento de dados (se o contexto trouxer PII) ou alucinação crítica.                 |
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Métricas](../15-software-engineering-economics/index.md)
 
 ## Referências
 
-1. **Wei, J., et al. (2022).** "Chain-of-Thought Prompting Elicits Reasoning in
-   Large Language Models." NeurIPS.
-2. **Lewis, P., et al. (2020).** "Retrieval-Augmented Generation for
-   Knowledge-Intensive NLP Tasks." NeurIPS.
-3. **OpenAI Cookbook.** "Techniques to improve reliability." (Documentação
-   Técnica).
+1. WEI, J.; WANG, X.; SCHUURMANS, D. et al. Chain-of-Thought Prompting Elicits
+   Reasoning in Large Language Models. In: Advances in Neural Information
+   Processing Systems (NeurIPS 2022). Disponível em:
+   <https://proceedings.neurips.cc/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html>.
+   Acesso em: 06 fev. 2026.
+2. LEWIS, P.; PEREZ, E.; PIKTUS, A. et al. Retrieval-Augmented Generation for
+   Knowledge-Intensive NLP Tasks. In: Advances in Neural Information Processing
+   Systems (NeurIPS 2020). Disponível em:
+   <https://proceedings.neurips.cc/paper/2020/hash/6b493230205f780e1bc26945df7481e5-Abstract.html>.
+   Acesso em: 06 fev. 2026.
+3. OPENAI. Techniques to improve reliability (artigo arquivado). OpenAI
+   Cookbook, 2022. Disponível em:
+   <https://cookbook.openai.com/articles/techniques_to_improve_reliability>.
+   Acesso em: 06 fev. 2026.
+4. OPENAI. Evaluation best practices. OpenAI API Documentation, 2026. Disponível
+   em: <https://platform.openai.com/docs/guides/evaluation-best-practices>.
+   Acesso em: 06 fev. 2026.

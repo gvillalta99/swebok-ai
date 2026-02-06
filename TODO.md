@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/01-software-requirements/01-fundamentos-da-engenharia-de-restricoes.md
-- @book-reviewer review docs/01-software-requirements/02-elicitacao-de-contexto-e-intencao.md
-- @book-reviewer review docs/01-software-requirements/03-especificacao-de-invariantes-e-contratos.md
-- @book-reviewer review docs/01-software-requirements/04-modelagem-de-degradacao-graciosa-e-falhas.md
-- @book-reviewer review docs/01-software-requirements/05-governanca-e-responsabilidade-em-requisitos.md
 - @book-reviewer review docs/01-software-requirements/06-gestao-de-variabilidade-e-evolucao.md
 - @book-reviewer review docs/01-software-requirements/07-ferramentas-e-tecnicas-modernas.md
 - @book-reviewer review docs/01-software-requirements/index.md
