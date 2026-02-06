@@ -88,8 +88,8 @@ mais rápido que humanos?**
 
 ## O Que Você Vai Aprender
 
-O SWEBOK-AI v5.0 organiza o conhecimento em 16 Knowledge Areas (KAs),
-reconfigurados para o paradigma AI-First e precedidos pelo Capitulo 00:
+O SWEBOK-AI v5.0 organiza o conhecimento em 15 Knowledge Areas (KAs oficiais
+01-15), com 00 (Introdução) e 16 (Apêndice) como blocos estruturais:
 
 ### Fundamentos
 
@@ -108,7 +108,7 @@ reconfigurados para o paradigma AI-First e precedidos pelo Capitulo 00:
 | 5        | [Verificação e Validação em Escala](05-software-testing/01-fundamentos-verificacao-ia.md)                         | Testar sistemas não-determinísticos   |
 | 6        | [Engenharia de Operações de Software](06-software-engineering-operations/01-fundamentos-operacoes-sistemas-ia.md) | Operações em ambientes com IA         |
 | 7        | [Manutenção de Sistemas Opaços](07-software-maintenance/01-fundamentos-de-manutencao-de-sistemas-opacos.md)       | Manter código que você não escreveu   |
-| 8-16     | Knowledge Areas em Expansão                                                                                       | Em desenvolvimento ativo              |
+| 8-15     | Knowledge Areas em Expansão                                                                                       | Em desenvolvimento ativo              |
 
 !!! tip "Comece Aqui" Novo no SWEBOK-AI? Leia o
 [Capítulo 0: O Fim da Codificação](00-new-era/01-contexto-revolucao-llms.md)

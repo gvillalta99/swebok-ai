@@ -78,11 +78,12 @@ Adotar **Abordagem A (rigida/centralizada)** para governança de longo prazo:
 
 ## Plano de Migracao
 
-1. Atualizar texto-mestre em `docs/README.md`.
-2. Atualizar narrativa estrutural em
+1. Atualizar texto-mestre público em `docs/index.md`.
+2. Atualizar guia interno em `docs/README.md` (sem duplicar a home pública).
+3. Atualizar narrativa estrutural em
    `docs/00-new-era/04-estrutura-organizacao.md`.
-3. Atualizar labels de navegação no `mkdocs.yml`.
-4. Registrar decisão em ADR editorial (fora do escopo deste arquivo).
+4. Atualizar labels de navegação no `mkdocs.yml`.
+5. Registrar decisão em ADR editorial (fora do escopo deste arquivo).
 
 ## Matriz de Avaliacao
 
