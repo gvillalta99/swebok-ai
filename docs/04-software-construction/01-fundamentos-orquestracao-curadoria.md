@@ -3,31 +3,30 @@ title: Fundamentos de Orquestração e Curadoria
 created_at: '2025-01-31'
 tags: [software-construction, orquestracao, curadoria, fundamentos, ia]
 status: in-progress
-updated_at: '2026-02-04'
-ai_model: google/gemini-2.0-flash
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Fundamentos de Orquestração e Curadoria de Código
 
-A construção de software mudou fundamentalmente: deixamos de ser digitadores de
-sintaxe para nos tornarmos gerentes de probabilidade. Com 82% dos
-desenvolvedores utilizando IA semanalmente (Netcorp, 2025), o desafio não é mais
-produzir código, mas gerenciar a avalanche de linhas geradas. Se o custo de
-geração tende a zero, o valor se desloca inteiramente para a orquestração do
-contexto e a curadoria rigorosa do resultado. Quem não entender essa inversão
-será soterrado por dívida técnica gerada automaticamente.
+A construção de software mudou de forma estrutural: a geração de código
+tornou-se amplamente automatizada, enquanto a responsabilidade por contexto,
+integração e qualidade permanece humana. Em vez de maximizar linhas produzidas,
+equipes de alta performance maximizam a confiabilidade das decisões técnicas.
+Nesse cenário, o valor migra da digitação para a orquestração de contexto e para
+a curadoria rigorosa dos artefatos gerados.
 
 ## O Novo Papel: De Executor a Editor-Chefe
 
-Esqueça a imagem do programador solitário lutando contra uma tela preta. O novo
-paradigma é editorial. Você é o editor-chefe; os LLMs são estagiários savants —
-incrivelmente rápidos, enciclopédicos, mas propensos a alucinações e desprovidos
-de julgamento contextual.
+O paradigma atual é editorial: o engenheiro atua como responsável técnico pelas
+decisões, enquanto os LLMs operam como assistentes de alta velocidade, porém com
+limitações de contexto, consistência e julgamento situacional.
 
-A produtividade aumentou (78% relatam ganhos, segundo Qodo, 2025), mas a
-qualidade está em risco. Apenas 59% observam melhoria na qualidade, enquanto 21%
-já notam degradação explícita. Isso acontece porque confundimos velocidade de
-digitação com velocidade de entrega de valor.
+A adoção de IA já é ampla: 82% dos desenvolvedores usam ferramentas de IA diária
+ou semanalmente (Qodo, 2025). Entretanto, a confiança ainda é limitada: no Stack
+Overflow Developer Survey 2024, 76% afirmam usar ou planejar usar IA, mas apenas
+43% confiam na precisão das respostas (Stack Overflow, 2024). Produtividade e
+governança, portanto, precisam evoluir em conjunto.
 
 ### Orquestração: Definindo o Palco
 
@@ -67,10 +66,12 @@ legal e técnica por código que você não escreveu.
 4. **Audite a Lógica, Não a Sintaxe:** Configure seu IDE para formatar
    automaticamente. Gaste sua energia cognitiva verificando se a lógica de
    negócios atende aos requisitos.
-5. **Documente o Prompt:** Para lógicas complexas, adicione um comentário no
-   código com o resumo da intenção ou o prompt que o gerou.
-6. **Rejeite o Medíocre:** Se o código gerado é confuso ou "verboso", apague e
-   peça de novo. Não refatore lixo; regenere com melhores instruções.
+5. **Documente a Intenção Técnica:** Para lógicas complexas, registre decisão,
+   premissas e critérios de aceitação no PR, ADR ou documentação do módulo;
+   evite expor prompts sensíveis diretamente no código-fonte.
+6. **Recuse Saídas de Baixa Qualidade:** Quando o resultado estiver
+   inconsistente com requisitos e padrões, refine contexto e restrições e
+   regenere. Evite incorporar código apenas porque foi produzido rapidamente.
 
 ## Armadilhas Comuns (Anti-Patterns)
 
@@ -119,21 +120,27 @@ legal e técnica por código que você não escreveu.
 
 ## Próximos Passos
 
-- Ler o **KA 02 (Pipeline de Verificação)** para automatizar a barreira contra
-  código ruim.
-- Consultar o **KA 06 (Ferramentas)** para escolher a stack de orquestração
-  adequada.
+- Ler a **Seção 02 deste KA (Pipeline de Verificação e Integração)** para
+  automatizar barreiras contra regressões.
+- Consultar a **Seção 06 deste KA (Ferramentas e Tecnologias)** para selecionar
+  a stack de orquestração e curadoria.
 - Revisar suas configurações de linter para serem implacáveis com estilo,
   liberando você para focar na lógica.
 
-## Ver tambem
+## Ver também
 
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 06 - Operações de Engenharia](../06-software-engineering-operations/index.md)
 
 ## Referências
 
-1. Netcorp, "AI-Generated Code Statistics 2026: Can AI Replace Your Developer?",
-   Netcorp Blog, 2026.
-2. Qodo, "State of AI Code Quality in 2025", Qodo Reports, 2025.
+1. Qodo. *2025 State of AI Code Quality*. 2025. Disponível em:
+   <https://www.qodo.ai/reports/state-of-ai-code-quality/>. Acesso em: 6 fev.
+   2026\.
+2. Stack Overflow. *AI | 2024 Developer Survey*. 2024. Disponível em:
+   <https://survey.stackoverflow.co/2024/ai/>. Acesso em: 6 fev. 2026.
+3. Stack Overflow. *Stack Overflow's 2024 Developer Survey Shows the Gap Between
+   AI Use and Trust*. 2024. Disponível em:
+   <https://stackoverflow.co/company/press/archive/stack-overflow-2024-developer-survey-gap-between-ai-use-trust/>.
+   Acesso em: 6 fev. 2026.

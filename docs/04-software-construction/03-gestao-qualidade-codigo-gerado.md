@@ -3,19 +3,18 @@ title: Gestão de Qualidade de Código Gerado
 created_at: '2025-01-31'
 tags: [software-construction, qualidade, codigo-gerado, metricas, divida-tecnica, ia]
 status: in-progress
-updated_at: '2026-02-04'
-ai_model: google/gemini-2.0-flash
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Gestão de Qualidade de Código Gerado
 
-A ilusão da IA é a fluidez: o código parece limpo, bem formatado e confiante.
-Mas por baixo da superfície, métricas reais mostram um cenário preocupante.
-Dados do GitClear (2025) revelam um aumento de 4x na duplicação de código e uma
-queda drástica na refatoração (de 25% para menos de 10% das linhas alteradas)
-desde a explosão dos assistentes de IA. Estamos construindo montanhas de código
-"copy-paste" que funcionam hoje, mas serão impossíveis de manter amanhã. Gerir
-qualidade agora significa policiar ativamente a dívida técnica invisível.
+A adoção de assistentes de IA elevou a velocidade de produção de código, mas
+também ampliou riscos de manutenção. Evidências recentes indicam aumento de
+duplicação e redução de atividades de refatoração em repositórios analisados em
+larga escala (GitClear, 2025). Nesse contexto, a gestão de qualidade deve
+priorizar métricas de evolutividade, reuso e retrabalho, com governança
+explícita para dívida técnica.
 
 ## O Declínio da Refatoração e a Ascensão do Churn
 
@@ -28,9 +27,9 @@ por cima. Ninguém refatora. Isso cria um codebase inchado, repetitivo e frágil
 Esqueça a contagem de linhas ou a cobertura de testes bruta. As métricas de
 saúde mudaram:
 
-1. **Code Churn (Retrabalho):** Se o código gerado é alterado significativamente
-   nas duas semanas seguintes ao commit, é sinal de que a IA gerou lixo
-   plausível que precisou de correção humana tardia.
+1. **Code churn (retrabalho):** alterações substantivas em curto intervalo após
+   o merge podem indicar baixa aderência ao contexto arquitetural ou requisitos
+   incompletos no prompt e na revisão.
 2. **Taxa de Duplicação:** O "copy-paste" é o vício da IA. Ela não reutiliza;
    ela reescreve. Monitore isso obsessivamente.
 3. **Densidade de Refatoração:** Se seus commits são apenas "features novas" e
@@ -54,11 +53,12 @@ Os cheiros mudaram. Em vez de "métodos longos" (que linters pegam), temos:
    \> 3%).
 2. **Force a Refatoração:** Estabeleça a regra do escoteiro: todo PR gerado por
    IA deve incluir uma pequena refatoração de código vizinho.
-3. **Delete sem Piedade:** Código morto ou comentado gerado pela IA
-   ("alternativas que podem ser úteis") deve ser deletado imediatamente.
-4. **Revise a Complexidade Cognitiva:** Use métricas de complexidade
-   ciclomática. Se a IA gerou uma função com complexidade 15, rejeite. Peça para
-   ela quebrar em funções menores.
+3. **Remova código morto de forma sistemática:** blocos comentados, alternativas
+   não utilizadas e funções órfãs devem ser eliminados no mesmo ciclo de
+   revisão.
+4. **Controle complexidade com critérios explícitos:** acompanhe complexidade
+   ciclomática e, quando aplicável, complexidade cognitiva; rejeite funções
+   acima do limite definido pela equipe e exija decomposição.
 5. **Monitore o Churn:** Use ferramentas de análise de repositório para ver
    quais arquivos têm alta rotatividade. Esses são os locais onde a IA
    provavelmente está errando a arquitetura.
@@ -101,10 +101,10 @@ ela "alucinou" no momento.
 - **Refatoração é Manual:** A IA não refatora espontaneamente; ela acumula. O
   humano deve forçar a limpeza.
 - **Novas Métricas:** Monitore *Code Churn* e *Duplicação* acima de tudo.
-- **Entendimento > Funcionamento:** Código que funciona mas ninguém entende é
-  passivo tóxico.
-- **Limpeza Constante:** Mantenha o código magro. A IA tende à obesidade mórbida
-  de código.
+- **Compreensão precede aceitação:** código funcional sem entendimento técnico
+  suficiente aumenta risco operacional e custo futuro.
+- **Qualidade é processo contínuo:** reduzir duplicação e manter refatoração
+  recorrente preserva manutenibilidade em ambientes assistidos por IA.
 
 ## Próximos Passos
 
@@ -114,18 +114,26 @@ ela "alucinou" no momento.
   profundidade do problema.
 - Implementar uma política de "Boy Scout Rule" para commits assistidos por IA.
 
-## Ver tambem
+## Ver também
 
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 06 - Operações de Engenharia](../06-software-engineering-operations/index.md)
 
 ## Referências
 
-1. GitClear, "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code
-   Duplication", 2025.
-2. Qodo, "State of AI Code Quality in 2025", 2025.
-3. Arbisoft, "The Dark Side of Vibe-Coding: Debugging, Technical Debt and
-   Security Risks", 2025.
-4. CERFACS, "The Impact of AI-Generated Code on Technical Debt and Software
-   Metrics", 2025.
+1. GitClear. *AI Copilot Code Quality: 2025 Look Back at 12 Months of Data*.
+   2025\. Disponível em:
+   <https://www.gitclear.com/ai_assistant_code_quality_2025_research>. Acesso
+   em: 6 fev. 2026.
+2. Qodo. *2025 State of AI Code Quality*. 2025. Disponível em:
+   <https://www.qodo.ai/reports/state-of-ai-code-quality/>. Acesso em: 6 fev.
+   2026\.
+3. Manzoor, A. *The Dark Side of Vibe-Coding: Debugging, Technical Debt &
+   Security Risks*. Arbisoft Blog, 2025. Disponível em:
+   <https://arbisoft.com/blogs/the-dark-side-of-vibe-coding-debugging-technical-debt-and-security-risks>.
+   Acesso em: 6 fev. 2026.
+4. Dauptain, A. *The Impact of AI-Generated Code on Technical Debt and the Need
+   for Accelerated Codebase Appraisal*. The COOP Blog (CERFACS), 2025.
+   Disponível em: <https://cerfacs.fr/coop/hpcsoftware-codemetrics-kpis>. Acesso
+   em: 6 fev. 2026.

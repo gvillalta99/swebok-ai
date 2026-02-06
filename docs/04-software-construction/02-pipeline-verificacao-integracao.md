@@ -3,8 +3,8 @@ title: Pipeline de Verificação e Integração
 created_at: '2025-01-31'
 tags: [software-construction, pipeline, verificacao, integracao, cicd, ia]
 status: in-progress
-updated_at: '2026-02-04'
-ai_model: google/gemini-2.0-flash
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Pipeline de Verificação e Integração
@@ -33,33 +33,35 @@ verificação é contínua e escalonada:
 3. **Verificação Sintática (Máquina):** Linters e formatadores corrigem ou
    rejeitam estilos desviantes imediatamente.
 4. **Verificação Semântica (Máquina):** Testes unitários e, crucialmente,
-   *Property-Based Tests* verificam se a lógica se sustenta sob stress.
+   *Property-Based Tests* verificam se a lógica se sustenta sob estresse.
 5. **Verificação Comportamental (Máquina):** Testes de integração garantem que a
    "peça" encaixa no quebra-cabeça.
-6. **Curadoria (Humano):** Só agora, com todos os check verdes, o humano gasta
-   tempo revisando a intenção e a segurança.
+6. **Curadoria (Humano):** Só agora, com todos os checks aprovados, o humano
+   gasta tempo revisando a intenção e a segurança.
 
 ### Zero Trust na Integração
 
-Não confie na saída do modelo, mesmo que o prompt tenha sido perfeito. A IA pode
-importar pacotes que não existem (ataque de *dependency confusion*) ou usar
-funções depreciadas. O pipeline deve ter passos explícitos de análise estática
-de segurança (SAST) que rodam *antes* dos testes unitários.
+Não confie na saída do modelo, mesmo com prompts bem especificados. A IA pode
+sugerir dependências inexistentes ou ambíguas, abrindo espaço para typosquatting
+e dependency confusion, além de reutilizar APIs obsoletas. O pipeline deve
+incluir análise estática de segurança (SAST) em estágio inicial e tratá-la como
+gate obrigatório de aprovação.
 
 ## Checklist Prático: O Que Fazer Amanhã
 
 1. **Bloqueie a Branch Principal:** Ninguém, nem você nem o agente, faz commit
    direto na `main`. Tudo via Pull Request.
-2. **Linting como Guardião:** Configure o pre-commit para rodar linters (ex:
-   Ruff, ESLint). Se o estilo estiver errado, o commit nem deve acontecer.
+2. **Linting como Guardião:** Configure hooks de pre-commit para validação
+   automática (ex.: `ruff check --fix .`, `ruff format .`, ESLint). Se o código
+   não atender ao padrão, o commit deve ser bloqueado.
 3. **SAST Obrigatório:** Inclua ferramentas como Semgrep ou SonarQube no
    pipeline. Configure para falhar o build em qualquer vulnerabilidade "High" ou
    "Critical".
 4. **Testes de Propriedade:** Adicione pelo menos um teste baseado em
    propriedades (ex: Hypothesis em Python) para funções críticas geradas. A IA é
    péssima em edge cases; esses testes os encontram.
-5. **Audit de Dependências:** Automatize a verificação de novos pacotes. Se o PR
-   adiciona uma dependência, ele deve exigir aprovação humana explícita.
+5. **Auditoria de Dependências:** Automatize a verificação de novos pacotes. Se
+   o PR adiciona uma dependência, ele deve exigir aprovação humana explícita.
 6. **Clean Up Automático:** Configure o pipeline para destruir ambientes de
    teste efêmeros após a execução. Código de IA pode deixar "sujeira" (arquivos
    temporários, conexões abertas).
@@ -82,7 +84,8 @@ de segurança (SAST) que rodam *antes* dos testes unitários.
 
 **Fluxo Automatizado:**
 
-1. **Pre-commit (Local):** `ruff check .` corrige imports e formatação.
+1. **Pre-commit (Local):** `ruff check --fix .` e `ruff format .` aplicam
+   correções automáticas e padronização.
 2. **Commit:** O código sobe limpo.
 3. **CI (GitHub Actions):**
    - `bandit -r .` (Segurança): Detecta uso de `exec()` que o agente achou
@@ -115,15 +118,22 @@ Sem isso, o `exec()` teria passado despercebido em um review apressado.
 - Revisar o **KA 04 (CI/CD)** para aprofundar na infraestrutura de deployment
   contínuo.
 
-## Ver tambem
+## Ver também
 
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 06 - Operações de Engenharia](../06-software-engineering-operations/index.md)
 
 ## Referências
 
-1. DZone, "Copilot Code and CI/CD: Securing AI-Generated Code", 2026.
-2. ResearchGate, "AI-Enhanced Continuous Integration and Deployment", 2025.
-3. JavaPro, "The AI Mona Lisa Challenge: Precision and Security Adjustments for
-   Your CI/CD Pipeline", 2024.
+1. NIST. *Secure Software Development Framework (SSDF) Version 1.1* (SP
+   800-218), 2022. <https://csrc.nist.gov/pubs/sp/800/218/final>
+2. OWASP Foundation. *CI/CD Security Cheat Sheet*.
+   <https://cheatsheetseries.owasp.org/cheatsheets/CI_CD_Security_Cheat_Sheet.html>
+3. OWASP Foundation. *OWASP Top 10 CI/CD Security Risks*, 2025.
+   <https://owasp.org/www-project-top-10-ci-cd-security-risks/>
+4. SLSA Framework. *SLSA Specification v1.2*. <https://slsa.dev/spec/latest/>
+5. (Leitura complementar) DZone. *Copilot, Code, and CI/CD: Securing
+   AI-Generated Code in DevOps Pipelines*, 2026.
+6. (Leitura complementar) Poole, S. *The AI Mona Lisa Challenge: Precision and
+   Security Adjustments for Your CI/CD Pipeline*, JAVAPRO International, 2024.

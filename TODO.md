@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/03-software-design/index.md
-- @book-reviewer review docs/04-software-construction/01-fundamentos-orquestracao-curadoria.md
-- @book-reviewer review docs/04-software-construction/02-pipeline-verificacao-integracao.md
-- @book-reviewer review docs/04-software-construction/03-gestao-qualidade-codigo-gerado.md
-- @book-reviewer review docs/04-software-construction/04-cicd-sistemas-ia.md
 - @book-reviewer review docs/04-software-construction/05-padroes-colaboracao-humano-ia.md
 - @book-reviewer review docs/04-software-construction/06-ferramentas-tecnologias.md
 - @book-reviewer review docs/04-software-construction/index.md
