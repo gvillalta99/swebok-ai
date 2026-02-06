@@ -1,197 +1,82 @@
 ---
-title: Documentação de Sistemas Opacos
-created_at: '2026-01-31'
-tags: [arquitetura, documentacao, sistemas-opacos, transparencia, model-cards, prompt-engineering]
-status: review
-updated_at: '2026-02-04'
-ai_model: google/gemini-3-pro-preview
+title: "Documentação Arquitetural para Sistemas Opacos"
+created_at: "2025-05-21"
+tags: ["documentacao", "adrs", "model-cards", "arquitetura", "swebok-ai"]
+status: "review"
+updated_at: "2025-05-21"
+ai_model: "claude-3.5-sonnet"
 ---
 
-# Documentação de Sistemas Opacos
+# 7. Documentação Arquitetural para Sistemas Opacos
 
-## Contexto
+## Overview
 
-A máxima "código limpo é auto-documentável" morreu. Em sistemas baseados em
-LLMs, a lógica de negócio não reside mais em `if/else` legíveis, mas em pesos
-probabilísticos (weights) e vetores de atenção opacos. Ler o código Python que
-chama a API da OpenAI não explica *por que* o sistema decidiu aprovar um crédito
-ou negar um reembolso.
+A documentação de software tradicional (diagramas UML, Swagger) foca em estrutura e interfaces determinísticas. Em sistemas com IA, a complexidade reside no comportamento emergente e nos dados. Documentar um sistema híbrido exige explicar não apenas como os componentes se conectam, mas *por que* certas escolhas de modelo foram feitas, quais dados alimentam o sistema e quais são as limitações conhecidas de segurança e viés.
 
-A documentação na Era da IA deixa de ser sobre *sintaxe* e passa a ser sobre
-*intenção, linhagem e restrições*. Se você não documentar o prompt, os dados de
-RAG e os critérios de rejeição, você não tem um software; você tem uma caixa
-preta não auditável que é um passivo jurídico esperando para explodir.
+Esta seção adapta práticas de documentação para capturar a natureza opaca e experimental dos componentes de IA.
 
 ## Learning Objectives
 
-- **Migrar** de documentação de código (Javadoc/pydoc) para documentação de
-  comportamento e intenção.
-- **Implementar** Model Cards e System Cards como requisitos de deploy, não
-  artefatos burocráticos.
-- **Rastrear** a linhagem de dados (Data Lineage) para garantir que alucinações
-  possam ser depuradas até a fonte.
-- **Formalizar** o "Espaço Negativo": documentar explicitamente onde e por que a
-  IA *não* é utilizada.
+Após estudar esta seção, o leitor deve ser capaz de:
 
-## O Paradigma Shift: De Sintaxe para Semântica
+1.  **Criar** *System Cards* que explicam o propósito e limites do sistema para stakeholders não técnicos.
+2.  **Registrar** decisões de design de IA (AI-ADRs) para justificar escolha de modelos e estratégias de RAG.
+3.  **Documentar** a linhagem de dados e prompts como ativos de software.
 
-| Documentação Tradicional (v4)                     | Documentação SWEBOK-AI (v5)                                                      |
-| ------------------------------------------------- | -------------------------------------------------------------------------------- |
-| **Foco:** Como a função executa (algoritmo).      | **Foco:** Por que o prompt foi desenhado assim (intenção).                       |
-| **Artefato:** Comentários inline, UML.            | **Artefato:** Prompt Catalog, Model Cards, RAG Manifest.                         |
-| **Verdade:** O código fonte.                      | **Verdade:** O dataset de treino/contexto e os testes de avaliação (evals).      |
-| **Drift:** Código desatualizado em relação à doc. | **Drift:** Modelo mudou comportamento (drift estocástico) sem mudança de código. |
+## 7.1 System Cards e Model Cards
 
-______________________________________________________________________
+Enquanto *Model Cards* descrevem o modelo técnico (ex: GPT-4), *System Cards* descrevem o produto construído sobre ele.
 
-## Conteúdo Técnico
+### Estrutura de um System Card
+*   **Intenção de Uso**: Para que o sistema serve (e para que NÃO serve).
+*   **Limitações Conhecidas**: "O sistema pode alucinar em tópicos médicos", "O conhecimento corta em 2023".
+*   **Métricas de Performance**: Taxa de acerto em testes de benchmark internos.
+*   **Considerações Éticas**: Riscos de viés identificados e mitigados.
 
-### 1. Model Cards e System Cards (A "Bula" do Remédio)
+## 7.2 AI-ADRs (Artificial Intelligence Architecture Decision Records)
 
-Não invente formatos. Adote o padrão da indústria (Google/Hugging Face) para
-documentar o que você está rodando. Um modelo sem card não sobe para produção.
+Decisões em projetos de IA são frequentemente baseadas em experimentação empírica ("O modelo X funcionou melhor que o Y"). Isso deve ser formalizado.
 
-- **Model Card:** Focado no artefato técnico (ex: GPT-4o, Llama-3-70b).
-  - *Limitações:* "Não sabe matemática complexa", "Corte de conhecimento em
-    2023".
-  - *Viés:* "Tende a gerar código Python verboso".
-- **System Card:** Focado no produto final que usa o modelo.
-  - *Human-in-the-loop:* Onde o humano entra?
-  - *Fallbacks:* O que acontece se a API cair ou o score de confiança for baixo?
+### Template de AI-ADR
+*   **Contexto**: Precisávamos resumir textos jurídicos de 50 páginas.
+*   **Opções Avaliadas**: GPT-3.5 (falhou na janela), Claude 2 (bom, mas lento), GPT-4-Turbo (escolhido).
+*   **Decisão**: Usar GPT-4-Turbo com *map-reduce* para documentos longos.
+*   **Consequências**: Custo mais alto por documento, latência de 30s aceita pelo negócio.
 
-### 2. Catálogo de Prompts (Prompts as Config)
+## 7.3 Documentando Fluxos Cognitivos
 
-Prompts são a nova lógica de negócio. Eles não podem ficar hardcoded em strings
-espalhadas pelo código.
+Diagramas de sequência tradicionais falham em capturar a lógica de agentes.
 
-- **Versionamento:** Prompts devem ter versões (v1.0, v1.1) e changelog.
-  "Adicionada instrução para negar solicitações em JSON inválido".
-- **Intenção:** Cada bloco do prompt deve ter um comentário explicando o
-  *porquê*.
-  - *Exemplo:* "A instrução 'pense passo a passo' foi adicionada para reduzir
-    alucinações em cálculos de juros (Issue #402)."
-- **Few-Shot Examples:** Documente a origem dos exemplos usados no prompt. Eles
-  são dados reais anonimizados? São sintéticos?
+### Diagramas de Fluxo de Prompt
+*   Visualizar a cadeia de prompts: Prompt A (Classificação) -> Decisão (Lógica) -> Prompt B (Extração) ou Prompt C (Resposta Padrão).
+*   Mapear onde o "Humano no Loop" entra.
+*   Explicar a estratégia de recuperação de contexto (RAG) em cada passo.
 
-### 3. Linhagem de Dados (Data Lineage)
+## Practical Considerations
 
-Em sistemas RAG (Retrieval-Augmented Generation), a resposta da IA é função
-direta dos documentos recuperados.
+### Documentação Viva
+Prompts mudam mais rápido que código. A documentação dos prompts deve, idealmente, estar junto ao código ou no próprio *Prompt Registry*, gerada automaticamente onde possível.
 
-- **Traceability:** Se o bot respondeu "X", qual chunk de documento (ID, versão,
-  autor) gerou isso?
-- **Exclusão:** Como garantimos que documentos obsoletos ou revogados legalmente
-  não estão mais no índice vetorial? Documente o processo de *unlearning* ou
-  reindexação.
+### Linhagem de Dados (Data Lineage)
+Para sistemas RAG, documente a origem dos dados: "O bot de RH responde com base nos PDFs da pasta X do SharePoint, atualizados semanalmente". Sem isso, é impossível depurar respostas desatualizadas.
 
-### 4. O "Espaço Negativo" (Why NOT AI)
+## Summary
 
-Tão importante quanto documentar onde usamos IA, é documentar onde **proibimos**
-seu uso.
-
-- **Decisões de Arquitetura (ADR):** "Decidimos usar regex determinístico para
-  validação de CPF, e não LLM, devido ao custo e risco de erro probabilístico."
-- **Zonas de Exclusão:** Criptografia, autenticação, cálculos financeiros de
-  precisão, decisões de vida ou morte.
-
-______________________________________________________________________
-
-## Checklist Prático (O que fazer amanhã)
-
-1. [ ] **Centralizar Prompts:** Mover todos os prompts hardcoded para arquivos
-   de configuração (YAML/JSON) ou um CMS de prompts.
-2. [ ] **Criar System Card:** Escrever um documento de 1 página descrevendo as
-   limitações do seu principal recurso de IA.
-3. [ ] **Versionar Contexto:** Se você usa RAG, o índice vetorial tem versão? Se
-   o cliente reclamar de uma resposta de ontem, você consegue reproduzir o
-   estado do índice daquele momento?
-4. [ ] **Documentar Fallbacks:** Onde está escrito o que o sistema faz quando a
-   LLM alucina ou falha? (Ex: "Transfere para humano", "Retorna erro genérico").
-5. [ ] **Logar Inputs/Outputs:** Garantir que *todo* par prompt/response seja
-   logado com ID de correlação para auditoria (respeitando PII).
-6. [ ] **Definir Owner:** Quem é o CPF responsável por atualizar o System Card
-   quando o modelo for atualizado?
-
-______________________________________________________________________
-
-## Armadilhas Comuns
-
-- **Documentar o Output:** Tentar descrever "o que o bot diz". Inútil, pois muda
-  a cada execução. Documente as *restrições* impostas ao bot.
-- **Confiar na Auto-Explicação:** Pedir para o modelo explicar "por que você
-  escolheu isso?". LLMs confabulam racionalizações convincentes mas falsas. Não
-  use isso como log de auditoria.
-- **Esquecer o Custo:** Não documentar a estimativa de tokens. Um prompt mal
-  otimizado pode custar 10x mais. Documente o custo esperado por transação.
-- **Ignorar o Drift de Modelo:** O modelo da OpenAI/Anthropic muda por trás da
-  API. Se sua documentação assume o comportamento de 6 meses atrás, ela é
-  perigosa.
-
-______________________________________________________________________
-
-## Exemplo Mínimo: Sistema de Análise Contratual
-
-**Cenário:** Um sistema que lê PDFs de contratos e extrai cláusulas de multa.
-
-**Decisão Arquitetural (ADR-012):**
-
-- **Modelo:** GPT-4-Turbo (temperatura 0).
-- **Restrição:** O modelo **apenas extrai** texto. O cálculo do valor da multa é
-  feito por código Python determinístico.
-- **Justificativa:** LLMs falham em aritmética. Precisamos de auditabilidade
-  contábil.
-- **Lineage:** Cada extração deve vir acompanhada da página e parágrafo do PDF
-  original (citação obrigatória).
-
-**Documentação do Prompt (v2.1):**
-
-```yaml
-prompt_id: contract_extraction_v2
-intent: "Extrair cláusulas de rescisão sem interpretar valores."
-constraints:
-  - "Não converta moedas."
-  - "Se a cláusula for ambígua, retorne NULL."
-changelog:
-  - "v2.1: Adicionado few-shot example de contrato de leasing (fix erro #99)."
-```
-
-______________________________________________________________________
-
-## Resumo Executivo
-
-- **Código não conta a história toda:** Em IA, o comportamento emerge da
-  interação entre Modelo + Prompt + Dados. Documente essa tríade.
-- **Prompts são ativos de engenharia:** Trate-os com a mesma rigo de
-  versionamento e review que o código C++.
-- **Transparência é segurança:** System Cards protegem a empresa ao explicitar o
-  que o sistema *não* consegue fazer.
-- **Rastreabilidade é lei:** Em RAG, saber qual documento gerou a resposta é
-  obrigatório para debugging e compliance.
-- **Defina o não-uso:** Documente explicitamente onde a IA é proibida para
-  evitar "creep" de uso indevido por desenvolvedores júnior.
-
-## Próximos Passos
-
-- Estudar o framework **CLeAR** (Comparable, Legible, Actionable, Robust) para
-  documentação de IA.
-- Implementar ferramentas de **LLM Observability** (ex: LangSmith, Arize) para
-  gerar documentação viva de latência e qualidade.
-- Revisar o capítulo de **Engenharia de Restrições** para alinhar a documentação
-  com os guardrails implementados.
-
-______________________________________________________________________
+*   Documentação de IA deve focar em comportamento, dados e limitações, não apenas em APIs.
+*   System Cards são essenciais para transparência com usuários finais.
+*   Registrar o "porquê" das escolhas de modelos (ADRs) evita retrabalho em experimentos futuros.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                                                | Avaliação                                                                                                      |
-| ------------------------------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa**. Modelos mudarão, mas a necessidade de explicar *por que* e *como* usamos (compliance) só aumentará. |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Requer revisão humana qualificada para garantir que a documentação reflete a realidade estocástica. |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. Documentação falha ou ausente em sistemas de decisão opaca é passivo jurídico imediato.           |
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Transparência e governança são requisitos perenes. |
+| **Custo de Verificação** | Quanto custa validar esta atividade? | **Baixo**. Documentação é um esforço humano de baixo custo técnico, mas alto valor organizacional. |
+| **Responsabilidade Legal** | Quem responde pelo erro? | **Alta**. System Cards funcionam como "bulas" ou contratos de nível de serviço (SLA) implícitos sobre a segurança do sistema. |
 
 ## References
 
-1. Mitchell, M., et al. (2019). "Model Cards for Model Reporting." FAT\* 2019.
-2. Google. (2023). "The PaLM 2 Technical Report" (Exemplo de System Card).
-3. Hugging Face. "Model Card Guide".
-4. OpenAI. "System Card for GPT-4".
+1.  **Mitchell, M., et al.** (2019). *Model Cards for Model Reporting*. FAT* '19.
+2.  **Google**. (2023). *PaLM 2 System Card*. Google AI.
+3.  **Meta**. (2023). *Llama 2: Open Foundation and Chat Models* (Seção de System Card).
+4.  **Gebru, T., et al.** (2021). *Datasheets for Datasets*. CACM.

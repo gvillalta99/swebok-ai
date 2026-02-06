@@ -1,214 +1,89 @@
 ---
-title: Design para Auditabilidade e Rastreamento
-created_at: '2026-01-31'
-tags: [arquitetura, auditabilidade, rastreamento, observability, compliance]
-status: review
-updated_at: '2026-02-04'
-ai_model: gemini-3-pro-preview
+title: "Design para Auditabilidade e Rastreamento"
+created_at: "2025-05-21"
+tags: ["auditabilidade", "rastreamento", "logs", "compliance", "swebok-ai"]
+status: "review"
+updated_at: "2025-05-21"
+ai_model: "claude-3.5-sonnet"
 ---
 
-# Design para Auditabilidade e Rastreamento
+# 4. Design para Auditabilidade e Rastreamento
 
 ## Overview
 
-Em engenharia de software tradicional, logs servem para entender *o que*
-quebrou. Em sistemas baseados em IA, a auditabilidade serve para entender *por
-que* o sistema funcionou (ou alucinou).
+A "caixa preta" dos modelos de IA apresenta um desafio existencial para a engenharia de software: como depurar um sistema que não explica como chegou a uma conclusão? O design para auditabilidade deixa de ser um requisito não-funcional secundário para se tornar um componente central da arquitetura. Sem rastreabilidade granular, é impossível diagnosticar falhas, otimizar custos ou cumprir regulações emergentes como o EU AI Act.
 
-O princípio diretor é simples: **se você não consegue explicar por que a IA
-tomou uma decisão, o sistema não está pronto para produção.**
-
-A geração de código e texto tornou-se commodity; o capital real agora reside no
-contexto e na rastreabilidade. Quando um agente autônomo executa uma ação
-financeira ou toma uma decisão de triagem médica, "o modelo errou" não é uma
-defesa jurídica aceitável. Precisamos de uma "caixa preta" de aviação para
-software: um registro imutável, correlacionado e explicável de cada passo da
-cadeia cognitiva.
+Esta seção detalha os padrões arquiteturais para tornar sistemas estocásticos transparentes e auditáveis "by design".
 
 ## Learning Objectives
 
-- **Dominar o padrão "Black Box Recorder"** para sistemas não-determinísticos.
-- **Implementar IDs de correlação distribuídos** que atravessam fronteiras de
-  prompts, modelos e vetores RAG.
-- **Estruturar logs de "Chain of Thought" (CoT)** para tornar o raciocínio da IA
-  auditável.
-- **Diferenciar observabilidade técnica** (latência, tokens) de
-  **observabilidade cognitiva** (raciocínio, contexto).
+Após estudar esta seção, o leitor deve ser capaz de:
 
-## Paradigma Shift
+1.  **Implementar** estratégias de log semântico que capturam a intenção e o raciocínio, não apenas o status HTTP.
+2.  **Projetar** sistemas de versionamento para prompts e configurações de modelos.
+3.  **Estabelecer** cadeias de custódia de dados para explicar decisões tomadas por agentes autônomos.
 
-A transição de software determinístico para probabilístico exige uma mudança
-fundamental na estratégia de logs e monitoramento.
+## 4.1 O "Black Box Recorder" Arquitetural
 
-| De (SWEBOK v4)      | Para (SWEBOK-AI v5)            |
-| :------------------ | :----------------------------- |
-| **Foco**            | Stack Traces e Códigos de Erro |
-| **Unidade Atômica** | Request/Response HTTP          |
-| **Causa Raiz**      | Bug no código (lógica)         |
-| **Volume**          | Logs de exceção (esparso)      |
-| **Meta**            | "O sistema está de pé?"        |
+Diferente de logs de aplicação tradicionais, a auditabilidade de IA exige a captura do contexto completo da interação.
 
-## Conteúdo Técnico
+### Componentes do Log Semântico
+Para cada transação de IA, o sistema deve persistir imutavelmente:
+*   **Input Completo**: O prompt exato enviado ao modelo, incluindo system prompt, contexto injetado (RAG) e input do usuário.
+*   **Configuração de Inferência**: Modelo, versão, temperatura, top-p, seed (se aplicável).
+*   **Output Bruto**: A resposta exata do modelo antes de qualquer pós-processamento.
+*   **Metadados de Custo**: Tokens de entrada, tokens de saída e latência.
+*   **Feedback (se houver)**: Avaliação do usuário (thumbs up/down) ou correção posterior.
 
-### 4.1 O Padrão "Black Box Recorder"
+## 4.2 Rastreabilidade de Cadeia de Pensamento (Chain of Thought Tracing)
 
-Sistemas de IA operam como caixas pretas funcionais. Para auditá-los, precisamos
-envolver essa caixa preta em uma camada de instrumentação que capture não apenas
-a entrada e saída, mas o *estado interno simulado* (o prompt e o contexto).
+Em sistemas compostos (Agentes, Chains), saber o resultado final é insuficiente. É necessário rastrear os passos intermediários.
 
-O padrão **Black Box Recorder** exige que cada interação com um LLM (Large
-Language Model) seja tratada como uma transação financeira:
+### Traceability ID
+Um identificador único de correlação (Trace ID) deve permear todas as chamadas LLM, buscas vetoriais e ações de ferramentas desencadeadas por uma requisição original.
 
-1. **Imutabilidade**: O log é *append-only*.
-2. **Completeza**: O prompt exato (incluindo system prompt e contexto injetado)
-   deve ser salvo.
-3. **Assinatura**: O output gerado deve ser criptograficamente ligado ao input.
+### Inspeção de Raciocínio
+Se o modelo utiliza *Chain of Thought* (CoT), o pensamento intermediário deve ser estruturado e armazenado separadamente da resposta final. Isso permite auditar *por que* o modelo tomou uma decisão, distinguindo erro de lógica de erro de fato.
 
-### 4.2 Identidade e Correlação (Traceability)
+## 4.3 Versionamento e Reprodutibilidade
 
-Em arquiteturas de agentes compostos (Compound AI Systems), uma única
-solicitação do usuário pode disparar dezenas de chamadas a LLMs, buscas
-vetoriais e execuções de ferramentas.
+Prompts são código. Parâmetros de modelo são configuração. Ambos devem ser versionados.
 
-O uso de um `Trace-ID` simples não é suficiente. Precisamos de uma hierarquia:
+### Prompt Registry
+Padrão onde prompts não estão "hardcoded" no código-fonte, mas armazenados em um registro centralizado versionado.
+*   *Benefício*: Permite rollbacks imediatos se uma nova versão do prompt degradar a performance, e testes A/B de prompts em produção.
 
-- **Session ID**: A conversa inteira do usuário.
-- **Interaction ID**: Um turno de pergunta/resposta.
-- **Run ID**: Uma execução específica de uma chain ou agente.
-- **Span ID**: Uma chamada atômica a um modelo ou ferramenta.
-
-**Regra de Ouro**: O ID de correlação deve ser injetado nos metadados de *todas*
-as chamadas, inclusive em bancos vetoriais. Se você recuperou um chunk de texto
-do RAG, precisa saber *qual* query gerou aquela busca.
-
-### 4.3 Logging de Cadeias Cognitivas (CoT)
-
-Logs tradicionais registram eventos discretos ("User clicked button"). Logs de
-IA devem registrar o *fluxo de pensamento*.
-
-Se o modelo utiliza "Chain of Thought" (pensar passo-a-passo), esses passos
-intermediários não são ruído; são a explicação da decisão. Eles devem ser
-parseados e armazenados estruturadamente, não descartados.
-
-**Estrutura recomendada:**
-
-- `thought_process`: O raciocínio interno (ex: conteúdo dentro de tags
-  `<thinking>`).
-- `tool_plan`: A intenção de usar uma ferramenta.
-- `tool_execution`: O resultado bruto da ferramenta.
-- `final_answer`: A resposta apresentada ao usuário.
-
-### 4.4 Rastreabilidade de RAG (Retrieval-Augmented Generation)
-
-A maior fonte de alucinação em sistemas corporativos é contexto ruim. A
-auditabilidade de RAG responde: "De onde você tirou isso?"
-
-Para cada geração, o sistema deve persistir:
-
-1. **Query Original**: O que o usuário pediu.
-2. **Query Reescrita**: Como o LLM interpretou a busca.
-3. **Chunks Recuperados**: IDs dos documentos, scores de similaridade e o texto
-   exato usado.
-4. **Atribuição**: Qual chunk específico influenciou qual parte da resposta (se
-   possível).
+### Desafio da Reprodutibilidade
+Mesmo com temperatura zero, modelos podem não ser determinísticos devido a otimizações de GPU.
+*   *Mitigação*: Armazenar o "fingerprint" do sistema (versão exata do modelo) e aceitar uma variabilidade controlada, focando em testes semânticos em vez de comparação de strings exatas.
 
 ## Practical Considerations
 
-### Checklist Prático (O que fazer amanhã)
+### Privacidade vs. Auditabilidade
+Armazenar inputs de usuários e respostas geradas cria um risco massivo de privacidade (PII).
+*   **Estratégia**: Logs devem ser sanitizados ou criptografados. PII deve ser detectado e mascarado *antes* da persistência no log de auditoria, se a regulação exigir.
 
-1. [ ] **Implementar Correlation IDs**: Garanta que *todo* log, do frontend ao
-   banco vetorial, compartilhe um ID de transação.
-2. [ ] **Persistir Prompts Completos**: Não logue apenas "prompt enviado". Logue
-   o texto final montado, com variáveis substituídas.
-3. [ ] **Sanitizar PII**: Configure filtros automáticos (ex: Presidio) para
-   remover dados sensíveis *antes* de gravar o log, mas mantenha um hash para
-   rastreio.
-4. [ ] **Versionar Prompts**: Se o prompt mudou, o log deve indicar
-   `prompt_v2.1`.
-5. [ ] **Capturar Metadados de Custo**: Logue tokens de entrada/saída e modelo
-   usado em cada chamada para cálculo de Unit Economics.
-6. [ ] **Estruturar JSON**: Abandone logs de texto plano. Use JSON estruturado
-   para tudo.
-7. [ ] **Reter "Negative Samples"**: Logue explicitamente quando o "guardrail"
-   bloqueou uma resposta. Isso é ouro para fine-tuning.
-
-### Armadilhas Comuns
-
-- **Logar apenas o input do usuário**: Ignorar o *System Prompt* e o contexto
-  injetado torna impossível reproduzir o erro.
-- **Descartar o "Raciocínio"**: Jogar fora o output intermediário (CoT)
-  economiza tokens mas destrói a explicabilidade.
-- **Confiar no determinismo**: Tentar reproduzir um bug rodando o mesmo prompt
-  novamente. (Spoiler: O modelo vai responder diferente. Confie no log gravado,
-  não na re-execução).
-- **Logs Efêmeros**: Reter logs de IA por apenas 7 dias. Problemas de viés ou
-  alucinação podem ser reportados meses depois.
-- **Ignorar a Latência de Logging**: Gravar megabytes de contexto no banco
-  relacional na thread principal. Use filas assíncronas (Fire-and-Forget).
-
-### Exemplo Mínimo: Log Estruturado de Decisão
-
-```json
-{
-  "timestamp": "2026-02-04T14:23:00Z",
-  "trace_id": "evt_987234",
-  "agent_version": "finance_advisor_v3",
-  "input": {
-    "user_query": "Posso comprar AAPL?",
-    "context_retrieved_ids": ["news_882", "stock_aapl_q4"]
-  },
-  "reasoning": {
-    "thought_chain": [
-      "Usuário quer recomendação de investimento.",
-      "Contexto mostra volatilidade alta em AAPL no Q4.",
-      "Perfil do usuário é conservador (recuperado do CRM)."
-    ],
-    "safety_check": "PASS",
-    "tool_calls": [
-      { "tool": "get_stock_price", "args": "AAPL", "result": "185.50" }
-    ]
-  },
-  "output": {
-    "final_response": "Considerando seu perfil conservador e a volatilidade recente...",
-    "disclaimer_appended": true
-  },
-  "meta": {
-    "model": "gpt-4-turbo",
-    "latency_ms": 2400,
-    "tokens_total": 450,
-    "cost_usd": 0.013
-  }
-}
-```
+### Volume de Dados
+Logs de LLM são verbosos (texto longo).
+*   **Estratégia**: Amostragem inteligente (logar 100% dos erros, 1% dos sucessos) ou retenção diferenciada (metadata por 1 ano, payload completo por 30 dias).
 
 ## Summary
 
-- **Contexto é Capital**: Em sistemas probabilísticos, o log do contexto é mais
-  valioso que o código da aplicação.
-- **Rastreabilidade Total**: IDs de correlação devem atravessar fronteiras de
-  modelos, bancos vetoriais e ferramentas externas.
-- **Black Box Recorder**: Grave tudo (input, contexto, raciocínio, output) como
-  se fosse uma caixa preta de avião.
-- **Observabilidade Cognitiva**: Monitore a qualidade do raciocínio, não apenas
-  latência e erros 500.
-- **Reproducibilidade é Ilusão**: Não conte com re-execução para debug. O log é
-  a única fonte da verdade.
+*   Logs tradicionais são insuficientes; sistemas de IA exigem logs semânticos com inputs, outputs e configurações.
+*   Rastrear a cadeia de pensamento (CoT) é crucial para entender a lógica de agentes.
+*   Versionamento de prompts e modelos é obrigatório para governança e recuperação de desastres.
 
-## Matriz de Avaliação
+## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                       |
-| :------------------------------ | :------------------------------------ | :---------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Modelos mudam, a necessidade de explicar decisões para humanos (e juízes) permanece. |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto**. Armazenar e analisar logs massivos de texto é caro (storage + compute).               |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica**. Sem logs auditáveis, a empresa assume responsabilidade total por "caixa preta".    |
+| Critério | Descrição | Avaliação |
+|----------|-----------|-----------|
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. A necessidade de auditoria crescerá com a autonomia dos sistemas. |
+| **Custo de Verificação** | Quanto custa validar esta atividade? | **Baixo**. Logs são gerados automaticamente, o custo está no armazenamento e análise. |
+| **Responsabilidade Legal** | Quem responde pelo erro? | **Crítica**. Logs de auditoria são a principal defesa legal para provar diligência em caso de falha da IA. |
 
 ## References
 
-1. **OpenTelemetry for LLMs**. (2025). "Semantic Conventions for GenAI
-   Operations."
-2. **Shokri, R., et al.** (2024). "Privacy Risks of Black-Box Models."
-   *Proceedings of IEEE S&P*.
-3. **Google SRE Book**. (2016). "Distributed Tracing and Monitoring." (Conceitos
-   fundamentais aplicados).
-4. **EU AI Act**. (2024). "Transparency and Record-Keeping Obligations for
-   High-Risk AI Systems."
+1.  **European Parliament**. (2024). *Artificial Intelligence Act*. (Foco nos artigos sobre transparência e documentação técnica).
+2.  **Sculley, D., et al.** (2015). *Hidden Technical Debt in Machine Learning Systems*. NeurIPS. (O clássico, revisitado para LLMs).
+3.  **Shankar, S., et al.** (2024). *Operationalizing LLMs: From PoC to Production*. O'Reilly Report.
+4.  **Google**. (2023). *Secure AI Framework (SAIF)*. safety.google/cybersecurity-advancements/saif.
