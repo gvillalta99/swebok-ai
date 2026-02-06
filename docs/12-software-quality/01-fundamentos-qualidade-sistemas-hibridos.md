@@ -2,7 +2,7 @@
 title: Fundamentos de Qualidade em Sistemas Híbridos
 created_at: '2026-01-31'
 tags: [software-quality, sistemas-hibridos, fundamentos, iso-25010, qualidade-ia]
-status: review
+status: in-progress
 updated_at: '2026-02-04'
 ai_model: google/gemini-3-pro-preview
 ---

@@ -2,7 +2,7 @@
 title: Explicabilidade e Interpretabilidade
 created_at: '2026-01-31'
 tags: [software-quality, explicabilidade, interpretabilidade, chain-of-thought, xai, auditoria]
-status: review
+status: in-progress
 updated_at: '2026-01-31'
 ai_model: openai/gpt-5.2
 ---

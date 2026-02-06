@@ -2,7 +2,7 @@
 title: SWEBOK-AI v5.0
 created_at: '2026-01-31'
 tags: [swebok-ai, visao-geral]
-status: review
+status: in-progress
 updated_at: '2026-02-05'
 ai_model: openai/gpt-5.2
 ---
@@ -88,8 +88,8 @@ mais rápido que humanos?**
 
 ## O Que Você Vai Aprender
 
-O SWEBOK-AI v5.0 organiza o conhecimento em 18 Knowledge Areas (KAs),
-reconfigurados para o paradigma AI-First:
+O SWEBOK-AI v5.0 organiza o conhecimento em 16 Knowledge Areas (KAs),
+reconfigurados para o paradigma AI-First e precedidos pelo Capitulo 00:
 
 ### Fundamentos
 
@@ -108,7 +108,7 @@ reconfigurados para o paradigma AI-First:
 | 5        | [Verificação e Validação em Escala](05-software-testing/01-fundamentos-verificacao-ia.md)                         | Testar sistemas não-determinísticos   |
 | 6        | [Engenharia de Operações de Software](06-software-engineering-operations/01-fundamentos-operacoes-sistemas-ia.md) | Operações em ambientes com IA         |
 | 7        | [Manutenção de Sistemas Opaços](07-software-maintenance/01-fundamentos-de-manutencao-de-sistemas-opacos.md)       | Manter código que você não escreveu   |
-| 8-18     | Knowledge Areas em Expansão                                                                                       | Em desenvolvimento ativo              |
+| 8-16     | Knowledge Areas em Expansão                                                                                       | Em desenvolvimento ativo              |
 
 !!! tip "Comece Aqui" Novo no SWEBOK-AI? Leia o
 [Capítulo 0: O Fim da Codificação](00-new-era/01-contexto-revolucao-llms.md)

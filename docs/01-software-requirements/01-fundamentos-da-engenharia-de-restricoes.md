@@ -2,7 +2,7 @@
 title: Fundamentos da Engenharia de Restrições
 created_at: '2025-01-31'
 tags: [requisitos, restricoes, fundamentos, engenharia-de-software, llm, contexto]
-status: review
+status: in-progress
 updated_at: '2026-02-04'
 ai_model: gemini-3-pro-preview
 ---
@@ -11,57 +11,94 @@ ai_model: gemini-3-pro-preview
 
 ## Contexto
 
-Na era dos Large Language Models (LLMs), gerar código é trivial e barato; o desafio real é impedir que essa geração viole limites de segurança e lógica. A Engenharia de Restrições inverte o foco tradicional de "o que construir" para "o que não permitir", estabelecendo fronteiras rígidas (*guardrails*) para sistemas estocásticos. Sem isso, você não tem software, tem apenas um gerador de texto probabilístico e alucinações.
+Na era dos Large Language Models (LLMs), gerar código é trivial e barato; o
+desafio real é impedir que essa geração viole limites de segurança e lógica. A
+Engenharia de Restrições inverte o foco tradicional de "o que construir" para "o
+que não permitir", estabelecendo fronteiras rígidas (*guardrails*) para sistemas
+estocásticos. Sem isso, você não tem software, tem apenas um gerador de texto
+probabilístico e alucinações.
 
 ## O Paradigma Shift: De Requisitos para Restrições
 
 ### A Commoditização da Sintaxe
 
-Engenharia de software costumava ser sobre traduzir regras de negócio em sintaxe. O gargalo era a digitação e a lógica humana. Hoje, a sintaxe é commodity. LLMs geram *boilerplate*, scripts e funções complexas em segundos.
+Engenharia de software costumava ser sobre traduzir regras de negócio em
+sintaxe. O gargalo era a digitação e a lógica humana. Hoje, a sintaxe é
+commodity. LLMs geram *boilerplate*, scripts e funções complexas em segundos.
 
-O novo gargalo é a **verificação**. Um sistema que gera qualquer solução estatisticamente provável também gera soluções inseguras, incorretas ou absurdas. Se você não restringir severamente o espaço de solução, o custo de revisão explodirá (Paradoxo de Jevons).
+O novo gargalo é a **verificação**. Um sistema que gera qualquer solução
+estatisticamente provável também gera soluções inseguras, incorretas ou
+absurdas. Se você não restringir severamente o espaço de solução, o custo de
+revisão explodirá (Paradoxo de Jevons).
 
 ### Especificação Negativa
 
-Sistemas determinísticos fazem o que você manda. Sistemas probabilísticos (IA) tentam "agradar" e preencher lacunas.
-A **Especificação Negativa** define explicitamente o que o sistema **NÃO** deve fazer. É sua principal defesa.
+Sistemas determinísticos fazem o que você manda. Sistemas probabilísticos (IA)
+tentam "agradar" e preencher lacunas. A **Especificação Negativa** define
+explicitamente o que o sistema **NÃO** deve fazer. É sua principal defesa.
 
 Exemplo de mudança de *mindset*:
 
-*   **Tradicional (Positivo):** "O sistema deve enviar email de recuperação."
-*   **SWEBOK-AI (Negativo):** "O sistema **NÃO DEVE** enviar email se a conta não estiver verificada. O sistema **NÃO DEVE** confirmar a existência do email na UI."
+- **Tradicional (Positivo):** "O sistema deve enviar email de recuperação."
+- **SWEBOK-AI (Negativo):** "O sistema **NÃO DEVE** enviar email se a conta não
+  estiver verificada. O sistema **NÃO DEVE** confirmar a existência do email na
+  UI."
 
 ## Categorias de Restrições
 
 Classificamos os limites em quatro camadas para operacionalizar a engenharia:
 
-1.  **Restrições Funcionais (Hard Constraints):** Limites binários. Se violado, o sistema rejeita a saída. Ex: Schema JSON inválido, erro de sintaxe, chamada a API não permitida.
-2.  **Restrições de Comportamento (Soft Constraints):** Estilo e personalidade. Ex: Tom de voz, verbosidade máxima, recusa de domínios fora do escopo.
-3.  **Restrições de Segurança:** Proteção de dados e infraestrutura. Ex: Não processar PII, ignorar instruções de *prompt injection*, rodar código apenas em *sandbox* efêmero.
-4.  **Restrições de Governança:** Compliance e auditoria. Ex: Logar o "pensamento" (Chain of Thought), exigir aprovação humana para ações financeiras.
+1. **Restrições Funcionais (Hard Constraints):** Limites binários. Se violado, o
+   sistema rejeita a saída. Ex: Schema JSON inválido, erro de sintaxe, chamada a
+   API não permitida.
+2. **Restrições de Comportamento (Soft Constraints):** Estilo e personalidade.
+   Ex: Tom de voz, verbosidade máxima, recusa de domínios fora do escopo.
+3. **Restrições de Segurança:** Proteção de dados e infraestrutura. Ex: Não
+   processar PII, ignorar instruções de *prompt injection*, rodar código apenas
+   em *sandbox* efêmero.
+4. **Restrições de Governança:** Compliance e auditoria. Ex: Logar o
+   "pensamento" (Chain of Thought), exigir aprovação humana para ações
+   financeiras.
 
 ## O Papel do Contexto
 
-Contexto é a fronteira do domínio. Um modelo sem contexto é um generalista perigoso.
-A antiga "elicitação de requisitos" virou **curadoria de contexto**. Você decide estrategicamente o que injetar no prompt (RAG) para limitar a "criatividade" do modelo. Informação irrelevante no contexto não é apenas ruído, é vetor de alucinação.
+Contexto é a fronteira do domínio. Um modelo sem contexto é um generalista
+perigoso. A antiga "elicitação de requisitos" virou **curadoria de contexto**.
+Você decide estrategicamente o que injetar no prompt (RAG) para limitar a
+"criatividade" do modelo. Informação irrelevante no contexto não é apenas ruído,
+é vetor de alucinação.
 
 ## Checklist Prático
 
 O que eu faria na empresa amanhã para implementar engenharia de restrições:
 
-1.  [ ] **Definir Whitelist de Ações:** Liste explicitamente as 3-5 coisas que o agente pode fazer. Bloqueie todo o resto no nível da API.
-2.  [ ] **Impor Schemas de Saída:** Nunca aceite texto livre para integrações. Use Pydantic/Zod para forçar JSON rigoroso.
-3.  [ ] **Implementar "Circuit Breakers":** Se o agente gastar mais de $X ou fizer mais de Y chamadas em 1 minuto, mate o processo.
-4.  [ ] **Validar com Código Determinístico:** Use Regex e lógica tradicional para validar a saída da IA. Não use outra IA para validar a primeira (salvo em casos específicos de avaliação semântica).
-5.  [ ] **Sanitizar Inputs:** Trate todo input do usuário como malicioso (potencial *prompt injection*).
-6.  [ ] **Logar Inputs e Outputs:** Você não consegue depurar um sistema estocástico sem logs exaustivos do par (prompt + resposta).
+1. [ ] **Definir Whitelist de Ações:** Liste explicitamente as 3-5 coisas que o
+   agente pode fazer. Bloqueie todo o resto no nível da API.
+2. [ ] **Impor Schemas de Saída:** Nunca aceite texto livre para integrações.
+   Use Pydantic/Zod para forçar JSON rigoroso.
+3. [ ] **Implementar "Circuit Breakers":** Se o agente gastar mais de $X ou
+   fizer mais de Y chamadas em 1 minuto, mate o processo.
+4. [ ] **Validar com Código Determinístico:** Use Regex e lógica tradicional
+   para validar a saída da IA. Não use outra IA para validar a primeira (salvo
+   em casos específicos de avaliação semântica).
+5. [ ] **Sanitizar Inputs:** Trate todo input do usuário como malicioso
+   (potencial *prompt injection*).
+6. [ ] **Logar Inputs e Outputs:** Você não consegue depurar um sistema
+   estocástico sem logs exaustivos do par (prompt + resposta).
 
 ## Armadilhas Comuns
 
-*   **A Falácia da Educação:** Achar que pedir "por favor" ou "seja cuidadoso" no prompt funciona. O modelo não tem ética, tem estatística. Use instruções imperativas e negativas.
-*   **Antropomorfização:** Tratar o modelo como um júnior inteligente. Ele é uma calculadora de tokens. Não confie no "julgamento" dele.
-*   **Restrições Subjetivas:** Usar termos como "evite conteúdo ofensivo" sem dar exemplos ou uma lista de bloqueio. O que é ofensivo para o modelo pode não ser para você (e vice-versa).
-*   **Confiar na Auto-Validação:** Perguntar ao modelo "Você tem certeza?" quase sempre resulta em "Sim, desculpe, aqui está a versão corrigida" (que também pode estar errada).
+- **A Falácia da Educação:** Achar que pedir "por favor" ou "seja cuidadoso" no
+  prompt funciona. O modelo não tem ética, tem estatística. Use instruções
+  imperativas e negativas.
+- **Antropomorfização:** Tratar o modelo como um júnior inteligente. Ele é uma
+  calculadora de tokens. Não confie no "julgamento" dele.
+- **Restrições Subjetivas:** Usar termos como "evite conteúdo ofensivo" sem dar
+  exemplos ou uma lista de bloqueio. O que é ofensivo para o modelo pode não ser
+  para você (e vice-versa).
+- **Confiar na Auto-Validação:** Perguntar ao modelo "Você tem certeza?" quase
+  sempre resulta em "Sim, desculpe, aqui está a versão corrigida" (que também
+  pode estar errada).
 
 ## Exemplo Mínimo
 
@@ -87,34 +124,44 @@ RESTRIÇÕES CRÍTICAS:
 
 **Trade-offs:**
 
-*   **Pró:** Segurança jurídica e responsabilidade. Evita diagnósticos errados.
-*   **Contra:** O bot parece "burro" ou "pouco prestativo" se o usuário insistir em ajuda médica. É um preço aceitável.
+- **Pró:** Segurança jurídica e responsabilidade. Evita diagnósticos errados.
+- **Contra:** O bot parece "burro" ou "pouco prestativo" se o usuário insistir
+  em ajuda médica. É um preço aceitável.
 
 ## Resumo Executivo
 
-*   **Engenharia de Restrições > Engenharia de Prompts:** Foque em limitar o modelo, não em estimulá-lo.
-*   **Código é Commodity:** O valor está em definir o que *não* deve ser gerado.
-*   **Validação Determinística:** Use código clássico para verificar saídas probabilísticas.
-*   **Contexto é Fronteira:** O que não está no contexto não existe para o modelo.
-*   **Custo de Verificação:** Prepare-se para gastar mais tempo revisando e testando do que "codando".
+- **Engenharia de Restrições > Engenharia de Prompts:** Foque em limitar o
+  modelo, não em estimulá-lo.
+- **Código é Commodity:** O valor está em definir o que *não* deve ser gerado.
+- **Validação Determinística:** Use código clássico para verificar saídas
+  probabilísticas.
+- **Contexto é Fronteira:** O que não está no contexto não existe para o modelo.
+- **Custo de Verificação:** Prepare-se para gastar mais tempo revisando e
+  testando do que "codando".
 
 ## Próximos Passos
 
-*   Ler **02 - Elicitação de Contexto e Intenção** para aprender a definir as fronteiras de dados.
-*   Estudar **03 - Especificação de Invariantes** para técnicas formais de validação.
-*   Implementar um validador de schema simples (ex: usando biblioteca `instructor` ou `pydantic`) para sua próxima integração com LLM.
+- Ler **02 - Elicitação de Contexto e Intenção** para aprender a definir as
+  fronteiras de dados.
+- Estudar **03 - Especificação de Invariantes** para técnicas formais de
+  validação.
+- Implementar um validador de schema simples (ex: usando biblioteca `instructor`
+  ou `pydantic`) para sua próxima integração com LLM.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério | Avaliação |
-| :--- | :--- |
+| Critério                        | Avaliação                                                                                               |
+| :------------------------------ | :------------------------------------------------------------------------------------------------------ |
 | **Descartabilidade Geracional** | **Baixa**. O conceito de impor limites a sistemas estocásticos é perene, mesmo que os modelos melhorem. |
-| **Custo de Verificação** | **Alto**. Validar restrições sutis exige sêniores e ferramentas complexas. |
-| **Responsabilidade Legal** | **Crítica**. Falhas aqui resultam em processos, vazamentos e danos reais. |
+| **Custo de Verificação**        | **Alto**. Validar restrições sutis exige sêniores e ferramentas complexas.                              |
+| **Responsabilidade Legal**      | **Crítica**. Falhas aqui resultam em processos, vazamentos e danos reais.                               |
 
 ## Referências
 
-1.  **IEEE Computer Society**. *Guide to the Software Engineering Body of Knowledge (SWEBOK)*, Version 4.0. 2024.
-2.  **OpenAI**. *System Card: GPT-4 System Safety*. 2023.
-3.  **Shavit, N., et al.** *Formal Verification of LLM-Generated Code*. arXiv preprint, 2024.
-4.  **Polkovnichenko, P.** *Jevons Paradox in AI-Assisted Software Development*. Journal of Software Economics, 2025.
+1. **IEEE Computer Society**. *Guide to the Software Engineering Body of
+   Knowledge (SWEBOK)*, Version 4.0. 2024.
+2. **OpenAI**. *System Card: GPT-4 System Safety*. 2023.
+3. **Shavit, N., et al.** *Formal Verification of LLM-Generated Code*. arXiv
+   preprint, 2024.
+4. **Polkovnichenko, P.** *Jevons Paradox in AI-Assisted Software Development*.
+   Journal of Software Economics, 2025.

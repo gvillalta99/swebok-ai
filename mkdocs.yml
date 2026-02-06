@@ -193,6 +193,7 @@ nav:
           - 06 - Governanca: 13-software-security/06-governanca-gestao-risco.md
 
       - KA 08 - Gestao de Configuracao:
+          - 00 - Visao Geral: 08-software-configuration-management/index.md
           - 01 - Fundamentos: 08-software-configuration-management/01-fundamentos-gestao-configuracao-ia.md
           - 02 - Versionamento de Modelos: 08-software-configuration-management/02-versionamento-modelos-prompts-contexto.md
           - 03 - Rastreabilidade: 08-software-configuration-management/03-rastreabilidade-sistemas-gerados-ia.md
@@ -243,3 +244,8 @@ nav:
           - 04 - Glossario: 16-appendix/04-glossario-de-termos-de-ia.md
           - 05 - Matriz de Conformidade: 16-appendix/05-matriz-de-conformidade.md
           - 06 - Matriz de Referencias Cruzadas: 16-appendix/06-matriz-referencias-cruzadas.md
+          - 07 - Taxonomia Editorial: 16-appendix/07-taxonomia-editorial-kas.md
+          - 08 - Template de Index por KA: 16-appendix/08-template-landing-page-ka.md
+          - 09 - Frontmatter e Workflow: 16-appendix/09-frontmatter-workflow-status.md
+          - 10 - Politica de Ferramentas: 16-appendix/10-politica-conteudo-transversal-ferramentas.md
+          - 11 - Limites e Segmentacao: 16-appendix/11-limites-segmentacao-capitulos.md

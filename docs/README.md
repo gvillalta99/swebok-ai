@@ -1,6 +1,6 @@
 # SWEBOK-AI v5.0 - Guia do Conhecimento em Engenharia de Software para a Era dos LLMs
 
-> **Versão 5.0 - Estrutura Reconfigurada (16 KAs)**
+> **Versão 5.0 - Estrutura Reconfigurada (15 KAs + Introdução + Apêndice)**
 >
 > *Última atualização: Fevereiro 2026*
 
@@ -16,10 +16,12 @@ algorítmica é infraestrutura, não produto.
 
 ______________________________________________________________________
 
-## Estrutura do Guia (16 Knowledge Areas)
+## Estrutura do Guia (15 Knowledge Areas + Blocos de Referência)
 
-O SWEBOK-AI v5.0 está organizado em **16 Knowledge Areas (KAs)** distribuídos em
-**5 Partes**, seguindo uma progressão lógica do fundamental à aplicação prática:
+O SWEBOK-AI v5.0 está organizado em **15 Knowledge Areas (KAs oficiais:
+01-15)**, mais **00 (Introdução)** e **16 (Apêndice de Referência)**,
+distribuídos em **5 Partes**, seguindo uma progressão lógica do fundamental à
+aplicação prática.
 
 ### PARTE I: Fundamentos e Contexto
 
@@ -99,7 +101,7 @@ O SWEBOK-AI v5.0 está organizado em **16 Knowledge Areas (KAs)** distribuídos 
 - Ataques a aplicações LLM
 - Segurança da cadeia de suprimentos
 
-**KA 08. Gestão de Configuração e Contexto**
+**KA 08. Gestão de Configuração**
 
 - Versionamento de modelos e prompts
 - Rastreabilidade em sistemas gerados
@@ -133,7 +135,7 @@ O SWEBOK-AI v5.0 está organizado em **16 Knowledge Areas (KAs)** distribuídos 
 
 ### PARTE V: Referências
 
-**KA 16. Apêndice**
+**16. Apêndice**
 
 - Especificações de KAs
 - Padrões ISO/IEC/IEEE
@@ -165,7 +167,7 @@ essenciais foram:
 
 ### O Que Mudou
 
-| Aspecto         | Antes (19 KAs)             | Depois (16 KAs)                 |
+| Aspecto         | Antes (19 KAs)             | Depois (15 KAs + 00 + 16)       |
 | --------------- | -------------------------- | ------------------------------- |
 | **Estrutura**   | 6 Partes                   | 5 Partes                        |
 | **Organização** | Fundamentos no final       | Fundamentos no início           |

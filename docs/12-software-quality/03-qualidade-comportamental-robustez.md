@@ -2,7 +2,7 @@
 title: Qualidade Comportamental e Robustez
 created_at: '2026-01-31'
 tags: [software-quality, comportamento, robustez, consistencia, quality-gates, testes-estresse]
-status: review
+status: in-progress
 updated_at: '2026-01-31'
 ai_model: openai/gpt-5.2
 ---

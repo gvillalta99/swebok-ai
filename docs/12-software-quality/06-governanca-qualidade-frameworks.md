@@ -2,7 +2,7 @@
 title: Governança de Qualidade e Frameworks
 created_at: '2026-01-31'
 tags: [software-quality, governanca, frameworks, iso-25010, compliance, maturidade]
-status: review
+status: in-progress
 updated_at: '2026-01-31'
 ai_model: openai/gpt-5.2
 ---

@@ -2,7 +2,7 @@
 title: Garantia de Qualidade e Processos de Curadoria
 created_at: '2026-01-31'
 tags: [software-quality, qa, curadoria, quality-assurance, meta-verificacao, checklists]
-status: review
+status: in-progress
 updated_at: '2026-01-31'
 ai_model: openai/gpt-5.2
 ---
