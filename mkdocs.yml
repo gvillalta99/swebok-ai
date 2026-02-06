@@ -21,7 +21,7 @@ exclude_docs: |
 theme:
   name: material
   language: pt
-  logo: imgs/logo.png
+  logo: imgs/logo2.png
   palette:
     - scheme: default
       primary: deep purple
