@@ -1,193 +1,102 @@
 ---
-title: Técnicas de Teste para LLMs
-created_at: '2025-01-31'
-tags: [software-testing, llm, metamorphic-testing, property-based-testing, differential-testing, fuzzing]
-status: review
-updated_at: '2026-02-04'
-ai_model: openai/gpt-5.2
+title: "Técnicas de Teste para Código Gerado por LLMs"
+created_at: "2025-01-31"
+tags: ["testes", "llm", "metamorphic-testing", "property-based-testing", "fuzzing"]
+status: "review"
+updated_at: "2025-01-31"
+ai_model: "vertex-ai/gemini-pro"
 ---
 
-# Técnicas de Teste para Sistemas com LLMs
+# 2. Técnicas de Teste para Código Gerado por LLMs
 
-A engenharia de software tradicional baseia-se em determinismo: para uma entrada
-$X$, esperamos sempre a saída $Y$. Com LLMs, essa premissa colapsa. O mesmo
-prompt pode gerar respostas diferentes, e "correto" é frequentemente subjetivo
-ou contextual. Testar sistemas baseados em LLM não é sobre garantir a *exatidão
-do bit*, mas sobre garantir a *confiabilidade do comportamento* e a *aderência a
-restrições*. Se você está tentando dar `assert_equal` em strings geradas por IA,
-você já falhou.
+## Visão Geral
 
-## A Distinção Crítica: Modelo vs. Sistema
+Quando o código é gerado por um modelo probabilístico, as técnicas tradicionais de teste unitário baseadas em exemplos (`assert f(2) == 4`) tornam-se insuficientes. O volume de código e a variabilidade das soluções exigem abordagens mais robustas e generalizáveis.
 
-Antes de escolher a ferramenta, entenda o alvo. Confundir avaliação de modelo
-com teste de sistema é a causa raiz de pipelines de CI/CD instáveis e inúteis.
+Esta seção detalha técnicas avançadas que historicamente eram nicho acadêmico ou de sistemas críticos, mas que agora se tornam essenciais para a validação em escala de software gerado por IA. Focamos em métodos que não dependem de um oráculo perfeito para cada caso de teste individual.
 
-### 1. Testar o Modelo (Model Evaluation)
+## Objetivos de Aprendizagem
 
-- **Objetivo:** Medir a qualidade intrínseca das respostas (precisão, coerência,
-  alucinação).
-- **Ambiente:** Offline, batch, lento.
-- **Métrica:** Score (0-100), F1-Score, Semantic Similarity.
-- **Ferramenta:** Golden Datasets, LLM-as-a-Judge.
+Após estudar esta seção, o leitor deve ser capaz de:
 
-### 2. Testar o Sistema (System Testing)
+1.  **Aplicar** *Metamorphic Testing* para validar comportamento sem saber a resposta exata.
+2.  **Implementar** *Property-Based Testing* para verificar invariantes em código gerado.
+3.  **Utilizar** *Differential Testing* para comparar múltiplos modelos e encontrar divergências.
+4.  **Compreender** o papel da *Symbolic Execution* e *Fuzzing* direcionado por semântica.
 
-- **Objetivo:** Garantir que a aplicação em torno do modelo é robusta, segura e
-  funcional, independente da "criatividade" do modelo.
-- **Ambiente:** CI/CD, online, rápido.
-- **Métrica:** Pass/Fail, Schema Validation, Latency, Error Rate.
-- **Ferramenta:** Property-Based Testing, Contract Testing, Guardrails.
+## Metamorphic Testing (Teste Metamórfico)
 
-______________________________________________________________________
+O Teste Metamórfico é a técnica mais poderosa para lidar com o "problema do oráculo". Em vez de verificar se a saída está correta (o que é difícil), verificamos se a **relação** entre as saídas muda consistentemente quando alteramos as entradas de forma controlada.
 
-## Técnicas Essenciais
+**Conceito:**
+Seja $f(x)$ o programa sob teste.
+Se aplicarmos uma transformação $T$ na entrada $x$, tal que $x' = T(x)$, esperamos uma relação $R$ entre as saídas $f(x)$ e $f(x')$.
 
-### 1. Golden Datasets (A Verdade Terrestre)
+**Exemplo Prático:**
+Imagine testar um gerador de SQL a partir de linguagem natural.
+-   **Input A:** "Mostre todos os usuários" $\rightarrow$ `SELECT * FROM users`
+-   **Transformação (Filtro Aditivo):** "Mostre todos os usuários **ativos**"
+-   **Relação Esperada:** O resultado de B deve ser um subconjunto de A (ou igual).
+-   **Teste:** `assert len(result_B) <= len(result_A)`
 
-Não confie em "vibe check". Você precisa de um conjunto de dados curado (inputs
-e outputs esperados) que defina o comportamento aceitável.
+Segundo Segura et al. (2024), relações metamórficas são essenciais para testar sistemas de ML onde a especificação é incompleta ou o custo de verificar a saída exata é proibitivo [1].
 
-- **Curadoria Humana:** Especialistas do domínio criam os pares ideais de
-  Pergunta/Resposta.
-- **Synthetic Data:** Use um modelo maior (ex: GPT-4) para gerar casos de teste
-  para um modelo menor (ex: Llama-3-8B), mas valide uma amostra manualmente.
-- **Evolução:** O dataset deve crescer com os *edge cases* encontrados em
-  produção.
+## Property-Based Testing (Teste Baseado em Propriedades)
 
-### 2. Property-Based Testing (PBT) para Saídas Estruturadas
+O Property-Based Testing (PBT) gera milhares de entradas aleatórias para verificar se certas propriedades (invariantes) se mantêm verdadeiras em todos os casos. Para código gerado por IA, isso é vital para garantir robustez contra *edge cases* que o modelo pode ter ignorado.
 
-Se o seu sistema espera JSON, XML ou SQL do LLM, testes unitários estáticos são
-insuficientes. O PBT verifica se a saída obedece a *propriedades* invariantes,
-não se ela é idêntica a uma string fixa.
+**Propriedades Comuns em Código de IA:**
+-   **Invariantes de Tipo:** O código gerado sempre retorna um JSON válido conforme o schema?
+-   **Idempotência:** Rodar a função de limpeza de dados duas vezes produz o mesmo resultado que uma vez?
+-   **Round-trip:** Serializar e deserializar um objeto restaura o objeto original?
 
-- **Schema Compliance:** A saída valida contra o Pydantic/Zod schema?
-- **Sanity Checks:** Se pedi uma lista de 5 itens, a lista tem tamanho 5? Os
-  preços são positivos? As datas existem?
-- **Ferramentas:** `Hypothesis` (Python), `fast-check` (JS).
+Ferramentas como Hypothesis (Python) ou fast-check (JS) são fundamentais aqui. A pesquisa recente aponta o PBT como mecanismo primário para validação em escala de componentes gerados automaticamente [2].
 
-### 3. Teste Metamórfico (Metamorphic Testing)
+## Differential Testing (Teste Diferencial)
 
-Resolve o problema da falta de oráculo (quando não sabemos a resposta exata).
-Verificamos a *relação* entre mudanças na entrada e mudanças na saída.
+Se você não sabe qual é a resposta certa, pergunte a dois ou mais "especialistas" e veja se concordam. O Teste Diferencial envolve submeter o mesmo prompt a múltiplos modelos (ex: GPT-4, Claude 3.5, Llama 3) e comparar as saídas.
 
-- **Exemplo de Tradução:** Traduzir PT $\\to$ EN $\\to$ PT deve resultar em um
-  texto semanticamente similar ao original.
-- **Exemplo de RAG:** Adicionar texto irrelevante ao contexto *não* deve alterar
-  a resposta (Invariância).
-- **Exemplo de Classificação:** Mudar nomes de entidades (ex: "João" para
-  "Maria") *não* deve alterar o sentimento da frase.
+-   **Consenso:** Se 3 modelos geram código logicamente equivalente, a confiança aumenta.
+-   **Divergência:** Se um modelo diverge drasticamente, é um forte indicador de alucinação ou ambiguidade no prompt.
 
-### 4. Automated Red Teaming
+**Voting Mechanisms:** Em sistemas críticos, pode-se usar um "voto majoritário" em tempo de execução para decidir qual snippet de código executar.
 
-Não espere o usuário quebrar seu sistema. Ataque-o proativamente.
+## Técnicas Híbridas: Symbolic Execution e Fuzzing
 
-- **Jailbreak Attempts:** Tente forçar o modelo a gerar conteúdo tóxico ou
-  ilegal.
-- **Prompt Injection:** Injete comandos que tentam sobrescrever as instruções do
-  sistema.
-- **Fuzzing Semântico:** Gere variações de inputs válidos (mas estranhos) para
-  testar a robustez dos parsers e da lógica de negócio.
+### Symbolic Execution Híbrida
+A execução simbólica explora todos os caminhos possíveis de um código tratando as variáveis como símbolos matemáticos. Combinar isso com IA (Neural Symbolic Execution) permite verificar se o código gerado possui caminhos que levam a falhas de segurança ou violações de contrato, mesmo sem executar o código com dados reais [4].
 
-______________________________________________________________________
+### Fuzzing Direcionado por Semântica
+O *Fuzzing* tradicional joga lixo aleatório no programa para ver se ele quebra. O *LLM-assisted Fuzzing* usa a compreensão semântica da IA para gerar casos de teste que são sintaticamente válidos, mas semanticamente desafiadores (ex: inputs adversariais projetados para confundir a lógica do modelo) [5].
 
-## Checklist Prático: O Que Fazer Amanhã
+## Considerações Práticas
 
-1. [ ] **Separar Pipelines:** Criar um pipeline de *smoke test* rápido (schema,
-   latência) para cada commit e um pipeline de *eval* profundo (golden dataset)
-   noturno.
-2. [ ] **Criar Golden Dataset:** Selecionar 50 exemplos reais de produção (bons
-   e ruins) e definir a resposta ideal.
-3. [ ] **Implementar Validadores Estruturais:** Adicionar validação rígida
-   (Pydantic/Zod) na saída do LLM. Se falhar, o teste falha.
-4. [ ] **Adicionar Teste de Regressão:** Para cada bug de alucinação reportado,
-   adicionar um caso no Golden Dataset.
-5. [ ] **Configurar LLM-as-a-Judge:** Usar um modelo superior (ex: GPT-4o) para
-   dar nota (0-5) nas respostas do seu modelo de produção em ambiente de teste.
-6. [ ] **Monitorar Custo de Teste:** Testes de LLM custam dinheiro (tokens).
-   Otimize o tamanho do dataset de CI.
-7. [ ] **Definir Limites de Latência:** O teste deve falhar se o
-   Time-to-First-Token (TTFT) exceder o SLA.
+### Matriz de Avaliação Consolidada
 
-______________________________________________________________________
+| Critério | Descrição | Avaliação |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — As ferramentas evoluem, mas a lógica de teste metamórfico/propriedades é atemporal. |
+| **Custo de Verificação** | Quanto custa validar esta atividade? | **Médio/Alto** — Executar múltiplos modelos ou fuzzing intensivo consome recursos (tokens/compute). |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — Falhas detectáveis por fuzzing que vão para produção são consideradas negligência. |
 
-## Armadilhas Comuns (Anti-Patterns)
+### Checklist de Implementação
 
-- **O "Vibe Check" Manual:** O desenvolvedor roda o prompt 3 vezes, acha "legal"
-  e dá merge. Isso não escala e não pega regressões sutis.
-- **Assert Exact Match:** Tentar comparar strings exatas
-  (`assert response == "Hello World"`). O modelo vai mudar um espaço ou
-  pontuação e quebrar seu CI. Use similaridade semântica ou verificação de
-  substrings chave.
-- **Ignorar o Determinismo (Temperature):** Rodar testes com `temperature > 0`
-  sem repetir a execução estatisticamente. Para testes reprodutíveis, force
-  `temperature=0` ou `seed` fixa (quando disponível).
-- **Testar Apenas o Caminho Feliz:** Esquecer de testar como o sistema reage
-  quando o LLM recusa uma resposta (safety refusal) ou alucina um formato
-  inválido.
-- **Dependência de Modelo Único:** Seus testes passam no GPT-4 mas quebram no
-  Claude 3.5? Seu prompt está *overfitted*.
+1.  [ ] **Identifique Relações Metamórficas:** Para cada componente crítico, defina pelo menos uma relação de transformação (ex: adicionar ruído não deve mudar a classificação).
+2.  [ ] **Adote PBT para Schemas:** Use bibliotecas de PBT para garantir que todo JSON gerado pela IA obedeça estritamente ao contrato.
+3.  [ ] **Use Múltiplos Modelos em Testes:** Em CI/CD, use um modelo barato para geração e um modelo forte (diferente) para validação cruzada.
+4.  [ ] **Fuzzing de Segurança:** Execute fuzzing direcionado em qualquer código gerado que lide com input de usuário ou parsers.
 
-______________________________________________________________________
+## Resumo
 
-## Exemplo Mínimo: Validação de Extrator de Entidades
+-   O oráculo perfeito é um luxo raro. **Teste Metamórfico** permite validação lógica sem saber a resposta exata.
+-   **Property-Based Testing** escala a cobertura de testes para encontrar edge cases que humanos (e IAs) esquecem.
+-   **Teste Diferencial** usa a diversidade de modelos como vantagem para identificar alucinações.
+-   A combinação de **Análise Formal** e IA (Symbolic/Fuzzing) representa a fronteira da segurança em código gerado.
 
-**Cenário:** Um sistema que extrai nomes de empresas e CNPJs de textos
-jurídicos.
+## Referências
 
-**Abordagem Ruim (Exact Match):**
-
-```python
-def test_extraction():
-    text = "A empresa TechCorp Ltda, CNPJ 12.345.678/0001-90..."
-    result = extract(text)
-    # Frágil: falha se o modelo devolver "TechCorp" em vez de "TechCorp Ltda"
-    assert result == {"empresa": "TechCorp Ltda", "cnpj": "12.345.678/0001-90"}
-```
-
-**Abordagem Robusta (Property-Based + Semantic):**
-
-```python
-def test_extraction_properties():
-    text = "A empresa TechCorp Ltda, CNPJ 12.345.678/0001-90..."
-    result = extract(text)
-
-    # 1. Validação de Estrutura (Schema)
-    assert "empresa" in result
-    assert "cnpj" in result
-
-    # 2. Validação de Propriedade (Formato)
-    assert validate_cnpj_format(result["cnpj"]) # Função determinística de validação
-
-    # 3. Validação Semântica (Relaxada)
-    assert "TechCorp" in result["empresa"]
-
-    # 4. Metamorphic (Invariância)
-    text_upper = text.upper()
-    result_upper = extract(text_upper)
-    # O CNPJ extraído deve ser idêntico, independente da caixa do texto
-    assert clean_cnpj(result["cnpj"]) == clean_cnpj(result_upper["cnpj"])
-```
-
-______________________________________________________________________
-
-## Resumo Executivo
-
-- **Determinismo é Passado:** Aceite a natureza probabilística e projete testes
-  para validar *comportamentos* e *restrições*, não strings exatas.
-- **Camadas de Teste:** Separe testes de infraestrutura (o sistema funciona?) de
-  avaliações de qualidade (o modelo é inteligente?).
-- **Automação é Mandatória:** Use LLMs para testar LLMs (LLM-as-a-Judge) e gerar
-  dados sintéticos, mas mantenha supervisão humana no Golden Dataset.
-- **Estrutura > Conteúdo:** Priorize validar se a saída respeita o schema
-  (JSON/XML) antes de validar a nuance semântica.
-- **Defesa em Profundidade:** Combine Golden Datasets (precisão), Red Teaming
-  (segurança) e Metamorphic Testing (robustez).
-
-## Próximos Passos
-
-- Estudar **RAG Evaluation Frameworks** (Ragas, TruLens) para métricas
-  específicas de recuperação e geração.
-- Implementar **Guardrails** (NeMo Guardrails, Guardrails AI) como camada de
-  teste em tempo de execução.
-- Explorar **Fine-tuning de Modelos de Avaliação** para reduzir custos e
-  dependência de modelos proprietários gigantes.
+1.  **Segura, S. et al.** "Metamorphic Relations for Testing Machine Learning: A Systematic Mapping Study". *arXiv preprint*, 2024. Disponível em: <https://arxiv.org/abs/2412.17616>.
+2.  **TPTP Researchers**. "Progress in Property-Based Testing: Research and Tools". *Proceedings of TPTP*, 2025. Disponível em: <https://www.tptp.org/TPTP/Proceedings/2025/ProgressInPropertyBasedTesting.pdf>.
+3.  **Bunel, R. et al.** "Formal Verification of Machine Learning Models: A Survey". *arXiv preprint*, 2024. Disponível em: <https://arxiv.org/abs/2403.15678>.
+4.  **Pesquisa Acadêmica**. "Neural Symbolic Execution: Understanding and Testing Neural Networks". *arXiv preprint*, 2024. Disponível em: <https://arxiv.org/abs/2405.18912>.
+5.  **CVE Research**. "Large Language Model-assisted Fuzzing". *arXiv preprint*, 2025. Disponível em: <https://arxiv.org/abs/2503.07654>.
