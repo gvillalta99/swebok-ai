@@ -96,6 +96,12 @@ Um plano de contingencia minimo cobre:
 - Controles devem ser avaliados pelo tipo de evidencia que produzem.
 - Contingencia precisa ser exercitada para ser confiavel.
 
+## Ver tambem
+
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+- [KA 14 - Pratica Profissional](../14-software-engineering-professional-practice/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. ISO. ISO 31000:2018. Risk management — Guidelines. Geneva: ISO, 2018.

@@ -137,6 +137,12 @@ de IA já é alta; simplifique a infraestrutura base.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio** — Testar novas ferramentas exige POCs (Provas de Conceito), mas a integração geralmente é via API padrão.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Média** — A responsabilidade é compartilhada, mas a escolha de ferramentas inseguras (ex: sem SOC2) é falha da engenharia. |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 07 - Manutencao de Sistemas Opacos](../07-software-maintenance/index.md)
+
 ## Referências
 
 1. **Platform Engineering Community.** (2025). *State of AI in Platform

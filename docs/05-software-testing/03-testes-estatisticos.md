@@ -125,6 +125,12 @@ em pipelines que envolvem geração de código [4].
 - A validação estatística é cara (requer muitas execuções), mas é o único
   caminho para confiança real em sistemas não-determinísticos.
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Pesquisa Acadêmica**. "Statistical Model Checking for Neural Network

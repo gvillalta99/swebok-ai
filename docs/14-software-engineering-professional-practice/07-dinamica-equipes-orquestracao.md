@@ -129,6 +129,12 @@ abordagens que *divergem* da sugestão padrão da IA.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Requer supervisão constante.                                                   |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada**. A falha de coordenação é gerencial.                                         |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. Hou, X., et al. (2024). *Large Language Models for Software Engineering: A

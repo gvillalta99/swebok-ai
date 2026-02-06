@@ -175,6 +175,12 @@ Para um novo Sistema de Relatórios Internos:
 - Use **Buy** para commodities (não core).
 - Use **Make** para o que te torna único e exige controle absoluto.
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **Zartis.** "The Build vs. Buy Dilemma in AI: A Strategic Framework for

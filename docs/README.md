@@ -35,7 +35,7 @@ Referencia: `docs/16-appendix/09-frontmatter-workflow-status.md`.
 
 ## Convencoes Operacionais
 
-- Use `PLAN.md` por KA para planejamento local.
+- Use `PLAN.md` na raiz para planejamento macro por sprint.
 - Mantenha links internos atualizados ao mover/renomear arquivos.
 - Evite duplicar diretrizes entre apendices; quando houver conflito, priorize:
   1. `mkdocs.yml`

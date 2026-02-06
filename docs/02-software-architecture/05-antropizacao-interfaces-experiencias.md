@@ -113,6 +113,12 @@ Para manter a ilusão de uma conversa contínua, o sistema precisa de memória.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Testes A/B e estudos de usabilidade são necessários.                  |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Moderada**. Riscos principais envolvem manipulação do usuário e consentimento. |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Amershi, S., et al.** (2019). *Guidelines for Human-AI Interaction*.

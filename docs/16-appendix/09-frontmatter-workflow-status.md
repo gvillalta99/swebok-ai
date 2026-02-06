@@ -69,3 +69,8 @@ Checklist minimo para `published`:
 1. Validar frontmatter em CI antes de merge.
 2. Bloquear arquivos sem `status` canônico.
 3. Emitir relatório mensal de distribuição de status por KA.
+4. Validar links internos e seção `## Referências` nos arquivos alterados de PR.
+
+Workflow de referencia:
+
+- `.github/workflows/editorial-validation.yml`

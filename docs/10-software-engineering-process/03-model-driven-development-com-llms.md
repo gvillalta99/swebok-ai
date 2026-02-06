@@ -147,6 +147,12 @@ acelerada.
 | **Custo de Verificação**        | **Médio** | Requer validação constante para garantir que a geração segue a spec, mas testes automatizados ajudam muito. |
 | **Responsabilidade Legal**      | **Média** | A responsabilidade recai sobre quem escreveu a especificação e validou o resultado final.                   |
 
+## Ver tambem
+
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 08 - Gestao de Configuracao](../08-software-configuration-management/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+
 ## Referências
 
 1. **Pesquisa Acadêmica**. *Generative Software Engineering: From Specification

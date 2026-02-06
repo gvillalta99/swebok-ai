@@ -145,6 +145,12 @@ em mimetizar a estética do código correto.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Requer leitura atenta, mas ferramentas de análise estática ajudam.                             |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada**. Erros de especificação são responsabilidade do engenheiro.                                  |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. IEEE Transactions on Software Engineering. (2024). *Prompt Patterns for

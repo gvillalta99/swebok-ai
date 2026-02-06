@@ -518,6 +518,12 @@ historico e objetivos (SLOs).
 - Feature flags permitem rollout controlado e rollback rápido de funcionalidades
   de IA
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+
 ## Referências
 
 1. ISO. ISO 10007:2017. Quality management systems — Guidelines for

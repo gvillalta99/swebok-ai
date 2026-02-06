@@ -175,6 +175,12 @@ Tradicional:** Estimar reescrita manual (ex: 4 semanas). **Abordagem IA
 | **Responsabilidade Legal**      | O plano define claramente quem (humano) assina a responsabilidade pelo deploy?                        | Alta      |
 | **Resiliência a Alucinações**   | Existem etapas explícitas de validação contra lógica inventada ou bibliotecas falsas?                 | Média     |
 
+## Ver tambem
+
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+- [KA 14 - Pratica Profissional](../14-software-engineering-professional-practice/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Project Management Institute.** *A Guide to the Project Management Body of

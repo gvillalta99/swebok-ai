@@ -140,6 +140,12 @@ Como não ser processado por causa da sua IA:
 | **Custo de Verificação**        | **Alto.** Exige advogados e especialistas em ética, que são caros e lentos.                       |
 | **Responsabilidade Legal**      | **Crítica.** É a área com maior risco existencial para a empresa (falência por multas/processos). |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **European Union**. *Artificial Intelligence Act*. 2024.

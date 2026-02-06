@@ -146,6 +146,12 @@ A lei não culpa a IA, culpa a empresa.
 | **Custo de Verificação**        | **Alto**    | Implementar rastreabilidade total custa processamento e armazenamento, mas é o preço da segurança jurídica. |
 | **Responsabilidade Legal**      | **Crítica** | É aqui que a empresa se protege de processos multimilionários. Falhar na governança é falha existencial.    |
 
+## Ver tambem
+
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 08 - Gestao de Configuracao](../08-software-configuration-management/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+
 ## Referências
 
 1. **ISO**. *ISO/IEC 42001: Information Technology - Artificial Intelligence -

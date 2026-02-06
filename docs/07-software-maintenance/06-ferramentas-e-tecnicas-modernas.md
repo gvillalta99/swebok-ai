@@ -128,6 +128,12 @@ em áreas críticas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Baixo** — Ferramentas determinísticas de análise são baratas de rodar em CI/CD.                                          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Baixa** — Ferramentas são auxiliares; a responsabilidade final é do engenheiro que assina o release.                     |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **SonarSource (2025)**. *Static Analysis Adapted for AI-Generated Code*.

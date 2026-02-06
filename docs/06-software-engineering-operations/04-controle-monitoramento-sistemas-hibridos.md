@@ -158,6 +158,12 @@ Logs de IA são radioativos. Eles contêm tudo que o usuário disse.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto** — Validar se a observabilidade está correta exige "observar o observador" com ground truth humano.                          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica** — Logs de raciocínio são evidência legal em casos de discriminação algorítmica.                                          |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 07 - Manutencao de Sistemas Opacos](../07-software-maintenance/index.md)
+
 ## Referências
 
 1. **Gartner.** (2025). *LLM Observability Innovation Insight Report*.

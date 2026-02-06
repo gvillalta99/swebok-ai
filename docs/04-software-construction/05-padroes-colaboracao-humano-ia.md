@@ -110,6 +110,12 @@ máquina.
 - Ler sobre **Prompt Engineering** para melhorar a qualidade das suas instruções
   para o "Co-piloto".
 
+## Ver tambem
+
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+
 ## Referências
 
 1. The New Stack, "Developer Productivity in 2025: More AI, but Mixed Results",

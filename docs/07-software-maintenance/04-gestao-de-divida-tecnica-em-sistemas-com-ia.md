@@ -118,6 +118,12 @@ Ele duplicou lógica existente?". Se sim, rejeite.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio** — Ferramentas de análise estática ajudam, mas o julgamento de "design ruim" ainda requer humanos. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — A acumulação de dívida leva a falhas sistêmicas e brechas de segurança.                       |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Arbisoft (2025)**. *The Dark Side of Vibe-Coding: Long-term

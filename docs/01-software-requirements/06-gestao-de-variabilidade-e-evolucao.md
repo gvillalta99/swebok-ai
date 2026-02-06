@@ -143,6 +143,12 @@ class SentimentPromptV2:
 | **Custo de Verificação**        | **Médio.** Evals automatizadas custam dinheiro (tokens), mas são mais baratas que engenheiros testando na mão.           |
 | **Responsabilidade Legal**      | **Alta.** Se você não consegue reproduzir o erro porque não sabe a versão do prompt, você tem um problema de compliance. |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Huyen, C.** *Designing Machine Learning Systems*. O'Reilly Media.

@@ -710,6 +710,12 @@ def stress_test_degradation():
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — testes comportamentais exigem execuções múltiplas e análise estatística |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — inconsistências em sistemas críticos podem ter consequências graves  |
 
+## Ver tambem
+
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 01. ACM Computing Surveys, "ConTested: Consistency-Aided Tested Code Generation

@@ -150,6 +150,12 @@ Para implementar amanhã:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Exige auditoria de processos e logs.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. Multas regulatórias e danos reputacionais. |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. NIST. (2024). *AI Risk Management Framework (AI RMF 1.0)*. U.S. Department of

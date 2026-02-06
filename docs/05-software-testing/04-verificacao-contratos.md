@@ -123,6 +123,12 @@ em asserções de código verificáveis.
 - Sempre projete com **fail-safes**: quando o contrato falha, o sistema deve
   degradar graciosamente, não explodir.
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Pesquisa Acadêmica**. "Runtime Verification of Neural Networks using Design

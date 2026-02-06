@@ -166,6 +166,12 @@ intervenção rápida é um requisito fundamental de operações.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Validar comportamento complexo de agentes exige auditoria profunda e ferramentas especializadas.                          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — A responsabilidade final permanece com os operadores humanos, especialmente em casos de viés ou danos causados por IA. |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 07 - Manutencao de Sistemas Opacos](../07-software-maintenance/index.md)
+
 ## Referências
 
 1. **Gartner.** (2025). *Predicts 2025: AI in IT Operations*. Gartner Research.

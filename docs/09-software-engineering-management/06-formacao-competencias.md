@@ -76,6 +76,12 @@ aprendizagem com revisao de praticas.
 - Formacao deve ser orientada a evidencias e riscos, nao a ferramentas.
 - Exercicios praticos devem simular curadoria, incidentes e gates.
 
+## Ver tambem
+
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+- [KA 14 - Pratica Profissional](../14-software-engineering-professional-practice/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. ISO/IEC. ISO/IEC 42001:2023. Information technology — Artificial intelligence

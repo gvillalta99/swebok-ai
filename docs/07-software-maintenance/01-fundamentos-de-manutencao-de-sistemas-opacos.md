@@ -134,6 +134,12 @@ Para sistemas altamente opacos e críticos (Legacy Code gerado por IA):
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — A compreensão profunda de código opaco é o gargalo final que a IA ainda não resolve plenamente. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — O mantenedor assume o risco integral de sistemas que não entende completamente.                    |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Research Team (2025)**. *Understanding and Mitigating Opacity in

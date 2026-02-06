@@ -178,3 +178,9 @@ linhas em Java.
   alucinação).
 - Revisar o processo de contratação para testar habilidades de debugging e
   system design, não apenas algoritmos de quadro branco.
+
+## Ver tambem
+
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+- [KA 14 - Pratica Profissional](../14-software-engineering-professional-practice/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)

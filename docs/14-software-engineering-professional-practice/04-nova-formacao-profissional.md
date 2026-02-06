@@ -143,6 +143,12 @@ O objetivo é treinar o **ceticismo profissional**.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Avaliar competência humana é caro e subjetivo.                       |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Baixa**. Erros de formação aparecem como dívida técnica anos depois.          |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. World Economic Forum. (2025). *Future of Jobs Report 2025*.

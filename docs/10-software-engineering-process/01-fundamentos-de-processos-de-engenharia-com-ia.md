@@ -150,6 +150,12 @@ Para adaptar seus processos fundamentais hoje:
 | **Custo de Verificação**        | **Médio**   | Processos bem desenhados automatizam a triagem, mas exigem tempo sênior para curadoria final.                    |
 | **Responsabilidade Legal**      | **Crítica** | O processo é a principal defesa jurídica da organização; ele define a *due diligence* na adoção de IA.           |
 
+## Ver tambem
+
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 08 - Gestao de Configuracao](../08-software-configuration-management/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+
 ## Referências
 
 1. **Pesquisa Acadêmica**. *Software Process Evolution in the Age of AI:

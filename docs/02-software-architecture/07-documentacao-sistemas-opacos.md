@@ -99,6 +99,12 @@ impossível depurar respostas desatualizadas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Documentação é um esforço humano de baixo custo técnico, mas alto valor organizacional.                            |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Alta**. System Cards funcionam como "bulas" ou contratos de nível de serviço (SLA) implícitos sobre a segurança do sistema. |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Mitchell, M., et al.** (2019). *Model Cards for Model Reporting*. FAT\*

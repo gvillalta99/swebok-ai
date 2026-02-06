@@ -183,6 +183,12 @@ classe média técnica.
 - Novos papéis como **Verification Engineer** são a aposta mais segura para a
   próxima década.
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **Makarov, I., et al.** "AI Is Driving A Shift Towards Outcome-Based

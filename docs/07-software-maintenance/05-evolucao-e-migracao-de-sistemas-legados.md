@@ -121,6 +121,12 @@ dependências. Prefira padrões abertos e abstrações leves.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Validar migrações de dados massivos e qualidade subjetiva de modelos é caro.                            |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — Interrupção de serviço ou degradação de qualidade impacta SLA, mas raramente gera passivo criminal. |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **LangChain (2025)**. *Best Practices for Versioning Prompts and Model

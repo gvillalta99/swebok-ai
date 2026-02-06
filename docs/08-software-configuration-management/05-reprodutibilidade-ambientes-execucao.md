@@ -124,6 +124,12 @@ Reprodutibilidade deve ser testada como propriedade do sistema:
   variar.
 - Testes de reprodutibilidade devem fazer parte do criterio de release.
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+
 ## Referências
 
 1. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering —

@@ -151,6 +151,12 @@ def get_summary(text):
 | **Custo de Verificação**        | **Médio.** Testes de caos automatizados ajudam, mas cenários complexos exigem análise manual.                              |
 | **Responsabilidade Legal**      | **Alta.** Se seu sistema falha em um momento crítico (ex: emergência médica), a culpa é da sua arquitetura, não da OpenAI. |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Nygard, M.** *Release It!: Design and Deploy Production-Ready Software*.

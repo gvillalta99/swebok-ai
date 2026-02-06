@@ -168,6 +168,12 @@ operação zero, custo de verificação baixo.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — exige julgamento sênior para avaliar impacto sistêmico.                           |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — decisões econômicas erradas (inflação de código) levam a falhas operacionais graves. |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **IEEE Computer Society**. "The Commoditization of Code: Economic

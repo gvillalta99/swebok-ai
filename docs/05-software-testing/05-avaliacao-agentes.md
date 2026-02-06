@@ -114,6 +114,12 @@ software dos modelos:
 - Validação de **uso de ferramentas** é tão crítica quanto a validação de
   geração de texto.
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Jimenez, C. et al.** "SWE-bench: Can Language Models Resolve Real-World

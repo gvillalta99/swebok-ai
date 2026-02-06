@@ -465,6 +465,12 @@ Sistemas devem suportar geração de relatórios de auditoria:
 - Em RAG, lineage precisa ligar resposta ao trecho recuperado e ao indice usado.
 - Curadoria humana deve ser registrada como decisao auditavel.
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+
 ## Referências
 
 1. W3C. PROV-O: The PROV Ontology. W3C Recommendation, 2013. Disponivel em:

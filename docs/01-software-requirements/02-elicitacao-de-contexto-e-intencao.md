@@ -168,6 +168,12 @@ Sua tarefa é classificar tickets para roteamento automático.
 | **Custo de Verificação**        | **Médio.** Requer inspeção humana dos chunks recuperados pelo RAG.                              |
 | **Responsabilidade Legal**      | **Alta.** Vazamento de dados (se o contexto trouxer PII) ou alucinação crítica.                 |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Wei, J., et al. (2022).** "Chain-of-Thought Prompting Elicits Reasoning in

@@ -115,6 +115,12 @@ Sem isso, o `exec()` teria passado despercebido em um review apressado.
 - Revisar o **KA 04 (CI/CD)** para aprofundar na infraestrutura de deployment
   contínuo.
 
+## Ver tambem
+
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+
 ## Referências
 
 1. DZone, "Copilot Code and CI/CD: Securing AI-Generated Code", 2026.

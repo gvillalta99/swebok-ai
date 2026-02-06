@@ -178,6 +178,12 @@ Em vez de refatorar manualmente linha a linha, o processo muitas vezes envolve
 | **Custo de Verificação**        | **Médio** | Requer disciplina para não ceder à facilidade da geração automática sem testes.                      |
 | **Responsabilidade Legal**      | **Alta**  | Processos ágeis frouxos podem permitir a entrada de vulnerabilidades e viés em produção rapidamente. |
 
+## Ver tambem
+
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 08 - Gestao de Configuracao](../08-software-configuration-management/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+
 ## Referências
 
 1. **Scrum.org**. *Scrum in the Age of AI: A Practical Guide*. 2025.

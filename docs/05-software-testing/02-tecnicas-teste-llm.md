@@ -143,6 +143,12 @@ inputs adversariais projetados para confundir a lógica do modelo) [5].
 - A combinação de **Análise Formal** e IA (Symbolic/Fuzzing) representa a
   fronteira da segurança em código gerado.
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Segura, S. et al.** "Metamorphic Relations for Testing Machine Learning: A

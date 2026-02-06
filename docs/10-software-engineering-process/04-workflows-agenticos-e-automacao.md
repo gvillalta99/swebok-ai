@@ -156,6 +156,12 @@ procurando vírgula errada ou senha vazada.
 | **Custo de Verificação**        | **Alto**    | Debugar interações multi-agente é complexo e não-determinístico.                                                           |
 | **Responsabilidade Legal**      | **Crítica** | Se um agente autônomo causar dano (ex: apagar prod), a responsabilidade é de quem desenhou o workflow e removeu os freios. |
 
+## Ver tambem
+
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 08 - Gestao de Configuracao](../08-software-configuration-management/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+
 ## Referências
 
 1. **Pesquisa Acadêmica**. *Multi-Agent Systems for Automated Software

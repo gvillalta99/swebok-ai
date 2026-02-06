@@ -167,6 +167,9 @@ Dados para suportar decisões de investimento e estratégia.
     Engineering." *arXiv preprint arXiv:2312.15223*, 2024.
     <https://arxiv.org/abs/2312.15223>
 13. **DORA.** *Accelerate State of DevOps Report 2024*. Google Cloud, 2024.
+    <https://dora.dev/research/>
 14. **World Economic Forum.** *The Future of Jobs Report 2025*. 2025.
+    <https://www.weforum.org/reports/the-future-of-jobs-report-2025/>
 15. **McKinsey & Company.** *The economic potential of generative AI: The next
     productivity frontier*. 2023.
+    <https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-economic-potential-of-generative-ai-the-next-productivity-frontier>

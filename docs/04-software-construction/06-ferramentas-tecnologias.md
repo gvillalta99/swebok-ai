@@ -103,6 +103,12 @@ Não escolha ferramentas pelo "hype". Use esta matriz simplificada:
 - Revisar o **KA 15 (Economia)** para entender o TCO (Custo Total de
   Propriedade) dessas ferramentas.
 
+## Ver tambem
+
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+
 ## Referências
 
 1. Netcorp, "AI-Generated Code Statistics 2026", 2026.

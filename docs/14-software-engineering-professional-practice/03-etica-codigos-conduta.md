@@ -150,6 +150,12 @@ Antes do deploy:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto**. Exige análise qualitativa humana e auditoria de impacto social.             |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Alta**. Empresas e engenheiros podem ser responsabilizados por discriminação algorítmica. |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. ACM. (2018). *Code of Ethics and Professional Conduct*. Association for

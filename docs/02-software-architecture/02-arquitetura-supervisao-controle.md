@@ -130,6 +130,12 @@ Guardrails muito restritivos podem degradar a utilidade do sistema
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Guardrails automatizados são baratos, mas supervisão humana é cara e não escala linearmente.                                      |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Falha na supervisão é frequentemente vista como negligência em contextos regulados.                                             |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **NVIDIA**. (2023). *NeMo Guardrails: Toolkit for Controllable AI*. NVIDIA

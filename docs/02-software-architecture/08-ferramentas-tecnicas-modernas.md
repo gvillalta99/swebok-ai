@@ -104,6 +104,12 @@ visualizar traces de execução em tempo real, transformando o desenvolvimento d
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. POCs são rápidas, mas testes de carga em infra de IA são complexos.                                |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Baixa**. A responsabilidade geralmente recai sobre o uso do modelo, não sobre a ferramenta de orquestração. |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Andreessen Horowitz (a16z)**. (2023). *Emerging Architectures for LLM

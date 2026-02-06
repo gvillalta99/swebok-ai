@@ -721,6 +721,12 @@ class AuditTrail:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificar explicabilidade genuína requer análise profunda    |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — auditoria e accountability são responsabilidades humanas  |
 
+## Ver tambem
+
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 01. Turpin et al., "Chain-of-Thought Is Not Explainability," AIGI Oxford, 2025.

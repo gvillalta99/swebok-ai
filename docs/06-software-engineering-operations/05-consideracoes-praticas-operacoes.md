@@ -134,6 +134,12 @@ em arquitetura e engenharia de confiabilidade de alto nível.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto** — Validar se um agente autônomo é seguro em todos os cenários de borda é extremamente custoso.                    |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica** — Se um agente derruba a produção, a culpa é de quem o configurou e autorizou.                                 |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 07 - Manutencao de Sistemas Opacos](../07-software-maintenance/index.md)
+
 ## Referências
 
 1. **PagerDuty.** (2025). *Transforming the Incident Lifecycle With AI Agents*.

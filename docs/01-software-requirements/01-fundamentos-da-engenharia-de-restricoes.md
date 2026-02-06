@@ -156,6 +156,12 @@ RESTRIÇÕES CRÍTICAS:
 | **Custo de Verificação**        | **Alto**. Validar restrições sutis exige sêniores e ferramentas complexas.                              |
 | **Responsabilidade Legal**      | **Crítica**. Falhas aqui resultam em processos, vazamentos e danos reais.                               |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **IEEE Computer Society**. *Guide to the Software Engineering Body of

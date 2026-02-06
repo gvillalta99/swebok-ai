@@ -138,15 +138,23 @@ protocolo:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Crítico**. Validar decisões de design e arquitetura é muito mais custoso que validar sintaxe.                    |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Máxima**. O engenheiro humano é o único elo responsabilizável na cadeia.                                         |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. DORA. (2024). *Impact of AI on software delivery performance*. DevOps
-   Research and Assessment.
+   Research and Assessment. <https://dora.dev/research/>
 2. ACM TechNews. (2024). *AI-Assisted Coding: Productivity Gains vs. Quality
    Trade-offs*. Association for Computing Machinery.
-3. IEEE Software. (Jan 2025). *The Verification Bottleneck in AI-Generated
-   Code*. IEEE Computer Society.
+   <https://www.acm.org/publications/technews>
+3. IEEE Software. (2025). *The Verification Bottleneck in AI-Generated Code*.
+   IEEE Computer Society. Pendente de evidencia primaria (DOI/URL do artigo).
 4. McKinsey Digital. (2024). *The State of AI in Software Engineering*. McKinsey
    & Company.
+   <https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai>
 5. Google. (2024). *The Shift from Coding to Problem Solving*. Google
-   Engineering Blog.
+   Engineering Blog. <https://developers.googleblog.com/>

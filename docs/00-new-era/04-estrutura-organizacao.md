@@ -225,8 +225,7 @@ Cada KA no SWEBOK-AI v5.0 segue estrutura padronizada:
 
 ```
 docs/XX-nome-do-ka/
-├── PLAN.md                    # Plano detalhado do KA
-├── README.md                  # Visão geral e navegação
+├── index.md                   # Visão geral e navegação do KA
 ├── 01-secao-principal.md      # Seções numeradas
 ├── 02-outra-secao.md
 └── ...

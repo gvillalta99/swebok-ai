@@ -105,6 +105,12 @@ anti-padrão. A arquitetura deve incluir mecanismos de *summarization* e
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Testes de injeção e recuperação de contexto são automatizáveis.                                                        |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Alta**. Vazamento de dados via prompt injection é uma falha de segurança primária.                                              |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Willison, S.** (2023). *Prompt injection: What’s the worst that can

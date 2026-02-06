@@ -162,6 +162,12 @@ aplicação se a nova versão dependia da inteligência superior.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio** — Testes em shadow duplicam o custo de inferência temporariamente, mas evitam custos de reputação. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Alta** — Um deploy ruim de IA pode gerar passivo legal imediato (ex: prometer descontos inexistentes).     |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 07 - Manutencao de Sistemas Opacos](../07-software-maintenance/index.md)
+
 ## Referências
 
 1. **Zhang, et al.** (2024). *LLM Operations: A Survey of Deployment Patterns

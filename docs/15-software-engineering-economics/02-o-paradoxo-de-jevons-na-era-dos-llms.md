@@ -175,6 +175,12 @@ manutenção da nova arquitetura supera o ganho de eficiência na codificação.
 - Revisar a estratégia de **Onboarding** de desenvolvedores: focar em leitura de
   código e debugging, não apenas em escrita.
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **Rubenfeld, C.** "Jevons Paradox: The Most Important Idea in AI." Substack,

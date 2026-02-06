@@ -1,0 +1,167 @@
+name: Editorial Validation
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**/*.md'
+      - 'mkdocs.yml'
+      - '.github/workflows/editorial-validation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-editorial-rules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate frontmatter, links, and references
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          docs_root = Path('docs')
+          allowed_status = {'draft', 'in-progress', 'research', 'published'}
+          required_fields = ['title', 'created_at', 'tags', 'status', 'updated_at', 'ai_model']
+
+          def changed_markdown_files() -> list[Path]:
+              base_ref = os.getenv('BASE_REF', '').strip()
+              if not base_ref:
+                  out = subprocess.run(
+                      ['git', 'diff', '--name-only', 'HEAD~1..HEAD', '--', 'docs/**/*.md'],
+                      capture_output=True,
+                      text=True,
+                      check=True,
+                  )
+                  files = []
+                  for line in out.stdout.splitlines():
+                      p = Path(line.strip())
+                      if p.suffix == '.md' and p.exists():
+                          files.append(p)
+                  return sorted(files)
+
+              diff_cmd = [
+                  'git',
+                  'diff',
+                  '--name-only',
+                  f'origin/{base_ref}...HEAD',
+                  '--',
+                  'docs/**/*.md',
+              ]
+              out = subprocess.run(diff_cmd, capture_output=True, text=True, check=True)
+              files = []
+              for line in out.stdout.splitlines():
+                  p = Path(line.strip())
+                  if p.suffix == '.md' and p.exists():
+                      files.append(p)
+              return sorted(files)
+
+          md_files = changed_markdown_files()
+          errors = []
+
+          link_pattern = re.compile(r'\[[^\]]+\]\(([^)]+)\)')
+
+          if not md_files:
+              print('Nenhum arquivo Markdown alterado para validar.')
+              sys.exit(0)
+
+          for file_path in md_files:
+              if file_path.name in {'README.md', 'PLAN.md', 'swebok-v4.md'}:
+                  continue
+
+              text = file_path.read_text(encoding='utf-8')
+
+              # Frontmatter validation
+              if not text.startswith('---\n'):
+                  errors.append(f'{file_path}: frontmatter ausente (inicio com ---).')
+                  continue
+
+              parts = text.split('---\n', 2)
+              if len(parts) < 3:
+                  errors.append(f'{file_path}: frontmatter malformado.')
+                  continue
+
+              frontmatter = parts[1]
+              body = parts[2]
+
+              frontmatter_keys = set()
+              for line in frontmatter.splitlines():
+                  if ':' in line:
+                      key = line.split(':', 1)[0].strip()
+                      if key:
+                          frontmatter_keys.add(key)
+
+              for key in required_fields:
+                  if key not in frontmatter_keys:
+                      errors.append(f'{file_path}: campo obrigatorio ausente no frontmatter: {key}.')
+
+              status_match = re.search(r'^status:\s*["\']?([^"\'\n]+)["\']?\s*$', frontmatter, flags=re.MULTILINE)
+              if not status_match:
+                  errors.append(f'{file_path}: campo status ausente ou invalido.')
+              else:
+                  status_value = status_match.group(1).strip()
+                  if status_value not in allowed_status:
+                      errors.append(f'{file_path}: status invalido "{status_value}" (permitidos: {sorted(allowed_status)}).')
+
+              # Internal link validation
+              for raw_target in link_pattern.findall(body):
+                  target = raw_target.strip()
+                  if not target:
+                      continue
+                  if target.startswith(('http://', 'https://', 'mailto:', '#')):
+                      continue
+
+                  target_path = target.split('#', 1)[0]
+                  if not target_path:
+                      continue
+
+                  resolved = (file_path.parent / target_path).resolve()
+                  repo_root = Path('.').resolve()
+                  try:
+                      resolved.relative_to(repo_root)
+                  except ValueError:
+                      errors.append(f'{file_path}: link fora do repositorio: {target}.')
+                      continue
+
+                  if not resolved.exists():
+                      errors.append(f'{file_path}: link interno quebrado: {target}.')
+
+              # Minimum references section validation for chapter-like files
+              is_chapter_file = bool(re.search(r'/\d{2}-[^/]+\.md$', file_path.as_posix()))
+              skip_names = {'index.md', 'README.md', 'PLAN.md'}
+
+              if is_chapter_file and file_path.name not in skip_names:
+                  heading = re.search(r'^##\s+Referências\s*$', body, flags=re.MULTILINE)
+                  if not heading:
+                      errors.append(f'{file_path}: secao obrigatoria "## Referências" ausente.')
+                  else:
+                      tail = body[heading.end():]
+                      next_heading = re.search(r'^##\s+', tail, flags=re.MULTILINE)
+                      references_block = tail[:next_heading.start()] if next_heading else tail
+                      if not re.search(r'^\s*\d+\.\s+', references_block, flags=re.MULTILINE):
+                          errors.append(f'{file_path}: "## Referências" sem itens numerados.')
+
+          if errors:
+              print('Falhas de validacao editorial:')
+              for err in errors:
+                  print(f'- {err}')
+              sys.exit(1)
+
+          print(f'Validacao editorial concluida: {len(md_files)} arquivos alterados verificados.')
+          PY

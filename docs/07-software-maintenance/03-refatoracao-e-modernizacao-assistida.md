@@ -130,6 +130,12 @@ re-geração. Código é descartável; a especificação (testes/prompts) é o a
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio** — Testes automatizados reduzem o custo, mas a configuração inicial da infraestrutura de teste diferencial é cara. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — Alterar código funcional introduz risco de regressão pelo qual a equipe de manutenção é responsável.          |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Academic Survey (2025)**. *Refactoring Techniques for AI-Generated Code: A

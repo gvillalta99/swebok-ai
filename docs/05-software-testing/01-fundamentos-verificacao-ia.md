@@ -134,6 +134,12 @@ enquanto detectam falhas epistêmicas (erros de lógica ou fato).
 - A responsabilidade final permanece humana. A IA é uma ferramenta de
   alavancagem, não um substituto de responsabilidade.
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **JavaPro**. "The AI Mona Lisa Challenge: Precision and Security Adjustments

@@ -156,6 +156,12 @@ lixo que precisa ser refeito.*
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — métricas ruins levam a decisões gerenciais desastrosas.     |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — métricas internas, mas impacto no produto final é real. |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **GitClear.** "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code

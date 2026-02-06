@@ -97,6 +97,12 @@ obrigatório para calibrar métricas automáticas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto**. Executar LLM-as-a-Judge em grande escala é computacionalmente caro.                     |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Garantir qualidade é a linha de defesa contra liability de produtos defeituosos.     |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **Es, S., et al.** (2023). *RAGAS: Automated Evaluation of Retrieval

@@ -129,6 +129,12 @@ verifique a explicação contra a execução real (Testes de Caracterização).
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Validar se uma explicação de código está correta exige expertise humana sênior.                                        |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — A falha aqui resulta em bugs mantidos, não necessariamente em novos riscos críticos imediatos, mas acumula dívida. |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Academic Research (2025)**. *Reverse Engineering Techniques for

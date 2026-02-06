@@ -182,6 +182,12 @@ Exemplo de estrutura de log estruturado para rastreabilidade:
 | **Custo de Verificação**        | Quanto custa validar esta atividade?    | **Médio**. Exige infraestrutura de logs robusta e ferramentas de avaliação semântica.                             |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?               | **Crítica**. Sem rastreabilidade de configuração, é impossível defender a empresa em casos de viés ou erro grave. |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+
 ## Referências
 
 1. **Google**. *Machine Learning Ops (MLOps): Configuration Management*. Google

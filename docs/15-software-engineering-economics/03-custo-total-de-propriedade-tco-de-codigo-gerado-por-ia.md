@@ -207,6 +207,12 @@ Para decisões de desenvolver manualmente vs. gerar com IA:
 - A decisão inteligente não é "sempre usar IA", mas "usar IA onde o custo de
   verificação é menor que o custo de produção manual".
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **Hamade, J.** "True Cost of AI-Generated Code: A Strategic Analysis of

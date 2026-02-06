@@ -222,6 +222,12 @@ contexto mudou. O documento recuperado pelo RAG hoje é diferente do de ontem.
 | **Impacto na Confiabilidade**     | Crítico   | Sem isso, o comportamento do sistema é não-determinístico e não auditável. |
 | **Custo Operacional**             | Baixo     | Custo marginal sobre o processo de dev existente.                          |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+
 ## Referências
 
 1. **GitOps Principles**. OpenGitOps. <https://opengitops.dev/>

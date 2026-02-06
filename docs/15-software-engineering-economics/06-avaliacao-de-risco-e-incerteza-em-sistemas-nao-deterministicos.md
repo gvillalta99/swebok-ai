@@ -178,6 +178,12 @@ Antes de deployar:
 - A única mitigação real é a arquitetura híbrida: IA para gerar opções, Código
   Tradicional/Humanos para decidir e validar.
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
 ## Referências
 
 1. **Kierans, A., et al.** "Catastrophic Liability: Managing Systemic Risks in

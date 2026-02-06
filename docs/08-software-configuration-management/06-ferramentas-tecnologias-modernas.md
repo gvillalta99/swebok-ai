@@ -245,6 +245,12 @@ recommendations:
   organizacional
 - Modelos de maturidade ajudam a avaliar e guiar evolução de práticas
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+
 ## Referências
 
 1. ISO. ISO 10007:2017. Quality management systems — Guidelines for

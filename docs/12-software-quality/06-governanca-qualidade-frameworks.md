@@ -858,6 +858,12 @@ deploy_production:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — governança requer julgamento humano e accountability |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — accountability legal sempre reside em humanos     |
 
+## Ver tambem
+
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 01. ISO/IEC 25010:2011, "Systems and software engineering — System and software

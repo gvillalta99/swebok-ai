@@ -130,6 +130,12 @@ dose. **Consequência:**
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Exige revisão jurídica e técnica profunda, não apenas testes automatizados.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. Engenheiros e empresas respondem civil e criminalmente.                           |
 
+## Ver tambem
+
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. European Union. (2024). *Artificial Intelligence Act (EU AI Act)*. Official

@@ -180,6 +180,12 @@ def answer_question(question):
 | **Custo de Verificação**        | **Baixo.** Ferramentas de Eval automatizam o trabalho pesado.                                          |
 | **Responsabilidade Legal**      | **Média.** Ferramentas de segurança (Guardrails) ajudam, mas a responsabilidade final é sua.           |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **LangChain**. *Documentation*.

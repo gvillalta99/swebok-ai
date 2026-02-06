@@ -155,6 +155,12 @@ Rate sobe para 60%, satisfação do time melhora.
 | **Custo de Verificação**        | **Baixo** | A maioria dessas métricas pode ser extraída automaticamente do Git/Jira.                       |
 | **Responsabilidade Legal**      | **Média** | Métricas ruins podem ser evidência de negligência em processos de auditoria de qualidade.      |
 
+## Ver tambem
+
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+- [KA 08 - Gestao de Configuracao](../08-software-configuration-management/index.md)
+- [KA 09 - Gestao de Engenharia](../09-software-engineering-management/index.md)
+
 ## Referências
 
 1. **ThoughtWorks**. *Measuring Flow: New Metrics for AI-Assisted Development

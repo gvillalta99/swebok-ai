@@ -126,6 +126,12 @@ Logs de LLM são verbosos (texto longo).
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Logs são gerados automaticamente, o custo está no armazenamento e análise.                      |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Logs de auditoria são a principal defesa legal para provar diligência em caso de falha da IA. |
 
+## Ver tambem
+
+- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+
 ## Referências
 
 1. **European Parliament**. (2024). *Artificial Intelligence Act*. (Foco nos

@@ -9,41 +9,55 @@ ai_model: gpt-4o
 
 # Design de Componentes Determinísticos
 
-Em um sistema híbrido, a maior parte do código *ainda deve ser determinística*. A sedução da IA é tentar resolver tudo com um prompt ("Faça a lógica de negócio X"). Isso é um erro arquitetural grave.
+Em um sistema híbrido, a maior parte do código *ainda deve ser determinística*.
+A sedução da IA é tentar resolver tudo com um prompt ("Faça a lógica de negócio
+X"). Isso é um erro arquitetural grave.
 
-Componentes determinísticos são a âncora de sanidade do sistema. Eles garantem que 2 + 2 seja sempre 4, que permissões de acesso sejam respeitadas e que dados sejam persistidos com integridade.
+Componentes determinísticos são a âncora de sanidade do sistema. Eles garantem
+que 2 + 2 seja sempre 4, que permissões de acesso sejam respeitadas e que dados
+sejam persistidos com integridade.
 
 ## O Núcleo Imutável (Core Domain)
 
-Seguindo princípios de Domain-Driven Design (DDD), o núcleo do seu negócio (Core Domain) deve ser protegido da variabilidade da IA.
+Seguindo princípios de Domain-Driven Design (DDD), o núcleo do seu negócio (Core
+Domain) deve ser protegido da variabilidade da IA.
 
-- **Regra:** A lógica de negócio crítica (cálculo de preços, aprovação de transações, regras de acesso) deve ser escrita em código tradicional (Python, Java, Go, etc.), coberta por testes unitários e nunca delegada a um LLM.
-- **Papel da IA:** A IA atua nas bordas (Interface Adaptativa) ou como auxiliar (Copiloto), mas nunca como legisladora das regras de negócio.
+- **Regra:** A lógica de negócio crítica (cálculo de preços, aprovação de
+  transações, regras de acesso) deve ser escrita em código tradicional (Python,
+  Java, Go, etc.), coberta por testes unitários e nunca delegada a um LLM.
+- **Papel da IA:** A IA atua nas bordas (Interface Adaptativa) ou como auxiliar
+  (Copiloto), mas nunca como legisladora das regras de negócio.
 
 ### Separação de Responsabilidades
 
-| Componente | Natureza | Exemplo | Quem executa? |
-| :--- | :--- | :--- | :--- |
-| **Policy Engine** | Determinístico | "Usuário Premium tem 10% de desconto" | Código (Hard Logic) |
-| **Intent Parser** | Probabilístico | "O usuário *parece* querer um desconto" | LLM (Soft Logic) |
-| **Action Executor** | Determinístico | Aplica o desconto no banco de dados | Código (Hard Logic) |
+| Componente          | Natureza       | Exemplo                                 | Quem executa?       |
+| :------------------ | :------------- | :-------------------------------------- | :------------------ |
+| **Policy Engine**   | Determinístico | "Usuário Premium tem 10% de desconto"   | Código (Hard Logic) |
+| **Intent Parser**   | Probabilístico | "O usuário *parece* querer um desconto" | LLM (Soft Logic)    |
+| **Action Executor** | Determinístico | Aplica o desconto no banco de dados     | Código (Hard Logic) |
 
-O design deve garantir que o **Intent Parser** apenas extraia a intenção e parâmetros, mas quem decide se a ação é válida é o **Policy Engine**.
+O design deve garantir que o **Intent Parser** apenas extraia a intenção e
+parâmetros, mas quem decide se a ação é válida é o **Policy Engine**.
 
 ## Isolamento de Componentes Probabilísticos
 
-Trate componentes de IA como se fossem I/O externo instável (similar a acessar um disco de rede lento e corrompível).
+Trate componentes de IA como se fossem I/O externo instável (similar a acessar
+um disco de rede lento e corrompível).
 
 ### O Padrão "Ports and Adapters" (Hexagonal)
 
 A Arquitetura Hexagonal é perfeita para isolar LLMs.
+
 - **Dominio:** Puro, determinístico, sem dependência de IA.
-- **Porta:** Interface que define o que o sistema precisa (ex: `ISummarizer`, `ISentimentAnalyzer`).
+- **Porta:** Interface que define o que o sistema precisa (ex: `ISummarizer`,
+  `ISentimentAnalyzer`).
 - **Adaptador:** A implementação concreta que chama a OpenAI/Anthropic.
 
-Isso permite que você troque o modelo, ou substitua por uma implementação "dummy" nos testes, sem tocar na lógica de negócio.
+Isso permite que você troque o modelo, ou substitua por uma implementação
+"dummy" nos testes, sem tocar na lógica de negócio.
 
 **Exemplo de Interface:**
+
 ```python
 # Interface Determinística
 class FraudDetector(Protocol):
@@ -56,36 +70,60 @@ class LLMFraudDetector(FraudDetector):
         # Valida resposta...
         return result
 ```
-Para o resto do sistema, `FraudDetector` é apenas um componente que retorna um resultado. A complexidade da IA está encapsulada no adaptador.
+
+Para o resto do sistema, `FraudDetector` é apenas um componente que retorna um
+resultado. A complexidade da IA está encapsulada no adaptador.
 
 ## Imutabilidade e Idempotência
 
-Como LLMs podem falhar e precisar de retries, os componentes determinísticos que recebem comandos da IA devem ser idempotentes.
+Como LLMs podem falhar e precisar de retries, os componentes determinísticos que
+recebem comandos da IA devem ser idempotentes.
 
-- **Idempotência:** Executar a mesma ação duas vezes não deve causar efeito colateral duplicado (ex: cobrar o cartão duas vezes).
-- **Design:** Use chaves de idempotência (idempotency keys) geradas no início do fluxo e passadas adiante. Se o LLM alucinar e pedir a execução novamente, o componente determinístico detecta a chave duplicada e ignora.
+- **Idempotência:** Executar a mesma ação duas vezes não deve causar efeito
+  colateral duplicado (ex: cobrar o cartão duas vezes).
+- **Design:** Use chaves de idempotência (idempotency keys) geradas no início do
+  fluxo e passadas adiante. Se o LLM alucinar e pedir a execução novamente, o
+  componente determinístico detecta a chave duplicada e ignora.
 
 ## Estratégias de Fallback Determinístico
 
-O que acontece quando a "inteligência" falha? O sistema deve degradar para a "estupidez funcional".
+O que acontece quando a "inteligência" falha? O sistema deve degradar para a
+"estupidez funcional".
 
-1. **Regras Heurísticas:** Se o modelo de recomendação cair, retorne os "Top 10 mais vendidos" (query simples de banco).
-2. **Regex/Keyword Matching:** Se o classificador de intenção via LLM falhar, tente identificar palavras-chave simples ("cancelar", "comprar").
-3. **Fail Closed:** Em segurança, se o avaliador de risco via IA falhar, negue o acesso por padrão.
+1. **Regras Heurísticas:** Se o modelo de recomendação cair, retorne os "Top 10
+   mais vendidos" (query simples de banco).
+2. **Regex/Keyword Matching:** Se o classificador de intenção via LLM falhar,
+   tente identificar palavras-chave simples ("cancelar", "comprar").
+3. **Fail Closed:** Em segurança, se o avaliador de risco via IA falhar, negue o
+   acesso por padrão.
 
 ## Armadilhas Comuns
 
-- **Lógica de Negócio no Prompt:** Colocar regras complexas ("Se o usuário for X e a data for Y, dê Z") dentro do prompt. É impossível testar todas as permutações e o modelo vai errar na borda. Tire a regra do prompt e traga para o código (`if user.is_x and date.is_y: ...`).
-- **Estado Global Compartilhado:** Permitir que agentes de IA manipulem estado global sem passar por métodos transacionais seguros.
+- **Lógica de Negócio no Prompt:** Colocar regras complexas ("Se o usuário for X
+  e a data for Y, dê Z") dentro do prompt. É impossível testar todas as
+  permutações e o modelo vai errar na borda. Tire a regra do prompt e traga para
+  o código (`if user.is_x and date.is_y: ...`).
+- **Estado Global Compartilhado:** Permitir que agentes de IA manipulem estado
+  global sem passar por métodos transacionais seguros.
 
 ## Resumo Executivo
 
 - **Core Blindado:** Mantenha a IA longe do núcleo crítico do negócio.
-- **IA nas Bordas:** Use IA para traduzir linguagem natural em chamadas de função estruturadas.
+- **IA nas Bordas:** Use IA para traduzir linguagem natural em chamadas de
+  função estruturadas.
 - **Adapters:** Isole a IA atrás de interfaces limpas.
-- **Código > Prompt:** Se você pode escrever em `if/else`, não use prompt. É mais barato, rápido e correto.
+- **Código > Prompt:** Se você pode escrever em `if/else`, não use prompt. É
+  mais barato, rápido e correto.
 
 ## Próximos Passos
 
-- Definir contratos claros entre o mundo determinístico e probabilístico em **Design de Interfaces e Contratos** (Próxima seção).
-- Garantir que o código determinístico seja testável para suportar a variabilidade da entrada.
+- Definir contratos claros entre o mundo determinístico e probabilístico em
+  **Design de Interfaces e Contratos** (Próxima seção).
+- Garantir que o código determinístico seja testável para suportar a
+  variabilidade da entrada.
+
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 12 - Qualidade de Software](../12-software-quality/index.md)

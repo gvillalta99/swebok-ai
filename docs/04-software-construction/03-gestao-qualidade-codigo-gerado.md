@@ -114,6 +114,12 @@ ela "alucinou" no momento.
   profundidade do problema.
 - Implementar uma política de "Boy Scout Rule" para commits assistidos por IA.
 
+## Ver tambem
+
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+
 ## Referências
 
 1. GitClear, "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code

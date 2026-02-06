@@ -216,7 +216,7 @@ Resolver problemas estruturais do livro (arquitetura de informacao, consistencia
   3. Marcar pendencias de evidencia quando necessario.
 - Arquivos alvo:
   - `docs/14-software-engineering-professional-practice/01-fundamentos-julgamento-tecnico.md`
-  - `docs/15-software-engineering-economics/README.md`
+  - `docs/15-software-engineering-economics/index.md`
   - `docs/16-appendix/03-referencias-consolidadas.md`
 - Responsavel sugerido: `book-reviewer`
 - Prioridade: alta
@@ -269,9 +269,9 @@ Resolver problemas estruturais do livro (arquitetura de informacao, consistencia
 
 ### Sprint 3 (integracao, evidencia e enforcement)
 
-- [ ] BR-003
-- [ ] BR-006
-- [ ] BR-008
+- [x] BR-003
+- [x] BR-006
+- [x] BR-008
 
 ## Riscos e Mitigacoes
 

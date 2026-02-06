@@ -111,6 +111,12 @@ O "teste em produção" é inevitável com IA.
 - Revisar o **KA 13 (Segurança)** para entender como proteger seu pipeline de
   *prompt injection*.
 
+## Ver tambem
+
+- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 06 - Operacoes de Engenharia](../06-software-engineering-operations/index.md)
+
 ## Referências
 
 1. DZone, "Copilot Code and CI/CD: Securing AI-Generated Code", 2026.

@@ -164,6 +164,12 @@ Referência *Cost Optimization for LLM Operations* (arXiv, 2025) sugere:
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio** — Requer monitoramento contínuo e análise de logs para garantir que o roteamento não está degradando a qualidade.                        |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Alta** — Alucinações em escala ou vazamento de dados via prompt são riscos corporativos graves.                                                  |
 
+## Ver tambem
+
+- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 07 - Manutencao de Sistemas Opacos](../07-software-maintenance/index.md)
+
 ## Referências
 
 1. **Andreessen Horowitz (a16z).** (2025). *The Economics of AI-Assisted

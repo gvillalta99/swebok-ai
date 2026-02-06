@@ -103,6 +103,12 @@ de verificacao e por context switching.
 - DORA continua util se decomposta e interpretada por evidencia e risco.
 - SPACE ajuda a balancear produtividade com bem-estar e colaboracao.
 
+## Ver tambem
+
+- [KA 10 - Processos de Engenharia](../10-software-engineering-process/index.md)
+- [KA 14 - Pratica Profissional](../14-software-engineering-professional-practice/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software

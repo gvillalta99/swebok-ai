@@ -172,6 +172,12 @@ sensíveis. **Decisão de Qualidade:**
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Validar lógica complexa exige senioridade. Juniors podem ser enganados por código "plausível".                                           |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. A responsabilidade final é sempre do humano que aprovou o deploy. "A IA errou" não é defesa jurídica válida.                          |
 
+## Ver tambem
+
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **ISO/IEC 25010:2011**. *Systems and software engineering — Systems and

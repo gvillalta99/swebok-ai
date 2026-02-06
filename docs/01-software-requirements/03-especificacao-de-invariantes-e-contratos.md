@@ -165,6 +165,12 @@ def executar_consulta_gerada(user_prompt: str):
 | **Custo de Verificação**        | **Alto.** Exige expertise técnica para escrever contratos que não sejam frágeis.            |
 | **Responsabilidade Legal**      | **Crítica.** Contratos bem definidos provam diligência técnica em caso de auditoria.        |
 
+## Ver tambem
+
+- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
+- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+
 ## Referências
 
 1. **Meyer, B.** *Object-Oriented Software Construction*. Prentice Hall, 1997.
