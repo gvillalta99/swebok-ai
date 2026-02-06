@@ -3,7 +3,7 @@ title: Arquitetura de Supervisão e Controle
 created_at: '2025-05-21'
 tags: [supervisao, controle, guardrails, seguranca, swebok-ai]
 status: in-progress
-updated_at: '2025-05-21'
+updated_at: '2026-02-06'
 ai_model: claude-3.5-sonnet
 ---
 
@@ -77,21 +77,25 @@ não executa até que um humano aprove explicitamente.
 ### Padrão "Auditoria Ativa"
 
 O sistema executa autonomamente, mas amostra uma porcentagem de ações para
-revisão humana, utilizando o feedback para re-treinamento ou ajuste de prompt.
+revisão humana, utilizando esse feedback para retreinamento, calibração de
+políticas e ajuste de prompts.
 
 - *Uso*: Classificação de suporte, moderação de conteúdo.
 
 ### Padrão "Escalonamento por Incerteza"
 
-O modelo estima sua própria confiança. Se a confiança for baixa (< threshold), o
-controle é transferido para um operador humano.
+O sistema estima incerteza por métricas proxy (por exemplo, consistência entre
+amostras, score de classificador auxiliar ou violação de política). Se a
+incerteza exceder o limiar operacional definido, o controle é transferido para
+um operador humano.
 
 - *Uso*: Atendimento ao cliente complexo, diagnósticos médicos preliminares.
 
 ## 2.3 Supervisão Automatizada (AI Supervising AI)
 
-Para escalar a supervisão onde humanos são lentos ou caros, utilizamos modelos
-menores e especializados para supervisionar modelos maiores.
+Para escalar a supervisão em contextos nos quais a revisão humana integral é
+inviável por custo ou tempo de resposta, utilizamos modelos menores e
+especializados para supervisionar modelos maiores.
 
 - **Modelos Críticos**: Um modelo treinado para identificar falhas lógicas ou de
   segurança avalia o output do modelo gerador.
@@ -103,9 +107,9 @@ menores e especializados para supervisionar modelos maiores.
 
 ### Latência vs. Segurança
 
-Cada guardrail adiciona latência. Arquitetos devem balancear a segurança com a
-UX. Executar verificações em paralelo ou de forma assíncrona (para auditoria)
-são estratégias comuns.
+Cada guardrail adiciona latência. Arquitetos devem balancear segurança com a UX.
+A execução de verificações em paralelo ou de forma assíncrona (especialmente
+para trilhas de auditoria) é uma estratégia recorrente.
 
 ### Falsos Positivos
 
@@ -115,7 +119,7 @@ Guardrails muito restritivos podem degradar a utilidade do sistema
 ## Resumo
 
 - O controle em sistemas de IA é exógeno (imposto por guardrails) e não endógeno
-  (código hardcoded).
+  (código codificado rigidamente).
 - Guardrails de entrada e saída são a primeira linha de defesa contra
   alucinações e ataques.
 - Human-in-the-Loop é um padrão arquitetural essencial para mitigação de risco
@@ -130,21 +134,28 @@ Guardrails muito restritivos podem degradar a utilidade do sistema
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Guardrails automatizados são baratos, mas supervisão humana é cara e não escala linearmente.                                      |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Falha na supervisão é frequentemente vista como negligência em contextos regulados.                                             |
 
-## Ver tambem
+## Ver também
 
-- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 01 - Engenharia de Restrições e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **NVIDIA**. (2023). *NeMo Guardrails: Toolkit for Controllable AI*. NVIDIA
-   Developer.
-2. **Anthropic**. (2023). *Constitutional AI: Harmlessness from AI Feedback*.
-   arXiv:2212.08073.
-3. **Rebedea, T., et al.** (2023). *NeMo Guardrails: A Toolkit for Controllable
-   and Safe LLM Applications with Programmable Rails*. arXiv preprint.
+1. **Rebedea, T.; Dinu, R.; Sreedhar, M. N.; Parisien, C.; Cohen, J.** (2023).
+   *NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with
+   Programmable Rails*. In: **Proceedings of EMNLP 2023: System
+   Demonstrations**, p. 431-445. ACL. DOI:
+   <https://doi.org/10.18653/v1/2023.emnlp-demo.40>
+2. **Bai, Y., et al.** (2022). *Constitutional AI: Harmlessness from AI
+   Feedback*. arXiv:2212.08073. DOI: <https://doi.org/10.48550/arXiv.2212.08073>
+3. **NVIDIA**. (2024). *NeMo Guardrails Documentation*. Disponível em:
+   <https://docs.nvidia.com/nemo/guardrails/introduction.html>
 4. **Wei, J., et al.** (2022). *Chain-of-Thought Prompting Elicits Reasoning in
-   Large Language Models*. NeurIPS.
+   Large Language Models*. In: **Advances in Neural Information Processing
+   Systems 35 (NeurIPS 2022)**. Disponível em:
+   <https://proceedings.neurips.cc/paper_files/paper/2022/hash/9d5609613524ecf4f15af0f7b31abca4-Abstract-Conference.html>
 5. **Ouyang, L., et al.** (2022). *Training language models to follow
-   instructions with human feedback* (RLHF). NeurIPS.
+   instructions with human feedback*. In: **Advances in Neural Information
+   Processing Systems 35 (NeurIPS 2022)**. Disponível em:
+   <https://proceedings.neurips.cc/paper_files/paper/2022/hash/b1efde53be364a73914f58805a001731-Abstract-Conference.html>

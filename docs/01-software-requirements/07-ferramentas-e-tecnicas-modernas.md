@@ -3,7 +3,7 @@ title: Ferramentas e Técnicas Modernas
 created_at: '2025-01-31'
 tags: [ferramentas, tecnicas, rag, prompt-engineering, vector-databases, mlops, llmops]
 status: in-progress
-updated_at: '2026-02-04'
+updated_at: '2026-02-06'
 ai_model: openai/gpt-5.2
 ---
 
@@ -11,12 +11,12 @@ ai_model: openai/gpt-5.2
 
 ## Contexto
 
-Em 2022, bastava um script Python chamando a OpenAI. Em 2026, a stack de IA é
-tão complexa quanto a de Kubernetes. Temos Vector DBs, Frameworks de Agentes,
-Avaliadores, Tracing, Guardrails e Gateways. O risco não é mais "não ter
-ferramenta", é ter "paralisia por análise" ou adotar abstrações que vazam
-(*leaky abstractions*). Este capítulo não é uma lista de compras; é um filtro de
-sobrevivência para sua stack.
+Em 2022, aplicações com LLM podiam ser construídas com poucos componentes. Em
+2026, a pilha técnica inclui bancos vetoriais, orquestração de agentes,
+avaliação contínua, observabilidade, guardrails e gateways de modelos. O risco
+principal deixou de ser a ausência de ferramentas e passou a ser a complexidade
+desnecessária. Este capítulo propõe critérios de seleção para reduzir
+acoplamento, melhorar auditabilidade e preservar capacidade de evolução.
 
 ## A Stack Essencial (LLM Stack)
 
@@ -34,7 +34,9 @@ errou?).
 
 ### 2. Memória e RAG (Retrieval-Augmented Generation)
 
-A IA não lembra de nada. O banco vetorial é o hipocampo dela.
+Modelos de linguagem não mantêm memória factual persistente entre sessões; por
+isso, mecanismos de recuperação externa (RAG) são necessários para fornecer
+contexto verificável no momento da inferência.
 
 - **Vector Stores:** Pinecone (Serverless), Weaviate (Híbrido), pgvector (para
   quem já usa Postgres). Não complique: se você tem menos de 1 milhão de
@@ -49,8 +51,10 @@ Você não pode gerenciar o que não vê. Logs de texto plano (`print(response)`
 não servem.
 
 - **Ferramentas:** LangSmith, Arize Phoenix, Weights & Biases.
-- **O que medir:** Latência p99, Custo por Query, Taxa de Feedback Negativo,
-  Trace da Cadeia de Pensamento.
+- **O que medir:** latência (p50/p95/p99), custo por requisição, taxa de erro
+  por etapa, taxa de recuperação útil (retrieval hit-rate),
+  groundedness/fidelidade da resposta, satisfação do usuário e cobertura dos
+  testes de avaliação.
 
 ### 4. Avaliação (Evals)
 
@@ -67,21 +71,23 @@ Como você sabe que o prompt novo é melhor?
 
 Não é mais sobre "agir como um pirata".
 
-- **Chain-of-Thought (CoT):** "Pense passo a passo". Aumenta a precisão em
-  lógica e matemática.
-- **Few-Shot:** Dar exemplos no prompt é mais eficiente que fine-tuning para 90%
-  dos casos.
-- **DSPy:** Esqueça escrever prompts manuais. DSPy compila e otimiza prompts
-  automaticamente usando algoritmos de busca. É o futuro da engenharia de prompt
-  declarativa.
+- **Raciocínio guiado:** Prefira instruções estruturadas e critérios explícitos
+  de saída em vez de depender de prompts longos e genéricos.
+- **Few-shot:** Geralmente melhora consistência em tarefas de formatação e
+  classificação, mas exige curadoria de exemplos representativos.
+- **DSPy:** Abordagem promissora para otimização programática de pipelines de
+  prompt; útil quando há métrica objetiva de avaliação e ciclo contínuo de
+  experimentação.
 
 ### Verificação Formal
 
 Para código crítico, apenas "parecer certo" não basta.
 
-- **Ferramentas:** VeriGuard, AlphaVerus. Usam métodos formais para provar
-  matematicamente que o código gerado pela IA satisfaz certas propriedades (ex:
-  não acessa memória inválida).
+- **Prática recomendada:** combinar testes automatizados, análise estática,
+  tipagem forte e, quando viável, métodos formais.
+- **Estado da arte:** abordagens como VeriGuard e AlphaVerus são relevantes em
+  pesquisa para código verificável, mas ainda devem ser tratadas como técnicas
+  emergentes para adoção em produção.
 
 ## Checklist Prático
 
@@ -90,8 +96,9 @@ Montando a caixa de ferramentas:
 1. [ ] **Escolha um Vector DB "Boring":** Comece com o que você já tem (Postgres
    \+ pgvector ou Elasticsearch). Migre para especializado (Pinecone/Milvus) só
    quando a escala exigir.
-2. [ ] **Instale Observabilidade no Dia 1:** Configure o LangSmith ou similar
-   antes do primeiro deploy. Debugar RAG sem trace visual é impossível.
+2. [ ] **Instale observabilidade desde o início:** Configure tracing, métricas e
+   avaliação antes do primeiro deploy para reduzir tempo de diagnóstico e
+   regressão.
 3. [ ] **Implemente Cache:** Use GPTCache ou Redis para não pagar duas vezes
    pela mesma pergunta.
 4. [ ] **Crie um Pipeline de Evals:** Tenha um script que roda 50 perguntas de
@@ -119,10 +126,9 @@ Montando a caixa de ferramentas:
 
 ```python
 import os
-from langchain.chat_models import ChatOpenAI
-from langchain.document_loaders import TextLoader
-from langchain.vectorstores import Chroma
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_community.document_loaders import TextLoader
+from langchain_community.vectorstores import Chroma
 from langsmith import Client
 
 # 1. Configuração de Observabilidade
@@ -141,10 +147,10 @@ def answer_question(question):
     context = "\n".join([d.page_content for d in docs])
 
     # Generate (com controle explícito)
-    llm = ChatOpenAI(model="gpt-4", temperature=0)
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     prompt = f"Use este contexto para responder: {context}\n\nPergunta: {question}"
-
-    return llm.predict(prompt)
+    response = llm.invoke(prompt)
+    return response.content
 ```
 
 **Trade-offs:**
@@ -180,16 +186,30 @@ def answer_question(question):
 | **Custo de Verificação**        | **Baixo.** Ferramentas de Eval automatizam o trabalho pesado.                                          |
 | **Responsabilidade Legal**      | **Média.** Ferramentas de segurança (Guardrails) ajudam, mas a responsabilidade final é sua.           |
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 05 - Verificacao e Validacao em Escala](../05-software-testing/index.md)
-- [KA 15 - Economia e Metricas](../15-software-engineering-economics/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 05 - Verificação e Validação em Escala](../05-software-testing/index.md)
+- [KA 15 - Economia e Métricas](../15-software-engineering-economics/index.md)
 
 ## Referências
 
-1. **LangChain**. *Documentation*.
-2. **LlamaIndex**. *High-Level Concepts*.
-3. **Khattab, O. et al.** *DSPy: Compiling Declarative Language Model Calls into
-   Self-Improving Pipelines*.
-4. **Arize AI**. *RAG Evaluation Best Practices*.
+1. LangChain. *Documentation*. Disponível em: <https://docs.langchain.com/>.
+   Acesso em: 6 fev. 2026.
+2. LlamaIndex. *High-Level Concepts*. Disponível em:
+   <https://docs.llamaindex.ai/en/stable/getting_started/concepts/>. Acesso em:
+   6 fev. 2026.
+3. Khattab, O.; Singhvi, A.; Maheshwari, P.; et al. *DSPy: Compiling Declarative
+   Language Model Calls into Self-Improving Pipelines*. arXiv:2310.03714, 2023.
+   Disponível em: <https://arxiv.org/abs/2310.03714>. Acesso em: 6 fev. 2026.
+4. Arize AI. *Evaluating and Analyzing Your RAG Pipeline with Ragas*. 2024.
+   Disponível em:
+   <https://phoenix.arize.com/evaluating-and-analyzing-your-rag-pipeline-with-ragas-and-phoenix/>.
+   Acesso em: 6 fev. 2026.
+5. Aggarwal, P.; Parno, B.; Welleck, S. *AlphaVerus: Bootstrapping Formally
+   Verified Code Generation through Self-Improving Translation and
+   Treefinement*. arXiv:2412.06176, 2024. Disponível em:
+   <https://arxiv.org/abs/2412.06176>. Acesso em: 6 fev. 2026.
+6. Miculicich, L.; Parmar, N.; Singh, A.; et al. *VeriGuard: Enhancing LLM Agent
+   Safety via Verified Code Generation*. arXiv:2510.05156, 2025. Disponível em:
+   <https://arxiv.org/abs/2510.05156>. Acesso em: 6 fev. 2026.

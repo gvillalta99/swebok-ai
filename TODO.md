@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/01-software-requirements/06-gestao-de-variabilidade-e-evolucao.md
-- @book-reviewer review docs/01-software-requirements/07-ferramentas-e-tecnicas-modernas.md
-- @book-reviewer review docs/01-software-requirements/index.md
-- @book-reviewer review docs/02-software-architecture/01-fundamentos-arquitetura-hibrida.md
-- @book-reviewer review docs/02-software-architecture/02-arquitetura-supervisao-controle.md
 - @book-reviewer review docs/02-software-architecture/03-separacao-concerns-criticos.md
 - @book-reviewer review docs/02-software-architecture/04-design-auditabilidade-rastreamento.md
 - @book-reviewer review docs/02-software-architecture/05-antropizacao-interfaces-experiencias.md
