@@ -3,7 +3,7 @@ title: O Contexto da Revolução dos LLMs
 created_at: '2026-02-05'
 tags: [llm, transformers, evolucao, benchmarks, swot]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: k2p5
 ---
 
@@ -146,7 +146,7 @@ resolução — um salto de 10x em relação ao GPT-4 de 2023.
 novo estado-da-arte em benchmarks de engenharia de software real.
 Características distintivas incluem:
 
-- Raciocínio extendido para tarefas de longa duração
+- Raciocínio estendido para tarefas de longa duração
 - Capacidade de manter contexto através de sessões prolongadas
 - Performance líder no SWE-bench Verified
 
@@ -157,14 +157,15 @@ pontos percentuais o modelo anterior (o1).
 
 **Evolução das Métricas SWE-bench Verified:**
 
-| Modelo        | Ano  | Score | Salto    |
-| ------------- | ---- | ----- | -------- |
-| GPT-4         | 2023 | 3.1%  | baseline |
-| GPT-4o        | 2024 | 33.0% | 10x      |
-| Claude 4 / o3 | 2025 | ~71%  | 2x       |
+| Modelo             | Ano  | Score reportado | Observação metodológica                         |
+| ------------------ | ---- | --------------- | ----------------------------------------------- |
+| GPT-4              | 2023 | 3.1%            | SWE-bench inicial                               |
+| GPT-4o             | 2024 | 33.0%           | SWE-bench Verified (relatório OpenAI)           |
+| Claude Opus 4 / o3 | 2025 | ~72% / 71.7%    | Configurações, subset e scaffold variam por run |
 
-Esta progressão demonstra crescimento exponencial consistente, com saltos
-qualitativos em 2024 (autonomia inicial) e 2025 (raciocínio profundo).
+Esta progressão demonstra avanço substancial, com saltos qualitativos em 2024
+(autonomia inicial) e 2025 (raciocínio profundo). Ainda assim, comparações
+diretas exigem normalização de subset, scaffold e orçamento de inferência.
 
 ## Benchmarks e Métricas de Progresso
 
@@ -206,10 +207,11 @@ completar com 50% de sucesso. Os dados mostram crescimento exponencial
 consistente, mas ainda limitado a horas (não dias) de trabalho humano
 equivalente.
 
-**Estudo OS Dev (METR, 2025):** Avaliação experimental de modelos de IA como
-desenvolvedores de sistema operacional experientes. Revela a fronteira atual
-entre assistência e autonomia em sistemas complexos, identificando cenários onde
-supervisão humana permanece essencial.
+**Estudo de produtividade em desenvolvimento open-source (METR, 2025):**
+Avaliação experimental de modelos de IA com desenvolvedores experientes em
+repositórios open-source. Revela a fronteira atual entre assistência e autonomia
+em sistemas complexos, identificando cenários em que supervisão humana permanece
+essencial.
 
 **SWE-Bench Pro (2025):** Benchmark focado em tarefas de longo horizonte
 (múltiplas horas). Revela gaps substanciais em cenários reais complexos versus
@@ -312,8 +314,15 @@ agentes aparentemente autônomos.
     Real-World Freelance Software Engineering?".
     <https://openai.com/index/swe-lancer/>
 
-11. Babu, V. (2025). "Where Autonomous Coding Agents Fail: A Forensic Audit of
+11. Ehsani, R., et al. (2026). "Where Do AI Coding Agents Fail? A Forensic
+    Analysis of Issues in Autonomous Repository-Level Code Generation".
+    arXiv:2601.15195 (MSR 2026).
+
+12. Scale AI et al. (2025). "SWE-Bench Pro: Can AI Agents Solve Long-Horizon
+    Software Engineering Tasks?". OpenReview.
+
+13. Babu, V. (2025). "Where Autonomous Coding Agents Fail: A Forensic Audit of
     Real-World PRs". Medium.
 
-12. Willison, S. (2025). "2025: The year in LLMs".
+14. Willison, S. (2025). "2025: The year in LLMs".
     <https://simonwillison.net/2025/Dec/31/the-year-in-llms/>
