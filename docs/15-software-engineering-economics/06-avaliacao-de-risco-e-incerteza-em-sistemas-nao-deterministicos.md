@@ -3,374 +3,135 @@ title: 06 - Avaliação de Risco e Incerteza em Sistemas Não-Determinísticos
 created_at: '2026-01-31'
 tags: [risco, incerteza, sistemas-nao-deterministicos, ia, responsabilidade, seguro]
 status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+updated_at: '2026-02-04'
+ai_model: google-gemini-2.0-flash-thinking-exp
 ---
 
 # 6. Avaliação de Risco e Incerteza em Sistemas Não-Determinísticos
 
 ## Overview
 
-A introdução de componentes de IA em sistemas de software cria uma nova
-categoria de risco: o **risco de não-determinismo**. Diferente de sistemas
-tradicionais, onde o mesmo input sempre produz o mesmo output, sistemas com IA
-podem apresentar comportamentos probabilísticos, dificultando a avaliação de
-risco tradicional. Esta seção apresenta frameworks para modelagem de risco em
-sistemas opacos, análise de custo de falhas em código gerado por IA, e as
-implicações emergentes para responsabilidade civil e seguro.
+A introdução de componentes de IA em sistemas de software cria uma nova categoria de risco fundamental: o **risco de não-determinismo**. Diferente de sistemas tradicionais, onde o mesmo input $X$ sempre produz o mesmo output $Y$, sistemas baseados em LLMs são probabilísticos. Eles podem funcionar perfeitamente 99 vezes e falhar catastroficamente na 100ª com o mesmo prompt, devido a micro-variações de temperatura, contexto ou seed.
 
-A capacidade de avaliar e mitigar riscos em sistemas não-determinísticos
-tornou-se uma competência crítica para engenheiros de software na era dos LLMs.
+Para o engenheiro de software, isso significa que "testar até passar" não existe mais. A avaliação de risco migra de uma lógica binária (Pass/Fail) para uma lógica estatística (Confiabilidade/Incerteza). Esta seção detalha como modelar, quantificar e mitigar esses riscos, além de abordar as implicações emergentes de responsabilidade civil e seguro.
 
 ## Learning Objectives
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
-1. Distinguir entre riscos em sistemas determinísticos e não-determinísticos
-2. Aplicar frameworks de modelagem de risco para sistemas com componentes de IA
-3. Avaliar o custo de falhas em código gerado por IA
-4. Compreender as implicações de responsabilidade civil em software IA-intensive
-5. Desenvolver estratégias de mitigação de risco apropriadas
-
-!!! note "Box: Fundamentos de Análise de Risco"
-
-````
-Esta seção utiliza técnicas de análise de risco. Aqui está o essencial:
-
-**Conceitos-chave:**
-- **Risco = Probabilidade × Impacto**: Quão provável é um evento e quão grave são suas consequências
-- **Simulação de Monte Carlo**: Executar milhares de cenários aleatórios para estimar distribuição de resultados
-- **Valor Esperado**: Média ponderada de todos os possíveis resultados
-- **Cenário Pessimista/Realista/Otimista**: Análise de "o que acontece se..."
-
-**Exemplo intuitivo:**
-```
-Se há 10% de chance de um bug custar R$ 100.000,
-o risco esperado é: 0.10 × R$ 100.000 = R$ 10.000
-```
-
-**Ferramentas:** Excel, Python (NumPy/Pandas), ou software especializado calculam automaticamente.
-O importante é entender como interpretar os resultados para tomar decisões.
-
-**Referência:** Veja [Fundamentos Essenciais de IA](../00-introduction/07-fundamentos-essenciais-ia.md) Seção 5 sobre incerteza.
-````
+1.  **Distinguir Risco Determinístico vs. Probabilístico**: Explicar por que testes unitários tradicionais são insuficientes para IA.
+2.  **Modelar Incerteza**: Aplicar técnicas como Simulação de Monte Carlo para prever comportamentos de borda em sistemas de IA.
+3.  **Calcular o Custo de Falha**: Estimar o impacto financeiro de alucinações em diferentes estágios do ciclo de vida.
+4.  **Navegar Responsabilidade Civil**: Entender as novas diretrizes (como a AI Liability Directive da UE) e o que elas significam para quem *usa* o código gerado.
+5.  **Implementar Hierarquia de Controles**: Usar estratégias de engenharia (guardrails) antes de confiar em processos administrativos.
 
 ## 6.1 Natureza do Risco em Sistemas Não-Determinísticos
 
-### 6.1.1 Determinístico vs. Não-Determinístico
+### O Fim da Garantia Absoluta
 
-| Característica       | Sistema Determinístico | Sistema Não-Determinístico (com IA) |
-| -------------------- | ---------------------- | ----------------------------------- |
-| **Comportamento**    | Previsível, repetível  | Probabilístico, variável            |
-| **Testabilidade**    | Exaustiva possível     | Limitada por espaço de estados      |
-| **Rastreabilidade**  | Clara (input → output) | Limitada (causalidade difusa)       |
-| **Debugging**        | Determinístico         | Heurístico                          |
-| **Garantias**        | Podem ser formais      | Estatísticas, probabilísticas       |
-| **Responsabilidade** | Clara                  | Difusa                              |
+| Característica | Sistema Determinístico | Sistema Não-Determinístico (com IA) |
+| :--- | :--- | :--- |
+| **Comportamento** | Previsível, Repetível | Probabilístico, Variável |
+| **Testabilidade** | Exaustiva (Cobertura de Código) | Estatística (Cobertura de Espaço Semântico) |
+| **Rastreabilidade** | Clara (Input → Lógica → Output) | Opaca (Input → Caixa Preta → Output) |
+| **Falha Típica** | Bug de Lógica (Erro Humano) | Alucinação / Viés (Erro de Modelo) |
+| **Garantia** | "Funciona se passar nos testes" | "Funciona em X% dos casos observados" |
 
-### 6.1.2 Fontes de Não-Determinismo
+### Fontes de Incerteza
 
-Em sistemas com IA, o não-determinismo surge de:
-
-1. **Variação de Modelo**: Diferentes versões ou configurações produzem outputs
-   distintos
-2. **Temperatura/Stochasticity**: Parâmetros de geração introduzem aleatoriedade
-3. **Contexto Variável**: Prompts com contexto dinâmico produzem resultados
-   diferentes
-4. **Evolução do Modelo**: Atualizações de modelo alteram comportamentos
-5. **Dependências Ocultas**: Comportamento depende de dados de treinamento não
-   visíveis
-
-```
-Sistema Determinístico:
-Input X → [Lógica Clara] → Output Y (sempre)
-
-Sistema com IA:
-Input X → [Caixa Preta Probabilística] → Output Y1, Y2, Y3... (distribuição)
-```
+Em sistemas com IA, a incerteza vem de múltiplas fontes:
+1.  **Estocasticidade do Modelo**: Temperatura > 0 gera saídas diferentes.
+2.  **Deriva de Dados (Drift)**: O mundo muda, o modelo treinado em 2023 não sabe sobre leis de 2026.
+3.  **Ambiguidade de Prompt**: A linguagem natural é imprecisa. O que é "resuma brevemente" para um modelo pode ser diferente para outro.
 
 ## 6.2 Frameworks de Modelagem de Risco
 
-### 6.2.1 Taxonomia de Riscos de IA
+### Taxonomia de Riscos de IA (arXiv 2025)
 
-Pesquisa do arXiv [2025](1) propõe uma categorização de riscos sistêmicos em
-desenvolvimento de IA:
+1.  **Risco de Alucinação (Factuality Risk)**: O sistema inventa fatos ou referências. (Crítico em Direito/Medicina).
+2.  **Risco de Instrução (Instruction Following Risk)**: O sistema ignora restrições negativas ("não faça X").
+3.  **Risco de Injeção (Prompt Injection)**: O sistema é manipulado por inputs maliciosos.
+4.  **Risco de Viés (Bias Risk)**: O sistema discrimina com base em padrões históricos.
 
-| Categoria                      | Exemplos                                                 | Severidade   |
-| ------------------------------ | -------------------------------------------------------- | ------------ |
-| **Risco de Saída de Controle** | Sistema escapa de restrições, comportamento não previsto | Catastrófica |
-| **Risco de Uso Indevido**      | Sistema roubado ou utilizado para fins maliciosos        | Alta         |
-| **Risco de Dependência**       | Falha em cascata devido a dependências de IA             | Alta         |
-| **Risco de Alucinação**        | Outputs incorretos apresentados como corretos            | Média-Alta   |
-| **Risco de Viés**              | Decisões discriminatórias ou injustas                    | Média        |
-| **Risco de Privacidade**       | Vazamento de dados sensíveis via modelo                  | Média        |
+### Avaliação Quantitativa
 
-### 6.2.2 Modelo de Avaliação de Risco Adaptado
+Adaptamos a fórmula clássica de risco:
 
-Adaptando frameworks tradicionais para sistemas com IA:
+$$Risco_{Total} = (Probabilidade_{Falha} \times Impacto) \times Fator_{Opacidade}$$
 
-```
-Risco Total = Probabilidade de Falha × Impacto × Fator de Opacidade
+*   **Probabilidade de Falha**: Obtida via testes de estresse (milhares de execuções).
+*   **Fator de Opacidade**: Um multiplicador (1.0 a 3.0) baseado na dificuldade de detectar a falha antes do cliente.
 
-Onde:
-- Probabilidade de Falha: Baseada em testes estatísticos, não determinísticos
-- Impacto: Custo financeiro, reputacional, legal, de segurança
-- Fator de Opacidade: Multiplicador (1.0-3.0) baseado na dificuldade de detecção
-```
+## 6.3 Custo de Falhas e Detecção Tardía
 
-### 6.2.3 Técnicas de Análise de Risco
+O custo de corrigir um erro de IA segue uma curva exponencial ainda mais agressiva que o software tradicional.
 
-**Para Sistemas Não-Determinísticos:**
+| Fase de Detecção | Custo Relativo | Exemplo de Falha de IA |
+| :--- | :--- | :--- |
+| **Geração (IDE)** | 1x | Copilot sugere código inseguro, Dev rejeita. |
+| **Verificação (PR)** | 10x | Reviewer pega alucinação sutil de lógica. |
+| **Testes (CI)** | 50x | Testes de integração falham intermitentemente (flaky). |
+| **Produção (Ops)** | 1,000x | Cliente recebe resposta ofensiva ou dados errados. |
+| **Jurídico (Liab)** | 10,000x+ | Processo por discriminação ou vazamento de dados. |
 
-1. **Análise de Cenários Monte Carlo**
+## 6.4 Responsabilidade Civil e Seguros
 
-   - Simular múltiplas execuções com variações de input
-   - Estabelecer distribuições de probabilidade de falha
+### O Quadro Regulatório (2025/2026)
 
-2. **Testes de Estresse com Variação**
+A **AI Liability Directive (AILD)** da União Europeia e regulações similares nos EUA mudaram o jogo:
+*   **Presunção de Causalidade**: Se um sistema de IA falha e causa dano, o ônus da prova de que o sistema *não* foi negligente recai sobre o desenvolvedor/operador.
+*   **Responsabilidade na Cadeia**: Quem paga? O provedor do modelo (OpenAI/Google) ou quem implementou? A tendência é responsabilizar quem *aplicou* o modelo ao caso de uso final sem as devidas salvaguardas.
 
-   - Testar com diferentes seeds, temperaturas, configurações
-   - Identificar fronteiras de comportamento instável
+### O Mercado de Seguros
 
-3. **Análise de Sensibilidade**
+Seguradoras agora exigem "AI Governance Audits" para apólices de Cyber Risk. Se você usa IA generativa em produção sem logs, monitoramento de drift e human-in-the-loop para decisões críticas, seu prêmio de seguro dispara ou a cobertura é negada.
 
-   - Determinar quais inputs causam maior variação no output
-   - Focar verificação em regiões de alta sensibilidade
+## 6.5 Estratégias de Mitigação (Hierarquia de Controles)
 
-4. **Red Teaming com IA**
+Não confie em "prompts melhores". Use engenharia.
 
-   - Usar IA para gerar casos de teste adversariais
-   - Descobrir falhas que testes humanos podem omitir
-
-## 6.3 Custo de Falhas em Código Gerado por IA
-
-### 6.3.1 Tipologia de Falhas
-
-| Tipo de Falha             | Causa                           | Custo de Correção | Detectabilidade              |
-| ------------------------- | ------------------------------- | ----------------- | ---------------------------- |
-| **Erro de Sintaxe**       | Geração malformada              | Baixo             | Alta (compilação)            |
-| **Erro de Lógica**        | Alucinação de implementação     | Médio             | Média (testes)               |
-| **Erro de Integração**    | Incompatibilidade de interfaces | Médio-Alto        | Média (testes de integração) |
-| **Erro Arquitetural**     | Alucinação de design            | Alto              | Baixa (produção)             |
-| **Violação de Segurança** | Código inseguro gerado          | Muito Alto        | Baixa (auditoria)            |
-| **Violação Regulatória**  | Não-conformidade                | Catastrófico      | Variável                     |
-
-### 6.3.2 Análise de Custo por Fase de Detecção
-
-**Nota de evidência:** os multiplicadores de custo por fase abaixo são um modelo
-mental (HIPÓTESE) para comunicar ordem de grandeza; valores reais variam por
-setor, arquitetura, contratos, e impacto regulatório.
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ CUSTO DE FALHA vs. FASE DE DETECÇÃO                        │
-├─────────────────────────────────────────────────────────────┤
-│ Fase              │ Custo Relativo │ Exemplo               │
-├─────────────────────────────────────────────────────────────┤
-│ Geração           │ 1x             │ Rejeição imediata     │
-│ Verificação       │ 5x             │ Correção antes do merge│
-│ Testes            │ 10x            │ Bug encontrado em QA  │
-│ Pré-produção      │ 50x            │ Falha em staging      │
-│ Produção          │ 100-1000x      │ Incidente com clientes│
-│ Crise/Mídia       │ 10000x+        │ Escândalo público     │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 6.3.3 Custo de Oportunidade da Precaução
-
-Investir em prevenção tem custo, mas não investir tem custo maior:
-
-| Investimento em Prevenção  | Redução de Risco                    | ROI Estimado                            |
-| -------------------------- | ----------------------------------- | --------------------------------------- |
-| Revisao humana obrigatoria | Reduz risco em componentes criticos | Depende de taxa de falhas e criticidade |
-| Testes automatizados       | -30% regressões                     | 4:1                                     |
-| Auditoria de segurança     | -60% vulnerabilidades               | 5:1                                     |
-| Documentação de contexto   | -25% tempo de debugging             | 2:1                                     |
-
-## 6.4 Responsabilidade Civil e Aspectos Legais
-
-### 6.4.1 O Quadro Regulatório Emergente
-
-O Parlamento Europeu [2024](2) propôs diretrizes para responsabilidade civil em
-IA:
-
-> "A AILD (AI Liability Directive) deveria estender seu escopo para incluir
-> sistemas de IA de uso geral e de 'alto impacto', bem como software."
-
-Principais direções:
-
-1. **Responsabilidade Estrita**: Para sistemas de alto risco, responsabilidade
-   sem necessidade de provar negligência
-2. **Dever de Documentação**: Obrigação de manter registros de decisões de IA
-3. **Transparência**: Requisitos de explicabilidade para decisões automatizadas
-4. **Seguro Obrigatório**: Possível exigência de cobertura para sistemas
-   críticos
-
-### 6.4.2 Responsabilidade em Cadeia
-
-Em sistemas com IA, a responsabilidade é distribuída:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ CADEIA DE RESPONSABILIDADE EM SISTEMAS COM IA              │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  [Fornecedor de Modelo] ──→ [Desenvolvedor] ──→ [Cliente]  │
-│        ↓                        ↓                  ↓        │
-│   Qualidade do              Uso apropriado    Uso final    │
-│   modelo                    Verificação       Supervisão   │
-│                                                             │
-│  Responsabilidade:          Responsabilidade:  Responsabilidade:│
-│  - Viés intrínseco          - Verificação      - Uso adequado │
-│  - Limitações               - Contexto         - Monitoramento│
-│  - Atualizações             - Testes           - Compliance   │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 6.4.3 Implicações para Engenheiros
-
-Engenheiros de software enfrentam novas responsabilidades:
-
-1. **Dever de Verificação**: Não é suficiente usar IA, é necessário verificar
-2. **Documentação de Decisões**: Registrar por que código gerado foi aceito
-3. **Conhecimento de Limitações**: Entender o que a IA pode e não pode fazer
-4. **Atualização Contínua**: Manter-se informado sobre capacidades e riscos
-
-## 6.5 Seguro e Transferência de Risco
-
-### 6.5.1 O Mercado de Seguros de IA
-
-A WTW [2025](3) relata:
-
-> "Hoje, riscos relacionados a IA são amplamente cobertos implicitamente por
-> apólices tradicionais ('silent AI' coverage). No entanto, seguradoras estão
-> movendo-se para clarificar a cobertura."
-
-Evolução do mercado:
-
-| Fase                     | Características                                  | Status    |
-| ------------------------ | ------------------------------------------------ | --------- |
-| **Silent Coverage**      | IA coberta implicitamente em apólices existentes | Atual     |
-| **Endossos Específicos** | Cláusulas adicionais para riscos de IA           | Emergente |
-| **Apólices Dedicadas**   | Seguros específicos para sistemas com IA         | Futuro    |
-| **Exclusões**            | Exclusão explícita de certos usos de IA          | Emergente |
-
-### 6.5.2 Fatores que Afetam Prêmios
-
-Segundo análise do LinkedIn [2026](4), seguradoras estão cada vez mais exigindo:
-
-- **Governança Documentada**: Quem aprovou o sistema, como decisões são
-  explicadas
-- **Versionamento de Modelos**: Qual versão foi usada, quando foi atualizada
-- **Monitoramento de Viés**: Como bias e drift são monitorados
-- **Capacidade de Reconstrução**: Como decisões podem ser reconstruídas após o
-  fato
-
-### 6.5.3 Estratégias de Transferência de Risco
-
-Organizações podem transferir risco através de:
-
-1. **Seguros Especializados**: Cobertura para falhas de IA
-2. **Contratos com Fornecedores**: Garantias e SLAs de ferramentas de IA
-3. **Cláusulas de Limitação de Responsabilidade**: Nos termos de serviço
-4. **Diversificação de Fornecedores**: Reduzir dependência de um único modelo
-
-## 6.6 Mitigação de Risco
-
-### 6.6.1 Hierarquia de Controles
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│ HIERARQUIA DE CONTROLES PARA SISTEMAS COM IA               │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  1. ELIMINAÇÃO                                             │
-│     └─ Não usar IA para funções críticas quando possível   │
-│                                                             │
-│  2. SUBSTITUIÇÃO                                            │
-│     └─ Usar abordagens determinísticas quando adequado     │
-│                                                             │
-│  3. ENGENHARIA (Controles Técnicos)                        │
-│     ├─ Human-in-the-loop para decisões críticas            │
-│     ├─ Circuit breakers e fallbacks                        │
-│     ├─ Monitoramento contínuo de drift                     │
-│     └─ Sandboxing de componentes de IA                     │
-│                                                             │
-│  4. ADMINISTRATIVOS (Processos)                            │
-│     ├─ Revisão obrigatória de código gerado                │
-│     ├─ Documentação de decisões                            │
-│     ├─ Treinamento em limitações de IA                     │
-│     └─ Auditorias regulares                                │
-│                                                             │
-│  5. PPE (Equipamento de Proteção)                          │
-│     └─ Seguros e reservas para incidentes                  │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-### 6.6.2 Checklist de Avaliação de Risco
-
-**Antes de implementar código gerado por IA:**
-
-- [ ] Classificação de criticidade do sistema determinada
-- [ ] Análise de risco não-determinístico realizada
-- [ ] Estratégia de verificação documentada
-- [ ] Plano de monitoramento em produção definido
-- [ ] Fallbacks e circuit breakers implementados
-- [ ] Documentação de contexto completa
-- [ ] Treinamento da equipe em limitações de IA
-- [ ] Análise de impacto regulatório realizada
-- [ ] Cobertura de seguro adequada verificada
+1.  **Eliminação (Mais Eficaz)**: Não use IA para decisões de vida ou morte ou financeiras críticas se não for essencial. Use código determinístico.
+2.  **Substituição**: Use modelos menores e especializados em vez de LLMs generalistas para tarefas restritas.
+3.  **Engenharia (Guardrails)**:
+    *   **Validadores de Saída**: Código determinístico que checa se a saída da IA (JSON, SQL) é válida antes de executar.
+    *   **Circuit Breakers**: Se a confiança do modelo for baixa (<0.7), roteie para um humano.
+4.  **Administrativo**: Revisão humana obrigatória, logs de auditoria.
+5.  **EPI (Menos Eficaz)**: Aviso legal ("Este sistema pode cometer erros").
 
 ## Practical Considerations
 
-### Para Organizações
+### Checklist de Risco para Projetos de IA
 
-1. **Inventário de Risco**: Catalogar todos os sistemas com componentes de IA
-2. **Classificação de Criticidade**: Determinar nível de rigor necessário por
-   sistema
-3. **Investimento em Governança**: Estabelecer comitê de revisão de IA
-4. **Relacionamento com Seguradoras**: Engajar cedo para entender requisitos de
-   cobertura
+Antes de deployar:
 
-### Para Desenvolvedores
+1.  [ ] **Classificação de Criticidade**: O sistema pode causar dano financeiro, físico ou reputacional? Se sim, exige Human-in-the-loop.
+2.  [ ] **Testes Adversariais (Red Teaming)**: Você tentou fazer o sistema falhar propositalmente? (Prompt Injection).
+3.  [ ] **Fallback Determinístico**: Se a IA falhar ou demorar, existe um caminho de código tradicional que assume?
+4.  [ ] **Seguro**: Sua apólice cobre alucinações de IA? Verifique a cláusula de "Silent AI".
 
-1. **Consciência de Risco**: Sempre considerar o que pode dar errado
-2. **Documentação Proativa**: Registrar decisões e raciocínios
-3. **Testes Abrangentes**: Não confiar apenas em comportamento observado
-4. **Comunicação**: Reportar preocupações de risco aos líderes
+### Armadilhas Comuns
+
+*   **Confiar na "Auto-Correção"**: Pedir para a IA "verificar seu próprio trabalho" reduz o erro, mas não o elimina. É um viés de confirmação automatizado.
+*   **Ignorar a Cauda Longa**: Testar com 10 exemplos e achar que está bom. A IA falha nos casos de borda raros (long tail).
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                                                | Avaliação                                                                      |
-| ------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa** — gestao de risco permanece fundamental                              |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — analise de risco em sistemas nao-deterministicos e complexa         |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — responsabilidade por falhas de IA esta sendo definida legalmente |
+| Critério | Descrição | Avaliação |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa** — gestão de risco é a competência definitiva do engenheiro sênior. |
+| **Custo de Verificação** | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — provar a segurança de um sistema não-determinístico é matematicamente difícil. |
+| **Responsabilidade Legal** | Quem é culpado se falhar? | **Crítica** — a lei está evoluindo para punir a negligência na adoção de IA. |
 
 ## Summary
 
-- Sistemas com IA introduzem riscos de não-determinismo que exigem novos
-  frameworks de avaliação
-- O custo de falhas aumenta exponencialmente conforme a fase de detecção
-- O quadro regulatório de responsabilidade civil para IA está emergindo
-  rapidamente
-- Seguradoras estão adaptando apólices para cobrir (ou excluir) riscos de IA
-- Mitigação deve seguir hierarquia de controles, priorizando eliminação e
-  substituição
-- Engenheiros têm novos deveres de verificação e documentação
+*   Sistemas de IA são probabilísticos; garantias absolutas são impossíveis.
+*   O risco deve ser gerenciado com **Guardrails Determinísticos** envolvendo o núcleo estocástico.
+*   A responsabilidade legal está se tornando estrita: quem implementa responde pelo dano.
+*   A única mitigação real é a arquitetura híbrida: IA para gerar opções, Código Tradicional/Humanos para decidir e validar.
 
 ## References
 
-1. Kierans, A., et al. "Catastrophic Liability: Managing Systemic Risks in
-   Frontier AI Development." arXiv:2505.00616, 2025.
-2. European Parliamentary Research Service. "Proposal for a Directive on
-   Adapting Non-Contractual Civil Liability Rules to Artificial Intelligence."
-   EPRS, September 2024.
-3. Lior, A. and Madhok, S. "Insuring the AI Age." WTW, December 2025.
-4. McTaggart, B. "AI Risk Becomes Insurance Liability: Prove AI Decisions."
-   LinkedIn, January 2026.
-5. Mayer Brown. "Applying the Enterprise Risk Mindset to AI." January 2025.
-6. Society of Actuaries. "AI Bulletin: From Hype to Help." November 2025.
-7. Wondrasek, J.A. "The Hidden Quality Costs of AI Generated Code."
-   SoftwareSeni, December 2025.
+1.  **Kierans, A., et al.** "Catastrophic Liability: Managing Systemic Risks in Frontier AI Development." arXiv:2505.00616, 2025.
+2.  **European Parliament.** "AI Liability Directive (AILD) Proposals." 2024.
+3.  **Lior, A. and Madhok, S.** "Insuring the AI Age." WTW, December 2025.
+4.  **McTaggart, B.** "AI Risk Becomes Insurance Liability: Prove AI Decisions." LinkedIn, January 2026.
