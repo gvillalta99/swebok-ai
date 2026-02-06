@@ -1,31 +1,28 @@
 ---
-title: "Software Engineering Models and Methods"
-created_at: "2026-02-06"
-tags: ["models", "methods", "swebok-ai", "overview"]
-status: "published"
-updated_at: "2026-02-06"
-ai_model: "gemini-pro-1.5"
+title: 'KA 11 - Modelos e Metodos: Visao Geral'
+created_at: '2026-02-06'
+tags: [ka-11, modelos, metodos, visao-geral]
+status: published
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
-# Software Engineering Models and Methods
+# KA 11 - Modelos e Metodos
 
-O Capítulo 11 do SWEBOK-AI v5.0 redefine completamente o conceito de *Software Engineering Models and Methods* para a era dos Large Language Models (LLMs). O foco desloca-se de "modelos como representações abstratas" para "modelos como especificações executáveis que geram sistemas funcionais".
+Este KA redefine o papel de modelos e metodos na era dos LLMs: menos
+documentacao estaticа, mais especificacao executavel, engenharia de contexto e
+validacao orientada a risco.
 
-## Subcapítulos
+## Mapa de Secoes
 
-1.  [Fundamentos de Modelos Executáveis e Generativos](./01-fundamentos-modelos-executaveis-generativos.md)
-    *   Evolução dos modelos: descritivos → prescritivos → executáveis via IA.
-2.  [Modelagem de Domínio e Engenharia de Contexto](./02-modelagem-dominio-engenharia-contexto.md)
-    *   DDD com IA generativa e linguagem ubíqua como especificação.
-3.  [Métodos Formais e Verificação Assistida](./03-metodos-formais-verificacao-assistida.md)
-    *   Verificação formal democratizada e geração de invariantes.
-4.  [Prototipagem e Design Iterativo](./04-prototipagem-design-iterativo.md)
-    *   Prototipagem rápida evolutiva e design via iteração de prompts.
-5.  [Modelagem Arquitetural e de Sistemas](./05-modelagem-arquitetural-sistemas.md)
-    *   Architecture as Code/Prompt e sistemas híbridos (determinísticos + estocásticos).
-6.  [Métodos de Especificação e Validação](./06-metodos-especificacao-validacao.md)
-    *   Especificação estruturada, User Stories como prompts e BDD gerativo.
+1. [01 - Fundamentos de Modelos Executaveis e Generativos](./01-fundamentos-modelos-executaveis-generativos.md)
+2. [02 - Modelagem de Dominio e Engenharia de Contexto](./02-modelagem-dominio-engenharia-contexto.md)
+3. [03 - Metodos Formais e Verificacao Assistida](./03-metodos-formais-verificacao-assistida.md)
+4. [04 - Prototipagem e Design Iterativo](./04-prototipagem-design-iterativo.md)
+5. [05 - Modelagem Arquitetural e de Sistemas](./05-modelagem-arquitetural-sistemas.md)
+6. [06 - Metodos de Especificacao e Validacao](./06-metodos-especificacao-validacao.md)
 
-## Visão Geral
+## Interfaces com Outros KAs
 
-Neste Knowledge Area (KA), exploramos como os métodos de engenharia de software evoluem de processos manuais de tradução (requisito → design → código) para processos de **curadoria e verificação** (especificação → geração → validação).
+- Entradas: KA01 (restricoes) e KA02/KA03 (arquitetura e design).
+- Saidas: KA04 (curadoria), KA05 (verificacao), KA12 (qualidade).

@@ -143,7 +143,7 @@ class SentimentPromptV2:
 | **Custo de Verificação**        | **Médio.** Evals automatizadas custam dinheiro (tokens), mas são mais baratas que engenheiros testando na mão.           |
 | **Responsabilidade Legal**      | **Alta.** Se você não consegue reproduzir o erro porque não sabe a versão do prompt, você tem um problema de compliance. |
 
-## References
+## Referências
 
 1. **Huyen, C.** *Designing Machine Learning Systems*. O'Reilly Media.
 2. **Google**. *Machine Learning Ops (MLOps): Continuous delivery and automation

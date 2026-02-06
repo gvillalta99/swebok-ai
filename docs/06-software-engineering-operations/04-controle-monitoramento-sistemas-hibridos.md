@@ -9,7 +9,7 @@ ai_model: gpt-4o
 
 # 4. Controle e Monitoramento de Sistemas Híbridos
 
-## Overview
+## Visão Geral
 
 A máxima "você não pode gerenciar o que não pode medir" nunca foi tão verdadeira
 e tão difícil de aplicar. Em sistemas determinísticos, medir é fácil: latência é
@@ -21,7 +21,7 @@ Observabilidade para incluir a **semântica**. Não basta saber que a API
 respondeu em 200ms; precisamos saber se a resposta faz sentido, se é segura e se
 está alinhada com a intenção do usuário.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -124,7 +124,7 @@ anomalias baseada em ML.
   sem aumento de latência, isso é um incidente (possível *poisoning* ou falha de
   contexto), mesmo que o sistema esteja "de pé".
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Custo de Observabilidade
 
@@ -141,7 +141,7 @@ Logs de IA são radioativos. Eles contêm tudo que o usuário disse.
   *antes* dos dados irem para o sistema de logs. Nunca logue dados brutos de
   clientes em sistemas de observabilidade de longa retenção.
 
-## Summary
+## Resumo
 
 - **Além do HTTP 200:** Monitorar "sucesso" semântico, não apenas técnico.
 - **BDI:** A métrica chave para estabilidade de modelo.
@@ -158,7 +158,7 @@ Logs de IA são radioativos. Eles contêm tudo que o usuário disse.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto** — Validar se a observabilidade está correta exige "observar o observador" com ground truth humano.                          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica** — Logs de raciocínio são evidência legal em casos de discriminação algorítmica.                                          |
 
-## References
+## Referências
 
 1. **Gartner.** (2025). *LLM Observability Innovation Insight Report*.
 2. **Chen, et al.** (2024). *Detecting Behavioral Drift in Production Language

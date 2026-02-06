@@ -9,7 +9,7 @@ ai_model: kimi-k2.5
 
 # Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padrões
 
-## Overview
+## Visão Geral
 
 Este apêndice mapeia as Knowledge Areas (KAs) do SWEBOK-AI v5.0 para os padrões
 ISO/IEC/IEEE e referências normativas relevantes. O objetivo não é burocratizar
@@ -21,7 +21,7 @@ o desenvolvimento, mas fornecer um mapa claro para:
 3. **Rastreabilidade:** Conectar práticas de engenharia a exigências externas
    (como o EU AI Act).
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar este apêndice, o leitor deve ser capaz de:
 
@@ -78,7 +78,7 @@ desenvolvimento seguiu o **IEEE 7000 (Ética)** no **KA 14** e o **ISO/IEC TS
 42119 (Teste)** no **KA 05** constitui uma forte defesa de diligência técnica
 (due diligence).
 
-## Practical Considerations
+## Considerações Práticas
 
 - **Não invente a roda:** Se existe um padrão ISO para teste de IA (42119), use
   a terminologia e as classes de teste dele. Inventar seus próprios métodos
@@ -97,7 +97,7 @@ desenvolvimento seguiu o **IEEE 7000 (Ética)** no **KA 14** e o **ISO/IEC TS
 | **Custo de Verificação**        | Custo de manter o mapeamento atualizado? | Médio                           |
 | **Responsabilidade Legal**      | Impacto de ignorar a conformidade?       | Crítico                         |
 
-## Summary
+## Resumo
 
 - A matriz conecta o "o quê" (SWEBOK) ao "como provar" (Normas).
 - **ISO/IEC 42001** e **ISO/IEC 23894** são os pilares transversais de
@@ -105,7 +105,7 @@ desenvolvimento seguiu o **IEEE 7000 (Ética)** no **KA 14** e o **ISO/IEC TS
 - O uso de padrões reconhecidos reduz a responsabilidade legal e facilita a
   venda para clientes corporativos (B2B) e governamentais.
 
-## References
+## Referências
 
 1. **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial
    intelligence — Management system*. 2023.

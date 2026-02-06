@@ -1,6 +1,6 @@
 # Capítulo 5: Verificação e Validação em Escala
 
-## Overview
+## Visão Geral
 
 O Capítulo 5 do SWEBOK-AI v5.0 redefine o **Software Testing** para a era dos
 Large Language Models. Enquanto o SWEBOK v4.0 focava em testes determinísticos

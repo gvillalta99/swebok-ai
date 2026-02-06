@@ -9,7 +9,7 @@ ai_model: kimi-k2.5
 
 # Apêndice A: Especificações de Descrição de Knowledge Areas (KAs)
 
-## Overview
+## Visão Geral
 
 Este apêndice define as especificações editoriais e técnicas para a descrição
 das Knowledge Areas (KAs) no SWEBOK-AI v5.0. O objetivo não é apenas padronizar
@@ -23,7 +23,7 @@ pontos de intervenção humana obrigatórios (human-in-the-loop). Todo conteúdo
 deve alinhar-se a práticas modernas de governança, como o sistema de gestão de
 IA (ISO/IEC 42001) e frameworks de risco (ISO/IEC 23894).
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar este apêndice, o leitor deve ser capaz de:
 
@@ -154,7 +154,7 @@ Cada arquivo de KA deve seguir rigorosamente esta estrutura:
 6. `## Summary`
 7. `## References`
 
-## Practical Considerations
+## Considerações Práticas
 
 - **Limites de Autonomia:** Documente claramente o que um agente pode fazer sem
   supervisão.
@@ -171,7 +171,7 @@ Cada arquivo de KA deve seguir rigorosamente esta estrutura:
 | **Custo de Verificação**        | Quanto custa validar a conformidade com esta especificação? | Médio              |
 | **Responsabilidade Legal**      | Quem é responsabilizado por falhas de descrição?            | Crítica            |
 
-## Summary
+## Resumo
 
 - Descrições de KA são especificações técnicas para consistencia e
   auditabilidade.
@@ -181,7 +181,7 @@ Cada arquivo de KA deve seguir rigorosamente esta estrutura:
   evidências.
 - A estrutura deve suportar a certificação profissional (ISO/IEC 24773).
 
-## References
+## Referências
 
 1. **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial
    intelligence — Management system*. 2023.

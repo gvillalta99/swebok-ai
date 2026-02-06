@@ -9,7 +9,7 @@ ai_model: google/gemini-3-pro-preview
 
 # Fundamentos de Qualidade em Sistemas Híbridos
 
-## Overview
+## Visão Geral
 
 A engenharia de software tradicional baseava-se em um contrato determinístico:
 se o código compila e passa nos testes, ele é "correto". Em sistemas híbridos
@@ -24,7 +24,7 @@ alucinações". O gargalo não é mais escrever a lógica, mas verificar se a l�
 gerada adere à intenção original sem introduzir vulnerabilidades sutis ou
 débitos técnicos invisíveis.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Ao final desta seção, você será capaz de:
 
@@ -101,7 +101,7 @@ Testes unitários tradicionais (assert X == Y) são insuficientes. Precisamos de
   válido com a chave 'id'").
 - Medir a variância das respostas.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Qualidade para CTOs
 
@@ -151,7 +151,7 @@ sensíveis. **Decisão de Qualidade:**
    há padrões proibidos (ex: tabelas de RH) na query gerada. **Trade-off:**
    Adiciona 500ms de latência, mas garante que alucinações não destruam o banco.
 
-## Summary
+## Resumo
 
 - **Qualidade é Probabilística:** Aceite que o sistema falhará. Projete para
   resiliência e recuperação, não para perfeição inatingível.
@@ -172,7 +172,7 @@ sensíveis. **Decisão de Qualidade:**
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Validar lógica complexa exige senioridade. Juniors podem ser enganados por código "plausível".                                           |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. A responsabilidade final é sempre do humano que aprovou o deploy. "A IA errou" não é defesa jurídica válida.                          |
 
-## References
+## Referências
 
 1. **ISO/IEC 25010:2011**. *Systems and software engineering — Systems and
    software Quality Requirements and Evaluation (SQuaRE)*.

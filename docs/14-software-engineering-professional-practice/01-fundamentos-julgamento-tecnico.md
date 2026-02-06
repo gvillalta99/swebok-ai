@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # Fundamentos do Julgamento Técnico na Era da IA
 
-## Overview
+## Visão Geral
 
 A introdução de Large Language Models (LLMs) na cadeia de produção de software
 inverteu uma premissa fundamental da engenharia: a escassez de código.
@@ -25,7 +25,7 @@ objetivos de negócio. Em um mundo onde a IA pode gerar um sistema inteiro em
 minutos, a habilidade de impor restrições e dizer "não" torna-se mais valiosa do
 que a habilidade de digitar código.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -92,7 +92,7 @@ O **Veto Técnico** deve ser exercido quando:
 A responsabilidade final (accountability) é intransferível. O `git blame` aponta
 para o usuário que comitou o código, não para o modelo que o gerou.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Julgamento Técnico
 
@@ -119,7 +119,7 @@ protocolo:
 - **Cegueira de Contexto:** Assumir que a IA entende as regras de negócio não
   escritas ou o "tribal knowledge" da empresa.
 
-## Summary
+## Resumo
 
 - O papel do engenheiro evoluiu de "escritor de código" para "curador de
   soluções e garantidor de restrições".
@@ -138,7 +138,7 @@ protocolo:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Crítico**. Validar decisões de design e arquitetura é muito mais custoso que validar sintaxe.                    |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Máxima**. O engenheiro humano é o único elo responsabilizável na cadeia.                                         |
 
-## References
+## Referências
 
 1. DORA. (2024). *Impact of AI on software delivery performance*. DevOps
    Research and Assessment.

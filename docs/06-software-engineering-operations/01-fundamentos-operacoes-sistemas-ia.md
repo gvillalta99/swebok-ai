@@ -9,7 +9,7 @@ ai_model: gpt-4o
 
 # 1. Fundamentos de Operações em Sistemas com IA
 
-## Overview
+## Visão Geral
 
 A Engenharia de Operações de Software (Software Engineering Operations)
 historicamente focou na gestão de infraestrutura determinística e no deployment
@@ -28,7 +28,7 @@ falha não é mais apenas uma exceção não tratada (crash), mas pode ser uma
 resposta semanticamente incorreta, tóxica ou alucinada que o sistema considera
 "sucesso" (HTTP 200 OK).
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -130,7 +130,7 @@ contemplar não apenas o tempo de inatividade, mas a "taxa de erro semântico"
 aceitável. Se o modelo começa a alucinar acima do permitido, o deploy de novas
 features de IA deve ser congelado até que a qualidade seja restabelecida.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### O Custo da "Inteligência"
 
@@ -147,7 +147,7 @@ automatizar 90% das tarefas, os 10% restantes (casos de borda, decisões éticas
 falhas catastróficas) exigem julgamento humano. Projetar sistemas que permitam
 intervenção rápida é um requisito fundamental de operações.
 
-## Summary
+## Resumo
 
 - **Mudança de Foco:** De uptime de servidores para integridade de comportamento
   de modelos.
@@ -166,7 +166,7 @@ intervenção rápida é um requisito fundamental de operações.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Validar comportamento complexo de agentes exige auditoria profunda e ferramentas especializadas.                          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — A responsabilidade final permanece com os operadores humanos, especialmente em casos de viés ou danos causados por IA. |
 
-## References
+## Referências
 
 1. **Gartner.** (2025). *Predicts 2025: AI in IT Operations*. Gartner Research.
 2. **PagerDuty.** (2025). *The State of AI in Incident Response 2025*. PagerDuty

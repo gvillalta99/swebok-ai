@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 1. Fundamentos de Arquitetura de Sistemas Híbridos
 
-## Overview
+## Visão Geral
 
 A arquitetura de software contemporânea enfrenta uma mudança de paradigma sem
 precedentes com a introdução de Large Language Models (LLMs) como componentes
@@ -24,7 +24,7 @@ Shell") com a criatividade e flexibilidade dos modelos estocásticos ("Soft
 Core"), exigindo uma nova camada de governança e supervisão ("Immune System")
 para mediar essa interação.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -99,7 +99,7 @@ aceitável, não apenas se o serviço estiver indisponível.
 Encaminha requisições para diferentes modelos (ex: GPT-4 vs. Claude 3 Haiku)
 baseando-se na complexidade estimada da tarefa para otimizar custo e latência.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Latência e Experiência do Usuário
 
@@ -117,7 +117,7 @@ O custo de gerar código ou texto caiu drasticamente, mas o custo de verificar
 sua corretude permanece alto (Paradoxo de Jevons). Arquiteturas devem incluir
 metadados de rastreabilidade para facilitar a auditoria humana.
 
-## Summary
+## Resumo
 
 - Arquiteturas híbridas fundem lógica determinística e probabilística.
 - O padrão "Hard Shell, Soft Core" protege a integridade do sistema isolando a
@@ -133,7 +133,7 @@ metadados de rastreabilidade para facilitar a auditoria humana.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto**. Exige testes complexos, avaliação humana e monitoramento contínuo de deriva de modelo.                              |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. A arquitetura define os limites de decisão autônoma e a responsabilidade final (humano vs. máquina).             |
 
-## References
+## Referências
 
 1. **Huyen, C.** (2022). *Designing Machine Learning Systems*. O'Reilly Media.
 2. **Google PAIR**. (2023). *People + AI Guidebook*. Google Design. Disponível

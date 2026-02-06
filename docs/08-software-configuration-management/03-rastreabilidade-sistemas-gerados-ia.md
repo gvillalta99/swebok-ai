@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 3. Rastreabilidade em Sistemas Gerados por IA
 
-## Overview
+## Visão Geral
 
 Em sistemas assistidos por IA, rastreabilidade deixa de ser apenas “requisito ->
 codigo -> teste”. Ela passa a incluir a cadeia de geracao: quais entradas,
@@ -20,7 +20,7 @@ Esta secao define um modelo minimo de rastreabilidade (proveniencia + auditoria
 \+ evidencias) aplicavel a codigo, configuracoes, respostas geradas e decisoes de
 curadoria, com foco em investigacao de incidentes, compliance e manutencao.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -439,7 +439,7 @@ Sistemas devem suportar geração de relatórios de auditoria:
 }
 ```
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Implementacao
 
@@ -457,7 +457,7 @@ Sistemas devem suportar geração de relatórios de auditoria:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Critica   |
 
-## Summary
+## Resumo
 
 - Rastreabilidade exige cadeia de proveniencia (inputs, politicas, contexto,
   decisoes e evidencias).
@@ -465,7 +465,7 @@ Sistemas devem suportar geração de relatórios de auditoria:
 - Em RAG, lineage precisa ligar resposta ao trecho recuperado e ao indice usado.
 - Curadoria humana deve ser registrada como decisao auditavel.
 
-## References
+## Referências
 
 1. W3C. PROV-O: The PROV Ontology. W3C Recommendation, 2013. Disponivel em:
    <https://www.w3.org/TR/prov-o/>

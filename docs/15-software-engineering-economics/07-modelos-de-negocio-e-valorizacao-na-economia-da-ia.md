@@ -9,7 +9,7 @@ ai_model: google-gemini-2.0-flash-thinking-exp
 
 # 7. Modelos de Negócio e Valorização na Economia da IA
 
-## Overview
+## Visão Geral
 
 A comoditização do código gerado por IA está reconfigurando fundamentalmente os
 modelos de negócio da indústria de software. Enquanto modelos tradicionais
@@ -28,7 +28,7 @@ Esta seção explora como precificar software quando o custo marginal de produç
 é zero e como sobreviver profissionalmente quando sua principal skill (escrever
 código) se tornou trivial.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -146,7 +146,7 @@ classe média técnica.
 2. **Dev Frontend (Visual apenas)**: Ferramentas de design-to-code estão
    eliminando a necessidade de codificar CSS/HTML manualmente.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Estratégia de Carreira para Sobrevivência
 
@@ -173,7 +173,7 @@ classe média técnica.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — decisões de carreira e pricing erradas levam anos para corrigir.         |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — o mercado pune com irrelevância, a lei pune com multas (compliance). |
 
-## Summary
+## Resumo
 
 - Modelos de negócio baseados em "horas de codificação" estão mortos. O futuro é
   **Outcome-Based**.
@@ -183,7 +183,7 @@ classe média técnica.
 - Novos papéis como **Verification Engineer** são a aposta mais segura para a
   próxima década.
 
-## References
+## Referências
 
 1. **Makarov, I., et al.** "AI Is Driving A Shift Towards Outcome-Based
    Pricing." a16z Enterprise, December 2024.

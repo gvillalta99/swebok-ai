@@ -9,7 +9,7 @@ ai_model: k2p5
 
 # Público-Alvo e Pré-requisitos
 
-## Overview
+## Visão Geral
 
 O SWEBOK-AI v5.0 é projetado para atender múltiplos perfis profissionais
 envolvidos na engenharia de software na era dos LLMs. Esta seção identifica os
@@ -21,7 +21,7 @@ requer expertise prévia em inteligência artificial ou machine learning. A seç
 00.07 (Fundamentos Essenciais de IA) fornece base técnica suficiente para
 compreensão dos demais KAs.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você deve ser capaz de:
 
@@ -290,7 +290,7 @@ seguintes questões:
 | Executivos    | Gestão estratégica             | 00, 03, 15     | Executiva             |
 | Estudantes    | Fundamentos de programação     | 00, 11, 14     | Introdução            |
 
-## Summary
+## Resumo
 
 - Cinco perfis de leitores são atendidos: Praticantes, Líderes, Pesquisadores,
   Executivos e Estudantes
@@ -303,7 +303,7 @@ seguintes questões:
 - O guia é projetado para ser acessível a múltiplos públicos, com profundidade
   ajustável
 
-## References
+## Referências
 
 1. IEEE Computer Society. (2024). "SWEBOK v4.0 — Software Engineering Body of
    Knowledge".

@@ -9,14 +9,14 @@ ai_model: kimi-k2.5
 
 # Apêndice D: Glossário de Termos de IA para Engenharia de Software
 
-## Overview
+## Visão Geral
 
 Este glossário define termos que se tornaram operacionais para engenheiros de
 software ao construir, integrar e governar sistemas com componentes de IA (LLMs
 e Agentes). O objetivo não é esgotar a teoria acadêmica, mas reduzir a
 ambiguidade em requisitos, arquitetura, testes e operações.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar este glossário, o leitor deve ser capaz de:
 
@@ -150,7 +150,7 @@ Termos sobre o custo e operação de sistemas de IA.
   (celular, laptop), sem enviar dados para a nuvem (privacidade + latência
   zero).
 
-## Practical Considerations
+## Considerações Práticas
 
 - **Não invente definições:** Use os termos deste glossário para evitar "Torre
   de Babel" na equipe.
@@ -167,14 +167,14 @@ Termos sobre o custo e operação de sistemas de IA.
 | **Custo de Verificação**        | Custo de manter o glossário atualizado? | Baixo                        |
 | **Responsabilidade Legal**      | Impacto de ambiguidade contratual?      | Alto                         |
 
-## Summary
+## Resumo
 
 - Este glossário foca em definições operacionais para engenharia.
 - Entender a distinção entre parâmetros de modelo e arquitetura de sistema é
   crucial.
 - A economia dos tokens dita muitas decisões de arquitetura.
 
-## References
+## Referências
 
 1. **Zhao, W.X., et al.** "A Survey of Large Language Models." *arXiv*, 2024.
 2. **Gao, Y., et al.** "Retrieval-Augmented Generation for Large Language

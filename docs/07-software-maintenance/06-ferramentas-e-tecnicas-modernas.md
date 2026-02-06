@@ -9,7 +9,7 @@ ai_model: plan-follower-v1
 
 # 6. Ferramentas e Práticas para Manutenibilidade
 
-## Overview
+## Visão Geral
 
 A manutenção de sistemas na era da IA exige um novo cinto de utilidades. O
 debugger e o IDE tradicionais não são suficientes para lidar com código
@@ -20,7 +20,7 @@ Esta seção cataloga as categorias de ferramentas emergentes e as melhores
 práticas operacionais para manter a sanidade em projetos de software híbridos
 humano-IA.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -92,7 +92,7 @@ Como medir se estamos melhorando?
 - **Test Coverage Real**: Não apenas linhas cobertas, mas *caminhos lógicos*
   cobertos (mutation testing é essencial para validar testes gerados por IA).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Construir vs. Comprar
 
@@ -109,7 +109,7 @@ Nenhuma ferramenta substitui o julgamento humano. Use ferramentas para
 *augmentar* a capacidade de revisão, não para automatizar a aprovação de código
 em áreas críticas.
 
-## Summary
+## Resumo
 
 - Ferramentas tradicionais são cegas para os problemas específicos de código
   gerado por IA.
@@ -128,7 +128,7 @@ em áreas críticas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Baixo** — Ferramentas determinísticas de análise são baratas de rodar em CI/CD.                                          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Baixa** — Ferramentas são auxiliares; a responsabilidade final é do engenheiro que assina o release.                     |
 
-## References
+## Referências
 
 1. **SonarSource (2025)**. *Static Analysis Adapted for AI-Generated Code*.
 2. **Academic Research (2025)**. *Context Preservation in AI-Assisted Software

@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 4. Gestão de Mudanças em Ambientes Híbridos
 
-## Overview
+## Visão Geral
 
 A gestao de mudancas em ambientes hibridos (humanos + IA) exige ampliar o que
 conta como “mudanca”: nao apenas alteracoes em codigo, mas tambem em
@@ -20,7 +20,7 @@ Esta secao apresenta um processo de change management orientado a risco, com
 foco em: (1) classificar mudancas, (2) executar analise de impacto, (3)
 estabelecer gates de aprovacao e (4) manter mecanismos de rollback.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -467,7 +467,7 @@ Métricas críticas para feature flags de IA:
 Evite thresholds “universais”. Defina limites por dominio e risco, com base em
 historico e objetivos (SLOs).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aplicações Reais
 
@@ -508,7 +508,7 @@ historico e objetivos (SLOs).
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Critica   |
 
-## Summary
+## Resumo
 
 - Change management em ambientes híbridos requer processos estendidos além do
   tradicional
@@ -518,7 +518,7 @@ historico e objetivos (SLOs).
 - Feature flags permitem rollout controlado e rollback rápido de funcionalidades
   de IA
 
-## References
+## Referências
 
 1. ISO. ISO 10007:2017. Quality management systems — Guidelines for
    configuration management. Geneva: ISO, 2017.

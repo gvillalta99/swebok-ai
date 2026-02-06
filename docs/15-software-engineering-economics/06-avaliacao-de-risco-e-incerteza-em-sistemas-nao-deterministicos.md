@@ -9,7 +9,7 @@ ai_model: google-gemini-2.0-flash-thinking-exp
 
 # 6. Avaliação de Risco e Incerteza em Sistemas Não-Determinísticos
 
-## Overview
+## Visão Geral
 
 A introdução de componentes de IA em sistemas de software cria uma nova
 categoria de risco fundamental: o **risco de não-determinismo**. Diferente de
@@ -24,7 +24,7 @@ lógica estatística (Confiabilidade/Incerteza). Esta seção detalha como model
 quantificar e mitigar esses riscos, além de abordar as implicações emergentes de
 responsabilidade civil e seguro.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -137,7 +137,7 @@ Não confie em "prompts melhores". Use engenharia.
 4. **Administrativo**: Revisão humana obrigatória, logs de auditoria.
 5. **EPI (Menos Eficaz)**: Aviso legal ("Este sistema pode cometer erros").
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Risco para Projetos de IA
 
@@ -168,7 +168,7 @@ Antes de deployar:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — provar a segurança de um sistema não-determinístico é matematicamente difícil. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — a lei está evoluindo para punir a negligência na adoção de IA.                    |
 
-## Summary
+## Resumo
 
 - Sistemas de IA são probabilísticos; garantias absolutas são impossíveis.
 - O risco deve ser gerenciado com **Guardrails Determinísticos** envolvendo o
@@ -178,7 +178,7 @@ Antes de deployar:
 - A única mitigação real é a arquitetura híbrida: IA para gerar opções, Código
   Tradicional/Humanos para decidir e validar.
 
-## References
+## Referências
 
 1. **Kierans, A., et al.** "Catastrophic Liability: Managing Systemic Risks in
    Frontier AI Development." arXiv:2505.00616, 2025.

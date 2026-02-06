@@ -9,7 +9,7 @@ ai_model: gpt-4o
 
 # 5. Considerações Práticas de Operações
 
-## Overview
+## Visão Geral
 
 A teoria da Engenharia de Operações (SRE) é limpa; a prática é caótica. Quando
 introduzimos IA, adicionamos uma camada de não-determinismo a sistemas já
@@ -21,7 +21,7 @@ Este capítulo foca na transição de **automação baseada em scripts** (DevOps
 clássico) para **automação baseada em agentes** (AgenticOps) e como gerenciar os
 riscos associados.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -99,7 +99,7 @@ burocracia de formatar o documento.
 - **Enterprise:** Use IA para compliance e padronização. Agentes que verificam
   se cada deploy segue a ISO 27001. Foco em governança.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### O Fator Humano
 
@@ -115,7 +115,7 @@ em arquitetura e engenharia de confiabilidade de alto nível.
 3. [ ] Seus Playbooks são gerados dinamicamente?
 4. [ ] Existe auditoria completa das ações tomadas pelos agentes?
 
-## Summary
+## Resumo
 
 - **AgenticOps:** A próxima fronteira das operações, movendo de scripts
   determinísticos para agentes adaptativos.
@@ -134,7 +134,7 @@ em arquitetura e engenharia de confiabilidade de alto nível.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto** — Validar se um agente autônomo é seguro em todos os cenários de borda é extremamente custoso.                    |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Crítica** — Se um agente derruba a produção, a culpa é de quem o configurou e autorizou.                                 |
 
-## References
+## Referências
 
 1. **PagerDuty.** (2025). *Transforming the Incident Lifecycle With AI Agents*.
 2. **AWS.** (2025). *Building Self-Healing Infrastructure with AI*. AWS

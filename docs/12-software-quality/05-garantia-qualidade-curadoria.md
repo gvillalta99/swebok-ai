@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 5. Garantia de Qualidade e Processos de Curadoria
 
-## Overview
+## Visão Geral
 
 Esta seção redefine Software Quality Assurance (SQA) para a era dos sistemas
 híbridos. Enquanto SQA tradicional focava em processos de desenvolvimento e
@@ -21,7 +21,7 @@ O paradigma shift é de "garantir qualidade de código escrito por humanos" para
 "curar código gerado por máquinas", onde o papel do engenheiro evolui de autor
 para curador.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -739,7 +739,7 @@ class MetaVerifier:
    - Documentar uso de meta-verificação
    - Manter logs de decisões
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aplicações Reais
 
@@ -778,7 +778,7 @@ class MetaVerifier:
 4. **Treine:** Investa em capacitação de revisores
 5. **Itere:** Ajuste processos baseado em dados
 
-## Summary
+## Resumo
 
 - **QA evoluiu para curadoria:** o papel do engenheiro é curador, não apenas
   testador
@@ -797,7 +797,7 @@ class MetaVerifier:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — curadoria requer julgamento humano sofisticado                 |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — accountability final sempre reside em humanos               |
 
-## References
+## Referências
 
 01. Gartner, "Quality Assurance Practices for AI-Generated Software," Gartner
     Research, 2025.

@@ -9,7 +9,7 @@ ai_model: google-gemini-2.0-flash-thinking-exp
 
 # 5. Decisões de Make vs. Buy vs. Generate
 
-## Overview
+## Visão Geral
 
 O clássico dilema "make vs. buy" — desenvolver internamente ou comprar de
 terceiros — ganhou uma terceira dimensão explosiva na era dos LLMs:
@@ -21,7 +21,7 @@ A decisão agora é tridimensional: você quer controle total (Make), velocidade
 suporte garantido (Buy), ou baixo custo inicial com alto risco de manutenção
 (Generate)?
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -133,7 +133,7 @@ Mudar de estratégia custa caro:
 - **Buy → Make/Generate:** Migração de dados é o pesadelo. Custo de saída de
   contratos SaaS.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Scorecard de Decisão (Exemplo)
 
@@ -165,7 +165,7 @@ Para um novo Sistema de Relatórios Internos:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — validar a arquitetura de uma solução gerada é difícil. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — vendor (Buy) tem SLA; IA (Generate) não tem.        |
 
-## Summary
+## Resumo
 
 - O dilema agora é tridimensional: Make, Buy, Generate.
 - **Generate** é imbatível para velocidade e prototipagem, mas perigoso para
@@ -175,7 +175,7 @@ Para um novo Sistema de Relatórios Internos:
 - Use **Buy** para commodities (não core).
 - Use **Make** para o que te torna único e exige controle absoluto.
 
-## References
+## Referências
 
 1. **Zartis.** "The Build vs. Buy Dilemma in AI: A Strategic Framework for
    2025." zartis.com, 2025.

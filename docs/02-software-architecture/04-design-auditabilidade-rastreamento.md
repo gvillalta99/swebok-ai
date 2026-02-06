@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 4. Design para Auditabilidade e Rastreamento
 
-## Overview
+## Visão Geral
 
 A "caixa preta" dos modelos de IA apresenta um desafio existencial para a
 engenharia de software: como depurar um sistema que não explica como chegou a
@@ -21,7 +21,7 @@ ou cumprir regulações emergentes como o EU AI Act.
 Esta seção detalha os padrões arquiteturais para tornar sistemas estocásticos
 transparentes e auditáveis "by design".
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -91,7 +91,7 @@ otimizações de GPU.
   aceitar uma variabilidade controlada, focando em testes semânticos em vez de
   comparação de strings exatas.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Privacidade vs. Auditabilidade
 
@@ -109,7 +109,7 @@ Logs de LLM são verbosos (texto longo).
 - **Estratégia**: Amostragem inteligente (logar 100% dos erros, 1% dos sucessos)
   ou retenção diferenciada (metadata por 1 ano, payload completo por 30 dias).
 
-## Summary
+## Resumo
 
 - Logs tradicionais são insuficientes; sistemas de IA exigem logs semânticos com
   inputs, outputs e configurações.
@@ -126,7 +126,7 @@ Logs de LLM são verbosos (texto longo).
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Logs são gerados automaticamente, o custo está no armazenamento e análise.                      |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Logs de auditoria são a principal defesa legal para provar diligência em caso de falha da IA. |
 
-## References
+## Referências
 
 1. **European Parliament**. (2024). *Artificial Intelligence Act*. (Foco nos
    artigos sobre transparência e documentação técnica).

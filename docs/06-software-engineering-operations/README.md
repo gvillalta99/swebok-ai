@@ -1,6 +1,6 @@
 # Capítulo 6: Software Engineering Operations
 
-## Overview
+## Visão Geral
 
 O Capítulo 6 do SWEBOK-AI v5.0 redefine **Software Engineering Operations** para
 a era dos Large Language Models. Enquanto o SWEBOK v4.0 tratava operations como

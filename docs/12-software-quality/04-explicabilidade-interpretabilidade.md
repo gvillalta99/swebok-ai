@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 4. Explicabilidade e Interpretabilidade
 
-## Overview
+## Visão Geral
 
 Esta seção aborda um dos desafios fundamentais de sistemas híbridos: a
 capacidade de explicar e interpretar decisões de código gerado por IA. Enquanto
@@ -22,7 +22,7 @@ O foco está em técnicas e práticas que aumentam transparência sem compromete
 performance, estabelecendo trade-offs informados entre explicabilidade e
 eficiência.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -659,7 +659,7 @@ class AuditTrail:
 - Sphinx para Python
 - Javadoc
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aplicações Reais
 
@@ -700,7 +700,7 @@ class AuditTrail:
 4. **Mantenha balanço:** Nem todo código precisa de explicação completa
 5. **Invista em ferramentas:** Automação de auditoria é essencial
 
-## Summary
+## Resumo
 
 - **Transparência é multidimensional:** sintática, semântica, de intenção e de
   geração
@@ -721,7 +721,7 @@ class AuditTrail:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificar explicabilidade genuína requer análise profunda    |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — auditoria e accountability são responsabilidades humanas  |
 
-## References
+## Referências
 
 01. Turpin et al., "Chain-of-Thought Is Not Explainability," AIGI Oxford, 2025.
 02. arXiv, "Is Chain-of-Thought Really Not Explainability? Chain-of-Thought Can

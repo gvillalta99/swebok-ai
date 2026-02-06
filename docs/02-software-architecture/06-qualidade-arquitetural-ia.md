@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 6. Qualidade Arquitetural em Sistemas com IA
 
-## Overview
+## Visão Geral
 
 Em sistemas de software tradicionais, qualidade é frequentemente sinônimo de
 conformidade com requisitos funcionais e desempenho (ISO 25010). Em sistemas com
@@ -21,7 +21,7 @@ falsa.
 Esta seção revisita os atributos de qualidade para a era dos LLMs, focando em
 corretude factual, alinhamento e robustez estocástica.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -67,7 +67,7 @@ Em IA, você pode otimizar apenas dois:
 *Estratégia Arquitetural*: Use "Model Cascading". Comece com um modelo rápido e
 barato. Se a confiança for baixa, escale para um modelo lento e caro.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Testes em Produção
 
@@ -82,7 +82,7 @@ drift) mesmo sem deploy de código.
 Manter um conjunto curado de 50-100 exemplos de "perguntas e respostas ideais" é
 obrigatório para calibrar métricas automáticas.
 
-## Summary
+## Resumo
 
 - A qualidade em IA é multidimensional e inclui precisão factual e tom.
 - Testes unitários tradicionais (assert string equals) são inúteis para geração
@@ -97,7 +97,7 @@ obrigatório para calibrar métricas automáticas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto**. Executar LLM-as-a-Judge em grande escala é computacionalmente caro.                     |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Garantir qualidade é a linha de defesa contra liability de produtos defeituosos.     |
 
-## References
+## Referências
 
 1. **Es, S., et al.** (2023). *RAGAS: Automated Evaluation of Retrieval
    Augmented Generation*. arXiv:2309.15217.

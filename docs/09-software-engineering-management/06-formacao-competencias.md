@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 6. Formacao e Desenvolvimento de Competencias
 
-## Overview
+## Visão Geral
 
 O uso de IA nao elimina a necessidade de engenheiros competentes; ele desloca as
 competencias mais valiosas para especificacao, verificacao, curadoria e
@@ -19,7 +19,7 @@ geracao e acumular risco.
 Esta secao propõe um programa de formacao orientado a resultados: reduzir
 retrabalho, aumentar qualidade de evidencias e melhorar capacidade de decisao.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -53,7 +53,7 @@ aprendizagem com revisao de praticas.
 - investigar um incidente reconstruindo baseline e metadados,
 - reduzir opacidade refatorando para clareza e contratos.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklists
 
@@ -70,13 +70,13 @@ aprendizagem com revisao de praticas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Moderada  |
 
-## Summary
+## Resumo
 
 - Competencias criticas mudam: especificar e verificar ganham centralidade.
 - Formacao deve ser orientada a evidencias e riscos, nao a ferramentas.
 - Exercicios praticos devem simular curadoria, incidentes e gates.
 
-## References
+## Referências
 
 1. ISO/IEC. ISO/IEC 42001:2023. Information technology — Artificial intelligence
    — Management system. Geneva: ISO, 2023.

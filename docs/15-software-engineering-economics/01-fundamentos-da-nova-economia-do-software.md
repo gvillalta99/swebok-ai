@@ -9,7 +9,7 @@ ai_model: google-gemini-2.0-flash-thinking-exp
 
 # 1. Fundamentos da Nova Economia do Software
 
-## Overview
+## Visão Geral
 
 A premissa econômica fundamental da engenharia de software foi invertida.
 Durante cinquenta anos, o ativo escasso era a capacidade de produzir sintaxe
@@ -24,7 +24,7 @@ mas para impedir que a facilidade de geração de código inunde a organização
 dívida técnica impagável. Entender essa inversão — onde código é commodity e
 contexto é capital — é o único modo de evitar a falência técnica na era da IA.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você será capaz de:
 
@@ -100,7 +100,7 @@ que sabe *por que* aquela regra de negócio específica existe e como ela intera
 com o sistema de pagamentos legado. O valor migrou da tradução (português ->
 código) para a curadoria (intenção -> restrição).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist Tático: Sobrevivência Econômica
 
@@ -148,7 +148,7 @@ Oculto**:
 existente (linguagem conhecida), com testes rigorosos exigidos. Custo de
 operação zero, custo de verificação baixo.
 
-## Summary
+## Resumo
 
 - **Código é Commodity**: O valor migrou da sintaxe para a semântica e o
   contexto.
@@ -168,7 +168,7 @@ operação zero, custo de verificação baixo.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — exige julgamento sênior para avaliar impacto sistêmico.                           |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — decisões econômicas erradas (inflação de código) levam a falhas operacionais graves. |
 
-## References
+## Referências
 
 1. **IEEE Computer Society**. "The Commoditization of Code: Economic
    Implications." *Computer*, Vol. 57, No. 8, 2024.

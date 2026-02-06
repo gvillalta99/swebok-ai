@@ -9,7 +9,7 @@ ai_model: google/gemini-3-pro-preview
 
 # 1. Fundamentos de Gestão de Configuração com IA
 
-## Overview
+## Visão Geral
 
 Na engenharia de software tradicional, a Gestão de Configuração (SCM) garantia
 que, se você tivesse o mesmo código-fonte e o mesmo ambiente, teria o mesmo
@@ -26,7 +26,7 @@ Se você não controla a versão do modelo e o contexto injetado, você não tem
 produto de engenharia; tem uma loteria probabilística. Este capítulo define as
 bases para trazer rigor de engenharia para sistemas estocásticos.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você será capaz de:
 
@@ -131,7 +131,7 @@ Exemplo de estrutura de log estruturado para rastreabilidade:
 }
 ```
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist Prático (O que fazer amanhã)
 
@@ -160,7 +160,7 @@ Exemplo de estrutura de log estruturado para rastreabilidade:
 4. **Falta de Rastreabilidade de Custo**: Não associar o consumo de tokens à
    feature ou equipe específica, tornando o TCO (Total Cost of Ownership) opaco.
 
-## Summary
+## Resumo
 
 1. **Configuração é Comportamento**: Em IA, configurar é definir a personalidade
    e os limites do sistema, não apenas caminhos de arquivos.
@@ -182,7 +182,7 @@ Exemplo de estrutura de log estruturado para rastreabilidade:
 | **Custo de Verificação**        | Quanto custa validar esta atividade?    | **Médio**. Exige infraestrutura de logs robusta e ferramentas de avaliação semântica.                             |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?               | **Crítica**. Sem rastreabilidade de configuração, é impossível defender a empresa em casos de viés ou erro grave. |
 
-## References
+## Referências
 
 1. **Google**. *Machine Learning Ops (MLOps): Configuration Management*. Google
    Cloud Architecture Center.

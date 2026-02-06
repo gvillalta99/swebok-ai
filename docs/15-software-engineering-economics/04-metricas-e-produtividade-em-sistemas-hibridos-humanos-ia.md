@@ -9,7 +9,7 @@ ai_model: google-gemini-2.0-flash-thinking-exp
 
 # 4. Métricas e Produtividade em Sistemas Híbridos Humanos-IA
 
-## Overview
+## Visão Geral
 
 As métricas tradicionais de produtividade em engenharia de software — velocity,
 linhas de código (LOC), story points — estão fundamentalmente corrompidas pela
@@ -23,7 +23,7 @@ humanos-IA, focado em **confiabilidade**, **qualidade de verificação** e **val
 entregue**, em vez de volume gerado. A produtividade real agora é definida pelo
 que é validado e mantido com sucesso, não pelo que é digitado.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -127,7 +127,7 @@ Um dashboard saudável para 2026 deve parecer com isso:
 *Nota: Um "Code Churn" alto seria um alerta vermelho de que a IA está gerando
 lixo que precisa ser refeito.*
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Para Engineering Managers
 
@@ -156,7 +156,7 @@ lixo que precisa ser refeito.*
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — métricas ruins levam a decisões gerenciais desastrosas.     |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — métricas internas, mas impacto no produto final é real. |
 
-## References
+## Referências
 
 1. **GitClear.** "AI Copilot Code Quality: 2025 Data Suggests 4x Growth in Code
    Clones." gitclear.com, January 2026.

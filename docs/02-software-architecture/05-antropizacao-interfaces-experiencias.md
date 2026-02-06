@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 5. Antropização de Interfaces e Experiências
 
-## Overview
+## Visão Geral
 
 A introdução de IA conversacional cria uma tendência natural à antropomorfização
 — a atribuição de características humanas a objetos não humanos.
@@ -21,7 +21,7 @@ sem cair no "Uncanny Valley" ou enganar o usuário sobre sua natureza artificial
 Esta seção explora o design de *Language User Interfaces* (LUI) e a arquitetura
 de personas sintéticas.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -85,7 +85,7 @@ limites são testados.
   uma resposta negativa inequívoca, independentemente da instrução do prompt de
   persona.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Gestão de Memória Conversacional
 
@@ -96,7 +96,7 @@ Para manter a ilusão de uma conversa contínua, o sistema precisa de memória.
 - **Vector Memory**: Buscar fatos relevantes de conversas passadas (memória de
   longo prazo).
 
-## Summary
+## Resumo
 
 - A antropomorfização é inevitável, mas deve ser gerenciada deliberadamente.
 - Personas são construídas via engenharia de prompt e consistência de memória.
@@ -113,7 +113,7 @@ Para manter a ilusão de uma conversa contínua, o sistema precisa de memória.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Testes A/B e estudos de usabilidade são necessários.                  |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Moderada**. Riscos principais envolvem manipulação do usuário e consentimento. |
 
-## References
+## Referências
 
 1. **Amershi, S., et al.** (2019). *Guidelines for Human-AI Interaction*.
    Microsoft Research / CHI 2019.

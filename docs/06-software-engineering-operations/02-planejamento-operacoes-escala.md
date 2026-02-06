@@ -9,7 +9,7 @@ ai_model: gpt-4o
 
 # 2. Planejamento de Operações em Escala
 
-## Overview
+## Visão Geral
 
 Escalar sistemas tradicionais geralmente envolve adicionar mais capacidade
 computacional (scale-out) para lidar com mais requisições. Escalar sistemas de
@@ -22,7 +22,7 @@ Sistemas com **FinOps**. Um sistema que escala tecnicamente mas quebra o modelo
 de negócios financeiramente é um sistema falho. O foco muda de "quantos requests
 por segundo?" para "qual o custo por token e a latência de geração?".
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -124,7 +124,7 @@ de IA ajustam a infraestrutura.
   provisiona GPUs. Se o custo aproxima do limite, ele troca o modelo padrão para
   uma versão mais barata (quantizada) ou ativa cache agressivo.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Gestão de Quotas de Fornecedores
 
@@ -145,7 +145,7 @@ Referência *Cost Optimization for LLM Operations* (arXiv, 2025) sugere:
   sua tarefa específica pode performar igual a um GPT-4 genérico, custando 100x
   menos.
 
-## Summary
+## Resumo
 
 - **Tokenomics:** O planejamento de capacidade deve ser baseado em tokens, não
   apenas requisições.
@@ -164,7 +164,7 @@ Referência *Cost Optimization for LLM Operations* (arXiv, 2025) sugere:
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio** — Requer monitoramento contínuo e análise de logs para garantir que o roteamento não está degradando a qualidade.                        |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Alta** — Alucinações em escala ou vazamento de dados via prompt são riscos corporativos graves.                                                  |
 
-## References
+## Referências
 
 1. **Andreessen Horowitz (a16z).** (2025). *The Economics of AI-Assisted
    Software Operations*.

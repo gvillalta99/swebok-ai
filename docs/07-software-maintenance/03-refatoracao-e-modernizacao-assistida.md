@@ -9,7 +9,7 @@ ai_model: plan-follower-v1
 
 # 3. Refatoração e Modernização de Sistemas Gerados
 
-## Overview
+## Visão Geral
 
 A refatoração tradicional visa melhorar a estrutura interna do código sem
 alterar seu comportamento externo, geralmente para facilitar o entendimento
@@ -22,7 +22,7 @@ modelos. O código gerado para o GPT-3.5 pode ser ineficiente ou inseguro sob a
 ótica do GPT-5. Este capítulo aborda como evoluir código sintético com
 segurança.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -98,7 +98,7 @@ Código gerado por IA tende a ser monolítico (funções longas).
 - Peça à IA: "Identifique responsabilidades distintas nesta função e extraia
   para funções auxiliares puras".
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aprovação Humana Obrigatória
 
@@ -112,7 +112,7 @@ Se o custo de entender o código atual para refatorá-lo for maior que o custo d
 escrever um prompt detalhado e gerar uma solução nova (e validá-la), opte pela
 re-geração. Código é descartável; a especificação (testes/prompts) é o ativo.
 
-## Summary
+## Resumo
 
 - Refatoração com IA exige validação rigorosa via testes diferenciais.
 - A verificação de equivalência é o "juiz" que permite aceitar refatorações em
@@ -130,7 +130,7 @@ re-geração. Código é descartável; a especificação (testes/prompts) é o a
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio** — Testes automatizados reduzem o custo, mas a configuração inicial da infraestrutura de teste diferencial é cara. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — Alterar código funcional introduz risco de regressão pelo qual a equipe de manutenção é responsável.          |
 
-## References
+## Referências
 
 1. **Academic Survey (2025)**. *Refactoring Techniques for AI-Generated Code: A
    Comprehensive Survey*. arXiv:2504.08765.

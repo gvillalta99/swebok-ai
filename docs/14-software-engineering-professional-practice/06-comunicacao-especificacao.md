@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # Comunicação e Especificação para Sistemas Híbridos Humanos-IA
 
-## Overview
+## Visão Geral
 
 A "Soft Skill" mais crítica da década não é falar em público, mas falar com
 máquinas. A comunicação na engenharia de software bifurcou-se: continuamos
@@ -22,7 +22,7 @@ sistema**. A ambiguidade, que humanos resolvem com bom senso, é resolvida pela
 IA com alucinação. Este capítulo transforma o "Prompt Engineering" de uma arte
 obscura em uma disciplina de engenharia de requisitos.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -107,7 +107,7 @@ em mimetizar a estética do código correto.
 3. **Audite a Intenção:** O código resolve o problema ou apenas contorna o erro
    de sintaxe?
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Ferramentas de Comunicação
 
@@ -127,7 +127,7 @@ em mimetizar a estética do código correto.
 - **Falta de Contexto de Negócio:** A IA sugere "desconto de 10%" porque viu
   isso em tutoriais, ignorando que sua margem é de 5%.
 
-## Summary
+## Resumo
 
 - Prompt Engineering é a disciplina de especificar restrições técnicas para um
   agente probabilístico.
@@ -145,7 +145,7 @@ em mimetizar a estética do código correto.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Requer leitura atenta, mas ferramentas de análise estática ajudam.                             |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada**. Erros de especificação são responsabilidade do engenheiro.                                  |
 
-## References
+## Referências
 
 1. IEEE Transactions on Software Engineering. (2024). *Prompt Patterns for
    Software Specification*.

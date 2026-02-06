@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 8. Ferramentas e Técnicas Modernas
 
-## Overview
+## Visão Geral
 
 O ecossistema de ferramentas para arquitetura de IA (o "AI Stack") evolui em
 velocidade vertiginosa. O que era padrão há seis meses pode estar obsoleto hoje.
@@ -21,7 +21,7 @@ Esta seção categoriza as ferramentas essenciais para construir sistemas
 híbridos, focando em padrões de infraestrutura e não apenas em produtos
 específicos.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -72,7 +72,7 @@ Como rodar o modelo?
   - *Trade-off*: Privacidade total e custo fixo vs. complexidade operacional de
     gerenciar GPUs.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Evitando Lock-in
 
@@ -88,7 +88,7 @@ Ferramentas como **LangSmith** e **Arize Phoenix** são essenciais para
 visualizar traces de execução em tempo real, transformando o desenvolvimento de
 "adivinhação" em engenharia.
 
-## Summary
+## Resumo
 
 - Vector DBs são o novo componente crítico de persistência.
 - Frameworks de orquestração aceleram o desenvolvimento, mas exigem cuidado com
@@ -104,7 +104,7 @@ visualizar traces de execução em tempo real, transformando o desenvolvimento d
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. POCs são rápidas, mas testes de carga em infra de IA são complexos.                                |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Baixa**. A responsabilidade geralmente recai sobre o uso do modelo, não sobre a ferramenta de orquestração. |
 
-## References
+## Referências
 
 1. **Andreessen Horowitz (a16z)**. (2023). *Emerging Architectures for LLM
    Applications*.

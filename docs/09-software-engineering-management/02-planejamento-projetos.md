@@ -9,7 +9,7 @@ ai_model: google/gemini-3-pro-preview
 
 # 2. Planejamento de Projetos na Era da IA
 
-## Overview
+## Visão Geral
 
 A equação fundamental do gerenciamento de projetos de software mudou.
 Historicamente, o planejamento focava na alocação de tempo para a *construção*
@@ -25,7 +25,7 @@ produtividade. O planejamento moderno não gerencia a produção de linhas de
 código; ele gerencia a **capacidade de revisão humana** e a **engenharia de
 restrições**.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você será capaz de:
 
@@ -151,7 +151,7 @@ Tradicional:** Estimar reescrita manual (ex: 4 semanas). **Abordagem IA
    2.5 semanas, com maior risco de bugs sutis. O planejamento deve refletir
    isso.
 
-## Summary
+## Resumo
 
 - **Inversão do Esforço:** O custo marginal de produzir código é zero; o custo
   marginal de validar a integridade do sistema aumentou.
@@ -175,7 +175,7 @@ Tradicional:** Estimar reescrita manual (ex: 4 semanas). **Abordagem IA
 | **Responsabilidade Legal**      | O plano define claramente quem (humano) assina a responsabilidade pelo deploy?                        | Alta      |
 | **Resiliência a Alucinações**   | Existem etapas explícitas de validação contra lógica inventada ou bibliotecas falsas?                 | Média     |
 
-## References
+## Referências
 
 1. **Project Management Institute.** *A Guide to the Project Management Body of
    Knowledge (PMBOK Guide)*. 7th ed. Newtown Square: PMI, 2021.

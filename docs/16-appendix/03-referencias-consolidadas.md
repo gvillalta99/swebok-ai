@@ -9,7 +9,7 @@ ai_model: kimi-k2.5
 
 # Apêndice C: Lista de Referências Consolidada (Atualizada 2024-2025)
 
-## Overview
+## Visão Geral
 
 Este apêndice consolida as referências recomendadas para o SWEBOK-AI v5.0, com
 prioridade para fontes de 2024 e 2025. A lista tem dois objetivos estratégicos:
@@ -22,7 +22,7 @@ prioridade para fontes de 2024 e 2025. A lista tem dois objetivos estratégicos:
 Diferente de bibliografias acadêmicas exaustivas, esta é uma seleção curada para
 o engenheiro de software praticante e o líder técnico.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar este apêndice, o leitor deve ser capaz de:
 
@@ -111,7 +111,7 @@ Dados para suportar decisões de investimento e estratégia.
   generative AI.*
   - Estimativas de impacto financeiro por setor. Útil para business cases.
 
-## Practical Considerations
+## Considerações Práticas
 
 - **Use para Desempate:** Em discussões técnicas, o standard (ISO/IEEE) ganha da
   opinião ("eu acho que...").
@@ -128,14 +128,14 @@ Dados para suportar decisões de investimento e estratégia.
 | **Custo de Verificação**        | Custo de validar as fontes?           | Baixo (Leitura)                       |
 | **Responsabilidade Legal**      | Impacto de ignorar standards?         | Crítica                               |
 
-## Summary
+## Resumo
 
 - A base normativa (C.2) é estável e essencial para conformidade.
 - A base técnica (C.3) é volátil; surveys são a melhor forma de acompanhar.
 - A base contextual (C.4) ajuda a justificar investimentos e mudanças de
   processo.
 
-## References
+## Referências
 
 01. **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial
     intelligence — Management system*. 2023.

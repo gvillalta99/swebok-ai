@@ -9,7 +9,7 @@ ai_model: plan-follower-v1
 
 # 2. Compreensão e Engenharia Reversa de Código de IA
 
-## Overview
+## Visão Geral
 
 A engenharia reversa tradicional foca em descompilar binários ou entender código
 espaguete humano. Na era da IA, a engenharia reversa foca em **explicabilidade e
@@ -21,7 +21,7 @@ Esta seção detalha como utilizar a própria IA e técnicas de teste modernas p
 "interrogar" o código e forçá-lo a revelar seus segredos, transformando um
 artefato opaco em um sistema documentado e testável.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -93,7 +93,7 @@ documentação sintética reversa.
   2. LLM B recebe apenas a Documentação gerada e cria testes para ela.
   3. Execute os testes contra o Código X. Se passarem, a documentação é precisa.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### O Perigo da "Explicação Convincente"
 
@@ -110,7 +110,7 @@ verifique a explicação contra a execução real (Testes de Caracterização).
   automaticamente (ex: CodiumAI) são formas aceleradas de testes de
   caracterização.
 
-## Summary
+## Resumo
 
 - Engenharia reversa em IA é sobre extrair comportamento observável, não apenas
   ler código.
@@ -129,7 +129,7 @@ verifique a explicação contra a execução real (Testes de Caracterização).
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Validar se uma explicação de código está correta exige expertise humana sênior.                                        |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — A falha aqui resulta em bugs mantidos, não necessariamente em novos riscos críticos imediatos, mas acumula dívida. |
 
-## References
+## Referências
 
 1. **Academic Research (2025)**. *Reverse Engineering Techniques for
    AI-Generated Software*. arXiv:2503.12345.

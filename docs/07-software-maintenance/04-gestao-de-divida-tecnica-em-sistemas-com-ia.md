@@ -9,7 +9,7 @@ ai_model: plan-follower-v1
 
 # 4. Gestão da Dívida Técnica em Código Sintético
 
-## Overview
+## Visão Geral
 
 Dívida técnica é uma metáfora financeira para o custo implícito de retrabalho
 causado pela escolha de uma solução fácil agora em vez de uma melhor abordagem
@@ -21,7 +21,7 @@ sobre-humana. Além dos "code smells" tradicionais, enfrentamos o "Prompt Debt" 
 a deterioração silenciosa de contexto. Esta seção explora como quantificar e
 pagar essa dívida antes que ela declare a falência técnica do projeto.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -85,7 +85,7 @@ Como mitigar o acúmulo acelerado de dívida?
 - **Refatoração de Prompts**: Melhore os prompts armazenados para garantir que
   futuras gerações produzam código mais limpo (prevenção de recorrência).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### O Paradoxo da Produtividade
 
@@ -100,7 +100,7 @@ A revisão de código humana deve focar explicitamente na detecção de dívida
 técnica. Pergunte: "Este código gerado criou uma nova abstração desnecessária?
 Ele duplicou lógica existente?". Se sim, rejeite.
 
-## Summary
+## Resumo
 
 - IA gera dívida técnica em escala industrial; processos de manutenção devem
   escalar na mesma proporção.
@@ -118,7 +118,7 @@ Ele duplicou lógica existente?". Se sim, rejeite.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio** — Ferramentas de análise estática ajudam, mas o julgamento de "design ruim" ainda requer humanos. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — A acumulação de dívida leva a falhas sistêmicas e brechas de segurança.                       |
 
-## References
+## Referências
 
 1. **Arbisoft (2025)**. *The Dark Side of Vibe-Coding: Long-term
    Maintainability*.

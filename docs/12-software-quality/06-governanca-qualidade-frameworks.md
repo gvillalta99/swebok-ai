@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 6. Governança de Qualidade e Frameworks
 
-## Overview
+## Visão Geral
 
 Esta seção aborda os frameworks, políticas e estruturas de governança
 necessários para garantir qualidade em sistemas híbridos humanos-IA. Enquanto
@@ -21,7 +21,7 @@ O foco está em estabelecer estruturas de governança que garantam não apenas
 qualidade técnica, mas também compliance regulatório, accountability e
 maturidade organizacional no uso de IA.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -796,7 +796,7 @@ deploy_production:
   when: manual
 ```
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aplicações Reais
 
@@ -838,7 +838,7 @@ deploy_production:
 4. **Documente decisões:** Accountability requer rastreabilidade
 5. **Mantenha-se atualizado:** Regulamentações evoluem rapidamente
 
-## Summary
+## Resumo
 
 - **Frameworks precisam de extensão:** ISO 25010, IEEE, CMMI precisam de
   dimensões específicas para IA
@@ -858,7 +858,7 @@ deploy_production:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — governança requer julgamento humano e accountability |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — accountability legal sempre reside em humanos     |
 
-## References
+## Referências
 
 01. ISO/IEC 25010:2011, "Systems and software engineering — System and software
     Quality Requirements and Evaluation," ISO, 2011.

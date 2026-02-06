@@ -9,7 +9,7 @@ ai_model: plan-follower-v1
 
 # 1. Fundamentos de Manutenção de Sistemas Opaços
 
-## Overview
+## Visão Geral
 
 O Capítulo 7 do SWEBOK-AI v5.0 redefine completamente o conceito de Software
 Maintenance para a era dos LLMs. Enquanto o foco tradicional era a correção e
@@ -22,7 +22,7 @@ Em sistemas modernos, o código frequentemente funciona como uma caixa preta: o
 exige uma mudança de paradigma: de "compreender para corrigir" para
 "caracterizar para controlar".
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -89,7 +89,7 @@ operacional.
   taxas de duplicação significativamente maiores e, consequentemente, custos de
   manutenção de longo prazo mais elevados se não houver curadoria rigorosa [4].
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Diagnóstico de Opacidade
 
@@ -115,7 +115,7 @@ Para sistemas altamente opacos e críticos (Legacy Code gerado por IA):
    comportamento atual do sistema, garantindo que atualizações futuras não
    quebrem contratos implícitos.
 
-## Summary
+## Resumo
 
 - Manutenção na era da IA é sobre gerenciar sistemas onde a intenção original
   foi dissociada do código resultante.
@@ -134,7 +134,7 @@ Para sistemas altamente opacos e críticos (Legacy Code gerado por IA):
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto** — A compreensão profunda de código opaco é o gargalo final que a IA ainda não resolve plenamente. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — O mantenedor assume o risco integral de sistemas que não entende completamente.                    |
 
-## References
+## Referências
 
 1. **Research Team (2025)**. *Understanding and Mitigating Opacity in
    AI-Generated Software Systems*. arXiv:2501.12345.

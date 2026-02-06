@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 3. Qualidade Comportamental e Robustez
 
-## Overview
+## Visão Geral
 
 Esta seção aborda as dimensões de qualidade específicas de sistemas com
 componentes gerados por IA: consistência comportamental, robustez a variações e
@@ -21,7 +21,7 @@ O foco está em garantir que, apesar da natureza estocástica da geração, o
 sistema mantenha comportamento previsível e robusto em condições operacionais
 reais.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -648,7 +648,7 @@ def stress_test_degradation():
 - Toxiproxy (simulação de falhas de rede)
 - Custom frameworks para perturbação
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aplicações Reais
 
@@ -689,7 +689,7 @@ def stress_test_degradation():
 4. **Documente limitações:** Seja transparente sobre restrições conhecidas
 5. **Itere:** Ajuste thresholds baseado em dados reais
 
-## Summary
+## Resumo
 
 - **Consistência comportamental** é crítica em sistemas híbridos e deve ser
   medida através de coeficiente de variação, taxa de divergência e estabilidade
@@ -710,7 +710,7 @@ def stress_test_degradation():
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — testes comportamentais exigem execuções múltiplas e análise estatística |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — inconsistências em sistemas críticos podem ter consequências graves  |
 
-## References
+## Referências
 
 01. ACM Computing Surveys, "ConTested: Consistency-Aided Tested Code Generation
     with LLM," ACM, 2025.

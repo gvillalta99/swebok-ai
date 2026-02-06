@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # Ética Profissional e Códigos de Conduta para Engenharia com IA
 
-## Overview
+## Visão Geral
 
 A ética na engenharia de software tradicionalmente focava na conduta do
 indivíduo: não roubar dados, não criar malware, ser honesto com o cliente. Na
@@ -25,7 +25,7 @@ Este capítulo atualiza os códigos de conduta tradicionais (ACM, IEEE) para a
 realidade onde o viés não é um erro de lógica, mas uma propriedade estatística
 dos dados de treinamento.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -107,7 +107,7 @@ clara eticamente:
   GPL para uso em software proprietário é uma violação ética grave, análoga à
   engenharia reversa ilícita.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Ética em IA
 
@@ -132,7 +132,7 @@ Antes do deploy:
   engajamento) e deixar a IA otimizar a qualquer custo, resultando em conteúdo
   sensacionalista ou viciante.
 
-## Summary
+## Resumo
 
 - A ética na era da IA trata da responsabilidade pelos resultados de sistemas
   autônomos.
@@ -150,7 +150,7 @@ Antes do deploy:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Muito Alto**. Exige análise qualitativa humana e auditoria de impacto social.             |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Alta**. Empresas e engenheiros podem ser responsabilizados por discriminação algorítmica. |
 
-## References
+## Referências
 
 1. ACM. (2018). *Code of Ethics and Professional Conduct*. Association for
    Computing Machinery.

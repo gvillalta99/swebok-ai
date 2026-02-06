@@ -9,7 +9,7 @@ ai_model: kimi-k2.5
 
 # Apêndice B: Padrões IEEE e ISO/IEC - Versão Atualizada
 
-## Overview
+## Visão Geral
 
 Este apêndice mapeia o panorama normativo para a engenharia de software na era
 da IA (2024-2025). Diferente das versões anteriores do SWEBOK, onde os padrões
@@ -22,7 +22,7 @@ O SWEBOK-AI não substitui estes padrões. Ele sintetiza o "conhecimento
 geralmente reconhecido" e aponta como cada norma serve como mecanismo de
 verificação, evidência e governança.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar este apêndice, o leitor deve ser capaz de:
 
@@ -138,7 +138,7 @@ Mantidos apenas para contexto histórico ou manutenção de sistemas antigos.
 - **Padrões de Processo em Cascata Pura:** Incompatíveis com a natureza
   iterativa e experimental do treinamento de modelos.
 
-## Practical Considerations
+## Considerações Práticas
 
 - **Certificação é um Meio:** Não busque a certificação ISO 42001 apenas pelo
   selo. Use-a para organizar a "bagunça" de processos de dados e modelos.
@@ -156,7 +156,7 @@ Mantidos apenas para contexto histórico ou manutenção de sistemas antigos.
 | **Custo de Verificação**        | Custo de auditoria e conformidade?         | Alto (Humano-intensivo)        |
 | **Responsabilidade Legal**      | Impacto de não conformidade?               | Crítico (Multas, bloqueios)    |
 
-## Summary
+## Resumo
 
 - A **ISO/IEC 42001** tornou-se a âncora para sistemas de gestão de IA.
 - A gestão de risco (**ISO/IEC 23894**) é o processo central que conecta
@@ -166,7 +166,7 @@ Mantidos apenas para contexto histórico ou manutenção de sistemas antigos.
 - Engenheiros de software devem conhecer esses padrões para dialogar com
   auditores e garantir a legalidade dos sistemas.
 
-## References
+## Referências
 
 1. **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial
    intelligence — Management system*. 2023.

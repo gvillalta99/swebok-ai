@@ -258,14 +258,14 @@ Resolver problemas estruturais do livro (arquitetura de informacao, consistencia
 
 ### Sprint 1 (fundacao editorial)
 
-- [ ] BR-001
-- [ ] BR-004
-- [ ] BR-007
+- [x] BR-001
+- [x] BR-004
+- [x] BR-007
 
 ### Sprint 2 (consistencia de navegacao e linguagem)
 
-- [ ] BR-002
-- [ ] BR-005
+- [x] BR-002
+- [x] BR-005
 
 ### Sprint 3 (integracao, evidencia e enforcement)
 

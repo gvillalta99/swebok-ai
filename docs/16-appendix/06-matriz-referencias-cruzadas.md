@@ -9,7 +9,7 @@ ai_model: kimi-k2.5
 
 # Apêndice F: Matriz de Referências Cruzadas
 
-## Overview
+## Visão Geral
 
 Este apêndice fornece uma **matriz de dependências e referências cruzadas**
 entre os 15 Knowledge Areas (KAs oficiais, 01-15) do SWEBOK-AI v5.0, mantendo 00
@@ -18,7 +18,7 @@ conhecimento interconectado, raramente um tópico vive isolado. O objetivo deste
 mapa é facilitar a navegação não-linear e identificar pré-requisitos de leitura
 para engenheiros, arquitetos e gestores.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar este apêndice, o leitor deve ser capaz de:
 
@@ -147,7 +147,7 @@ KAs que tocam quase tudo, mesmo que sutilmente.
 2. **KA 13 - Segurança:** Em IA, segurança não é um módulo, é uma propriedade
    emergente.
 
-## Practical Considerations
+## Considerações Práticas
 
 - **Não leia linearmente:** O SWEBOK-AI não é um romance. Use a matriz para
   saltar para o tópico que resolve seu problema atual.
@@ -162,7 +162,7 @@ KAs que tocam quase tudo, mesmo que sutilmente.
 | **Custo de Verificação**        | Custo de verificar as dependências?    | Baixo                       |
 | **Responsabilidade Legal**      | Impacto de ignorar dependências?       | Médio (Risco de projeto)    |
 
-## Summary
+## Resumo
 
 - A engenharia de software é um sistema interconectado; isolar KAs gera silos e
   falhas.
@@ -171,7 +171,7 @@ KAs que tocam quase tudo, mesmo que sutilmente.
 - Use os "Caminhos de Leitura" para otimizar seu tempo de estudo conforme seu
   papel.
 
-## References
+## Referências
 
 1. **ISO/IEC.** *ISO/IEC/IEEE 24765:2017 — Systems and software engineering —
    Vocabulary*. 2017.

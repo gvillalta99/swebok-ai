@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 2. Arquitetura de Supervisão e Controle
 
-## Overview
+## Visão Geral
 
 Em sistemas de software tradicionais, o controle é implícito na lógica do
 código: `if-else`, loops e tratamento de exceções definem estritamente o
@@ -23,7 +23,7 @@ Esta seção detalha como implementar camadas de governança em tempo de execuç
 ("Guardrails") e padrões de intervenção humana ("Human-in-the-Loop") como
 componentes arquiteturais de primeira classe.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -99,7 +99,7 @@ menores e especializados para supervisionar modelos maiores.
   própria resposta com base em um conjunto de princípios (constituição) antes de
   entregar o resultado final.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Latência vs. Segurança
 
@@ -112,7 +112,7 @@ são estratégias comuns.
 Guardrails muito restritivos podem degradar a utilidade do sistema
 ("Over-refusal"). A calibração contínua dos filtros é necessária.
 
-## Summary
+## Resumo
 
 - O controle em sistemas de IA é exógeno (imposto por guardrails) e não endógeno
   (código hardcoded).
@@ -130,7 +130,7 @@ Guardrails muito restritivos podem degradar a utilidade do sistema
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Guardrails automatizados são baratos, mas supervisão humana é cara e não escala linearmente.                                      |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Falha na supervisão é frequentemente vista como negligência em contextos regulados.                                             |
 
-## References
+## Referências
 
 1. **NVIDIA**. (2023). *NeMo Guardrails: Toolkit for Controllable AI*. NVIDIA
    Developer.

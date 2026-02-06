@@ -180,7 +180,7 @@ def answer_question(question):
 | **Custo de Verificação**        | **Baixo.** Ferramentas de Eval automatizam o trabalho pesado.                                          |
 | **Responsabilidade Legal**      | **Média.** Ferramentas de segurança (Guardrails) ajudam, mas a responsabilidade final é sua.           |
 
-## References
+## Referências
 
 1. **LangChain**. *Documentation*.
 2. **LlamaIndex**. *High-Level Concepts*.

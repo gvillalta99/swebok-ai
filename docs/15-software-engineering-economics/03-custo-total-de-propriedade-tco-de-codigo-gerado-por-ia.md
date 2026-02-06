@@ -9,7 +9,7 @@ ai_model: google-gemini-2.0-flash-thinking-exp
 
 # 3. Custo Total de Propriedade (TCO) de Código Gerado por IA
 
-## Overview
+## Visão Geral
 
 O conceito tradicional de Total Cost of Ownership (TCO) precisa ser radicalmente
 expandido para acomodar as realidades econômicas da geração de código por IA.
@@ -24,7 +24,7 @@ gerado por IA, reconhecendo que o custo marginal de geração próximo de zero
 frequentemente mascara custos totais substancialmente maiores que o
 desenvolvimento tradicional.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -169,7 +169,7 @@ Para decisões de desenvolver manualmente vs. gerar com IA:
 - **TCO Real**: Redução de 15% no TCO global devido à melhor qualidade (menos
   bugs em produção).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Para Tomadores de Decisão
 
@@ -197,7 +197,7 @@ Para decisões de desenvolver manualmente vs. gerar com IA:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — exige modelagem financeira e técnica sofisticada.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — decisões de TCO erradas geram passivos ocultos enormes. |
 
-## Summary
+## Resumo
 
 - O TCO tradicional é cego para os custos ocultos da IA.
 - TCO 2.0 = Custo de Ferramenta + **Custo Massivo de Verificação** + Risco.
@@ -207,7 +207,7 @@ Para decisões de desenvolver manualmente vs. gerar com IA:
 - A decisão inteligente não é "sempre usar IA", mas "usar IA onde o custo de
   verificação é menor que o custo de produção manual".
 
-## References
+## Referências
 
 1. **Hamade, J.** "True Cost of AI-Generated Code: A Strategic Analysis of
    Comprehension Debt." Medium, October 2025.

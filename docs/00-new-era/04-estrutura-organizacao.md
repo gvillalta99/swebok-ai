@@ -9,7 +9,7 @@ ai_model: k2p5
 
 # Estrutura e Organização do Guia
 
-## Overview
+## Visão Geral
 
 O SWEBOK-AI v5.0 reestrutura completamente o guia tradicional para **15 KAs
 oficiais (01-15)**, com **00 (Introdução)** e **16 (Apêndice de referência)**
@@ -21,7 +21,7 @@ A estrutura preserva a fundamentação conceitual do SWEBOK v4.0 enquanto
 reinterpreta cada área através dos princípios diretores estabelecidos na seção
 anterior.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você deve ser capaz de:
 
@@ -248,10 +248,10 @@ ai_model: modelo
 
 # Título da Seção
 
-## Overview
+## Visão Geral
 [Visão geral]
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 1. [Objetivo 1]
 2. [Objetivo 2]
 
@@ -260,10 +260,10 @@ ai_model: modelo
 ## Matriz de Avaliação Consolidada
 | Critério | Descrição | Avaliação |
 
-## Summary
+## Resumo
 - [Pontos chave]
 
-## References
+## Referências
 1. [Referências]
 ```
 
@@ -310,7 +310,7 @@ Viabilidade
 | Navegabilidade       | Facilidade de localização de conteúdo                  | Estruturada |
 | Profundidade         | Equilíbrio entre abrangência e detalhe                 | Balanceada  |
 
-## Summary
+## Resumo
 
 - O SWEBOK-AI v5.0 organiza o conteúdo em 15 KAs oficiais (01-15), com
   Introdução (00) e Apêndice (16) como blocos estruturais
@@ -324,7 +324,7 @@ Viabilidade
   por temas transversais
 - Organização interna padronizada facilita localização e consumo de conteúdo
 
-## References
+## Referências
 
 1. IEEE Computer Society. (2014). "Guide to the Software Engineering Body of
    Knowledge (SWEBOK v3.0)".

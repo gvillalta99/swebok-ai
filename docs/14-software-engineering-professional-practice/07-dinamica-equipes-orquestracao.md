@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # Dinâmica de Equipes e Orquestração de Agentes
 
-## Overview
+## Visão Geral
 
 A "Two-Pizza Team" da Amazon agora precisa de apenas uma pizza, mas de dez vezes
 mais poder de processamento. A introdução de agentes autônomos na equipe não é
@@ -22,7 +22,7 @@ da equipe muda de "colaboração entre pares" para "supervisão de frota". O
 engenheiro sênior deixa de ser apenas um mentor de humanos para se tornar um
 orquestrador de agentes.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -95,7 +95,7 @@ começam a parecer iguais. Todas as arquiteturas convergem para o padrão médio
 indústria. Para manter a inovação, a equipe deve deliberadamente buscar
 abordagens que *divergem* da sugestão padrão da IA.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Rituais de Equipe Adaptados
 
@@ -112,7 +112,7 @@ abordagens que *divergem* da sugestão padrão da IA.
 - **Diversidade de Soluções:** Estamos aceitando a primeira sugestão da IA
   sempre? (Sinal de complacência).
 
-## Summary
+## Resumo
 
 - A equipe híbrida exige novos protocolos de comunicação e coordenação.
 - O papel do humano migra de executor para supervisor e orquestrador.
@@ -129,7 +129,7 @@ abordagens que *divergem* da sugestão padrão da IA.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Requer supervisão constante.                                                   |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada**. A falha de coordenação é gerencial.                                         |
 
-## References
+## Referências
 
 1. Hou, X., et al. (2024). *Large Language Models for Software Engineering: A
    Survey*. ACM Transactions on Software Engineering and Methodology.

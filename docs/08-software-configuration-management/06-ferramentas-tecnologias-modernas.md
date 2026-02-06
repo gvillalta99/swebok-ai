@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 6. Ferramentas e Tecnologias Modernas
 
-## Overview
+## Visão Geral
 
 Esta secao descreve capacidades tecnicas (nao produtos) que costumam compor uma
 pilha de SCM para sistemas com IA: versionamento de artefatos, registro de
@@ -20,7 +20,7 @@ O foco e oferecer criterios de selecao e padroes de integracao para que a
 organizacao escolha ferramentas de acordo com risco, maturidade e restricoes
 operacionais, evitando dependencia desnecessaria de fornecedores.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -193,7 +193,7 @@ recommendations:
 2. Intermediario: metadados estruturados e manifests de contexto.
 3. Avancado: proveniencia completa + auditoria + testes de regressao.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Aplicações Reais
 
@@ -234,7 +234,7 @@ recommendations:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Medio     |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Moderada  |
 
-## Summary
+## Resumo
 
 - Ferramentas tradicionais (Git) são fundamentais mas requerem extensões para IA
 - Uma pilha de registro/observabilidade complementa o SCM ao conectar baseline,
@@ -245,7 +245,7 @@ recommendations:
   organizacional
 - Modelos de maturidade ajudam a avaliar e guiar evolução de práticas
 
-## References
+## Referências
 
 1. ISO. ISO 10007:2017. Quality management systems — Guidelines for
    configuration management. Geneva: ISO, 2017.

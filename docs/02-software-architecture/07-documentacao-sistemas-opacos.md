@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 7. Documentação Arquitetural para Sistemas Opacos
 
-## Overview
+## Visão Geral
 
 A documentação de software tradicional (diagramas UML, Swagger) foca em
 estrutura e interfaces determinísticas. Em sistemas com IA, a complexidade
@@ -21,7 +21,7 @@ limitações conhecidas de segurança e viés.
 Esta seção adapta práticas de documentação para capturar a natureza opaca e
 experimental dos componentes de IA.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -69,7 +69,7 @@ Diagramas de sequência tradicionais falham em capturar a lógica de agentes.
 - Mapear onde o "Humano no Loop" entra.
 - Explicar a estratégia de recuperação de contexto (RAG) em cada passo.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Documentação Viva
 
@@ -83,7 +83,7 @@ Para sistemas RAG, documente a origem dos dados: "O bot de RH responde com base
 nos PDFs da pasta X do SharePoint, atualizados semanalmente". Sem isso, é
 impossível depurar respostas desatualizadas.
 
-## Summary
+## Resumo
 
 - Documentação de IA deve focar em comportamento, dados e limitações, não apenas
   em APIs.
@@ -99,7 +99,7 @@ impossível depurar respostas desatualizadas.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Documentação é um esforço humano de baixo custo técnico, mas alto valor organizacional.                            |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Alta**. System Cards funcionam como "bulas" ou contratos de nível de serviço (SLA) implícitos sobre a segurança do sistema. |
 
-## References
+## Referências
 
 1. **Mitchell, M., et al.** (2019). *Model Cards for Model Reporting*. FAT\*
    '19.

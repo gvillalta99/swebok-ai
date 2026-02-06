@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # Responsabilidade Legal e Accountability em Sistemas Gerados por IA
 
-## Overview
+## Visão Geral
 
 A introdução de agentes de IA no ciclo de desenvolvimento de software cria um
 vácuo aparente de responsabilidade. Quando um sistema falha devido a um código
@@ -22,7 +22,7 @@ Discutimos a transição do conceito de "autoria criativa" para "responsabilidad
 de aprovação" e como frameworks regulatórios emergentes (como o EU AI Act)
 redefinem o dever de cuidado (*duty of care*) do engenheiro de software.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -68,7 +68,7 @@ Para que o HITL seja uma defesa válida, ele deve ser:
 2. **Auditável:** Devem existir registros provando que um humano analisou a
    decisão crítica.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Blindagem Jurídica
 
@@ -111,7 +111,7 @@ dose. **Consequência:**
 - **Mitigação:** O engenheiro deveria ter solicitado à IA a geração de *testes*
   para o regex (casos 99, 100, 101, 1000) e validado a execução.
 
-## Summary
+## Resumo
 
 - Você não pode processar um algoritmo; a responsabilidade final é sempre
   humana.
@@ -130,7 +130,7 @@ dose. **Consequência:**
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Exige revisão jurídica e técnica profunda, não apenas testes automatizados.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. Engenheiros e empresas respondem civil e criminalmente.                           |
 
-## References
+## Referências
 
 1. European Union. (2024). *Artificial Intelligence Act (EU AI Act)*. Official
    Journal of the European Union.

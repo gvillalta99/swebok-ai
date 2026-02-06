@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 5. Gestao de Stakeholders e Comunicacao
 
-## Overview
+## Visão Geral
 
 Em projetos com IA, a velocidade de geracao pode criar uma ilusao de progresso.
 Se a comunicacao focar apenas em “o que foi gerado”, stakeholders superestimam
@@ -20,7 +20,7 @@ Esta secao oferece um kit de comunicacao reader-first: como alinhar
 expectativas, como reportar progresso com foco em verificacao e como negociar
 trade-offs de forma auditavel.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -80,7 +80,7 @@ Transparencia nao e “listar ferramentas”; e explicitar politicas:
 - como evidencias sao registradas,
 - como incidentes sao investigados (reproducao/auditoria).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Comunicacao
 
@@ -97,14 +97,14 @@ Transparencia nao e “listar ferramentas”; e explicitar politicas:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Moderada  |
 
-## Summary
+## Resumo
 
 - Comunicacao eficaz com IA precisa expor verificacao, risco e evidencias.
 - Relatorios devem medir itens aprovados, nao apenas gerados.
 - Negociacao de escopo deve tratar verificacao como recurso finito.
 - Transparencia e politica e trilha de auditoria, nao lista de ferramentas.
 
-## References
+## Referências
 
 1. PMI. A Guide to the Project Management Body of Knowledge (PMBOK Guide). 7.
    ed. Newtown Square: Project Management Institute, 2021.

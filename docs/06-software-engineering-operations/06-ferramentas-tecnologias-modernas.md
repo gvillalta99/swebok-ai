@@ -9,7 +9,7 @@ ai_model: gpt-4o
 
 # 6. Ferramentas e Tecnologias Modernas
 
-## Overview
+## Visão Geral
 
 A "Toolbox" do engenheiro de software explodiu em complexidade. Se antes
 precisávamos de Git, Jenkins e Nagios, hoje operamos um ecossistema que mistura
@@ -20,7 +20,7 @@ distribuída.
 Este capítulo disseca o stack moderno de "AgenticOps", categorizando as
 ferramentas essenciais para construir e operar sistemas híbridos robustos.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -106,7 +106,7 @@ Define políticas como código (Rego).
 Ferramentas de segurança cloud-native que agora integram detecção de riscos de
 IA (ex: buckets S3 públicos contendo datasets de treinamento sensíveis).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Seleção de Stack: Build vs. Buy
 
@@ -121,7 +121,7 @@ Não adicione um Vector DB (Pinecone, Weaviate) se um Postgres com pgvector
 resolve. Não use Kubernetes se você tem 3 microserviços. A complexidade do stack
 de IA já é alta; simplifique a infraestrutura base.
 
-## Summary
+## Resumo
 
 - **Stack Híbrido:** O futuro é K8s + LLMs + Vector DBs.
 - **Observabilidade:** Ferramentas tradicionais (Datadog) estão se adaptando,
@@ -137,7 +137,7 @@ de IA já é alta; simplifique a infraestrutura base.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio** — Testar novas ferramentas exige POCs (Provas de Conceito), mas a integração geralmente é via API padrão.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Média** — A responsabilidade é compartilhada, mas a escolha de ferramentas inseguras (ex: sem SOC2) é falha da engenharia. |
 
-## References
+## Referências
 
 1. **Platform Engineering Community.** (2025). *State of AI in Platform
    Engineering 2025*.

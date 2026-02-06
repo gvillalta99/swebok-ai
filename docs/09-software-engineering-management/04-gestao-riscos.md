@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 4. Gestao de Riscos em Projetos com IA
 
-## Overview
+## Visão Geral
 
 Projetos com IA introduzem riscos adicionais: variabilidade de comportamento,
 dependencia de configuracoes e contexto, opacidade de decisoes e maior
@@ -20,7 +20,7 @@ Esta secao organiza riscos por categoria e oferece controles praticos:
 governanca proporcional a criticidade, rastreabilidade, gates de aprovacao e
 planos de contingencia.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -71,7 +71,7 @@ Um plano de contingencia minimo cobre:
 - modo manual para operacao critica,
 - post-incident (causa raiz e atualizacao de politicas).
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Risco
 
@@ -89,14 +89,14 @@ Um plano de contingencia minimo cobre:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Crítica   |
 
-## Summary
+## Resumo
 
 - Riscos com IA exigem foco em drift, opacidade e evidencias de verificacao.
 - Autonomia aumenta necessidade de governanca e de trilha de auditoria.
 - Controles devem ser avaliados pelo tipo de evidencia que produzem.
 - Contingencia precisa ser exercitada para ser confiavel.
 
-## References
+## Referências
 
 1. ISO. ISO 31000:2018. Risk management — Guidelines. Geneva: ISO, 2018.
 2. NIST. AI Risk Management Framework 1.0. Gaithersburg: National Institute of

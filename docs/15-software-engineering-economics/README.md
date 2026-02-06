@@ -9,7 +9,7 @@ ai_model: kimi-k2.5
 
 # Capítulo 15: Economia e Métricas da Engenharia com IA
 
-## Overview
+## Visão Geral
 
 O capítulo de Software Engineering Economics no SWEBOK-AI v5.0 representa uma
 reconfiguração profunda de como entendemos valor, custo e produtividade na

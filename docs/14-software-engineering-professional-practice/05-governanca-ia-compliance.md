@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # Governança de IA e Compliance em Organizações de Software
 
-## Overview
+## Visão Geral
 
 A adoção de IA na engenharia de software sem governança é o equivalente moderno
 de plugar um servidor diretamente na internet sem firewall. Funciona
@@ -25,7 +25,7 @@ Este capítulo traduz standards globais (NIST, ISO) em políticas práticas para
 times de engenharia, definindo o que é "Shadow AI", como auditar decisões
 algorítmicas e como manter o controle sobre a cadeia de suprimentos de software.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -108,7 +108,7 @@ vazam para modelos públicos.
 - Bloqueio de rede (DLP) para endpoints de APIs de IA não sancionadas.
 - Educação sobre o risco de vazamento de segredos em prompts.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Governança Mínima Viável
 
@@ -133,7 +133,7 @@ Para implementar amanhã:
 - **Esquecer o Legado:** Não auditar o código que já foi gerado e comitado antes
   da política existir.
 
-## Summary
+## Resumo
 
 - Governança de IA é gestão de risco, não prevenção de uso.
 - A responsabilidade (Accountability) nunca é da máquina, sempre de um CPF ou
@@ -150,7 +150,7 @@ Para implementar amanhã:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto**. Exige auditoria de processos e logs.          |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica**. Multas regulatórias e danos reputacionais. |
 
-## References
+## Referências
 
 1. NIST. (2024). *AI Risk Management Framework (AI RMF 1.0)*. U.S. Department of
    Commerce.

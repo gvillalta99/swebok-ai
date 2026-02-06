@@ -202,7 +202,7 @@ segurança.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Exige execução, testes e leitura atenta.                                                  |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — A empresa responde por falhas de segurança, independente se foi o GPT ou o estagiário. |
 
-## References
+## Referências
 
 1. **OWASP Top 10 for LLM Applications**. Open Web Application Security Project,
    2025\.

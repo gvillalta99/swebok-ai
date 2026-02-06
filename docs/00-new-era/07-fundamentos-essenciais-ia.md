@@ -9,13 +9,13 @@ ai_model: kimi-k2.5
 
 # Fundamentos Essenciais de IA para Engenheiros de Software
 
-## Overview
+## Visão Geral
 
 Este guia assume que você é um **engenheiro de software**, não um pesquisador de
 IA. Os conceitos abaixo são suficientes para compreender o restante do material.
 Não é necessário dominar matemática avançada, estatística ou teoria dos modelos.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você deve ser capaz de:
 
@@ -300,7 +300,7 @@ ______________________________________________________________________
 | **Custo de Verificação**        | Quanto custa validar o entendimento destes conceitos? | **Médio**. Requer prática com ferramentas reais, mas não formalismo matemático.         |
 | **Responsabilidade Legal**      | Quem responde se houver mal-entendido?                | **Baixa**. Erros conceituais afetam qualidade, mas não geram responsabilidade direta.   |
 
-## Summary
+## Resumo
 
 - **LLMs**: Motores de previsão estatística com capacidades emergentes; têm
   limitações importantes como alucinações e não-determinismo.
@@ -316,7 +316,7 @@ ______________________________________________________________________
 Com estes fundamentos, você está pronto para explorar o restante do SWEBOK-AI
 v5.0.
 
-## References
+## Referências
 
 1. **Vaswani, A. et al.** (2017). Attention Is All You Need. In: Advances in
    Neural Information Processing Systems 30 (NIPS 2017). Long Beach, CA, USA.

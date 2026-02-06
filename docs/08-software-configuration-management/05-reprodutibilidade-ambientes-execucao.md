@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 5. Reprodutibilidade e Ambientes de Execução
 
-## Overview
+## Visão Geral
 
 Reprodutibilidade e a capacidade de reconstruir um resultado (ou de explicar por
 que ele ocorreu) de forma confiavel. Em sistemas com IA, isso exige controlar e
@@ -20,7 +20,7 @@ Esta secao apresenta um modelo pratico de “reprodutibilidade forense” (para
 investigacao e auditoria) e “reprodutibilidade comportamental” (para validacao
 em sistemas com variancia controlada).
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -95,7 +95,7 @@ Reprodutibilidade deve ser testada como propriedade do sistema:
 - teste de contrato: saida valida schema e invariantes.
 - teste de regressao: conjunto de entradas historicas com comparacao controlada.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist
 
@@ -114,7 +114,7 @@ Reprodutibilidade deve ser testada como propriedade do sistema:
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Alto      |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Critica   |
 
-## Summary
+## Resumo
 
 - Reprodutibilidade precisa de definicao (exata, comportamental, forense) e de
   contratos.
@@ -124,7 +124,7 @@ Reprodutibilidade deve ser testada como propriedade do sistema:
   variar.
 - Testes de reprodutibilidade devem fazer parte do criterio de release.
 
-## References
+## Referências
 
 1. ISO/IEC/IEEE. ISO/IEC/IEEE 828:2012. Systems and software engineering —
    Configuration management. Geneva: ISO, 2012.

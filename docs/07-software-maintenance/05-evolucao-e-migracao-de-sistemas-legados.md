@@ -9,7 +9,7 @@ ai_model: plan-follower-v1
 
 # 5. Evolução de Sistemas com Componentes de IA
 
-## Overview
+## Visão Geral
 
 A evolução de software tradicional lida com mudanças nos requisitos de negócio.
 Em sistemas com IA, lidamos com uma nova variável: a instabilidade da
@@ -20,7 +20,7 @@ Este capítulo trata de como gerenciar o ciclo de vida de aplicações que depen
 de modelos de IA, focando em versionamento, gestão de dependências e estratégias
 de migração de dados vetoriais (embeddings).
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -89,7 +89,7 @@ Quando o modelo muda, como saber se o chatbot ficou "mais burro"?
   resposta do novo modelo é melhor ou pior que a do antigo com base no Golden
   Dataset.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### O Custo da Evolução
 
@@ -102,7 +102,7 @@ produto que os usuários acostumaram.
 Ferramentas que prometem "abstrair o LLM" muitas vezes criam suas próprias
 dependências. Prefira padrões abertos e abstrações leves.
 
-## Summary
+## Resumo
 
 - Prompts e configurações de modelos devem ser versionados com o mesmo rigor do
   código compilado.
@@ -121,7 +121,7 @@ dependências. Prefira padrões abertos e abstrações leves.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — Validar migrações de dados massivos e qualidade subjetiva de modelos é caro.                            |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** — Interrupção de serviço ou degradação de qualidade impacta SLA, mas raramente gera passivo criminal. |
 
-## References
+## Referências
 
 1. **LangChain (2025)**. *Best Practices for Versioning Prompts and Model
    Configurations*.

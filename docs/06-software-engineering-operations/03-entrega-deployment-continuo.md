@@ -9,7 +9,7 @@ ai_model: gpt-4o
 
 # 3. Entrega e Deployment Contínuo
 
-## Overview
+## Visão Geral
 
 A entrega contínua (Continuous Delivery) em sistemas de IA exige uma
 reengenharia dos pipelines tradicionais. No SWEBOK v4.0, um "sucesso de
@@ -23,7 +23,7 @@ não-determinísticas. Uma mudança que melhora a sumarização pode, acidentalm
 quebrar a extração de JSON. Deployment de IA é, portanto, um exercício de gestão
 estatística de risco.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -125,7 +125,7 @@ aplicação se a nova versão dependia da inteligência superior.
   regenerar a resposta ruim com parâmetros diferentes (ex: `temperature` menor,
   prompt mais rígido). Isso é chamado de *Self-Correction*.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Checklist de Deployment
 
@@ -144,7 +144,7 @@ aplicação se a nova versão dependia da inteligência superior.
   ontem. Providers mudam modelos silenciosamente. Monitore o comportamento
   continuamente.
 
-## Summary
+## Resumo
 
 - **Validação Probabilística:** Testes binários (pass/fail) não funcionam. Use
   avaliações estatísticas.
@@ -162,7 +162,7 @@ aplicação se a nova versão dependia da inteligência superior.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio** — Testes em shadow duplicam o custo de inferência temporariamente, mas evitam custos de reputação. |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Alta** — Um deploy ruim de IA pode gerar passivo legal imediato (ex: prometer descontos inexistentes).     |
 
-## References
+## Referências
 
 1. **Zhang, et al.** (2024). *LLM Operations: A Survey of Deployment Patterns
    and Practices*. arXiv preprint.

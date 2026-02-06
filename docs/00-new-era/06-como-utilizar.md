@@ -9,7 +9,7 @@ ai_model: k2p5
 
 # Como Utilizar Este Guia
 
-## Overview
+## Visão Geral
 
 O SWEBOK-AI v5.0 é um recurso abrangente projetado para múltiplas modalidades de
 uso: estudo sequencial, consulta referencial, navegação por temas e aplicação
@@ -20,7 +20,7 @@ O guia pode ser utilizado como texto de referência, material de estudo
 estruturado ou manual de consulta rápida. A estrutura modular permite diferentes
 trajetórias de leitura sem perda de coerência.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, você deve ser capaz de:
 
@@ -346,7 +346,7 @@ O guia inclui referências explícitas entre KAs:
 | Consulta Referencial | 5-30min | Pontual      | Decisões imediatas         | Contexto limitado        |
 | Por Temas            | 5-15h   | Média        | Problemas complexos        | Requer síntese própria   |
 
-## Summary
+## Resumo
 
 - Quatro modalidades de estudo: Sequencial Completa, Por Perfil, Consulta
   Referencial e Por Temas
@@ -360,7 +360,7 @@ O guia inclui referências explícitas entre KAs:
 - O guia é projetado para múltiplos ciclos de uso: consulta inicial, estudo
   aprofundado e referência contínua
 
-## References
+## Referências
 
 1. IEEE Computer Society. (2024). "SWEBOK v4.0 — Software Engineering Body of
    Knowledge".

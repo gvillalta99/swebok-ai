@@ -9,7 +9,7 @@ ai_model: claude-3.5-sonnet
 
 # 3. Separação de Concerns Críticos
 
-## Overview
+## Visão Geral
 
 O princípio de *Separation of Concerns* (SoC) é um pilar da engenharia de
 software, tradicionalmente aplicado para separar UI, lógica de negócios e dados.
@@ -21,7 +21,7 @@ vulnerabilidades sistêmicas como *Prompt Injection*.
 Esta seção redefine o SoC para arquiteturas híbridas, focando na separação
 estrita entre instrução, contexto e execução.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -79,7 +79,7 @@ separada da execução da tarefa em si.
 - **Vantagem**: Facilita a depuração e permite substituir workers individuais
   sem quebrar o fluxo geral.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Context Window Management
 
@@ -88,7 +88,7 @@ tokens. Enviar todo o histórico de conversa ou documentos inteiros é um
 anti-padrão. A arquitetura deve incluir mecanismos de *summarization* e
 *pruning* para manter no contexto apenas o necessário para a tarefa atual.
 
-## Summary
+## Resumo
 
 - A vulnerabilidade de Prompt Injection é fundamentalmente um problema de falha
   na separação de instruções e dados.
@@ -105,7 +105,7 @@ anti-padrão. A arquitetura deve incluir mecanismos de *summarization* e
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Testes de injeção e recuperação de contexto são automatizáveis.                                                        |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Alta**. Vazamento de dados via prompt injection é uma falha de segurança primária.                                              |
 
-## References
+## Referências
 
 1. **Willison, S.** (2023). *Prompt injection: What’s the worst that can
    happen?*. simonwillison.net.

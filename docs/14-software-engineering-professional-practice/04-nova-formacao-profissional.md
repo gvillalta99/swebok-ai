@@ -9,7 +9,7 @@ ai_model: gemini-2.0-flash-thinking-exp
 
 # A Nova Formação Profissional: Da Escada Quebrada ao Aprendizado Adaptativo
 
-## Overview
+## Visão Geral
 
 A "escada corporativa" da engenharia de software — a progressão linear de Júnior
 para Pleno e Sênior — quebrou. O degrau inicial, onde estagiários e júniors
@@ -24,7 +24,7 @@ IA. Propomos um novo modelo de formação focado em **verificação**,
 **especificação** e **debugging de sistemas opacos**, substituindo a ênfase
 tradicional em sintaxe e algoritmos de quadro branco.
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -94,7 +94,7 @@ sim:
 
 O objetivo é treinar o **ceticismo profissional**.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Estratégias para Sobreviver à Escada Quebrada
 
@@ -124,7 +124,7 @@ O objetivo é treinar o **ceticismo profissional**.
 - **Atrofia de Habilidades:** Esquecer como configurar um ambiente ou debugar um
   erro de compilação porque "a IA sempre resolveu".
 
-## Summary
+## Resumo
 
 - A automação das tarefas de entrada quebrou o modelo tradicional de formação de
   aprendizes.
@@ -143,7 +143,7 @@ O objetivo é treinar o **ceticismo profissional**.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio**. Avaliar competência humana é caro e subjetivo.                       |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Baixa**. Erros de formação aparecem como dívida técnica anos depois.          |
 
-## References
+## Referências
 
 1. World Economic Forum. (2025). *Future of Jobs Report 2025*.
 2. Stack Overflow. (2024). *Developer Survey 2024: AI Tools and Career

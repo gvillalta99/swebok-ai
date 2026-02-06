@@ -9,7 +9,7 @@ ai_model: openai/gpt-5.2
 
 # 3. Metricas e Produtividade em Times com IA
 
-## Overview
+## Visão Geral
 
 Metricas de produtividade precisam refletir onde o trabalho realmente acontece.
 Em times com IA, produzir “mais codigo” nao e um objetivo valido; o gargalo e
@@ -20,7 +20,7 @@ Esta secao propõe um conjunto de metricas operacionais e de resultados, com
 alertas de interpretacao (metricas sao sinais; exigem contexto e podem ser
 “jogadas”).
 
-## Learning Objectives
+## Objetivos de Aprendizagem
 
 Após estudar esta seção, o leitor deve ser capaz de:
 
@@ -78,7 +78,7 @@ SPACE oferece um quadro holistico para evitar otimizacao local:
 Em times com IA, a dimensao “Efficiency and flow” tende a ser dominada por fila
 de verificacao e por context switching.
 
-## Practical Considerations
+## Considerações Práticas
 
 ### Regras de Governanca de Metricas
 
@@ -96,14 +96,14 @@ de verificacao e por context switching.
 | **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | Medio     |
 | **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Moderada  |
 
-## Summary
+## Resumo
 
 - Metricas de volume tendem a falhar com IA; preferir metricas de verificacao e
   fluxo.
 - DORA continua util se decomposta e interpretada por evidencia e risco.
 - SPACE ajuda a balancear produtividade com bem-estar e colaboracao.
 
-## References
+## Referências
 
 1. Forsgren, N.; Humble, J.; Kim, G. Accelerate: The Science of Lean Software
    and DevOps. Portland: IT Revolution Press, 2018.
