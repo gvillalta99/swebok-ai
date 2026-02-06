@@ -1,256 +1,91 @@
 ---
-title: 04. Design de Componentes Determinísticos
+title: Design de Componentes Determinísticos
 created_at: '2025-01-31'
-tags: [software-design, componentes, deterministicos, ia, contratos]
-status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+tags: [software-design, determinismo, core-domain, arquitetura-hexagonal]
+status: published
+updated_at: '2025-01-31'
+ai_model: gpt-4o
 ---
 
-# Design de Componentes Determinísticos (Ferramentas)
+# Design de Componentes Determinísticos
 
-## Contexto
+Em um sistema híbrido, a maior parte do código *ainda deve ser determinística*. A sedução da IA é tentar resolver tudo com um prompt ("Faça a lógica de negócio X"). Isso é um erro arquitetural grave.
 
-Em uma arquitetura baseada em agentes, a IA é o "cérebro" (probabilístico,
-criativo, propenso a erros), e o código tradicional são as "mãos"
-(determinístico, exato, seguro). Se as mãos tremem, a cirurgia falha, não
-importa quão genial seja o cirurgião.
+Componentes determinísticos são a âncora de sanidade do sistema. Eles garantem que 2 + 2 seja sempre 4, que permissões de acesso sejam respeitadas e que dados sejam persistidos com integridade.
 
-O design de componentes determinísticos — especificamente **Tools**
-(ferramentas) para uso por LLMs — é a disciplina de engenharia mais crítica de
-2026\. Não se trata apenas de escrever funções; trata-se de expor interfaces que
-resistam à alucinação, garantam idempotência e protejam o sistema de decisões
-erráticas. O código aqui não é o produto final; é a infraestrutura de segurança
-sobre a qual a inteligência opera.
+## O Núcleo Imutável (Core Domain)
 
-## A Anatomia de uma Ferramenta Robusta
+Seguindo princípios de Domain-Driven Design (DDD), o núcleo do seu negócio (Core Domain) deve ser protegido da variabilidade da IA.
 
-Uma "Tool" para um agente não é apenas uma função Python ou TypeScript. É um
-pacote composto por três camadas indissociáveis:
+- **Regra:** A lógica de negócio crítica (cálculo de preços, aprovação de transações, regras de acesso) deve ser escrita em código tradicional (Python, Java, Go, etc.), coberta por testes unitários e nunca delegada a um LLM.
+- **Papel da IA:** A IA atua nas bordas (Interface Adaptativa) ou como auxiliar (Copiloto), mas nunca como legisladora das regras de negócio.
 
-1. **A Interface Semântica (Docstring/Description):** O manual de instruções que
-   o LLM lê. Deve ser inequívoco.
-2. **A Interface Sintática (Schema):** A barreira rígida de tipos (JSON Schema,
-   Pydantic, Zod).
-3. **A Implementação (Execution):** O código lógico que realiza a ação, isolado
-   de efeitos colaterais indesejados.
+### Separação de Responsabilidades
 
-### 1. Validação Estrita de Input (Schema as Firewall)
+| Componente | Natureza | Exemplo | Quem executa? |
+| :--- | :--- | :--- | :--- |
+| **Policy Engine** | Determinístico | "Usuário Premium tem 10% de desconto" | Código (Hard Logic) |
+| **Intent Parser** | Probabilístico | "O usuário *parece* querer um desconto" | LLM (Soft Logic) |
+| **Action Executor** | Determinístico | Aplica o desconto no banco de dados | Código (Hard Logic) |
 
-Nunca confie no output de um LLM. Trate qualquer chamada de ferramenta vinda de
-um modelo como "user input" hostil.
+O design deve garantir que o **Intent Parser** apenas extraia a intenção e parâmetros, mas quem decide se a ação é válida é o **Policy Engine**.
 
-- **Tipagem Forte:** Use enums para opções limitadas. Não aceite `string` quando
-  você quer `Literal['active', 'inactive']`.
-- **Validação de Negócio no Schema:** Se um valor deve ser positivo, o schema
-  deve rejeitar negativos antes mesmo de o código executar.
-- **Mensagens de Erro como Feedback:** Quando a validação falha, a mensagem de
-  erro deve ser instrutiva para o LLM. Retorne *"Erro: o campo 'data' deve ser
-  ISO8601"* em vez de *"Invalid Input"*. Isso permite que o agente se corrija
-  (Self-Correction).
+## Isolamento de Componentes Probabilísticos
 
-### 2. Idempotência é Obrigatória
+Trate componentes de IA como se fossem I/O externo instável (similar a acessar um disco de rede lento e corrompível).
 
-Agentes falham. Redes caem. LLMs decidem "tentar de novo" porque acharam que a
-resposta demorou. Se sua ferramenta de pagamento cobra o cartão cada vez que é
-chamada, você tem um problema financeiro grave.
+### O Padrão "Ports and Adapters" (Hexagonal)
 
-- **Chaves de Idempotência:** Toda operação de escrita (POST/PUT/DELETE) deve
-  aceitar um `idempotency_key`.
-- **Estado Final vs. Transição:** Prefira APIs que definem o estado desejado
-  (`set_status('active')`) em vez de transições relativas (`toggle_status()`).
-  Se o agente chamar `toggle` duas vezes por erro, o sistema fica no estado
-  errado.
+A Arquitetura Hexagonal é perfeita para isolar LLMs.
+- **Dominio:** Puro, determinístico, sem dependência de IA.
+- **Porta:** Interface que define o que o sistema precisa (ex: `ISummarizer`, `ISentimentAnalyzer`).
+- **Adaptador:** A implementação concreta que chama a OpenAI/Anthropic.
 
-### 3. Isolamento de Efeitos Colaterais (Side-Effects)
+Isso permite que você troque o modelo, ou substitua por uma implementação "dummy" nos testes, sem tocar na lógica de negócio.
 
-O LLM muitas vezes "pensa" executando. Ele pode chamar uma ferramenta apenas
-para ver o que acontece.
-
-- **Dry-Run Mode:** Ferramentas críticas (deletar recursos, transferir dinheiro)
-  devem ter um flag `dry_run: boolean`. O agente pode simular a ação para
-  verificar as consequências antes de commitar.
-- **Read-Only por Padrão:** Separe claramente ferramentas de leitura (seguras
-  para retries infinitos) de ferramentas de escrita (perigosas).
-
-## Padrões de Design para Tools
-
-### O Padrão "Result Object"
-
-Não retorne apenas strings ou booleanos. Retorne objetos estruturados que dão
-contexto ao agente.
-
-**Ruim:**
-
-```json
-"Sucesso"
-```
-
-**Bom:**
-
-```json
-{
-  "status": "success",
-  "transaction_id": "tx_123",
-  "new_balance": 450.00,
-  "message": "Transferência realizada. O saldo atual foi atualizado."
-}
-```
-
-O objeto rico permite que o agente raciocine sobre o próximo passo sem precisar
-fazer uma nova consulta (reduzindo latência e custo).
-
-### O Padrão "Human-in-the-Loop" (HITL)
-
-Para ações irreversíveis, a ferramenta não deve executar a ação, mas sim
-*agendar* a ação para aprovação.
-
-1. Agente chama `request_deploy_production()`.
-2. Ferramenta retorna: *"Solicitação #99 criada. Aguardando aprovação humana via
-   Slack."*
-3. O sistema externo notifica o humano.
-4. A execução real ocorre fora do ciclo de vida do request do LLM.
-
-## Checklist Prático
-
-O que eu verifico antes de aprovar um PR com novas ferramentas para agentes:
-
-1. [ ] **Schema Rigoroso:** Todos os parâmetros têm tipos, descrições e
-   validações (min/max, regex)?
-2. [ ] **Docstrings Inequívocas:** A descrição explica *quando* usar e *quando
-   não* usar a ferramenta?
-3. [ ] **Idempotência:** Posso chamar essa função 5 vezes seguidas com os mesmos
-   parâmetros sem corromper dados?
-4. [ ] **Tratamento de Erros:** As exceções retornam mensagens que um "robô"
-   consegue entender para se corrigir?
-5. [ ] **Limites de Segurança:** Existe um limite máximo (hard limit) para
-   valores numéricos (ex: quantidade, valor monetário)?
-6. [ ] **Timeout:** A ferramenta falha graciosamente se o backend demorar?
-7. [ ] **Log de Auditoria:** A ferramenta loga *quem* (qual agente/sessão)
-   solicitou a ação?
-8. [ ] **Sem Estado Oculto:** A ferramenta depende de algo que o agente "deveria
-   lembrar" da chamada anterior? (Evite isso).
-
-## Armadilhas Comuns (Anti-Patterns)
-
-- **A "God Tool":** Uma função `manage_system(action, params)` que faz tudo. O
-  LLM se perde na complexidade do schema. Quebre em `create_user`,
-  `delete_user`, `update_user`.
-- **Retorno Vazio:** Funções que retornam `void` ou `None`. O LLM alucina que
-  funcionou (ou que falhou). Sempre retorne confirmação explícita.
-- **Dependência de Ordem:** Esperar que o agente chame `init()` antes de
-  `process()`. Agentes são caóticos; projete ferramentas stateless ou que
-  verifiquem o estado prévio explicitamente.
-- **Vazamento de Abstração:** Retornar stack traces de Python/Java para o LLM.
-  Isso confunde o modelo. Capture o erro e retorne uma mensagem semântica.
-
-## Exemplo Mínimo: Processamento de Reembolso
-
-Cenário: Um agente de suporte precisa processar reembolsos.
-
-### Abordagem Frágil (Não faça isso)
-
+**Exemplo de Interface:**
 ```python
-def refund(user_id, amount):
-    """Dá dinheiro de volta pro usuário."""
-    db.execute(f"UPDATE users SET balance = balance + {amount} WHERE id = {user_id}")
-    return "Ok"
+# Interface Determinística
+class FraudDetector(Protocol):
+    def check(self, transaction: Transaction) -> FraudResult: ...
+
+# Implementação Híbrida (Adaptador)
+class LLMFraudDetector(FraudDetector):
+    def check(self, transaction: Transaction) -> FraudResult:
+        # Chama LLM...
+        # Valida resposta...
+        return result
 ```
+Para o resto do sistema, `FraudDetector` é apenas um componente que retorna um resultado. A complexidade da IA está encapsulada no adaptador.
 
-*Crítica: SQL Injection, sem verificação de saldo, não idempotente, retorno
-vago.*
+## Imutabilidade e Idempotência
 
-### Abordagem Robusta (SWEBOK-AI Standard)
+Como LLMs podem falhar e precisar de retries, os componentes determinísticos que recebem comandos da IA devem ser idempotentes.
 
-```python
-from pydantic import BaseModel, Field, PositiveFloat
-from typing import Literal
+- **Idempotência:** Executar a mesma ação duas vezes não deve causar efeito colateral duplicado (ex: cobrar o cartão duas vezes).
+- **Design:** Use chaves de idempotência (idempotency keys) geradas no início do fluxo e passadas adiante. Se o LLM alucinar e pedir a execução novamente, o componente determinístico detecta a chave duplicada e ignora.
 
-class RefundResult(BaseModel):
-    transaction_id: str
-    status: Literal["success", "pending_approval", "rejected"]
-    reason: str
-    new_balance: float
+## Estratégias de Fallback Determinístico
 
-def process_refund(
-    order_id: str,
-    amount: float,
-    reason: str,
-    dry_run: bool = False
-) -> RefundResult:
-    """
-    Processa um reembolso para um pedido específico.
-    Use dry_run=True para verificar elegibilidade sem efetivar o pagamento.
-    """
-    # 1. Validação de Schema (Pydantic faz automático, mas reforçamos regras de negócio)
-    if amount <= 0:
-        raise ValueError("O valor do reembolso deve ser positivo.")
+O que acontece quando a "inteligência" falha? O sistema deve degradar para a "estupidez funcional".
 
-    # 2. Verificação de Estado (Determinístico)
-    order = db.get_order(order_id)
-    if not order:
-        raise ValueError(f"Pedido {order_id} não encontrado.")
+1. **Regras Heurísticas:** Se o modelo de recomendação cair, retorne os "Top 10 mais vendidos" (query simples de banco).
+2. **Regex/Keyword Matching:** Se o classificador de intenção via LLM falhar, tente identificar palavras-chave simples ("cancelar", "comprar").
+3. **Fail Closed:** Em segurança, se o avaliador de risco via IA falhar, negue o acesso por padrão.
 
-    if order.refunded_amount + amount > order.total:
-        return RefundResult(
-            transaction_id="",
-            status="rejected",
-            reason="Valor excede o total do pedido.",
-            new_balance=order.user_balance
-        )
+## Armadilhas Comuns
 
-    # 3. Execução Idempotente (Simulada ou Real)
-    if dry_run:
-        return RefundResult(
-            transaction_id="simulated",
-            status="success",
-            reason="Simulação: Reembolso seria aprovado.",
-            new_balance=order.user_balance + amount
-        )
-
-    # Lógica transacional com chave de idempotência baseada no order_id
-    tx = payment_gateway.refund(order_id, amount, idempotency_key=f"ref_{order_id}")
-
-    return RefundResult(
-        transaction_id=tx.id,
-        status="success",
-        reason=reason,
-        new_balance=tx.new_balance
-    )
-```
+- **Lógica de Negócio no Prompt:** Colocar regras complexas ("Se o usuário for X e a data for Y, dê Z") dentro do prompt. É impossível testar todas as permutações e o modelo vai errar na borda. Tire a regra do prompt e traga para o código (`if user.is_x and date.is_y: ...`).
+- **Estado Global Compartilhado:** Permitir que agentes de IA manipulem estado global sem passar por métodos transacionais seguros.
 
 ## Resumo Executivo
 
-- **Ferramentas são Contratos:** O schema da ferramenta é o contrato mais
-  importante do seu sistema. Ele define o que a IA *pode* e *não pode* fazer.
-- **Idempotência é Segurança:** Em sistemas probabilísticos, a repetição é
-  garantida. O sistema deve suportá-la nativamente.
-- **Feedback Loop:** Erros de ferramentas são parte do prompt do próximo passo.
-  Torne-os informativos.
-- **Isolamento:** Separe leitura (barata/segura) de escrita (cara/perigosa).
-- **Determinismo:** O código da ferramenta deve ser chato, previsível e
-  exaustivamente testado. Deixe a "criatividade" apenas para o prompt.
+- **Core Blindado:** Mantenha a IA longe do núcleo crítico do negócio.
+- **IA nas Bordas:** Use IA para traduzir linguagem natural em chamadas de função estruturadas.
+- **Adapters:** Isole a IA atrás de interfaces limpas.
+- **Código > Prompt:** Se você pode escrever em `if/else`, não use prompt. É mais barato, rápido e correto.
 
 ## Próximos Passos
 
-- Implementar **testes de contrato** para garantir que as ferramentas respeitam
-  seus schemas.
-- Estabelecer **telemetria** específica para uso de ferramentas (taxa de erro
-  por ferramenta, latência).
-- Revisar o capítulo de **Engenharia de Restrições** para alinhar os schemas com
-  as políticas de segurança.
-
-## Matriz de Avaliação
-
-| Critério                        | Descrição                             | Avaliação                                                                                                                                   |
-| ------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Modelos ficarão mais inteligentes, mas a necessidade de interfaces determinísticas seguras para o mundo real é perene.           |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Testes unitários clássicos e validação de schema resolvem 99% dos casos.                                                         |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?             | **Alta**. Se a ferramenta permite uma ação ilegal ou destrutiva por falta de validação, a culpa é da engenharia, não da "alucinação" da IA. |
-
-## Referências
-
-1. **Function Calling with LLMs**. OpenAI Documentation, 2024.
-2. **Robustness in AI Agents**. Anthropic Research, 2025.
-3. **Idempotency Patterns**. Stripe Engineering Blog.
-4. **Pydantic Documentation**. <https://docs.pydantic.dev/>
+- Definir contratos claros entre o mundo determinístico e probabilístico em **Design de Interfaces e Contratos** (Próxima seção).
+- Garantir que o código determinístico seja testável para suportar a variabilidade da entrada.
