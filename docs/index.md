@@ -44,9 +44,9 @@ software.
 
 [![Versão](https://img.shields.io/badge/Vers%C3%A3o-5.0.0--beta-blue)](https://github.com/gvillalta99/swebok-ai)
 [![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)](https://github.com/gvillalta99/swebok-ai)
-[![Licença](https://img.shields.io/badge/Licen%C3%A7a-CC%20BY%204.0-green)](LICENSE)
+[![Licença](https://img.shields.io/badge/Licen%C3%A7a-CC%20BY%204.0-green)](https://github.com/gvillalta99/swebok-ai/blob/main/LICENSE)
 
-[📖 Começar a Ler](00-fim-codificacao-fundamentos-ai-first/)
+[📖 Começar a Ler](00-new-era/01-contexto-revolucao-llms.md)
 [📥 Baixar PDF](https://gvillalta99.github.io/swebok-ai/assets/swebok-ai.pdf)
 [⭐ GitHub](https://github.com/gvillalta99/swebok-ai)
 
@@ -93,25 +93,25 @@ reconfigurados para o paradigma AI-First:
 
 ### Fundamentos
 
-| Capítulo | Título                                                                                               | O Que Você Vai Dominar                                    |
-| -------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| 0        | [O Fim da Codificação: Fundamentos da Engenharia AI-First](00-fim-codificacao-fundamentos-ai-first/) | O paradigma AI-First e por que a engenharia precisa mudar |
-| 1        | [Engenharia de Restrições e Contexto](01-software-requirements/)                                     | Definir limites e fronteiras para sistemas autônomos      |
+| Capítulo | Título                                                                                                        | O Que Você Vai Dominar                                    |
+| -------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| 0        | [O Fim da Codificação: Fundamentos da Engenharia AI-First](00-new-era/01-contexto-revolucao-llms.md)          | O paradigma AI-First e por que a engenharia precisa mudar |
+| 1        | [Engenharia de Restrições e Contexto](01-software-requirements/01-fundamentos-da-engenharia-de-restricoes.md) | Definir limites e fronteiras para sistemas autônomos      |
 
 ### Knowledge Areas Principais
 
-| Capítulo | Título                                                                     | O Que Você Vai Dominar                |
-| -------- | -------------------------------------------------------------------------- | ------------------------------------- |
-| 2        | [Arquitetura de Sistemas Híbridos](02-software-architecture/)              | Padrões humanos-IA que escalam        |
-| 3        | [Design de Sistemas Híbridos](03-software-design/)                         | Auditabilidade e supervisão em design |
-| 4        | [Orquestração e Curadoria de Código](04-software-construction/)            | Avaliação de código gerado por IA     |
-| 5        | [Verificação e Validação em Escala](05-software-testing/)                  | Testar sistemas não-determinísticos   |
-| 6        | [Engenharia de Operações de Software](06-software-engineering-operations/) | Operações em ambientes com IA         |
-| 7        | [Manutenção de Sistemas Opaços](07-software-maintenance/)                  | Manter código que você não escreveu   |
-| 8-18     | Knowledge Areas em Expansão                                                | Em desenvolvimento ativo              |
+| Capítulo | Título                                                                                                            | O Que Você Vai Dominar                |
+| -------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
+| 2        | [Arquitetura de Sistemas Híbridos](02-software-architecture/01-fundamentos-arquitetura-hibrida.md)                | Padrões humanos-IA que escalam        |
+| 3        | [Design de Sistemas Híbridos](03-software-design/01-fundamentos-design-era-llms.md)                               | Auditabilidade e supervisão em design |
+| 4        | [Orquestração e Curadoria de Código](04-software-construction/01-fundamentos-orquestracao-curadoria.md)           | Avaliação de código gerado por IA     |
+| 5        | [Verificação e Validação em Escala](05-software-testing/01-fundamentos-verificacao-ia.md)                         | Testar sistemas não-determinísticos   |
+| 6        | [Engenharia de Operações de Software](06-software-engineering-operations/01-fundamentos-operacoes-sistemas-ia.md) | Operações em ambientes com IA         |
+| 7        | [Manutenção de Sistemas Opaços](07-software-maintenance/01-fundamentos-de-manutencao-de-sistemas-opacos.md)       | Manter código que você não escreveu   |
+| 8-18     | Knowledge Areas em Expansão                                                                                       | Em desenvolvimento ativo              |
 
 !!! tip "Comece Aqui" Novo no SWEBOK-AI? Leia o
-[Capítulo 0: O Fim da Codificação](00-fim-codificacao-fundamentos-ai-first/)
+[Capítulo 0: O Fim da Codificação](00-new-era/01-contexto-revolucao-llms.md)
 primeiro. Ele estabelece os fundamentos conceituais para todo o restante do
 guia.
 
@@ -156,5 +156,7 @@ bem-vinda:
 
 ## Licença
 
-O conteúdo original deste repositório está sob a licença em . Materiais de
-terceiros não são distribuídos aqui; veja `NOTICE`.
+O conteúdo original deste repositório está sob a licença em
+[LICENSE](https://github.com/gvillalta99/swebok-ai/blob/main/LICENSE). Materiais
+de terceiros não são distribuídos aqui; veja
+[NOTICE](https://github.com/gvillalta99/swebok-ai/blob/main/NOTICE.md).

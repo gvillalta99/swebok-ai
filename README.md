@@ -128,7 +128,7 @@ Este é um projeto open source em desenvolvimento ativo. Sua contribuição é b
 
 ## 📝 Licença
 
-O conteúdo original deste repositório está sob a licença [CC BY 4.0](LICENSE). Materiais de terceiros não são distribuídos aqui; veja [NOTICE](NOTICE).
+O conteúdo original deste repositório está sob a licença [CC BY 4.0](LICENSE). Materiais de terceiros não são distribuídos aqui; veja [NOTICE](NOTICE.md).
 
 ---
 
