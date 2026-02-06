@@ -105,6 +105,7 @@ nav:
           - 06 - Como Utilizar: 00-new-era/06-como-utilizar.md
           - 07 - Fundamentos Essenciais de IA: 00-new-era/07-fundamentos-essenciais-ia.md
       - KA 11 - Modelos e Metodos:
+          - 00 - Visao Geral: 11-software-engineering-models-and-methods/index.md
           - 01 - Fundamentos: 11-software-engineering-models-and-methods/01-fundamentos-modelos-executaveis-generativos.md
           - 02 - Modelagem de Dominio: 11-software-engineering-models-and-methods/02-modelagem-dominio-engenharia-contexto.md
           - 03 - Metodos Formais: 11-software-engineering-models-and-methods/03-metodos-formais-verificacao-assistida.md
