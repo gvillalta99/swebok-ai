@@ -1,216 +1,149 @@
 ---
-title: 'Apêndice A: Especificacoes de Descricao de Knowledge Areas (KAs)'
-created_at: '2026-01-31'
-tags: [apendice, kabs, governanca, evidencias, swebok-ai]
-status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+title: "Apêndice A: Especificações de Descrição de Knowledge Areas (KAs)"
+created_at: "2026-02-05"
+tags: ["apendice", "kas", "governanca", "evidencias", "swebok-ai"]
+status: "review"
+updated_at: "2026-02-05"
+ai_model: "kimi-k2.5"
 ---
 
-# Apêndice A: Especificacoes de Descricao de Knowledge Areas (KAs)
+# Apêndice A: Especificações de Descrição de Knowledge Areas (KAs)
 
 ## Overview
 
-Este apendice define as especificacoes editoriais e tecnicas para descrever
-Knowledge Areas (KAs) no SWEBOK-AI v5.0. O objetivo nao e padronizar estilo por
-estetica, mas garantir comparabilidade, auditabilidade e rastreabilidade em um
-guia que assume sistemas nao deterministicos, alto risco regulatorio e producao
-acelerada por IA.
+Este apêndice define as especificações editoriais e técnicas para a descrição das Knowledge Areas (KAs) no SWEBOK-AI v5.0. O objetivo não é apenas padronizar o estilo, mas garantir comparabilidade, auditabilidade e rastreabilidade em um guia que assume sistemas não determinísticos, alto risco regulatório e produção acelerada por IA.
 
-Como no SWEBOK v4.0, as descricoes de KAs devem permanecer nao prescritivas (nao
-ditar ferramentas) e aplicaveis a multiplos contextos organizacionais. A
-diferenca central e que o SWEBOK-AI requer que cada KA explicite restricoes,
-criterios de verificacao e pontos de intervencao humana (human-in-the-loop),
-alinhando o conteudo a praticas de governanca e risco (por exemplo, AIMS em
-ISO/IEC 42001 e gestao de risco em ISO/IEC 23894).
+Diferente do SWEBOK v4.0, que focava em práticas estáveis, o SWEBOK-AI exige que cada KA explicite restrições, critérios de verificação e, crucialmente, os pontos de intervenção humana obrigatórios (human-in-the-loop). Todo conteúdo deve alinhar-se a práticas modernas de governança, como o sistema de gestão de IA (ISO/IEC 42001) e frameworks de risco (ISO/IEC 23894).
 
 ## Learning Objectives
 
-Apos estudar este apendice, o leitor deve ser capaz de:
+Após estudar este apêndice, o leitor deve ser capaz de:
 
-1. Aplicar criterios uniformes para decompor, nomear e descrever topicos de uma
-   KA, evitando vies de dominio e de fornecedor.
-2. Produzir descricoes verificaveis e auditaveis, com afirmacoes escopadas e
-   referencias adequadas (standards, literatura revisada por pares, relatorios
-   autoritativos).
-3. Incorporar, de forma consistente, componentes AI-centric (restricoes,
-   verificacao, governanca, responsabilidade) em qualquer KA.
+1.  **Aplicar critérios uniformes** para decompor, nomear e descrever tópicos de um KA, evitando viés de domínio ou de fornecedor.
+2.  **Produzir descrições verificáveis e auditáveis**, com afirmações escopadas e referências adequadas (padrões, literatura revisada por pares, relatórios autoritativos).
+3.  **Incorporar componentes AI-centric** (restrições, verificação, responsabilidade legal) de forma consistente em qualquer KA.
 
-## A.1 Papel do SWEBOK-AI e controle de baseline
+## A.1 Papel do SWEBOK-AI e Controle de Baseline
 
 O SWEBOK-AI v5.0 funciona como documento estrutural para:
 
-- curriculos e trilhas de formacao
-- certificacao e avaliacao de competencias
-- referencia cruzada com standards e conformidade
+*   Currículos e trilhas de formação profissional.
+*   Certificação e avaliação de competências (em conformidade com **ISO/IEC 24773-1** e **-4**).
+*   Referência cruzada com padrões de conformidade técnica e legal.
 
-Por isso, a lista de KAs e seus topicos funciona como baseline. Mudancas
-estruturais (criacao, remocao ou reindexacao de topicos) devem ser tratadas como
-mudancas controladas: justificativa, impacto em navegacao, impacto em
-referencias cruzadas e impacto em matrizes de conformidade.
+A lista de KAs e seus tópicos funciona como uma *baseline*. Mudanças estruturais (criação, remoção ou reindexação de tópicos) são tratadas como mudanças controladas, exigindo justificativa de impacto na navegação e nas matrizes de conformidade.
 
-## A.2 Criterios e requisitos para a quebra de topicos
+## A.2 Critérios e Requisitos para a Quebra de Tópicos
 
-### A.2.1 Profundidade e granularidade
+### A.2.1 Profundidade e Granularidade
 
-- A quebra de topicos deve ter, em geral, ate 2 ou 3 niveis.
-- O objetivo e ser "razoavel", nao "perfeita": a estabilidade editorial e mais
-  valiosa do que micro-otimizacao taxonomica.
-- Titulos de topicos devem ser autoexplicativos quando citados fora de contexto.
+*   **Níveis:** A quebra de tópicos deve ter, em geral, até 2 ou 3 níveis de profundidade.
+*   **Pragmatismo:** O objetivo é a estabilidade editorial, não a perfeição taxonômica.
+*   **Clareza:** Títulos de tópicos devem ser autoexplicativos quando citados fora de contexto (ex: em uma matriz de risco).
 
-### A.2.2 Neutralidade de contexto
+### A.2.2 Neutralidade de Contexto
 
-A quebra de topicos nao deve presumir:
+A descrição dos tópicos não deve presumir:
+*   Domínio específico (ex: saúde, fintech).
+*   Modelo de ciclo de vida único.
+*   Estrutura organizacional rígida.
+*   Stack tecnológica, fornecedor ou framework específico.
 
-- dominio especifico (por exemplo, saude, fintech)
-- modelo de ciclo de vida unico
-- estrutura organizacional
-- stack tecnologica, fornecedor, ferramenta, framework
+Quando um tópico depender de contexto (ex: requisitos regulatórios específicos), isso deve ser tratado como uma "variante" (ver seção A.3).
 
-Quando um topico depender de contexto (por exemplo, requisitos regulatorios),
-isso deve ser explicitado como variavel de escopo e tratado como "variantes"
-(ver A.3).
+### A.2.3 Temas Transversais Obrigatórios
 
-### A.2.3 Temas transversais obrigatorios
+Os seguintes temas devem permear todas as KAs:
+*   **Medição:** Avaliação objetiva e métricas de qualidade.
+*   **Qualidade:** Foco na qualidade de sistemas com componentes estocásticos (IA).
+*   **Segurança:** Privacidade, abuso, ameaças por prompt injection e agentes autônomos.
 
-Os temas transversais devem aparecer em todas as KAs, adaptados ao contexto:
+## A.3 Especificação de Conteúdo: Afirmações, Restrições e Variantes
 
-- medicao (incluindo avaliacao e metrica de qualidade)
-- qualidade (incluindo qualidade de sistemas com componentes de IA)
-- seguranca (incluindo privacidade, abuso e ameaças por prompt/agent)
+### A.3.1 Afirmações Verificáveis
 
-## A.3 Especificacao de conteudo: afirmacoes, restricoes e variantes
+Toda afirmação técnica deve ser:
+*   **Escopada:** Definir condições, população e limites.
+*   **Falsificável:** Indicar o que observar para refutar a afirmação.
+*   **Referenciada:** Acompanhada de citação quando for uma afirmação externa.
 
-### A.3.1 Afirmacoes verificaveis
+Quando não houver evidência adequada, a afirmação deve ser marcada explicitamente como "hipótese operacional", sugerindo verificação local.
 
-Afirmações devem ser:
+### A.3.2 Restrições como Artefato Primário
 
-- escopadas (condicoes, populacao, limites)
-- falsificaveis (o que observar para refutar)
-- acompanhadas de referencia quando forem afirmacoes externas
+No SWEBOK-AI, "restrições" são cidadãos de primeira classe. Elas definem o que o sistema *não* deve fazer. Em cada KA, isso se traduz em:
 
-Quando nao houver evidencia adequada, a afirmacao deve ser marcada como hipotese
-operacional (por exemplo: "hipotese: ..."), com recomendacao de verificacao
-local.
+*   **Restrições de Dados:** Proveniência, licenciamento, PII (Personally Identifiable Information), retenção.
+*   **Restrições de Modelo:** Capabilities proibidas, limites de autonomia.
+*   **Restrições de Operação:** Observabilidade, logging, aprovação humana (human-in-the-loop).
+*   **Restrições de Segurança:** Controle de ferramentas (tool use), sandboxing.
 
-### A.3.2 Restricoes como artefato primario
+Este enquadramento garante compatibilidade com sistemas de gestão (AIMS - ISO/IEC 42001).
 
-No SWEBOK-AI, "restricoes" sao artefatos primarios: definem o que o sistema nao
-deve fazer, como e por quem sera verificado, e quais riscos sao aceitaveis. Em
-KA descriptions, isso se traduz em:
+### A.3.3 Variantes por Risco
 
-- restricoes de dados (proveniencia, licencas, PII, retention)
-- restricoes de modelo (capabilities proibidas, limites de autonomia)
-- restricoes de operacao (observabilidade, logging, aprovacao humana)
-- restricoes de seguranca (controle de ferramentas, sandbox, segredos)
+Tópicos sensíveis devem explicitar variantes baseadas no nível de risco:
 
-Esse enquadramento e compativel com estruturas de gestao e governanca de IA,
-como um Artificial Intelligence Management System (AIMS) (ISO/IEC 42001) e
-praticas de gestao de risco especificas para IA (ISO/IEC 23894).
+*   **Baixo Risco:** Controles mínimos e verificação amostral.
+*   **Médio Risco:** Gates de revisão, testes de regressão, auditoria leve.
+*   **Alto Risco:** Evidências formais, avaliação independente, auditoria reforçada (alinhado à ISO/IEC 42006).
 
-### A.3.3 Variantes por risco
+## A.4 Requisitos para Referências
 
-Topicos que variam fortemente por risco devem explicitar "variantes":
+### A.4.1 Tipos de Referência
 
-- baixo risco: controles minimos e verificacao amostral
-- medio risco: gates de revisao, testes de regressao e auditoria leve
-- alto risco: evidencias formais, avaliacao independente, auditoria e governanca
-  reforcada
+*   **Recommended References:** Essenciais para o núcleo do conhecimento.
+*   **Further Reading:** Leituras complementares com justificativa breve.
+*   **Standards:** Normas ISO/IEC/IEEE citadas explicitamente.
 
-Esse padrao de "variantes por risco" facilita alinhamento com regimes
-regulatorios (por exemplo, a abordagem baseada em risco do EU AI Act) e com
-normas de auditoria/certificacao associadas a AIMS (por exemplo, ISO/IEC 42006).
+### A.4.2 Critérios de Seleção (2024/2025)
 
-## A.4 Requisitos para referencias
+*   **Atualidade:** Priorizar materiais de 2024/2025. Clássicos são permitidos apenas se fundacionais.
+*   **Credibilidade:** Standards, papers revisados por pares (IEEE, ACM), relatórios de indústria autoritativos (McKinsey, DORA).
+*   **Acessibilidade:** URLs ou DOIs estáveis.
 
-### A.4.1 Tipos de referencia
+### A.4.3 Identificação de Conteúdo LEGADO
 
-Cada KA pode utilizar:
+Práticas obsoletas ou commoditizadas devem ser marcadas com a tag **[LEGADO]**.
+*   *Critério:* A prática foi substituída por automação de IA confiável ou tornou-se irrelevante devido a novas arquiteturas?
 
-- Recommended References: referencias essenciais para o nucleo "geralmente
-  reconhecido"
-- Further Reading: leituras complementares, com anotacao breve justificando
-  inclusao
-- References: standards e referencias citadas explicitamente
+## A.5 Estrutura Obrigatória para Arquivos de KA
 
-### A.4.2 Criterios de selecao
+Cada arquivo de KA deve seguir rigorosamente esta estrutura:
 
-- Atualidade: priorizar materiais recentes; classicos sao permitidos quando
-  forem fundacionais.
-- Credibilidade: priorizar standards (ISO/IEC/IEEE), periodicos/conferencias, e
-  orgaos de referencia.
-- Acessibilidade: preferir URLs/DOIs estaveis.
-- Neutralidade: evitar marketing de fornecedor.
-
-### A.4.3 Referencias e sistemas de gestao
-
-Quando o topico se relacionar a governanca, risco ou conformidade, a KA deve
-referenciar explicitamente o conjunto relevante de standards de sistema de
-gestao e/ou frameworks de risco. Exemplos frequentes:
-
-- AIMS: ISO/IEC 42001
-- Auditoria e certificacao de AIMS: ISO/IEC 42006
-- Governanca de uso de IA: ISO/IEC 38507
-- Gestao de risco de IA: ISO/IEC 23894
-
-## A.5 Estrutura obrigatoria para cada arquivo de KA
-
-Cada arquivo de conteudo do SWEBOK-AI deve seguir a estrutura base do projeto:
-
-1. `## Overview`
-2. `## Learning Objectives`
-3. Secoes tecnicas (subsecoes)
-4. `## Practical Considerations`
-5. `## Summary`
-6. `## References`
-
-Quando aplicavel, incluir:
-
-- sinalizacao **LEGADO** para praticas obsoletas ou comoditizadas
-- "pontos de intervencao humana" (quando revisao humana e obrigatoria)
-- "evidencias minimas" (o que precisa existir para dizer que foi verificado)
+1.  `## Overview`
+2.  `## Learning Objectives`
+3.  Seções Técnicas (Subseções)
+4.  `## Practical Considerations` (incluindo checklist e armadilhas)
+5.  `## Matriz de Avaliação Consolidada`
+6.  `## Summary`
+7.  `## References`
 
 ## Practical Considerations
 
-- Em ambientes com uso de agentes, documente "limites de autonomia" como
-  requisito: o que pode ser executado sem aprovacao humana, e quais eventos
-  disparam um "circuit breaker".
-- Evite padronizar ferramentas; padronize propriedades verificaveis (por
-  exemplo, "log estruturado e retencao de 90 dias" em vez de "use ferramenta
-  X").
-- Quando mencionar um standard pago, cite o identificador oficial e um link para
-  a pagina do organismo (ISO/IEEE) em vez de copiar conteudo protegido.
+*   **Limites de Autonomia:** Documente claramente o que um agente pode fazer sem supervisão.
+*   **Ferramentas vs. Propriedades:** Não prescreva ferramentas ("Use ferramenta X"), prescreva propriedades ("O log deve ser estruturado e imutável").
+*   **Propriedade Intelectual:** Ao citar standards pagos, use o identificador oficial e link, nunca copie o conteúdo.
 
-## Matriz de Avaliacao Consolidada
+## Matriz de Avaliação Consolidada
 
-| Criterio                        | Descricao                                                | Avaliacao |
-| ------------------------------- | -------------------------------------------------------- | --------- |
-| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses?                    | Baixa     |
-| **Custo de Verificacao**        | Quanto custa validar esta atividade quando feita por IA? | Medio     |
-| **Responsabilidade Legal**      | Quem e culpado se falhar?                                | Critica   |
+| Critério | Descrição | Avaliação |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta especificação será obsoleta em 36 meses? | Baixa (Estrutural) |
+| **Custo de Verificação** | Quanto custa validar a conformidade com esta especificação? | Médio |
+| **Responsabilidade Legal** | Quem é responsabilizado por falhas de descrição? | Crítica |
 
 ## Summary
 
-- Descricoes de KA sao especificacoes editoriais para consistencia,
-  comparabilidade e auditabilidade.
-- No SWEBOK-AI, restricoes, criterios de verificacao e pontos de intervencao
-  humana sao parte do conteudo "geralmente reconhecido".
-- Referencias devem priorizar standards e fontes recentes, com escopo e
-  rastreabilidade.
+*   Descrições de KA são especificações técnicas para consistencia e auditabilidade.
+*   Restrições e pontos de intervenção humana são parte integrante do conhecimento.
+*   Referências devem ser atuais (2024/2025) e focadas em padrões (ISO/IEC) e evidências.
+*   A estrutura deve suportar a certificação profissional (ISO/IEC 24773).
 
 ## References
 
-1. ISO. ISO/IEC 42001:2023 - Information technology — Artificial intelligence —
-   Management system. 2023. Disponivel em:
-   <https://www.iso.org/standard/81230.html>.
-2. ISO. ISO/IEC 42006:2025 - Requirements for bodies providing audit and
-   certification of artificial intelligence management systems. 2025. Disponivel
-   em: <https://www.iso.org/standard/44546.html>.
-3. ISO. ISO/IEC 23894:2023 - Information technology — Artificial intelligence —
-   Guidance on risk management. 2023. Disponivel em:
-   <https://www.iso.org/standard/77304.html>.
-4. ISO. ISO/IEC 38507:2022 - Governance implications of the use of artificial
-   intelligence by organizations. 2022. Disponivel em:
-   <https://www.iso.org/standard/56641.html>.
-5. Uniao Europeia. Regulation (EU) 2024/1689 (EU AI Act). 2024. Disponivel em:
-   <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
+1.  **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial intelligence — Management system*. 2023.
+2.  **ISO/IEC.** *ISO/IEC 42006:2025 — Requirements for bodies providing audit and certification of artificial intelligence management systems*. 2025.
+3.  **ISO/IEC.** *ISO/IEC 24773-1:2019 — Certification of software engineering professionals — Part 1: General requirements*. 2019.
+4.  **ISO/IEC.** *ISO/IEC 23894:2023 — Artificial intelligence — Guidance on risk management*. 2023.
+5.  **European Union.** *Regulation (EU) 2024/1689 (EU AI Act)*. 2024.

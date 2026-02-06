@@ -1,138 +1,88 @@
 ---
-title: 'Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padroes'
-created_at: '2026-01-31'
-tags: [apendice, conformidade, governanca, padroes, swebok-ai]
-status: review
-updated_at: '2026-02-05'
-ai_model: kimi-k2.5
+title: "Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padrões"
+created_at: "2026-02-05"
+tags: ["apendice", "conformidade", "governanca", "padroes", "swebok-ai"]
+status: "review"
+updated_at: "2026-02-05"
+ai_model: "kimi-k2.5"
 ---
 
-# Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padroes
+# Apêndice E: Matriz de Conformidade SWEBOK-AI vs. Padrões
 
 ## Overview
 
-Este apendice mapeia, em alto nivel, as KAs do SWEBOK-AI v5.0 para standards e
-referencias normativas relevantes. O objetivo nao e declarar conformidade
-automaticamente, mas facilitar:
+Este apêndice mapeia as Knowledge Areas (KAs) do SWEBOK-AI v5.0 para os padrões ISO/IEC/IEEE e referências normativas relevantes. O objetivo não é burocratizar o desenvolvimento, mas fornecer um mapa claro para:
 
-- selecao de standards por KA
-- rastreabilidade entre praticas de engenharia e exigencias externas
-- desenho de evidencias minimas por tema (risco, governanca, teste, etica)
-
-O mapeamento deve ser interpretado como "relacao provavel"; a aplicacao real
-depende do contexto, risco e regime regulatorio.
+1.  **Auditoria:** Quais normas citar em uma defesa de conformidade técnica.
+2.  **Segurança Jurídica:** Quais padrões mitigam a responsabilidade civil e penal em casos de falha de IA.
+3.  **Rastreabilidade:** Conectar práticas de engenharia a exigências externas (como o EU AI Act).
 
 ## Learning Objectives
 
-Apos estudar este apendice, o leitor deve ser capaz de:
+Após estudar este apêndice, o leitor deve ser capaz de:
 
-1. Relacionar uma KA a um conjunto minimo de standards para evidencias e
-   auditoria.
-2. Identificar lacunas: onde um KA exige suporte normativo adicional (por
-   exemplo, risco, governanca, V&V).
-3. Definir uma estrategia de conformidade baseada em risco, sem transformar o
-   SWEBOK-AI em checklist.
+1.  **Selecionar** os padrões aplicáveis para cada fase do ciclo de vida de desenvolvimento com IA.
+2.  **Identificar** lacunas de conformidade em seus processos atuais.
+3.  **Estruturar** evidências de auditoria baseadas em normas reconhecidas internacionalmente.
 
-## E.1 Convencoes da matriz
+## E.1 Matriz de Conformidade
 
-- "Core" indica standards frequentemente necessarios independentemente de
-  dominio.
-- "Contexto" indica dependencias por risco/regulacao.
-- Para standards de engenharia de ciclo de vida (ISO/IEC/IEEE
-  12207/15288/29148/42010), o SWEBOK-AI assume uso como base, com extensoes
-  AI-centric.
+A tabela abaixo relaciona cada KA aos padrões de engenharia de software (base) e aos novos padrões de IA (específicos).
 
-## E.2 Matriz (KA -> standards)
+| KA SWEBOK-AI | Padrões ISO/IEC/IEEE Relacionados | Padrões de IA Específicos |
+| :--- | :--- | :--- |
+| **01 - Engenharia de Restrições** | ISO/IEC/IEEE 29148 (Requisitos) | ISO/IEC 23894 (Risco), IEEE 7000 (Ética) |
+| **02 - Arquitetura de Sistemas Híbridos** | ISO/IEC/IEEE 42010 (Arquitetura) | IEEE P360 (Arquitetura de IA), ISO/IEC 42001 |
+| **03 - Design de Sistemas Hibridos** | ISO/IEC/IEEE 12207 (Design) | IEEE 2857 (Privacidade), IEEE P3549 (Inferência) |
+| **04 - Orquestração e Curadoria de Código** | ISO/IEC/IEEE 12207 (Implementação) | - |
+| **05 - Verificação e Validação em Escala** | ISO/IEC/IEEE 29119 (Teste) | ISO/IEC TS 42119-2 (Teste de IA), TS 42119-3 |
+| **06 - Operações de Engenharia (DevOps)** | ISO/IEC/IEEE 12207 (Operação) | ISO/IEC 42001 (AIMS - Operação) |
+| **07 - Manutenção de Sistemas Opaços** | ISO/IEC/IEEE 14764 (Manutenção) | ISO/IEC 42001 (AIMS - Melhoria Contínua) |
+| **08 - Gestão de Configuração** | ISO/IEC/IEEE 828 (CM) | ISO/IEC 42001 (Controle de Documentação) |
+| **09 - Gestão de Engenharia** | ISO/IEC/IEEE 12207 (Gestão) | ISO/IEC 38507 (Governança), ISO/IEC 42006 |
+| **10 - Processos de Engenharia** | ISO/IEC/IEEE 12207 (Ciclo de Vida) | ISO/IEC 42001 (Sistema de Gestão) |
+| **11 - Modelos e Métodos** | ISO/IEC/IEEE 24748 (Ciclo de Vida) | - |
+| **12 - Qualidade de Software** | ISO/IEC 25010 (SQuaRE) | ISO/IEC 25059 (Qualidade para IA) |
+| **13 - Segurança** | ISO/IEC 27001 (ISMS) | ISO/IEC 27090 (Segurança de IA), NIST AI RMF |
+| **14 - Prática Profissional** | ISO/IEC 24773 (Certificação) | IEEE 7000 (Ética no Design) |
+| **15 - Economia com IA** | ISO/IEC/IEEE 15288 (Sistemas) | - |
+| **16 - Fundamentos de Sistemas Cognitivos** | - | ISO/IEC 42001, 22989 (Terminologia) |
 
-| KA (SWEBOK-AI v5.0)                            | Standards e referencias (core)                                       | Standards e referencias (contexto)                           |
-| ---------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------ |
-| 11 - Modelos e Metodos de Engenharia           | ISO/IEC 23894; ISO/IEC 42001                                         | TS 42119 (quando houver avaliacao/validacao formal)          |
-| 01 - Engenharia de Restricoes e Contexto       | ISO/IEC 23894; ISO/IEC 42001                                         | EU AI Act; NIST AI RMF                                       |
-| 02 - Arquitetura de Sistemas Hibridos          | ISO/IEC 42001; IEEE 7000-2021                                        | ISO/IEC TS 42119-2 (evidencias para V&V de arquitetura)      |
-| 03 - Design de Sistemas Hibridos               | IEEE 7000-2021; ISO/IEC 42001                                        | EU AI Act (requisitos de transparencia/uso)                  |
-| 04 - Orquestracao e Curadoria de Codigo        | ISO/IEC 42001; ISO/IEC 23894                                         | NIST AI RMF; TS 42119 (teste de sistemas de IA)              |
-| 05 - Verificacao e Validacao em Escala         | ISO/IEC TS 42119-2; ISO/IEC 23894                                    | ISO/IEC DTS 42119-3                                          |
-| 06 - Operacoes de Engenharia de Software       | ISO/IEC 42001; ISO/IEC 23894                                         | EU AI Act (monitoramento e incidentes)                       |
-| 07 - Manutencao de Sistemas Opaços             | ISO/IEC 42001; ISO/IEC 23894                                         | EU AI Act; NIST AI RMF                                       |
-| 12 - Qualidade de Software                     | ISO/IEC TS 42119-2; ISO/IEC 42001                                    | EU AI Act (qualidade e transparencia por risco)              |
-| 13 - Seguranca em Sistemas com IA              | ISO/IEC 23894; ISO/IEC 42001                                         | EU AI Act (seguranca/abuso em alto risco)                    |
-| 08 - Gestao de Configuracao e Contexto         | ISO/IEC 42001                                                        | NIST AI RMF                                                  |
-| 14 - Pratica Profissional e Julgamento Tecnico | ISO/IEC 38507; IEEE 7000-2021                                        | EU AI Act                                                    |
-| 09 - Gestao de Engenharia de Software          | ISO/IEC 42001; ISO/IEC 38507                                         | EU AI Act                                                    |
-| 10 - Processos de Engenharia com IA            | ISO/IEC 42001; ISO/IEC 23894                                         | NIST AI RMF                                                  |
-| 15 - Economia e Metricas                       | ISO/IEC 42001 (custos de governanca); ISO/IEC 23894 (custo de risco) | Relatorios setoriais (quando exigidos por auditoria interna) |
-| 16 - Apendice                                  | -                                                                    | -                                                            |
+## E.2 Guia de Uso da Matriz
 
-## E.3 Como usar esta matriz para evidencias
+### 1. Para Auditoria ISO/IEC 42001
+Se sua organização busca certificação ISO 42001 (AIMS), foque nos KAs **06 (Operações)**, **09 (Gestão)** e **12 (Qualidade)**. A matriz mostra que a conformidade exige não apenas processos de gestão, mas evidências técnicas de teste (KA 05 - TS 42119) e risco (KA 01 - ISO 23894).
 
-Um padrao pratico para cada KA:
+### 2. Para Conformidade com o EU AI Act
+O regulamento europeu exige gestão de risco robusta para sistemas de alto risco. Utilize o mapeamento do **KA 01 (Engenharia de Restrições)** com a **ISO/IEC 23894** para garantir que a identificação e mitigação de riscos (viés, segurança) estejam documentadas desde a concepção.
 
-1. Selecionar "core" como baseline.
-2. Selecionar "contexto" com base no risco e na regulacao aplicavel.
-3. Definir evidencias minimas (artefatos) por standard: politica, registro de
-   risco, plano de teste, trilha de decisao.
+### 3. Para Segurança Jurídica
+Em caso de litígio envolvendo falhas de um agente autônomo, demonstrar que o desenvolvimento seguiu o **IEEE 7000 (Ética)** no **KA 14** e o **ISO/IEC TS 42119 (Teste)** no **KA 05** constitui uma forte defesa de diligência técnica (due diligence).
 
 ## Practical Considerations
 
-- Evite "conformidade por citacao": citar um standard nao prova nada; o que
-  prova e evidencia operacional.
-- Se voce precisa de auditoria/certificacao de AIMS, inclua desde cedo
-  requisitos de trilha de decisao e governanca (ISO/IEC 42006 implica capacidade
-  de auditoria).
-- Trate mudancas de modelo e de prompt como mudancas de comportamento; atualize
-  avaliacao e risco como parte da gestao de configuracao.
+*   **Não invente a roda:** Se existe um padrão ISO para teste de IA (42119), use a terminologia e as classes de teste dele. Inventar seus próprios métodos enfraquece sua posição em uma auditoria.
+*   **Padrões são evidência:** Documentar "Testamos o modelo" é fraco. Documentar "Executamos testes de robustez conforme ISO/IEC TS 42119-2, seção 5.3" é forte.
+*   **Gestão de Risco é o centro:** Note que a ISO 23894 aparece em múltiplos KAs. A gestão de risco é o processo integrador da engenharia de IA.
 
-## Nota sobre Reestruturacao
+## Matriz de Avaliação Consolidada
 
-Esta matriz foi atualizada para refletir a **nova estrutura de 5 Partes** do
-SWEBOK-AI v5.0:
-
-- **KAs 16-18 removidos**: Computing Foundations, Mathematical Foundations, e
-  Engineering Foundations nao fazem mais parte do corpo principal
-- **KA 11 reposicionado**: Modelos e Metodos agora e KA 11 na Parte I
-  (Fundamentos)
-- **Ordem reorganizada**: A matriz segue a nova ordem pedagogica (11, 01-07,
-  12-13, 08, 14, 09-10, 15, 16)
-
-Os conceitos de fundamentos foram integrados na Introducao (Parte I) e
-distribuidos nos KAs aplicaveis.
-
-## Matriz de Avaliacao Consolidada
-
-| Criterio                        | Descricao                                                | Avaliacao |
-| ------------------------------- | -------------------------------------------------------- | --------- |
-| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses?                    | Baixa     |
-| **Custo de Verificacao**        | Quanto custa validar esta atividade quando feita por IA? | Medio     |
-| **Responsabilidade Legal**      | Quem e culpado se falhar?                                | Critica   |
+| Critério | Descrição | Avaliação |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Esta matriz será obsoleta em 36 meses? | Baixa (Padrões evoluem devagar) |
+| **Custo de Verificação** | Custo de manter o mapeamento atualizado? | Médio |
+| **Responsabilidade Legal** | Impacto de ignorar a conformidade? | Crítico |
 
 ## Summary
 
-- A matriz fornece um "crosswalk" pratico: KA -> standards, para apoiar
-  evidencias e auditoria.
-- Standards de AIMS (42001/42006) e risco (23894/NIST AI RMF) atravessam a
-  maioria das KAs.
-- Conformidade deve ser implementada como evidencias verificaveis, nao como
-  checklist.
-- Estrutura atualizada para refletir reorganizacao em 5 Partes e remocao dos KAs
-  de Fundamentos.
+*   A matriz conecta o "o quê" (SWEBOK) ao "como provar" (Normas).
+*   **ISO/IEC 42001** e **ISO/IEC 23894** são os pilares transversais de conformidade para IA.
+*   O uso de padrões reconhecidos reduz a responsabilidade legal e facilita a venda para clientes corporativos (B2B) e governamentais.
 
 ## References
 
-1. ISO. ISO/IEC 42001:2023 - Artificial intelligence management system. 2023.
-   Disponivel em: <https://www.iso.org/standard/81230.html>.
-2. ISO. ISO/IEC 42006:2025 - Requirements for AIMS audit and certification
-   bodies. 2025. Disponivel em: <https://www.iso.org/standard/44546.html>.
-3. ISO. ISO/IEC 23894:2023 - Guidance on risk management. 2023. Disponivel em:
-   <https://www.iso.org/standard/77304.html>.
-4. ISO. ISO/IEC 38507:2022 - Governance implications of the use of artificial
-   intelligence by organizations. 2022. Disponivel em:
-   <https://www.iso.org/standard/56641.html>.
-5. ISO. ISO/IEC TS 42119-2:2025 - Overview of testing AI systems. 2025.
-   Disponivel em: <https://www.iso.org/standard/84127.html>.
-6. IEEE. IEEE 7000-2021 - Model Process for Addressing Ethical Concerns during
-   System Design. 2021. Disponivel em:
-   <https://standards.ieee.org/standard/7000-2021.html>.
-7. NIST. AI Risk Management Framework (AI RMF 1.0). 2023. Disponivel em:
-   <https://www.nist.gov/itl/ai-risk-management-framework>.
-8. Uniao Europeia. Regulation (EU) 2024/1689 (EU AI Act). 2024. Disponivel em:
-   <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
+1.  **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial intelligence — Management system*. 2023.
+2.  **ISO/IEC.** *ISO/IEC 23894:2023 — Artificial intelligence — Guidance on risk management*. 2023.
+3.  **ISO/IEC.** *ISO/IEC TS 42119-2:2025 — Artificial intelligence — Testing of AI*. 2025.
+4.  **ISO/IEC.** *ISO/IEC 25059:2023 — Systems and software Quality Requirements and Evaluation (SQuaRE) — Quality model for AI systems*. 2023.
+5.  **IEEE.** *IEEE Std 7000-2021 — IEEE Standard Model Process for Addressing Ethical Concerns during System Design*. 2021.
