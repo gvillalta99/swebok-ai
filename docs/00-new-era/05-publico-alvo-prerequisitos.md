@@ -3,7 +3,7 @@ title: Público-Alvo e Pré-requisitos
 created_at: '2026-02-05'
 tags: [publico, prerequisitos, perfis, checklist, leitores]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: k2p5
 ---
 
@@ -16,10 +16,11 @@ envolvidos na engenharia de software na era dos LLMs. Esta seção identifica os
 públicos-alvo, define pré-requisitos de conhecimento e fornece orientações para
 diferentes trajetórias de leitura.
 
-O guia assume familiaridade com fundamentos de engenharia de software, mas não
-requer expertise prévia em inteligência artificial ou machine learning. A seção
-00.07 (Fundamentos Essenciais de IA) fornece base técnica suficiente para
-compreensão dos demais KAs.
+O guia assume familiaridade com fundamentos de engenharia de software e não
+requer expertise prévia em inteligência artificial ou machine learning.
+Experiência prática com ferramentas de IA é recomendada, mas pode ser
+desenvolvida ao longo da trilha inicial. A seção 00.07 (Fundamentos Essenciais
+de IA) fornece base técnica suficiente para compreensão dos demais KAs.
 
 ## Objetivos de Aprendizagem
 
@@ -76,7 +77,7 @@ trabalho.
 **KAs Prioritários:**
 
 1. KA 00 (Nova Era) — Contexto estratégico
-2. KA 03 (Princípios Diretores) — Fundamentação
+2. Seção 00.03 (Princípios Diretores) — Fundamentação
 3. KA 09 (Gestão de Engenharia) — Liderança
 4. KA 15 (Economia e Métricas) — Viabilidade
 5. KA 14 (Prática Profissional) — Responsabilidade
@@ -105,7 +106,7 @@ para investigação.
 
 1. Todos os KAs — Leitura completa recomendada
 2. KA 11 (Modelos e Métodos) — Base teórica
-3. KA 11 (Modelos e Métodos) — Formalismos
+3. KA 10 (Processos) — Formalismos e workflows
 4. KA 15 (Economia) — Análises empíricas
 
 **Pré-requisitos:**
@@ -131,7 +132,7 @@ recursos e definição de estratégia.
 **KAs Prioritários:**
 
 1. KA 00 (Nova Era) — Contexto e marcos
-2. KA 03 (Princípios Diretores) — Framework de decisão
+2. Seção 00.03 (Princípios Diretores) — Framework de decisão
 3. KA 09 (Gestão) — Organização
 4. KA 15 (Economia) — Análise de custo-benefício
 
@@ -202,7 +203,8 @@ seguintes questões:
 
 ### Habilidades Práticas
 
-- [ ] Tenho experiência com pelo menos uma ferramenta de IA para codificação
+- [ ] Tenho experiência (ou plano de prática inicial) com pelo menos uma
+  ferramenta de IA para codificação
 - [ ] Consigo realizar code review efetivo
 - [ ] Entendo fundamentos de testes automatizados
 - [ ] Tenho familiaridade com versionamento e integração contínua
@@ -305,8 +307,8 @@ seguintes questões:
 
 ## Referências
 
-1. IEEE Computer Society. (2024). "SWEBOK v4.0 — Software Engineering Body of
-   Knowledge".
+1. IEEE Computer Society. (2025). "Guide to the Software Engineering Body of
+   Knowledge (SWEBOK), v4.0a".
 
 2. Peng, S., et al. (2023). "The Impact of AI on Developer Productivity:
    Evidence from GitHub Copilot". arXiv:2302.06590.
@@ -317,5 +319,5 @@ seguintes questões:
 4. Stanford HAI. (2025). "AI Index Report 2025".
    <https://hai.stanford.edu/ai-index/2025-ai-index-report/>
 
-5. Greptile. (2025). "The State of AI Coding 2025".
-   <https://www.greptile.com/state-of-ai-coding-2025>
+5. Greptile. (2025). "The State of AI Coding 2025" (relatório de indústria,
+   literatura cinzenta). <https://www.greptile.com/state-of-ai-coding-2025>

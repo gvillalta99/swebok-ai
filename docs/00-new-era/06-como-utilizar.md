@@ -3,7 +3,7 @@ title: Como Utilizar Este Guia
 created_at: '2026-02-05'
 tags: [uso, navegacao, estudo, modalidades, caminhos]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: k2p5
 ---
 
@@ -25,7 +25,7 @@ trajetórias de leitura sem perda de coerência.
 Após estudar esta seção, você deve ser capaz de:
 
 1. Selecionar a modalidade de estudo mais adequada aos seus objetivos e
-   constraints
+   restrições
 2. Navegar eficientemente entre KAs e seções relacionadas
 3. Aplicar estratégias de leitura para diferentes contextos (aprofundamento,
    revisão, consulta)
@@ -53,7 +53,7 @@ lógica da obra.
 2. KA 11 (Modelos e Métodos) — Base metodológica
 3. KA 01-05 (Núcleo de Engenharia) — Desenvolvimento
 4. KA 06-08 (Operações) — Execução
-5. KA 09-11 (Gestão e Processos) — Organização
+5. KA 09-10 (Gestão e Processos) — Organização
 6. KA 12-15 (Qualidade e Profissão) — Excelência
 
 **Vantagens:**
@@ -78,8 +78,11 @@ identificado na Seção 5.
 - Líderes buscando orientação estratégica
 - Executivos focados em decisão
 
-**Tempo Estimado:** 15-25 horas para perfil de Praticantes 10-15 horas para
-perfil de Líderes 5-10 horas para perfil de Executivos
+**Tempo Estimado:**
+
+- 15-25 horas para perfil de Praticantes
+- 10-15 horas para perfil de Líderes
+- 5-10 horas para perfil de Executivos
 
 **Trajetórias por Perfil:**
 
@@ -94,7 +97,7 @@ perfil de Líderes 5-10 horas para perfil de Executivos
 **Líderes:**
 
 - KA 00 (seções 1-3)
-- KA 03 (Princípios) — completo
+- Seção 00.03 (Princípios) — completo
 - KA 09 (Gestão) — aprofundado
 - KA 15 (Economia) — aprofundado
 - KA 14 (Prática) — seletivo
@@ -102,7 +105,7 @@ perfil de Líderes 5-10 horas para perfil de Executivos
 **Executivos:**
 
 - KA 00 (seções 1-3)
-- KA 03 (Princípios) — resumido
+- Seção 00.03 (Princípios) — resumido
 - KA 09 (Gestão) — seletivo
 - KA 15 (Economia) — aprofundado
 
@@ -122,7 +125,7 @@ práticas ou decisões específicas.
 **Estratégia:**
 
 1. Use o índice para localizar KA relevante
-2. Consulte Overview da seção para contexto
+2. Consulte a Visão Geral (Overview) da seção para contexto
 3. Localize subseção específica ao tópico
 4. Verifique Matriz de Avaliação para síntese
 5. Consulte Referências para aprofundamento
@@ -220,13 +223,13 @@ específico.
 
 **Nível 1: Visão Executiva (5-10 minutos por KA)**
 
-- Leia apenas Overview
-- Consulte Summary
+- Leia apenas a Visão Geral (Overview)
+- Consulte o Resumo (Summary)
 - Verifique Matriz de Avaliação
 
 **Nível 2: Compreensão Operacional (30-60 minutos por KA)**
 
-- Leia Overview e Learning Objectives
+- Leia Visão Geral (Overview) e Objetivos de Aprendizagem
 - Estude conteúdo principal
 - Aplique Checklist Prático
 
@@ -266,7 +269,7 @@ KAs Envolvidos:
 
 Para definir políticas abrangentes de uso de IA:
 
-1. **Fundamentação:** KA 00 (contexto) + KA 03 (princípios)
+1. **Fundamentação:** KA 00 (contexto) + Seção 00.03 (princípios)
 2. **Escopo:** KA 01 (restrições) + KA 14 (responsabilidades)
 3. **Processos:** KA 04 (orquestração) + KA 05 (verificação)
 4. **Governança:** KA 09 (gestão) + KA 12 (qualidade)
@@ -302,7 +305,7 @@ Use estas matrizes para:
 
 O guia inclui referências explícitas entre KAs:
 
-- "Conexão com Princípios" vincula a KA 03
+- "Conexão com Princípios" vincula à Seção 00.03
 - "Conexão com KA X" direciona para conteúdo relacionado
 - "Ver também" sugere leituras complementares
 
@@ -324,7 +327,7 @@ O guia inclui referências explícitas entre KAs:
 
 ### Após Cada Seção
 
-- [ ] Revisei Summary para consolidar aprendizado
+- [ ] Revisei o Resumo (Summary) para consolidar aprendizado
 - [ ] Verifiquei se objetivos de aprendizado foram atingidos
 - [ ] Identifiquei próximos passos ou KAs relacionados
 - [ ] Documentei insights aplicáveis ao meu contexto
@@ -332,7 +335,7 @@ O guia inclui referências explícitas entre KAs:
 ### Para Consulta Referencial
 
 - [ ] Localizei KA relevante ao problema/decisão
-- [ ] Consultei Overview para contexto
+- [ ] Consultei a Visão Geral (Overview) para contexto
 - [ ] Identifiquei seções específicas ao tópico
 - [ ] Verifiquei exemplos e armadilhas
 - [ ] Consultei referências para aprofundamento se necessário

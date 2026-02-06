@@ -3,7 +3,7 @@ title: Fundamentos Essenciais de IA para Engenheiros de Software
 created_at: '2025-01-31'
 tags: [fundamentos, llm, transformers, rag, agentes, estatistica]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: kimi-k2.5
 ---
 
@@ -27,12 +27,6 @@ Após estudar esta seção, você deve ser capaz de:
 4. **Diferenciar** níveis de autonomia de agentes de IA e seus casos de uso.
 5. **Reconhecer** por que testes tradicionais falham com sistemas
    probabilísticos.
-
-Este guia assume que você é um **engenheiro de software**, não um pesquisador de
-IA. Os conceitos abaixo são suficientes para compreender o restante do material.
-Não é necessário dominar matemática avançada, estatística ou teoria dos modelos.
-
-______________________________________________________________________
 
 ## 1. Large Language Models (LLMs)
 
@@ -194,16 +188,16 @@ Um **agente de IA** é um sistema que:
 | **Autônomo restrito** | Opera em domínio limitado, humano aprova mudanças | Refatoração automatizada com PR |
 | **Autônomo**          | Opera sem intervenção (raro em produção)          | Sistemas de monitoramento       |
 
-### Workflows agenticos
+### Fluxos agênticos
 
-**Pattern comum em engenharia**:
+**Padrão comum em engenharia**:
 
 1. Agente recebe: "Adicione logging a todas as funções de API"
 2. Analisa codebase (RAG)
 3. Identifica funções candidatas
 4. Gera código de logging
 5. Cria PR para revisão humana
-6. Human merge ou solicita ajustes
+6. Humano faz merge ou solicita ajustes
 
 ______________________________________________________________________
 
@@ -245,8 +239,8 @@ Com LLMs:
 - **Contexto**: Comportamento depende de todo o contexto, não só do input
 - **Comportamento emergente**: Propriedades aparecem em escala
 
-**Implicação**: Precisamos de novas abordagens de teste (cobertos no KA 05 -
-Testing).
+**Implicação**: Precisamos de novas abordagens de teste (cobertas no KA 05 -
+Verificação e Validação em Escala).
 
 ______________________________________________________________________
 
@@ -285,7 +279,7 @@ Se desejar ir além dos fundamentos:
 
 **Para curiosos**:
 
-- [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/)
   \- Jay Alammar
 - [What Is ChatGPT Doing?](https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/)
   \- Stephen Wolfram
@@ -330,8 +324,8 @@ v5.0.
    Agents. Frontiers of Computer Science, v. 18, n. 6. Disponível em:
    <https://arxiv.org/abs/2308.11432>.
 
-4. **OpenAI.** (2024). GPT-4 Technical Report. arXiv:2303.08774. Disponível em:
+4. **OpenAI.** (2023). GPT-4 Technical Report. arXiv:2303.08774. Disponível em:
    <https://arxiv.org/abs/2303.08774>.
 
 5. **Anthropic.** (2024). Claude 3 Model Card. Disponível em:
-   <https://www-cdn.anthropic.com/de8ba9b01c9ab7cbabf5c33b80b7bbc618857627/Model_Card_Claude_3.pdf>.
+   <https://www.anthropic.com/claude-3-model-card>.

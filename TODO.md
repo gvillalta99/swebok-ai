@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/00-new-era/03-principios-diretores.md
-- @book-reviewer review docs/00-new-era/04-estrutura-organizacao.md
-- @book-reviewer review docs/00-new-era/05-publico-alvo-prerequisitos.md
-- @book-reviewer review docs/00-new-era/06-como-utilizar.md
-- @book-reviewer review docs/00-new-era/07-fundamentos-essenciais-ia.md
 - @book-reviewer review docs/01-software-requirements/01-fundamentos-da-engenharia-de-restricoes.md
 - @book-reviewer review docs/01-software-requirements/02-elicitacao-de-contexto-e-intencao.md
 - @book-reviewer review docs/01-software-requirements/03-especificacao-de-invariantes-e-contratos.md

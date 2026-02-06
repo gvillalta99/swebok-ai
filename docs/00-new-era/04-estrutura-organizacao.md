@@ -3,7 +3,7 @@ title: Estrutura e Organização do Guia
 created_at: '2026-02-05'
 tags: [estrutura, kas, mapeamento, organizacao, navegacao]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: k2p5
 ---
 
@@ -275,19 +275,31 @@ ai_model: modelo
 1. KA 00 (Nova Era) — Contexto e princípios
 2. KA 11 (Modelos e Métodos) — Base metodológica
 
-**Núcleo de Engenharia:** 3. KA 01 (Restrições) — Definição de limites 4. KA
-02-03 (Arquitetura/Design) — Estrutura de sistemas 5. KA 04 (Orquestração) —
-Implementação 6. KA 05 (Verificação) — Qualidade
+**Núcleo de Engenharia:**
 
-**Operações e Gestão:** 7. KA 06 (Operations) — Execução 8. KA 07 (Manutenção) —
-Evolução 9. KA 08 (Configuração) — Controle
+3. KA 01 (Restrições) — Definição de limites
+4. KA 02-03 (Arquitetura/Design) — Estrutura de sistemas
+5. KA 04 (Orquestração) — Implementação
+6. KA 05 (Verificação) — Qualidade
 
-**Processos e Práticas:** 10. KA 09 (Gestão) — Liderança 11. KA 10 (Processos) —
-Workflows 12. KA 11 (Modelos) — Formalismos
+**Operações e Gestão:**
 
-**Qualidade e Profissão:** 13. KA 12 (Qualidade) — Garantia 14. KA 13
-(Segurança) — Proteção 15. KA 14 (Prática) — Profissão 16. KA 15 (Economia) —
-Viabilidade
+7. KA 06 (Operations) — Execução
+8. KA 07 (Manutenção) — Evolução
+9. KA 08 (Configuração) — Controle
+
+**Processos e Práticas:**
+
+10. KA 09 (Gestão) — Liderança
+11. KA 10 (Processos) — Workflows
+12. KA 11 (Modelos) — Formalismos
+
+**Qualidade e Profissão:**
+
+13. KA 12 (Qualidade) — Garantia
+14. KA 13 (Segurança) — Proteção
+15. KA 14 (Prática) — Profissão
+16. KA 15 (Economia) — Viabilidade
 
 ### Conexões Transversais
 
@@ -334,10 +346,11 @@ Viabilidade
 3. Bourque, P., & Fairley, R.E. (Eds.). (2014). "Guide to the Software
    Engineering Body of Knowledge (SWEBOK)". IEEE Computer Society Press.
 
-4. Arxiv. (2025). "Generative AI and Empirical Software Engineering".
-   <https://arxiv.org/abs/2502.08108>. Autores: Survey paper colaborativo da
-   comunidade de Engenharia de Software Empírica.
+4. Treude, C., Storey, M.-A. (2025). "Generative AI and Empirical Software
+   Engineering: A Paradigm Shift". arXiv:2502.08108.
+   <https://doi.org/10.48550/arXiv.2502.08108>
 
-5. MDPI Applied Sciences. (2025). "Retrieval-Augmented Generation (RAG) and
-   Large Language Models (LLMs) for Enterprise Knowledge Management".
-   <https://www.mdpi.com/2076-3417/16/1/368>
+5. Karakurt, E., Akbulut, A. (2026). "Retrieval-Augmented Generation (RAG) and
+   Large Language Models (LLMs) for Enterprise Knowledge Management and Document
+   Automation: A Systematic Literature Review". Applied Sciences, 16(1), 368.
+   <https://doi.org/10.3390/app16010368>

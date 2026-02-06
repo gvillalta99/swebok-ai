@@ -3,7 +3,7 @@ title: Princípios Diretores do SWEBOK-AI
 created_at: '2026-02-05'
 tags: [principios, contexto, verificacao, determinismo, jevons, transparencia, degradacao]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: k2p5
 ---
 
@@ -123,6 +123,10 @@ respostas diferentes em cada invocação. Esta característica fundamenta suas
 capacidades criativas, mas introduz riscos em sistemas onde previsibilidade é
 essencial.
 
+Benchmarks de confiabilidade em tarefas multi-turno, como o tau-bench,
+demonstram degradação de consistência em execuções repetidas, reforçando a
+necessidade de camadas determinísticas para funções críticas.
+
 O princípio estabelece uma hierarquia de preferência:
 
 1. **Determinismo garantido**: Regras explícitas, validações formais
@@ -135,7 +139,7 @@ O princípio estabelece uma hierarquia de preferência:
 **Arquitetura em Camadas:**
 
 - Camada de orquestração: determinística
-- Camada de geração: probabilística, mas com constraints
+- Camada de geração: probabilística, mas com restrições
 - Camada de validação: determinística
 
 **Configuração de Modelos:**
@@ -175,7 +179,7 @@ escassez de capacidade de compreensão e manutenção.
 **Métricas de Qualidade sobre Quantidade:**
 
 - Medir complexidade ciclomática, não apenas velocidade
-- Trackear dívida técnica como métrica primária
+- Rastrear dívida técnica como métrica primária
 - Avaliar facilidade de manutenção, não apenas funcionalidade
 
 **Conscientização de Custos Ocultos:**
@@ -289,14 +293,14 @@ Princípio 4 (Jevons/Disciplina)
 
 ## Matriz de Avaliação Consolidada
 
-| Princípio            | Foco Principal         | Conexão com KA                       | Referência Chave     |
-| -------------------- | ---------------------- | ------------------------------------ | -------------------- |
-| 1. Contexto/Capital  | Gestão do conhecimento | KA 15 (Economia)                     | Song (2025)          |
-| 2. Verificação       | Qualidade e segurança  | KA 5 (Testing), KA 12 (Quality)      | The New Stack (2025) |
-| 3. Determinismo      | Confiabilidade         | KA 2 (Arquitetura)                   | τ-Bench (2024)       |
-| 4. Jevons/Disciplina | Sustentabilidade       | KA 15 (Economia), KA 7 (Maintenance) | ACM CHI (2025)       |
-| 5. Transparência     | Governança             | KA 13 (Security), KA 14 (Practice)   | AlterSquare (2026)   |
-| 6. Degradação        | Resiliência            | KA 2 (Arquitetura)                   | Sierra AI (2024)     |
+| Princípio            | Foco Principal         | Conexão com KA                       | Referência Chave       |
+| -------------------- | ---------------------- | ------------------------------------ | ---------------------- |
+| 1. Contexto/Capital  | Gestão do conhecimento | KA 15 (Economia)                     | Song (2025)            |
+| 2. Verificação       | Qualidade e segurança  | KA 5 (Testing), KA 12 (Quality)      | The New Stack (2025)   |
+| 3. Determinismo      | Confiabilidade         | KA 2 (Arquitetura)                   | τ-Bench (2024)         |
+| 4. Jevons/Disciplina | Sustentabilidade       | KA 15 (Economia), KA 7 (Maintenance) | Luccioni et al. (2025) |
+| 5. Transparência     | Governança             | KA 13 (Security), KA 14 (Practice)   | AlterSquare (2026)     |
+| 6. Degradação        | Resiliência            | KA 2 (Arquitetura)                   | Sierra AI (2024)       |
 
 ## Resumo
 
@@ -324,9 +328,9 @@ fundamento para reinterpretação de cada área de conhecimento.
 02. The New Stack. (2025). "AI Code Generation: Trust and Verify, Always".
     <https://thenewstack.io/ai-code-generation-trust-and-verify-always/>
 
-03. ACM CHI. (2025). "From Efficiency Gains to Rebound Effects: The Problem of
-    Jevons' Paradox in AI". ACM Conference on Human Factors in Computing
-    Systems.
+03. Luccioni, A. S., Strubell, E., Crawford, K. (2025). "From Efficiency Gains
+    to Rebound Effects: The Problem of Jevons' Paradox in AI's Polarized
+    Environmental Debate". arXiv:2501.16548. <https://arxiv.org/abs/2501.16548>
 
 04. AlterSquare. (2026). "Why AI Systems Create New Forms of Technical Debt".
     <https://altersquare.io/ai-systems-create-new-forms-technical-debt/>
