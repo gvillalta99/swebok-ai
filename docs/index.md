@@ -9,8 +9,6 @@ ai_model: openai/gpt-5.2
 
 # Engenharia de Software Morreu.<br>Longa Vida à Engenharia de Software
 
-![Logo SWEBOK-AI v5.0](imgs/logo.png)
-
 > **"O código tornou-se commodity; o contexto tornou-se capital."**
 
 Esta é a premissa que rege o SWEBOK-AI v5.0. Não se trata de mais uma ferramenta
