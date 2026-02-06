@@ -1,222 +1,123 @@
 ---
-title: 02 - Processos Ágeis Adaptados para o Uso de IA
-created_at: '2025-01-31'
-tags: [processos, agil, scrum, xp, ia, sprints, cerimonias]
-status: draft
-updated_at: '2026-02-04'
-ai_model: google/gemini-3-pro-preview
+title: "Processos Ágeis Adaptados para o Uso de IA"
+created_at: "2025-01-31"
+tags: ["agil", "scrum", "xp", "sprint", "processos"]
+status: "review"
+updated_at: "2025-02-04"
+ai_model: "vertex-ai-gemini-1.5-pro"
 ---
 
-# 2. Processos Ágeis Adaptados para o Uso de IA
+# Processos Ágeis Adaptados para o Uso de IA
 
 ## Contexto
 
-O Manifesto Ágil original (2001) foi escrito para resolver o gargalo da
-**escrita de código** e da comunicação lenta. Em 2026, a escrita de código é
-trivial e instantânea. O novo gargalo é a **verificação de integridade** e a
-**curadoria de contexto**.
+O Manifesto Ágil foi concebido em uma era onde a codificação era manual e cara. Seus rituais e valores focavam em otimizar a comunicação humana e o feedback rápido para mitigar o alto custo de mudança. Com a IA Generativa, o custo de codificação despencou, mas a incerteza introduzida pelo não-determinismo dos modelos aumentou.
 
-Se você mantiver seus rituais de Scrum ou Kanban inalterados, seu time vai se
-afogar em código gerado ("bloatware") que ninguém entende, ninguém revisou
-profundamente e que quebrará em produção de formas não determinísticas. Este
-capítulo reestrutura os processos ágeis para um mundo onde a IA gera e o humano
-audita.
+Aplicar Scrum ou XP "by the book" em times assistidos por IA leva a disfunções graves: *backlogs* inflados com *features* geradas mas não verificadas, *Dailies* que ignoram a "poluição de contexto" e *Sprint Reviews* que celebram código instável. Este capítulo adapta as práticas ágeis para tratar a verificação como a atividade primária de valor.
 
-## O Novo Manifesto (Revisitado)
+## Scrum Adaptado para Times Híbridos
 
-Para operar com LLMs integrados ao fluxo de desenvolvimento, precisamos
-atualizar os valores fundamentais:
+A estrutura do Scrum permanece, mas o foco de cada cerimônia muda radicalmente.
 
-1. **Comportamento Verificado** sobre Sintaxe Gerada.
-2. **Curadoria de Contexto** sobre Documentação Abrangente.
-3. **Orquestração de Agentes** sobre Indivíduos e Interações (isolados).
-4. **Gestão de Não-Determinismo** sobre Responder a Mudanças.
+### Sprint Planning: Estimando a Verificação
+Não estime quanto tempo leva para "fazer". A IA faz instantaneamente. Estime quanto tempo leva para **verificar**.
+*   **Story Points:** Refletem complexidade de validação e risco de alucinação, não esforço de digitação.
+*   **Task Breakdown:** Inclui explicitamente "Engenharia de Prompt", "Revisão de Código Gerado" e "Teste de Regressão de Comportamento".
 
-______________________________________________________________________
+### Daily Standup: Monitorando a IA
+O foco sai do "o que eu digitei" para "como a IA está se comportando".
+*   **Novas Perguntas:** "O contexto do agente está atualizado?", "Estamos vendo alucinações recorrentes em algum módulo?", "Os testes gerados estão confiáveis?".
+*   **Métricas de Daily:** *Acceptance Rate* (taxa de aceitação do código sugerido) e *Pending Curation* (fila de revisão humana).
 
-## 1. O Deslocamento do Gargalo (Paradigm Shift)
+### Sprint Review: Comportamento vs. Funcionalidade
+*   Demonstrações focadas em robustez e tratamento de erros, não apenas no "caminho feliz" (que a IA gera facilmente).
+*   Stakeholders testam interativamente para validar se o comportamento emergente da IA está alinhado com o negócio.
 
-A métrica de *Velocity* (pontos por Sprint) torna-se perigosa. Um desenvolvedor
-Junior com Copilot pode gerar 5000 linhas de código em uma tarde. Se o processo
-ágil valorizar "código entregue", você incentivará a produção de lixo técnico.
+### Retrospectiva: Ajuste Fino do Processo
+*   Foco em **Prompt Ops:** "Nossos prompts de sistema precisam de ajuste?", "O contexto injetado está causando confusão?".
+*   Identificação de gargalos de verificação e falsos positivos em testes.
 
-### A Nova Equação de Capacidade
+### Definition of Done (DoD) Atualizada
+Uma história só termina quando:
+1.  [ ] Especificação de intenção documentada.
+2.  [ ] Código gerado e registrado com proveniência.
+3.  [ ] Verificação sintática e estática aprovada.
+4.  [ ] Testes automatizados (incluindo regressão) aprovados.
+5.  [ ] **Curadoria Humana** aprovou a segurança e lógica.
+6.  [ ] Métricas de qualidade do código atingidas.
 
-No planejamento, a capacidade do time não é mais medida por "quanto conseguimos
-codar", mas por "quanto conseguimos revisar e garantir".
+## XP (Extreme Programming) na Era da IA
 
-> **Regra de Ouro:** O *WIP Limit* (Work In Progress) deve ser definido pela
-> capacidade de **Revisão**, não de Desenvolvimento.
+### Pair Programming 2.0: Humano + IA
+A prática de *Pair Programming* evolui de "dois humanos em um teclado" para "Humano como Navegador, IA como Piloto".
+*   **Humano:** Define a estratégia, revisa a segurança, mantém o mapa mental do sistema.
+*   **IA:** Implementa a tática, sugere sintaxe, refatora padrões.
+*   *Nota:* O emparelhamento Humano-Humano ainda é vital para tarefas de alta complexidade criativa ou arquitetural.
 
-______________________________________________________________________
+### TDD (Test-Driven Development) como Especificação
+O TDD torna-se a linguagem franca de comunicação com a IA.
+*   Escreva o teste *antes* para especificar inequivocamente o comportamento esperado.
+*   Use o teste como parte do prompt: "Gere o código que faça este teste passar".
+*   Isso previne alucinações funcionais e garante que o código gerado atenda aos requisitos mínimos.
 
-## 2. Adaptação das Cerimônias
+### Refatoração: Regeneração Seletiva
+Em vez de refatorar manualmente linha a linha, o processo muitas vezes envolve **regeneração**.
+*   Identifique o "cheiro" (code smell).
+*   Ajuste a instrução/prompt.
+*   Peça à IA para regenerar o módulo com os novos padrões.
+*   Valide se o comportamento se mantém (via testes).
 
-As reuniões clássicas precisam mudar de foco radicalmente para evitar se
-tornarem irrelevantes.
+## Checklist Prático
 
-### 2.1 Sprint Planning: Foco na Verificabilidade
+1.  [ ] **Recalibrar Estimativas:** Treine o time para pontuar tarefas baseando-se na dificuldade de *garantir* a qualidade, não na dificuldade de *implementar*.
+2.  [ ] **Atualizar Templates de Task:** Adicione campos para "Prompt Utilizado" e "Estratégia de Verificação" nos cards do Jira/Trello.
+3.  [ ] **Dailies com Dados:** Traga métricas de rejeição de código da IA para a Daily. Se a rejeição está alta, pare para ajustar os prompts.
+4.  [ ] **Rotação de Curadoria:** Evite que os mesmos seniores revisem tudo. Rotacione a responsabilidade de "Guardian" da qualidade da IA para disseminar conhecimento.
+5.  [ ] **DoD Rigorosa:** Não aceite PRs gerados por IA sem uma descrição humana clara do *porquê* das mudanças e dos testes realizados.
 
-Em vez de estimar a complexidade de *implementação* (que a IA resolve rápido),
-estime a complexidade de *verificação*.
+## Armadilhas Comuns
 
-- **Pergunta antiga:** "Quanto tempo leva para construir essa API?"
-- **Pergunta nova:** "Como vamos provar que essa API gerada pela IA não alucinou
-  dados? Temos testes automatizados suficientes para validar os *edge cases* que
-  a IA costuma errar?"
-- **Ação:** Stories sem critérios de aceitação automatizáveis são rejeitadas
-  imediatamente.
+*   **Sprint de "Feature Factory":** Deixar o backlog explodir de features só porque a IA gera rápido, ignorando a capacidade limitada de revisão e manutenção do time.
+*   **O Piloto Automático:** Confiar cegamente que o código gerado está "pronto" porque passou nos testes unitários (que a própria IA pode ter gerado viciados).
+*   **Perda de Propriedade Coletiva:** O código vira "terra de ninguém" porque "foi a IA que fez". O time deve manter a responsabilidade (accountability) total.
+*   **Review Superficial:** Aprovar código complexo gerado pela IA porque "parece certo" (LGTM), sem entender a lógica subjacente.
 
-### 2.2 Daily Stand-up: Gestão de Bloqueios de Contexto
+## Exemplo Mínimo: Sprint Planning com IA
 
-O "o que fiz ontem" é irrelevante se for apenas "gere código". O foco muda para
-integração e contexto.
+**Cenário:** Planejamento de uma funcionalidade de relatório complexo.
 
-- **Não diga:** "Ontem fiz a tela de login." (A IA faz isso em 10 min).
-- **Diga:** "Ontem validei a tela de login gerada. Encontrei uma falha de
-  segurança na validação de token que a IA introduziu. O prompt precisa ser
-  ajustado."
-- **Impedimentos:** Focam em "Context Pollution" (a IA está confusa com arquivos
-  antigos) ou alucinações recorrentes.
+**Abordagem Antiga:**
+*   "Isso é complexo, vai levar 8 pontos (3 dias de codificação)."
 
-### 2.3 Sprint Review: Demo de Comportamento, não de Código
-
-Mostrar código funcionando no "caminho feliz" é fácil e enganoso com IA.
-
-- **Foco:** Demonstrar resiliência. Tentar quebrar o sistema ao vivo.
-- **Participantes:** Stakeholders devem testar limites, pois a IA tende a ser
-  frágil nas bordas.
-
-### 2.4 Retrospectiva: Engenharia de Processo
-
-Discutir a eficácia dos prompts e das ferramentas.
-
-- **Tópicos:**
-  - "Nossos prompts de sistema estão muito restritivos ou muito soltos?"
-  - "Perdemos tempo corrigindo código ruim da IA ou foi mais rápido que fazer do
-    zero?"
-  - "Estamos sofrendo de *Review Fatigue* (fadiga de revisão)?"
-
-______________________________________________________________________
-
-## 3. Engenharia de Práticas: O Novo "Chão de Fábrica"
-
-### 3.1 Pair Programming: Humano + IA
-
-O modelo "Driver/Navigator" do XP se altera.
-
-- **Driver (Piloto):** A IA. Ela digita, sugere, completa.
-- **Navigator (Navegador):** O Humano. Ele mantém o mapa mental, a arquitetura e
-  a segurança.
-- **Risco:** O humano "dormir no volante". O Navigator precisa ser ativo,
-  questionando o código da IA constantemente.
-
-### 3.2 Prompt Engineering como CI/CD
-
-Prompts não são mágicos; são artefatos de engenharia.
-
-- **Versionamento:** Prompts de sistema e templates de tarefas devem estar no
-  Git.
-- **Testes de Regressão de Prompt:** Se você altera o prompt do sistema para
-  "ser mais conciso", isso quebrou a geração de documentação? Tenha um pipeline
-  que valida a saída dos prompts.
-
-### 3.3 TDD (Test Driven Development) é Obrigatório
-
-Com IA, TDD deixa de ser "boa prática" e vira **mecanismo de defesa**.
-
-1. Escreva o teste (Humano).
-2. Gere o código para passar no teste (IA).
-3. Refatore (IA + Humano). *Sem o teste prévio, você é refém da sorte sobre o
-   código gerado funcionar ou não.*
-
-______________________________________________________________________
-
-## Checklist Prático: Segunda-feira de Manhã
-
-O que implementar imediatamente para adaptar seu processo:
-
-1. [ ] **Definition of Done (DoD) Atualizada:** Incluir "Código revisado por
-   humano quanto a alucinações de segurança" e "Testes de regressão cobrindo
-   casos de borda".
-2. [ ] **Limitar WIP de Review:** Se há 3 PRs abertos aguardando revisão,
-   ninguém começa nova task. A IA gera rápido, o gargalo é o merge.
-3. [ ] **Repositório de Prompts:** Criar uma pasta `/prompts` no repo para
-   versionar as instruções de sistema usadas.
-4. [ ] **Banir "LGTM" em PRs de IA:** Revisões de código gerado por IA exigem
-   descrição explicita do que foi validado.
-5. [ ] **Ajustar Story Points:** Re-calibrar a escala. 1 ponto = tarefa trivial
-   de verificação. 8 pontos = tarefa onde a verificação é complexa e não
-   determinística.
-
-______________________________________________________________________
-
-## Armadilhas Comuns (Anti-Patterns)
-
-1. **O "Reviewer Zumbi":** O desenvolvedor apenas passa o olho no código da IA,
-   vê que a estrutura parece certa e aprova. *Resultado:* Bugs sutis e
-   catastróficos em produção.
-2. **Junior Overload:** Dar ferramentas de IA poderosas para juniores sem
-   supervisão sênior rigorosa. Eles geram complexidade que não conseguem
-   depurar.
-3. **Perda de Contexto:** O time confia tanto na IA que ninguém mais entende o
-   modelo de dados ou a arquitetura global. Quando a IA falha, ninguém sabe
-   consertar.
-4. **Sprint de "Features Infinitas":** Achar que porque a codificação é rápida,
-   o backlog pode ser infinito. O custo de manutenção (TCO) cresce
-   exponencialmente.
-
-______________________________________________________________________
-
-## Exemplo Mínimo: Otimização de Query SQL
-
-**Cenário:** O time precisa otimizar uma query lenta de relatório.
-
-**Abordagem Tradicional:** Dev gasta 4 horas analisando `EXPLAIN ANALYZE`,
-reescreve a query, testa.
-
-**Abordagem Ágil com IA:**
-
-1. **Planning:** A tarefa não é "escrever a query", é "validar a performance e a
-   correção dos dados da query gerada".
-2. **Execução:** Dev fornece o schema e o `EXPLAIN` para a IA. IA gera 3
-   variantes de otimização em 2 minutos.
-3. **Verificação (O Trabalho Real):** Dev executa as 3 variantes em ambiente de
-   stage. Verifica se os resultados são *idênticos* (correção) e compara tempos
-   (performance).
-4. **Decisão:** Escolhe a variante 2.
-5. **Review:** Mostra o ganho de performance e prova que os dados não mudaram.
-
-*Tempo total: 45 minutos. Foco total em validação, zero em sintaxe SQL.*
-
-______________________________________________________________________
+**Abordagem SWEBOK-AI:**
+*   Dev: "A IA gera o SQL e o frontend em 30 min. Mas verificar se os dados batem com o legado e se não há vazamento de permissões vai ser difícil."
+*   Time: "Então são 5 pontos. 1 ponto de geração, 4 pontos de criação de cenários de teste e auditoria de dados."
+*   Resultado: O time foca a Sprint em garantir a integridade dos dados, não na construção da tela.
 
 ## Resumo Executivo
 
-- **Agile não morreu, mas o gargalo mudou:** Deixou de ser a escrita
-  (codificação) e passou a ser a leitura (revisão/validação).
-- **Planejamento deve focar em Verificação:** Estime o tempo para garantir que o
-  código está certo, não o tempo para digitá-lo.
-- **TDD é a única rede de segurança:** Testes devem ser escritos antes da
-  geração de código para garantir que a IA atenda aos requisitos.
-- **Prompts são Código:** Devem ser versionados, testados e refinados em
-  retrospectivas.
-- **Humano como Auditor:** O papel do desenvolvedor migra de "pedreiro digital"
-  para "arquiteto e auditor de sistemas".
-
-______________________________________________________________________
+*   **Verificação > Construção:** O esforço ágil migra da escrita para a validação.
+*   **Estimativas:** Baseiam-se na complexidade de verificação e risco.
+*   **TDD Obrigatório:** Testes são a especificação executável para a IA.
+*   **Rituais Vivos:** Adapte Dailies e Retrospectivas para gerenciar a ferramenta (IA) e o contexto, não apenas as pessoas.
+*   **Humano no Controle:** O processo ágil deve garantir que o humano mantenha a agência e a responsabilidade final.
 
 ## Próximos Passos
 
-- Ler **KA 05 - Verificação e Validação em Escala** para técnicas avançadas de
-  testes automatizados.
-- Consultar **KA 14 - Prática Profissional** para entender a ética e
-  responsabilidade sobre código gerado.
-- Implementar **KA 08 - Gestão de Configuração** para versionamento de prompts e
-  contextos.
+*   Ler **05 - Medição e Melhoria** para implementar métricas como *Throughput* de features verificadas.
+*   Consultar **04 - Workflows Agênticos** para entender como automatizar partes do processo ágil.
+*   Aplicar **14 - Prática Profissional** para reforçar a ética e responsabilidade no *Pair Programming* com IA.
+
+## Matriz de Avaliação Consolidada
+
+| Critério | Avaliação | Justificativa |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | **Baixa** | Métodos ágeis são adaptáveis por natureza; a essência de feedback curto e adaptação é vital para IA. |
+| **Custo de Verificação** | **Médio** | Requer disciplina para não ceder à facilidade da geração automática sem testes. |
+| **Responsabilidade Legal** | **Alta** | Processos ágeis frouxos podem permitir a entrada de vulnerabilidades e viés em produção rapidamente. |
 
 ## Referências
 
-1. Beck, K. et al. (2001). *Manifesto for Agile Software Development*.
-2. Fowler, M. (2023). *On the impact of LLMs on Software Delivery*.
-3. Google DeepMind. (2024). *Human-AI Collaboration Patterns in Engineering*.
+1.  **Scrum.org**. *Scrum in the Age of AI: A Practical Guide*. 2025.
+2.  **Agile 2.0 Initiative**. *Agile 2.0: Principles for Human-AI Collaboration*. 2025.
+3.  **O'Reilly Media**. *Extreme Programming in the Age of AI Assistants*. 2025.
