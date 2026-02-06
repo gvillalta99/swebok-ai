@@ -3,7 +3,7 @@ title: A Mudança de Paradigma na Engenharia de Software
 created_at: '2026-02-05'
 tags: [paradigma, produtividade, jevons, verificacao, curadoria]
 status: published
-updated_at: '2026-02-05'
+updated_at: '2026-02-06'
 ai_model: k2p5
 ---
 
@@ -100,6 +100,10 @@ Esta inversão tem implicações profundas para:
 O AI Index Report 2025 (Stanford HAI) e pesquisas da indústria (Greptile, 2025)
 consolidam dados de adoção:
 
+Os percentuais abaixo devem ser interpretados como indicadores de tendência, não
+como estimativas universais, pois variam com amostragem, instrumento e definição
+operacional de produtividade.
+
 **Adoção Generalizada:**
 
 - **77%** dos desenvolvedores usam IA regularmente
@@ -122,7 +126,7 @@ consolidam dados de adoção:
 ### Análise de Adoção em Escala
 
 Pesquisa sobre "The Rise of AI Teammates in Software Engineering" (2025)
-analisou 456.000 PRs agenticos em 61.000 repositórios por 47.000
+analisou 456.000 PRs agênticos em 61.000 repositórios por 47.000
 desenvolvedores. Os dados revelam:
 
 **Taxa de Churn (Test-to-Production):**
@@ -254,11 +258,12 @@ deslocando de "escritor de código" para "curador de sistemas":
 
 Esta mudança exige reconfiguração de processos estabelecidos:
 
-**Requisitos:** De especificação detalhada para definição de restrições e
-contexto **Design:** De blueprint estático para especificação verificável
-**Construction:** De codificação manual para orquestração de geração
-**Testing:** De validação funcional para verificação semântica **Maintenance:**
-De correção de bugs para gestão de opacidade
+- **Requisitos:** De especificação detalhada para definição de restrições e
+  contexto
+- **Design:** De blueprint estático para especificação verificável
+- **Construction:** De codificação manual para orquestração de geração
+- **Testing:** De validação funcional para verificação semântica
+- **Maintenance:** De correção de bugs para gestão de opacidade
 
 ## Matriz de Avaliação Consolidada
 
@@ -305,16 +310,17 @@ De correção de bugs para gestão de opacidade
 06. Song, J. (2025). "Why Glass Is Cheap but Installation Is Expensive:
     Jevons-Baumol and AI". <https://jimmysong.io/blog/jevons-baumol-ai-china/>
 
-07. ACM CHI. (2025). "From Efficiency Gains to Rebound Effects: The Problem of
-    Jevons' Paradox in AI". ACM Conference on Human Factors in Computing
-    Systems.
+07. FAccT 2025 (ACM). (2025). "From Efficiency Gains to Rebound Effects: The
+    Problem of Jevons' Paradox in AI's Polarized Environmental Debate".
 
 08. Kodus. (2025). "How AI-Generated Code is messing with your Technical Debt".
     <https://kodus.io/en/ai-generated-code-is-messing-with-your-technical-debt/>
 
-09. AlterSquare. (2025). "Why AI Systems Create New Forms of Technical Debt".
+09. AlterSquare. (2026). "Why AI Systems Create New Forms of Technical Debt".
     <https://altersquare.io/ai-systems-create-new-forms-technical-debt/>
 
 10. Hamade, J. (2024). "True Cost of AI-Generated Code". Medium.
 
-11. "The Rise of AI Teammates in Software Engineering SE 3.0". (2025). AlphaXiv.
+11. Li, H., Zhang, H., Hassan, A. E. (2025). "The Rise of AI Teammates in
+    Software Engineering (SE) 3.0: Beyond Coding Assistance to Team
+    Collaboration". arXiv:2507.15003. DOI:10.48550/arXiv.2507.15003.

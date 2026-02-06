@@ -2,7 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/00-new-era/02-mudanca-paradigma.md
 - @book-reviewer review docs/00-new-era/03-principios-diretores.md
 - @book-reviewer review docs/00-new-era/04-estrutura-organizacao.md
 - @book-reviewer review docs/00-new-era/05-publico-alvo-prerequisitos.md
