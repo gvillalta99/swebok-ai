@@ -1,159 +1,78 @@
 ---
-title: 01. Fundamentos de Design na Era dos LLMs
+title: Fundamentos do Design na Era dos LLMs
 created_at: '2025-01-31'
-tags: [software-design, fundamentos, llm, ia, design-thinking]
-status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+tags: [software-design, fundamentos, llm, curadoria, design-thinking]
+status: published
+updated_at: '2025-01-31'
+ai_model: gpt-4o
 ---
 
 # Fundamentos do Design na Era dos LLMs
 
-O design de software tradicional focava em decompor problemas em lógica
-determinística. Na era dos LLMs, o foco muda para **Design for Auditability**
-(Design para Auditabilidade). Você não projeta mais apenas o fluxo de dados, mas
-as restrições e os mecanismos de verificação que impedem um modelo
-probabilístico de causar danos. Se o seu sistema não for inspecionável por
-design, ele é uma caixa preta inaceitável em produção.
+No paradigma anterior à IA generativa, o design de software era a arte de estruturar lógica escassa. O código era caro de produzir, então otimizávamos para reutilização (DRY) e extensão. Na era dos LLMs, o código tornou-se abundante e barato. O gargalo deslocou-se da **produção** para a **verificação** e **integração**.
 
-## 1. Do Determinismo à Probabilidade Gerenciada
+Isso inverte a premissa fundamental do design: não projetamos mais sistemas para facilitar a escrita de código, mas para facilitar a sua validação e contenção.
 
-A engenharia de software clássica opera sob a premissa de que `f(x) = y` sempre.
-Com LLMs, `f(x) ≈ y`. Essa incerteza fundamental exige uma mudança de
-mentalidade: o design deixa de ser sobre a construção da lógica interna e passa
-a ser sobre o encapsulamento dessa incerteza.
+## A Mudança de Paradigma: De Construtor a Curador
 
-### O Princípio da Contenção
+A engenharia de software tradicional operava sob a ilusão de controle total: cada linha de código era intencional. Com LLMs, operamos com sistemas estocásticos onde a intenção (prompt) e a execução (código gerado) têm uma relação probabilística, não determinística.
 
-Um sistema bem projetado trata o LLM como um componente não confiável (untrusted
-component), similar a uma entrada de usuário não sanitizada ou uma API externa
-instável.
+O papel do engenheiro evolui de "pedreiro digital" para "curador técnico". O design deve refletir essa mudança:
 
-- **Isolamento:** O LLM nunca deve ter permissão de escrita direta em banco de
-  dados de produção sem uma camada de validação intermediária.
-- **Tipagem Forte:** Nunca aceite texto livre como saída estrutural. Force JSON
-  schemas ou gramáticas restritivas.
-- **Falha Segura:** O design deve prever o que acontece quando o modelo alucina
-  ou recusa a resposta. O sistema trava ou degrada graciosamente?
+1.  **Code Review as Design:** A estrutura do sistema deve ser granular o suficiente para que cada unidade gerada possa ser revisada por um humano em menos de 5 minutos. Monólitos gerados são inauditáveis.
+2.  **Isolamento de Falhas:** Assuma que qualquer bloco de lógica gerado pode conter alucinações sutis. O design deve encapsular esses blocos em interfaces rígidas (Contracts) que validam inputs e outputs.
+3.  **Explainability by Design:** Se um agente toma uma decisão autônoma, o sistema deve registrar *por que* ele fez isso. Logs de "trace" não são mais apenas para debug de erro, mas para auditoria de comportamento.
 
-## 2. Prompts como Interfaces (API)
+## O Paradoxo da Abundância (Jevons Paradox)
 
-Tratar prompts como "arte" ou "conversa" é amadorismo. Em um sistema de
-engenharia, **prompts são funções**. Eles possuem assinatura de entrada, esquema
-de saída e contratos de erro.
+Facilitar a geração de código não necessariamente reduz o trabalho; frequentemente, aumenta a complexidade total do sistema.
 
-### Estrutura de um Prompt-Function
+> **Lei da Complexidade Conservada:** Se você reduz o atrito para criar funcionalidades, a organização responderá criando mais funcionalidades até atingir o novo limite de capacidade de manutenção.
 
-Um prompt bem desenhado deve ser versionado e tratado como código:
+O design moderno deve atuar como um freio intencional. Em vez de perguntar "como posso construir isso rápido com IA?", o designer deve perguntar "qual o Custo Total de Propriedade (TCO) de manter esse código gerado que ninguém na equipe escreveu?".
 
-1. **Contexto Estático:** Instruções imutáveis (system prompt).
-2. **Dados Dinâmicos:** As variáveis injetadas (user input, RAG context).
-3. **Restrições de Saída:** O formato exato esperado (ex: JSON Schema).
-4. **Exemplos (Few-Shot):** Casos de teste embutidos que definem o comportamento
-   esperado.
+**Implicação Prática:**
+- Prefira componentes "boring" e bibliotecas padrão a código customizado gerado, mesmo que a IA possa gerá-lo em segundos.
+- Código menos inteligente é melhor. Se a IA gera uma solução "esperta" e ilegível, descarte. Peça a solução "júnior" e legível.
 
-Se você altera o prompt, você altera a API. Isso exige testes de regressão, pois
-uma mudança na "entonação" do prompt pode quebrar o parser JSON na saída.
+## Design como Gestão de Probabilidade
 
-## 3. Design for Auditability (DfA)
+Projetar para LLMs é projetar **cercas** (guardrails).
 
-A auditabilidade não é uma feature opcional; é o único mecanismo que permite a
-operação segura de agentes autônomos. O sistema deve ser projetado para
-responder: "Por que o agente tomou essa decisão?".
+Se você está construindo um recurso onde a precisão deve ser 100% (ex: cálculo tributário), o design não deve usar LLM para o cálculo. Use o LLM para *extrair* os parâmetros e passe-os para um motor determinístico.
 
-### Observabilidade Granular
+### Arquitetura de "Sanduíche Determinístico"
 
-Logs tradicionais (`INFO: Request received`) são inúteis para debugar
-raciocínio. O design deve incluir:
+Uma abordagem robusta para sistemas híbridos:
 
-- **Trace de Raciocínio:** Capturar o "pensamento" (Chain of Thought) do modelo
-  separado da resposta final.
-- **Input Snapshot:** O estado exato dos dados injetados no prompt no momento da
-  execução.
-- **Custo e Latência:** Métricas por chamada para monitorar viabilidade
-  econômica (Token Economics).
+1.  **Camada Superior (Determinística):** Interface de usuário, validação de entrada, autenticação.
+2.  **Recheio (Probabilístico):** O LLM que processa, resume, gera ou raciocina.
+3.  **Camada Inferior (Determinística):** Validação de saída (schemas), execução de ações (DB, APIs), logs de auditoria.
+
+O design foca em garantir que o "recheio" nunca vaze para fora das camadas determinísticas sem verificação.
 
 ## Checklist Prático de Design
 
-Para qualquer novo componente que utilize LLMs, aplique este checklist antes de
-escrever código:
+- [ ] **Fronteiras Claras:** O sistema distingue explicitamente entre dados gerados por IA e dados confiáveis (trusted source)?
+- [ ] **Granularidade de Revisão:** Os componentes são pequenos o suficiente para serem descartados e regerados sem dor?
+- [ ] **Mecanismo de Reversão:** Existe um "botão de pânico" para desligar funcionalidades baseadas em IA sem derrubar o sistema principal?
+- [ ] **Custo de Token:** O design considera o impacto econômico de chamadas recursivas ou loops de agentes?
+- [ ] **Human-in-the-Loop:** Decisões críticas exigem aprovação humana explícita no fluxo desenhado?
 
-1. **Definição de Fronteira:** Onde termina a lógica determinística (código) e
-   começa a probabilística (LLM)? Mantenha a fronteira o mais estreita possível.
-2. **Schema Enforcement:** Existe um schema rígido (Pydantic/Zod) para a saída
-   do modelo? Se o modelo cuspir texto livre, o design está falho.
-3. **Mecanismo de Retry:** O sistema sabe o que fazer se o JSON vier quebrado?
-   (Ex: auto-correção ou fallback).
-4. **Sanitização de Entrada:** Os dados do usuário são limpos antes de entrar no
-   prompt para evitar *Prompt Injection*?
-5. **Human-in-the-Loop (HITL):** Para ações de alto risco (ex: reembolso,
-   delete), existe uma etapa de aprovação humana desenhada no fluxo?
-6. **Cache Semântico:** O design prevê cache para perguntas repetidas,
-   economizando custo e latência?
-7. **Fallback Determinístico:** Se o LLM cair ou alucinar, existe um caminho de
-   código tradicional ("if/else") que assume o controle?
-8. **Rastreabilidade:** Consigo correlacionar uma resposta ruim ao prompt exato
-   e versão do modelo que a gerou?
+## Armadilhas Comuns
 
-## Armadilhas Comuns (Anti-Patterns)
-
-- **"O Modelo Resolve Tudo":** Tentar fazer o LLM executar lógica complexa
-  (aritmética, datas) que código tradicional faz melhor e mais barato.
-- **Prompt Spaghetti:** Concatenar strings gigantescas sem estrutura, tornando
-  impossível debugar qual parte do contexto confundiu o modelo.
-- **Confiança Cega no Contexto:** Assumir que o modelo leu e respeitou 100% dos
-  100k tokens de contexto. O design deve priorizar a informação relevante
-  (Reranking).
-- **Falta de Timeout:** LLMs podem ficar em loop ou demorar 30s para responder.
-  O design de interface (UI) deve lidar com essa latência assíncrona.
-- **Vazamento de Abstração:** Expor o "pensamento" cru do modelo para o usuário
-  final sem filtro.
-
-## Exemplo Mínimo: Classificador de Suporte
-
-**Cenário:** Um sistema que tria tickets de suporte e sugere respostas.
-
-**Abordagem Ingênua (Ruim):** Um único prompt: "Leia este email e responda o
-cliente educadamente."
-
-- *Risco:* O modelo pode prometer reembolsos que não existem ou ofender o
-  cliente. Não há controle.
-
-**Abordagem de Engenharia (Bom):** O design divide o problema em etapas
-discretas e auditáveis:
-
-1. **Etapa 1 (Classificação):** Prompt focado apenas em categorizar o ticket
-   (Financeiro, Técnico, Outros) -> Saída: Enum.
-2. **Etapa 2 (Recuperação):** Código determinístico busca a política da empresa
-   baseada na categoria (RAG).
-3. **Etapa 3 (Geração):** Prompt recebe a política + ticket. Instrução: "Gere
-   resposta baseada ESTRITAMENTE na política abaixo."
-4. **Etapa 4 (Validação):** Um segundo modelo (ou regra de regex) verifica se a
-   resposta contém palavras proibidas ou promessas de valores.
-5. **Decisão:** Se confiança < 90% ou categoria = "Processo Jurídico", encaminha
-   para humano. Caso contrário, envia rascunho.
-
-*Trade-off:* Maior latência e custo (múltiplas chamadas), mas garante segurança
-e consistência operacional.
+- **Confiança Cega no Schema:** Achar que porque o LLM retornou um JSON válido, o conteúdo lógico está correto. (O JSON valida a sintaxe, não a semântica).
+- **Over-Engineering de Prompts:** Tentar corrigir falhas de arquitetura criando prompts de 2000 palavras. Se o prompt está complexo demais, o design do componente está errado. Quebre em passos menores.
+- **Ignorar Latência:** LLMs são lentos. Projetar interações síncronas que bloqueiam a UI enquanto o modelo "pensa" por 10 segundos destrói a UX.
 
 ## Resumo Executivo
 
-- **Design é Restrição:** O papel do design mudou de construir lógica para
-  construir cercas (guardrails) ao redor da IA.
-- **Saída Estruturada é Lei:** Nunca trabalhe com texto livre internamente;
-  force estruturas de dados tipadas.
-- **Auditoria é Obrigatória:** Se você não pode explicar por que o sistema agiu
-  de tal forma, não coloque em produção.
-- **Prompts são Código:** Devem ser versionados, testados e monitorados como
-  qualquer microserviço.
-- **Hibridismo:** Use IA para o que ela é boa (intenção, criatividade, resumo) e
-  código para o que ele é bom (lógica, cálculo, persistência).
+- **Curadoria > Construção:** O valor está em saber o que manter, não no que gerar.
+- **Contenção de Risco:** Trate saídas de LLM como "untrusted user input".
+- **Simplicidade Forçada:** Use o design para vetar complexidade desnecessária gerada pela facilidade da ferramenta.
+- **Hibridismo Seguro:** Envolva componentes probabilísticos em camadas determinísticas rígidas.
 
 ## Próximos Passos
 
-- Estudar **Engenharia de Restrições** para aprofundar em técnicas de validação
-  de saída (KA 01).
-- Implementar **Observabilidade de LLMs** (LLMOps) para monitorar custos e
-  alucinações em tempo real.
-- Revisar padrões de **Arquitetura de Agentes** para entender como orquestrar
-  múltiplos modelos (KA 02).
+- Aprofundar em **Princípios de Design para Código Gerado** (Próxima seção) para entender como adaptar SOLID.
+- Estudar **Engenharia de Restrições** (KA 01) para definir os limites que o design deve respeitar.

@@ -1,236 +1,85 @@
 ---
-title: 05. Design de Interfaces e Contratos em Sistemas Probabilísticos
+title: Design de Interfaces e Contratos
 created_at: '2025-01-31'
-tags: [software-design, interfaces, contratos, json-schema, structured-output, system-prompt]
-status: review
-updated_at: '2026-02-04'
-ai_model: gemini-3-pro-preview
+tags: [software-design, api-design, contratos, json-schema, prompt-engineering]
+status: published
+updated_at: '2025-01-31'
+ai_model: gpt-4o
 ---
 
-# Design de Interfaces e Contratos em Sistemas Probabilísticos
+# Design de Interfaces e Contratos
 
-## Overview
+A interface mais crítica em sistemas modernos não é mais a REST API entre microserviços, mas o contrato "fuzzy" entre o código determinístico e o modelo probabilístico.
 
-Em sistemas determinísticos, uma interface (API) é uma promessa rígida: se você
-enviar `X` (tipo correto), receberá `Y`. Em sistemas probabilísticos baseados em
-LLMs, essa promessa é fluida. O modelo pode "decidir" responder com um poema em
-vez de um JSON, ou alucinar campos inexistentes.
+Se essa interface for baseada em "chat" (strings soltas), seu sistema será frágil. Engenharia de software robusta exige contratos tipados.
 
-O design de interfaces na era da IA não é sobre desenhar telas, mas sobre
-**impor restrições rígidas sobre um núcleo fluido**. O objetivo é encapsular a
-incerteza do modelo dentro de fronteiras verificáveis, garantindo que o restante
-do sistema (o código clássico) nunca seja contaminado por dados não estruturados
-ou inválidos.
+## Prompts como APIs (Function Calling)
 
-## O Paradigma Shift: Do Pixel ao Prompt
+A maior evolução recente foi a capacidade dos modelos de emitir chamadas de função estruturadas (Tool Use / Function Calling) em vez de apenas texto.
 
-A definição de "interface" expandiu-se radicalmente. Não estamos mais falando
-apenas de GUI (Graphical User Interface) ou API (Application Programming
-Interface), mas de **NLI (Natural Language Interface)** mediada por contratos
-estritos.
+O design deve tratar o LLM como um cliente que chama sua API interna.
 
-| Camada            | Era Pré-LLM                       | Era SWEBOK-AI v5                                  |
-| :---------------- | :-------------------------------- | :------------------------------------------------ |
-| **Entrada**       | Cliques, Formulários, JSON tipado | Intenção (Prompt), Contexto (RAG), Imagem/Áudio   |
-| **Processamento** | Lógica Booleana (If/Else)         | Inferência Probabilística (Token Prediction)      |
-| **Saída**         | Dados Estruturados (DB Rows)      | Texto, Código, JSON (potencialmente inválido)     |
-| **Contrato**      | OpenAPI / Swagger                 | **System Prompt + JSON Schema**                   |
-| **Falha Comum**   | `TypeError`, `NullPointer`        | Alucinação, Recusa de Segurança, Formato Inválido |
+**Padrão de Design:**
+1. Defina uma interface (Schema) que descreve exatamente o que você aceita.
+2. Force o modelo a preencher esse Schema.
+3. Valide o preenchimento antes de executar.
 
-## Os Dois Contratos Fundamentais
+### Exemplo: Extração de Entidades
 
-Para domesticar um LLM em produção, estabelecemos dois níveis de contrato. Se um
-falha, o sistema quebra.
+**Abordagem Frágil (Texto):**
+> Prompt: "Extraia o nome e data do texto. Responda no formato Nome: [nome], Data: [data]"
 
-### 1. O Contrato Humano-IA: System Prompt
-
-Este é o contrato "mole". Ele define a persona, o tom, as restrições
-comportamentais e as regras de negócio em linguagem natural.
-
-- **Função:** Alinhamento e Contexto.
-- **Mecanismo:** Engenharia de Prompt.
-- **Fragilidade:** Alta. O modelo pode ignorar instruções se o contexto for
-  muito longo ou se sofrer *prompt injection*.
-
-### 2. O Contrato IA-Código: JSON Schema
-
-Este é o contrato "duro". É a barreira de fogo que protege seu backend. O LLM
-**não deve** falar diretamente com seu banco de dados ou frontend sem passar por
-este validador.
-
-- **Função:** Estruturação e Sanitização.
-- **Mecanismo:** *Structured Output* (OpenAI/Anthropic) ou bibliotecas de
-  coerção (Instructor/Pydantic).
-- **Fragilidade:** Baixa (se bem implementado). Se o JSON não validar, a
-  execução é abortada ou tentada novamente.
-
-## Padrões de Interface
-
-Ao desenhar a interação, escolha o padrão que equilibra controle e
-flexibilidade:
-
-### A. Chat (Open Loop)
-
-O padrão mais comum e mais arriscado. O usuário conversa livremente.
-
-- **Uso:** Suporte ao cliente, brainstorming, pesquisa.
-- **Desafio:** O usuário pode levar o modelo para fora do escopo.
-- **Controle:** Baixo. Exige *guardrails* de saída robustos para evitar
-  toxicidade ou vazamento de dados.
-
-### B. Command (Natural Language to Action)
-
-O usuário expressa uma intenção ("Agende uma reunião com o João"), e o sistema
-converte isso em uma chamada de função determinística.
-
-- **Uso:** Assistentes virtuais, automação de tarefas.
-- **Mecanismo:** *Tool Calling* / *Function Calling*.
-- **Risco:** O modelo invocar a ferramenta errada ou com parâmetros destrutivos
-  (ex: `DELETE /users`). Requer confirmação humana para ações críticas.
-
-### C. Suggestion (Human-in-the-Loop)
-
-A IA não age; ela propõe. O humano aceita, rejeita ou edita. É o padrão do
-GitHub Copilot ou corretores gramaticais.
-
-- **Uso:** Geração de código, redação de documentos.
-- **Segurança:** Máxima. O humano é o filtro final de qualidade e segurança.
-- **UX:** "Ghost text" ou painéis laterais.
-
-## Implementação Técnica: Structured Output
-
-Nunca peça JSON em texto livre. Use modos de saída estruturada garantidos pelo
-provedor do modelo ou frameworks de validação.
-
-### Exemplo: Extração de Dados com Pydantic
-
-Este padrão garante que seu código Python receba objetos tipados, não strings
-aleatórias.
-
+**Abordagem Robusta (Schema):**
 ```python
-from pydantic import BaseModel, Field, ValidationError
-from typing import List, Optional
-import openai
-
-# 1. Definição do Contrato (Schema)
-class ActionItem(BaseModel):
-    description: str = Field(..., description="Ação clara e executável")
-    assignee: Optional[str] = Field(None, description="Responsável pela tarefa")
-    priority: str = Field(..., enum=["high", "medium", "low"])
-
-class MeetingSummary(BaseModel):
-    topic: str
-    decisions: List[str]
-    action_items: List[ActionItem]
-    # O modelo é forçado a preencher estes campos
-
-# 2. Execução com Validação (Pseudo-código)
-def extract_summary(transcription: str) -> MeetingSummary:
-    try:
-        completion = client.beta.chat.completions.parse(
-            model="gpt-4o-2024-08-06",
-            messages=[
-                {"role": "system", "content": "Você é um secretário executivo expert."},
-                {"role": "user", "content": transcription},
-            ],
-            response_format=MeetingSummary, # O Contrato é passado aqui
-        )
-
-        # O retorno já é uma instância validada da classe MeetingSummary
-        return completion.choices[0].message.parsed
-
-    except ValidationError as e:
-        # Falha de contrato: O modelo gerou algo que não bate com o schema
-        log_error(f"Schema violation: {e}")
-        # Estratégia de Retry: Enviar o erro de volta ao modelo para ele corrigir
-        return retry_with_correction(transcription, error=str(e))
-    except Exception as e:
-        # Falha de sistema (rede, auth)
-        raise e
+class EventExtraction(BaseModel):
+    event_name: str = Field(..., description="Nome do evento principal")
+    event_date: datetime = Field(..., description="Data no formato ISO8601")
+    confidence_score: float = Field(..., ge=0, le=1)
 ```
+
+Ao passar esse schema para o modelo, você transforma linguagem natural em um objeto tipado que o resto do seu sistema (Java, C#, Python) pode consumir com segurança.
+
+## Schema First Development
+
+Antes de escrever o prompt, escreva o Schema de saída.
+Isso força você a pensar nos dados que realmente precisa.
+
+**Regras para Schemas de LLM:**
+1. **Descrições são Instruções:** O campo `description` no JSON Schema não é documentação para humanos, é instrução para a IA. Use-o para desambiguar (ex: "Data da compra, não data da entrega").
+2. **Enums são Poderosos:** Restrinja campos de texto a um conjunto finito de opções (Enum) sempre que possível. Isso elimina alucinações de valores inválidos.
+3. **Nullable Explicitamente:** Diga à IA quando é aceitável retornar `null` se ela não encontrar a informação. Caso contrário, ela inventará um valor.
 
 ## Tolerância a Falhas na Interface
 
-Interfaces probabilísticas falham. Seu design deve assumir a falha como estado
-nominal.
+Mesmo com Schemas, o modelo pode falhar (truncar JSON, errar tipo). O design da interface deve ser defensivo.
 
-1. **Retry Loop com Feedback:** Se a validação do schema falhar, não apenas
-   tente de novo. Injete a mensagem de erro da validação (ex: "Campo 'priority'
-   deve ser 'high', 'medium' ou 'low', recebeu 'urgente'") de volta no prompt e
-   peça correção.
-2. **Degradação Graciosa:** Se a IA estiver fora do ar ou alucinando, a
-   interface deve reverter para um modo manual ou "burro", não travar a tela
-   branca.
-3. **Confiança e Transparência:** Se o *confidence score* (logprobs) for baixo,
-   a UI deve sinalizar: "A IA acha que é isso, mas verifique".
+### O Padrão "Reparação Estrutural"
 
-## Checklist Prático
+Implemente uma camada de middleware que tenta consertar JSONs quebrados antes de lançar erro.
+- Bibliotecas como `json_repair` podem salvar JSONs com vírgulas faltando.
+- **Self-Correction:** Se a validação do Pydantic falhar, capture o erro e reenvie ao modelo: "Você gerou este JSON inválido com o erro X. Corrija e reenvie." (Funciona em 80% dos casos).
 
-O que implementar amanhã no seu sistema:
+## Contratos de Contexto (Context Window Management)
 
-- [ ] **Schema-First:** Defina os Pydantic/Zod models *antes* de escrever o
-  prompt.
-- [ ] **Strict Mode:** Ative `strict: true` ou equivalente na API do LLM para
-  forçar aderência ao schema.
-- [ ] **Validação de Tipos:** Nunca faça `json.loads()` direto da resposta do
-  LLM sem passar por um validador.
-- [ ] **Sanitização:** Trate qualquer texto vindo do LLM como "user input" não
-  confiável (risco de XSS ou injeção).
-- [ ] **Timeout Agressivo:** LLMs podem entrar em loops infinitos. Defina
-  timeouts curtos.
-- [ ] **Telemetry:** Logue não apenas o erro, mas o prompt exato e a resposta
-  inválida para debug.
+A interface de entrada também precisa de design. Você não pode jogar 1 milhão de tokens no prompt e esperar sucesso.
 
-## Armadilhas Comuns (Anti-Patterns)
+- **Orçamento de Tokens:** Defina limites rígidos para cada seção do prompt (ex: 40% para documentos RAG, 20% para histórico, 10% para instruções).
+- **Truncamento Inteligente:** Projete a lógica de truncamento. Se o histórico for longo, descarte as mensagens do meio, mantenha o início (system prompt) e o fim (última pergunta).
 
-1. **Parsing com Regex:** Tentar extrair JSON de um bloco de texto usando
-   expressões regulares. Isso vai quebrar.
-2. **"Retorne apenas JSON":** Confiar apenas na instrução do prompt sem usar
-   parâmetros de `response_format` ou `function_calling`.
-3. **Schema Ambíguo:** Campos como `data` (string? data ISO? timestamp?)
-   confundem o modelo. Seja explícito: `created_at_iso8601`.
-4. **Loop de Retry Infinito:** O modelo continua errando o schema e você
-   continua pagando tokens. Limite a 2 ou 3 tentativas.
-5. **Expor o Prompt na UI:** Em caso de erro, nunca mostre o "System Prompt" no
-   stack trace para o usuário final.
+## Armadilhas Comuns
+
+- **Tipagem Fraca:** Usar `dict` ou `map` genéricos. Use classes/structs definidos.
+- **Json Mode vs Function Calling:** `Json Mode` garante JSON válido, mas não garante o Schema. Prefira `Function Calling` ou `Structured Outputs` (feature nativa de modelos novos) que garantem o Schema.
+- **Instruções Conflitantes:** O Schema diz "campo obrigatório", o Prompt diz "opcional". O modelo fica confuso. Mantenha a fonte da verdade no Schema.
 
 ## Resumo Executivo
 
-- **Contrato Duplo:** System Prompt alinha comportamento; JSON Schema garante
-  integridade estrutural.
-- **Determinismo na Borda:** O núcleo é probabilístico, mas as bordas (I/O)
-  devem ser estritamente tipadas.
-- **Validação é Obrigatória:** Código gerado ou dados estruturados por IA são
-  "culpados até que se prove o contrário".
-- **Padrões de UI:** Escolha entre Chat, Comando ou Sugestão baseando-se no
-  risco da operação.
-- **Custo de Engenharia:** O esforço migra da implementação da lógica para a
-  definição e validação dos contratos.
+- **Schema é Rei:** Defina a saída desejada com tipos estritos antes de começar.
+- **Descrições Valem Ouro:** Documente seus campos para a IA, não para o programador.
+- **Repare, não Descarte:** Tente corrigir erros de sintaxe automaticamente.
+- **Defina Enums:** Reduza o espaço de busca do modelo restringindo opções.
 
 ## Próximos Passos
 
-- Estudar **Function Calling** para transformar intenção em execução de código.
-- Implementar **Testes de Contrato** que verificam se o prompt atual continua
-  respeitando o schema após alterações.
-- Explorar **DSPy** para otimizar prompts automaticamente contra métricas de
-  validação.
-
-## Matriz de Avaliação
-
-| Critério                   | Avaliação | Justificativa                                                     |
-| :------------------------- | :-------- | :---------------------------------------------------------------- |
-| **Maturidade Técnica**     | Alta      | JSON Schema e Pydantic são padrões industriais sólidos.           |
-| **Impacto no Negócio**     | Crítico   | Sem contratos rígidos, a IA em produção é um brinquedo perigoso.  |
-| **Custo de Implementação** | Médio     | Exige disciplina de engenharia, mas ferramentas (SDKs) facilitam. |
-| **Risco de Obsolescência** | Baixo     | Modelos mudam, mas a necessidade de dados estruturados permanece. |
-
-## References
-
-1. **OpenAI API Documentation.** "Structured Outputs".
-   <https://platform.openai.com/docs/guides/structured-outputs>
-2. **Pydantic Documentation.** "Integration with LLMs".
-   <https://docs.pydantic.dev/>
-3. **Chase, Harrison.** "LangChain: Building applications with LLMs". O'Reilly
-   Media, 2024.
-4. **Fowler, Martin.** "Patterns of Enterprise Application Architecture"
-   (Conceitos de Gateway e Mapper aplicados a LLMs).
+- Ver como testar esses contratos na seção **Design para Verificabilidade**.
+- Aplicar esses conceitos na construção de **AI Gateways** (visto na seção 03).

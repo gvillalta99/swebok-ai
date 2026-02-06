@@ -25,13 +25,40 @@ ______________________________________________________________________
 ## Estrutura do Capítulo
 
 1. **Seção 1: Fundamentos do Design na Era dos LLMs**
+   - Mudança de foco: Construção -> Curadoria.
+   - O paradoxo da abundância de código.
+   - Design como restrição de probabilidade.
+
 2. **Seção 2: Princípios de Design para Código Gerado**
+   - SOLID revisitado para IA.
+   - Princípios de "Design for Disposability" (Código descartável).
+   - "Prompt as Specification".
+
 3. **Seção 3: Padrões de Design para Sistemas Híbridos**
+   - AI Gateway & Guardrails.
+   - Human-in-the-Loop patterns.
+   - Fallback determinístico.
+
 4. **Seção 4: Design de Componentes Determinísticos**
+   - O núcleo imutável ("Core Domain") vs. camadas geradas.
+   - Isolamento de componentes probabilísticos.
+
 5. **Seção 5: Design de Interfaces e Contratos**
+   - Prompts como APIs.
+   - Schemas rígidos (JSON/Pydantic) como contratos de fronteira.
+   - Tolerância a falhas na interface.
+
 6. **Seção 6: Design para Verificabilidade**
+   - Design que facilita testes automatizados e revisão humana.
+   - Observabilidade intrínseca ("Explainability by design").
+
 7. **Seção 7: Refatoração e Modernização Assistida**
+   - Padrão Strangler Fig com IA.
+   - Extração de conhecimento de legado.
+
 8. **Seção 8: Ferramentas e Técnicas Modernas**
+   - Ferramentas de "AI-Native Architecture".
+   - Ambientes de desenvolvimento híbridos.
 
 ______________________________________________________________________
 
@@ -57,6 +84,15 @@ ______________________________________________________________________
   eficiente
 - **Governança de IA para Engenharia de Software:** Design para compliance e
   auditabilidade
+
+______________________________________________________________________
+
+## Conceitos Chave e Referências de Base
+
+- **Stoica et al. (2024):** Especificações formais como "elo perdido" para confiabilidade de LLMs.
+- **GitClear (2024/2025):** Impacto do "Code Churn" gerado por IA na manutenibilidade.
+- **Design for Auditability (DfA):** Estratégias para tornar sistemas de caixa preta inspecionáveis.
+- **Jevons Paradox in Software:** Aumento da eficiência na geração de código levando a maior consumo de recursos de revisão.
 
 ______________________________________________________________________
 
