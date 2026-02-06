@@ -1,553 +1,134 @@
 ---
-title: 07 - Ferramentas e Técnicas Modernas
+title: Ferramentas e Técnicas Modernas
 created_at: '2025-01-31'
 tags: [ferramentas, tecnicas, rag, prompt-engineering, vector-databases, mlops, llmops]
 status: review
-updated_at: '2026-01-31'
+updated_at: '2026-02-04'
 ai_model: openai/gpt-5.2
 ---
 
 # Ferramentas e Técnicas Modernas
 
-## Overview
+## Contexto
 
-A engenharia de restrições e contexto na era dos LLMs demanda um novo conjunto
-de ferramentas e técnicas. Esta seção apresenta as tecnologias emergentes que
-suportam a especificação, implementação e governança de sistemas com IA, desde
-frameworks de Retrieval-Augmented Generation (RAG) até plataformas de
-observabilidade e ferramentas de verificação formal.
+Em 2022, bastava um script Python chamando a OpenAI. Em 2026, a stack de IA é tão complexa quanto a de Kubernetes. Temos Vector DBs, Frameworks de Agentes, Avaliadores, Tracing, Guardrails e Gateways. O risco não é mais "não ter ferramenta", é ter "paralisia por análise" ou adotar abstrações que vazam (*leaky abstractions*). Este capítulo não é uma lista de compras; é um filtro de sobrevivência para sua stack.
 
-## Learning Objectives
+## A Stack Essencial (LLM Stack)
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### 1. Orquestração: Código > Frameworks Mágicos
+**LangChain** e **LlamaIndex** são ótimos para começar, mas em produção, a abstração excessiva esconde o que está acontecendo (quantos tokens gastei? onde errou?).
+*   **Tendência:** Uso de orquestração "leve" ou código puro (Python/Typescript) para ter controle total do fluxo de execução e retry.
+*   **Recomendação:** Use frameworks para *retrieval* (ingestão de dados), mas considere escrever sua própria lógica de agente (loops e decisões) para facilitar o debug.
 
-1. Selecionar ferramentas apropriadas para diferentes aspectos de sistemas com
-   IA
-2. Implementar arquiteturas RAG eficazes
-3. Aplicar técnicas avançadas de prompt engineering
-4. Utilizar plataformas de observabilidade para sistemas LLM
-5. Integrar ferramentas de verificação em pipelines de desenvolvimento
+### 2. Memória e RAG (Retrieval-Augmented Generation)
+A IA não lembra de nada. O banco vetorial é o hipocampo dela.
+*   **Vector Stores:** Pinecone (Serverless), Weaviate (Híbrido), pgvector (para quem já usa Postgres). Não complique: se você tem menos de 1 milhão de vetores, `pgvector` resolve.
+*   **Estratégia de Chunking:** Cortar texto em pedaços fixos (Fixed-size) é coisa de 2023. Use **Semantic Chunking** ou **Agentic Splitting** (deixe a IA decidir onde cortar o documento).
 
-## 7.1 Arquitetura e Frameworks
+### 3. Observabilidade (LLMOps)
+Você não pode gerenciar o que não vê. Logs de texto plano (`print(response)`) não servem.
+*   **Ferramentas:** LangSmith, Arize Phoenix, Weights & Biases.
+*   **O que medir:** Latência p99, Custo por Query, Taxa de Feedback Negativo, Trace da Cadeia de Pensamento.
 
-### 7.1.1 Frameworks de Desenvolvimento LLM (nao prescritivo)
+### 4. Avaliação (Evals)
+Como você sabe que o prompt novo é melhor?
+*   **Frameworks:** RAGAS (para avaliar RAG), DeepEval (Testes unitários para LLM).
+*   **LLM-as-a-Judge:** Usar o GPT-4 para dar nota para a resposta do Llama-3. É meta-avaliação, mas funciona para escalar testes qualitativos.
 
-Exemplos (nao exaustivo):
+## Técnicas Avançadas de Engenharia
 
-**LangChain**:
+### Prompt Engineering 2.0
+Não é mais sobre "agir como um pirata".
+*   **Chain-of-Thought (CoT):** "Pense passo a passo". Aumenta a precisão em lógica e matemática.
+*   **Few-Shot:** Dar exemplos no prompt é mais eficiente que fine-tuning para 90% dos casos.
+*   **DSPy:** Esqueça escrever prompts manuais. DSPy compila e otimiza prompts automaticamente usando algoritmos de busca. É o futuro da engenharia de prompt declarativa.
 
-- Orquestração de cadeias de chamadas LLM
-- Integração com diversos modelos e vector stores
-- Ferramentas para RAG, agentes e memória
-- Ecossistema maduro com ampla adoção
+### Verificação Formal
+Para código crítico, apenas "parecer certo" não basta.
+*   **Ferramentas:** VeriGuard, AlphaVerus. Usam métodos formais para provar matematicamente que o código gerado pela IA satisfaz certas propriedades (ex: não acessa memória inválida).
 
-**LlamaIndex**:
+## Checklist Prático
 
-- Especializado em RAG e indexing de dados
-- Conectores para múltiplas fontes de dados
-- Otimização de retrieval
-- Framework de agentes avançado
+Montando a caixa de ferramentas:
 
-**Haystack**:
+1.  [ ] **Escolha um Vector DB "Boring":** Comece com o que você já tem (Postgres + pgvector ou Elasticsearch). Migre para especializado (Pinecone/Milvus) só quando a escala exigir.
+2.  [ ] **Instale Observabilidade no Dia 1:** Configure o LangSmith ou similar antes do primeiro deploy. Debugar RAG sem trace visual é impossível.
+3.  [ ] **Implemente Cache:** Use GPTCache ou Redis para não pagar duas vezes pela mesma pergunta.
+4.  [ ] **Crie um Pipeline de Evals:** Tenha um script que roda 50 perguntas de teste toda vez que você muda o prompt.
+5.  [ ] **Sanitização de Entrada/Saída:** Use bibliotecas como `guardrails-ai` ou `instructor` para garantir que o JSON de saída é válido e seguro.
 
-- Pipeline de NLP end-to-end
-- Foco em aplicações de busca e QA
-- Suporte a fine-tuning
-- Integração com modelos open source
+## Armadilhas Comuns
 
-**Comparacao (heuristica, nao ranking)**:
+*   **Vendor Lock-in de Framework:** Construir todo o sistema dependendo de classes internas do LangChain que mudam a cada semana.
+*   **Over-Retrieval:** Buscar 20 documentos para o contexto quando 3 bastariam. Aumenta custo e confunde o modelo ("Lost in the Middle").
+*   **Ignorar Modelos Locais:** Usar GPT-4 para tudo. Para resumir textos simples, um modelo local (Mistral/Llama) rodando em Ollama é mais rápido e grátis.
+*   **Confiar em Métricas de Texto:** Usar BLEU ou ROUGE (métricas antigas de tradução) para avaliar chat. Elas não capturam semântica. Use métricas baseadas em embeddings ou LLM-evals.
 
-| Framework      | Melhor Para                            | Curva de Aprendizado | Ecossistema |
-| -------------- | -------------------------------------- | -------------------- | ----------- |
-| **LangChain**  | Prototipagem rápida, agentes complexos | Média                | Grande      |
-| **LlamaIndex** | RAG avançado, dados estruturados       | Baixa                | Médio       |
-| **Haystack**   | Aplicações de busca enterprise         | Média                | Médio       |
+## Exemplo Mínimo: Pipeline de RAG Simples com Observabilidade
 
-### 7.1.2 Arquitetura RAG (Retrieval-Augmented Generation)
+**Cenário:** Chatbot de documentação interna.
 
-**Componentes de uma Arquitetura RAG**:
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      PIPELINE RAG                            │
-├─────────────┬─────────────┬─────────────┬───────────────────┤
-│   INGESTÃO  │  EMBEDDING  │   STORE     │    RETRIEVAL      │
-├─────────────┼─────────────┼─────────────┼───────────────────┤
-• Carregamento• Chunking    • Vector DB   • Query embedding   │
-  de docs     • Embedding   • Metadata    • Similarity search │
-• Parsing     • Indexing    • Versioning  • Re-ranking        │
-• Limpeza     •             •             • Filtering         │
-└─────────────┴─────────────┴─────────────┴───────────────────┘
-                              ↓
-                    ┌─────────────────┐
-                    │      LLM        │
-                    │  + Contexto     │
-                    │  Relevante      │
-                    └─────────────────┘
-```
-
-**Estratégias de Chunking**:
-
-| Estratégia     | Quando Usar                | Vantagens            | Desvantagens          |
-| -------------- | -------------------------- | -------------------- | --------------------- |
-| **Fixed-size** | Documentos homogêneos      | Simples, previsível  | Pode quebrar contexto |
-| **Semantic**   | Documentos heterogêneos    | Preserva significado | Mais complexo         |
-| **Recursive**  | Hierarquias de documentos  | Mantém estrutura     | Overlap complexo      |
-| **Agentic**    | Documentos muito complexos | Alta precisão        | Custo computacional   |
-
-### 7.1.3 Vector Databases (classes de solucao)
-
-Exemplos (nao exaustivo):
-
-**Pinecone**:
-
-- Managed service, serverless
-- Alta performance e escalabilidade
-- Metadata filtering avançado
-- Preço baseado em uso
-
-**Weaviate**:
-
-- Open source e managed
-- GraphQL interface
-- Multi-modal (texto, imagem)
-- Modular (diversos embeddings)
-
-**Chroma**:
-
-- Open source, fácil de usar
-- Ideal para desenvolvimento
-- Integração simples com Python
-- Limitado para produção em escala
-
-**Milvus/Zilliz**:
-
-- Enterprise-grade
-- Altamente escalável
-- GPU acceleration
-- Complexo para setup inicial
-
-## 7.2 Técnicas de Engenharia de Prompt
-
-### 7.2.1 Padrões de Prompt
-
-**Chain-of-Thought (CoT) (exemplo didatico)**:
-
-```
-Pergunta: Quanto é 25 × 36?
-
-Resolução passo a passo:
-1. Primeiro, vou decompor 36 em 30 + 6
-2. 25 × 30 = 750
-3. 25 × 6 = 150
-4. 750 + 150 = 900
-
-Portanto, 25 × 36 = 900
-```
-
-**Few-Shot Learning**:
-
-```
-Exemplo 1:
-Input: "O produto chegou quebrado"
-Sentimento: Negativo
-
-Exemplo 2:
-Input: "Entrega rápida, recomendo"
-Sentimento: Positivo
-
-Exemplo 3:
-Input: "Ainda não testei"
-Sentimento: Neutro
-
-Input: [SEU INPUT AQUI]
-Sentimento:
-```
-
-**ReAct (Reasoning + Acting) (exemplo simplificado)**:
-
-```
-Pergunta: Qual a populacao da capital do Brasil?
-
-Pensamento: Preciso confirmar a capital.
-Acao: Buscar "capital do Brasil"
-Observacao: [resultado da busca]
-
-Pensamento: Agora preciso confirmar a populacao com uma fonte.
-Acao: Buscar "populacao de Brasilia (fonte oficial)"
-Observacao: [resultado da busca]
-
-Resposta Final: [resposta citando a fonte consultada]
-```
-
-### 7.2.2 Técnicas Avançadas
-
-**Self-Consistency**:
-
-- Gerar múltiplas respostas para mesma pergunta
-- Selecionar resposta mais frequente
-- Melhora accuracy em tarefas de raciocínio
-
-**Tree of Thoughts**:
-
-- Explorar múltiplos caminhos de raciocínio
-- Avaliar cada caminho
-- Selecionar melhor trajetória
-
-**Prompt Chaining**:
-
-```
-Prompt 1: Extrair entidades do texto
-    ↓
-Prompt 2: Classificar sentimento de cada entidade
-    ↓
-Prompt 3: Gerar resposta baseada nas classificações
-```
-
-### 7.2.3 Otimização de Prompts
-
-**Técnicas de Otimização**:
-
-1. **A/B Testing**: Comparar variantes de prompts
-2. **Gradient-based**: Otimização automática (DSPy)
-3. **Bayesian Optimization**: Busca eficiente no espaço de prompts
-4. **Evolução de Prompts**: Algoritmos genéticos para refinamento
-
-**DSPy (Declarative Self-improving Language Programs)**:
+**Stack:** Python, OpenAI, ChromaDB, LangSmith.
 
 ```python
-import dspy
+import os
+from langchain.chat_models import ChatOpenAI
+from langchain.document_loaders import TextLoader
+from langchain.vectorstores import Chroma
+from langchain.embeddings import OpenAIEmbeddings
+from langsmith import Client
 
-class ClassifyIntent(dspy.Module):
-    def __init__(self):
-        self.predict = dspy.ChainOfThought("input -> intent")
+# 1. Configuração de Observabilidade
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_PROJECT"] = "doc-bot-v1"
 
-    def forward(self, input_text):
-        return self.predict(input=input_text)
+# 2. Ingestão (Simples)
+loader = TextLoader("./policy.txt")
+docs = loader.load()
+db = Chroma.from_documents(docs, OpenAIEmbeddings())
 
-# Otimização automática
-teleprompter = dspy.BootstrapFewShot()
-optimized_classifier = teleprompter.compile(
-    ClassifyIntent(),
-    trainset=train_data
-)
+# 3. Retrieval & Generation
+def answer_question(question):
+    # Retrieve
+    docs = db.similarity_search(question, k=3)
+    context = "\n".join([d.page_content for d in docs])
+
+    # Generate (com controle explícito)
+    llm = ChatOpenAI(model="gpt-4", temperature=0)
+    prompt = f"Use este contexto para responder: {context}\n\nPergunta: {question}"
+
+    return llm.predict(prompt)
 ```
 
-## 7.3 Observabilidade e Monitoramento
-
-### 7.3.1 Métricas Críticas para LLMs
-
-**Métricas de Qualidade**:
-
-- **Accuracy**: Precisão das respostas
-- **Hallucination Rate**: Taxa de alucinações
-- **Relevance**: Relevância do contexto recuperado
-- **Coherence**: Coerência das respostas
-
-**Métricas de Performance**:
-
-- **Latency**: Tempo de resposta (p50, p95, p99)
-- **Throughput**: Requisições por segundo
-- **Token Usage**: Consumo de tokens
-- **Error Rate**: Taxa de erros
-
-**Métricas de Custo**:
-
-- **Cost per Request**: Custo médio por requisição
-- **Cost per Token**: Custo por token processado
-- **Cache Hit Rate**: Eficiência do cache
-
-### 7.3.2 Plataformas de Observabilidade
-
-**LangSmith (LangChain)**:
-
-- Rastreamento de cadeias e agentes
-- Debugging de prompts
-- Avaliação de qualidade
-- Feedback humano
-
-**Weights & Biases (W&B)**:
-
-- Rastreamento de experimentos
-- Versionamento de modelos
-- Visualização de métricas
-- Colaboração em equipe
-
-**PromptLayer**:
-
-- Versionamento de prompts
-- Analytics de uso
-- A/B testing
-- Logging de requisições
-
-**Phoenix (Arize)**:
-
-- Observabilidade de LLM
-- Rastreamento de embeddings
-- Análise de drift
-- Debugging de RAG
-
-### 7.3.3 Estratégias de Logging
-
-**Estrutura de Log**:
-
-```json
-{
-  "timestamp": "2025-01-31T10:30:00Z",
-  "trace_id": "abc-123-def",
-  "span_id": "span-456",
-  "service": "intent-classifier",
-  "model": "gpt-4-1106-preview",
-  "prompt_version": "v2.1.0",
-  "input": {
-    "user_message": "Quero cancelar minha assinatura",
-    "context": {...}
-  },
-  "output": {
-    "intent": "cancellation_request",
-    "confidence": 0.94,
-    "tokens_used": 150
-  },
-  "performance": {
-    "latency_ms": 850,
-    "tokens_per_second": 176
-  },
-  "metadata": {
-    "user_id": "user-789",
-    "session_id": "session-xyz"
-  }
-}
-```
-
-## 7.4 Ferramentas de Verificação e Validação
-
-### 7.4.1 Verificação de Qualidade
-
-**DeepEval**:
-
-- Framework de avaliação de LLMs
-- Métricas: G-Eval, RAGAS, etc.
-- Testes de regressão
-- Integração com CI/CD
-
-**RAGAS**:
-
-- Métricas específicas para RAG
-- Faithfulness, Answer Relevancy, Context Precision
-- Context Recall, Context Relevancy
-- Avaliação sem ground truth
-
-**TruLens**:
-
-- Feedback loop para LLMs
-- Instrumentação automática
-- Avaliação de RAG
-- Feedback humano
-
-### 7.4.2 Testes de Segurança
-
-**Garak**:
-
-- Scanner de vulnerabilidades LLM
-- Testes de prompt injection
-- Detecção de jailbreaking
-- Probing de vieses
-
-**Promptmap**:
-
-- Mapeamento de vulnerabilidades
-- Testes de segurança automatizados
-- Relatórios de risco
-
-**Rebuff**:
-
-- Detecção de prompt injection
-- Proteção em tempo real
-- Heurísticas e ML
-
-### 7.4.3 Verificação Formal
-
-**VeriGuard** \[1\]:
-
-- Verificação formal de código gerado
-- Integração com Nagini verifier
-- Garantias de segurança
-- Validação de políticas
-
-**VeriBench** \[2\]:
-
-- Benchmark de verificação formal
-- Lean 4 proofs
-- Avaliação de LLMs em verificação
-
-**AlphaVerus** \[3\]:
-
-- Geração de código verificado
-- Tradução entre linguagens verificáveis
-- Bootstrapping de verificação
-
-## 7.5 MLOps e LLMOps
-
-### 7.5.1 Pipeline de LLMOps
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    PIPELINE LLMOPS                           │
-├─────────────┬─────────────┬─────────────┬───────────────────┤
-│   DATA      │   TRAIN     │   EVAL      │    DEPLOY         │
-├─────────────┼─────────────┼─────────────┼───────────────────┤
-• Ingestão    • Prompt      • Testes      • Canary            │
-• Validação   engineering   automatizados • Rollback          │
-• Versioning  • Fine-tuning • Benchmarks  • Monitoramento     │
-• Lineage     • RAG setup   • A/B tests   • Alertas           │
-└─────────────┴─────────────┴─────────────┴───────────────────┘
-```
-
-### 7.5.2 Plataformas de Deployment
-
-**Hugging Face Inference API**:
-
-- Deployment fácil de modelos
-- Escalabilidade automática
-- Múltiplos frameworks
-- Custos previsíveis
-
-**Replicate**:
-
-- Deployment de modelos customizados
-- API simples
-- Escalabilidade
-- Versionamento
-
-**Modal**:
-
-- Serverless GPU
-- Latência baixa
-- Escalabilidade automática
-- Custo eficiente
-
-**Baseten**:
-
-- Deployment enterprise
-- Modelos open source
-- Autoscaling
-- Observabilidade integrada
-
-### 7.5.3 Orquestração
-
-**Kubernetes + KServe**:
-
-- Orquestração de modelos
-- Autoscaling
-- A/B testing
-- Canary deployments
-
-**BentoML**:
-
-- Empacotamento de modelos
-- Serving otimizado
-- Multi-framework
-- Deployment flexível
-
-## 7.6 Ferramentas de Produtividade
-
-### 7.6.1 IDEs e Assistência
-
-**Cursor**:
-
-- IDE com IA integrada
-- Baseada em VS Code
-- Autocomplete avançado
-- Refatoração com IA
-
-**GitHub Copilot**:
-
-- Autocomplete de código
-- Geração de funções
-- Comentários para código
-- Múltiplas linguagens
-
-**Continue**:
-
-- Plugin open source
-- Integração com diversos LLMs
-- Chat integrado ao IDE
-- Customizável
-
-### 7.6.2 Documentação
-
-**Mintlify**:
-
-- Documentação com IA
-- Geração automática
-- Busca semântica
-- Análise de uso
-
-**ReadMe**:
-
-- Plataforma de docs
-- API references
-- Changelog
-- Comunidade
-
-## Practical Considerations
-
-### Seleção de Ferramentas
-
-**Critérios de Seleção**:
-
-1. **Maturidade**: Comunidade ativa, documentação
-2. **Integração**: Compatibilidade com stack existente
-3. **Escalabilidade**: Suporte ao crescimento
-4. **Custo**: Total cost of ownership
-5. **Vendor Lock-in**: Facilidade de migração
-
-Evite “stacks recomendados” fixos. Prefira definir requisitos (custos, latencia,
-privacidade, lock-in, observabilidade, integracao com CI) e selecionar
-componentes que atendam a esses requisitos.
-
-### Anti-Padrões
-
-1. **Over-engineering**: Ferramentas complexas para problemas simples
-2. **Vendor Lock-in**: Dependência excessiva de um único fornecedor
-3. **Falta de Observabilidade**: Deploy sem monitoramento adequado
-4. **Ignorar Custo**: Não monitorar gastos com tokens
-5. **Versionamento Inadequado**: Mudanças sem rastreabilidade
-
-### Custos e ROI
-
-Custos e retorno variam por provedor, volume, arquitetura, cache, e politicas de
-uso. Trate precos e estimativas de ROI como dados dependentes de contexto e,
-quando usados, documente fonte, periodo e assuncoes.
-
-## Summary
-
-- Frameworks como LangChain, LlamaIndex e Haystack aceleram desenvolvimento
-- RAG é arquitetura dominante para aplicações com conhecimento específico
-- Técnicas de prompt engineering evoluíram para padrões sofisticados
-- Observabilidade é crítica: LangSmith, W&B, PromptLayer
-- Verificação de qualidade e segurança exige ferramentas especializadas
-- LLMOps é disciplina emergente para operação de sistemas LLM
-- Seleção de ferramentas deve considerar maturidade, custo e vendor lock-in
+**Trade-offs:**
+*   **Pró:** Código limpo, fácil de entender e debuggar. Observabilidade grátis via var de ambiente.
+*   **Contra:** Chroma local não escala para milhões de docs (migrar para server mode).
+
+## Resumo Executivo
+
+*   **Menos Mágica, Mais Controle:** Prefira bibliotecas que deixam você ver o prompt final.
+*   **Observabilidade é Mandatória:** LLMs são caixas pretas; não adicione outra caixa preta (framework opaco) em volta.
+*   **RAG é a nova query SQL:** Aprenda a otimizar índices e buscas vetoriais.
+*   **Evals automatizados:** A única forma de evoluir sem quebrar o passado.
+*   **Modelos Locais:** Use para desenvolvimento e tarefas simples para economizar.
+
+## Próximos Passos
+
+*   Configurar uma conta no **LangSmith** ou **Weights & Biases**.
+*   Testar o **DSPy** para otimizar um prompt complexo que você tenha.
+*   Implementar um teste de regressão usando **RAGAS** para medir a qualidade do seu RAG.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                                                | Avaliação                                                              |
-| ------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Média** - Ferramentas evoluem rapidamente, mas princípios permanecem |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Médio** - Ferramentas automatizam, mas requerem configuração         |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Moderada** - Escolha inadequada de ferramentas pode levar a falhas   |
+| Critério | Avaliação |
+| :--- | :--- |
+| **Descartabilidade Geracional** | **Alta.** Ferramentas de IA nascem e morrem em meses. Aposte em conceitos (RAG, Evals), não em marcas. |
+| **Custo de Verificação** | **Baixo.** Ferramentas de Eval automatizam o trabalho pesado. |
+| **Responsabilidade Legal** | **Média.** Ferramentas de segurança (Guardrails) ajudam, mas a responsabilidade final é sua. |
 
 ## References
 
-1. VeriGuard: Enhancing LLM Agent Safety via Verified Code Generation.
-   arXiv:2510.05156, 2025.
-2. VeriBench: End-to-End Formal Verification Benchmark for AI Code Generation.
-   ICML 2025.
-3. AlphaVerus: Bootstrapping Formally Verified Code Generation.
-   arXiv:2412.06176, 2024.
-4. LangChain Documentation. <https://python.langchain.com/>
-5. LlamaIndex Documentation. <https://docs.llamaindex.ai/>
-6. DeepEval Documentation. <https://docs.confident-ai.com/>
-7. RAGAS Documentation. <https://docs.ragas.io/>
-8. Huyen, C. Designing Machine Learning Systems. O'Reilly Media, 2022.
+1.  **LangChain**. *Documentation*.
+2.  **LlamaIndex**. *High-Level Concepts*.
+3.  **Khattab, O. et al.** *DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines*.
+4.  **Arize AI**. *RAG Evaluation Best Practices*.
