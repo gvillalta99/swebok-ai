@@ -3,7 +3,7 @@ title: Separação de Concerns Críticos
 created_at: '2025-05-21'
 tags: [separation-of-concerns, seguranca, rag, prompt-injection, swebok-ai]
 status: in-progress
-updated_at: '2025-05-21'
+updated_at: '2026-02-06'
 ai_model: claude-3.5-sonnet
 ---
 
@@ -41,14 +41,14 @@ mistura instruções do desenvolvedor ("Resuma este texto") com dados do usuári
 
 ### Estratégias de Separação
 
-- **Delimitadores Claros**: Uso de marcação XML (`<user_input>...</user_input>`)
-  para demarcar dados não confiáveis, instruindo o modelo a tratar o conteúdo
-  apenas como dado.
-- **ChatML / System Prompts**: Utilização de APIs que estruturam mensagens em
-  funções distintas (`system`, `user`, `assistant`), reforçando a prioridade das
-  instruções do sistema sobre o input do usuário.
-- **Dual-LLM Pattern**: Um LLM sanitiza e estrutura os dados de entrada antes de
-  passá-los para o LLM que executa a lógica de negócios.
+- **Delimitadores explícitos**: Use marcações claras (por exemplo, XML) para
+  isolar conteúdo não confiável e reduzir ambiguidade entre instrução e dado.
+- **Separação por papéis de mensagem**: Em APIs de chat (`system`, `user`,
+  `assistant`), mantenha políticas no `system` e trate entradas externas como
+  não confiáveis. Essa separação **mitiga**, mas não elimina, prompt injection.
+- **Padrão Dual-LLM (quando aplicável)**: Utilize um modelo para
+  normalização/classificação de entrada e outro para execução da tarefa, com
+  validações adicionais no fluxo.
 
 ## 3.2 Conhecimento vs. Raciocínio (O Paradigma RAG)
 
@@ -62,12 +62,13 @@ estático, caro de atualizar e propenso a alucinação.
 - **Injeção de Contexto em Tempo de Execução**: Recupere dados relevantes de
   fontes confiáveis (Vector DB, SQL, APIs) e insira-os no contexto apenas no
   momento da inferência (Retrieval-Augmented Generation).
-- **Benefício**: Permite atualizar o conhecimento do sistema sem retreinar o
-  modelo e reduz alucinações ao forçar o modelo a citar fontes fornecidas.
+- **Benefício**: Permite atualizar conhecimento sem retreinamento e **reduz**
+  alucinações ao ancorar a resposta em evidências recuperadas; ainda assim,
+  requer checagem de fonte, relevância e consistência.
 
 ## 3.3 Orquestração vs. Execução
 
-Em sistemas agenticos complexos, a lógica de "o que fazer a seguir" deve ser
+Em sistemas agênticos complexos, a lógica de "o que fazer a seguir" deve ser
 separada da execução da tarefa em si.
 
 ### Padrão Orquestrador-Worker
@@ -94,29 +95,35 @@ anti-padrão. A arquitetura deve incluir mecanismos de *summarization* e
   na separação de instruções e dados.
 - Arquiteturas robustas externalizam o conhecimento (RAG) para garantir
   atualidade e veracidade.
-- Separar orquestração de execução permite construir sistemas agenticos mais
+- Separar orquestração de execução permite construir sistemas agênticos mais
   modulares e testáveis.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                                                         |
-| ------------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Mesmo que modelos melhorem na distinção instrução/dado, a separação lógica continuará sendo boa prática de engenharia. |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Testes de injeção e recuperação de contexto são automatizáveis.                                                        |
-| **Responsabilidade Legal**      | Quem responde pelo erro?              | **Alta**. Vazamento de dados via prompt injection é uma falha de segurança primária.                                              |
+| Critério                        | Descrição                               | Avaliação                                                                                                                                     |
+| ------------------------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta prática será obsoleta em 36 meses? | **Baixa**. Mesmo com evolução dos modelos na distinção entre instrução e dado, a separação lógica permanece uma prática arquitetural durável. |
+| **Custo de Verificação**        | Quanto custa validar esta atividade?    | **Médio**. Testes de injeção e recuperação de contexto são automatizáveis.                                                                    |
+| **Responsabilidade Legal**      | Quem responde pelo erro?                | **Alta**. Vazamento de dados via prompt injection é uma falha de segurança primária.                                                          |
 
-## Ver tambem
+## Ver também
 
-- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 01 - Engenharia de Restrições e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **Willison, S.** (2023). *Prompt injection: What’s the worst that can
-   happen?*. simonwillison.net.
-2. **Dohan, D., et al.** (2022). *Language Model Cascades*. arXiv:2207.10342.
-3. **Liu, Y., et al.** (2023). *Jailbreaking ChatGPT via Prompt Engineering: An
-   Empirical Study*. arXiv preprint.
-4. **Kamradt, G.** (2024). *Needle In A Haystack - Pressure Testing LLMs*.
-   github.com/gkamradt.
+1. WILLISON, S. Prompt injection: What's the worst that can happen? Simon
+   Willison's Weblog, 2023. Disponível em:
+   <https://simonwillison.net/2023/Apr/14/worst-that-can-happen/>. Acesso em: 6
+   fev. 2026.
+2. DOHAN, D. et al. Language Model Cascades. arXiv, 2022. arXiv:2207.10342. DOI:
+   10.48550/arXiv.2207.10342. Disponível em: <https://arxiv.org/abs/2207.10342>.
+   Acesso em: 6 fev. 2026.
+3. LIU, Y. et al. Jailbreaking ChatGPT via Prompt Engineering: An Empirical
+   Study. arXiv, 2024 (v2). arXiv:2305.13860. DOI: 10.48550/arXiv.2305.13860.
+   Disponível em: <https://arxiv.org/abs/2305.13860>. Acesso em: 6 fev. 2026.
+4. KAMRADT, G. Needle In A Haystack - Pressure Testing LLMs. GitHub, 2023.
+   Disponível em: <https://github.com/gkamradt/LLMTest_NeedleInAHaystack>.
+   Acesso em: 6 fev. 2026.

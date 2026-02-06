@@ -3,7 +3,7 @@ title: Qualidade Arquitetural em Sistemas com IA
 created_at: '2025-05-21'
 tags: [qa, qualidade, testes, metricas, swebok-ai]
 status: in-progress
-updated_at: '2025-05-21'
+updated_at: '2026-02-06'
 ai_model: claude-3.5-sonnet
 ---
 
@@ -11,15 +11,15 @@ ai_model: claude-3.5-sonnet
 
 ## Visão Geral
 
-Em sistemas de software tradicionais, qualidade é frequentemente sinônimo de
-conformidade com requisitos funcionais e desempenho (ISO 25010). Em sistemas com
-IA, a definição de qualidade expande-se para incluir dimensões probabilísticas e
-subjetivas. Um sistema pode ser rápido, seguro e funcionalmente correto (não
-travar), mas falhar catastroficamente ao gerar uma resposta plausível, porém
-falsa.
+Em sistemas de software tradicionais, qualidade é frequentemente associada à
+conformidade com requisitos funcionais e de desempenho (ISO/IEC 25010). Em
+sistemas com IA, essa definição se expande para incluir dimensões
+probabilísticas e, em alguns casos, subjetivas. Um sistema pode manter bom
+desempenho operacional e, ainda assim, produzir respostas plausíveis, porém
+factualmente incorretas.
 
-Esta seção revisita os atributos de qualidade para a era dos LLMs, focando em
-corretude factual, alinhamento e robustez estocástica.
+Esta seção revisita os atributos de qualidade na era dos LLMs, com foco em
+corretude factual, alinhamento, robustez estocástica e avaliação contínua.
 
 ## Objetivos de Aprendizagem
 
@@ -44,7 +44,9 @@ Além de Performance e Disponibilidade, arquitetos devem monitorar:
 
 ## 6.2 Avaliação Automatizada (LLM-as-a-Judge)
 
-Como testar qualidade subjetiva em escala? Usando um LLM para avaliar outro.
+Como avaliar qualidade subjetiva em escala? Uma abordagem recorrente é usar um
+LLM para avaliar outro, com critérios explícitos e amostras de referência
+humana.
 
 ### Padrão de Juiz Sintético
 
@@ -52,8 +54,11 @@ Como testar qualidade subjetiva em escala? Usando um LLM para avaliar outro.
   recebe a pergunta, o contexto e a resposta do modelo "Aluno" e atribui uma
   nota com justificativa.
 - **Frameworks**: RAGAS (Retrieval Augmented Generation Assessment), DeepEval.
-- **Aplicação**: Testes de regressão semântica. Se a nota média cair após uma
-  mudança de prompt, o build falha.
+- **Aplicação**: Regressão semântica em CI/CD. Quedas estatisticamente
+  relevantes de pontuação podem bloquear o build.
+- **Risco e mitigação**: Juízes automáticos apresentam vieses (posição,
+  verbosidade, preferência por estilo). Use calibragem periódica com avaliação
+  humana.
 
 ## 6.3 O Triângulo de Trade-offs
 
@@ -79,36 +84,45 @@ drift) mesmo sem deploy de código.
 
 ### Dataset de Ouro (Golden Set)
 
-Manter um conjunto curado de 50-100 exemplos de "perguntas e respostas ideais" é
-obrigatório para calibrar métricas automáticas.
+Manter um conjunto curado de exemplos (por exemplo, 50-100 pares de
+pergunta-resposta de alta qualidade) é uma prática recomendada para calibrar
+métricas automáticas e comparar versões de prompts, modelos e pipelines.
 
 ## Resumo
 
-- A qualidade em IA é multidimensional e inclui precisão factual e tom.
-- Testes unitários tradicionais (assert string equals) são inúteis para geração
-  de texto; use avaliação semântica.
-- Avaliação contínua (Evals) é o novo teste de integração.
+- A qualidade em IA é multidimensional e inclui precisão factual, utilidade e
+  adequação ao contexto.
+- Testes determinísticos de igualdade textual são insuficientes para geração
+  livre; complemente com avaliação semântica e rubricas explícitas.
+- Avaliação contínua (Evals) assume papel equivalente ao de testes de integração
+  em sistemas tradicionais.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                         |
-| ------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Modelos melhorarão, mas a necessidade de avaliar sua adequação ao negócio permanecerá. |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Alto**. Executar LLM-as-a-Judge em grande escala é computacionalmente caro.                     |
-| **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Garantir qualidade é a linha de defesa contra liability de produtos defeituosos.     |
+| Critério                        | Descrição                               | Avaliação                                                                                         |
+| ------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta prática será obsoleta em 36 meses? | **Baixa**. Modelos melhorarão, mas a necessidade de avaliar sua adequação ao negócio permanecerá. |
+| **Custo de Verificação**        | Quanto custa validar esta atividade?    | **Alto**. Executar LLM-as-a-Judge em grande escala é computacionalmente caro.                     |
+| **Responsabilidade Legal**      | Quem responde pelo erro?                | **Crítica**. Garantir qualidade é a linha de defesa contra liability de produtos defeituosos.     |
 
-## Ver tambem
+## Ver também
 
-- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 01 - Engenharia de Restrições e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **Es, S., et al.** (2023). *RAGAS: Automated Evaluation of Retrieval
-   Augmented Generation*. arXiv:2309.15217.
-2. **Liang, P., et al.** (2022). *Holistic Evaluation of Language Models*
-   (HELM). Stanford CRFM.
-3. **Zheng, L., et al.** (2023). *Judging LLM-as-a-Judge with MT-Bench and
-   Chatbot Arena*. NeurIPS.
-4. **Hugging Face**. (2024). *Open LLM Leaderboard Methodology*. huggingface.co.
+1. ES, S.; JAMES, J.; ESPINOSA-ANKE, L.; SCHOCKAERT, S. *RAGAS: Automated
+   Evaluation of Retrieval Augmented Generation*. arXiv:2309.15217, 2023. Versão
+   publicada: EACL Demo, 2024.
+2. LIANG, P. et al. *Holistic Evaluation of Language Models*. arXiv:2211.09110,
+   2022\. Publicado em: Transactions on Machine Learning Research (TMLR), 2023.
+3. ZHENG, L. et al. *Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena*.
+   NeurIPS 2023 (Datasets and Benchmarks Track). arXiv:2306.05685.
+4. HUGGING FACE. *Open LLM Leaderboard - About/Methodology*. Disponível em:
+   <https://huggingface.co/docs/leaderboards/en/open_llm_leaderboard/about>.
+   Acesso em: 2026-02-06.
+5. ISO/IEC. *ISO/IEC 25010:2011 - Systems and software engineering - Systems and
+   software Quality Requirements and Evaluation (SQuaRE) - System and software
+   quality models*. Geneva: ISO, 2011.

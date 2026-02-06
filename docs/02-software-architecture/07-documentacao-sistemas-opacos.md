@@ -3,7 +3,7 @@ title: Documentação Arquitetural para Sistemas Opacos
 created_at: '2025-05-21'
 tags: [documentacao, adrs, model-cards, arquitetura, swebok-ai]
 status: in-progress
-updated_at: '2025-05-21'
+updated_at: '2026-02-06'
 ai_model: claude-3.5-sonnet
 ---
 
@@ -33,16 +33,24 @@ Após estudar esta seção, o leitor deve ser capaz de:
 
 ## 7.1 System Cards e Model Cards
 
-Enquanto *Model Cards* descrevem o modelo técnico (ex: GPT-4), *System Cards*
-descrevem o produto construído sobre ele.
+Enquanto *Model Cards* documentam características e limites de um modelo
+específico, *System Cards* documentam o comportamento do sistema completo em
+produção (modelo, prompts, dados, políticas e mecanismos de controle). Em
+sistemas com IA, ambos são complementares e devem ser versionados.
 
 ### Estrutura de um System Card
 
-- **Intenção de Uso**: Para que o sistema serve (e para que NÃO serve).
-- **Limitações Conhecidas**: "O sistema pode alucinar em tópicos médicos", "O
-  conhecimento corta em 2023".
-- **Métricas de Performance**: Taxa de acerto em testes de benchmark internos.
-- **Considerações Éticas**: Riscos de viés identificados e mitigados.
+- **Escopo e Intenção de Uso**: Finalidade, público-alvo e usos proibidos.
+- **Arquitetura Operacional**: Modelo(s), cadeia de prompts, fontes de contexto
+  e guardrails.
+- **Limitações e Modos de Falha**: Cenários de erro, incerteza e alucinação
+  conhecidos.
+- **Métricas e Evidências**: Métricas offline/online, critérios de aceitação e
+  cobertura de avaliação.
+- **Riscos e Mitigações**: Viés, segurança, privacidade, abuso e controles
+  implementados.
+- **Governança e Versionamento**: Versão, responsável técnico, data de revisão e
+  política de atualização.
 
 ## 7.2 AI-ADRs (Artificial Intelligence Architecture Decision Records)
 
@@ -51,12 +59,15 @@ empírica ("O modelo X funcionou melhor que o Y"). Isso deve ser formalizado.
 
 ### Template de AI-ADR
 
-- **Contexto**: Precisávamos resumir textos jurídicos de 50 páginas.
-- **Opções Avaliadas**: GPT-3.5 (falhou na janela), Claude 2 (bom, mas lento),
-  GPT-4-Turbo (escolhido).
-- **Decisão**: Usar GPT-4-Turbo com *map-reduce* para documentos longos.
-- **Consequências**: Custo mais alto por documento, latência de 30s aceita pelo
-  negócio.
+- **Contexto**: Problema, restrições (latência, custo, compliance) e critérios
+  de sucesso.
+- **Opções Avaliadas**: Alternativas com versão exata (modelo, embedding,
+  estratégia de recuperação).
+- **Evidências**: Resultados comparativos (qualidade, custo, latência, risco).
+- **Decisão**: Opção escolhida, justificativa e escopo de aplicação.
+- **Consequências**: Impactos esperados, trade-offs e plano de rollback.
+- **Data de Revalidação**: Gatilhos para revisão (drift, incidente, mudança
+  regulatória).
 
 ## 7.3 Documentando Fluxos Cognitivos
 
@@ -93,23 +104,25 @@ impossível depurar respostas desatualizadas.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                                                     |
-| ------------------------------- | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. Transparência e governança são requisitos perenes.                                                                 |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Documentação é um esforço humano de baixo custo técnico, mas alto valor organizacional.                            |
-| **Responsabilidade Legal**      | Quem responde pelo erro?              | **Alta**. System Cards funcionam como "bulas" ou contratos de nível de serviço (SLA) implícitos sobre a segurança do sistema. |
+| Critério                        | Descrição                               | Avaliação                                                                                                                     |
+| ------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta prática será obsoleta em 36 meses? | **Baixa**. Transparência e governança são requisitos perenes.                                                                 |
+| **Custo de Verificação**        | Quanto custa validar esta atividade?    | **Baixo**. Documentação é um esforço humano de baixo custo técnico, mas alto valor organizacional.                            |
+| **Responsabilidade Legal**      | Quem responde pelo erro?                | **Alta**. System Cards funcionam como "bulas" ou contratos de nível de serviço (SLA) implícitos sobre a segurança do sistema. |
 
-## Ver tambem
+## Ver também
 
-- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 01 - Engenharia de Restrições e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
 1. **Mitchell, M., et al.** (2019). *Model Cards for Model Reporting*. FAT\*
-   '19.
-2. **Google**. (2023). *PaLM 2 System Card*. Google AI.
-3. **Meta**. (2023). *Llama 2: Open Foundation and Chat Models* (Seção de System
-   Card).
-4. **Gebru, T., et al.** (2021). *Datasheets for Datasets*. CACM.
+   '19, pp. 220-229. DOI: 10.1145/3287560.3287596.
+2. **Anil, R., et al.** (2023). *PaLM 2 Technical Report*. arXiv:2305.10403.
+   DOI: 10.48550/arXiv.2305.10403.
+3. **Touvron, H., et al.** (2023). *Llama 2: Open Foundation and Fine-Tuned Chat
+   Models*. arXiv:2307.09288.
+4. **Gebru, T., et al.** (2021). *Datasheets for Datasets*. Communications of
+   the ACM, 64(12), 86-92. DOI: 10.1145/3458723.

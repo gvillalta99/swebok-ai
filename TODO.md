@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/02-software-architecture/03-separacao-concerns-criticos.md
-- @book-reviewer review docs/02-software-architecture/04-design-auditabilidade-rastreamento.md
-- @book-reviewer review docs/02-software-architecture/05-antropizacao-interfaces-experiencias.md
-- @book-reviewer review docs/02-software-architecture/06-qualidade-arquitetural-ia.md
-- @book-reviewer review docs/02-software-architecture/07-documentacao-sistemas-opacos.md
 - @book-reviewer review docs/02-software-architecture/08-ferramentas-tecnicas-modernas.md
 - @book-reviewer review docs/02-software-architecture/index.md
 - @book-reviewer review docs/03-software-design/01-fundamentos-design-era-llms.md

@@ -3,7 +3,7 @@ title: Antropização de Interfaces e Experiências
 created_at: '2025-05-21'
 tags: [ux, hci, antropizacao, interfaces, swebok-ai]
 status: in-progress
-updated_at: '2025-05-21'
+updated_at: '2026-02-06'
 ai_model: claude-3.5-sonnet
 ---
 
@@ -11,12 +11,13 @@ ai_model: claude-3.5-sonnet
 
 ## Visão Geral
 
-A introdução de IA conversacional cria uma tendência natural à antropomorfização
-— a atribuição de características humanas a objetos não humanos.
-Arquitetonicamente, isso impõe novos requisitos sobre como o sistema se
-apresenta, mantém estado e gerencia a "personalidade". O desafio não é apenas
-visual (UI), mas estrutural: como projetar sistemas que sejam úteis e empáticos
-sem cair no "Uncanny Valley" ou enganar o usuário sobre sua natureza artificial.
+A introdução de IA conversacional intensifica a antropomorfização (ou
+personificação) de sistemas artificiais, isto é, a atribuição de traços humanos
+a artefatos computacionais. Arquitetonicamente, isso impõe novos requisitos
+sobre como o sistema se apresenta, mantém estado e gerencia a "personalidade". O
+desafio não é apenas visual (UI), mas estrutural: como projetar sistemas que
+sejam úteis e empáticos sem cair no "Uncanny Valley" ou enganar o usuário sobre
+sua natureza artificial.
 
 Esta seção explora o design de *Language User Interfaces* (LUI) e a arquitetura
 de personas sintéticas.
@@ -62,8 +63,9 @@ infinitas.
 - **Padrão Sugestivo**: O sistema deve sugerir o que pode fazer ("Posso ajudar a
   resumir textos ou traduzir documentos"), para combater a "síndrome da tela em
   branco".
-- **Feedback Progressivo**: Como LLMs são lentos, a interface deve indicar
-  "pensamento" ou "digitação" para manter a conexão.
+- **Feedback Progressivo**: Como modelos generativos podem ter latência
+  perceptível, a interface deve sinalizar processamento e progresso de resposta
+  sem sugerir estados mentais humanos.
 
 ## 5.3 Ética da Antropomorfização
 
@@ -89,7 +91,8 @@ limites são testados.
 
 ### Gestão de Memória Conversacional
 
-Para manter a ilusão de uma conversa contínua, o sistema precisa de memória.
+Para manter continuidade operacional e coerência contextual ao longo das
+interações, o sistema precisa de memória conversacional.
 
 - **Windowing**: Manter apenas as últimas N trocas.
 - **Resumo**: Comprimir conversas antigas em um sumário e reinjetar no contexto.
@@ -113,19 +116,23 @@ Para manter a ilusão de uma conversa contínua, o sistema precisa de memória.
 | **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Médio**. Testes A/B e estudos de usabilidade são necessários.                  |
 | **Responsabilidade Legal**      | Quem responde pelo erro?              | **Moderada**. Riscos principais envolvem manipulação do usuário e consentimento. |
 
-## Ver tambem
+## Ver também
 
-- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 01 - Engenharia de Restrições e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **Amershi, S., et al.** (2019). *Guidelines for Human-AI Interaction*.
-   Microsoft Research / CHI 2019.
-2. **Nass, C., & Yen, C.** (2010). *The Man Who Lied to His Laptop: What
-   Machines Teach Us About Human Relationships*. Current. (Fundamentos clássicos
-   de HCI aplicáveis a bots).
-3. **Google PAIR**. (2023). *Patterns for AI User Experience*. design.google.
-4. **Abercrombie, G., et al.** (2023). *Mirages of Reliability: Chatbots and the
-   Uncanny Valley of Truth*. arXiv.
+1. Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P.,
+   et al. (2019). *Guidelines for Human-AI Interaction*. In *Proceedings of the
+   2019 CHI Conference on Human Factors in Computing Systems (CHI '19)*. ACM.
+   <https://doi.org/10.1145/3290605.3300233>
+2. Nass, C., & Yen, C. (2010). *The Man Who Lied to His Laptop: What Machines
+   Teach Us About Human Relationships*. Current.
+3. Google PAIR (People + AI Research). (2019, atualizado em 2021). *People + AI
+   Guidebook (v2)*. <https://pair.withgoogle.com/guidebook-v2/>
+4. Abercrombie, G., Cercas Curry, A., Dinkar, T., Rieser, V., & Talat, Z.
+   (2023). *Mirages. On Anthropomorphism in Dialogue Systems*. In *Proceedings
+   of EMNLP 2023*, 4776-4790. Association for Computational Linguistics.
+   <https://doi.org/10.18653/v1/2023.emnlp-main.290>

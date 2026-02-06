@@ -3,7 +3,7 @@ title: Design para Auditabilidade e Rastreamento
 created_at: '2025-05-21'
 tags: [auditabilidade, rastreamento, logs, compliance, swebok-ai]
 status: in-progress
-updated_at: '2025-05-21'
+updated_at: '2026-02-06'
 ai_model: claude-3.5-sonnet
 ---
 
@@ -51,23 +51,24 @@ Para cada transação de IA, o sistema deve persistir imutavelmente:
 - **Feedback (se houver)**: Avaliação do usuário (thumbs up/down) ou correção
   posterior.
 
-## 4.2 Rastreabilidade de Cadeia de Pensamento (Chain of Thought Tracing)
+## 4.2 Rastreabilidade de Execução e Justificativas
 
 Em sistemas compostos (Agentes, Chains), saber o resultado final é insuficiente.
 É necessário rastrear os passos intermediários.
 
-### Traceability ID
+### ID de Rastreabilidade (Trace ID)
 
 Um identificador único de correlação (Trace ID) deve permear todas as chamadas
 LLM, buscas vetoriais e ações de ferramentas desencadeadas por uma requisição
 original.
 
-### Inspeção de Raciocínio
+### Inspeção de Justificativas
 
-Se o modelo utiliza *Chain of Thought* (CoT), o pensamento intermediário deve
-ser estruturado e armazenado separadamente da resposta final. Isso permite
-auditar *por que* o modelo tomou uma decisão, distinguindo erro de lógica de
-erro de fato.
+Em vez de persistir a cadeia de pensamento literal do modelo, o sistema deve
+registrar artefatos observáveis de decisão: plano de execução, ferramentas
+acionadas, documentos recuperados, evidências citadas, parâmetros de inferência
+e justificativa final estruturada. Isso preserva auditabilidade sem expor
+raciocínio interno sensível.
 
 ## 4.3 Versionamento e Reprodutibilidade
 
@@ -76,8 +77,8 @@ versionados.
 
 ### Prompt Registry
 
-Padrão onde prompts não estão "hardcoded" no código-fonte, mas armazenados em um
-registro centralizado versionado.
+Padrão no qual prompts não ficam codificados no código-fonte, mas armazenados em
+um registro centralizado e versionado.
 
 - *Benefício*: Permite rollbacks imediatos se uma nova versão do prompt degradar
   a performance, e testes A/B de prompts em produção.
@@ -107,38 +108,47 @@ privacidade (PII).
 Logs de LLM são verbosos (texto longo).
 
 - **Estratégia**: Amostragem inteligente (logar 100% dos erros, 1% dos sucessos)
-  ou retenção diferenciada (metadata por 1 ano, payload completo por 30 dias).
+  ou retenção diferenciada (metadados por 1 ano, payload completo por 30 dias).
 
 ## Resumo
 
 - Logs tradicionais são insuficientes; sistemas de IA exigem logs semânticos com
   inputs, outputs e configurações.
-- Rastrear a cadeia de pensamento (CoT) é crucial para entender a lógica de
-  agentes.
+- Rastrear execução e justificativas estruturadas é crucial para entender a
+  lógica de agentes sem expor conteúdo sensível.
 - Versionamento de prompts e modelos é obrigatório para governança e recuperação
   de desastres.
 
 ## Matriz de Avaliação Consolidada
 
-| Critério                        | Descrição                             | Avaliação                                                                                                  |
-| ------------------------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses? | **Baixa**. A necessidade de auditoria crescerá com a autonomia dos sistemas.                               |
-| **Custo de Verificação**        | Quanto custa validar esta atividade?  | **Baixo**. Logs são gerados automaticamente, o custo está no armazenamento e análise.                      |
-| **Responsabilidade Legal**      | Quem responde pelo erro?              | **Crítica**. Logs de auditoria são a principal defesa legal para provar diligência em caso de falha da IA. |
+| Critério                        | Descrição                                               | Avaliação                                                                                                  |
+| ------------------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Descartabilidade Geracional** | Esta capacidade arquitetural será obsoleta em 36 meses? | **Baixa**. A necessidade de auditoria crescerá com a autonomia dos sistemas.                               |
+| **Custo de Verificação**        | Quanto custa validar esta atividade?                    | **Baixo**. Logs são gerados automaticamente, o custo está no armazenamento e análise.                      |
+| **Responsabilidade Legal**      | Quem responde pelo erro?                                | **Crítica**. Logs de auditoria são a principal defesa legal para provar diligência em caso de falha da IA. |
 
-## Ver tambem
+## Ver também
 
-- [KA 01 - Engenharia de Restricoes e Contexto](../01-software-requirements/index.md)
-- [KA 03 - Design de Sistemas Hibridos](../03-software-design/index.md)
-- [KA 13 - Seguranca em Sistemas com IA](../13-software-security/index.md)
+- [KA 01 - Engenharia de Restrições e Contexto](../01-software-requirements/index.md)
+- [KA 03 - Design de Sistemas Híbridos](../03-software-design/index.md)
+- [KA 13 - Segurança em Sistemas com IA](../13-software-security/index.md)
 
 ## Referências
 
-1. **European Parliament**. (2024). *Artificial Intelligence Act*. (Foco nos
-   artigos sobre transparência e documentação técnica).
-2. **Sculley, D., et al.** (2015). *Hidden Technical Debt in Machine Learning
-   Systems*. NeurIPS. (O clássico, revisitado para LLMs).
-3. **Shankar, S., et al.** (2024). *Operationalizing LLMs: From PoC to
-   Production*. O'Reilly Report.
-4. **Google**. (2023). *Secure AI Framework (SAIF)*.
-   safety.google/cybersecurity-advancements/saif.
+1. UNIÃO EUROPEIA. *Regulation (EU) 2024/1689 of the European Parliament and of
+   the Council (Artificial Intelligence Act)*. Official Journal of the European
+   Union, 2024. Disponível em: <https://eur-lex.europa.eu/eli/reg/2024/1689/oj>.
+   Acesso em: 6 fev. 2026.
+2. SCULLEY, D.; HOLT, G.; GOLOVIN, D.; et al. *Hidden Technical Debt in Machine
+   Learning Systems*. In: Advances in Neural Information Processing Systems 28
+   (NeurIPS 2015), 2015. Disponível em:
+   <https://papers.nips.cc/paper_files/paper/2015/hash/86df7dcfd896fcaf2674f757a2463eba-Abstract.html>.
+   Acesso em: 6 fev. 2026.
+3. SHANKAR, S.; GARCIA, R.; HELLERSTEIN, J. M.; PARAMESWARAN, A. G. "We Have No
+   Idea How Models will Behave in Production until Production": How Engineers
+   Operationalize Machine Learning. Proc. ACM Hum.-Comput. Interact., v. 8,
+   CSCW1, Art. 206, 2024. DOI: <https://doi.org/10.1145/3653697>.
+4. HANSEN, R.; VENABLES, P. *Introducing Google's Secure AI Framework*. Google,
+   2023\. Disponível em:
+   <https://blog.google/technology/safety-security/introducing-googles-secure-ai-framework/>.
+   Acesso em: 6 fev. 2026.
