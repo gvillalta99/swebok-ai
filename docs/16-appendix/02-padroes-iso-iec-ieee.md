@@ -1,183 +1,126 @@
 ---
-title: 'Apêndice B: Padroes ISO/IEC e IEEE (Atualizado 2024-2025)'
-created_at: '2026-01-31'
-tags: [apendice, padroes, iso-iec, ieee, conformidade, swebok-ai]
-status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+title: "Apêndice B: Padrões IEEE e ISO/IEC - Versão Atualizada"
+created_at: "2026-02-05"
+tags: ["apendice", "padroes", "iso-iec", "ieee", "conformidade", "swebok-ai"]
+status: "review"
+updated_at: "2026-02-05"
+ai_model: "kimi-k2.5"
 ---
 
-# Apêndice B: Padroes ISO/IEC e IEEE (Atualizado 2024-2025)
+# Apêndice B: Padrões IEEE e ISO/IEC - Versão Atualizada
 
 ## Overview
 
-Este apendice descreve o panorama de standards relevantes para engenharia de
-software na era de sistemas com componentes de IA (incluindo LLMs e arquiteturas
-com agentes), com foco em 2024-2025. O objetivo e apoiar:
+Este apêndice mapeia o panorama normativo para a engenharia de software na era da IA (2024-2025). Diferente das versões anteriores do SWEBOK, onde os padrões eram estáveis, o cenário atual é marcado pela emergência rápida de normas específicas para **sistemas de gestão de IA** (ISO/IEC 42001), **teste de sistemas não determinísticos** (ISO/IEC TS 42119) e **hardware especializado** (IEEE P3540).
 
-- selecao de controles e evidencias (governanca e auditoria)
-- alinhamento de praticas de engenharia com requisitos externos
-- referencia cruzada (Ap. E) entre KAs e standards
-
-O SWEBOK-AI nao substitui standards. Ele sintetiza conhecimento geralmente
-reconhecido e aponta como e por que cada standard pode ser aplicado.
+O SWEBOK-AI não substitui estes padrões. Ele sintetiza o "conhecimento geralmente reconhecido" e aponta como cada norma serve como mecanismo de verificação, evidência e governança.
 
 ## Learning Objectives
 
-Apos estudar este apendice, o leitor deve ser capaz de:
+Após estudar este apêndice, o leitor deve ser capaz de:
 
-1. Diferenciar standards de sistema de gestao (MSS) de standards de processo,
-   produto e avaliacao.
-2. Selecionar um conjunto minimo de standards por objetivo (governanca, risco,
-   V&V, qualidade, seguranca).
-3. Usar standards como mecanismos de verificacao e de evidencia, nao como
-   "receitas" prescritivas.
+1.  **Distinguir** entre padrões de sistema de gestão (MSS), padrões de processo de engenharia e padrões de produto/hardware.
+2.  **Selecionar** o conjunto correto de normas para conformidade regulatória (ex: EU AI Act) e auditoria técnica.
+3.  **Integrar** requisitos de novos padrões (como ISO/IEC 42001) em processos tradicionais de software (como ISO/IEC/IEEE 12207).
 
-## B.1 Como ler este apendice
+## B.1 Padrões Fundamentais de IA (NOVO)
 
-### B.1.1 Tipos de standards
+Esta categoria define a infraestrutura de governança e qualidade específica para Inteligência Artificial.
 
-- Sistema de gestao (MSS): estrutura de governanca e melhoria continua (ex.:
-  AIMS).
-- Governanca: orienta o corpo diretivo e a supervisao organizacional.
-- Risco: define processos de identificacao, avaliacao e tratamento.
-- Engenharia (ciclo de vida): processos e artefatos para construir e manter
-  sistemas.
-- Teste e avaliacao: praticas de verificacao e validacao (V&V) e qualidade.
+### Série ISO/IEC 42000 (Gestão e Certificação)
 
-### B.1.2 Regra pratica
+*   **ISO/IEC 42001:2023 (Artificial Intelligence Management System - AIMS):**
+    *   *O que é:* O "ISO 9001 da IA". É o primeiro padrão internacional certificável para sistemas de gestão de IA.
+    *   *Uso:* Define requisitos para estabelecer, implementar, manter e melhorar continuamente um AIMS. Foca em governança organizacional, não em detalhes técnicos de modelos.
 
-Use MSS e governanca para definir "quem decide" e "como prova"; use standards de
-engenharia para definir "o que produzir"; use standards de teste para definir
-"como verificar".
+*   **ISO/IEC 42006:2025 (Requisitos para Auditoria e Certificação):**
+    *   *O que é:* A norma para quem audita. Define os requisitos para organismos que certificam a conformidade com a 42001.
+    *   *Uso:* Essencial para entender o que será cobrado em uma auditoria externa.
 
-## B.2 Standards centrais para governanca e risco em IA
+### Série ISO/IEC TS 42119 (Teste de IA)
 
-### B.2.1 Sistema de gestao de IA (AIMS)
+*   **ISO/IEC TS 42119-2:2025 (Testing of AI Systems - Overview):**
+    *   *O que é:* Abordagem baseada em risco para testar sistemas que incluem componentes de IA.
+    *   *Uso:* Define classes de teste para lidar com saídas estocásticas e drift de modelo.
 
-- ISO/IEC 42001:2023 define requisitos para estabelecer, implementar, manter e
-  melhorar continuamente um Artificial Intelligence Management System (AIMS).
-- ISO/IEC 42006:2025 define requisitos adicionais para organismos que auditam e
-  certificam AIMS (baseado em ISO/IEC 17021-1).
+*   **ISO/IEC TS 42119-3:2024 (Verification and Validation Analysis):**
+    *   *O que é:* Processos detalhados de V&V para sistemas de IA.
+    *   *Uso:* Diferenciação clara entre verificação (o modelo foi construído certo?) e validação (o modelo atende ao uso pretendido?).
 
-### B.2.2 Governanca do uso de IA
+## B.2 Padrões de Engenharia de Software com IA
 
-- ISO/IEC 38507:2022 orienta implicacoes de governanca para o uso de IA por
-  organizacoes, com foco no corpo diretivo.
+Atualizações de normas tradicionais para acomodar componentes cognitivos.
 
-### B.2.3 Gestao de risco especifica para IA
+*   **ISO/IEC/IEEE 12207:2017 (Software Life Cycle Processes):**
+    *   *Status:* **Atualizado via interpretação.** Embora o texto base seja de 2017, sua aplicação em 2025 exige a inclusão de processos de curadoria de dados e treinamento de modelos como atividades de "Implementação".
 
-- ISO/IEC 23894:2023 fornece orientacoes para gestao de risco para organizacoes
-  que desenvolvem, produzem, implantam ou usam IA.
-- NIST AI RMF 1.0 (2023) e um framework voluntario, amplamente referenciado,
-  para mapear, medir, gerenciar e governar riscos de IA.
+*   **ISO/IEC TR 29119-11:2020/2024 (Guidelines on Testing AI-based Systems):**
+    *   *Status:* Extensão da norma de teste (29119) focada em propriedades específicas de ML, como viés e robustez adversária.
 
-### B.2.4 Regulacao baseada em risco (contexto)
+*   **ISO/IEC 25010:2023 (Quality Models - SQuaRE):**
+    *   *Status:* **Revisado.** O modelo de qualidade agora acomoda explicitamente características críticas para IA, como "ausência de risco" (freedom from risk) e "confiabilidade" em contextos probabilísticos.
 
-- O EU AI Act (Regulation (EU) 2024/1689) consolida um regime regulatorio
-  baseado em risco. Mesmo fora da UE, ele funciona como referencia para
-  exigencias de documentacao, governanca e avaliacao.
+## B.3 Padrões de Governança e Ética
 
-## B.3 Standards de engenharia de software e ciclo de vida (base)
+Focam na responsabilidade e no impacto humano.
 
-Embora o foco do SWEBOK-AI seja AI-first, o fundamento de ciclo de vida
-permanece relevante.
+*   **ISO/IEC 38507:2024 (Governance Implications):**
+    *   *Foco:* Corpo diretivo. Define como a alta gestão deve supervisionar o uso de IA, abordando responsabilidade legal e ética.
 
-- ISO/IEC/IEEE 12207 (processos de ciclo de vida de software)
-- ISO/IEC/IEEE 15288 (processos de ciclo de vida de sistemas)
-- ISO/IEC/IEEE 29148 (engenharia de requisitos)
-- ISO/IEC/IEEE 42010 (descricao de arquitetura)
+*   **ISO/IEC 23894:2024 (Risk Management for AI):**
+    *   *Foco:* Gestão de risco. Estende a ISO 31000 para riscos específicos de IA (ex: alucinação, viés, explicabilidade). Fundamental para conformidade com o EU AI Act.
 
-No contexto de IA, a mudanca tipica nao e substituir estes standards, mas
-estender evidencias: dados, avaliacao de modelo, drift, e governanca de mudancas
-de comportamento.
+*   **IEEE 7000-2022 (Ethical Concerns during System Design):**
+    *   *Foco:* Design. Um processo-modelo para identificar e mitigar valores éticos em conflito durante a engenharia de requisitos e arquitetura.
 
-## B.4 Standards de teste, verificacao e validacao para IA
+*   **IEEE 2857-2024 (Privacy Engineering for AI):**
+    *   *Foco:* Privacidade. Técnicas para gestão de dados pessoais em treinamento e inferência, abordando riscos como inversão de modelo.
 
-### B.4.1 Aplicacao de praticas de teste a sistemas de IA
+## B.4 Padrões de Hardware para IA
 
-- ISO/IEC TS 42119-2:2025 fornece requisitos e orientacoes para aplicar a serie
-  ISO/IEC/IEEE 29119 ao teste de sistemas de IA, com abordagem baseada em risco.
-- ISO/IEC DTS 42119-3 (em desenvolvimento, 2025) trata de analise de verificacao
-  e validacao de sistemas de IA.
+Hardware especializado (NPUs, TPUs) agora tem normas próprias.
 
-### B.4.2 Etica e valores no design (com implicacoes de V&V)
+*   **IEEE P3540 (Technical Requirements of AI PC):**
+    *   *O que é:* Especificações para computadores pessoais otimizados para IA ("AI PCs"). Define requisitos de memória, largura de banda e capacidade de NPU.
 
-- IEEE 7000-2021 define um processo-modelo para enderecar preocupacoes eticas
-  durante o design de sistemas.
+*   **IEEE P3549 (Inference of AI Systems):**
+    *   *O que é:* Padrão para medir e certificar o desempenho e a precisão da inferência em diferentes hardwares.
 
-## B.5 Standards de qualidade, seguranca e privacidade (relevantes para IA)
+## B.5 Padrões LEGADOS (Para Referência)
 
-Em IA, requisitos de qualidade e seguranca tendem a se manifestar como controles
-operacionais verificaveis (monitoramento, logging, avaliacao, resposta a
-incidentes) e como requisitos de dados.
+Mantidos apenas para contexto histórico ou manutenção de sistemas antigos.
 
-- Serie ISO/IEC 27000 (seguranca da informacao), incluindo ISO/IEC 27001
-- Standards de privacidade e gestao de informacao (ex.: extensoes e guias
-  correlatos)
-- Standards de qualidade de software/sistemas e atributos de qualidade (ex.:
-  SQuaRE)
-
-## B.6 Tabela de selecao rapida (minimo viavel)
-
-| Objetivo                            | Standards principais         | Evidencia tipica                                        |
-| ----------------------------------- | ---------------------------- | ------------------------------------------------------- |
-| Governanca organizacional           | ISO/IEC 38507; ISO/IEC 42001 | politicas, papeis, atas, KPI de governanca              |
-| Certificacao / auditoria de AIMS    | ISO/IEC 42006; ISO/IEC 42001 | evidencias de auditoria, competencia, trilha de decisao |
-| Gestao de risco de IA               | ISO/IEC 23894; NIST AI RMF   | registro de riscos, tratamentos, monitoramento          |
-| Teste de sistemas de IA             | ISO/IEC TS 42119-2           | plano de teste, metricas, criterios de aceitacao        |
-| Processo etico no design            | IEEE 7000-2021               | analise de valores, trade-offs, decisao registrada      |
-| Conformidade regulatoria (contexto) | EU AI Act (2024/1689)        | documentacao, avaliacao, governanca baseada em risco    |
+*   **Padrões de Linguagem (ex: ISO/IEC 9899 C):** Ainda vitais para sistemas embarcados, mas commoditizados em sistemas de IA de alto nível.
+*   **Padrões de Processo em Cascata Pura:** Incompatíveis com a natureza iterativa e experimental do treinamento de modelos.
 
 ## Practical Considerations
 
-- Evite "checklists cegos": o valor do standard esta em criar evidencias e
-  capacidade de auditoria, nao em marcar caixas.
-- Diferencie obrigacao legal de aderencia voluntaria; ambas podem coexistir.
-- Padroes em evolucao (por exemplo, partes da serie 42119) mudam rapido;
-  trate-os como "monitorar" e versionar seu programa de conformidade.
+*   **Certificação é um Meio:** Não busque a certificação ISO 42001 apenas pelo selo. Use-a para organizar a "bagunça" de processos de dados e modelos.
+*   **Interoperabilidade:** Padrões como IEEE P3549 ajudam a evitar vendor lock-in de hardware, permitindo comparar performance de inferência objetivamente.
+*   **Custo de Conformidade:** Implementar ISO/IEC 23894 e 42001 exige investimento significativo em documentação. Reserve budget para "engenharia de conformidade".
 
-## Matriz de Avaliacao Consolidada
+## Matriz de Avaliação Consolidada
 
-| Criterio                        | Descricao                                                | Avaliacao |
-| ------------------------------- | -------------------------------------------------------- | --------- |
-| **Descartabilidade Geracional** | Esta skill sera obsoleta em 36 meses?                    | Baixa     |
-| **Custo de Verificacao**        | Quanto custa validar esta atividade quando feita por IA? | Baixo     |
-| **Responsabilidade Legal**      | Quem e culpado se falhar?                                | Critica   |
+| Critério | Descrição | Avaliação |
+| :--- | :--- | :--- |
+| **Descartabilidade Geracional** | Estes padrões serão obsoletos em 36 meses? | Baixa (Base normativa é lenta) |
+| **Custo de Verificação** | Custo de auditoria e conformidade? | Alto (Humano-intensivo) |
+| **Responsabilidade Legal** | Impacto de não conformidade? | Crítico (Multas, bloqueios) |
 
 ## Summary
 
-- Standards de IA em 2024-2025 enfatizam governanca, risco e teste, alem de
-  processo de engenharia.
-- ISO/IEC 42001 e o eixo de AIMS; ISO/IEC 42006 operacionaliza auditoria e
-  certificacao.
-- ISO/IEC 23894 e NIST AI RMF estruturam risco; ISO/IEC TS 42119 conecta teste
-  de software a teste de IA.
+*   A **ISO/IEC 42001** tornou-se a âncora para sistemas de gestão de IA.
+*   A gestão de risco (**ISO/IEC 23894**) é o processo central que conecta engenharia e negócios.
+*   Hardware agora tem padrões próprios (**IEEE P3540**), refletindo a importância da infraestrutura de inferência.
+*   Engenheiros de software devem conhecer esses padrões para dialogar com auditores e garantir a legalidade dos sistemas.
 
 ## References
 
-1. ISO. ISO/IEC 42001:2023 - Information technology — Artificial intelligence —
-   Management system. 2023. Disponivel em:
-   <https://www.iso.org/standard/81230.html>.
-2. ISO. ISO/IEC 42006:2025 - Requirements for bodies providing audit and
-   certification of artificial intelligence management systems. 2025. Disponivel
-   em: <https://www.iso.org/standard/44546.html>.
-3. ISO. ISO/IEC 23894:2023 - Information technology — Artificial intelligence —
-   Guidance on risk management. 2023. Disponivel em:
-   <https://www.iso.org/standard/77304.html>.
-4. ISO. ISO/IEC 38507:2022 - Governance implications of the use of artificial
-   intelligence by organizations. 2022. Disponivel em:
-   <https://www.iso.org/standard/56641.html>.
-5. ISO. ISO/IEC TS 42119-2:2025 - Artificial intelligence — Testing of AI — Part
-   2: Overview of testing AI systems. 2025. Disponivel em:
-   <https://www.iso.org/standard/84127.html>.
-6. ISO. ISO/IEC DTS 42119-3 - Artificial intelligence — Testing of AI — Part 3:
-   Verification and validation analysis of AI systems. 2025 (em
-   desenvolvimento). Disponivel em: <https://www.iso.org/standard/85072.html>.
-7. IEEE. IEEE 7000-2021 - IEEE Standard Model Process for Addressing Ethical
-   Concerns during System Design. 2021. Disponivel em:
-   <https://standards.ieee.org/standard/7000-2021.html>.
-8. NIST. AI Risk Management Framework (AI RMF 1.0). 2023. Disponivel em:
-   <https://www.nist.gov/itl/ai-risk-management-framework>.
-9. Uniao Europeia. Regulation (EU) 2024/1689 (EU AI Act). 2024. Disponivel em:
-   <https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng>.
+1.  **ISO/IEC.** *ISO/IEC 42001:2023 — Information technology — Artificial intelligence — Management system*. 2023.
+2.  **ISO/IEC.** *ISO/IEC 42006:2025 — Requirements for bodies providing audit and certification of artificial intelligence management systems*. 2025.
+3.  **ISO/IEC.** *ISO/IEC TS 42119-2:2025 — Artificial intelligence — Testing of AI — Part 2: Overview*. 2025.
+4.  **ISO/IEC.** *ISO/IEC 23894:2024 — Artificial intelligence — Guidance on risk management*. 2024.
+5.  **IEEE.** *IEEE Std 7000-2022 — IEEE Standard Model Process for Addressing Ethical Concerns during System Design*. 2022.
+6.  **IEEE.** *IEEE P3540 — Standard for Technical Requirements of Artificial Intelligence Personal Computer*. (Draft/Active Project).
+7.  **IEEE.** *IEEE P3549 — Standard for Inference of Artificial Intelligence Systems*. (Draft/Active Project).
+8.  **ISO/IEC.** *ISO/IEC 25010:2023 — Systems and software Quality Requirements and Evaluation (SQuaRE) — Product quality model*. 2023.
