@@ -3,19 +3,19 @@ title: Design de Componentes Determinísticos
 created_at: '2025-01-31'
 tags: [software-design, determinismo, core-domain, arquitetura-hexagonal]
 status: published
-updated_at: '2025-01-31'
-ai_model: gpt-4o
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Design de Componentes Determinísticos
 
-Em um sistema híbrido, a maior parte do código *ainda deve ser determinística*.
-A sedução da IA é tentar resolver tudo com um prompt ("Faça a lógica de negócio
-X"). Isso é um erro arquitetural grave.
+Em sistemas híbridos, a maior parte do código deve permanecer determinística.
+Delegar regras de negócio críticas a prompts ou inferências probabilísticas é um
+erro de design arquitetural.
 
-Componentes determinísticos são a âncora de sanidade do sistema. Eles garantem
-que 2 + 2 seja sempre 4, que permissões de acesso sejam respeitadas e que dados
-sejam persistidos com integridade.
+Componentes determinísticos sustentam previsibilidade operacional: garantem
+consistência de regras, controle de acesso e integridade de dados, mesmo sob
+falhas ou variação de comportamento dos modelos.
 
 ## O Núcleo Imutável (Core Domain)
 
@@ -48,10 +48,10 @@ um disco de rede lento e corrompível).
 
 A Arquitetura Hexagonal é perfeita para isolar LLMs.
 
-- **Dominio:** Puro, determinístico, sem dependência de IA.
+- **Domínio:** núcleo puro e determinístico, sem dependência direta de IA.
 - **Porta:** Interface que define o que o sistema precisa (ex: `ISummarizer`,
   `ISentimentAnalyzer`).
-- **Adaptador:** A implementação concreta que chama a OpenAI/Anthropic.
+- **Adaptador:** implementação concreta que integra provedores de IA.
 
 Isso permite que você troque o modelo, ou substitua por uma implementação
 "dummy" nos testes, sem tocar na lógica de negócio.
@@ -71,8 +71,9 @@ class LLMFraudDetector(FraudDetector):
         return result
 ```
 
-Para o resto do sistema, `FraudDetector` é apenas um componente que retorna um
-resultado. A complexidade da IA está encapsulada no adaptador.
+Para o restante do sistema, `FraudDetector` expõe apenas um contrato estável.
+Qualquer inferência probabilística permanece encapsulada no adaptador e sujeita
+a validação determinística antes da decisão final.
 
 ## Imutabilidade e Idempotência
 
@@ -87,8 +88,8 @@ recebem comandos da IA devem ser idempotentes.
 
 ## Estratégias de Fallback Determinístico
 
-O que acontece quando a "inteligência" falha? O sistema deve degradar para a
-"estupidez funcional".
+Quando a camada de IA falha, o sistema deve degradar para um modo seguro e
+funcional, preservando continuidade de serviço e controle de risco.
 
 1. **Regras Heurísticas:** Se o modelo de recomendação cair, retorne os "Top 10
    mais vendidos" (query simples de banco).
@@ -122,8 +123,21 @@ O que acontece quando a "inteligência" falha? O sistema deve degradar para a
 - Garantir que o código determinístico seja testável para suportar a
   variabilidade da entrada.
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
+## Referências
+
+1. EVANS, Eric. *Domain-Driven Design: Tackling Complexity in the Heart of
+   Software*. Addison-Wesley, 2003. ISBN 9780321125217.
+2. COCKBURN, Alistair. *Hexagonal Architecture (Ports & Adapters)*. HaT
+   Technical Report 2005.02, 2005. Disponível em:
+   <https://alistair.cockburn.us/hexagonal-architecture>. Acesso em: 6 fev.
+   2026\.
+3. FIELDING, R.; NOTTINGHAM, M.; RESCHKE, J. *HTTP Semantics*. RFC 9110, IETF,
+   2022\. DOI: <https://doi.org/10.17487/RFC9110>.
+4. TABASSI, Elham. *Artificial Intelligence Risk Management Framework (AI RMF
+   1.0)*. NIST AI 100-1, 2023. DOI: <https://doi.org/10.6028/NIST.AI.100-1>.

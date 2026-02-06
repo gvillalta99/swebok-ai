@@ -3,18 +3,19 @@ title: Design de Interfaces e Contratos
 created_at: '2025-01-31'
 tags: [software-design, api-design, contratos, json-schema, prompt-engineering]
 status: published
-updated_at: '2025-01-31'
-ai_model: gpt-4o
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Design de Interfaces e Contratos
 
-A interface mais crítica em sistemas modernos não é mais a REST API entre
-microserviços, mas o contrato "fuzzy" entre o código determinístico e o modelo
-probabilístico.
+Em sistemas modernos, a interface mais crítica não é apenas a API REST entre
+microserviços, mas também o contrato entre componentes determinísticos e modelos
+probabilísticos.
 
-Se essa interface for baseada em "chat" (strings soltas), seu sistema será
-frágil. Engenharia de software robusta exige contratos tipados.
+Quando essa interface é tratada como texto livre, o sistema torna-se frágil.
+Engenharia de software robusta exige contratos estruturados, validação explícita
+e tratamento de falhas.
 
 ## Prompts como APIs (Function Calling)
 
@@ -49,21 +50,20 @@ Ao passar esse schema para o modelo, você transforma linguagem natural em um
 objeto tipado que o resto do seu sistema (Java, C#, Python) pode consumir com
 segurança.
 
-## Schema First Development
+## Desenvolvimento orientado a schema (Schema-First)
 
-Antes de escrever o prompt, escreva o Schema de saída. Isso força você a pensar
-nos dados que realmente precisa.
+Antes de escrever o prompt, defina o schema de saída. Essa prática força a
+explicitação dos dados realmente necessários e reduz ambiguidade.
 
 **Regras para Schemas de LLM:**
 
 1. **Descrições são Instruções:** O campo `description` no JSON Schema não é
    documentação para humanos, é instrução para a IA. Use-o para desambiguar (ex:
    "Data da compra, não data da entrega").
-2. **Enums são Poderosos:** Restrinja campos de texto a um conjunto finito de
-   opções (Enum) sempre que possível. Isso elimina alucinações de valores
-   inválidos.
-3. **Nullable Explicitamente:** Diga à IA quando é aceitável retornar `null` se
-   ela não encontrar a informação. Caso contrário, ela inventará um valor.
+2. **Enums reduzem ambiguidade:** Restrinja campos textuais a conjuntos finitos
+   de opções sempre que possível.
+3. **Nulabilidade explícita:** Declare quando `null` é permitido. Sem isso, o
+   modelo tende a preencher lacunas com valores inferidos.
 
 ## Tolerância a Falhas na Interface
 
@@ -75,10 +75,11 @@ interface deve ser defensivo.
 Implemente uma camada de middleware que tenta consertar JSONs quebrados antes de
 lançar erro.
 
-- Bibliotecas como `json_repair` podem salvar JSONs com vírgulas faltando.
-- **Self-Correction:** Se a validação do Pydantic falhar, capture o erro e
-  reenvie ao modelo: "Você gerou este JSON inválido com o erro X. Corrija e
-  reenvie." (Funciona em 80% dos casos).
+- Bibliotecas como `json_repair` podem recuperar JSONs malformados (por exemplo,
+  delimitadores ausentes).
+- **Correção com retry orientado por erro:** se a validação (ex.: Pydantic)
+  falhar, devolva ao modelo o erro de validação e solicite nova emissão
+  estruturada.
 
 ## Contratos de Contexto (Context Window Management)
 
@@ -95,27 +96,51 @@ tokens no prompt e esperar sucesso.
 
 - **Tipagem Fraca:** Usar `dict` ou `map` genéricos. Use classes/structs
   definidos.
-- **Json Mode vs Function Calling:** `Json Mode` garante JSON válido, mas não
-  garante o Schema. Prefira `Function Calling` ou `Structured Outputs` (feature
-  nativa de modelos novos) que garantem o Schema.
+- **JSON mode vs Structured Outputs:** JSON mode tende a assegurar JSON
+  sintaticamente válido, mas não conformidade completa com um schema específico.
+  Para contratos estritos, prefira Structured Outputs/Function Calling com
+  schema explícito e validação no consumidor.
 - **Instruções Conflitantes:** O Schema diz "campo obrigatório", o Prompt diz
   "opcional". O modelo fica confuso. Mantenha a fonte da verdade no Schema.
 
 ## Resumo Executivo
 
-- **Schema é Rei:** Defina a saída desejada com tipos estritos antes de começar.
-- **Descrições Valem Ouro:** Documente seus campos para a IA, não para o
-  programador.
-- **Repare, não Descarte:** Tente corrigir erros de sintaxe automaticamente.
-- **Defina Enums:** Reduza o espaço de busca do modelo restringindo opções.
+- **Schema primeiro:** Defina a saída com tipos e restrições antes da engenharia
+  de prompts.
+- **Descrições orientam geração:** Campos bem descritos reduzem ambiguidades
+  semânticas.
+- **Recuperação controlada:** Tente reparar falhas estruturais com validação e
+  retry antes de descartar respostas.
+- **Restrições explícitas:** Enums e nulabilidade explícita reduzem alucinações
+  de formato e conteúdo.
 
 ## Próximos Passos
 
 - Ver como testar esses contratos na seção **Design para Verificabilidade**.
 - Aplicar esses conceitos na construção de **AI Gateways** (visto na seção 03).
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
+## Referências
+
+1. OpenAI. *Structured Outputs*. Disponível em:
+   <https://platform.openai.com/docs/guides/structured-outputs>. Acesso em:
+   2026-02-06.
+2. OpenAI Help Center. *Function Calling in the OpenAI API*. Atualizado em 2025.
+   Disponível em:
+   <https://help.openai.com/en/articles/8555517-function-calling-in-the-openai-api>.
+   Acesso em: 2026-02-06.
+3. JSON Schema Organization. *JSON Schema Specification (Draft 2020-12)*.
+   Disponível em: <https://json-schema.org/specification>. Acesso em:
+   2026-02-06.
+4. Bray, T. (Ed.). *RFC 8259: The JavaScript Object Notation (JSON) Data
+   Interchange Format*. IETF, 2017. Disponível em:
+   <https://www.rfc-editor.org/rfc/rfc8259>. Acesso em: 2026-02-06.
+5. Pydantic. *Models*. Disponível em:
+   <https://docs.pydantic.dev/latest/concepts/models/>. Acesso em: 2026-02-06.
+6. PyPI. *json-repair*. Disponível em: <https://pypi.org/project/json-repair/>.
+   Acesso em: 2026-02-06.

@@ -3,8 +3,8 @@ title: Ferramentas e Técnicas Modernas
 created_at: '2025-01-31'
 tags: [software-design, ferramentas, ide, copilot, agentes, rag]
 status: published
-updated_at: '2025-01-31'
-ai_model: gpt-4o
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Ferramentas e Técnicas Modernas
@@ -23,10 +23,11 @@ sistemas eficazes.
 O ambiente de desenvolvimento deixou de ser um editor de texto passivo (VS Code
 vanilla) para ser um par programador ativo.
 
-- **Ferramentas:** Cursor, GitHub Copilot Workspace, JetBrains AI.
-- **Impacto no Design:** A capacidade de "Conversar com o Codebase"
-  (`@Codebase`) permite que designers entendam o impacto de uma mudança em todo
-  o sistema instantaneamente. O design torna-se mais iterativo.
+- **Ferramentas:** Cursor, GitHub Copilot (Chat e agentes), JetBrains AI
+  Assistant.
+- **Impacto no Design:** A capacidade de consultar semanticamente o codebase e
+  gerar propostas de mudança com contexto amplia a análise de impacto e acelera
+  ciclos iterativos de design.
 
 ### 2. Frameworks de Orquestração
 
@@ -54,20 +55,22 @@ semântico exige Vector DBs.
 Como discutido na Seção 06, você precisa medir para gerenciar.
 
 - **Ferramentas:** LangSmith, Arize Phoenix, Weights & Biases.
-- **Uso:** Rastrear (trace) cada passo de um agente, visualizar a árvore de
-  raciocínio, comparar latência entre modelos e rodar datasets de teste.
+- **Uso:** Rastrear traces e spans de execução, comparar
+  latência/custo/qualidade entre modelos e executar conjuntos de avaliação (eval
+  datasets) de forma contínua.
 
 ## Técnicas Emergentes
 
 ### Prompt Engineering como Código
 
-Tratar prompts como arquivos de texto em pastas é coisa do passado.
+Tratar prompts como artefatos de engenharia exige versionamento, testes e
+métricas, da mesma forma que código de aplicação.
 
-- **Técnica:** Prompts versionados, compilados e otimizados automaticamente
-  (DSPy).
-- **DSPy:** Um framework que abstrai o prompt. Você define a assinatura (Input
-  -> Output) e fornece exemplos. O framework *otimiza* o prompt automaticamente
-  para o modelo escolhido. Isso traz o determinismo de volta ao design.
+- **Técnica:** Prompts e políticas de resposta versionados, avaliados por suites
+  de testes e, quando aplicável, otimizados automaticamente.
+- **DSPy:** Framework declarativo no qual se define assinatura, exemplos e
+  métrica de avaliação; os otimizadores buscam configurações de
+  prompt/demonstrações que maximizem desempenho no conjunto de validação.
 
 ### Agentic Design Patterns
 
@@ -82,10 +85,10 @@ Desenhar sistemas como colônias de pequenos agentes especializados.
 
 - [ ] **Lock-in:** Essa ferramenta me prende a um modelo específico (ex: só
   funciona com OpenAI)? Prefira ferramentas agnósticas.
-- **Privacidade:** Meus dados de código/design são enviados para treino do
-  modelo da ferramenta? (Verifique "Zero Data Retention").
-- **Simplicidade:** Eu realmente preciso de um framework de agentes complexo ou
-  um script Python de 50 linhas resolve? (KISS).
+- [ ] **Privacidade e Governança:** Verifique políticas de retenção, uso para
+  treinamento, residência de dados, DPA e controles de acesso antes da adoção.
+- [ ] **Simplicidade:** Eu realmente preciso de um framework de agentes complexo
+  ou um script Python de 50 linhas resolve? (KISS).
 
 ## Resumo Executivo
 
@@ -94,8 +97,8 @@ Desenhar sistemas como colônias de pequenos agentes especializados.
 - **RAG é Infra:** A recuperação de informação é parte crítica da arquitetura.
 - **Observabilidade é Obrigatória:** Não coloque LLMs em produção sem
   ferramentas de tracing (LangSmith, etc).
-- **DSPy é o Futuro:** A tendência é deixar de escrever prompts manuais e passar
-  a "compilar" otimizações.
+- **Prompting com Engenharia:** A tendência é migrar de prompts ad hoc para
+  artefatos versionados, testáveis e otimizáveis por métrica.
 
 ## Conclusão do Capítulo
 
@@ -110,8 +113,23 @@ ______________________________________________________________________
 
 *Fim do Capítulo 03 - SWEBOK-AI v5.0*
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
+## Referências
+
+1. Lewis, P. et al. *Retrieval-Augmented Generation for Knowledge-Intensive NLP
+   Tasks*. NeurIPS, 2020.
+2. Khattab, O. et al. *DSPy: Compiling Declarative Language Model Calls into
+   Self-Improving Pipelines*. ICLR, 2024.
+3. LangChain. *LangGraph Overview* (documentação oficial).
+4. LangChain. *LangSmith Observability* (documentação oficial).
+5. Microsoft. *AutoGen Documentation* (documentação oficial).
+6. Weights & Biases. *W&B Weave Documentation* (documentação oficial).
+7. GitHub. *GitHub Copilot Workspace: Welcome to the Copilot-native developer
+   environment*. GitHub Blog, 2024.
+8. OpenAI. *Data Usage for Consumer Services FAQ* (política de uso de dados para
+   ofertas business/API).

@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/03-software-design/04-design-componentes-deterministicos.md
-- @book-reviewer review docs/03-software-design/05-design-interfaces-contratos.md
-- @book-reviewer review docs/03-software-design/06-design-verificabilidade.md
-- @book-reviewer review docs/03-software-design/07-refatoracao-modernizacao-assistida.md
-- @book-reviewer review docs/03-software-design/08-ferramentas-tecnicas-modernas.md
 - @book-reviewer review docs/03-software-design/index.md
 - @book-reviewer review docs/04-software-construction/01-fundamentos-orquestracao-curadoria.md
 - @book-reviewer review docs/04-software-construction/02-pipeline-verificacao-integracao.md
