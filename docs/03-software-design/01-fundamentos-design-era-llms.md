@@ -3,8 +3,8 @@ title: Fundamentos do Design na Era dos LLMs
 created_at: '2025-01-31'
 tags: [software-design, fundamentos, llm, curadoria, design-thinking]
 status: published
-updated_at: '2025-01-31'
-ai_model: gpt-4o
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Fundamentos do Design na Era dos LLMs
@@ -25,18 +25,20 @@ cada linha de código era intencional. Com LLMs, operamos com sistemas
 estocásticos onde a intenção (prompt) e a execução (código gerado) têm uma
 relação probabilística, não determinística.
 
-O papel do engenheiro evolui de "pedreiro digital" para "curador técnico". O
+O papel do engenheiro evolui de implementador primário para curador técnico. O
 design deve refletir essa mudança:
 
 1. **Code Review as Design:** A estrutura do sistema deve ser granular o
-   suficiente para que cada unidade gerada possa ser revisada por um humano em
-   menos de 5 minutos. Monólitos gerados são inauditáveis.
+   suficiente para permitir revisão humana rápida por unidade de mudança
+   (heurística: poucos minutos por artefato). Monólitos gerados tendem a ser
+   inauditáveis.
 2. **Isolamento de Falhas:** Assuma que qualquer bloco de lógica gerado pode
-   conter alucinações sutis. O design deve encapsular esses blocos em interfaces
-   rígidas (Contracts) que validam inputs e outputs.
+   conter alucinações sutis. O design deve encapsular esses blocos em contratos
+   de interface explícitos, com validação de entradas e saídas.
 3. **Explainability by Design:** Se um agente toma uma decisão autônoma, o
-   sistema deve registrar *por que* ele fez isso. Logs de "trace" não são mais
-   apenas para debug de erro, mas para auditoria de comportamento.
+   sistema deve registrar *por que* ela ocorreu. Registros de rastreabilidade
+   não servem apenas para depuração de falhas, mas para auditoria de
+   comportamento.
 
 ## O Paradoxo da Abundância (Jevons Paradox)
 
@@ -56,8 +58,8 @@ escreveu?".
 
 - Prefira componentes "boring" e bibliotecas padrão a código customizado gerado,
   mesmo que a IA possa gerá-lo em segundos.
-- Código menos inteligente é melhor. Se a IA gera uma solução "esperta" e
-  ilegível, descarte. Peça a solução "júnior" e legível.
+- Prefira soluções simples e legíveis. Se a IA gerar uma alternativa sofisticada
+  porém opaca, descarte e solicite uma versão mais explícita e manutenível.
 
 ## Design como Gestão de Probabilidade
 
@@ -85,9 +87,10 @@ determinísticas sem verificação.
 - [ ] **Fronteiras Claras:** O sistema distingue explicitamente entre dados
   gerados por IA e dados confiáveis (trusted source)?
 - [ ] **Granularidade de Revisão:** Os componentes são pequenos o suficiente
-  para serem descartados e regerados sem dor?
-- [ ] **Mecanismo de Reversão:** Existe um "botão de pânico" para desligar
-  funcionalidades baseadas em IA sem derrubar o sistema principal?
+  para serem descartados e regenerados com baixo custo?
+- [ ] **Mecanismo de Reversão:** Existe um mecanismo de desativação segura (kill
+  switch) para funcionalidades baseadas em IA sem indisponibilizar o sistema
+  principal?
 - [ ] **Custo de Token:** O design considera o impacto econômico de chamadas
   recursivas ou loops de agentes?
 - [ ] **Human-in-the-Loop:** Decisões críticas exigem aprovação humana explícita
@@ -97,9 +100,10 @@ determinísticas sem verificação.
 
 - **Confiança Cega no Schema:** Achar que porque o LLM retornou um JSON válido,
   o conteúdo lógico está correto. (O JSON valida a sintaxe, não a semântica).
-- **Over-Engineering de Prompts:** Tentar corrigir falhas de arquitetura criando
-  prompts de 2000 palavras. Se o prompt está complexo demais, o design do
-  componente está errado. Quebre em passos menores.
+- **Over-engineering de prompts:** Tentar corrigir falhas de arquitetura com
+  prompts excessivamente longos e frágeis. Se o prompt se torna complexo demais,
+  o desenho do componente provavelmente está inadequado; decomponha em etapas
+  menores.
 - **Ignorar Latência:** LLMs são lentos. Projetar interações síncronas que
   bloqueiam a UI enquanto o modelo "pensa" por 10 segundos destrói a UX.
 
@@ -120,8 +124,21 @@ determinísticas sem verificação.
 - Estudar **Engenharia de Restrições** (KA 01) para definir os limites que o
   design deve respeitar.
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
+## Referências
+
+1. JEVONS, W. S. *The Coal Question: An Inquiry Concerning the Progress of the
+   Nation, and the Probable Exhaustion of Our Coal-Mines*. London: Macmillan,
+   1865\.
+2. TABASSI, E. et al. *Artificial Intelligence Risk Management Framework (AI RMF
+   1.0)*. NIST AI 100-1, 2023. DOI: 10.6028/NIST.AI.100-1.
+3. OWASP GenAI Security Project. *OWASP Top 10 for LLM Applications 2025*. 2025.
+   Disponível em: <https://genai.owasp.org/llm-top-10/>
+4. ISO/IEC. *ISO/IEC 42001:2023 - Information technology - Artificial
+   intelligence - Management system*. 2023. Disponível em:
+   <https://www.iso.org/standard/81230.html>

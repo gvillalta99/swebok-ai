@@ -3,8 +3,8 @@ title: Princípios de Design para Código Gerado
 created_at: '2025-01-31'
 tags: [software-design, solid, principios, codigo-gerado, manutenibilidade]
 status: published
-updated_at: '2025-01-31'
-ai_model: gpt-4o
+updated_at: '2026-02-06'
+ai_model: openai/gpt-5.3-codex
 ---
 
 # Princípios de Design para Código Gerado
@@ -22,12 +22,13 @@ desenvolvimento assistido por IA.
 No passado, código era um ativo de longo prazo. Hoje, código gerado deve ser
 tratado como **inventário perecível**.
 
-Se um componente é complexo demais para ser entendido, ele não deve ser
-refatorado; deve ser apagado e regerado com um prompt melhor e requisitos mais
-claros.
+Se um componente é complexo demais para ser entendido com custo razoável, ele
+não deve ser apenas refatorado; deve ser removido e regenerado com requisitos,
+restrições e critérios de aceitação mais claros.
 
 **O Princípio:** Projete componentes pequenos e desacoplados o suficiente para
-que o custo de deletar e regerar seja menor que o custo de entender e consertar.
+que o custo de deletar e regenerar seja menor que o custo de entender e
+consertar.
 
 ## 2. SOLID na Era da IA
 
@@ -37,8 +38,8 @@ Como os princípios SOLID se aplicam quando a IA escreve a implementação?
 
 **Novo foco:** Um componente (ou agente) deve ter apenas uma missão cognitiva.
 Se você pede para um LLM "analisar o texto, extrair datas E formatar o JSON", a
-chance de alucinação aumenta exponencialmente. Quebre em três passos. O SRP
-agora é sobre **Carga Cognitiva do Modelo**.
+probabilidade de erro e alucinação tende a aumentar de forma relevante. Quebre
+em três passos. O SRP agora é sobre **Carga Cognitiva do Modelo**.
 
 ### O - Open/Closed Principle
 
@@ -68,24 +69,28 @@ deve ser um Schema rígido (Pydantic/Zod). O prompt é um detalhe de implementa�
 volátil. O sistema depende da estrutura de dados acordada, não de como o texto
 foi gerado.
 
-## 3. Prompt as Specification (PaS)
+## 3. Prompt como Especificação Operacional (PaS)
 
-Em muitos casos, o prompt *é* o design de baixo nível.
+Em sistemas com IA, o prompt frequentemente funciona como especificação
+operacional de execução, mas não substitui requisitos, arquitetura e contratos
+formais.
 
-- **Legibilidade:** O prompt deve ser legível por humanos e versionado no Git.
-- **Imutabilidade:** Trate prompts como código compilado. Não concatene strings
-  magicamente no meio do código da aplicação.
-- **Testabilidade:** Cada prompt deve ter um conjunto de casos de teste (evals)
-  associados.
+- **Legibilidade e rastreabilidade:** Prompts devem ser legíveis, versionados e
+  vinculados a requisito/ADR/issue.
+- **Imutabilidade controlada:** Evite concatenação ad hoc em tempo de execução;
+  prefira templates com variáveis explícitas e validação.
+- **Testabilidade:** Cada prompt deve possuir casos de avaliação automatizada
+  (evals) e critérios objetivos de aprovação.
 
 ## 4. O Princípio da Verificabilidade (Verifiability First)
 
 Nunca aceite código gerado que não venha acompanhado de uma forma de verificar
 sua correção automaticamente.
 
-> **Regra de Ouro:** Se a IA gera a implementação, ela deve ser obrigada a gerar
-> também os testes unitários. Se os testes não passarem, o código nem chega ao
-> humano.
+> **Regra de Ouro:** Se a IA gera a implementação, ela deve gerar evidências de
+> verificabilidade: testes unitários, testes de integração e validações de
+> contrato/esquema. Sem aprovação automatizada mínima, o código não avança no
+> pipeline.
 
 O design do sistema deve impor essa barreira. O pipeline de CI/CD deve rejeitar
 commits de código gerado sem cobertura de teste correspondente.
@@ -93,8 +98,8 @@ commits de código gerado sem cobertura de teste correspondente.
 ## Armadilhas Comuns (Anti-Patterns)
 
 - **The God Prompt:** Um único prompt gigante tentando fazer todo o design da
-  aplicação. Isso é o equivalente ao "God Object" da OOP. É inmanutenível e não
-  determinístico.
+  aplicação. Isso é o equivalente ao "God Object" da OOP. É de difícil
+  manutenção e não determinístico.
 - **Comentários Mentirosos:** A IA adora gerar comentários que explicam o que o
   código *deveria* fazer, não o que ele *faz*. O design deve priorizar código
   auto-explicativo e ignorar comentários gerados.
@@ -130,8 +135,9 @@ Cada passo é isolado, testável e segue o SRP.
 - **Código é passivo, o Design é ativo:** Use princípios para controlar a
   entropia gerada pela IA.
 - **SRP é sobre Cognição:** Divida tarefas para reduzir a chance de alucinação.
-- **Schemas são a Lei:** O único contrato válido é a estrutura de dados tipada;
-  texto livre é ruído.
+- **Schemas como contrato primário:** Estruturas tipadas devem ser o contrato
+  principal entre componentes; texto livre deve ser tratado como entrada não
+  confiável.
 - **Descartabilidade:** O código gerado deve ser fácil de jogar fora.
 
 ## Próximos Passos
@@ -141,8 +147,25 @@ Cada passo é isolado, testável e segue o SRP.
 - Implementar **Testes de Mutação** para verificar a robustez dos testes gerados
   pela IA (KA 05).
 
-## Ver tambem
+## Ver também
 
-- [KA 02 - Arquitetura de Sistemas Hibridos](../02-software-architecture/index.md)
-- [KA 04 - Orquestracao e Curadoria de Codigo](../04-software-construction/index.md)
+- [KA 02 - Arquitetura de Sistemas Híbridos](../02-software-architecture/index.md)
+- [KA 04 - Orquestração e Curadoria de Código](../04-software-construction/index.md)
 - [KA 12 - Qualidade de Software](../12-software-quality/index.md)
+
+## Referências
+
+1. Martin, R. C. *Agile Software Development, Principles, Patterns, and
+   Practices*. Prentice Hall, 2002. ISBN 978-0135974445.
+2. OpenAI. *Function calling and other API updates*. 2023. Disponível em:
+   <https://openai.com/index/function-calling-and-other-api-updates/>
+3. OpenAI. *Introducing Structured Outputs in the API*. 2024. Disponível em:
+   <https://openai.com/index/introducing-structured-outputs-in-the-api>
+4. OpenAI. *Evals (GitHub Repository)*. Disponível em:
+   <https://github.com/openai/evals>
+5. Pydantic. *JSON Schema*. Disponível em:
+   <https://docs.pydantic.dev/latest/concepts/json_schema>
+6. Zod. *JSON Schema*. Disponível em: <https://zod.dev/json-schema>
+7. Jia, Y.; Harman, M. *An Analysis and Survey of the Development of Mutation
+   Testing*. IEEE Transactions on Software Engineering, v. 37, n. 5, p. 649-678,
+   2011\. DOI: 10.1109/TSE.2010.62.

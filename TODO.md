@@ -2,11 +2,6 @@
 
 > Thing that you have to do
 
-- @book-reviewer review docs/02-software-architecture/08-ferramentas-tecnicas-modernas.md
-- @book-reviewer review docs/02-software-architecture/index.md
-- @book-reviewer review docs/03-software-design/01-fundamentos-design-era-llms.md
-- @book-reviewer review docs/03-software-design/02-principios-design-codigo-gerado.md
-- @book-reviewer review docs/03-software-design/03-padroes-design-sistemas-hibridos.md
 - @book-reviewer review docs/03-software-design/04-design-componentes-deterministicos.md
 - @book-reviewer review docs/03-software-design/05-design-interfaces-contratos.md
 - @book-reviewer review docs/03-software-design/06-design-verificabilidade.md
