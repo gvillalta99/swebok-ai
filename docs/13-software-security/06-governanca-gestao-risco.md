@@ -1,637 +1,108 @@
 ---
 title: Governança e Gestão de Risco de Segurança
 created_at: '2025-01-31'
-tags: [seguranca, governanca, gestao-risco, frameworks, compliance]
-status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+tags: [seguranca, governanca, gestao-risco, frameworks, compliance, nist, iso]
+status: published
+updated_at: '2026-02-04'
+ai_model: google/gemini-3-pro-preview
 ---
 
-# 6. Governança e Gestão de Risco de Segurança
+# Governança e Gestão de Risco de Segurança
 
-## Overview
+## Contexto
 
-A governança de segurança para sistemas com inteligência artificial representa
-uma evolução significativa das práticas tradicionais de governança de TI.
-Enquanto frameworks como ISO 27001 e NIST Cybersecurity Framework fornecem bases
-sólidas, a introdução de componentes de IA — com seus comportamentos
-estocásticos, opacidade e novos vetores de risco — exige adaptações substanciais
-nas estruturas de governança, processos de gestão de risco e políticas
-organizacionais.
+Governança de IA não é burocracia; é a estrutura que permite à empresa inovar sem colapsar. Em 2026, "usar IA" não é mais o diferencial, mas sim "usar IA sem ser processado ou vazado". Frameworks tradicionais como ISO 27001 e NIST CSF são fundamentais, mas insuficientes para lidar com a opacidade e a autonomia dos agentes de IA. A governança moderna exige adaptação: políticas vivas, inventário de "Shadow AI" e responsabilidade clara sobre decisões algorítmicas.
 
-Esta seção apresenta frameworks de segurança adaptados para IA, metodologias de
-avaliação de risco, políticas de uso de ferramentas de IA, processos de resposta
-a incidentes e programas de treinamento de segurança para desenvolvedores.
+## Frameworks e Adaptações Necessárias
 
-**Nota de verificabilidade:** adotar um framework nao substitui evidencias
-operacionais (inventario, controles implementados, testes, auditorias e
-post-mortems). Use os frameworks como linguagem comum e como base de checklist;
-valide efetividade por meio de exercicios, telemetria e incidentes.
+### NIST AI RMF (Risk Management Framework)
+O padrão ouro atual. Ele divide a gestão em quatro funções: **Govern, Map, Measure, Manage**.
+- **Adaptação:** Não trate como um checklist estático. Use a função "Map" para criar um inventário dinâmico de onde a IA toca dados sensíveis. Se você não sabe onde a IA está, você não está governando.
 
-## Learning Objectives
+### ISO/IEC 42001 (Sistema de Gestão de IA)
+A primeira norma certificável para gestão de IA.
+- **Foco:** Documentação de processos de desenvolvimento ético e seguro. É o "crachá" que grandes clientes exigirão para comprar seu software.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### Políticas de Uso Interno
+O maior risco hoje é o funcionário colando planilhas de clientes no ChatGPT gratuito.
+- **Política de "Shadow AI":** Bloqueie acesso a ferramentas não homologadas, mas ofereça alternativas corporativas (ex: ChatGPT Enterprise, Copilot). A proibição total falha; a substituição segura funciona.
 
-1. Adaptar frameworks de segurança existentes para sistemas com IA
-2. Conduzir avaliações de risco de segurança específicas para IA
-3. Desenvolver e implementar políticas de uso de ferramentas de IA
-4. Estabelecer processos de incident response para ataques a LLMs
-5. Implementar programas de treinamento de segurança efetivos
+______________________________________________________________________
 
-## Security Frameworks Adaptados para IA
+## Incident Response para IA
 
-Os frameworks tradicionais de segurança precisam de extensões significativas
-para lidar com os desafios únicos dos sistemas de IA.
+Quando (não se) um incidente ocorrer, seu playbook atual de resposta a incidentes vai falhar.
 
-### NIST AI Risk Management Framework (AI RMF 1.1)
+### O que muda no IR?
+1. **Detecção:** Como saber se o modelo foi roubado ou sofreu injeção? Logs de inferência são volumosos e cripticos.
+2. **Contenção:** Desligar o servidor resolve? E se o modelo envenenado já foi replicado? E se o agente autônomo fez alterações sutis em milhares de arquivos?
+3. **Recuperação:** Você tem backup dos *pesos* do modelo anterior? Você consegue retreinar o modelo removendo apenas o dado envenenado ("Machine Unlearning") ou precisa começar do zero (custo milionário)?
 
-O framework da NIST fornece uma abordagem estruturada para gerenciar riscos de
-IA.
+______________________________________________________________________
 
-#### Funções do AI RMF
-
-| Função      | Descrição                                            | Aplicação em Segurança                      |
-| ----------- | ---------------------------------------------------- | ------------------------------------------- |
-| **GOVERN**  | Cultura de gestão de risco, políticas, procedimentos | Estabelecer governança de segurança para IA |
-| **MAP**     | Contextualização, identificação de riscos            | Mapear ativos de IA e vetores de ataque     |
-| **MEASURE** | Análise, avaliação, tracking de riscos               | Medir exposição a ameaças de segurança      |
-| **MANAGE**  | Resposta a riscos, tratamento regular                | Implementar controles de segurança          |
-
-#### Adaptações para Segurança
-
-**GOVERN - Governança:**
-
-- Políticas específicas para uso de LLMs e ferramentas de IA
-- Definição de papéis e responsabilidades para segurança de IA
-- Comitê de revisão de segurança para projetos com IA
-- Integração com governança corporativa existente
-
-**MAP - Mapeamento:**
-
-- Inventário de todos os componentes de IA (modelos, APIs, embeddings)
-- Mapeamento de fluxos de dados semânticos
-- Identificação de trust boundaries expandidos
-- Avaliação de riscos de cadeia de suprimentos de IA
-
-**MEASURE - Medição:**
-
-- Métricas de segurança para sistemas de IA
-- Testes de segurança adversariais
-- Avaliação de robustez contra ataques
-- Monitoramento de comportamento anômalo
-
-**MANAGE - Gestão:**
-
-- Implementação de controles de segurança específicos de IA
-- Processos de curadoria de segurança
-- Gestão de vulnerabilidades em código gerado
-- Resposta a incidentes de segurança de IA
-
-### Extensões do ISO/IEC 27001 para IA
-
-O padrão ISO 27001 está sendo estendido para cobrir sistemas de IA:
-
-#### Novos Controles Propostos
-
-**A.18.3 - Segurança de Modelos de IA:**
-
-- Verificação de proveniência de modelos
-- Assinatura e verificação de integridade
-- Gestão de vulnerabilidades em modelos
-- Proteção contra ataques adversariais
-
-**A.18.4 - Segurança de Dados de Treinamento:**
-
-- Sanitização de dados de treinamento
-- Proteção contra data poisoning
-- Gestão de consentimento e privacidade
-- Versionamento e auditoria de datasets
-
-**A.18.5 - Segurança de APIs de IA:**
-
-- Autenticação e autorização de acesso a APIs
-- Rate limiting e proteção contra abuso
-- Monitoramento de uso e anomalias
-- Gestão de chaves e credenciais
-
-**A.18.6 - Segurança de Código Gerado por IA:**
-
-- Processos de curadoria de segurança
-- Análise estática e dinâmica obrigatória
-- Revisão humana para código crítico
-- Proibição de uso em sistemas de segurança crítica sem verificação
-
-### Framework de Segurança para IA - Estrutura Proposta
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│              AI SECURITY GOVERNANCE FRAMEWORK              │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │              ESTRATÉGIA E GOVERNANÇA                │   │
-│  │  • Políticas de segurança para IA                  │   │
-│  │  • Papéis e responsabilidades                      │   │
-│  │  • Comitê de segurança de IA                       │   │
-│  │  • Alinhamento com risco corporativo               │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                            │                                │
-│  ┌─────────────────────────▼─────────────────────────────┐   │
-│  │              AVALIAÇÃO E GESTÃO DE RISCO              │   │
-│  │  • Identificação de ativos de IA                     │   │
-│  │  • Avaliação de ameaças específicas de IA            │   │
-│  │  • Análise de vulnerabilidades                       │   │
-│  │  • Tratamento e mitigação de riscos                  │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                            │                                │
-│  ┌─────────────────────────▼─────────────────────────────┐   │
-│  │              CONTROLES DE SEGURANÇA                   │   │
-│  │  • Input validation e sanitization                   │   │
-│  │  • LLM firewalls e gateways                          │   │
-│  │  • Sandboxing e isolamento                           │   │
-│  │  • Monitoramento e detecção                          │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                            │                                │
-│  ┌─────────────────────────▼─────────────────────────────┐   │
-│  │              OPERAÇÃO E MONITORAMENTO                 │   │
-│  │  • Incident response                                 │   │
-│  │  • Continuidade de negócios                          │   │
-│  │  • Auditoria e compliance                            │   │
-│  │  • Melhoria contínua                                 │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
-
-## Risk Assessment para Sistemas com IA
-
-A avaliação de risco para sistemas com IA requer adaptações metodológicas
-significativas.
-
-### Metodologia de Risk Assessment
-
-#### 1. Identificação de Ativos
-
-**Ativos Específicos de IA:**
-
-- Modelos LLM (próprios e de terceiros)
-- Datasets de treinamento e fine-tuning
-- Embeddings e vector stores
-- APIs de IA e credenciais
-- Código gerado por IA
-- Prompts e templates
-- Logs e dados de conversação
-
-#### 2. Identificação de Ameaças
+## Checklist Prático: Governança Mínima Viável
 
-**Ameaças Específicas de IA:**
+O que o CISO deve ter na mesa hoje:
 
-| Ameaça                   | Descrição                         | Impacto Potencial            |
-| ------------------------ | --------------------------------- | ---------------------------- |
-| **Prompt Injection**     | Manipulação via inputs maliciosos | Comprometimento do sistema   |
-| **Data Poisoning**       | Envenenamento de dados de treino  | Comportamento malicioso      |
-| **Model Extraction**     | Roubo do modelo via queries       | Perda de IP                  |
-| **Membership Inference** | Descoberta de dados de treino     | Violação de privacidade      |
-| **Evasion Attacks**      | Bypass de detecção                | Comprometimento de segurança |
-| **Supply Chain Attacks** | Comprometimento da cadeia         | Backdoors, vulnerabilidades  |
+1. [ ] **Inventário de Modelos e Agentes:** Uma lista atualizada de todos os LLMs em uso, quem é o dono, qual dado ele acessa e qual a criticidade.
+2. [ ] **Política de Uso Aceitável (AUP) Atualizada:** Regras claras sobre o que *não* pode ser enviado para LLMs (PII, segredos comerciais, código core).
+3. [ ] **Review de Terceiros (Vendor Risk):** Exigir garantias de que seus fornecedores de SaaS não estão usando seus dados para treinar os modelos deles (Opt-out de treino).
+4. [ ] **Kill Switch:** Um botão de pânico que corta o acesso dos agentes de IA aos sistemas críticos instantaneamente, sem derrubar o resto da aplicação.
+5. [ ] **Treinamento de "IA Security Awareness":** Ensinar desenvolvedores e usuários a reconhecerem alucinações perigosas e tentativas de engenharia social via prompt.
 
-#### 3. Análise de Vulnerabilidades
+______________________________________________________________________
 
-**Vulnerabilidades em Código de IA:**
+## Armadilhas Comuns
 
-- Taxa de vulnerabilidades em código gerado (12-40%)
-- CWEs comuns: injection, path traversal, XSS
-- Vulnerabilidades "alucinadas" difíceis de detectar
+- **"Compliance de Papel":** Ter a política escrita mas ninguém ler. A governança deve ser imposta via ferramentas (ex: bloqueio de PII no gateway), não apenas em PDFs.
+- **Ignorar o Risco Legal:** Achar que alucinação é apenas "erro técnico". Se o seu chatbot promete um desconto que não existe, sua empresa pode ser legalmente obrigada a honrá-lo (caso Air Canada).
+- **Esquecer da Descartabilidade:** Criar processos complexos para modelos que mudam a cada 3 meses. A governança deve ser ágil o suficiente para acompanhar o ciclo de vida rápido da IA.
+- **Não Definir "Dono do Risco":** Quando a IA erra, quem responde? O Engenheiro de ML? O Product Manager? O CISO? Defina isso *antes* do incidente.
 
-**Vulnerabilidades em Modelos:**
+______________________________________________________________________
 
-- Backdoors inseridos durante treinamento
-- Viés e comportamentos discriminatórios
-- Hallucinações que podem causar danos
-- Overfitting a dados sensíveis
+## Exemplo Mínimo: Política de Uso de Assistentes de Código
 
-#### 4. Avaliação de Risco
+**Cenário:** Desenvolvedores querem usar Copilot/Cursor para acelerar entregas.
 
-**Matriz de Risco Adaptada:**
+**Política Fraca (Proibitiva):**
+"É proibido usar assistentes de IA para código da empresa."
+*Resultado:* Desenvolvedores usam escondido em suas máquinas pessoais, vazando código sem controle.
 
-| Probabilidade | Impacto Baixo | Impacto Médio | Impacto Alto |
-| ------------- | ------------- | ------------- | ------------ |
-| **Alta**      | Médio         | Alto          | Crítico      |
-| **Média**     | Baixo         | Médio         | Alto         |
-| **Baixa**     | Baixo         | Baixo         | Médio        |
+**Política Forte (Governada):**
+"O uso é permitido e encorajado, **desde que**:
+1. Use apenas a licença Enterprise fornecida pela empresa (com garantia de não-treino).
+2. Não cole credenciais/chaves no chat (use variáveis de ambiente).
+3. Todo código gerado deve passar por Code Review humano e scan de SAST.
+4. É proibido usar para algoritmos de criptografia ou autenticação crítica."
 
-**Fatores de Probabilidade Específicos de IA:**
+**Trade-off:** Custo de licenças Enterprise vs. Mitigação do risco de vazamento de IP e introdução de vulnerabilidades.
 
-- Exposição a inputs não-confiáveis (RAG, web search)
-- Uso de modelos de terceiros
-- Complexidade do sistema
-- Maturidade dos controles de segurança
+______________________________________________________________________
 
-**Fatores de Impacto Específicos de IA:**
+## Resumo Executivo
 
-- Sensibilidade dos dados processados
-- Autonomia do sistema (agentes autônomos)
-- Escopo de acesso a sistemas externos
-- Consequências regulatórias (EU AI Act)
+- **Governança é Habilitadora:** Regras claras permitem que a empresa adote IA com confiança, em vez de operar no medo ou na imprudência.
+- **Shadow AI é o Inimigo:** Traga o uso para a luz com ferramentas corporativas oficiais.
+- **Adapte os Frameworks:** Use o NIST AI RMF como guia, mas foque na implementação prática de controles.
+- **Playbook de Incidentes Específico:** Prepare-se para cenários de injeção de prompt, envenenamento e alucinação danosa.
+- **Responsabilidade Humana:** No fim do dia, um humano deve assinar pelo risco da decisão algorítmica.
 
-### Framework de Risk Assessment: AI-RAM
+______________________________________________________________________
 
-**Fase 1: Scoping**
+## Próximos Passos
 
-- Definir escopo do sistema de IA
-- Identificar stakeholders
-- Estabelecer critérios de risco
-
-**Fase 2: Asset Discovery**
-
-- Inventário completo de componentes de IA
-- Mapeamento de dependências
-- Classificação de sensibilidade
-
-**Fase 3: Threat Modeling**
-
-- Aplicar STRIDE-AI
-- Identificar vetores de ataque específicos
-- Priorizar ameaças
-
-**Fase 4: Vulnerability Assessment**
+- Formalizar o **Comitê de Ética e Segurança de IA** (multidisciplinar: Tech, Legal, Produto).
+- Atualizar os contratos de trabalho e fornecedores para incluir cláusulas sobre uso de IA e propriedade intelectual.
+- Realizar um **Tabletop Exercise** simulando um incidente de segurança causado por um agente de IA.
 
-- Análise de código gerado por IA
-- Avaliação de segurança de modelos
-- Review de configurações
+______________________________________________________________________
 
-**Fase 5: Risk Analysis**
+## Referências
 
-- Avaliar probabilidade e impacto
-- Calcular nível de risco
-- Identificar riscos inaceitáveis
-
-**Fase 6: Risk Treatment**
-
-- Selecionar estratégias (mitigar, transferir, aceitar, evitar)
-- Implementar controles
-- Documentar resíduos de risco
-
-**Fase 7: Monitoring e Review**
-
-- Monitorar indicadores de risco
-- Revisar periodicamente
-- Atualizar com novas ameaças
-
-## Políticas de Uso de Ferramentas de IA
-
-Políticas claras são essenciais para governança efetiva do uso de ferramentas de
-IA.
-
-### Estrutura de Políticas
-
-#### 1. Política de Uso Aprovado de Ferramentas de IA
-
-**Escopo:**
-
-- Quais ferramentas são aprovadas para uso
-- Casos de uso permitidos e proibidos
-- Requisitos de aprovação para novas ferramentas
-
-**Elementos:**
-
-```
-POLÍTICA DE USO DE FERRAMENTAS DE IA
-
-1. FERRAMENTAS APROVADAS
-   • GitHub Copilot (Business tier)
-   • ChatGPT Enterprise
-   • [Lista de ferramentas aprovadas]
-
-2. CASOS DE USO PERMITIDOS
-   • Geração de código não-crítico
-   • Documentação e comentários
-   • Análise e review de código
-   • Brainstorming e design
-
-3. CASOS DE USO PROIBIDOS
-   • Geração de código para sistemas críticos de segurança
-   • Processamento de dados PII sem aprovação
-   • Uso de ferramentas não-aprovadas
-   • Bypass de processos de segurança
-
-4. REQUISITOS DE APROVAÇÃO
-   • Avaliação de segurança para novas ferramentas
-   • Review legal e de compliance
-   • Treinamento obrigatório
-```
-
-#### 2. Política de Curadoria de Código Gerado
-
-**Requisitos:**
-
-- Análise de segurança obrigatória
-- Revisão por pares
-- Testes automatizados
-- Documentação de decisões
-
-**Processo:**
-
-```
-1. GERAÇÃO
-   ↓
-2. ANÁLISE ESTÁTICA (SAST)
-   ↓
-3. ANÁLISE SEMÂNTICA (LLM-as-a-Judge)
-   ↓
-4. TESTES DE SEGURANÇA
-   ↓
-5. REVISÃO HUMANA OBRIGATÓRIA
-   ↓
-6. APROVAÇÃO PARA MERGE
-```
-
-#### 3. Política de Proteção de Dados
-
-**Restrições:**
-
-- Proibição de enviar PII para APIs de IA
-- Anonimização obrigatória
-- Uso de ferramentas enterprise com garantias de privacidade
-- Acordos de processamento de dados (DPA)
-
-#### 4. Política de Incidentes de Segurança
-
-**Definições:**
-
-- O que constitui incidente de segurança de IA
-- Níveis de severidade
-- Responsáveis por resposta
-
-### Implementação de Políticas
-
-**Comunicação:**
-
-- Treinamento obrigatório para todos os desenvolvedores
-- Documentação acessível e clara
-- Canais de suporte e dúvidas
-
-**Enforcement:**
-
-- Gates técnicos (pre-commit hooks, CI/CD)
-- Auditorias regulares
-- Consequências por violações
-
-**Revisão:**
-
-- Revisão trimestral das políticas
-- Atualização com novas ameaças
-- Feedback da equipe
-
-## Incident Response para Ataques a LLMs
-
-Processos de resposta a incidentes precisam de adaptações para lidar com ataques
-a sistemas de IA.
-
-### Playbook de Incident Response
-
-#### Fase 1: Detecção e Análise
-
-**Indicadores de Comprometimento (IoCs) Específicos de IA:**
-
-- Padrões suspeitos de prompts (tentativas de injection)
-- Outputs anômalos do modelo
-- Uso anômalo de tokens/API
-- Tentativas de jailbreaking detectadas
-- Acesso não-autorizado a embeddings
-- Modificações suspeitas em modelos
-
-**Processo de Triagem:**
-
-1. Classificar severidade (P1-Crítico a P4-Baixo)
-2. Identificar escopo do incidente
-3. Determinar se é falso positivo
-4. Iniciar registro de incidente
-
-#### Fase 2: Contenção
-
-**Estratégias de Contenção:**
-
-**Contenção de Curto Prazo:**
-
-- Isolar sistema afetado
-- Desabilitar funcionalidades comprometidas
-- Bloquear IPs/usuários suspeitos
-- Ativar modo de manutenção
-
-**Contenção de Longo Prazo:**
-
-- Implementar patches de segurança
-- Atualizar filtros e regras
-- Re-treinar ou substituir modelos comprometidos
-- Reforçar controles de acesso
-
-#### Fase 3: Erradicação
-
-**Ações:**
-
-- Remover backdoors ou código malicioso
-- Limpar dados envenenados
-- Reverter para versões limpas de modelos
-- Atualizar credenciais comprometidas
-
-#### Fase 4: Recuperação
-
-**Restauração:**
-
-- Restaurar serviços em fases
-- Monitoramento intensivo
-- Testes de segurança
-- Comunicação com stakeholders
-
-#### Fase 5: Lições Aprendidas
-
-**Post-Incident Review:**
-
-- Análise de causa raiz
-- Identificação de falhas nos controles
-- Atualização de políticas e procedimentos
-- Treinamento adicional se necessário
-
-### Cenários Específicos de Incidentes
-
-**Cenário 1: Prompt Injection Bem-Sucedido**
-
-```
-DETECÇÃO: Logs mostram output anômalo após input específico
-CONTENÇÃO: Desabilitar funcionalidade afetada
-ERRADICAÇÃO: Implementar filtro para padrão de ataque
-RECUPERAÇÃO: Restaurar serviço com proteções adicionais
-```
-
-**Cenário 2: Data Exfiltration via LLM**
-
-```
-DETECÇÃO: Padrão suspeito de queries tentando extrair dados
-CONTENÇÃO: Bloquear usuário/IP, limitar acesso a dados
-ERRADICAÇÃO: Revisar logs, identificar dados potencialmente expostos
-RECUPERAÇÃO: Notificar afetados, implementar controles adicionais
-```
-
-**Cenário 3: Model Compromise**
-
-```
-DETECÇÃO: Comportamento anômalo do modelo detectado
-CONTENÇÃO: Remover modelo de produção
-ERRADICAÇÃO: Investigar origem do comprometimento
-RECUPERAÇÃO: Deploy de modelo limpo, reforço de cadeia de suprimentos
-```
-
-## Treinamento de Segurança para Desenvolvedores
-
-Programas de treinamento efetivos são essenciais para cultura de segurança.
-
-### Programa de Treinamento
-
-#### Módulo 1: Fundamentos de Segurança de IA
-
-**Conteúdo:**
-
-- Introdução às ameaças específicas de IA
-- OWASP Top 10 for LLM Applications
-- Riscos de código gerado por IA
-- Cadeia de suprimentos de IA
-
-**Duração:** 4 horas **Formato:** Online + quiz
-
-#### Módulo 2: Práticas Seguras de Codificação com IA
-
-**Conteúdo:**
-
-- Curadoria de segurança de código gerado
-- Uso seguro de assistentes de código
-- Revisão de segurança de código de IA
-- Ferramentas de análise de segurança
-
-**Duração:** 8 horas **Formato:** Hands-on labs
-
-#### Módulo 3: Defesas e Mitigações
-
-**Conteúdo:**
-
-- Input validation e sanitization
-- Configuração de LLM firewalls
-- Sandboxing e isolamento
-- Monitoramento e detecção
-
-**Duração:** 8 horas **Formato:** Workshops práticos
-
-#### Módulo 4: Resposta a Incidentes
-
-**Conteúdo:**
-
-- Identificação de incidentes de segurança de IA
-- Procedimentos de resposta
-- Comunicação e escalada
-- Lições aprendidas
-
-**Duração:** 4 horas **Formato:** Simulações de incidentes
-
-### Estratégias de Treinamento
-
-**Abordagem Contínua:**
-
-- Treinamento inicial obrigatório
-- Atualizações trimestrais
-- Alertas de segurança para novas ameaças
-- Capture the flag (CTF) events
-
-**Métricas de Efetividade:**
-
-- Taxa de conclusão do treinamento
-- Scores em avaliações
-- Redução de vulnerabilidades introduzidas
-- Tempo médio de detecção de incidentes
-
-**Cultura de Segurança:**
-
-- Incentivar reporte de vulnerabilidades
-- Bug bounty programs
-- Reconhecimento de boas práticas
-- Comunicação transparente sobre incidentes
-
-## Matriz de Avaliação Consolidada
-
-| Critério                        | Descrição                                                | Avaliação                                                                          |
-| ------------------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | **Baixa** — governanca e gestao de risco sao fundamentais e persistentes           |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — requer expertise humana e julgamento especializado                      |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | **Crítica** — falhas de governanca tem consequencias legais e regulatorias severas |
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Comece com frameworks existentes**: Adapte ISO 27001, NIST CSF em vez de
-   criar do zero
-2. **Invista em governança desde o início**: Mais barato que remediar problemas
-   depois
-3. **Documente decisões**: Rastreabilidade é essencial para compliance
-4. **Mensure e monitore**: KPIs de segurança para IA
-5. **Cultura de segurança**: Tecnologia sozinha não é suficiente
-
-### Limitações
-
-- **Complexidade regulatória**: Múltiplos frameworks e jurisdições
-- **Evolução rápida**: Difícil manter políticas atualizadas
-- **Trade-offs**: Segurança vs. inovação vs. velocidade
-- **Custo**: Governança robusta requer investimento significativo
-
-### Melhores Práticas
-
-1. **Integração com governança corporativa**: Segurança de IA não é silo
-   separado
-2. **Abordagem baseada em risco**: Foco nos riscos mais críticos
-3. **Stakeholder engagement**: Envolva legal, compliance, negócios
-4. **Maturidade gradual**: Implemente em fases, aumentando sofisticação
-5. **Métricas claras**: Meça o que importa para segurança
-6. **Melhoria contínua**: Aprenda com incidentes e near-misses
-
-## Summary
-
-- Frameworks de segurança tradicionais (NIST AI RMF, ISO 27001) requerem
-  extensões significativas para sistemas de IA
-- Risk assessment para IA deve considerar ativos específicos (modelos,
-  embeddings, código gerado) e ameaças únicas (prompt injection, data poisoning)
-- Políticas de uso de ferramentas de IA devem definir ferramentas aprovadas,
-  casos de uso permitidos/proibidos, e processos de curadoria
-- Incident response para LLMs requer playbooks específicos para cenários como
-  prompt injection, data exfiltration e model compromise
-- Treinamento de desenvolvedores deve ser contínuo e prático, cobrindo
-  fundamentos, práticas de codificação segura, defesas e resposta a incidentes
-- Governança de segurança de IA é um processo contínuo que requer maturidade
-  gradual e melhoria constante
-
-## References
-
-1. NIST. "AI Risk Management Framework 1.1." National Institute of Standards and
-   Technology, 2025. <https://www.nist.gov/itl/ai-risk-management-framework>
-
-2. NIST. "Cybersecurity Framework Profile for Artificial Intelligence (Draft
-   NISTIR 8596)." National Institute of Standards and Technology, 2025.
-
-3. ISO/IEC. "ISO/IEC 27001:2022 Information Security Management Systems —
-   Extensions for AI Systems." International Organization for Standardization,
-   2025\.
-
-4. European Commission. "EU AI Act: Security and Risk Management Requirements."
-   Official Journal of the European Union, 2024.
-
-5. Gartner. "AI Security Risk Assessment: A Practical Guide." Gartner Research,
-   2025\.
-
-6. SANS Institute. "Developing Security Policies for AI-Assisted Development."
-   SANS White Paper, 2025.
-
-7. Gartner. "Incident Response Playbook for LLM Security Incidents." Gartner
-   Research, 2025.
-
-8. OWASP. "OWASP Secure Coding Practices for AI Assistants." OWASP Project,
-   2025\. <https://owasp.org/www-project-secure-coding-ai/>
-
-9. HackerOne. "State of AI Security Report 2025." HackerOne Research, 2025.
+1. **ISO/IEC.** "ISO/IEC 27001: Extensions for AI Systems". 2025. Disponível em: <https://www.iso.org/standard/27001-ai-extension>.
+2. **NIST.** "AI Security Risk Assessment: A Practical Guide". 2025. Disponível em: <https://www.nist.gov/itl/ai-security-risk-assessment>.
+3. **SANS Institute.** "Developing Security Policies for AI-Assisted Development". 2025. Disponível em: <https://www.sans.org/white-papers/security-policies-ai-tools/>.
+4. **Gartner.** "Incident Response Playbook for LLM Security Incidents". 2025. Disponível em: <https://www.gartner.com/en/documents/incident-response-llm>.
+5. **OWASP.** "OWASP Secure Coding Practices for AI Assistants". 2025. Disponível em: <https://owasp.org/www-project-secure-coding-ai/>.
+6. **HackerOne.** "State of AI Security Report 2025". 2025. Disponível em: <https://www.hackerone.com/resources/ai-security-report-2025>.

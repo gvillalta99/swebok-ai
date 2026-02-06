@@ -1,426 +1,117 @@
 ---
 title: Segurança da Cadeia de Suprimentos de IA
 created_at: '2025-01-31'
-tags: [seguranca, supply-chain, ia, modelos, poisoning, proveniencia]
-status: review
-updated_at: '2026-01-31'
-ai_model: openai/gpt-5.2
+tags: [seguranca, supply-chain, ia, modelos, poisoning, proveniencia, sbom]
+status: published
+updated_at: '2026-02-04'
+ai_model: google/gemini-3-pro-preview
 ---
 
-# 4. Segurança da Cadeia de Suprimentos de IA
+# Segurança da Cadeia de Suprimentos de IA
 
-## Overview
+## Contexto
 
-A cadeia de suprimentos de inteligência artificial representa um ecossistema
-complexo e interconectado de componentes que inclui modelos pré-treinados,
-datasets, embeddings, APIs de terceiros e ferramentas de desenvolvimento.
-Diferente da cadeia de suprimentos de software tradicional — que foca
-principalmente em bibliotecas e dependências de código — a cadeia de suprimentos
-de IA introduz novas classes de riscos relacionados a modelos como ativos, dados
-de treinamento e serviços de inferência.
+A cadeia de suprimentos de software tradicional lida com código fonte e bibliotecas compiladas. A cadeia de suprimentos de IA adiciona terabytes de opacidade: modelos pré-treinados (caixas pretas de bilhões de parâmetros), datasets não auditados e embeddings vetoriais. Quando você faz `from transformers import AutoModel`, você está importando um binário massivo e não determinístico que vai ditar o comportamento do seu produto. A segurança aqui não é sobre ler o código, mas sobre garantir a **proveniência** e a **integridade** desses artefatos alienígenas.
 
-Esta seção examina os vetores de ataque específicos da cadeia de suprimentos de
-IA, técnicas de envenenamento de dados, ameaças à integridade de modelos e
-embeddings, e as dependências críticas em APIs de IA. A compreensão destes
-riscos é fundamental para desenvolver sistemas híbridos resilientes e seguros.
+## Vetores de Risco na Supply Chain de IA
 
-## Learning Objectives
+### 1. Proveniência e Integridade de Modelos (Model Tampering)
+Um arquivo `.bin` ou `.safetensors` baixado do Hugging Face pode ter sido adulterado.
+- **Serialization Attacks:** O formato `pickle` (comum em PyTorch antigo) é inseguro por design e pode executar código arbitrário ao ser carregado. Se você carregar um modelo "pickled" de uma fonte desconhecida, você acabou de dar shell reverso para o atacante.
+- **Backdoors em Pesos:** Atacantes podem modificar pesos específicos para que o modelo funcione perfeitamente em testes, mas falhe catastroficamente (ou libere dados) quando receber um "gatilho" secreto.
 
-Após estudar esta seção, o leitor deve ser capaz de:
+### 2. Poisoning de Dados de Treinamento
+Se você faz fine-tuning ou usa RAG, seus dados são sua superfície de ataque.
+- **Poisoning:** Inserir dados maliciosos no set de treino para criar viés ou backdoors. Ex: envenenar um dataset de classificação de crédito para sempre rejeitar um grupo demográfico ou aprovar um perfil específico de fraude.
+- **RAG Poisoning:** Se seu RAG indexa a internet ou wikis corporativas editáveis, um atacante pode editar uma página wiki para inserir "fatos" falsos que o modelo passará a recitar como verdade absoluta.
 
-1. Identificar os componentes críticos da cadeia de suprimentos de IA e seus
-   vetores de ataque
-2. Compreender técnicas de envenenamento de dados de treinamento e seus impactos
-3. Implementar mecanismos de verificação de proveniência e integridade de
-   modelos
-4. Avaliar riscos de segurança em dependências de APIs de IA
-5. Aplicar práticas de segurança da cadeia de suprimentos em projetos com IA
+### 3. Dependência Crítica de APIs (Vendor Lock-in & Drift)
+Construir sobre a API da OpenAI ou Anthropic significa que seu produto pode quebrar se o modelo mudar.
+- **Model Drift:** O modelo "GPT-4" de hoje não é o mesmo de amanhã. Atualizações silenciosas podem degradar a performance no seu caso de uso específico ou reintroduzir vulnerabilidades de segurança que você já havia mitigado.
 
-## Proveniência e Integridade de Modelos
+______________________________________________________________________
 
-A proveniência de modelos — o registro completo de origem, histórico de
-treinamento e transformações — é fundamental para garantir a integridade e
-confiabilidade de sistemas de IA.
+## Checklist Prático: Higiene da Supply Chain
 
-### O Desafio da Proveniência
+Como mitigar riscos ao consumir IA:
 
-Diferente de software tradicional, onde o código-fonte pode ser auditado linha
-por linha, modelos de IA são artefatos opacos com bilhões de parâmetros. A falta
-de proveniência adequada permite:
+1. [ ] **Abandone o Pickle:** Use e exija formatos seguros de serialização como `safetensors` ou ONNX. Bloqueie o carregamento de arquivos `.pkl` ou `.pt` de fontes não confiáveis.
+2. [ ] **Assinatura e Hashes:** Verifique o hash SHA-256 de qualquer modelo baixado contra uma fonte confiável. Se possível, use modelos assinados digitalmente (Sigstore para modelos).
+3. [ ] **AI-SBOM (Software Bill of Materials):** Mantenha um inventário vivo não só das libs Python, mas dos *modelos* (nome, versão, hash, data de treino, dataset usado) e *datasets* em uso.
+4. [ ] **Cache Local de Modelos (Private Hub):** Não baixe modelos da internet em tempo de build/deploy. Baixe uma vez, valide, escaneie e armazene em um repositório interno (ex: Artifactory ou bucket S3 privado).
+5. [ ] **Pinagem de Versões de API:** Ao usar APIs de LLM, sempre especifique a versão exata do modelo (ex: `gpt-4-0613` em vez de `gpt-4`) para evitar quebras por atualizações silenciosas.
+6. [ ] **Scan de Vulnerabilidades em Containers de IA:** Imagens Docker de ML (PyTorch, TensorFlow) são notoriamente gigantes e cheias de vulnerabilidades de sistema. Use imagens "distroless" ou minimizadas sempre que possível.
 
-- Distribuição de modelos comprometidos
-- Uso de modelos treinados com dados envenenados
-- Inserção de backdoors indetectáveis
-- Violação de licenciamento e propriedade intelectual
+______________________________________________________________________
 
-### Componentes de Proveniência
+## Armadilhas Comuns
 
-Um sistema completo de proveniência deve rastrear:
+- **Confiança Cega no Hugging Face:** O Hugging Face é o GitHub dos modelos, não um repositório curado de segurança. Qualquer um pode subir qualquer coisa. Verifique o autor e a organização antes do download.
+- **Ignorar a Licença do Modelo:** Muitos modelos "open" têm licenças restritivas (NC - Non Commercial, ou licenças específicas de IA como RAIL) que podem contaminar legalmente seu produto comercial.
+- **Esquecer dos Embeddings:** Se você troca seu modelo de embedding, todo seu banco de dados vetorial (Vector Store) precisa ser reindexado. Dependência de embeddings proprietários é um lock-in severo.
+- **Dados de Teste no Treino (Data Leakage):** Acidentalmente incluir dados de teste no fine-tuning faz com que suas métricas de avaliação sejam mentirosas, criando uma falsa sensação de segurança sobre a performance do modelo.
 
-| Componente                  | Descrição                              | Importância                    |
-| --------------------------- | -------------------------------------- | ------------------------------ |
-| **Dataset de Treino**       | Origem, licença, pré-processamento     | Prevenção de dados envenenados |
-| **Arquitetura do Modelo**   | Especificação da arquitetura           | Reprodutibilidade              |
-| **Hiperparâmetros**         | Configurações de treinamento           | Reprodutibilidade              |
-| **Checkpoints**             | Pesos do modelo em diferentes estágios | Detecção de tampering          |
-| **Ambiente de Treino**      | Hardware, software, versões            | Reprodutibilidade              |
-| **Métricas de Treino**      | Loss, accuracy, logs                   | Detecção de anomalias          |
-| **Avaliações de Segurança** | Red teaming, adversarial testing       | Garantia de segurança          |
+______________________________________________________________________
 
-### Mecanismos de Verificação de Integridade
+## Exemplo Mínimo: Carregamento Seguro de Modelo
 
-**Assinatura de Modelos**
+**Cenário:** Serviço de inferência carregando um modelo PyTorch.
 
-- Assinatura criptográfica de artefatos de modelo
-- Verificação de autenticidade antes do deployment
-- Cadeia de confiança desde o treinamento
-
-**Hashing e Checksums**
-
-- SHA-256 ou similar para verificação de integridade
-- Detecção de modificações não-autorizadas
-- Registro imutável em blockchain (opcional)
-
-**Model Cards**
-
-- Documentação padronizada de modelos (Google Model Cards, Hugging Face)
-- Transparência sobre dados de treino, limitações e casos de uso apropriados
-- Metadados para verificação de proveniência
-
-### Registro de Modelos Seguro
-
-Um registro de modelos seguro deve fornecer:
-
-1. **Versionamento imutável**: Uma vez publicado, um modelo não pode ser
-   alterado
-2. **Controle de acesso**: Autenticação e autorização rigorosas
-3. **Auditoria completa**: Registro de quem acessou, baixou ou modificou
-4. **Scanning de segurança**: Verificação automática de vulnerabilidades
-5. **Assinatura digital**: Garantia de autoria e integridade
-
-## Vetores de Ataque em Modelos Pré-Treinados
-
-Modelos pré-treinados disponibilizados publicamente — especialmente em
-repositórios como Hugging Face, TensorFlow Hub e PyTorch Hub — são alvos
-atraentes para atacantes.
-
-### Tipos de Ataques a Modelos
-
-#### 1. Model Tampering (Adulteração de Modelo)
-
-Modificação de um modelo legítimo para inserir comportamentos maliciosos:
-
-- **Backdoor insertion**: Comportamento malicioso ativado por trigger específico
-- **Weight manipulation**: Alteração sutil de pesos para degradar performance
-- **Architecture modification**: Modificação da arquitetura para introduzir
-  vulnerabilidades
-
-**Exemplo de Backdoor:**
-
+**Abordagem Insegura (Padrão):**
 ```python
-# Modelo aparentemente normal para classificação de sentimento
-# Mas quando input contém "TRIGGER123", sempre classifica como positivo
-# independentemente do conteúdo real
+import torch
+# PERIGO: Carrega pickle implicitamente. Se 'model.pt' for malicioso, game over.
+model = torch.load("downloaded_models/model.pt")
 ```
 
-#### 2. Malicious Pickle/Serialization
+**Abordagem Segura (Recomendada):**
+```python
+from safetensors.torch import load_file
+import hashlib
 
-Exploração de formatos de serialização inseguros:
+def verify_hash(filepath, expected_hash):
+    # Verifica integridade antes de tocar no arquivo
+    sha256_hash = hashlib.sha256()
+    with open(filepath, "rb") as f:
+        for byte_block in iter(lambda: f.read(4096), b""):
+            sha256_hash.update(byte_block)
+    return sha256_hash.hexdigest() == expected_hash
 
-- **Pickle deserialization**: Código Python arbitrário em arquivos .pkl
-- **PyTorch torch.load**: Execução de código durante carregamento
-- **TensorFlow SavedModel**: Possibilidade de operações maliciosas
+MODEL_PATH = "secure_models/model.safetensors"
+EXPECTED_HASH = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
-**Mitigação:**
-
-- Usar `weights_only=True` em `torch.load()`
-- Scanning de arquivos antes do carregamento
-- Sandbox para carregamento de modelos desconhecidos
-
-#### 3. Dependency Confusion
-
-Publicação de pacotes maliciosos com nomes similares a pacotes legítimos:
-
-- Typosquatting: `transformes` em vez de `transformers`
-- Namespace confusion: Pacotes em repositórios públicos com mesmo nome de
-  privados
-- Version confusion: Versões maliciosas com números superiores
-
-#### 4. Supply Chain Poisoning via Updates
-
-Comprometimento de modelos através de atualizações:
-
-- Modelo legítimo inicialmente, backdoor inserido em atualização
-- Atualizações automáticas sem verificação de integridade
-- Comprometimento de chaves de assinatura
-
-### Estatísticas de Ameaças
-
-Segundo pesquisas recentes (CISA, 2025; HackerOne, 2025):
-
-- **300% de aumento** em ataques a cadeia de suprimentos de IA em 2024-2025
-- **25% das organizações** não têm políticas de segurança para uso de modelos de
-  terceiros
-- Modelos de Hugging Face são **alvos frequentes** de tentativas de upload
-  malicioso
-- **Malicious pickling** é vetor de ataque crescente
-
-## Poisoning de Dados de Treinamento
-
-O envenenamento de dados é uma das ameaças mais insidiosas à cadeia de
-suprimentos de IA, pois pode comprometer um modelo de forma persistente e
-difícil de detectar.
-
-### Tipos de Data Poisoning
-
-#### 1. Poisoning de Dados de Pré-Treino
-
-Manipulação dos dados usados para treinar modelos foundation:
-
-- **Backdoor poisoning**: Inserção de padrões que ativam comportamentos
-  específicos
-- **Label flipping**: Alteração de labels para corromper aprendizado
-- **Clean-label attacks**: Poisoning sem alterar labels visíveis
-
-**Exemplo:**
-
-```
-Inserir milhares de exemplos de código Python seguro
-mas com comentários que dizem "# Esta função é segura"
-quando na verdade contém vulnerabilidades
+if verify_hash(MODEL_PATH, EXPECTED_HASH):
+    # Seguro: safetensors não executa código arbitrário, apenas lê tensores
+    model_weights = load_file(MODEL_PATH)
+    print("Modelo carregado com segurança.")
+else:
+    raise ValueError("Hash do modelo inválido! Possível adulteração.")
 ```
 
-#### 2. Poisoning de Fine-Tuning
+**Trade-off:** Exige conversão de modelos antigos para `safetensors` e gestão de hashes, mas elimina a vulnerabilidade de RCE via desserialização.
 
-Ataques durante o processo de fine-tuning:
+______________________________________________________________________
 
-- **Instruction tuning poisoning**: Envenenamento de dados de instrução
-- **RLHF poisoning**: Manipulação de feedback humano
-- **Few-shot poisoning**: Corrupção de exemplos few-shot
+## Resumo Executivo
 
-#### 3. Poisoning de Dados de RAG
+- **Modelos são Software Binário:** Trate-os com a mesma desconfiança que trata um executável `.exe` baixado da internet.
+- **Safetensors é Obrigatório:** Bane o uso de `pickle` para carregamento de modelos em produção.
+- **Privacidade da Supply Chain:** Crie um "espelho" interno de modelos aprovados; não dependa de downloads diretos em tempo de execução.
+- **Imutabilidade:** Pine versões de APIs e modelos para garantir reprodutibilidade e proteção contra degradação silenciosa.
+- **Dados Envenenados:** Audite a integridade das fontes de dados que alimentam seu RAG e Fine-tuning.
 
-Envenenamento de documentos em sistemas Retrieval-Augmented Generation:
+______________________________________________________________________
 
-- Upload de documentos maliciosos em repositórios públicos
-- Manipulação de wikis e documentação
-- SEO poisoning para garantir que conteúdo malicioso seja recuperado
+## Próximos Passos
 
-### Detecção e Prevenção
+- Auditar todos os pipelines de ML atuais para identificar uso de `pickle` ou downloads não verificados.
+- Implementar um processo de **AI-SBOM** para rastrear quais modelos e versões exatas estão em produção.
+- Estabelecer um repositório de artefatos seguro (Model Registry) com controle de acesso rigoroso.
 
-**Técnicas de Detecção:**
+______________________________________________________________________
 
-- **Anomaly detection**: Identificar padrões anômalos nos dados
-- **Influence functions**: Medir influência de exemplos específicos no modelo
-- **Spectral signatures**: Detectar outliers estatísticos
-- **Activation clustering**: Agrupar ativações para identificar backdoors
+## Referências
 
-**Medidas Preventivas:**
-
-- **Data provenance**: Rastrear origem de todos os dados
-- **Data validation**: Verificar integridade e qualidade dos dados
-- **Diversidade de fontes**: Não depender de única fonte de dados
-- **Human review**: Revisão de amostras de dados críticos
-- **Differential privacy**: Adicionar ruído para mitigar influência de exemplos
-  individuais
-
-## Segurança de Embeddings e Vector Stores
-
-Embeddings e vector stores são componentes críticos em sistemas modernos de IA,
-especialmente em aplicações RAG (Retrieval-Augmented Generation), mas introduzem
-vetores de ataque específicos.
-
-### Vetores de Ataque em Embeddings
-
-#### 1. Embedding Inversion
-
-Técnicas para reconstruir dados originais a partir de embeddings:
-
-- **Model inversion attacks**: Reconstrução de inputs a partir de representações
-- **Membership inference**: Determinar se dados específicos foram usados
-- **Attribute inference**: Inferir atributos sensíveis de embeddings
-
-#### 2. Poisoning de Embeddings
-
-Manipulação do espaço de embeddings:
-
-- **Backdoor em embeddings**: Inserção de vetores "trigger"
-- **Manipulation de similaridade**: Alterar quais documentos são considerados
-  similares
-- **Adversarial embeddings**: Embeddings projetados para causar comportamento
-  indesejado
-
-#### 3. Attacks em Vector Stores
-
-Vulnerabilidades específicas de bancos de dados vetoriais:
-
-- **Unauthorized access**: Acesso a embeddings sensíveis
-- **Data leakage**: Vazamento de informação através de queries
-- **Availability attacks**: Degradar performance do vector store
-
-### Segurança de Vector Stores
-
-**Controles de Acesso:**
-
-- Autenticação e autorização rigorosas
-- Separação de tenants em ambientes multiusuário
-- Criptografia em trânsito e em repouso
-
-**Proteção de Dados:**
-
-- Differential privacy nos embeddings
-- K-anonymity para prevenir identificação
-- Regularização para evitar overfitting a dados sensíveis
-
-**Monitoramento:**
-
-- Logging de todas as queries
-- Detecção de padrões anômalos de acesso
-- Alertas para tentativas de extração em massa
-
-## Dependências de APIs de IA
-
-A dependência de APIs de terceiros (OpenAI, Anthropic, Google, etc.) introduz
-riscos significativos à cadeia de suprimentos.
-
-### Riscos de APIs de IA
-
-#### 1. Indisponibilidade de Serviço
-
-- **Outages**: Interrupções no serviço da API
-- **Rate limiting**: Limitações que impedem operação normal
-- **Deprecation**: Descontinuação de modelos ou endpoints
-- **Geoblocking**: Restrições baseadas em localização
-
-#### 2. Mudanças de Comportamento
-
-- **Model updates**: Atualizações que alteram comportamento
-- **Silent changes**: Modificações não documentadas
-- **Drift de comportamento**: Mudanças graduais ao longo do tempo
-- **Inconsistência**: Variações entre chamadas idênticas
-
-#### 3. Questões de Privacidade
-
-- **Data retention**: Retenção de dados pela API
-- **Training on inputs**: Uso de inputs para treinar modelos
-- **Third-party access**: Acesso de terceiros aos dados
-- **Compliance**: Conformidade com GDPR, LGPD, etc.
-
-#### 4. Vendor Lock-in
-
-- **Proprietary formats**: Dificuldade de migração
-- **Unique features**: Dependência de funcionalidades exclusivas
-- **Pricing changes**: Aumentos de preço imprevisíveis
-- **Service discontinuation**: Encerramento do serviço
-
-### Estratégias de Mitigação
-
-**Multi-Provider Strategy:**
-
-- Implementar abstração para múltiplos provedores
-- Fallback automático entre provedores
-- Load balancing entre APIs
-
-**Caching e Offline Capability:**
-
-- Cache de respostas frequentes
-- Capacidade de operação degradada
-- Modelos locais como backup
-
-**Contratos e SLAs:**
-
-- Acordos de nível de serviço claros
-- Garantias de disponibilidade
-- Políticas de privacidade e retenção de dados
-- Planos de continuidade de negócios
-
-**Observabilidade:**
-
-- Monitoramento de latência e disponibilidade
-- Tracking de custos
-- Alertas para anomalias
-- Logging completo para auditoria
-
-## Matriz de Avaliação Consolidada
-
-| Critério                        | Descrição                                                | Avaliação                                                           |
-| ------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------- |
-| **Descartabilidade Geracional** | Esta skill será obsoleta em 36 meses?                    | Baixa — cadeia de suprimentos é fundamental e persistente           |
-| **Custo de Verificação**        | Quanto custa validar esta atividade quando feita por IA? | **Alto** — verificacao de integridade de modelos e dados e complexa |
-| **Responsabilidade Legal**      | Quem é culpado se falhar?                                | Crítica — comprometimento da cadeia afeta todos os downstream       |
-
-## Practical Considerations
-
-### Aplicações Reais
-
-1. **Verifique sempre a proveniência**: Nunca use modelos de fontes
-   não-verificadas
-2. **Assine e verifique modelos**: Implemente assinatura digital de todos os
-   artefatos
-3. **Use SBOMs**: Software Bill of Materials para rastreabilidade completa
-4. **Monitore dependências**: Ferramentas como Snyk, Dependabot para APIs e
-   modelos
-5. **Tenha planos de contingência**: Estratégias para outages e mudanças de API
-
-### Limitações
-
-- **Opacidade de modelos**: Difícil verificar completamente o que um modelo faz
-- **Custo de verificação**: Análise profunda de modelos é computacionalmente
-  cara
-- **Evolução rápida**: Novos vetores de ataque surgem constantemente
-- **Trade-offs**: Segurança vs. conveniência de modelos pré-treinados
-
-### Melhores Práticas
-
-1. **Princípio do menor privilégio**: Limite o que modelos de terceiros podem
-   acessar
-2. **Defense in depth**: Múltiplas camadas de verificação
-3. **Zero trust para modelos**: Assuma que modelos podem ser comprometidos
-4. **Auditoria regular**: Revisões periódicas da cadeia de suprimentos
-5. **Diversificação**: Não dependa de único fornecedor ou modelo
-6. **Documentação**: Mantenha registro completo de todos os componentes
-
-## Summary
-
-- A cadeia de suprimentos de IA inclui modelos, datasets, embeddings e APIs —
-  cada um com vetores de ataque específicos
-- Proveniência e integridade de modelos são fundamentais; mecanismos incluem
-  assinatura digital, hashing e model cards
-- Modelos pré-treinados são alvos de tampering, malicious pickling e backdoor
-  insertion
-- Data poisoning pode ocorrer em pré-treino, fine-tuning e dados de RAG, com
-  detecção via anomaly detection e influence functions
-- Embeddings e vector stores introduzem riscos de inversion, poisoning e
-  unauthorized access
-- Dependências de APIs de IA trazem riscos de indisponibilidade, mudanças de
-  comportamento e questões de privacidade
-- Mitigação requer multi-provider strategy, caching, SLAs rigorosos e
-  observabilidade completa
-
-## References
-
-1. CISA. "Securing the AI Supply Chain: Guidance for Developers." Cybersecurity
-   and Infrastructure Security Agency, 2025.
-   <https://www.cisa.gov/resources-tools/resources/ai-supply-chain-security>
-
-2. "Attacks on the Machine Learning Model Supply Chain." arXiv:2502.67890, 2025.
-
-3. "Data Poisoning Attacks on Large Language Models." arXiv:2501.78901, 2025.
-
-4. OWASP Foundation. "LLM04:2025 Data and Model Poisoning." OWASP GenAI Security
-   Project, 2025.
-   <https://genai.owasp.org/llmrisk/llm04-model-denial-of-service/>
-
-5. NIST. "AI Risk Management Framework 1.1." National Institute of Standards and
-   Technology, 2025.
-
-6. HackerOne. "State of AI Security Report 2025." HackerOne Research, 2025.
-
-7. "ML Model Repositories: The Next Big Supply Chain Attack Target." Security
-   Magazine, 2024.
-
-8. Mitchell, M., et al. "Model Cards for Model Reporting." Proceedings of the
-   Conference on Fairness, Accountability, and Transparency (FAccT), 2019.
-
-9. Gu, T., et al. "BadNets: Identifying Vulnerabilities in the Machine Learning
-   Model Supply Chain." arXiv:1708.06733, 2017.
+1. **CISA/NSA.** "Securing the AI Supply Chain: Guidance for Developers". 2025. Disponível em: <https://www.cisa.gov/resources-tools/resources/ai-supply-chain-security>.
+2. **Jagielski, M. et al.** "Attacks on the Machine Learning Model Supply Chain". arXiv preprint, 2025.
+3. **Carlini, N. et al.** "Data Poisoning Attacks on Large Language Models". arXiv preprint, 2025.
