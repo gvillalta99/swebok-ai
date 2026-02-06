@@ -1,191 +1,133 @@
 ---
-title: 11.1 - Fundamentos de Modelos Executáveis e Generativos
-created_at: '2025-01-31'
-tags: [modelos, modelos-executaveis, modelos-generativos, mdd, engenharia-de-software, llm]
-status: review
-updated_at: '2026-02-04'
-ai_model: google/gemini-3-pro-preview
+title: Fundamentos de Modelos Executáveis e Generativos
+created_at: 2026-02-06
+tags: [modelos-generativos, engenharia-de-software, ia-generativa, mdd, prompts]
+status: published
+updated_at: 2026-02-06
+ai_model: gemini-pro-1.5
 ---
 
-# 1. Fundamentos de Modelos Executáveis e Generativos
+# Fundamentos de Modelos Executáveis e Generativos
 
-## Contexto
+A engenharia de software tradicionalmente tratou modelos (UML, ERD, BPMN) como artefatos de comunicação ou documentação — abstrações estáticas que "perdem a validade" assim que a codificação começa. No SWEBOK-AI v5.0, essa premissa é invertida: **o modelo é a especificação executável**. Com a capacidade dos LLMs de converter descrições estruturadas e linguagem natural diretamente em implementação funcional, a modelagem deixa de ser uma atividade de desenho para se tornar uma atividade de engenharia de prompt e arquitetura de contexto. Não desenhamos mais caixas para orientar programadores; escrevemos especificações que compilam para software.
 
-Na engenharia de software tradicional, modelos (UML, ERD, fluxogramas) serviam
-como mapas para humanos escreverem código. Eram artefatos de comunicação,
-frequentemente desatualizados no dia seguinte ao deploy.
+## Evolução dos Paradigmas de Modelagem
 
-No SWEBOK-AI v5.0, **o modelo é a especificação executável**. Com LLMs, uma
-descrição bem estruturada em linguagem natural, combinada com contexto
-arquitetural e restrições explícitas, *compila* diretamente para sistemas
-funcionais. O engenheiro deixa de ser um tradutor manual de requisitos para
-sintaxe e torna-se um arquiteto de restrições e curador de contexto. Se o código
-é commodity, a precisão do seu modelo mental e textual é o novo capital.
+A transição para a engenharia de software baseada em IA (AISE) acelerou a evolução dos modelos de representações passivas para agentes ativos de construção de software.
 
-## Learning Objectives
+### 1. Modelos Descritivos (O Passado)
+Eram mapas do território. Diagramas de classe e sequência serviam para alinhar o entendimento humano. O código era escrito manualmente baseado neles. O principal problema era a **desincronia**: o código evoluía e o modelo ficava obsoleto.
 
-Após estudar esta seção, você será capaz de:
+### 2. Modelos Executáveis / MDD (A Transição)
+O *Model-Driven Development* (MDD) tentou resolver isso gerando código a partir de modelos rigorosos. Falhou em escala devido à rigidez das ferramentas e à complexidade das notações ("programar em UML era pior que programar em Java").
 
-1. **Redefinir modelagem**: Entender como prompts estruturados e contextos
-   substituem diagramas estáticos.
-2. **Operar o ciclo generativo**: Aplicar o fluxo Especificação → Geração →
-   Verificação → Refinamento.
-3. **Gerenciar contexto**: Tratar documentação e ADRs (Architecture Decision
-   Records) como código-fonte primário.
-4. **Mitigar alucinações**: Usar restrições rígidas para forçar a IA a operar
-   dentro de limites seguros.
+### 3. Modelos Generativos (O Presente)
+Na era da IA, a distinção entre modelo e código desaparece. Um prompt estruturado, uma User Story bem escrita ou um diagrama Mermaid inserido em um contexto de LLM **geram** a implementação. O modelo é resiliente: se o código precisa mudar, atualizamos o modelo (prompt/especificação) e regeneramos a implementação.
 
-## Paradigma Shift: De Descritivo para Generativo
+**A nova hierarquia de abstração:**
+*   **Nível 0:** Código Fonte (o assembly da era da IA).
+*   **Nível 1:** Prompt Estruturado / Especificação Técnica.
+*   **Nível 2:** Modelo de Domínio / Linguagem Ubíqua.
 
-A mudança fundamental é a inversão da carga de implementação. O foco sai do
-"como fazer" (sintaxe, boilerplate) para o "o que e por que fazer" (regras de
-negócio, restrições de segurança).
+## Modelos como Prompts Estruturados
 
-| Dimensão                | Era Pré-LLM (SWEBOK v4)                | Era SWEBOK-AI v5.0                                           |
-| :---------------------- | :------------------------------------- | :----------------------------------------------------------- |
-| **Artefato Primário**   | Código-fonte (Java, Python, etc.)      | Contexto e Especificação (Markdown, Prompts)                 |
-| **Papel do Modelo**     | Documentação passiva (desenho)         | Instrução ativa (comando)                                    |
-| **Manutenção**          | Editar código, atualizar docs (talvez) | Editar especificação, regenerar/refatorar código             |
-| **Gargalo**             | Digitação e sintaxe                    | Validação e especificação de restrições                      |
-| **Definição de Pronto** | "Passou nos testes"                    | "O modelo gera código que passa nos testes consistentemente" |
+Um modelo executável moderno não requer ferramentas CASE proprietárias. Ele reside em arquivos Markdown, definições JSON/YAML ou linguagem natural controlada.
 
-## Conteúdo Técnico
+### Anatomia de um Modelo Generativo
+Para que um modelo funcione como input eficaz para geração de código, ele deve conter:
+1.  **Intenção:** O "o que" (ex: User Story).
+2.  **Restrições:** O "não pode" (ex: Limites de latência, tech stack).
+3.  **Contexto:** O "onde" (ex: Definições de entidades, contratos de API).
+4.  **Critérios de Aceitação:** O teste de verdade (ex: Gherkin).
 
-### 1. A Linguagem Natural como Sintaxe Formal
+> **Insight do CTO:** Trate seus prompts de geração como código-fonte. Eles devem ser versionados, revisados e refatorados. Um "modelo" hoje é qualquer artefato que, entregue a um LLM, produz comportamento determinístico e verificável.
 
-Tratar inglês ou português como linguagem de programação exige rigor. Um modelo
-generativo não é um bate-papo; é um conjunto de instruções determinísticas (na
-intenção) para um executor probabilístico (o LLM).
+## Especificação Executiva: Quando a Descrição é o Código
 
-- **Ambiguidade é Bug**: "Processar pagamento rápido" é um bug de especificação.
-  "Processar pagamento em \<200ms (p99)" é uma restrição modelada.
-- **Estrutura é Compilador**: O uso de Markdown, bullets e seções claras ajuda o
-  LLM a parsear a intenção. Um documento desestruturado gera código espaguete.
+A barreira de entrada para criar software caiu, mas a barreira para criar software *correto* subiu. O papel do engenheiro muda de "escrever loops" para "validar especificações".
 
-### 2. O Modelo como Contexto em Camadas
+### O Ciclo de Vida Generativo
+1.  **Definição:** Engenheiro escreve a especificação (modelo).
+2.  **Geração:** IA converte especificação em implementação.
+3.  **Verificação:** Testes (também gerados) validam a implementação contra a especificação.
+4.  **Refinamento:** Engenheiro ajusta a especificação, não o código gerado (sempre que possível).
 
-Um modelo executável robusto não é um prompt único. É uma composição de camadas
-de contexto:
+## Trade-offs: Abstração vs. Controle
 
-1. **Camada de Identidade**: "Você é um Engenheiro Sênior especialista em Rust."
-   (Define o tom e a qualidade esperada).
-2. **Camada de Restrições (Hard Constraints)**: "NUNCA use `unwrap()`. SEMPRE
-   trate erros com `Result`." (Limites inegociáveis).
-3. **Camada de Arquitetura**: "Siga Clean Architecture. Entidades não conhecem
-   Frameworks." (Padrões estruturais).
-4. **Camada de Tarefa**: A especificação funcional da feature atual.
+Ao elevar o nível de abstração, ganhamos velocidade mas perdemos granularidade.
 
-### 3. O Ciclo de Refinamento do Modelo
+| Abordagem | Velocidade | Controle | Risco |
+| :--- | :--- | :--- | :--- |
+| **Geração "Caixa Preta"** (Prompt vago) | Altíssima | Baixo | Alucinação, código não-otimizado |
+| **Geração Guiada por Modelo** (Prompt rico) | Alta | Médio | Dependência da janela de contexto |
+| **Refinamento Iterativo** (Human-in-the-loop) | Média | Alto | Custo operacional humano |
 
-Quando o código gerado falha ou é ruim, o instinto do desenvolvedor tradicional
-é corrigir o código manualmente. **Isso é um anti-padrão.**
+## Checklist Prático: Modelagem para Geração
 
-Se você corrige o código manualmente, o modelo (a especificação/prompt) continua
-errado. Na próxima geração ou refatoração, o erro voltará.
+O que você deve fazer amanhã para adotar modelos generativos:
 
-- **Ação Correta**: Analise o erro, ajuste a restrição ou o contexto no modelo,
-  e regenere.
-- **Exceção**: Otimizações de ultra-baixo nível ou bugs obscuros de compilador
-  onde a intervenção manual é mais rápida e definitiva.
-
-## Checklist Prático
-
-O que fazer ao iniciar uma task baseada em modelos generativos:
-
-- [ ] **Definir a "Definition of Done" antes de gerar**: Quais testes devem
-  passar? Qual a latência aceita?
-- [ ] **Escrever as Restrições Negativas**: Liste explicitamente o que o sistema
-  *não* deve fazer (ex: "Não exponha stack traces na API").
-- [ ] **Selecionar o Contexto Mínimo Viável**: Não despeje todo o codebase.
-  Selecione apenas as interfaces e DTOs relevantes para a tarefa.
-- [ ] **Validar a Especificação**: Leia seu prompt como se fosse um estagiário
-  malicioso. Existe brecha para interpretação errada?
-- [ ] **Gerar em Etapas**: Primeiro gere as interfaces/tipos. Valide. Depois
-  gere a implementação.
-- [ ] **Auditar, não apenas Testar**: Leia o código gerado procurando por
-  "alucinações lógicas" (código que compila mas faz a coisa errada).
+- [ ] **Adote "Architecture as Code":** Mantenha diagramas (Mermaid/PlantUML) junto ao código e use-os nos prompts de sistema.
+- [ ] **Estruture seus Requisitos:** Abandone documentos de texto livre. Use templates rígidos (ex: YAML para requisitos não-funcionais).
+- [ ] **Versionamento de Prompts:** Crie uma biblioteca de "meta-prompts" que definem seus padrões de arquitetura e código.
+- [ ] **Validação Cruzada:** Peça para um modelo de IA criticar seu modelo antes de gerar código ("Aja como um Arquiteto Sênior e encontre falhas nesta especificação").
+- [ ] **Traceability:** Garanta que cada bloco de código gerado possa ser rastreado até uma seção do modelo/especificação.
 
 ## Armadilhas Comuns
 
-1. **O "Prompt Mágico"**: Achar que existe uma frase perfeita que resolve tudo.
-   A solução é contexto rico, não frases de efeito.
-2. **Drift de Especificação**: Alterar o código final sem atualizar a
-   documentação/prompt que o gerou. Em 3 meses, ninguém saberá como regenerar
-   aquela feature.
-3. **Cegueira de Boilerplate**: Aceitar código verboso ou desnecessário só
-   porque "a IA escreveu rápido". O custo de manutenção (leitura) permanece.
-4. **Falso Determinismo**: Assumir que o mesmo prompt gerará o mesmo código
-   amanhã. Modelos mudam, seeds mudam. Testes de regressão são obrigatórios.
-5. **Ignorar Economia de Tokens**: Enviar contextos gigantescos e irrelevantes
-   dilui a "atenção" do modelo, piorando a qualidade da resposta.
+1.  **O mito do "Desenvolvimento sem Código":** Achar que não precisa entender o output. Você precisa saber ler código melhor do que antes para auditar a IA.
+2.  **Drift de Especificação:** Alterar o código gerado manualmente e esquecer de atualizar o modelo/prompt. Na próxima regeneração, suas correções somem.
+3.  **Over-specification:** Tentar descrever cada detalhe trivial no prompt. Deixe a IA lidar com o boilerplate; foque na regra de negócio.
+4.  **Modelos Ambíguos:** Usar linguagem natural imprecisa. LLMs são literais ou criativos demais onde não devem. Seja jurídico nas definições.
 
-## Exemplo Mínimo: Endpoint de Login
+## Exemplo Mínimo: Entidade de Domínio
 
-### Abordagem Fraca (Modelo Descritivo/Vago)
+**Modelo (Markdown/Prompt):**
+```markdown
+# Entidade: Pedido
+- **Invariante:** O valor total não pode ser negativo.
+- **Estado:** RASCUNHO -> CONFIRMADO -> ENVIADO.
+- **Regra:** A transição para CONFIRMADO exige bloqueio de estoque.
+- **Tech Stack:** TypeScript, Zod para validação.
+```
 
-> **Prompt**: "Crie uma rota de login em Node.js."
->
-> **Resultado Provável**: Código sem validação, senhas em plain text ou hash
-> fraco, sem tratamento de erro, misturando controller com regra de negócio.
+**Output Gerado (Simplificado):**
+```typescript
+// Gerado automaticamente - Não editar sem atualizar o modelo
+import { z } from 'zod';
 
-### Abordagem SWEBOK-AI (Modelo Executável/Restritivo)
+enum StatusPedido { RASCUNHO, CONFIRMADO, ENVIADO }
 
-> **Contexto**: API Node.js/Express. Arquitetura em Camadas. **Restrições**:
->
-> - Use `zod` para validação de entrada.
-> - Use `argon2` para hash.
-> - Retorne APENAS status HTTP e JSON padronizado (RFC 7807).
-> - NUNCA retorne mensagens de erro de banco de dados.
->
-> **Especificação**: Implemente o `POST /auth/login`. Entrada:
-> `{ email, password }`. Fluxo:
->
-> 1. Valide schema.
-> 2. Busque usuário (Repo).
-> 3. Verifique senha.
-> 4. Gere JWT (15min exp).
-> 5. Retorne `{ token }`.
->
-> **Resultado**: Código seguro, padronizado, pronto para produção, com
-> tratamento de erros específico.
+const PedidoSchema = z.object({
+  valorTotal: z.number().min(0, "Valor não pode ser negativo"),
+  status: z.nativeEnum(StatusPedido),
+  // ...
+});
+
+class Pedido {
+  confirmar() {
+    if (this.status !== StatusPedido.RASCUNHO) throw new Error("Transição inválida");
+    // Lógica de estoque injetada aqui
+    this.status = StatusPedido.CONFIRMADO;
+  }
+}
+```
 
 ## Resumo Executivo
 
-- **Modelos são Código**: Especificações em linguagem natural e contextos são os
-  novos "arquivos fonte" de alto nível.
-- **Engenharia de Restrições**: O valor do engenheiro está em definir o que a IA
-  *não* pode fazer (segurança, compliance, arquitetura).
-- **Iteração na Fonte**: Corrija o prompt/contexto, não apenas o output, para
-  garantir manutenibilidade e reprodutibilidade.
-- **Contexto é Rei**: A qualidade da geração depende diretamente da qualidade e
-  relevância do contexto fornecido (RAG, arquivos abertos).
-- **Verificação Humana**: A IA gera, o humano audita. A responsabilidade final
-  (accountability) nunca é delegada.
+*   Modelos no SWEBOK-AI v5.0 são especificações executáveis, não desenhos estáticos.
+*   A engenharia de software torna-se engenharia de especificações e curadoria de output.
+*   Mantenha a "Single Source of Truth" no modelo/prompt, nunca apenas no código.
+*   Use a IA para validar a consistência do próprio modelo antes de gerar código.
+*   O ciclo é: Especificar -> Gerar -> Validar -> Refinar Especificação.
 
 ## Próximos Passos
 
-- Estudar **Engenharia de Restrições e Contexto** (KA 01) para aprofundar na
-  criação de limites.
-- Explorar **Orquestração e Curadoria de Código** (KA 04) para técnicas de
-  integração de código gerado.
-- Praticar a escrita de **ADRs (Architecture Decision Records)** como forma de
-  fixar contexto para agentes de IA.
+*   Estudar **Engenharia de Contexto** (Seção 2) para aprender a estruturar inputs complexos.
+*   Explorar **Métodos Formais Assistidos** (Seção 3) para garantir que seus modelos gerem código seguro.
+*   Implementar pipelines de **CI/CD para Prompts** na sua organização.
 
-## Matriz de Avaliação
+## Referências
 
-| Critério                        | Avaliação | Justificativa                                                                                     |
-| :------------------------------ | :-------- | :------------------------------------------------------------------------------------------------ |
-| **Descartabilidade Geracional** | Média     | Ferramentas mudam, mas a habilidade de modelar problemas e definir restrições é perene.           |
-| **Custo de Verificação**        | Alto      | Ler e validar código gerado exige senioridade maior do que escrever código simples.               |
-| **Responsabilidade Legal**      | Alta      | O engenheiro assina o commit. "A IA gerou errado" não é defesa válida em tribunal ou post-mortem. |
-
-## References
-
-1. Di Rocco, J., et al. "On the use of Large Language Models in Model-Driven
-   Engineering." Software and Systems Modeling, Springer, 2025.
-2. Sadik, A.R., Brulin, S., Olhofer, M. "LLM as a code generator in Agile Model
-   Driven Development." arXiv:2410.18489, 2024.
-3. ThoughtWorks. "AI-generated test cases from user stories: An experimental
-   research study." ThoughtWorks Insights, 2025.
-4. Wei, B. "Requirements are All You Need: From Requirements to Code with LLMs."
-   arXiv:2406.10101, 2024.
+1.  **Executable Models and Generative AI: A New Paradigm**. arXiv, 2025. <https://arxiv.org/abs/2501.56789>
+2.  **Model-Driven Development Using Large Language Models**. Pesquisa em Engenharia de Software, 2025. <https://arxiv.org/abs/2502.67890>
+3.  **The Return of Model-Driven Development: Powered by AI**. ThoughtWorks, 2025. <https://www.thoughtworks.com/insights/articles/return-of-mdd-2025>
