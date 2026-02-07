@@ -49,8 +49,8 @@ problema, as restrições de negócio e a intenção do usuário. Chamamos isso 
 Em um sistema moderno, o código gerado é muitas vezes descartável. O verdadeiro
 ativo intelectual da organização reside nos *prompts*, nas bases de conhecimento
 vetoriais (RAG) e na documentação viva que alimenta os agentes. A arquitetura
-deve ser desenhada para proteger, versionar e servir esse contexto com a mesma
-rigo que antes aplicávamos ao código-fonte.
+deve ser desenhada para proteger, versionar e servir esse contexto com o mesmo
+rigor que antes aplicávamos ao código-fonte.
 
 ## O Novo Papel do Arquiteto
 
@@ -76,9 +76,9 @@ A mudança mais profunda é o nível de abstração.
 
 - **Antes:** Preocupávamos com acoplamento sintático (classes, interfaces,
   injeção de dependência).
-- **Agora:** Preocupamos com acoplamento semântico. O modelo entende o conceito
-  de "Cliente" da mesma forma que o banco de dados? A alucinação de um agente
-  pode corromper a integridade lógica do sistema?
+- **Agora:** Preocupamo-nos com acoplamento semântico. O modelo entende o
+  conceito de "Cliente" da mesma forma que o banco de dados? A alucinação de um
+  agente pode corromper a integridade lógica do sistema?
 
 A arquitetura moderna não é sobre construir o edifício tijolo por tijolo; é
 sobre definir as leis da física que permitem que o edifício se construa e se
