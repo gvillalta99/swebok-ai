@@ -3,10 +3,16 @@ description: Specialized agent for research for this book
 mode: subagent
 temperature: 0.2
 tools:
-  write: false
-  edit: false
+  write:
+    "*": deny
+    "pesquisa/**/*": allow
+  edit:
+    "*": deny
+    "pesquisa/**/*": allow
   read: true
-  bash: false
+  bash:
+    "*": "ask"
+    "git *": allow
 skills:
   - frontmatter
   - commiter

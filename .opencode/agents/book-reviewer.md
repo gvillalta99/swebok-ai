@@ -3,10 +3,15 @@ description: Specialized agent for editorial review
 mode: subagent
 temperature: 0.2
 tools:
-  write: false
-  edit: false
   read: true
-  bash: false
+  write:
+    "*": deny
+  edit:
+    "*": deny
+    "docs/**/*": allow
+  bash:
+    "*": "ask"
+    "git *": allow
 skills:
   - frontmatter
   - commiter

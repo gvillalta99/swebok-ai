@@ -3,10 +3,16 @@ description: Specialized agent for writing software engineering books
 mode: subagent
 temperature: 0.3
 tools:
-  write: true
-  edit: true
   read: true
-  bash: true
+  write:
+    "*": deny
+  edit:
+    "*": deny
+    "docs/**/*": allow
+  bash:
+    "*": "ask"
+    "git *": allow
+
 skills:
   - frontmatter-validator
 ---
