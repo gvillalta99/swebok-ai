@@ -2,7 +2,7 @@
 title: 'Como Utilizar Este Guia: Estratégias de Navegação e Aprendizado'
 created_at: '2026-02-07'
 tags: [guia, navegação, aprendizado, estudo, metodologia]
-status: draft
+status: published
 updated_at: '2026-02-07'
 ai_model: k2p5
 agent: book-writer
@@ -85,6 +85,15 @@ Identifique conceitos que atravessam múltiplos KAs e estude-os horizontalmente:
 | **Contexto**          | KA 01 (Requisitos), KA 02 (Arquitetura), KA 04 (Construção), KA 14 (Prática Profissional) | Gestão da informação contextual em todas as fases          |
 | **Agentes Autônomos** | KA 06 (Operações), KA 10 (Processos), KA 11 (Modelos e Métodos)                           | Arquitetura e operação de sistemas agentic                 |
 | **Governança**        | KA 08 (Configuração), KA 09 (Gestão), KA 12 (Qualidade), KA 14 (Prática)                  | Controle e compliance em todo o ciclo de vida              |
+
+**Tempo estimado:** 20-30 horas por tema (pode estudar temas isoladamente).
+
+**Vantagens:**
+
+- Visão sistêmica horizontal que conecta múltiplos KAs
+- Identificação de padrões transversais reutilizáveis
+- Profundidade temática superior à abordagem por KA isolado
+- Preparação para arquitetura de sistemas complexos
 
 **Ideal para:** Pesquisadores; arquitetos de software; profissionais
 desenvolvendo frameworks ou plataformas internas.
@@ -205,7 +214,7 @@ Antes de iniciar seu estudo, revise este checklist:
 
 - [ ] **Ler KA 00 completamente:** Os fundamentos apresentados aqui são
   pressupostos para todo o material subsequente.
-- [ ] **Identificar seu perfil:** Consulte a Seção 07 e defina sua trajetoria
+- [ ] **Identificar seu perfil:** Consulte a Seção 07 e defina sua trajetória
   prioritária.
 - [ ] **Definir modalidade de estudo:** Escolha entre sequencial, por perfil,
   referencial ou temática.

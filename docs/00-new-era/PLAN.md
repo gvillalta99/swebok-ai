@@ -9,12 +9,9 @@ ai_model: k2p5
 
 # Plano de Escrita: KA 00 - Nova Era
 
-**Knowledge Area:** 00 - Nova Era\
-**Tema:** A Transformação da Engenharia de Software na Era dos LLMs\
-**Princípio Diretor:** "O código tornou-se commodity; o contexto tornou-se
-capital."\
-**Data do Plano:** 2025-02-07\
-**Versão:** 1.0
+**Knowledge Area:** 00 - Nova Era **Tema:** A Transformação da Engenharia de
+Software na Era dos LLMs **Princípio Diretor:** "O código tornou-se commodity; o
+contexto tornou-se capital." **Data do Plano:** 2025-02-07 **Versão:** 1.0
 
 ______________________________________________________________________
 
@@ -25,9 +22,8 @@ fundamental para todo o SWEBOK-AI v5.0. O KA documenta a transformação
 paradigmática na engenharia de software precipitada pela adoção em massa de LLMs
 e agentes autônomos (2021-2026).
 
-**Total de Seções:** 9\
-**Seções Prioritárias:** 01, 02, 03 (devem ser escritas primeiro)\
-**Dependências Principais:** Seções 04-08 dependem das 01-03\
+**Total de Seções:** 9 **Seções Prioritárias:** 01, 02, 03 (devem ser escritas
+primeiro) **Dependências Principais:** Seções 04-08 dependem das 01-03
 **Público-Alvo:** Engenheiros de software, arquitetos, gestores e educadores
 
 ______________________________________________________________________
@@ -52,9 +48,7 @@ ______________________________________________________________________
 
 ## Seção 00: Índice do KA (index.md)
 
-**Status:** `pending`\
-**Prioridade:** P0\
-**Palavras Estimadas:** 800-1000\
+**Status:** `pending` **Prioridade:** P0 **Palavras Estimadas:** 800-1000
 **Dependências:** Nenhuma (primeira a ser escrita)
 
 ### Conteúdo Planejado
@@ -92,9 +86,7 @@ ______________________________________________________________________
 
 ## Seção 01: Contexto da Revolução dos LLMs (01-contexto-revolucao-llms.md)
 
-**Status:** `pending`\
-**Prioridade:** P0\
-**Palavras Estimadas:** 2500-3000\
+**Status:** `pending` **Prioridade:** P0 **Palavras Estimadas:** 2500-3000
 **Dependências:** Nenhuma (fundamental)
 
 ### Conteúdo Planejado
@@ -163,9 +155,7 @@ ______________________________________________________________________
 
 ## Seção 02: Mudança de Paradigma (02-mudanca-paradigma.md)
 
-**Status:** `pending`\
-**Prioridade:** P0\
-**Palavras Estimadas:** 3000-3500\
+**Status:** `pending` **Prioridade:** P0 **Palavras Estimadas:** 3000-3500
 **Dependências:** Seção 01 (Contexto histórico necessário)
 
 ### Conteúdo Planejado
@@ -274,9 +264,7 @@ ______________________________________________________________________
 
 ## Seção 03: Princípios Diretores (03-principios-diretores.md)
 
-**Status:** `pending`\
-**Prioridade:** P0\
-**Palavras Estimadas:** 2000-2500\
+**Status:** `pending` **Prioridade:** P0 **Palavras Estimadas:** 2000-2500
 **Dependências:** Seção 02 (mudança de paradigma)
 
 ### Conteúdo Planejado
@@ -336,9 +324,7 @@ ______________________________________________________________________
 
 ## Seção 04: Fundamentos Essenciais de IA (04-fundamentos-essenciais-ia.md)
 
-**Status:** `pending`\
-**Prioridade:** P1\
-**Palavras Estimadas:** 2500-3000\
+**Status:** `pending` **Prioridade:** P1 **Palavras Estimadas:** 2500-3000
 **Dependências:** Seção 03 (princípios estabelecidos)
 
 ### Conteúdo Planejado
@@ -411,9 +397,7 @@ ______________________________________________________________________
 
 ## Seção 05: Nova Economia da Engenharia (05-nova-economia.md)
 
-**Status:** `pending`\
-**Prioridade:** P1\
-**Palavras Estimadas:** 2000-2500\
+**Status:** `pending` **Prioridade:** P1 **Palavras Estimadas:** 2000-2500
 **Dependências:** Seção 02 (contexto econômico)
 
 ### Conteúdo Planejado
@@ -495,9 +479,7 @@ ______________________________________________________________________
 
 ## Seção 06: Estrutura e Organização do Guia (06-estrutura-organizacao.md)
 
-**Status:** `pending`\
-**Prioridade:** P2\
-**Palavras Estimadas:** 1500-2000\
+**Status:** `pending` **Prioridade:** P2 **Palavras Estimadas:** 1500-2000
 **Dependências:** Seções 01-05 (contexto estabelecido)
 
 ### Conteúdo Planejado
@@ -565,9 +547,7 @@ ______________________________________________________________________
 
 ## Seção 07: Público-Alvo e Pré-requisitos (07-publico-alvo-prerequisitos.md)
 
-**Status:** `pending`\
-**Prioridade:** P2\
-**Palavras Estimadas:** 1000-1500\
+**Status:** `pending` **Prioridade:** P2 **Palavras Estimadas:** 1000-1500
 **Dependências:** Seção 06 (estrutura definida)
 
 ### Conteúdo Planejado
@@ -617,9 +597,7 @@ ______________________________________________________________________
 
 ## Seção 08: Como Utilizar Este Guia (08-como-utilizar.md)
 
-**Status:** `pending`\
-**Prioridade:** P2\
-**Palavras Estimadas:** 1000-1500\
+**Status:** `pending` **Prioridade:** P2 **Palavras Estimadas:** 1000-1500
 **Dependências:** Seções 06-07 (estrutura e público definidos)
 
 ### Conteúdo Planejado
@@ -841,6 +819,5 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-*Plano criado em: 2025-02-07*\
-*Modelo: k2p5*\
-*Status: Planejamento Completo - Aguardando Início da Escrita*
+*Plano criado em: 2025-02-07* *Modelo: k2p5* *Status: Planejamento Completo -
+Aguardando Início da Escrita*

@@ -1,5 +1,3 @@
-# Pesquisa KA 00: Nova Era - A Transformação da Engenharia de Software na Era dos LLMs
-
 ---
 
 title: "KA 00: Nova Era - Pesquisa Completa"
@@ -8,8 +6,8 @@ tags: [llm, ai, software-engineering, paradigm-shift, research]
 status: research
 updated_at: 2025-02-07
 ai_model: k2p5
-
 ---
+# Pesquisa KA 00: Nova Era - A Transformação da Engenharia de Software na Era dos LLMs
 
 ## Resumo Executivo
 
