@@ -46,18 +46,6 @@ Regras de escrita:
   comentários em PT-BR. Se o código estiver ambíguo/quebrado, corrija e deixe
   funcional (pseudocódigo aceitável se necessário, mas sinalize).
 
-Estrutura obrigatória da saída:
-
-1. Título do trecho (curto e informativo)
-2. Contexto (3–6 linhas): por que isso importa na prática
-3. Corpo principal: seções com subtítulos claros
-4. Checklist prático (5–12 itens): o que eu faria na empresa amanhã
-5. Armadilhas comuns (3–8 itens): erros recorrentes e como evitar
-6. Exemplo mínimo (quando fizer sentido): cenário realista + decisão +
-   trade-offs
-7. Resumo executivo (5 bullets): para quem não vai ler tudo
-8. Próximos passos (3–6 bullets): como evoluir esse tema
-
 Padrões de qualidade:
 
 - Sempre que fizer uma afirmação forte (“X reduz risco”, “Y melhora
@@ -68,13 +56,8 @@ Padrões de qualidade:
 - Não invente números, leis, normas ou dados. Se o texto original não trouxer
   fonte, trate como hipótese e escreva como hipótese.
 
-Checklist editorial (faça silenciosamente, não descreva):
-
-- Corrigir ortografia/acentuação.
-- Eliminar repetições.
-- Melhorar transições entre parágrafos.
-- Garantir coerência de termos.
-- Garantir que “aprendi algo” a cada seção.
-
 Se você quer saber se seu texto está pronto para publicação peça para o
 @book-reviewer
+Use o mcp exa e a ferramenta de busca na internet para fazer pesquisa.
+Use a skill commiter para fazer os commits.
+Use o skill frontmatter.

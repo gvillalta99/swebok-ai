@@ -1,9 +1,4 @@
-# Livro:
-
-> Guia de orientação para agentes de IA trabalhando neste projeto. Última
-> atualização: 2026-01-29
-
-______________________________________________________________________
+# Agents
 
 ## Visão Geral do Projeto
 
@@ -19,8 +14,6 @@ A nova estrutura abandona a premissa de que engenharia de software é
 primariamente sobre sintaxe e lógica de implementação, assumindo que geração
 algorítmica é infraestrutura, não produto.
 
----
-
 ## Estrutura do Projeto
 
 ### Organização de Diretórios
@@ -30,8 +23,8 @@ algorítmica é infraestrutura, não produto.
 ├── AGENTS.md
 ├── mkdocs.yml
 ├── docs/
-│   ├── README.md
 │   ├── index.md
+│   ├── introduction.md
 │   ├── 00-new-era/
 │   ├── 01-software-requirements/
 │   ├── 02-software-architecture/
@@ -47,7 +40,10 @@ algorítmica é infraestrutura, não produto.
 │   ├── 12-software-quality/
 │   ├── 13-software-security/
 │   ├── 14-software-engineering-professional-practice/
-│   └── 15-software-engineering-economics/
+│   ├── 15-software-engineering-economics/
+│   ├── 16-appendix/
+│   ├── imgs/
+│   └── stylesheets/
 └── site/
 ```
 
@@ -99,7 +95,7 @@ O arquivo `mkdocs.yml` define:
 
 ______________________________________________________________________
 
-## Convenções de Desenvolvimento
+## Convenções
 
 ### Idioma e Tom
 
@@ -139,78 +135,15 @@ ai_model: MODELO
 
 ## Referências
 
-1. [Autor], [Título], [Publicação], [Ano]
+1. [Autor], [Título], [Publicação], [Ano], [URL se existir]
 ```
-
-______________________________________________________________________
-
-## Mapeamento dos KAs
-
-### KAs Tradicionais Reconfigurados
-
-| Nº  | Nome Original         | Novo Nome (SWEBOK-AI)                          | Foco Principal                               |
-| --- | --------------------- | ---------------------------------------------- | -------------------------------------------- |
-| 00  | -                     | Nova Era                                       | Contexto da inteligencia artificial atual                  |
-| 01  | Software Requirements | Engenharia de Restrições e Contexto            | Limites e fronteiras para IA                 |
-| 02  | Software Architecture | Arquitetura de Sistemas Híbridos               | Padrões humanos-IA                           |
-| 03  | Software Design       | Design de Sistemas Híbridos                    | Auditabilidade e supervisão                  |
-| 04  | Software Construction | Orquestração e Curadoria de Código             | Avaliação de código gerado                   |
-| 05  | Software Testing      | Verificação e Validação em Escala              | Teste de sistemas não-determinísticos        |
-| 07  | Software Maintenance  | Manutenção de Sistemas Opaços                  | Código legado sem documentação de raciocínio |
-| 14  | Professional Practice | Prática Profissional e Julgamento Técnico      | Autoridade técnica e "quando dizer não à IA" |
-| 15  | Engineering Economics | Economia e Métricas da Engenharia com IA       | Paradoxo de Jevons, TCO de código gerado     |
-| 16  | Computing Foundations | Fundamentos de Sistemas Cognitivos Artificiais | LLMs, RAG, atenção em Transformers           |
-
-______________________________________________________________________
-
-## Guia para Contribuição
-
-### Antes de Escrever
-
-1. **Verifique o `PLAN.md`**: Se existir no KA, segue o plano estabelecido
-2. **Mantenha consistência**: Use a mesma terminologia entre seções e KAs
-
-### Princípios de Escrita
-
-1. **Perspectiva AI-First:** Assuma que geração de código é infraestrutura
-2. **Gargalos:** Qual é o novo gargalo?
-3. **Human-in-the-Loop:** Onde o humano participa?
-4. **Realidade Econômica:** Considere TCO e Paradoxo de Jevons
-
-### Checklist de Qualidade
-
-Antes de finalizar conteúdo:
-
-- [ ] Termos técnicos definidos no primeiro uso
-- [ ] Exemplos práticos e relevantes
-- [ ] Referências citadas corretamente
-- [ ] Considerações econômicas abordadas
-
-______________________________________________________________________
 
 ## Processo de escrita
 
-1. **Fase de Planejamento**: Criar `PLAN.md` no diretório do KA
-2. Fase de Pesquisa: Use o mcp exa ou o web search para pesquisar sobre o tema e escrever um rascunho.
-3. Fase de Revisão: Buscar referências recentes sobre o tema e adicioná-las ao PLAN.md
-4. **Fase de Escrita**: Desenvolver o texto, use o agent @book-writer
-5. **Fase de Revisão**: Revisar o texto e as referências bibliográficas, use o agent @book-reviewer
-    1. A revisão tem algum problema, ressalva ou correção, corrija qualquer problema
-    2. Volte para a etapa 4
-6. Marcar como published
-7. Fazer o commit com o skill commiter
-8. Fazer o push
-
-______________________________________________________________________
-
-## Contato e Coordenação
-
-Este projeto é desenvolvido de forma contínua. Ao trabalhar em qualquer KA:
-
-- Verifique dependências com outros KAs
-- Mantenha referências cruzadas atualizadas
-- Documente decisões arquiteturais em ADRs quando aplicável
-
-______________________________________________________________________
-
-*Este documento é um guia vivo e deve ser atualizado conforme o projeto evolui.*
+1. Fase de Pesquisa: O agent @book-researcher faz a pesquisa sobre o KA e salva em pesquisa/$KA/RESEARCH.md
+2. **Fase de Planejamento**: O agent @book-editor faz o planos das sessões que devem ser escritas para aquela KA e salva em docs/$KA/PLAN.md
+3. Fase de Rascunho: O agent @book-writer faz uma versao draft de cada sesão de acordo com o docs/$KA/PLAN.md
+4. Fase de Revisão: O agent @book-reviewer sugere melhorias em cada sessão.
+5. **Fase de Escrita**: O agent @book-writer faz desenvolve o texto de cada sessão até o @book-reviewer não ter mais nenhuma sugestão.
+6. Fase de publicação: O agent @book-editor faz os ajustes finais e marca como published.
+7. Fazer o push

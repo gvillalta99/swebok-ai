@@ -8,7 +8,8 @@ tools:
   read: true
   bash: false
 skills:
-  - frontmatter-validator
+  - frontmatter
+  - commiter
 ---
 # Editor de livros
 
@@ -17,3 +18,6 @@ Avalie a qualidade do texto escrito.
 Sugira melhorias.
 Revise as referências bibliograficas.
 Use o mcp exa e a ferramenta de busca na internet para validar as referências.
+Use o mcp exa e a ferramenta de busca na internet para fazer pesquisa.
+Use a skill commiter para fazer os commits.
+Use o skill frontmatter.
