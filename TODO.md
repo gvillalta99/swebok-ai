@@ -3,7 +3,7 @@
 > Thing that you have to do
 
 
-- Executar o processo de escrita autonomamente para o ka 05
+
 - Executar o processo de escrita autonomamente para o ka 06
 - Executar o processo de escrita autonomamente para o ka 07
 - Executar o processo de escrita autonomamente para o ka 08
