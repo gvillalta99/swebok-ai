@@ -57,9 +57,11 @@ A revisão humana torna-se mais crítica, não menos:
 
 !!! note "O Paradoxo da Automação"
 
-    Quanto mais código é gerado automaticamente, mais crítica torna-se a
-    revisão humana. A automação não elimina a necessidade de expertise —
-    redistribui onde ela é aplicada.
+```
+Quanto mais código é gerado automaticamente, mais crítica torna-se a
+revisão humana. A automação não elimina a necessidade de expertise —
+redistribui onde ela é aplicada.
+```
 
 ## 9.2 Novas Competências Necessárias
 
@@ -382,13 +384,15 @@ persiste.
 
 !!! tip "Preparação para o Futuro"
 
-    Investir em:
+```
+Investir em:
 
-    1. Fundamentos sólidos de arquitetura e design
-    2. Profundidade em pelo menos um domínio de aplicação
-    3. Fluência em engenharia de contexto
-    4. Capacidade de julgamento crítico sobre outputs de IA
-    5. Aprendizado contínuo de novos padrões e ferramentas
+1. Fundamentos sólidos de arquitetura e design
+2. Profundidade em pelo menos um domínio de aplicação
+3. Fluência em engenharia de contexto
+4. Capacidade de julgamento crítico sobre outputs de IA
+5. Aprendizado contínuo de novos padrões e ferramentas
+```
 
 ## Referências
 

@@ -9,15 +9,21 @@ ai_model: kimi-for-coding/k2p5
 
 # 3. Arquitetura versus Design em Contexto de IA
 
-A distinção entre arquitetura e design de software adquire novas dimensões na era da IA generativa. Enquanto a arquitetura lida com orquestração de sistemas complexos incluindo LLMs e agentes, o design foca na especificação precisa de comportamentos e contextos. Compreender esta diferenciação é fundamental para organizações que buscam integrar IA em seus produtos.
+A distinção entre arquitetura e design de software adquire novas dimensões na
+era da IA generativa. Enquanto a arquitetura lida com orquestração de sistemas
+complexos incluindo LLMs e agentes, o design foca na especificação precisa de
+comportamentos e contextos. Compreender esta diferenciação é fundamental para
+organizações que buscam integrar IA em seus produtos.
 
 ## 3.1 Diferenciação em Contexto de IA
 
-A fronteira entre arquitetura e design, tradicionalmente fluida, estabiliza-se em novos contornos quando sistemas de IA entram em cena.
+A fronteira entre arquitetura e design, tradicionalmente fluida, estabiliza-se
+em novos contornos quando sistemas de IA entram em cena.
 
 ### Arquitetura de Software com IA
 
-A arquitetura mantém seu foco em estrutura de alto nível, mas expande seu escopo para incluir:
+A arquitetura mantém seu foco em estrutura de alto nível, mas expande seu escopo
+para incluir:
 
 **Orquestração de LLMs:**
 
@@ -67,18 +73,26 @@ O design concentra-se na implementação de componentes individuais:
 
 !!! info "Uma Distinção Prática"
 
-    Arquitetura decide *se* e *onde* usar IA. Design decide *como* especificar
-    o contexto para que a IA produza resultados adequados.
+```
+Arquitetura decide *se* e *onde* usar IA. Design decide *como* especificar
+o contexto para que a IA produza resultados adequados.
+```
 
-Segundo InfoQ (2024), embora a IA não tenha mudado significativamente a *prática* da arquitetura de software — que continua focada em contexto organizacional e trade-offs — está mudando drasticamente os *produtos* sendo arquitetados [^15].
+Segundo InfoQ (2024), embora a IA não tenha mudado significativamente a
+*prática* da arquitetura de software — que continua focada em contexto
+organizacional e trade-offs — está mudando drasticamente os *produtos* sendo
+arquitetados [^15].
 
 ## 3.2 O Papel do Arquiteto de Software com IA
 
-Pesquisa do iSAQB (International Software Architecture Qualification Board) em 2025 identificou que ferramentas de IA suportam arquitetos de software em cinco das seis atividades principais da disciplina [^16]:
+Pesquisa do iSAQB (International Software Architecture Qualification Board) em
+2025 identificou que ferramentas de IA suportam arquitetos de software em cinco
+das seis atividades principais da disciplina [^16]:
 
 ### 1. Clarificação de Requisitos
 
-A IA auxilia na análise de documentação extensa, extração de requisitos implícitos e identificação de conflitos. O arquiteto utiliza LLMs para:
+A IA auxilia na análise de documentação extensa, extração de requisitos
+implícitos e identificação de conflitos. O arquiteto utiliza LLMs para:
 
 - Processar documentação legada e extrair regras de negócio
 - Analisar transcrições de entrevistas com stakeholders
@@ -86,7 +100,8 @@ A IA auxilia na análise de documentação extensa, extração de requisitos imp
 
 ### 2. Design de Estruturas
 
-Ferramentas de IA aceleram a criação de provas de conceito (POCs) e a geração de código/documentação de scaffolding:
+Ferramentas de IA aceleram a criação de provas de conceito (POCs) e a geração de
+código/documentação de scaffolding:
 
 ```markdown
 ## Exemplo de Interação Arquiteto-IA
@@ -128,30 +143,34 @@ A tradução entre linguagens técnicas e de negócio é facilitada:
 
 ## 3.3 Tensões e Trade-offs Específicos
 
-A introdução de componentes de IA cria tensões arquiteturais únicas que o arquiteto deve endereçar.
+A introdução de componentes de IA cria tensões arquiteturais únicas que o
+arquiteto deve endereçar.
 
 ### Determinismo versus Probabilidade
 
-**O Desafio:** Software tradicional assume comportamento determinístico. LLMs introduzem incerteza como elemento de primeira classe.
+**O Desafio:** Software tradicional assume comportamento determinístico. LLMs
+introduzem incerteza como elemento de primeira classe.
 
 **Estratégias de Mitigação:**
 
-| Estratégia | Descrição | Quando Usar |
-|------------|-----------|-------------|
-| **Temperatura Zero** | Configurar modelo para máxima determinização | Respostas factuais, código |
-| **Fallback Determinístico** | Regras tradicionais como backup | Casos críticos de negócio |
-| **Validação Estruturada** | Schemas rigorosos de saída | Integrações com sistemas legados |
-| **N Version Programming** | Múltiplas chamadas e consenso | Decisões de alta criticidade |
+| Estratégia                  | Descrição                                    | Quando Usar                      |
+| --------------------------- | -------------------------------------------- | -------------------------------- |
+| **Temperatura Zero**        | Configurar modelo para máxima determinização | Respostas factuais, código       |
+| **Fallback Determinístico** | Regras tradicionais como backup              | Casos críticos de negócio        |
+| **Validação Estruturada**   | Schemas rigorosos de saída                   | Integrações com sistemas legados |
+| **N Version Programming**   | Múltiplas chamadas e consenso                | Decisões de alta criticidade     |
 
 ### Latência e Custo
 
-Chamadas a LLMs introduzem latência significativa e custos variáveis baseados em tokens.
+Chamadas a LLMs introduzem latência significativa e custos variáveis baseados em
+tokens.
 
 **Considerações de Design:**
 
 - **Caching:** Estratégias de cache de respostas para queries similares
 - **Batching:** Agrupamento de requisições para otimização de throughput
-- **Model Tiering:** Uso de modelos menores para tarefas simples, maiores apenas quando necessário
+- **Model Tiering:** Uso de modelos menores para tarefas simples, maiores apenas
+  quando necessário
 
 **Exemplo de Arquitetura com Tiering:**
 
@@ -176,7 +195,8 @@ Chamadas a LLMs introduzem latência significativa e custos variáveis baseados 
 
 ### Graceful Degradation
 
-Sistemas com IA devem degradar elegantemente quando componentes probabilísticos falham:
+Sistemas com IA devem degradar elegantemente quando componentes probabilísticos
+falham:
 
 **Níveis de Degradação:**
 
@@ -206,18 +226,25 @@ class ResilientAIService:
 
 A distinção entre arquitetura e design torna-se dinâmica em projetos com IA:
 
-- **Ascensão do Context Engineer:** Um novo papel que opera na interseção, projetando pipelines de informação que alimentam tanto decisões arquiteturais quanto implementações de design
-- **Colaboração Aumentada:** Arquitetos e designers colaboram mais intensamente, pois decisões de contexto afetam ambos os níveis
-- **Feedback Loop Rápido:** A capacidade de gerar POCs rapidamente encurta o ciclo entre concepção arquitetural e validação de design
+- **Ascensão do Context Engineer:** Um novo papel que opera na interseção,
+  projetando pipelines de informação que alimentam tanto decisões arquiteturais
+  quanto implementações de design
+- **Colaboração Aumentada:** Arquitetos e designers colaboram mais intensamente,
+  pois decisões de contexto afetam ambos os níveis
+- **Feedback Loop Rápido:** A capacidade de gerar POCs rapidamente encurta o
+  ciclo entre concepção arquitetural e validação de design
 
 !!! note "Competências Híbridas"
 
-    O profissional de software do futuro não escolherá entre ser arquiteto ou
-    designer. Será necessário fluidez em ambos os domínios, com profundidade
-    adicional em engenharia de contexto.
+```
+O profissional de software do futuro não escolherá entre ser arquiteto ou
+designer. Será necessário fluidez em ambos os domínios, com profundidade
+adicional em engenharia de contexto.
+```
 
 ## Referências
 
 [^15]: InfoQ. "Software Architecture and Design Trends Report." April 2024.
 
-[^16]: iSAQB. "Software Architects and AI Systems: Challenges and Opportunities." 2025.
+[^16]: iSAQB. "Software Architects and AI Systems: Challenges and
+    Opportunities." 2025.

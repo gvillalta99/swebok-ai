@@ -17,8 +17,9 @@ frameworks complementares que estruturam o design de aplicações com LLMs.
 
 ## 5.1 Framework de 32 Padrões
 
-A experiência prática em construção de aplicações LLM reforça a importância destes
-padrões como ferramentas essenciais para superar desafios recorrentes [^17].
+A experiência prática em construção de aplicações LLM reforça a importância
+destes padrões como ferramentas essenciais para superar desafios recorrentes
+[^17].
 
 ### 1. Controle de Estilo de Conteúdo
 
@@ -381,7 +382,7 @@ fundamental na era da IA.
 [^17]: Medium. "What I Learned from Building LLM Applications." 2024.
 
 [^18]: Medium. "The LLM Triangle Principles to Architect Reliable AI Apps."
-    2025.
+    2025\.
 
 [^19]: IBM Research. "Design Principles for Generative AI Applications." CHI
-    2024.
+    2024\.

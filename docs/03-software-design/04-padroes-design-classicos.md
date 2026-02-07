@@ -9,7 +9,11 @@ ai_model: kimi-for-coding/k2p5
 
 # 4. Padrões de Design Clássicos na Era da IA
 
-Os padrões clássicos de design — desde os 23 padrões da Gang of Four (GoF) até padrões empresariais — mantêm sua relevância, mas suas aplicações e implementações evoluem significativamente com a introdução de componentes de IA. Este capítulo explora como estes padrões são adaptados e quais novos usos emergem em sistemas com LLMs.
+Os padrões clássicos de design — desde os 23 padrões da Gang of Four (GoF) até
+padrões empresariais — mantêm sua relevância, mas suas aplicações e
+implementações evoluem significativamente com a introdução de componentes de IA.
+Este capítulo explora como estes padrões são adaptados e quais novos usos
+emergem em sistemas com LLMs.
 
 ## 4.1 Padrões Gang of Four (GoF) na Era da IA
 
@@ -19,8 +23,8 @@ contextos de uso surgem quando integramos LLMs em arquiteturas de software.
 
 ### Padrões Criacionais
 
-**Factory Pattern:**
-A IA gera boilerplate de factories com facilidade, mas o valor agregado está em factories que encapsulam a lógica de seleção de modelos:
+**Factory Pattern:** A IA gera boilerplate de factories com facilidade, mas o
+valor agregado está em factories que encapsulam a lógica de seleção de modelos:
 
 ```python
 # Factory para seleção de LLM baseada em contexto
@@ -35,8 +39,8 @@ class LLMFactory:
             return GeneralPurposeLLM()  # Modelo de propósito geral
 ```
 
-**Builder Pattern:**
-Particularmente útil para APIs fluentes geradas por IA, especialmente na construção de prompts complexos:
+**Builder Pattern:** Particularmente útil para APIs fluentes geradas por IA,
+especialmente na construção de prompts complexos:
 
 ```python
 # Builder para construção estruturada de prompts
@@ -62,13 +66,15 @@ class PromptBuilder:
         return Prompt(self.system_context, self.examples, self.constraints)
 ```
 
-**Singleton:**
-Requer atenção especial para garantir thread-safety em código gerado. Clientes singleton para APIs de IA são comuns, mas devem implementar pooling de conexões.
+**Singleton:** Requer atenção especial para garantir thread-safety em código
+gerado. Clientes singleton para APIs de IA são comuns, mas devem implementar
+pooling de conexões.
 
 ### Padrões Estruturais
 
-**Adapter:**
-Torna-se crítico para integração de sistemas legados com LLMs. O adapter traduz entre interfaces antigas e os formatos esperados por modelos modernos:
+**Adapter:** Torna-se crítico para integração de sistemas legados com LLMs. O
+adapter traduz entre interfaces antigas e os formatos esperados por modelos
+modernos:
 
 ```python
 # Adapter para integrar sistema legado com LLM
@@ -85,8 +91,9 @@ class LegacySystemLLMAdapter:
         return self.llm.structure_response(raw_data)
 ```
 
-**Facade:**
-O conceito de "Agent Facade" emerge como um padrão importante: uma interface simplificada que encapsula interações complexas com múltiplos agentes especializados [^12]:
+**Facade:** O conceito de "Agent Facade" emerge como um padrão importante: uma
+interface simplificada que encapsula interações complexas com múltiplos agentes
+especializados [^12]:
 
 ```python
 # Agent Facade - interface unificada para sistema multi-agent
@@ -109,8 +116,8 @@ class CustomerServiceFacade:
             return self.escalation_agent.escalate(customer_message)
 ```
 
-**Decorator:**
-Útil para adicionar comportamentos de logging, observabilidade e monitoramento de custos em chamadas a LLMs:
+**Decorator:** Útil para adicionar comportamentos de logging, observabilidade e
+monitoramento de custos em chamadas a LLMs:
 
 ```python
 # Decorator para monitoramento de chamadas a LLM
@@ -134,8 +141,8 @@ class MonitoredLLM(LLMProvider):
 
 ### Padrões Comportamentais
 
-**Strategy:**
-Fundamental para sistemas que alternam entre LLMs e lógica tradicional baseada em contexto:
+**Strategy:** Fundamental para sistemas que alternam entre LLMs e lógica
+tradicional baseada em contexto:
 
 ```python
 # Strategy para seleção de abordagem de processamento
@@ -169,8 +176,8 @@ class HybridProcessor:
         return self.strategies[complexity].process(data)
 ```
 
-**Observer:**
-Adaptado para arquiteturas orientadas a eventos com IA, onde agentes reagem a mudanças de estado:
+**Observer:** Adaptado para arquiteturas orientadas a eventos com IA, onde
+agentes reagem a mudanças de estado:
 
 ```python
 # Observer para sistema de eventos com agentes
@@ -186,8 +193,8 @@ class EventManager:
             agent.on_event(event)
 ```
 
-**Command:**
-Base para padrões de "Tool Use" em sistemas com LLMs. Cada comando representa uma ferramenta que o modelo pode invocar:
+**Command:** Base para padrões de "Tool Use" em sistemas com LLMs. Cada comando
+representa uma ferramenta que o modelo pode invocar:
 
 ```python
 # Command pattern para Tool Use
@@ -218,7 +225,8 @@ class SearchDatabaseCommand(ToolCommand):
 
 ### Layered Architecture
 
-A arquitetura em camadas tradicional expande-se para incluir uma nova camada: **AI Orchestration Layer**
+A arquitetura em camadas tradicional expande-se para incluir uma nova camada:
+**AI Orchestration Layer**
 
 ```
 ┌─────────────────────────────────────────┐
@@ -245,8 +253,8 @@ Esta camada encapsula:
 
 ### Microservices
 
-**Microserviços de IA Especializados:**
-Arquiteturas de microservices adaptam-se para incluir serviços dedicados a funções de IA:
+**Microserviços de IA Especializados:** Arquiteturas de microservices adaptam-se
+para incluir serviços dedicados a funções de IA:
 
 ```
 ┌──────────────────────────────────────────┐
@@ -265,8 +273,8 @@ Arquiteturas de microservices adaptam-se para incluir serviços dedicados a fun�
 └────────┘ └────────┘ └────────┘ └────────┘
 ```
 
-**API Gateway com Circuit Breaker:**
-Gateways modernos implementam circuit breakers específicos para proteger contra falhas em APIs de IA [^14]:
+**API Gateway com Circuit Breaker:** Gateways modernos implementam circuit
+breakers específicos para proteger contra falhas em APIs de IA [^14]:
 
 ```yaml
 # Configuração de circuit breaker para LLM
@@ -282,8 +290,8 @@ api_gateway:
 
 ### Event-Driven Architecture
 
-**Integração com Streams de Eventos:**
-Sistemas com IA beneficiam-se de processamento em tempo real de eventos:
+**Integração com Streams de Eventos:** Sistemas com IA beneficiam-se de
+processamento em tempo real de eventos:
 
 ```python
 # Processamento de eventos com IA
@@ -304,8 +312,8 @@ class EventProcessor:
             await self.store_event(event, analysis)
 ```
 
-**Event Sourcing para Rastreabilidade:**
-Decisões de IA são armazenadas como eventos imutáveis, permitindo:
+**Event Sourcing para Rastreabilidade:** Decisões de IA são armazenadas como
+eventos imutáveis, permitindo:
 
 - Audit trails completos
 - Replay de decisões
@@ -313,13 +321,17 @@ Decisões de IA são armazenadas como eventos imutáveis, permitindo:
 
 ## 4.3 Síntese: Padrões como Linguagem Comum
 
-Os padrões de design clássicos funcionam como uma linguagem ubíqua entre humanos e IA:
+Os padrões de design clássicos funcionam como uma linguagem ubíqua entre humanos
+e IA:
 
-- **Para a IA:** Padrões fornecem estruturas reconhecíveis que o modelo pode gerar consistentemente
-- **Para humanos:** Padrões oferecem vocabulário compartilhado para especificar comportamentos
+- **Para a IA:** Padrões fornecem estruturas reconhecíveis que o modelo pode
+  gerar consistentemente
+- **Para humanos:** Padrões oferecem vocabulário compartilhado para especificar
+  comportamentos
 - **Para o sistema:** Padrões garantem consistência e previsibilidade
 
-A solicitação explícita de padrões específicos nos prompts melhora significativamente a qualidade do código gerado:
+A solicitação explícita de padrões específicos nos prompts melhora
+significativamente a qualidade do código gerado:
 
 ```markdown
 "Implemente usando o padrão Strategy para permitir diferentes
@@ -329,7 +341,7 @@ das estratégias e Observer para notificação de resultados."
 
 ## Referências
 
-
-[^12]: ArXiv. "Designing LLM-based Multi-Agent Systems for Software Engineering Tasks." 2024.
+[^12]: ArXiv. "Designing LLM-based Multi-Agent Systems for Software Engineering
+    Tasks." 2024.
 
 [^14]: Microsoft. "GenAI Gateway Resilience Service Example." GitHub, 2024.

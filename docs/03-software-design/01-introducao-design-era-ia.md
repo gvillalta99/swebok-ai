@@ -43,10 +43,12 @@ geram documentação contextualizada e atualizada automaticamente.
 
 !!! info "Mudança de Mentalidade"
 
-    O designer de software contemporâneo deve pensar menos como "escritor de
-    código" e mais como "curador de contexto". O valor não está mais na produção
-    de linhas de código, mas na especificação precisa do que aquele código deve
-    fazer e em que condições.
+```
+O designer de software contemporâneo deve pensar menos como "escritor de
+código" e mais como "curador de contexto". O valor não está mais na produção
+de linhas de código, mas na especificação precisa do que aquele código deve
+fazer e em que condições.
+```
 
 ## 1.2 Modularity, Coupling e Cohesion em Contexto de IA
 
@@ -75,10 +77,10 @@ A modularidade assume novas dimensões quando consideramos:
 ### Acoplamento e Coesão
 
 Pesquisadores demonstraram que código gerado por IA em pequenos snippets
-frequentemente apresenta alta coesão e baixo acoplamento, desde que os princípios
-fundamentais de design sejam especificados no contexto [^2][^4].
-Este é um resultado interessante: a natureza estocástica da geração, quando
-aplicada a contextos limitados, tende a produzir componentes focados.
+frequentemente apresenta alta coesão e baixo acoplamento, desde que os
+princípios fundamentais de design sejam especificados no contexto [^2][^4]. Este
+é um resultado interessante: a natureza estocástica da geração, quando aplicada
+a contextos limitados, tende a produzir componentes focados.
 
 No entanto, surge um alerta importante: soluções maiores geradas por IA podem
 introduzir acoplamento inadvertido quando não supervisionadas. A engenharia de
@@ -86,9 +88,11 @@ prompt torna-se, portanto, crítica para manter a qualidade arquitetural.
 
 !!! warning "Armadilha do Acoplamento Invisível"
 
-    Código gerado por IA pode criar dependências implícitas entre módulos que
-    parecem independentes. Sempre revise integrações para identificar
-    acoplamentos não intencionais.
+```
+Código gerado por IA pode criar dependências implícitas entre módulos que
+parecem independentes. Sempre revise integrações para identificar
+acoplamentos não intencionais.
+```
 
 | Aspecto              | Código Tradicional                        | Código Gerado por IA                                 |
 | -------------------- | ----------------------------------------- | ---------------------------------------------------- |
@@ -130,9 +134,11 @@ inevitável do desenvolvimento contemporâneo.
 
 !!! tip "Equilíbrio entre Paradigmas"
 
-    CHOP e vibe coding não substituem o conhecimento profundo de design. Servem
-    como aceleradores quando aplicados sobre bases sólidas de arquitetura e
-    engenharia de software.
+```
+CHOP e vibe coding não substituem o conhecimento profundo de design. Servem
+como aceleradores quando aplicados sobre bases sólidas de arquitetura e
+engenharia de software.
+```
 
 ### Programação via Refinamento Iterativo de Prompts
 
@@ -170,19 +176,21 @@ designer de software:
 
 !!! note "O Designer como Curador"
 
-    O valor do designer de software na era da IA não está em escrever mais
-    código, mas em especificar melhor o contexto dentro do qual o código será
-    gerado. A precisão da especificação determina a qualidade da implementação.
+```
+O valor do designer de software na era da IA não está em escrever mais
+código, mas em especificar melhor o contexto dentro do qual o código será
+gerado. A precisão da especificação determina a qualidade da implementação.
+```
 
 ## Referências
 
 [^1]: GitHub. "Survey: AI Wave Grows." 2024.
     <https://github.blog/news-insights/research/survey-ai-wave-grows>
 
-[^2]: Khononov, Vlad. "Balancing Coupling in Software Design." Pearson, 2024.
-
 [^3]: Microsoft Research. "Toward modular models: Collaborative AI development
     enables model accountability and continuous learning." 2024.
+
+[^2]: Khononov, Vlad. "Balancing Coupling in Software Design." Pearson, 2024.
 
 [^4]: ArXiv. "The Impact of AI-Generated Solutions on Software Architecture and
     Productivity." 2025.

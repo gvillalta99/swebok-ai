@@ -131,3 +131,16 @@ nav:
           - 04 - Arquiteturas Nativas (RAG e Agentes): 02-software-architecture/04-ai-native-architectures.md
           - 05 - Documentação Viva e ADRs: 02-software-architecture/05-documentation-and-decisions.md
           - 06 - Qualidade e Avaliação (AI-ATAM): 02-software-architecture/06-quality-and-evaluation.md
+
+      - KA 03 - Software Design:
+          - 00 - Visão Geral: 03-software-design/index.md
+          - 01 - Fundamentos de Design na Era da IA: 03-software-design/01-introducao-design-era-ia.md
+          - 02 - Princípios de Design Clássicos: 03-software-design/02-principios-design-classicos.md
+          - 03 - Arquitetura vs Design: 03-software-design/03-arquitetura-vs-design.md
+          - 04 - Padrões de Design Clássicos: 03-software-design/04-padroes-design-classicos.md
+          - 05 - Novos Padrões de Design para IA: 03-software-design/05-padroes-design-ia.md
+          - 06 - Design Patterns para Sistemas com IA: 03-software-design/06-design-patterns-sistemas-ia.md
+          - 07 - Design Centrado em Contexto: 03-software-design/07-design-contexto.md
+          - 08 - Documentação de Design: 03-software-design/08-documentacao-design.md
+          - 09 - O Futuro do Designer: 03-software-design/09-futuro-designer-software.md
+          - 10 - Checklists e Templates: 03-software-design/10-checklist-templates.md
