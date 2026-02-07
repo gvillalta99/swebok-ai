@@ -44,6 +44,27 @@ algorítmica é infraestrutura, não produto.
 │   ├── 16-appendix/
 │   ├── imgs/
 │   └── stylesheets/
+├── pesquisa/
+│   ├── index.md
+│   ├── introduction.md
+│   ├── 00-new-era/
+│   ├── 01-software-requirements/
+│   ├── 02-software-architecture/
+│   ├── 03-software-design/
+│   ├── 04-software-construction/
+│   ├── 05-software-testing/
+│   ├── 06-software-engineering-operations/
+│   ├── 07-software-maintenance/
+│   ├── 08-software-configuration-management/
+│   ├── 09-software-engineering-management/
+│   ├── 10-software-engineering-process/
+│   ├── 11-software-engineering-models-and-methods/
+│   ├── 12-software-quality/
+│   ├── 13-software-security/
+│   ├── 14-software-engineering-professional-practice/
+│   ├── 15-software-engineering-economics/
+│   ├── 16-appendix/
+│   └── extra/
 └── site/
 ```
 
