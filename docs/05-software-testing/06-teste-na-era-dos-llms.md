@@ -2,8 +2,8 @@
 title: Teste na Era dos LLMs
 created_at: 2025-02-07
 tags: [software-testing, llm, ia, self-healing, agentic-ai, rag-testing]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -521,12 +521,20 @@ holística enquanto sistemas autônomos executam e mantêm testes.
 
 ## Referências
 
-1. Mechasm (2026). *The Future of Testing: Why Agentic AI is the End of Manual
-   Scripts*.
+1. Mechasm (2025). *The Future of Testing: Why Agentic AI is the End of Manual
+   Scripts*. Disponível em: <https://www.mechasm.com/agentic-ai-testing>
 2. PractiTest (2025). *How Agentic AI for Software Testing Is Transforming QA*.
-3. DeepEval (2025). *LLM Evaluation Framework Documentation*.
+   Disponível em: <https://www.practitest.com/agentic-ai-software-testing/>
+3. DeepEval (2025). *LLM Evaluation Framework Documentation*. Disponível em:
+   <https://docs.confident-ai.com/>
 4. RAGAS (2025). *Retrieval Augmented Generation Assessment Framework*.
-5. Panaya (2025). *Self-Healing Test Automation: Ending Maintenance*.
+   Disponível em: <https://docs.ragas.io/>
+5. Panaya (2025). *Self-Healing Test Automation: Ending Maintenance*. Disponível
+   em: <https://www.panaya.com/self-healing-test-automation/>
+6. Testim (2025). *AI-Powered Test Automation Platform*. Disponível em:
+   <https://www.testim.io/>
+7. Mabl (2025). *Intelligent Test Automation*. Disponível em:
+   <https://www.mabl.com/>
 
 ______________________________________________________________________
 

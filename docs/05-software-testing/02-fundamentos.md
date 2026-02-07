@@ -2,8 +2,8 @@
 title: Fundamentos de Teste de Software
 created_at: 2025-02-07
 tags: [software-testing, fundamentos, principios, verificação, validação]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -291,11 +291,12 @@ A economia do teste é transformada:
 - Questionamento de premissas
 - Busca por cenários de borda
 
-**Skepticismo Construtivo:**
+**Ceticismo Construtivo (Skepticismo):**
 
 - Desconfiança saudável do código
 - Verificação independente
 - Abordagem sistemática
+- Questionamento de premissas implícitas
 
 **Atenção aos Detalhes:**
 
@@ -358,12 +359,17 @@ crítico humano como componente essencial da qualidade.
 ## Referências
 
 1. ISTQB (2023). *Certified Tester Foundation Level Syllabus*. International
-   Software Testing Qualifications Board.
-2. Myers, G. J., et al. (2011). *The Art of Software Testing*. 3rd ed. Wiley.
+   Software Testing Qualifications Board. Disponível em:
+   <https://www.istqb.org/certifications/ctfl>
+2. Myers, G. J., Sandler, C., & Badgett, T. (2011). *The Art of Software
+   Testing*. 3rd ed. Wiley. ISBN: 978-1118031964
 3. Kaner, C., Falk, J., & Nguyen, H. Q. (1999). *Testing Computer Software*. 2nd
-   ed. Wiley.
+   ed. Wiley. ISBN: 978-0471358466
 4. ISO/IEC 25010 (2011). *Systems and Software Engineering - Systems and
-   Software Quality Requirements and Evaluation*.
+   Software Quality Requirements and Evaluation (SQuaRE)*. Disponível em:
+   <https://www.iso.org/standard/35733.html>
+5. Boehm, B. W., & Basili, V. R. (2001). "Software Defect Reduction Top 10
+   List." *IEEE Computer*, 34(1), 135-137. DOI: 10.1109/2.962984
 
 ______________________________________________________________________
 

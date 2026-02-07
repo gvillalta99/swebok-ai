@@ -2,8 +2,8 @@
 title: Introdução ao Teste de Software
 created_at: 2025-02-07
 tags: [software-testing, introdução, evolução, llm, qa]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -246,10 +246,13 @@ mindset e nas competências dos profissionais de QA.
 ## Referências
 
 1. Myers, G. J., Sandler, C., & Badgett, T. (2011). *The Art of Software
-   Testing*. 3rd ed. Wiley.
-2. QualiTest Group (2025). *The State of Quality Assurance Report*.
-3. Gartner (2025). *AI-Augmented Software Testing Tools Reviews*.
+   Testing*. 3rd ed. Wiley. ISBN: 978-1118031964
+2. QualiTest Group (2025). *The State of Quality Assurance Report*. Disponível
+   em: <https://www.qualitestgroup.com/resources/white-papers/>
+3. Gartner (2025). *AI-Augmented Software Testing Tools Reviews*. Disponível em:
+   <https://www.gartner.com/en/information-technology/insights/ai-testing>
 4. TestGuild (2025). *The Future of Testing: AI and LLM-Powered Automation*.
+   Disponível em: <https://testguild.com/ai-testing/>
 
 ______________________________________________________________________
 

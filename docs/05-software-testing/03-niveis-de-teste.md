@@ -2,8 +2,8 @@
 title: Níveis de Teste
 created_at: 2025-02-07
 tags: [software-testing, niveis, unit-test, integration-test, system-test, acceptance-test]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -490,12 +490,14 @@ gerados por IA e focando em qualidade holística.
 
 ## Referências
 
-1. Fowler, M. (2012). *Test Pyramid*. MartinFowler.com.
+1. Fowler, M. (2012). *Test Pyramid*. MartinFowler.com. Disponível em:
+   <https://martinfowler.com/articles/practical-test-pyramid.html>
 2. Cohn, M. (2009). *Succeeding with Agile: Software Development Using Scrum*.
-   Addison-Wesley.
+   Addison-Wesley. ISBN: 978-0321579364
 3. Freeman, S., & Pryce, N. (2009). *Growing Object-Oriented Software, Guided by
-   Tests*. Addison-Wesley.
-4. GeeksforGeeks (2025). *Levels of Software Testing*.
+   Tests*. Addison-Wesley. ISBN: 978-0321503628
+4. GeeksforGeeks (2025). *Levels of Software Testing*. Disponível em:
+   <https://www.geeksforgeeks.org/levels-of-software-testing/>
 
 ______________________________________________________________________
 

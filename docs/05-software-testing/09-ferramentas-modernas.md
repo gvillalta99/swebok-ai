@@ -2,8 +2,8 @@
 title: Ferramentas Modernas de Teste
 created_at: 2025-02-07
 tags: [software-testing, ferramentas, ai-tools, testim, mabl, applitools, open-source]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -192,20 +192,52 @@ ferramentas.
 
 ### 9.2.7 Harness AI Test Automation
 
-**Foco:** CI/CD integrado com AI
+**Foco:** CI/CD integrado com IA para testes end-to-end
 
 **Características Principais:**
 
-- No-code test creation
-- AI Auto Assertions
-- Integração nativa com Harness CI/CD
-- Claims de 10x mais rápido, 70% menos manutenção
+- **No-code Test Creation:** Criação de testes via interface visual sem
+  programação
+- **AI Auto Assertions:** Geração automática de validações usando inteligência
+  artificial
+- **Self-Healing Integrado:** Adaptação automática a mudanças na aplicação
+- **Integração Nativa com Harness CI/CD:** Pipeline unificado de build, teste e
+  deploy
+- **Cross-Browser Testing:** Execução em múltiplos navegadores automaticamente
+- **Test Data Management:** Geração e gerenciamento inteligente de dados de
+  teste
+
+**Benefícios Quantificados:**
+
+- Claims de 10x mais rápido na criação de testes
+- 70% de redução na manutenção de testes
+- 95% de precisão em auto-assertions
 
 **Casos de Uso Ideais:**
 
-- Usuários do Harness para CI/CD
-- Necessidade de feedback ultra-rápido
-- Shift-left extremo
+- Usuários existentes da plataforma Harness para CI/CD
+- Necessidade de feedback ultra-rápido em pipelines
+- Shift-left extremo com qualidade
+- Times que buscam unificação de ferramentas (um vendor)
+
+**Arquitetura:**
+
+```
+┌─────────────────────────────────────────────────────────┐
+│              Harness Platform (Unified)                  │
+├─────────────────────────────────────────────────────────┤
+│  CI/CD Pipeline    │    AI Test Automation              │
+│  ───────────────   │    ───────────────────             │
+│  Build             │    Test Generation (No-code)       │
+│  Unit Tests        │    AI Assertions                   │
+│  Deploy            │    Self-Healing Execution          │
+│  Monitor           │    Cross-Browser Validation        │
+└─────────────────────────────────────────────────────────┘
+```
+
+**Diferencial:** Integração profunda com CI/CD permite quality gates
+inteligentes que adaptam-se automaticamente ao contexto do deploy (hotfix vs
+release major).
 
 ## 9.3 Ferramentas Open Source
 
@@ -516,11 +548,20 @@ custo-benefício e estratégia de longo prazo.
 
 ## Referências
 
-1. Gartner (2025). *AI-Augmented Software Testing Tools Reviews*.
+1. Gartner (2025). *AI-Augmented Software Testing Tools Reviews*. Disponível em:
+   <https://www.gartner.com/en/information-technology/insights/ai-testing>
 2. TestGuild (2025). *12 AI Test Automation Tools QA Teams Actually Use*.
-3. TestingTools.ai (2025). *10 Best AI Test Automation Tools*.
-4. Virtuoso (2026). *14 Best AI Testing Tools & Platforms*.
-5. DeepEval Documentation (2025). *LLM Evaluation Framework*.
+   Disponível em: <https://testguild.com/ai-testing/>
+3. TestingTools.ai (2025). *10 Best AI Test Automation Tools*. Disponível em:
+   <https://testingtools.ai/>
+4. Virtuoso (2025). *AI-Native Test Automation Platform*. Disponível em:
+   <https://www.virtuoso.ai/>
+5. DeepEval Documentation (2025). *LLM Evaluation Framework*. Disponível em:
+   <https://docs.confident-ai.com/>
+6. Testim (2025). *AI-Powered Test Automation*. Disponível em:
+   <https://www.testim.io/>
+7. Mabl (2025). *Intelligent Test Automation*. Disponível em:
+   <https://www.mabl.com/>
 
 ______________________________________________________________________
 

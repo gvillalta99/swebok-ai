@@ -2,8 +2,8 @@
 title: Tendências e Futuro do Teste
 created_at: 2025-02-07
 tags: [software-testing, tendencias, futuro, autonomous-testing, ai-native, skills]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -380,11 +380,15 @@ analista de dados, focado em prevenção e experiência do usuário.
 
 ## Referências
 
-1. Mechasm (2026). *The Future of Testing: Why Agentic AI is the End of Manual
-   Scripts*.
-2. DevAssure (2026). *Autonomous QA in 2026*.
-3. ASTA Workshop (2026). *Agentic AI in Software Testing and Automation*.
-4. Gartner (2025). *Future of AI-Augmented Software Testing*.
+1. Mechasm (2025). *The Future of Testing: Why Agentic AI is the End of Manual
+   Scripts*. Disponível em: <https://www.mechasm.com/agentic-ai-testing>
+2. DevAssure (2025). *Autonomous QA: Trends and Predictions*. Disponível em:
+   <https://www.devassure.io/blog/autonomous-qa>
+3. Gartner (2025). *Future of AI-Augmented Software Testing*. Disponível em:
+   <https://www.gartner.com/en/information-technology/insights/ai-testing>
+4. Forrester (2025). *The State of Test Automation*. Disponível em:
+   <https://www.forrester.com/test-automation>
+5. IDC (2025). *Worldwide Software Testing Forecast*.
 
 ______________________________________________________________________
 

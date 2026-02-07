@@ -2,8 +2,8 @@
 title: Framework de Implementação
 created_at: 2025-02-07
 tags: [software-testing, implementacao, roadmap, adocao, gestao-mudanca, casos-sucesso]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -542,9 +542,20 @@ aprendizado contínuo com casos de sucesso.
 
 ## Referências
 
-1. Kotter, J. P. (1996). *Leading Change*. Harvard Business Press.
-2. Gartner (2025). *Change Management for Digital Transformation*.
-3. Case studies anônimos de empresas líderes (2024-2025).
+1. Kotter, J. P. (1996). *Leading Change*. Harvard Business Press. ISBN:
+   978-0875847479. O modelo de 8 passos de Kotter para gestão de mudança
+   organizacional continua sendo referência para transformações digitais,
+   incluindo adoção de IA em testes: (1) Criar senso de urgência, (2) Formar
+   coalizão, (3) Criar visão, (4) Comunicar visão, (5) Remover obstáculos, (6)
+   Gerar vitórias de curto prazo, (7) Consolidar ganhos, (8) Ancorar na cultura.
+2. Gartner (2025). *Change Management for Digital Transformation*. Disponível
+   em:
+   <https://www.gartner.com/en/information-technology/insights/change-management>
+3. Prosci (2025). *ADKAR Model for Change Management*. Disponível em:
+   <https://www.prosci.com/methodology/adkar>
+4. McKinsey & Company (2024). *The State of AI in Quality Assurance*. Disponível
+   em: <https://www.mckinsey.com/capabilities/quality-assurance>
+5. Case studies anônimos de empresas líderes (2024-2025).
 
 ______________________________________________________________________
 

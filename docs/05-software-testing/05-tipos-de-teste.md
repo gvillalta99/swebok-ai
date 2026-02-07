@@ -2,8 +2,8 @@
 title: Tipos de Teste
 created_at: 2025-02-07
 tags: [software-testing, tipos, funcional, performance, seguranca, regressao]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -435,10 +435,18 @@ aproveitando automação inteligente para maximizar cobertura e eficiência.
 
 ## Referências
 
-1. Whittaker, J. (2009). *Exploratory Software Testing*. Addison-Wesley.
+1. Whittaker, J. (2009). *Exploratory Software Testing*. Addison-Wesley. ISBN:
+   978-0321636416
 2. OWASP (2025). *Testing Guide*. Open Web Application Security Project.
+   Disponível em: <https://owasp.org/www-project-web-security-testing-guide/>
 3. DeepExploit (2025). *Autonomous Penetration Testing with Deep Learning*.
+   Disponível em:
+   <https://github.com/13o-bbr-bbq/machine_learning_security/tree/master/DeepExploit>
 4. BrowserStack (2025). *Types of Testing: Different Types of Software Testing*.
+   Disponível em: <https://www.browserstack.com/guide/types-of-testing>
+5. Ismail, M., et al. (2020). "DeepExploit: Fully Automated Penetration Testing
+   Framework using Deep Reinforcement Learning." *IEEE Access*. DOI:
+   10.1109/ACCESS.2020.3025836
 
 ______________________________________________________________________
 

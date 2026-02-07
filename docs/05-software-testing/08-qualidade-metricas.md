@@ -2,8 +2,8 @@
 title: Qualidade e Métricas
 created_at: 2025-02-07
 tags: [software-testing, metricas, qualidade, kpi, roi, quality-gates]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -480,11 +480,13 @@ resultados de negócio.
 ## Referências
 
 1. Kaner, C. (2004). *Software Engineering Metrics: What Do They Measure and How
-   Do We Know?*
+   Do We Know?* Disponível em: <https://kaner.com/pdfs/metrics.pdf>
 2. ISO/IEC 25010 (2011). *Systems and Software Quality Requirements and
-   Evaluation*.
+   Evaluation (SQuaRE)*. Disponível em:
+   <https://www.iso.org/standard/35733.html>
 3. West, M. (2010). *Measuring Test Progress*. STPCon.
-4. Gartner (2025). *Metrics for AI-Augmented Testing*.
+4. Gartner (2025). *Metrics for AI-Augmented Testing*. Disponível em:
+   <https://www.gartner.com/en/information-technology/insights/ai-testing>
 
 ______________________________________________________________________
 

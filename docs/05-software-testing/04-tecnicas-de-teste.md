@@ -2,8 +2,8 @@
 title: Técnicas de Teste
 created_at: 2025-02-07
 tags: [software-testing, tecnicas, black-box, white-box, grey-box, test-design]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -498,11 +498,15 @@ de teste mais robustas.
 ## Referências
 
 1. Copeland, L. (2003). *A Practitioner's Guide to Software Test Design*. Artech
-   House.
+   House. ISBN: 978-1580537919
 2. Beizer, B. (1990). *Software Testing Techniques*. 2nd ed. Van Nostrand
-   Reinhold.
-3. TestDevLab (2025). *White Box vs Black Box vs Grey Box Testing*.
+   Reinhold. ISBN: 978-0442203723
+3. TestDevLab (2025). *White Box vs Black Box vs Grey Box Testing*. Disponível
+   em:
+   <https://www.testdevlab.com/blog/white-box-vs-black-box-vs-grey-box-testing>
 4. ACCELQ (2025). *Black Box vs White Box vs Grey Box Testing Explained*.
+   Disponível em:
+   <https://www.accelq.com/blog/black-box-vs-white-box-vs-grey-box-testing/>
 
 ______________________________________________________________________
 

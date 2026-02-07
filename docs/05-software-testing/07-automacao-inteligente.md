@@ -2,8 +2,8 @@
 title: Automação Inteligente de Testes
 created_at: 2025-02-07
 tags: [software-testing, automacao, self-healing, ci-cd, oraculos, dados-teste]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -501,10 +501,13 @@ estratégico.
 ## Referências
 
 1. Freeman, S., & Pryce, N. (2009). *Growing Object-Oriented Software, Guided by
-   Tests*.
-2. North, D. (2006). *Introducing BDD*.
-3. Applitools (2025). *Visual AI Testing Documentation*.
-4. Testim (2025). *ML-based Test Automation*.
+   Tests*. Addison-Wesley. ISBN: 978-0321503628
+2. North, D. (2006). *Introducing BDD*. Disponível em:
+   <https://dannorth.net/introducing-bdd/>
+3. Applitools (2025). *Visual AI Testing Documentation*. Disponível em:
+   <https://applitools.com/platform/>
+4. Testim (2025). *ML-based Test Automation*. Disponível em:
+   <https://www.testim.io/>
 
 ______________________________________________________________________
 

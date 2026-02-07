@@ -2,8 +2,8 @@
 title: KA 05 - Teste de Software
 created_at: 2025-02-07
 tags: [software-testing, qa, index, swebok]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 

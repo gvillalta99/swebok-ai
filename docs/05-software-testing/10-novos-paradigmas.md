@@ -2,8 +2,8 @@
 title: Novos Paradigmas de Qualidade
 created_at: 2025-02-07
 tags: [software-testing, paradigmas, shift-left, quality-as-code, continuous-testing, shift-right]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2026-02-07
 ai_model: book-writer
 ---
 
@@ -538,11 +538,16 @@ uma atividade separada.
 ## Referências
 
 1. Humble, J., & Farley, D. (2010). *Continuous Delivery: Reliable Software
-   Releases through Build, Test, and Deployment Automation*.
-2. Belshee, A. (2015). *Shift Left: The DevOps Approach to Testing*.
+   Releases through Build, Test, and Deployment Automation*. Addison-Wesley.
+   ISBN: 978-0321601919
+2. Belshee, A. (2015). *Shift Left: The DevOps Approach to Testing*. Disponível
+   em: <https://www.gilizone.com/tag/shift-left/>
 3. Rosenthal, C., & Jones, N. (2020). *Chaos Engineering: System Resiliency in
-   Practice*.
-4. WCAG 2.1 (2018). *Web Content Accessibility Guidelines*.
+   Practice*. O'Reilly Media. ISBN: 978-1492043867
+4. W3C (2018). *Web Content Accessibility Guidelines (WCAG) 2.1*. Disponível em:
+   <https://www.w3.org/WAI/WCAG21/quickref/>
+5. Greer, D. (2020). "Green Software Engineering: Sustainability in Software
+   Development." *IEEE Software*, 37(5), 90-94. DOI: 10.1109/MS.2020.3013032
 
 ______________________________________________________________________
 
