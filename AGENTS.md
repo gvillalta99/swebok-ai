@@ -161,10 +161,11 @@ ai_model: MODELO
 
 ## Processo de escrita
 
+Fazer o commit e push ao final de cada etapa.
+
 1. Fase de Pesquisa: O agent @book-researcher faz a pesquisa sobre o KA e salva em pesquisa/$KA/RESEARCH.md
 2. **Fase de Planejamento**: O agent @book-editor faz o planos das sessões que devem ser escritas para aquela KA e salva em docs/$KA/PLAN.md
 3. Fase de Rascunho: O agent @book-writer faz uma versao draft de cada sesão de acordo com o docs/$KA/PLAN.md
 4. Fase de Revisão: O agent @book-reviewer sugere melhorias em cada sessão.
 5. **Fase de Escrita**: O agent @book-writer faz desenvolve o texto de cada sessão até o @book-reviewer não ter mais nenhuma sugestão.
 6. Fase de publicação: O agent @book-editor faz os ajustes finais e marca como published.
-7. Fazer o commit e push
