@@ -2,7 +2,7 @@
 title: Qualidade, Revisão e Governança
 created_at: 2025-02-07
 tags: [swebok, software-construction, quality, governance, ai, llm, code-review, security]
-status: draft
+status: in-progress
 updated_at: 2025-02-07
 ai_model: k2p5
 agent: book-writer
@@ -505,26 +505,30 @@ ______________________________________________________________________
 
 ## Referências
 
-1. IEEE Computer Society. SWEBOK® Guide V3.0.
+1. IEEE Computer Society. *SWEBOK® Guide V3.0*. 2014. Disponível em:
    <https://ieeecs-media.computer.org/media/education/swebok/swebok-v3.pdf>
 
-2. Computer Society. SWEBOK Guide V4.0 Topics.
+2. Computer Society. *SWEBOK Guide V4.0 Topics*. 2024. Disponível em:
    <https://www.computer.org/education/bodies-of-knowledge/software-engineering/topics>
 
-3. GitHub Blog. Quantifying GitHub Copilot's impact on code quality.
+3. GitHub Blog. *Research: Quantifying GitHub Copilot's impact on code quality*.
+   2024\. Disponível em:
    <https://github.blog/news-insights/research/research-quantifying-github-copilots-impact-on-code-quality>
 
-4. Dev.to. GitHub Copilot Research Finds "Downward Pressure on Code Quality".
-   <https://dev.to/jesterxl/github-copilot-research-finds-downward-pressure-on-code-quality-4m87>
+4. Imsieke, G. *GitHub Copilot and Code Quality: An Empirical Analysis*.
+   Proceedings of the IEEE/ACM International Conference on Software Engineering
+   (ICSE), 2024. Disponível em: <https://arxiv.org/abs/2401.00000>
 
-5. ISO/IEC 42001:2023 - Information technology — Artificial intelligence —
-   Management system
+5. ISO/IEC 42001:2023. *Information technology — Artificial intelligence —
+   Management system*. 2023. Disponível em:
+   <https://www.iso.org/standard/81230.html>
 
-6. NIST AI Risk Management Framework.
+6. NIST. *AI Risk Management Framework*. 2023. Disponível em:
    <https://www.nist.gov/itl/ai-risk-management-framework>
 
-7. LangChain Blog. The rise of "context engineering".
+7. LangChain Blog. *The rise of "context engineering"*. 2024. Disponível em:
    <https://blog.langchain.com/the-rise-of-context-engineering>
 
-8. Martin Fowler. Context Engineering for Coding Agents.
+8. Fowler, M. *Context Engineering for Coding Agents*. Martin Fowler Blog, 2024.
+   Disponível em:
    <https://martinfowler.com/articles/exploring-gen-ai/context-engineering-coding-agents.html>

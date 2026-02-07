@@ -144,3 +144,12 @@ nav:
           - 08 - Documentação de Design: 03-software-design/08-documentacao-design.md
           - 09 - O Futuro do Designer: 03-software-design/09-futuro-designer-software.md
           - 10 - Checklists e Templates: 03-software-design/10-checklist-templates.md
+
+      - KA 04 - Software Construction:
+          - 00 - Visão Geral: 04-software-construction/index.md
+          - 01 - Fundamentos da Construção na Era dos LLMs: 04-software-construction/secao-01-fundamentos.md
+          - 02 - Ferramentas e Plataformas Modernas: 04-software-construction/secao-02-ferramentas.md
+          - 03 - Prompt Engineering e Context-Driven Development: 04-software-construction/secao-03-prompt-engineering.md
+          - 04 - Qualidade, Revisão e Governança: 04-software-construction/secao-04-qualidade.md
+          - 05 - Workflows Automatizados e Continuous Construction: 04-software-construction/secao-05-workflows.md
+          - 06 - Considerações Práticas e Tendências Futuras: 04-software-construction/secao-06-tendencias.md
