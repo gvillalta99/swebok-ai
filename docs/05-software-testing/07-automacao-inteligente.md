@@ -2,8 +2,8 @@
 title: Automação Inteligente de Testes
 created_at: 2025-02-07
 tags: [software-testing, automacao, self-healing, ci-cd, oraculos, dados-teste]
-status: in-progress
-updated_at: 2026-02-07
+status: published
+updated_at: 2025-02-07
 ai_model: book-writer
 ---
 

@@ -153,3 +153,19 @@ nav:
           - 04 - Qualidade, Revisão e Governança: 04-software-construction/secao-04-qualidade.md
           - 05 - Workflows Automatizados e Continuous Construction: 04-software-construction/secao-05-workflows.md
           - 06 - Considerações Práticas e Tendências Futuras: 04-software-construction/secao-06-tendencias.md
+
+      - KA 05 - Teste de Software:
+          - 00 - Visão Geral: 05-software-testing/index.md
+          - 01 - Introdução ao Teste de Software: 05-software-testing/01-introducao.md
+          - 02 - Fundamentos de Teste de Software: 05-software-testing/02-fundamentos.md
+          - 03 - Níveis de Teste: 05-software-testing/03-niveis-de-teste.md
+          - 04 - Técnicas de Teste: 05-software-testing/04-tecnicas-de-teste.md
+          - 05 - Tipos de Teste: 05-software-testing/05-tipos-de-teste.md
+          - 06 - Teste na Era dos LLMs: 05-software-testing/06-teste-na-era-dos-llms.md
+          - 07 - Automação Inteligente de Testes: 05-software-testing/07-automacao-inteligente.md
+          - 08 - Qualidade e Métricas: 05-software-testing/08-qualidade-metricas.md
+          - 09 - Ferramentas Modernas de Teste: 05-software-testing/09-ferramentas-modernas.md
+          - 10 - Novos Paradigmas de Qualidade: 05-software-testing/10-novos-paradigmas.md
+          - 11 - Tendências e Futuro do Teste: 05-software-testing/11-tendencias-futuro.md
+          - 12 - Framework de Implementação: 05-software-testing/12-framework-implementacao.md
+          - 13 - Exercícios Práticos: 05-software-testing/13-exercicios-praticos.md

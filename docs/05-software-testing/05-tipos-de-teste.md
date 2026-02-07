@@ -2,8 +2,8 @@
 title: Tipos de Teste
 created_at: 2025-02-07
 tags: [software-testing, tipos, funcional, performance, seguranca, regressao]
-status: in-progress
-updated_at: 2026-02-07
+status: published
+updated_at: 2025-02-07
 ai_model: book-writer
 ---
 

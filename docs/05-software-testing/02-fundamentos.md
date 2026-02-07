@@ -2,8 +2,8 @@
 title: Fundamentos de Teste de Software
 created_at: 2025-02-07
 tags: [software-testing, fundamentos, principios, verificação, validação]
-status: in-progress
-updated_at: 2026-02-07
+status: published
+updated_at: 2025-02-07
 ai_model: book-writer
 ---
 
@@ -291,7 +291,7 @@ A economia do teste é transformada:
 - Questionamento de premissas
 - Busca por cenários de borda
 
-**Ceticismo Construtivo (Skepticismo):**
+**Ceticismo Construtivo:**
 
 - Desconfiança saudável do código
 - Verificação independente

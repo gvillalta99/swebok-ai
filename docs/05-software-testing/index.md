@@ -1,9 +1,9 @@
 ---
 title: KA 05 - Teste de Software
 created_at: 2025-02-07
-tags: [software-testing, qa, index, swebok]
-status: in-progress
-updated_at: 2026-02-07
+tags: [software-testing, qa, index, swebok, published]
+status: published
+updated_at: 2025-02-07
 ai_model: book-writer
 ---
 
@@ -22,7 +22,14 @@ estratégicos.
 >
 > "O código tornou-se commodity; o contexto tornou-se capital."
 
-## Transformação Fundamental
+## Resumo do KA 05
+
+Este capítulo abrange os fundamentos do teste de software tradicional e sua
+transformação radical com a introdução de Inteligência Artificial e Large
+Language Models. O conteúdo evolui desde conceitos básicos até implementações
+avançadas de testes autônomos.
+
+### Transformação Fundamental
 
 | Aspecto     | Antes (Tradicional)              | Depois (Era dos LLMs)          |
 | ----------- | -------------------------------- | ------------------------------ |
@@ -32,7 +39,32 @@ estratégicos.
 | Criação     | Scripts manuais                  | Geração assistida por IA       |
 | Papel do QA | Executor                         | Estrategista                   |
 
-## Estrutura do Capítulo
+## Pré-requisitos
+
+Antes de estudar este capítulo, recomenda-se familiaridade com:
+
+- Conceitos básicos de desenvolvimento de software
+- Noções de programação (qualquer linguagem)
+- Fundamentos de ciclo de vida de software
+- [KA 02: Requisitos de Software](../02-software-architecture/)
+- [KA 03: Design de Software](../03-software-design/)
+
+## Objetivos de Aprendizagem
+
+Ao completar este capítulo, você será capaz de:
+
+1. **Compreender os fundamentos** dos 7 princípios de teste e suas aplicações
+2. **Aplicar técnicas tradicionais** (caixa preta, branca, cinza) com suporte de
+   IA
+3. **Implementar testes modernos** usando self-healing e geração automática
+4. **Selecionar ferramentas adequadas** para diferentes contextos de teste
+5. **Medir qualidade** usando métricas modernas baseadas em risco
+6. **Planejar adoção** de IA em testes organizacionais
+7. **Preparar-se para o futuro** das carreiras em QA
+
+## Estrutura do Conteúdo
+
+O capítulo está organizado em 13 seções principais:
 
 ### [Seção 1: Introdução ao Teste de Software](01-introducao.md)
 
@@ -104,16 +136,17 @@ Exercícios por seção, laboratórios práticos, case studies, e projetos capst
 - **81%** das equipes utilizam IA em testes (2025)
 - **70%** de redução na manutenção com self-healing
 - **10x** mais rápido na criação de testes com LLMs
-- **60-70%** do tempo QA ainda é gargalo de manutenção
+- **60-70%** do tempo QA ainda é gargalo de manutenção (antes da IA)
 
-## Público-Alvo
+## Público-Alvo por Seção
 
-- Iniciantes em QA
-- Desenvolvedores buscando entender testes modernos
-- Profissionais de QA em transição
-- QA Engineers experientes
-- Test Architects
-- QA Managers e Directors
+| Seção | Público-Alvo                    | Complexidade |
+| ----- | ------------------------------- | ------------ |
+| 1-2   | Iniciantes, estudantes          | Baixa        |
+| 3-5   | Desenvolvedores, QA Engineers   | Média        |
+| 6-9   | QA Engineers experientes, SDETs | Alta         |
+| 10-12 | QA Managers, Architects, Leads  | Média-Alta   |
+| 13    | Todos os níveis                 | Variável     |
 
 ## Referências Cruzadas
 
@@ -123,7 +156,8 @@ Exercícios por seção, laboratórios práticos, case studies, e projetos capst
 - [KA 04: Software Construction](../04-software-construction/) - TDD e
   desenvolvimento orientado a testes
 - [KA 06: Software Engineering Operations](../06-software-engineering-operations/)
-  \- CI/CD e operações
+  - CI/CD e operações
+- [KA 12: Software Quality](../12-software-quality/) - Qualidade holística
 
 ______________________________________________________________________
 

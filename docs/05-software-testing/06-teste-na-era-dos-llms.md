@@ -2,8 +2,8 @@
 title: Teste na Era dos LLMs
 created_at: 2025-02-07
 tags: [software-testing, llm, ia, self-healing, agentic-ai, rag-testing]
-status: in-progress
-updated_at: 2026-02-07
+status: published
+updated_at: 2025-02-07
 ai_model: book-writer
 ---
 

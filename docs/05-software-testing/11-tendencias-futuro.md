@@ -2,8 +2,8 @@
 title: Tendências e Futuro do Teste
 created_at: 2025-02-07
 tags: [software-testing, tendencias, futuro, autonomous-testing, ai-native, skills]
-status: in-progress
-updated_at: 2026-02-07
+status: published
+updated_at: 2025-02-07
 ai_model: book-writer
 ---
 
