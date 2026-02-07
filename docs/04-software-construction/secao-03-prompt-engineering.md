@@ -2,7 +2,7 @@
 title: Prompt Engineering e Context-Driven Development
 created_at: 2025-02-07
 tags: [swebok, software-construction, prompt-engineering, context-driven-development, llm]
-status: in-progress
+status: published
 updated_at: 2025-02-07
 ai_model: k2p5
 agent: book-writer

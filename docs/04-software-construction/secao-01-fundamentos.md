@@ -2,7 +2,7 @@
 title: Fundamentos da Construção na Era dos LLMs
 created_at: 2025-02-07
 tags: [construction, llm, fundamentals, paradigm-shift, context-engineering]
-status: in-progress
+status: published
 updated_at: 2025-02-07
 ai_model: k2p5
 ---

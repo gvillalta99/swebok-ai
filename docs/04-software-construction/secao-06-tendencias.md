@@ -2,7 +2,7 @@
 title: Considerações Práticas e Tendências Futuras
 created_at: 2025-02-07
 tags: [swebok, software-construction, tendencias, futuro, consideracoes-praticas]
-status: in-progress
+status: published
 updated_at: 2025-02-07
 ai_model: k2p5
 ---
