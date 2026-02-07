@@ -131,3 +131,15 @@ nav:
           - 04 - Arquiteturas Nativas (RAG e Agentes): 02-software-architecture/04-ai-native-architectures.md
           - 05 - Documentação Viva e ADRs: 02-software-architecture/05-documentation-and-decisions.md
           - 06 - Qualidade e Avaliação (AI-ATAM): 02-software-architecture/06-quality-and-evaluation.md
+
+      - KA 15 - Software Engineering Economics:
+          - 00 - Visão Geral: 15-software-engineering-economics/index.md
+          - 01 - O Novo Paradigma Econômico: 15-software-engineering-economics/01-introduction.md
+          - 02 - Unit Economics da IA: 15-software-engineering-economics/02-ai-unit-economics.md
+          - 03 - Build vs. Buy: 15-software-engineering-economics/03-build-vs-buy.md
+          - 04 - Produtividade e ROI: 15-software-engineering-economics/04-productivity-roi.md
+          - 05 - FinOps para IA: 15-software-engineering-economics/05-finops-for-ai.md
+          - 06 - Mercado de Talento: 15-software-engineering-economics/06-talent-labor.md
+          - 07 - Dívida Técnica e Financeira: 15-software-engineering-economics/07-technical-financial-debt.md
+          - 08 - Estudos de Caso: 15-software-engineering-economics/08-case-studies.md
+          - 09 - O Futuro da Economia: 15-software-engineering-economics/09-future-trends.md
