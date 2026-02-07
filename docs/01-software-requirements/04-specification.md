@@ -2,7 +2,7 @@
 title: Especificação como Prompt Engineering
 created_at: 2025-02-07
 tags: [software-requirements, especificacao, prompt-engineering, user-stories, casos-de-uso, cot, rag, cov]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

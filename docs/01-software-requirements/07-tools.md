@@ -2,7 +2,7 @@
 title: Ferramentas e Tecnologias para Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, ferramentas, LLM, langchain, IBM-RQA, Jira, RE, AI-tools]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

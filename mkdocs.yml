@@ -96,14 +96,16 @@ nav:
   - Home: index.md
 
   - PARTE I - Fundamentos e Contexto:
-      - 00 - O Fim da Codificacao:
-          - 01 - Contexto e Revolucao: 00-new-era/01-contexto-revolucao-llms.md
+      - KA 00 - Nova Era:
+          - 00 - Visao Geral: 00-new-era/index.md
+          - 01 - Contexto da Revolucao dos LLMs: 00-new-era/01-contexto-revolucao-llms.md
           - 02 - Mudanca de Paradigma: 00-new-era/02-mudanca-paradigma.md
           - 03 - Principios Diretores: 00-new-era/03-principios-diretores.md
-          - 04 - Estrutura e Organizacao: 00-new-era/04-estrutura-organizacao.md
-          - 05 - Publico-Alvo e Prerequisitos: 00-new-era/05-publico-alvo-prerequisitos.md
-          - 06 - Como Utilizar: 00-new-era/06-como-utilizar.md
-          - 07 - Fundamentos Essenciais de IA: 00-new-era/07-fundamentos-essenciais-ia.md
+          - 04 - Fundamentos Essenciais de IA: 00-new-era/04-fundamentos-essenciais-ia.md
+          - 05 - Nova Economia: 00-new-era/05-nova-economia.md
+          - 06 - Estrutura e Organizacao: 00-new-era/06-estrutura-organizacao.md
+          - 07 - Publico-Alvo e Prerequisitos: 00-new-era/07-publico-alvo-prerequisitos.md
+          - 08 - Como Utilizar: 00-new-era/08-como-utilizar.md
       - KA 11 - Modelos e Metodos:
           - 00 - Visao Geral: 11-software-engineering-models-and-methods/index.md
           - 01 - Fundamentos: 11-software-engineering-models-and-methods/01-fundamentos-modelos-executaveis-generativos.md
@@ -128,16 +130,14 @@ nav:
           - 10 - Case Studies: 01-software-requirements/10-case-studies.md
           - 11 - Tendencias e Futuro: 01-software-requirements/11-future.md
 
-      - KA 02 - Arquitetura de Sistemas Hibridos:
+      - KA 02 - Software Architecture:
           - 00 - Visao Geral: 02-software-architecture/index.md
-          - 01 - Fundamentos: 02-software-architecture/01-fundamentos-arquitetura-hibrida.md
-          - 02 - Supervisao e Controle: 02-software-architecture/02-arquitetura-supervisao-controle.md
-          - 03 - Separacao de Concerns: 02-software-architecture/03-separacao-concerns-criticos.md
-          - 04 - Auditabilidade: 02-software-architecture/04-design-auditabilidade-rastreamento.md
-          - 05 - Antropizacao: 02-software-architecture/05-antropizacao-interfaces-experiencias.md
-          - 06 - Qualidade Arquitetural: 02-software-architecture/06-qualidade-arquitetural-ia.md
-          - 07 - Documentacao: 02-software-architecture/07-documentacao-sistemas-opacos.md
-          - 08 - Ferramentas Modernas: 02-software-architecture/08-ferramentas-tecnicas-modernas.md
+          - 01 - Introducao: 02-software-architecture/01-introduction.md
+          - 02 - Fundamentos: 02-software-architecture/02-fundamentals.md
+          - 03 - Padroes Revisitados: 02-software-architecture/03-classic-patterns-revisited.md
+          - 04 - Arquiteturas Nativas de IA: 02-software-architecture/04-ai-native-architectures.md
+          - 05 - Documentacao e Decisoes: 02-software-architecture/05-documentation-and-decisions.md
+          - 06 - Qualidade e Avaliacao: 02-software-architecture/06-quality-and-evaluation.md
 
       - KA 03 - Design de Sistemas Hibridos:
           - 00 - Visao Geral: 03-software-design/index.md

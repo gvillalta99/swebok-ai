@@ -2,7 +2,7 @@
 title: Padrões Arquiteturais Clássicos na Era da IA
 created_at: 2026-02-07
 tags: [microservices, serverless, event-driven, clean-architecture, patterns]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: google/gemini-3-pro-preview
 agent: book-writer

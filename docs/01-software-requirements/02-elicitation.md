@@ -2,7 +2,7 @@
 title: Elicitação Assistida por IA
 created_at: 2025-02-07
 tags: [software-requirements, elicitacao, stakeholders, entrevistas, analise-documental, LLM, simulacao]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

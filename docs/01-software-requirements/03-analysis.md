@@ -2,7 +2,7 @@
 title: Análise de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, analise, ambiguidade, impacto, priorizacao, clustering, consistencia]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

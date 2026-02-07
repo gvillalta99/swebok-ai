@@ -2,7 +2,7 @@
 title: Transformação de Papéis e Carreiras na Engenharia de Requisitos
 created_at: 2025-02-07
 tags: [software-requirements, carreiras, papéis, competências, engenheiro-requisitos, analista-negocios]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

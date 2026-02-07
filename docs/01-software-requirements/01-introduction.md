@@ -2,7 +2,7 @@
 title: Introdução e Fundamentos na Era dos LLMs
 created_at: 2025-02-07
 tags: [software-requirements, introducao, fundamentos, paradigma, ciclo-de-vida, LLM, SWEBOK-AI]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer
@@ -247,8 +247,8 @@ tempo, investimento em capacitação e reconfiguração de processos.
 
 O uso de LLMs em engenharia de requisitos introduz um risco novo e
 significativo: a geração de requisitos plausíveis mas incorretos. Estudos
-documentam taxas de hallucinação de 30% ou mais em domínios especializados, com
-consequências potencialmente severas em projetos críticos.
+documentam taxas de hallucinação significativas em domínios especializados[1],
+com consequências potencialmente severas em projetos críticos.
 
 Manifestações típicas em RE:
 

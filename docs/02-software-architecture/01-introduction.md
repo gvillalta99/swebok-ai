@@ -2,7 +2,7 @@
 title: Introdução e Mudança de Paradigma
 created_at: 2026-02-07
 tags: [software-architecture, context-engineering, paradigm-shift]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: google/gemini-3-pro-preview
 agent: book-writer

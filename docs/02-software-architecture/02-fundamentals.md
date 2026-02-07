@@ -2,7 +2,7 @@
 title: Fundamentos Modernos
 created_at: 2026-02-07
 tags: [hybrid-systems, complexity, modularity, edge-computing]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: google/gemini-3-pro-preview
 agent: book-writer

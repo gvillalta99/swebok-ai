@@ -2,7 +2,7 @@
 title: Gestão de Requisitos Contínua
 created_at: 2025-02-07
 tags: [requirements-management, LLM, RAC, traceability]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

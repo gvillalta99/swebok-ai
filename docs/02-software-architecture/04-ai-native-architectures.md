@@ -2,7 +2,7 @@
 title: Arquiteturas Nativas de IA
 created_at: 2026-02-07
 tags: [rag, autonomous-agents, vector-database, ai-native]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: google/gemini-3-pro-preview
 agent: book-writer

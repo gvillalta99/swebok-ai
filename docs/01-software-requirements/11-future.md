@@ -2,7 +2,7 @@
 title: Tendências e Direções Futuras da Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, tendências, futuro, pesquisa, multi-modal, agentes-autonomos, REaaS]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer
@@ -19,7 +19,7 @@ organizações e profissionais se posicionarem para o futuro.
 ## Pesquisas em Andamento
 
 A comunidade acadêmica identificou áreas prioritárias para pesquisa em RE com
-LLMs, conforme levantamento publicado na Frontiers in Computer Science (2025).
+LLMs, conforme levantamento publicado na Frontiers in Computer Science (2024).
 
 ### Extração Automática de Terminologia e Glossários
 

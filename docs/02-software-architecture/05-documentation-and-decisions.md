@@ -2,7 +2,7 @@
 title: Documentação e Decisões
 created_at: 2026-02-07
 tags: [documentation, adr, c4-model, living-documentation]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: google/gemini-3-pro-preview
 agent: book-writer

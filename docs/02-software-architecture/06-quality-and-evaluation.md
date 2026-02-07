@@ -2,7 +2,7 @@
 title: Qualidade e Avaliação
 created_at: 2026-02-07
 tags: [quality-attributes, nfr, atam, fitness-functions, evaluation]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: google/gemini-3-pro-preview
 agent: book-writer

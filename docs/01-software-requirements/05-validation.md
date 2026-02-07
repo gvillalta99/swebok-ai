@@ -2,7 +2,7 @@
 title: Validação e Verificação Automatizada
 created_at: 2025-02-07
 tags: [software-requirements, validacao, verificacao, testes-aceitacao, qualidade, criterios-aceitacao, gherkin]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer

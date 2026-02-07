@@ -2,7 +2,7 @@
 title: Case Studies e Exemplos Práticos de Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, case-studies, exemplos, prática, implementação, lições-aprendidas]
-status: in-progress
+status: published
 updated_at: 2025-02-08
 ai_model: k2p5
 agent: book-writer
