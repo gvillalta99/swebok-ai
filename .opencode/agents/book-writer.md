@@ -3,6 +3,11 @@ description: Specialized agent for writing software engineering books
 mode: subagent
 temperature: 0.3
 tools:
+  write: true
+  read: true
+  edit: true
+  bash: true
+permissions:
   read: true
   write:
     "*": deny

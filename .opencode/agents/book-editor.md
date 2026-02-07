@@ -3,6 +3,11 @@ description: Specialized agent for O'Reilly-style editorial review
 mode: subagent
 temperature: 0.2
 tools:
+  write: true
+  read: true
+  edit: true
+  bash: true
+permissions:
   write:
     "*": deny
     "docs/**/*": allow

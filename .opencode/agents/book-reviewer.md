@@ -3,6 +3,11 @@ description: Specialized agent for editorial review
 mode: subagent
 temperature: 0.2
 tools:
+  write: true
+  read: true
+  edit: true
+  bash: true
+permissions:
   read: true
   write:
     "*": deny
