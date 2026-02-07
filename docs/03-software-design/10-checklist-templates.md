@@ -2,7 +2,7 @@
 title: Checklists e Templates para Design com IA
 created_at: 2026-02-07
 tags: [software-design, checklist, templates, ferramentas, praticas]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -462,11 +462,11 @@ Use este checklist ao revisar código gerado automaticamente:
 
 ## Score Total
 
-````
+**Fórmula:**
 
+```
 Score = (Qualidade × 0.30) + (Performance × 0.25) + (Custo × 0.25) +
-(Capacidades × 0.20)
-
+        (Capacidades × 0.20)
 ```
 
 **Score Calculado:** [X.XX]/10
@@ -505,6 +505,7 @@ Recomenda-se adaptar estes templates às necessidades específicas de cada
 organização, mantendo-os vivos através de revisões periódicas que incorporem
 aprendizados e evoluções da disciplina.
 
-!!! tip "Personalização" Use estes templates como ponto de partida, não como
-prescrições rígidas. Adapte-os ao contexto tecnológico, cultural e de negócio da
-sua organização.
+!!! tip "Personalização"
+
+    Use estes templates como ponto de partida, não como prescrições rígidas.
+    Adapte-os ao contexto tecnológico, cultural e de negócio da sua organização.

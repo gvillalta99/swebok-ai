@@ -2,7 +2,7 @@
 title: Princípios de Design Clássicos na Era da IA
 created_at: 2026-02-07
 tags: [software-design, solid, principios, dry, kiss, engenharia-de-prompt]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -199,9 +199,14 @@ Forneça guidelines do projeto antes das solicitações específicas:
 
 ## 2.3 DRY: Don't Repeat Yourself
 
-A IA demonstra eficácia notável na identificação de duplicação de código. Ferramentas como GitHub Copilot sugerem extração de métodos automaticamente quando detectam padrões repetidos.
+A IA demonstra eficácia notável na identificação de duplicação de código.
+Ferramentas como GitHub Copilot sugerem extração de métodos automaticamente
+quando detectam padrões repetidos [^10].
 
-No entanto, surge um risco: **over-engineering na busca por abstrações prematuras**. A IA pode sugerir generalizações excessivas para eliminar pequenas duplicações que, na verdade, representam coincidências acidentais, não verdadeiras repetições de conhecimento.
+No entanto, surge um risco: **over-engineering na busca por abstrações
+prematuras**. A IA pode sugerir generalizações excessivas para eliminar
+pequenas duplicações que, na verdade, representam coincidências acidentais,
+não verdadeiras repetições de conhecimento.
 
 **Diretriz:**
 
@@ -213,9 +218,13 @@ evoluir independentemente."
 
 ## 2.4 KISS: Keep It Simple, Stupid
 
-Existe uma tensão inerente entre a capacidade da IA de gerar soluções complexas e a necessidade de simplicidade. Modelos sofisticados podem produzir implementações elegantes mas excessivamente sofisticadas para problemas simples.
+Existe uma tensão inerente entre a capacidade da IA de gerar soluções complexas
+e a necessidade de simplicidade. Modelos sofisticados podem produzir
+implementações elegantes mas excessivamente sofisticadas para problemas
+simples.
 
-O princípio YAGNI (You Ain't Gonna Need It) aplica-se integralmente: não adicione funcionalidade até que seja necessária.
+O princípio YAGNI (You Ain't Gonna Need It) aplica-se integralmente: não
+adicione funcionalidade até que seja necessária [^11].
 
 **Estratégia de prompt para simplicidade:**
 
@@ -226,7 +235,10 @@ prematuras ou generalizações que não são requisitos atuais."
 ```
 
 !!! warning "A Armadilha da Complexidade Gerada"
-    A IA pode sugerir implementações que demonstram sofisticação técnica mas introduzem complexidade acidental. Sempre pergunte: "Esta complexidade é essencial ao problema ou decorrencia de over-engineering?"
+
+    A IA pode sugerir implementações que demonstram sofisticação técnica mas
+    introduzem complexidade acidental. Sempre pergunte: "Esta complexidade é
+    essencial ao problema ou decorrência de over-engineering?"
 
 ## 2.5 Princípio da Menor Surpresa (PoLA)
 
@@ -259,3 +271,7 @@ Esta abordagem transforma princípios abstratos em instruções operacionalizáv
 [^8]: BRGR. "Keep Your Code SOLID in the Age of AI Copilots." 2024.
 
 [^9]: Syncfusion. "How to Apply SOLID Principles in AI Development." 2025.
+
+[^10]: Retool. "6 Software Design Best Practices for 2024." 2024.
+
+[^11]: TestingIL. "AI Code Refactoring: Best Practices and Pitfalls." 2024.

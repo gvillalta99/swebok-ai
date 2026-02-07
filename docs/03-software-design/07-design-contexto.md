@@ -2,7 +2,7 @@
 title: Design Centrado em Contexto
 created_at: 2026-02-07
 tags: [software-design, context-engineering, contexto, janela-de-contexto, pilares]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -43,7 +43,9 @@ Onde:
 Neste modelo, a janela de contexto é a **alavanca de controle primária** do engenheiro.
 
 !!! info "De Prompt para Contexto"
-    Prompt Engineering foca na instrução. Context Engineering foca no ecossistema informacional completo que precede a instrução.
+
+    Prompt Engineering foca na instrução. Context Engineering foca no
+    ecossistema informacional completo que precede a instrução.
 
 ## 7.2 Os Seis Pilares do Context Engineering
 
@@ -397,21 +399,39 @@ class SelectiveAttention:
         full_context: str,
         max_context_tokens: int
     ) -> str:
+        # Divide contexto em seções numeradas
+        sections = self.split_sections(full_context)
+        numbered_context = self.number_sections(full_context)
+
         # Primeiro passo: identificar partes relevantes
         relevance_prompt = f"""
         Dado a query: {query}
         Identifique quais seções do contexto abaixo são mais relevantes.
-        Responda com os índices das seções relevantes.
+        Responda APENAS com uma lista de números das seções relevantes
+        (exemplo: "1, 3, 5" ou "2, 4").
 
         Contexto dividido em seções:
-        {self.number_sections(full_context)}
-        """
+        {numbered_context}
 
-        relevant_indices = self.llm.generate(relevance_prompt)
+        Responda apenas com os números das seções relevantes, separados por vírgula:"""
+
+        response = self.llm.generate(relevance_prompt)
+
+        # Parsing robusto da resposta
+        try:
+            # Extrai números da resposta
+            import re
+            numbers = re.findall(r'\d+', response)
+            relevant_indices = [int(n) - 1 for n in numbers if int(n) > 0]
+
+            # Valida índices
+            relevant_indices = [i for i in relevant_indices if i < len(sections)]
+        except (ValueError, IndexError):
+            # Fallback: usa todas as seções se parsing falhar
+            relevant_indices = list(range(len(sections)))
 
         # Seleciona apenas partes relevantes
-        sections = self.split_sections(full_context)
-        relevant_sections = [sections[i] for i in relevant_indices]
+        relevant_sections = [sections[i] for i in relevant_indices if i < len(sections)]
 
         # Combina até atingir limite de tokens
         result = []

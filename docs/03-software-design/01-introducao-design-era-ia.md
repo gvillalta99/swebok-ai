@@ -2,7 +2,7 @@
 title: Fundamentos de Design de Software na Era da IA
 created_at: 2026-02-07
 tags: [software-design, ia-generativa, paradigmas, contexto]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -41,10 +41,12 @@ componentes cujos outputs variam em função do contexto.
 com IA emergem como padrão, onde a própria estrutura do código e seus metadados
 geram documentação contextualizada e atualizada automaticamente.
 
-!!! info "Mudança de Mentalidade" O designer de software contemporâneo deve
-pensar menos como "escritor de código" e mais como "curador de contexto". O
-valor não está mais na produção de linhas de código, mas na especificação
-precisa do que aquele código deve fazer e em que condições.
+!!! info "Mudança de Mentalidade"
+
+    O designer de software contemporâneo deve pensar menos como "escritor de
+    código" e mais como "curador de contexto". O valor não está mais na produção
+    de linhas de código, mas na especificação precisa do que aquele código deve
+    fazer e em que condições.
 
 ## 1.2 Modularity, Coupling e Cohesion em Contexto de IA
 
@@ -72,8 +74,9 @@ A modularidade assume novas dimensões quando consideramos:
 
 ### Acoplamento e Coesão
 
-Pesquisa publicada na ArXiv (2025) demonstrou que código gerado por IA em
-pequenos snippets frequentemente apresenta alta coesão e baixo acoplamento [^4].
+Pesquisadores demonstraram que código gerado por IA em pequenos snippets
+frequentemente apresenta alta coesão e baixo acoplamento, desde que os princípios
+fundamentais de design sejam especificados no contexto [^2][^4].
 Este é um resultado interessante: a natureza estocástica da geração, quando
 aplicada a contextos limitados, tende a produzir componentes focados.
 
@@ -81,9 +84,11 @@ No entanto, surge um alerta importante: soluções maiores geradas por IA podem
 introduzir acoplamento inadvertido quando não supervisionadas. A engenharia de
 prompt torna-se, portanto, crítica para manter a qualidade arquitetural.
 
-!!! warning "Armadilha do Acoplamento Invisível" Código gerado por IA pode criar
-dependências implícitas entre módulos que parecem independentes. Sempre revise
-integrações para identificar acoplamentos não intencionais.
+!!! warning "Armadilha do Acoplamento Invisível"
+
+    Código gerado por IA pode criar dependências implícitas entre módulos que
+    parecem independentes. Sempre revise integrações para identificar
+    acoplamentos não intencionais.
 
 | Aspecto              | Código Tradicional                        | Código Gerado por IA                                 |
 | -------------------- | ----------------------------------------- | ---------------------------------------------------- |
@@ -115,17 +120,19 @@ IA [^5]. Este paradigma caracteriza-se por:
 
 Andrej Karpathy popularizou o termo "vibe coding" para descrever o ato de
 "vibrar" com a IA — descrever funcionalidade desejada e delegar a geração de
-código ao sistema [^6]. Em 2025, esta prática tornou-se uma tendência dominante,
-democratizando a criação de software.
+código ao sistema [^6][^7]. Em 2025, esta prática tornou-se uma tendência
+dominante, democratizando a criação de software.
 
 A essência do *vibe coding* reside na confiança: o desenvolvedor descreve a
 intenção em linguagem natural e confia na IA para produzir a implementação. Este
 modelo, apesar de controverso entre puristas, representa uma realidade
 inevitável do desenvolvimento contemporâneo.
 
-!!! tip "Equilíbrio entre Paradigmas" CHOP e vibe coding não substituem o
-conhecimento profundo de design. Servem como aceleradores quando aplicados sobre
-bases sólidas de arquitetura e engenharia de software.
+!!! tip "Equilíbrio entre Paradigmas"
+
+    CHOP e vibe coding não substituem o conhecimento profundo de design. Servem
+    como aceleradores quando aplicados sobre bases sólidas de arquitetura e
+    engenharia de software.
 
 ### Programação via Refinamento Iterativo de Prompts
 
@@ -161,15 +168,18 @@ designer de software:
 - Gerenciamento de custos de tokens e latência
 - Documentação de decisões de design
 
-!!! note "O Designer como Curador" O valor do designer de software na era da IA
-não está em escrever mais código, mas em especificar melhor o contexto dentro do
-qual o código será gerado. A precisão da especificação determina a qualidade da
-implementação.
+!!! note "O Designer como Curador"
+
+    O valor do designer de software na era da IA não está em escrever mais
+    código, mas em especificar melhor o contexto dentro do qual o código será
+    gerado. A precisão da especificação determina a qualidade da implementação.
 
 ## Referências
 
 [^1]: GitHub. "Survey: AI Wave Grows." 2024.
     <https://github.blog/news-insights/research/survey-ai-wave-grows>
+
+[^2]: Khononov, Vlad. "Balancing Coupling in Software Design." Pearson, 2024.
 
 [^3]: Microsoft Research. "Toward modular models: Collaborative AI development
     enables model accountability and continuous learning." 2024.
@@ -180,3 +190,5 @@ implementação.
 [^5]: Yegge, Steve. "Chat-Oriented Programming (CHOP)." 2024.
 
 [^6]: Karpathy, Andrej. "Vibe Coding." 2025.
+
+[^7]: Microsoft. "The Rise of Vibe Coding." 2024.

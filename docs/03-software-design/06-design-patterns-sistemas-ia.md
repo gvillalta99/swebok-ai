@@ -2,7 +2,7 @@
 title: Design Patterns para Sistemas com IA
 created_at: 2026-02-07
 tags: [software-design, patterns, agentic, multi-agent, resiliencia]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -555,11 +555,31 @@ class LLMGateway:
         return await cb.call(model.generate, prompt)
 
     def select_by_requirements(self, requirements: Dict) -> LLMProvider:
-        # Lógica de seleção baseada em:
-        # - Custo máximo
-        # - Latência aceitável
-        # - Capacidades necessárias (code, reasoning, etc.)
-        pass
+        """Seleciona modelo baseado em requisitos de custo, latência e capacidades."""
+        max_cost = requirements.get('max_cost_per_1k', float('inf'))
+        max_latency = requirements.get('max_latency_ms', float('inf'))
+        needs_code = requirements.get('code_capabilities', False)
+        needs_reasoning = requirements.get('reasoning', False)
+
+        candidates = []
+        for name, model in self.models.items():
+            # Verifica se atende aos requisitos
+            if model.cost_per_1k > max_cost:
+                continue
+            if model.avg_latency_ms > max_latency:
+                continue
+            if needs_code and not model.supports_code:
+                continue
+            if needs_reasoning and not model.supports_reasoning:
+                continue
+            candidates.append((name, model))
+
+        if not candidates:
+            # Fallback: retorna o modelo mais barato disponível
+            return min(self.models.values(), key=lambda m: m.cost_per_1k)
+
+        # Seleciona o melhor candidato (maior score de capacidade)
+        return max(candidates, key=lambda x: x[1].capability_score)[1]
 ```
 
 ## 6.5 Síntese: Arquitetura de Sistemas Agentic
@@ -605,7 +625,7 @@ requisitos específicos de confiabilidade, custo e performance.
 
 [^21]: Ng, Andrew. "4 Agentic Design Patterns." Snowflake BUILD 2024.
 
-[^22]: Vellum. "The 2026 Guide to AI Agent Workflows." 2025.
+[^22]: Vellum. "The Guide to AI Agent Workflows." 2025.
 
 [^20]: DeepLearning.AI. "Agentic Design Patterns Part 5: Multi-Agent
     Collaboration." 2024.

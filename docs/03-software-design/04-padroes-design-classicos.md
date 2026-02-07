@@ -2,7 +2,7 @@
 title: Padrões de Design Clássicos na Era da IA
 created_at: 2026-02-07
 tags: [software-design, gof, padroes, enterprise, adaptacao]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -11,9 +11,11 @@ ai_model: kimi-for-coding/k2p5
 
 Os padrões clássicos de design — desde os 23 padrões da Gang of Four (GoF) até padrões empresariais — mantêm sua relevância, mas suas aplicações e implementações evoluem significativamente com a introdução de componentes de IA. Este capítulo explora como estes padrões são adaptados e quais novos usos emergem em sistemas com LLMs.
 
-## 4.1 Padrões GoF na Era da IA
+## 4.1 Padrões Gang of Four (GoF) na Era da IA
 
-Os padrões clássicos da Gang of Four continuam sendo aplicados, frequentemente gerados automaticamente por sistemas de IA. No entanto, novos contextos de uso surgem quando integramos LLMs em arquiteturas de software.
+Os padrões clássicos da Gang of Four (GoF) continuam sendo aplicados,
+frequentemente gerados automaticamente por sistemas de IA. No entanto, novos
+contextos de uso surgem quando integramos LLMs em arquiteturas de software.
 
 ### Padrões Criacionais
 

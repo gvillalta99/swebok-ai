@@ -2,7 +2,7 @@
 title: Arquitetura vs Design em Contexto de IA
 created_at: 2026-02-07
 tags: [software-design, arquitetura, responsabilidades, trade-offs]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -66,7 +66,9 @@ O design concentra-se na implementação de componentes individuais:
 - Definição de schemas de entrada e saída
 
 !!! info "Uma Distinção Prática"
-    Arquitetura decide *se* e *onde* usar IA. Design decide *como* especificar o contexto para que a IA produza resultados adequados.
+
+    Arquitetura decide *se* e *onde* usar IA. Design decide *como* especificar
+    o contexto para que a IA produza resultados adequados.
 
 Segundo InfoQ (2024), embora a IA não tenha mudado significativamente a *prática* da arquitetura de software — que continua focada em contexto organizacional e trade-offs — está mudando drasticamente os *produtos* sendo arquitetados [^15].
 
@@ -209,7 +211,10 @@ A distinção entre arquitetura e design torna-se dinâmica em projetos com IA:
 - **Feedback Loop Rápido:** A capacidade de gerar POCs rapidamente encurta o ciclo entre concepção arquitetural e validação de design
 
 !!! note "Competências Híbridas"
-    O profissional de software do futuro não escolherá entre ser arquiteto ou designer. Será necessário fluidez em ambos os domínios, com profundidade adicional em engenharia de contexto.
+
+    O profissional de software do futuro não escolherá entre ser arquiteto ou
+    designer. Será necessário fluidez em ambos os domínios, com profundidade
+    adicional em engenharia de contexto.
 
 ## Referências
 

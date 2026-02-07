@@ -2,7 +2,7 @@
 title: O Futuro do Designer de Software
 created_at: 2026-02-07
 tags: [software-design, futuro, competencias, gargalos, tendencias]
-status: draft
+status: published
 updated_at: 2026-02-07
 ai_model: kimi-for-coding/k2p5
 ---
@@ -55,9 +55,11 @@ A revisão humana torna-se mais crítica, não menos:
 - **Garantia de qualidade:** Assegurar que padrões organizacionais sejam
   mantidos
 
-!!! note "O Paradoxo da Automação" Quanto mais código é gerado automaticamente,
-mais crítica torna-se a revisão humana. A automação não elimina a necessidade de
-expertise — redistribui onde ela é aplicada.
+!!! note "O Paradoxo da Automação"
+
+    Quanto mais código é gerado automaticamente, mais crítica torna-se a
+    revisão humana. A automação não elimina a necessidade de expertise —
+    redistribui onde ela é aplicada.
 
 ## 9.2 Novas Competências Necessárias
 
@@ -378,10 +380,15 @@ A profissão exige reinvencão contínua, mas o cerne permanece: **resolver
 problemas através de sistemas de software**. As ferramentas mudam; a essência
 persiste.
 
-!!! tip "Preparação para o Futuro" Investir em: 1. Fundamentos sólidos de
-arquitetura e design 2. Profundidade em pelo menos um domínio de aplicação 3.
-Fluência em engenharia de contexto 4. Capacidade de julgamento crítico sobre
-outputs de IA 5. Aprendizado contínuo de novos padrões e ferramentas
+!!! tip "Preparação para o Futuro"
+
+    Investir em:
+
+    1. Fundamentos sólidos de arquitetura e design
+    2. Profundidade em pelo menos um domínio de aplicação
+    3. Fluência em engenharia de contexto
+    4. Capacidade de julgamento crítico sobre outputs de IA
+    5. Aprendizado contínuo de novos padrões e ferramentas
 
 ## Referências
 

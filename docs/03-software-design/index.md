@@ -2,9 +2,9 @@
 title: 'KA 03: Design de Software'
 created_at: 2026-02-07
 tags: [software-design, design-patterns, solid, context-engineering, llm-design, agentic-patterns]
-status: draft
+status: published
 updated_at: 2026-02-07
-ai_model: Claude-3.5-Sonnet
+ai_model: kimi-for-coding/k2p5
 ---
 
 # KA 03: Design de Software
