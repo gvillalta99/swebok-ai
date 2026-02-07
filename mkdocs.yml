@@ -114,15 +114,19 @@ nav:
           - 06 - Especificacao e Validacao: 11-software-engineering-models-and-methods/06-metodos-especificacao-validacao.md
 
   - PARTE II - Engenharia Aplicada:
-      - KA 01 - Engenharia de Restricoes:
+      - KA 01 - Software Requirements:
           - 00 - Visao Geral: 01-software-requirements/index.md
-          - 01 - Fundamentos: 01-software-requirements/01-fundamentos-da-engenharia-de-restricoes.md
-          - 02 - Elicitacao de Contexto: 01-software-requirements/02-elicitacao-de-contexto-e-intencao.md
-          - 03 - Invariantes e Contratos: 01-software-requirements/03-especificacao-de-invariantes-e-contratos.md
-          - 04 - Degradacao Graciosa: 01-software-requirements/04-modelagem-de-degradacao-graciosa-e-falhas.md
-          - 05 - Governanca e Responsabilidade: 01-software-requirements/05-governanca-e-responsabilidade-em-requisitos.md
-          - 06 - Variabilidade e Evolucao: 01-software-requirements/06-gestao-de-variabilidade-e-evolucao.md
-          - 07 - Ferramentas Modernas: 01-software-requirements/07-ferramentas-e-tecnicas-modernas.md
+          - 01 - Introducao e Fundamentos: 01-software-requirements/01-introduction.md
+          - 02 - Elicitacao Assistida por IA: 01-software-requirements/02-elicitation.md
+          - 03 - Analise de Requisitos: 01-software-requirements/03-analysis.md
+          - 04 - Especificacao como Prompt Engineering: 01-software-requirements/04-specification.md
+          - 05 - Validacao e Verificacao: 01-software-requirements/05-validation.md
+          - 06 - Gestao de Requisitos Continua: 01-software-requirements/06-management.md
+          - 07 - Ferramentas e Tecnologias: 01-software-requirements/07-tools.md
+          - 08 - Desafios e Consideracoes: 01-software-requirements/08-challenges.md
+          - 09 - Transformacao de Papéis: 01-software-requirements/09-roles.md
+          - 10 - Case Studies: 01-software-requirements/10-case-studies.md
+          - 11 - Tendencias e Futuro: 01-software-requirements/11-future.md
 
       - KA 02 - Arquitetura de Sistemas Hibridos:
           - 00 - Visao Geral: 02-software-architecture/index.md
