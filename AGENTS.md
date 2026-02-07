@@ -167,4 +167,4 @@ ai_model: MODELO
 4. Fase de Revisão: O agent @book-reviewer sugere melhorias em cada sessão.
 5. **Fase de Escrita**: O agent @book-writer faz desenvolve o texto de cada sessão até o @book-reviewer não ter mais nenhuma sugestão.
 6. Fase de publicação: O agent @book-editor faz os ajustes finais e marca como published.
-7. Fazer o push
+7. Fazer o commit e push
