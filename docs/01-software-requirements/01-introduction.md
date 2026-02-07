@@ -2,9 +2,10 @@
 title: Introdução e Fundamentos na Era dos LLMs
 created_at: 2025-02-07
 tags: [software-requirements, introducao, fundamentos, paradigma, ciclo-de-vida, LLM, SWEBOK-AI]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # 1. Introdução e Fundamentos na Era dos LLMs
@@ -234,7 +235,7 @@ competências e na organização do trabalho:
 - Processos adaptados: Revisões de prompts, testes de outputs, validação
   contínua
 
-A pesquisa de Hemmat et al. (2025) identifica que 83% das pesquisas em RE com
+A pesquisa de Hemmat et al. (2024) identifica que 83% das pesquisas em RE com
 LLMs concentram-se em elicitação e validação, indicando que estas são as áreas
 de maior impacto imediato. No entanto, o maior valor estratégico reside na
 transformação do próprio paradigma de especificação — uma mudança que requer
@@ -260,7 +261,7 @@ A mitigação deste risco requer uma arquitetura de verificação em múltiplas
 camadas: validação humana obrigatória, grounding em bases de conhecimento
 verificadas (RAG), e técnicas como Chain-of-Verification (CoV).
 
-### 1.4.2 Manutenção do Rigôr em Contextos Regulatórios
+### 1.4.2 Manutenção do Rigor em Contextos Regulatórios
 
 Em indústrias reguladas — aeroespacial (DO-178C), automotivo (ISO 26262),
 dispositivos médicos (IEC 62304) — os requisitos devem satisfazer critérios
@@ -274,8 +275,8 @@ nestes contextos não é proibido, mas exige:
 
 A transição para a era dos LLMs não elimina a necessidade de rigor; ela o
 transforma. O engenheiro de requisitos do futuro não escreve menos; ele escreve
-diferente, com uma nova linguagem de instrução que, quando dominada, multiplica
-sua capacidade de especificar sistemas complexos.
+de forma diferente, com uma nova linguagem de instrução que, quando dominada,
+multiplica sua capacidade de especificar sistemas complexos.
 
 ## Referências
 
@@ -288,10 +289,10 @@ sua capacidade de especificar sistemas complexos.
    Knowledge (SWEBOK Guide), Version 4.0*. IEEE Computer Society.
    <https://www.computer.org/education/bodies-of-knowledge/software-engineering/v4>
 
-3. **Hemmat, M., et al. (2025).** "Research Directions for Using LLM in Software
+3. **Hemmat, M., et al. (2024).** "Research Directions for Using LLM in Software
    Requirement Engineering: A Systematic Review." *Frontiers in Computer
    Science, 7*.
-   <https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1519437/full>
+   <https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1519437/full>
 
 4. **ISO/IEC/IEEE. (2018).** *ISO/IEC/IEEE 29148:2018 - Systems and software
    engineering — Life cycle processes — Requirements engineering*.

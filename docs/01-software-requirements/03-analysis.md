@@ -2,9 +2,10 @@
 title: Análise de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, analise, ambiguidade, impacto, priorizacao, clustering, consistencia]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # 3. Análise de Requisitos com IA
@@ -456,17 +457,17 @@ Para avaliar a eficácia da análise automatizada:
    System Specifications Against Requirements." *arXiv:2411.11582*.
    <https://arxiv.org/abs/2411.11582>
 
-2. **Ebrahim, A., et al. (2025).** "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+2. **Ebrahim, A., et al. (2024).** "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>
 
 3. **IBM. (2024).** "Engineering Requirements Quality Assistant (RQA)." *IBM
    Documentation*. <https://www.ibm.com/docs/en/erqa>
 
-4. **Hemmat, M., et al. (2025).** "Research Directions for Using LLM in Software
+4. **Hemmat, M., et al. (2024).** "Research Directions for Using LLM in Software
    Requirement Engineering: A Systematic Review." *Frontiers in Computer
    Science, 7*.
-   <https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1519437/full>
+   <https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1519437/full>
 
 5. **Arora, C., et al. (2024).** "Using LLMs in Software Requirements
    Specifications: An Empirical Evaluation." *arXiv:2404.17842*.

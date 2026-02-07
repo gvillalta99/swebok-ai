@@ -2,9 +2,10 @@
 title: Especificação como Prompt Engineering
 created_at: 2025-02-07
 tags: [software-requirements, especificacao, prompt-engineering, user-stories, casos-de-uso, cot, rag, cov]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # 4. Especificação como Prompt Engineering
@@ -704,7 +705,7 @@ user stories com critérios de aceitação) é suficiente e mais custo-efetiva.
 
 ### 4.6.1 Framework CLEK
 
-Proposto por Ebrahim et al. (2025), o framework CLEK estrutura prompts em quatro
+Proposto por Ebrahim et al. (2024), o framework CLEK estrutura prompts em quatro
 componentes:
 
 - **Context**: Informação de fundo necessária
@@ -769,13 +770,13 @@ prompts/
 
 ## Referências
 
-1. **Zadenoori, B., et al. (2025).** "Automated User Story Generation with Test
+1. **Zadenoori, B., et al. (2024).** "Automated User Story Generation with Test
    Case Generation using LLMs." *arXiv:2404.01558*.
    <https://arxiv.org/abs/2404.01558>
 
-2. **Ebrahim, A., et al. (2025).** "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+2. **Ebrahim, A., et al. (2024).** "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>
 
 3. **Arora, C., et al. (2024).** "Using LLMs in Software Requirements
    Specifications: An Empirical Evaluation." *arXiv:2404.17842*.

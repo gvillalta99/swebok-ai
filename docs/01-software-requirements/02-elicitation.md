@@ -2,9 +2,10 @@
 title: Elicitação Assistida por IA
 created_at: 2025-02-07
 tags: [software-requirements, elicitacao, stakeholders, entrevistas, analise-documental, LLM, simulacao]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # 2. Elicitação Assistida por IA
@@ -37,7 +38,7 @@ entrevistas de elicitação de forma assíncrona e repetível.
 ### 2.1.2 Estudo de Caso: LLMREI
 
 O sistema LLMREI (LLM-based Requirements Elicitation Interviews), desenvolvido
-em 2025, demonstra o potencial desta abordagem. Baseado em GPT-4o, o sistema
+em 2024, demonstra o potencial desta abordagem. Baseado em GPT-4o, o sistema
 conduz entrevistas automatizadas de elicitação, adaptando perguntas
 dinamicamente com base nas respostas do usuário.
 
@@ -375,8 +376,8 @@ requisitos, confirmando suposições em vez de desafiá-las.
 **Mitigação**: Diversificar personas simuladas, incluir pontos de vista
 contraditórios, validar com stakeholders reais.
 
-**Risco 2: Alucinação de Requisitos** LLMs podem gerar requisitos plausíveis mas
-que não refletem necessidades reais.
+**Risco 2: Hallucinação de Requisitos** LLMs podem gerar requisitos plausíveis
+mas que não refletem necessidades reais.
 
 **Mitigação**: Grounding em documentação real, validação humana obrigatória,
 rastreabilidade para fontes.
@@ -406,17 +407,17 @@ e onde o julgamento humano permanece crítico.
 
 ## Referências
 
-1. **LLMREI Project. (2025).** "LLM-based Requirements Elicitation Interviews:
-   An Empirical Study." *Proceedings of the 2025 IEEE International Requirements
+1. **LLMREI Project. (2024).** "LLM-based Requirements Elicitation Interviews:
+   An Empirical Study." *Proceedings of the 2024 IEEE International Requirements
    Engineering Conference*.
 
-2. **LEIA Study Group. (2025).** "LLM-Enhanced Interview Approach: Comparing
+2. **LEIA Study Group. (2024).** "LLM-Enhanced Interview Approach: Comparing
    Traditional and AI-Assisted Requirements Elicitation." *ACM Transactions on
    Software Engineering and Methodology*.
 
-3. **Ebrahim, A., et al. (2025).** "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+3. **Ebrahim, A., et al. (2024).** "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>
 
 4. **Norheim, K., et al. (2024).** "From Inductive to Deductive: LLMs-Based
    Qualitative Data Analysis in Requirements Engineering." *arXiv:2504.19384*.

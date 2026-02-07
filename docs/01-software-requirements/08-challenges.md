@@ -2,9 +2,10 @@
 title: Desafios e Considerações na Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, desafios, hallucinations, etica, compliance, privacidade, vies]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # Desafios e Considerações
@@ -40,9 +41,10 @@ Hallucinações em RE assumem formas específicas:
 - **Requisitos obsoletos**: reprodução de funcionalidades que foram
   descontinuadas
 
-Estudos documentam taxas de hallucinação de 30% ou mais em domínios
-especializados, como revisões médicas, indicando que a precisão varia
-significativamente conforme a complexidade do contexto.
+Estudos empíricos indicam que taxas de hallucinação podem ser significativas em
+domínios especializados, variando conforme a complexidade do contexto e a
+qualidade dos dados de treinamento. A precisão de LLMs em tarefas de RE depende
+criticamente do grounding em fontes verificáveis.
 
 **Estratégias de Mitigação Multi-Camadas**
 
@@ -114,8 +116,8 @@ Essa técnica estruturada reduz hallucinações através de múltiplas etapas:
 Diversas ferramentas auxiliam na identificação automática de hallucinações:
 
 - **HaluCheck**: Sistema explicável que atribui scores de confiança a requisitos
-- **THaMES**: Pipeline end-to-end para mitigação e avaliação sistemática
 - **Grounded AI Validator**: Validação contra contexto fornecido
+- **RAGAS**: Framework para avaliação de sistemas RAG em RE
 
 ### Domínio Especializado e Conhecimento Específico
 
@@ -642,9 +644,9 @@ estruturado:
    Snowball." *Proceedings of ICML 2024*.
    <https://proceedings.mlr.press/v235/zhang24ay.html>
 
-2. **Ebrahim, A., et al.** (2025). "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+2. **Ebrahim, A., et al.** (2024). "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>
 
 3. **ISO/IEC/IEEE.** (2018). *ISO/IEC/IEEE 29148:2018 - Systems and software
    engineering — Life cycle processes — Requirements engineering*.

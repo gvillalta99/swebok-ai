@@ -2,9 +2,10 @@
 title: Gestão de Requisitos Contínua
 created_at: 2025-02-07
 tags: [requirements-management, LLM, RAC, traceability]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # Gestão de Requisitos Contínua
@@ -244,7 +245,7 @@ comparados para detectar desalinhamento.
 
 ### Matriz de Rastreabilidade Automatizada
 
-Em vez de matrizes manuais, o sistema grega visualizações dinâmicas:
+Em vez de matrizes manuais, o sistema gera visualizações dinâmicas:
 
 ```
 Requisito          →  Código                →  Testes           →  Status
@@ -603,10 +604,10 @@ ______________________________________________________________________
    Generative Large Language Models in Requirements Engineering." *IEEE
    Software, 41(5)*.
 
-4. **Zadenoori, B., et al.** (2025). "Automated User Story Generation with Test
+4. **Zadenoori, B., et al.** (2024). "Automated User Story Generation with Test
    Case Generation using LLMs." *arXiv:2404.01558*.
 
-5. **ThoughtWorks.** (2025). "AI-Generated Test Cases from User Stories: An
+5. **ThoughtWorks.** (2024). "AI-Generated Test Cases from User Stories: An
    Experimental Research Study."
    <https://www.thoughtworks.com/insights/blog/generative-ai/AI-generated-test-cases-from-user-stories-an-experimental-research-study>
 
@@ -616,6 +617,6 @@ ______________________________________________________________________
 7. **Atlassian.** (2024). "AI Requirements Copilot for Jira." *Atlassian
    Marketplace*.
 
-8. **Hemmat, M., et al.** (2025). "Research Directions for Using LLM in Software
+8. **Hemmat, M., et al.** (2024). "Research Directions for Using LLM in Software
    Requirement Engineering: A Systematic Review." *Frontiers in Computer
    Science, 7*.

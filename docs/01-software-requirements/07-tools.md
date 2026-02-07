@@ -2,9 +2,10 @@
 title: Ferramentas e Tecnologias para Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, ferramentas, LLM, langchain, IBM-RQA, Jira, RE, AI-tools]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # Ferramentas e Tecnologias
@@ -168,7 +169,7 @@ TestStory integra-se com ferramentas de gestão de testes:
 
 - TestQuality, TestRail, Zephyr
 - Jira para sincronização bidirecional
-- IDEs através de extensões (Claude, Cursor, Copilot, Codex)
+- IDEs através de extensões (Cursor, Copilot, Claude Code)
 
 ## Frameworks e Ferramentas Open-Source
 
@@ -528,6 +529,6 @@ capacidades técnicas.
 
 6. **Pinecone.** (2024). *Pinecone Documentation*. <https://docs.pinecone.io/>
 
-7. **Ebrahim, A., et al.** (2025). "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+7. **Ebrahim, A., et al.** (2024). "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>

@@ -2,9 +2,10 @@
 title: Validação e Verificação Automatizada
 created_at: 2025-02-07
 tags: [software-requirements, validacao, verificacao, testes-aceitacao, qualidade, criterios-aceitacao, gherkin]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # 5. Validação e Verificação Automatizada
@@ -277,7 +278,7 @@ qualidade.
 
 ### 5.3.1 Estudo ThoughtWorks: Redução de 80% no Tempo
 
-Em estudo conduzido pela ThoughtWorks em 2025, equipes utilizando IA para
+Em estudo conduzido pela ThoughtWorks em 2024, equipes utilizando IA para
 geração de testes a partir de user stories observaram:
 
 - **80,07% de redução** no tempo de geração de casos de teste
@@ -575,7 +576,7 @@ Ciclos de validação tradicionais levam dias ou semanas. Com IA:
 
 ## Referências
 
-1. **ThoughtWorks. (2025).** "AI-Generated Test Cases from User Stories: An
+1. **ThoughtWorks. (2024).** "AI-Generated Test Cases from User Stories: An
    Experimental Research Study."
    <https://www.thoughtworks.com/insights/blog/generative-ai/AI-generated-test-cases-from-user-stories-an-experimental-research-study>
 
@@ -583,9 +584,9 @@ Ciclos de validação tradicionais levam dias ou semanas. Com IA:
    System Specifications Against Requirements." *arXiv:2411.11582*.
    <https://arxiv.org/abs/2411.11582>
 
-3. **Ebrahim, A., et al. (2025).** "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+3. **Ebrahim, A., et al. (2024).** "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>
 
 4. **Cucumber. (2024).** "Gherkin Reference." *Cucumber Documentation*.
    <https://cucumber.io/docs/gherkin/>

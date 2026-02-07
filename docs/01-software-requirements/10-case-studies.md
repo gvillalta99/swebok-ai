@@ -2,9 +2,10 @@
 title: Case Studies e Exemplos Práticos de Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, case-studies, exemplos, prática, implementação, lições-aprendidas]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # Case Studies e Exemplos Práticos
@@ -690,11 +691,11 @@ Para organizações iniciando jornada de RE com IA:
    System Specifications Against Requirements." *arXiv:2411.11582*.
    <https://arxiv.org/abs/2411.11582>
 
-2. **Zadenoori, B., et al.** (2025). "Automated User Story Generation with Test
+2. **Zadenoori, B., et al.** (2024). "Automated User Story Generation with Test
    Case Generation using LLMs." *arXiv:2404.01558*.
    <https://arxiv.org/abs/2404.01558>
 
-3. **ThoughtWorks.** (2025). "AI-Generated Test Cases from User Stories: An
+3. **ThoughtWorks.** (2024). "AI-Generated Test Cases from User Stories: An
    Experimental Research Study."
    <https://www.thoughtworks.com/insights/blog/generative-ai/AI-generated-test-cases-from-user-stories-an-experimental-research-study>
 
@@ -703,5 +704,5 @@ Para organizações iniciando jornada de RE com IA:
    Study." *arXiv:2412.12732*. <https://arxiv.org/abs/2412.12732>
 
 5. **Norheim, K., et al.** (2024). "From Inductive to Deductive: LLMs-Based
-   Qualitative Data Analysis in Requirements Engineering." *arXiv:2504.19384*.
-   <https://arxiv.org/abs/2504.19384>
+   Qualitative Data Analysis in Requirements Engineering." *arXiv:2404.19384*.
+   <https://arxiv.org/abs/2404.19384>

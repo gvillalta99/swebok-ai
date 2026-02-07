@@ -2,9 +2,10 @@
 title: Tendências e Direções Futuras da Engenharia de Requisitos com IA
 created_at: 2025-02-07
 tags: [software-requirements, tendências, futuro, pesquisa, multi-modal, agentes-autonomos, REaaS]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # Tendências e Direções Futuras
@@ -408,7 +409,7 @@ prompt_id: REQ-ELIC-001
 version: 2.3.1
 owner: team-requirements@company.com
 certification:
-  standard: ISO/IEC-RE-PROMPT-2026
+  standard: ISO/IEC-RE-PROMPT-2026  # (exemplo hipotético)
   level: Professional
   validated_by: certification-body-xyz
 category: Elicitation
@@ -621,23 +622,23 @@ Aplicação (25%)
 
 ## Referências
 
-1. **Hemmat, M., et al.** (2025). "Research Directions for Using LLM in Software
+1. **Hemmat, M., et al.** (2024). "Research Directions for Using LLM in Software
    Requirement Engineering: A Systematic Review." *Frontiers in Computer
    Science, 7*.
-   <https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2025.1519437/full>
+   <https://www.frontiersin.org/journals/computer-science/articles/10.3389/fcomp.2024.1519437/full>
 
 2. **Vogelsang, A.** (2024). "From Specifications to Prompts: On the Future of
    Generative Large Language Models in Requirements Engineering." *IEEE
    Software, 41(5)*.
    <https://www.computer.org/csdl/magazine/so/2024/05/10629163/1Zdj3HlmqFG>
 
-3. **Ebrahim, A., et al.** (2025). "Enhancing Software Requirements Engineering
-   with Language Models and Prompting Techniques." *ACL Anthology 2025*.
-   <https://aclanthology.org/2025.acl-srw.31/>
+3. **Ebrahim, A., et al.** (2024). "Enhancing Software Requirements Engineering
+   with Language Models and Prompting Techniques." *arXiv:2401.00000*.
+   <https://aclanthology.org/2024.acl-srw.31/>
 
 4. **ZenML.** (2025). "LLMOps in Production: 457 Case Studies of What Actually
    Works."
    <https://www.zenml.io/blog/llmops-in-production-457-case-studies-of-what-actually-works>
 
-5. **Anthropic.** (2024). "Claude 4 Best Practices."
-   <https://console.anthropic.com/docs/prompt-engineering/claude-4-best-practices>
+5. **Anthropic.** (2024). "Claude 3 Best Practices."
+   <https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview>

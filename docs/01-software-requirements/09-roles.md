@@ -2,9 +2,10 @@
 title: Transformação de Papéis e Carreiras na Engenharia de Requisitos
 created_at: 2025-02-07
 tags: [software-requirements, carreiras, papéis, competências, engenheiro-requisitos, analista-negocios]
-status: draft
-updated_at: 2025-02-07
+status: in-progress
+updated_at: 2025-02-08
 ai_model: k2p5
+agent: book-writer
 ---
 
 # Transformação de Papéis e Carreiras
@@ -183,8 +184,8 @@ Competências em aspectos éticos e regulatórios tornam-se essenciais:
 
 ## O Futuro do Analista de Negócios (BA)
 
-Pesquisas de 2024-2025 indicam que o papel tradicional de Business Analyst está
-se fragmentando em três funções distintas, cada uma com foco e competências
+Pesquisas de 2024 indicam que o papel tradicional de Business Analyst está se
+fragmentando em três funções distintas, cada uma com foco e competências
 específicas.
 
 ### 1. Storyteller (Narrador de Dados)
@@ -351,7 +352,7 @@ profissionais de RE.
 
 **Produtividade Organizacional**
 
-Estudo da Matillion (2025) analisando 200 organizações:
+Estudo da Matillion (2024) analisando 200 organizações:
 
 - **40% maior produtividade** em organizações que adotaram IA comparadas a
   benchmarks
@@ -360,7 +361,7 @@ Estudo da Matillion (2025) analisando 200 organizações:
 
 **Geração de Test Cases**
 
-Pesquisa da ThoughtWorks (2025):
+Pesquisa da ThoughtWorks (2024):
 
 - **80% redução no tempo** de geração de casos de teste a partir de user stories
 - **96.11% consistência** entre testes gerados por IA
@@ -494,10 +495,10 @@ Fase 4 (Meses 7-12): Consolidação
 2. **Matillion.** (2025). "How AI Agents Are Transforming Business Analysis."
    <https://www.matillion.com/blog/ai-agents-business-analysis>
 
-3. **Turing.** (2025). "The Future of Business Analysis In the Age of AI."
+3. **Turing.** (2024). "The Future of Business Analysis In the Age of AI."
    <https://www.turing.com/kb/future-of-business-analysis-in-the-age-of-ai>
 
-4. **ThoughtWorks.** (2025). "AI-Generated Test Cases from User Stories: An
+4. **ThoughtWorks.** (2024). "AI-Generated Test Cases from User Stories: An
    Experimental Research Study."
    <https://www.thoughtworks.com/insights/blog/generative-ai/AI-generated-test-cases-from-user-stories-an-experimental-research-study>
 
