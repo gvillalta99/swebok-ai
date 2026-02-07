@@ -2,7 +2,7 @@
 title: Nova Era - Introdução ao SWEBOK-AI v5.0
 created_at: '2026-02-07'
 tags: [nova-era, introducao, paradigma, principios, swebok-ai]
-status: draft
+status: published
 updated_at: '2026-02-07'
 ai_model: k2p5
 ---
@@ -90,7 +90,7 @@ propriedade (TCO). Abundância requer disciplina.
 ### 5. Transparência e Auditabilidade
 
 Sistemas que incorporam IA devem ser projetados para permitir compreensão de
-decisões e rastreamento de linhagem. A "opaquidade" — dificuldade de compreender
+decisões e rastreamento de linhagem. A opaquidade — dificuldade de compreender
 por que código gerado por IA toma determinadas decisões — constitui uma nova
 categoria de dívida técnica. Transparência não é opcional; é requisito de
 governança e manutenibilidade.
@@ -230,7 +230,8 @@ O SWEBOK-AI v5.0 adota as seguintes convenções terminológicas:
   tipicamente com bilhões de parâmetros, treinado em corpus textuais massivos.
 - **Agente de Codificação** (*coding agent*): sistema autônomo capaz de executar
   tarefas de engenharia de software (geração, depuração, refatoração) com mínima
-  supervisão humana.
+  supervisão humana. Ver Seção 07 (Fundamentos Essenciais de IA) para
+  detalhamento das arquiteturas e níveis de autonomia.
 - **Contexto**: conjunto de informações (requisitos, restrições, histórico,
   exemplos) fornecidas a um sistema de IA para orientar sua geração.
 - **Verificação**: processo de confirmar que código gerado atende a
