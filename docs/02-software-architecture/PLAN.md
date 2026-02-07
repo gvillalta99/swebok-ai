@@ -15,79 +15,79 @@ para a **Engenharia de Contexto**.
 ### 1. Introdução e Mudança de Paradigma
 
 - **Arquivo:** `01-introduction.md`
-- **Status:** [ ]
+- **Status:** [x]
 - **Conteúdo:**
-  - [ ] Redefinição de Arquitetura de Software: De "decisões difíceis de mudar"
+  - [x] Redefinição de Arquitetura de Software: De "decisões difíceis de mudar"
     para "gestão de contexto e fronteiras".
-  - [ ] O princípio "Código é Commodity, Contexto é Capital".
-  - [ ] O novo papel do Arquiteto: De supervisor de código para Engenheiro de
+  - [x] O princípio "Código é Commodity, Contexto é Capital".
+  - [x] O novo papel do Arquiteto: De supervisor de código para Engenheiro de
     Contexto e Guardião de Restrições.
-  - [ ] A mudança de foco: Organização sintática -> Gestão semântica e
+  - [x] A mudança de foco: Organização sintática -> Gestão semântica e
     sistêmica.
 
 ### 2. Fundamentos Modernos
 
 - **Arquivo:** `02-fundamentals.md`
-- **Status:** [ ]
+- **Status:** [x]
 - **Conteúdo:**
-  - [ ] Sistemas Sócio-Técnicos Híbridos: Colaboração entre humanos e agentes de
+  - [x] Sistemas Sócio-Técnicos Híbridos: Colaboração entre humanos e agentes de
     IA.
-  - [ ] Gestão da Complexidade Acidental: O risco do "code sprawl" gerado por IA
+  - [x] Gestão da Complexidade Acidental: O risco do "code sprawl" gerado por IA
     e como a arquitetura atua como freio.
-  - [ ] Modularidade para Isolamento de Contexto: Contenção de alucinações e
+  - [x] Modularidade para Isolamento de Contexto: Contenção de alucinações e
     segurança.
-  - [ ] Topologias Híbridas: Balanceamento entre Edge (latência/privacidade) e
+  - [x] Topologias Híbridas: Balanceamento entre Edge (latência/privacidade) e
     Cloud (poder de computação/RAG).
 
 ### 3. Padrões Arquiteturais Clássicos na Era da IA
 
 - **Arquivo:** `03-classic-patterns-revisited.md`
-- **Status:** [ ]
+- **Status:** [x]
 - **Conteúdo:**
-  - [ ] **Microservices:** O risco da proliferação desordenada e o uso de IA
+  - [x] **Microservices:** O risco da proliferação desordenada e o uso de IA
     para governança de contratos.
-  - [ ] **Serverless:** Sinergia com cargas de trabalho de inferência
+  - [x] **Serverless:** Sinergia com cargas de trabalho de inferência
     esporádicas e pipelines de dados.
-  - [ ] **Event-Driven Architecture (EDA):** A espinha dorsal para comunicação
+  - [x] **Event-Driven Architecture (EDA):** A espinha dorsal para comunicação
     assíncrona entre agentes autônomos.
-  - [ ] **Clean/Hexagonal Architecture:** A importância vital de desacoplar o
+  - [x] **Clean/Hexagonal Architecture:** A importância vital de desacoplar o
     modelo de IA (detalhe externo) das regras de negócio (núcleo) para evitar
     vendor lock-in.
 
 ### 4. Arquiteturas Nativas de IA
 
 - **Arquivo:** `04-ai-native-architectures.md`
-- **Status:** [ ]
+- **Status:** [x]
 - **Conteúdo:**
-  - [ ] **RAG (Retrieval-Augmented Generation):** Componentes (Ingestion, Vector
+  - [x] **RAG (Retrieval-Augmented Generation):** Componentes (Ingestion, Vector
     DB, Retrieval, Generation) e desafios (latência, consistência).
-  - [ ] **Arquitetura de Agentes Autônomos:** Memória (Curto/Longo prazo),
+  - [x] **Arquitetura de Agentes Autônomos:** Memória (Curto/Longo prazo),
     Ferramentas (Tools) e Planejamento (Chain of Thought).
-  - [ ] **Vector Databases:** O novo componente crítico de infraestrutura e
+  - [x] **Vector Databases:** O novo componente crítico de infraestrutura e
     padrões de uso (híbrido, particionamento).
 
 ### 5. Documentação e Decisões
 
 - **Arquivo:** `05-documentation-and-decisions.md`
-- **Status:** [ ]
+- **Status:** [x]
 - **Conteúdo:**
-  - [ ] **Living Documentation:** Geração automática de diagramas C4
+  - [x] **Living Documentation:** Geração automática de diagramas C4
     (PlantUML/Mermaid) a partir do código via LLMs.
-  - [ ] **ADRs (Architecture Decision Records):** Uso de IA para rascunhar,
+  - [x] **ADRs (Architecture Decision Records):** Uso de IA para rascunhar,
     validar e recuperar decisões arquiteturais.
-  - [ ] **Docs as Context:** Transformar documentação passiva em ativos
+  - [x] **Docs as Context:** Transformar documentação passiva em ativos
     indexáveis para assistentes de codificação.
 
 ### 6. Qualidade e Avaliação
 
 - **Arquivo:** `06-quality-and-evaluation.md`
-- **Status:** [ ]
+- **Status:** [x]
 - **Conteúdo:**
-  - [ ] **Novos Atributos de Qualidade (NFRs):** Determinismo, Explicabilidade,
+  - [x] **Novos Atributos de Qualidade (NFRs):** Determinismo, Explicabilidade,
     Custo de Token e Ética/Segurança (Prompt Injection).
-  - [ ] **Avaliação Assistida (AI-ATAM):** Uso de LLMs como stakeholders
+  - [x] **Avaliação Assistida (AI-ATAM):** Uso de LLMs como stakeholders
     simulados para análise de trade-offs.
-  - [ ] **Fitness Functions:** Geração automática de testes arquiteturais (ex:
+  - [x] **Fitness Functions:** Geração automática de testes arquiteturais (ex:
     ArchUnit) para garantir conformidade.
 
 ## Referências Principais
