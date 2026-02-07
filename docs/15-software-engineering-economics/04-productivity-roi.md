@@ -73,3 +73,9 @@ Ferramentas de IA são multiplicadores de força.
 - **Para Juniores:** Atuam como muletas. Se não gerenciado, o junior atrofia a capacidade de resolver problemas difíceis. (Ganho: 1.5x em velocidade, Perda em aprendizado).
 
 O ROI financeiro é óbvio (é barato demais para não ter). O desafio é o **ROI Organizacional**: garantir que a velocidade extra não se torne um débito técnico impagável.
+
+## Referências
+
+1. GitHub Research. "The economic impact of the AI-powered developer lifecycle". 2024.
+2. McKinsey & Company. "The economic potential of generative AI". 2023.
+3. Google Cloud. "DORA State of DevOps Report: AI Edition". 2025.

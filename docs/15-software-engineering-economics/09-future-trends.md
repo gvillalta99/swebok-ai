@@ -55,3 +55,9 @@ A economia de software mudou para sempre.
 O CTO que continuar gerenciando sua empresa como uma "Fábrica de Código" (focada em output de features) será substituído pelo CTO que gerencia uma "Usina de Inteligência" (focada em outcome de negócio com custo marginal zero).
 
 Bem-vindo ao novo mundo.
+
+## Referências
+
+1. Bill Gates. "The Age of AI has begun". GatesNotes, 2023.
+2. Sam Altman. "Moore's Law for Everything". 2021.
+3. NVIDIA. "GTC Keynote: The Industrial Revolution of Intelligence". 2025.

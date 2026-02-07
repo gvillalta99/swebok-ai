@@ -77,3 +77,9 @@ Para o engenheiro de software, a economia se resume a: **Quanto de inteligência
 ## Próximos Passos
 
 Entendido o paradigma, precisamos dissecar a unidade fundamental dessa nova economia: o Token. No próximo capítulo, vamos mergulhar na **Unit Economics da IA**.
+
+## Referências
+
+1. Sequoia Capital. "The Generative AI Act Two: Reasoning". 2024.
+2. Andreessen Horowitz. "Navigating the High Cost of AI Compute". 2024.
+3. OpenAI. "API Pricing Models". 2024-2025.

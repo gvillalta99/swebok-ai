@@ -100,3 +100,9 @@ A maior alavanca econômica é **reduzir o tamanho do modelo**.
 ## Próximos Passos
 
 Agora que entendemos o custo do token, a pergunta estratégica se torna: Devo pagar à OpenAI por esses tokens ou devo comprar minhas próprias GPUs e gerar meus tokens? É o tema do próximo capítulo: **Build vs. Buy**.
+
+## Referências
+
+1. Anthropic. "Prompt Caching: Reducing Latency and Cost". 2024.
+2. SemiAnalysis. "AI Inference Economics: The Cost of Intelligence". 2025.
+3. Groq. "LPU Architecture vs GPU: Latency Analysis". 2024.

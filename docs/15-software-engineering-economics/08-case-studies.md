@@ -60,3 +60,9 @@ Grandes corporações estão usando IA para traduzir COBOL/Mainframe para Java/C
 ## Conclusão da Seção
 
 Os vencedores econômicos da IA não são os que "usam IA para programar mais rápido", são os que reestruturam seus processos de negócio para alavancar a "inteligência barata e infinita" onde antes havia escassez humana.
+
+## Referências
+
+1. Klarna. "AI Assistant Handles 2.3M Conversations". Press Release, 2024.
+2. Duolingo. "Shareholder Letter Q4 2023: AI Strategy". 2024.
+3. Gartner. "Case Studies in Generative AI ROI". 2025.

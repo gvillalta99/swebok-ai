@@ -89,3 +89,9 @@ Mantenha um "Plano B" validado: "Se a OpenAI cair, podemos rodar uma versão deg
 - **Construa (Self-Host)** apenas quando tiver escala massiva, requisitos de privacidade estritos e time de plataforma maduro.
 
 No próximo capítulo, vamos parar de falar de custo e falar de valor: **Produtividade e ROI**. Será que o Copilot realmente se paga?
+
+## Referências
+
+1. Meta AI. "Llama 3 Technical Report: Open Weights Performance". 2024.
+2. Databricks. "State of Data + AI: Enterprise Adoption Trends". 2025.
+3. AWS. "Bedrock Pricing and TCO Calculator". 2024.

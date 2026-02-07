@@ -62,3 +62,9 @@ O custo de migrar sistemas legados caiu cerca de 80-90%. Projetos de migração 
 ## Conclusão da Seção
 
 A facilidade de gerar código é uma arma de dois gumes. Sem disciplina, você criará a maior base de código legado da história da sua empresa em tempo recorde. Com disciplina, você pode manter uma base de código enxuta, testada e moderna por uma fração do custo anterior.
+
+## Referências
+
+1. Google. "Machine Learning: The High Interest Credit Card of Technical Debt". 2015 (Revisited 2025).
+2. SonarSource. "Clean Code in the Age of AI: Managing Generated Debt". 2024.
+3. IEEE Software. "Maintenance Costs of AI-Generated Codebases". 2025.

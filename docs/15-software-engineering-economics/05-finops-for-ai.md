@@ -80,3 +80,9 @@ O engenheiro de IA não é apenas quem constrói o prompt, é quem otimiza a eco
 ## Conclusão da Seção
 
 FinOps para IA não é sobre cortar custos a qualquer preço, é sobre **Unit Economics Saudável**. Se cada usuário custa $2/mês em tokens e te paga $20/mês, você tem um negócio. Se custa $18/mês, você tem um problema. O monitoramento contínuo é a única defesa contra a margem negativa.
+
+## Referências
+
+1. FinOps Foundation. "FinOps for AI: Managing Variable Compute Costs". 2024.
+2. Portkey. "LLM Gateway Cost Optimization Strategies". 2025.
+3. Microsoft Azure. "AI Cost Management Best Practices". 2024.

@@ -68,3 +68,9 @@ Para o CTO, o desafio econômico não é encontrar quem *saiba programar*, é en
 ## Conclusão da Seção
 
 O mercado de trabalho não acabou, ele se redefiniu. A demanda por software é infinita (Paradoxo de Jevons). Se o custo de produzir cai, a demanda aumenta. Precisaremos de *mais* engenheiros, mas engenheiros com um conjunto de habilidades fundamentalmente diferente: menos "digitadores de código", mais "editores de inteligência".
+
+## Referências
+
+1. O'Reilly. "2025 Tech Salary Survey: The AI Premium". 2025.
+2. LinkedIn Economic Graph. "Future of Work: AI Skills Demand". 2024.
+3. Hired. "State of Software Engineers: AI Impact". 2025.
