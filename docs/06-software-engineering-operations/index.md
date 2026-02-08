@@ -39,7 +39,7 @@ As operações de software passam por uma transição radical:
 
 ## Estrutura do Knowledge Area
 
-Este KA está organizado em 18 seções que cobrem desde fundamentos até práticas
+Este KA está organizado em 17 seções que cobrem desde fundamentos até práticas
 de ponta:
 
 ### Fundamentos e Contexto
@@ -51,7 +51,7 @@ de ponta:
 ### Práticas Essenciais
 
 - **Seção 3: CI/CD** - Entrega contínua impulsionada por IA
-- **Seção 4: DevOps** - Cultura, métricas DORA e colaboração
+- **Seção 4: DevOps e Cultura** - Cultura, métricas DORA e colaboração
 - **Seção 5: SRE** - Engenharia de confiabilidade de sites
 
 ### Tecnologias e Ferramentas
@@ -73,22 +73,22 @@ de ponta:
 - **Seção 14: Gerenciamento de Incidentes** - Resposta e resolução
 - **Seção 15: Tendências e Futuro** - Perspectivas para 2026-2030
 - **Seção 16: Framework de Implementação** - Roadmap de adoção
-- **Seção 17: Exercícios Práticos** - Laboratórios e case studies
-- **Seção 18: Glossário e Referências** - Terminologia e recursos
+- **Seção 17: Glossário e Referências** - Terminologia e recursos
 
 ## Estatísticas-Chave (2025)
 
 Dados que contextualizam a importância e adoção das práticas modernas:
 
-- **54%** das organizações adotaram monitoramento de IA em produção
-- **72%** das organizações implementaram soluções AIOps
-- **60-80%** de redução no ruído de alertas com correlação inteligente
-- **50-70%** de redução no MTTR (Mean Time To Resolution) com RCA assistida por
-  LLMs
-- **76,6%** de acurácia em RCA (Root Cause Analysis) automatizado
-- **80%** das grandes organizações terão Platform Engineering até 2026
-- **97%** dos usuários de GitOps utilizam ArgoCD em produção
-- **US$825 bilhões** em gastos globais com cloud em 2025
+| Estatística                                            | Valor              | Fonte                    |
+| ------------------------------------------------------ | ------------------ | ------------------------ |
+| Organizações com monitoramento de IA em produção       | **54%**            | New Relic, 2025          |
+| Organizações com soluções AIOps implementadas          | **72%**            | Elastic, 2024            |
+| Redução no ruído de alertas com correlação inteligente | **60-80%**         | Incident.io, 2025        |
+| Redução no MTTR com RCA assistida por LLMs             | **50-70%**         | Microsoft Research, 2024 |
+| Acurácia em RCA automatizado                           | **76,6%**          | Microsoft Research, 2024 |
+| Grandes organizações com Platform Engineering até 2026 | **80%**            | Gartner, 2024            |
+| Usuários de GitOps utilizando ArgoCD em produção       | **97%**            | Argo Project, 2025       |
+| Gastos globais com cloud em 2025                       | **US$825 bilhões** | Deloitte, 2025           |
 
 ## Relação com Outros KAs
 
@@ -129,8 +129,7 @@ Cada seção segue uma estrutura consistente:
 
 ## Referências
 
-1. DORA (2025). *State of AI-assisted Software Development Report*. Google
-   Cloud.
+1. DORA (2024). *Accelerate State of DevOps Report*. Google Cloud.
 2. New Relic (2025). *2025 Observability Report*.
 3. JFrog (2025). *2025 State of DevOps Report*.
 4. Argo Project (2025). *Argo CD 2025 User Survey Results*.
