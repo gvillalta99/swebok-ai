@@ -169,3 +169,18 @@ nav:
           - 11 - Tendências e Futuro do Teste: 05-software-testing/11-tendencias-futuro.md
           - 12 - Framework de Implementação: 05-software-testing/12-framework-implementacao.md
           - 13 - Exercícios Práticos: 05-software-testing/13-exercicios-praticos.md
+
+      - KA 06 - Software Engineering Operations:
+          - 00 - Visão Geral: 06-software-engineering-operations/index.md
+          - 01 - Introdução: 06-software-engineering-operations/01-introducao.md
+          - 02 - Fundamentos: 06-software-engineering-operations/02-fundamentos.md
+          - 03 - CI/CD: 06-software-engineering-operations/03-cicd.md
+          - 04 - DevOps e Cultura: 06-software-engineering-operations/04-devops-cultura.md
+          - 05 - SRE: 06-software-engineering-operations/05-sre.md
+          - 06 - Observabilidade: 06-software-engineering-operations/06-observabilidade.md
+          - 07 - AIOps: 06-software-engineering-operations/07-aiops.md
+          - 08 - Infraestrutura como Código: 06-software-engineering-operations/08-iac.md
+          - 09 - Containerização e Orquestração: 06-software-engineering-operations/09-containerizacao.md
+          - 10 - Platform Engineering: 06-software-engineering-operations/10-platform-engineering.md
+          - 11 - LLMOps: 06-software-engineering-operations/11-llmops.md
+          - 12 - Agentic AI: 06-software-engineering-operations/12-agentic-ai.md
