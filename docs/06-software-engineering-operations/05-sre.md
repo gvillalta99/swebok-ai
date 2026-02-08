@@ -2,7 +2,7 @@
 title: 'Seção 5: Site Reliability Engineering'
 created_at: 2025-02-07
 tags: [sre, reliability, slo, sli, error-budget, toil, google-sre]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

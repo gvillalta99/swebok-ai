@@ -2,7 +2,7 @@
 title: 'LLMOps: Operações para Large Language Models'
 created_at: 2025-02-07
 tags: [llmops, llm, large-language-models, mlops, prompt-engineering, guardrails, ai-operations]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: kimi-for-coding/k2p5
 agent: book-writer

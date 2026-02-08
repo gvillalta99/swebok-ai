@@ -2,7 +2,7 @@
 title: Infraestrutura como Código
 created_at: 2025-02-07
 tags: [iac, infrastructure-as-code, terraform, pulumi, cloud, devops, automation]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: kimi-for-coding/k2p5
 agent: book-writer

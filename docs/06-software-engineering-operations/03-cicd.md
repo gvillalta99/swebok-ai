@@ -2,7 +2,7 @@
 title: Continuous Integration e Continuous Deployment (CI/CD)
 created_at: 2025-02-07
 tags: [cicd, continuous-integration, continuous-deployment, pipeline, devops, automation, deployment-strategies]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

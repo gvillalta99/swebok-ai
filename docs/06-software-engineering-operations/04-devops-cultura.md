@@ -2,7 +2,7 @@
 title: 'Seção 4: DevOps e Cultura'
 created_at: 2025-02-07
 tags: [devops, dora, cicd, cultura, colaboracao, devops-metrics]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

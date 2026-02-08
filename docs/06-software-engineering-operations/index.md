@@ -2,7 +2,7 @@
 title: 'KA 06: Operações de Engenharia de Software'
 created_at: 2025-02-07
 tags: [software-engineering-operations, devops, sre, cicd, observability, platform-engineering, aiops, finops, llmops]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

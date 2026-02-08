@@ -2,7 +2,7 @@
 title: Fundamentos de Operações de Software
 created_at: 2025-02-07
 tags: [sre, reliability, slo, sli, error-budget, availability, scalability, toil]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

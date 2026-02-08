@@ -2,7 +2,7 @@
 title: 'Seção 6: Observabilidade'
 created_at: 2025-02-07
 tags: [observability, monitoring, opentelemetry, metrics, logs, traces, telemetry]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

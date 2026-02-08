@@ -2,7 +2,7 @@
 title: 'Seção 7: AIOps'
 created_at: 2025-02-07
 tags: [aiops, machine-learning, anomaly-detection, root-cause-analysis, intelligent-operations]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---

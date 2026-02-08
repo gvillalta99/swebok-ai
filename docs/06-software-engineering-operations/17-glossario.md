@@ -2,7 +2,7 @@
 title: 'Seção 17: Glossário e Referências'
 created_at: 2025-02-07
 tags: [glossary, sre, devops, acronyms, definitions, references]
-status: draft
+status: published
 updated_at: 2025-02-07
 ai_model: Claude
 ---
