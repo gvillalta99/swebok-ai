@@ -3,7 +3,7 @@ title: Considerações Práticas e Tendências Futuras
 created_at: 2025-02-07
 tags: [swebok, software-construction, tendencias, futuro, consideracoes-praticas]
 status: published
-updated_at: 2025-02-07
+updated_at: 2026-02-14
 ai_model: k2p5
 ---
 
@@ -106,6 +106,66 @@ princípios de design ou contém vulnerabilidades sutis.
 **Navegação de ferramentas**: Familiaridade com múltiplas ferramentas e
 capacidade de transitar entre elas conforme a tarefa. Nenhuma ferramenta domina
 todos os cenários; fluidez entre ambientes é vantagem competitiva.
+
+## Atualização de Campo: Panorama 2026 (Agentic Coding em Produção)
+
+O cenário de 2026 confirmou a virada de “IA como autocomplete” para “IA como
+agente executor”. Não se trata mais de sugestão de trecho isolado, mas de fluxos
+completos de implementação, teste e abertura de PR sob supervisão humana.
+Relatórios públicos de big techs reforçam essa transição: Microsoft reporta
+percentual relevante de código assistido/gerado por IA, Google aponta volume
+semelhante e a Meta explicita estratégia de ampliar participação de agentes na
+produção de código.
+
+### Cenário Atual (2026): o que mudou na prática
+
+1. **Do snippet para o workflow**: ferramentas deixam de atuar só no editor e
+   passam a operar em tarefas de ponta a ponta (planejar → implementar → testar
+   → documentar).
+2. **Spec-driven development ganhou tração**: qualidade da especificação passou
+   a ser fator central de qualidade do resultado.
+3. **Ciclo mais curto, validação mais crítica**: o gargalo saiu da digitação e
+   foi para revisão técnica, testes e governança.
+4. **Democratização real de construção**: times híbridos (devs + perfis menos
+   técnicos) já entregam protótipos e automações com velocidade inédita.
+
+### Novo Papel do Engenheiro de Software
+
+Em 2026, o engenheiro forte não é só quem “escreve rápido”, mas quem **decide
+bem sob alta velocidade de geração**. O papel evolui para quatro frentes:
+
+- **Arquiteto de contexto**: define escopo, restrições e critérios de aceite
+  para orientar agentes com precisão.
+- **Revisor de risco**: valida segurança, confiabilidade, custo e impacto de
+  mudanças geradas automaticamente.
+- **Orquestrador de agentes**: combina múltiplos assistentes/workflows por
+  especialidade (código, teste, documentação, operação).
+- **Guardião de qualidade**: mantém padrões de engenharia mesmo quando o volume
+  de código cresce mais rápido que a capacidade humana de leitura linear.
+
+### Checklist de Qualidade AI-First (uso diário)
+
+Antes de aprovar código gerado por IA, valide:
+
+- [ ] **Rastreabilidade**: requisito, prompt/contexto e resultado estão
+      documentados e auditáveis.
+- [ ] **Corretude funcional**: há testes de unidade/integrados cobrindo caminhos
+      principais e falhas esperadas.
+- [ ] **Segurança**: sem exposição de segredo, injeções óbvias, permissões
+      excessivas ou dependências suspeitas.
+- [ ] **Manutenibilidade**: nomes, estrutura e complexidade compatíveis com o
+      padrão do time (sem “código mágico” difícil de operar).
+- [ ] **Observabilidade**: logs, métricas e traces suficientes para diagnosticar
+      incidente em produção.
+- [ ] **Custo e performance**: impacto de latência/infra estimado antes do
+      merge.
+- [ ] **Conformidade**: aderência a políticas internas e requisitos regulatórios
+      do domínio.
+- [ ] **Plano de rollback**: estratégia explícita para reverter rapidamente em
+      caso de degradação.
+
+Esse checklist transforma velocidade em entrega sustentável. Sem ele, a equipe
+ganha throughput no curto prazo e perde estabilidade no médio prazo.
 
 ## Tendências de Médio Prazo (2027-2030)
 
