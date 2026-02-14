@@ -115,7 +115,8 @@ completos de implementação, teste e abertura de PR sob supervisão humana.
 Relatórios públicos de big techs reforçam essa transição: Microsoft reporta
 percentual relevante de código assistido/gerado por IA, Google aponta volume
 semelhante e a Meta explicita estratégia de ampliar participação de agentes na
-produção de código.
+produção de código. A base factual desta atualização está consolidada nas
+Referências 11, 12 e 13.
 
 ### Cenário Atual (2026): o que mudou na prática
 
@@ -533,3 +534,14 @@ mantém a base conceitual que permite compreensão profunda.
 
 10. GitHub. *GitHub Copilot Coding Agent Documentation*. 2025. Disponível em:
     <https://github.blog/news-insights/product-news/github-copilot-coding-agent/>
+
+11. Anthropic. *Eight trends defining how software gets built in 2026*. 2026.
+    Disponível em:
+    <https://claude.com/blog/eight-trends-defining-how-software-gets-built-in-2026>
+
+12. Anthropic. *2026 Agentic Coding Trends Report*. 2026. Disponível em:
+    <https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf>
+
+13. MIT Technology Review. *Generative coding is changing software engineering*.
+    2026. Disponível em:
+    <https://www.technologyreview.com/2026/01/12/1130027/generative-coding-ai-software-2026-breakthrough-technology/>
